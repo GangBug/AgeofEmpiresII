@@ -49,9 +49,9 @@ bool j1Textures::CleanUp()
 	LOG("Freeing textures and Image library");
 	std::list<SDL_Texture*>::iterator item;
 
-	for(item = textures.begin(); item != textures.end(); item._Ptr = item._Ptr->_Next)
+	for(item = textures.begin(); item != textures.end(); item++)
 	{
-		SDL_DestroyTexture(item._Ptr->_Myval);
+		SDL_DestroyTexture((*item));
 	}
 
 	textures.clear();
@@ -83,11 +83,11 @@ bool j1Textures::UnLoad(SDL_Texture* texture)
 {
 	std::list<SDL_Texture*>::iterator item;
 
-	for(item = textures.begin(); item != textures.end(); item._Ptr = item._Ptr->_Next)
+	for(item = textures.begin(); item != textures.end(); item++)
 	{
 		if(texture == item._Ptr->_Myval)
 		{
-			SDL_DestroyTexture(item._Ptr->_Myval);
+			SDL_DestroyTexture(*item);
 			textures.erase(item);
 			return true;
 		}

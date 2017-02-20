@@ -59,6 +59,7 @@ uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 	return INVALID_WALK_CODE;
 }
 
+//TODO change 
 // To request all tiles involved in the last generated path
 const p2DynArray<iPoint>* j1PathFinding::GetLastPath() const
 {
@@ -70,12 +71,12 @@ const p2DynArray<iPoint>* j1PathFinding::GetLastPath() const
 // ---------------------------------------------------------------------------------
 std::list<PathNode>::iterator* PathList::Find(const iPoint& point)
 {
-	std::list<PathNode>::iterator* item = &list.begin();
-	while(*item != list.end())
+	std::list<PathNode>::iterator item = list.begin();
+	while(item != list.end())
 	{
-		if(item->_Ptr->_Myval.pos == point)
-			return item;
-		item->_Ptr = item->_Ptr->_Next;
+		if((*item).pos == point)
+			return &item;
+		item++;
 	}
 	return NULL;
 }
@@ -88,17 +89,13 @@ std::list<PathNode>::iterator* PathList::GetNodeLowestScore()
 	std::list<PathNode>::iterator* ret = NULL;
 	int min = 65535;
 
-	std::list<PathNode>::iterator* item = &list.end();
-	item->_Ptr = item->_Ptr->_Prev;
-
-	while(*item != list.begin())
+	for(std::list<PathNode>::reverse_iterator item = list.rbegin; item != list.rend(); item++)
 	{
-		if(item->_Ptr->_Myval.Score() < min)
+		if((*item).Score() < min)
 		{
-			min = item->_Ptr->_Myval.Score();
-			ret = item;
+			min = (*item).Score();
+			ret = &item.base();
 		}
-		item->_Ptr = item->_Ptr->_Prev;
 	}
 	return ret;
 }
@@ -180,7 +177,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		open.list.push_back(pathorigin);
 
 		while (open.list.size() != 0) {
-			close.list.push_back(open.GetNodeLowestScore()->_Ptr->_Myval);
+			close.list.push_back(*(*open.GetNodeLowestScore()));
 			open.list.erase(*open.GetNodeLowestScore());
 			if (close.list.end()->pos == destination) {
 				for (const PathNode* backtrack = close.list.end()->parent; backtrack; backtrack = backtrack->parent) {

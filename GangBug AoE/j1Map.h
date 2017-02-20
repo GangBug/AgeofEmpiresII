@@ -22,7 +22,7 @@ struct Properties
 		while(item != list.end())
 		{
 			RELEASE(item._Ptr->_Myval);
-			item._Ptr = item._Ptr->_Next;
+			item++;
 		}
 
 		list.clear();

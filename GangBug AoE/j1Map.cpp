@@ -34,9 +34,9 @@ void j1Map::Draw()
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 
-	for(; item != data.layers.end(); item._Ptr = item._Ptr->_Next)
+	for(; item != data.layers.end(); item++)
 	{
-		MapLayer* layer = item._Ptr->_Myval;
+		MapLayer* layer = (*item);
 
 		if(layer->properties.Get("Nodraw") != 0)
 			continue;
@@ -66,9 +66,9 @@ int Properties::Get(const char* value, int default_value) const
 
 	while(item != list.end())
 	{
-		if(item._Ptr->_Myval->name == value)
-			return item._Ptr->_Myval->value;
-		item._Ptr = item._Ptr->_Next;
+		if((*item)->name == value)
+			return (*item)->value;
+		item++;
 	}
 
 	return default_value;
@@ -77,17 +77,17 @@ int Properties::Get(const char* value, int default_value) const
 TileSet* j1Map::GetTilesetFromTileId(int id) const
 {
 	std::list<TileSet*>::const_iterator item = data.tilesets.begin();
-	TileSet* set = item._Ptr->_Myval;
+	TileSet* set = (*item);
 
 	while(item != data.tilesets.end())
 	{
-		if(id < item._Ptr->_Myval->firstgid)
+		if(id < (*item)->firstgid)
 		{
-			set = item._Ptr->_Prev->_Myval;
+			set = (*item);
 			break;
 		}
-		set = item._Ptr->_Myval;
-		item._Ptr = item._Ptr->_Next;
+		set = (*item);
+		item++;
 	}
 
 	return set;
@@ -164,8 +164,8 @@ bool j1Map::CleanUp()
 
 	while (item != data.tilesets.end())
 	{
-		RELEASE(item._Ptr->_Myval);
-		item._Ptr = item._Ptr->_Next;
+		RELEASE((*item));
+		item++;
 	}
 	data.tilesets.clear();
 
@@ -175,8 +175,8 @@ bool j1Map::CleanUp()
 
 	while(item2 != data.layers.end())
 	{
-		RELEASE(item2._Ptr->_Myval);
-		item2._Ptr = item2._Ptr->_Next;
+		RELEASE((*item));
+		item2++;
 	}
 	data.layers.clear();
 
@@ -463,9 +463,9 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	std::list<MapLayer*>::const_iterator item;
 	item = data.layers.begin();
 
-	for(item = data.layers.begin(); item != data.layers.end(); item._Ptr = item._Ptr->_Next)
+	for(item = data.layers.begin(); item != data.layers.end(); item++)
 	{
-		MapLayer* layer = item._Ptr->_Myval;
+		MapLayer* layer = (*item);
 
 		if(layer->properties.Get("Navigation", 0) == 0)
 			continue;
