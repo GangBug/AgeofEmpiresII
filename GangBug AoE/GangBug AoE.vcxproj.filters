@@ -3,7 +3,8 @@
   <ItemGroup>
     <Filter Include="Modules">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+      <Extensions>
+      </Extensions>
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -17,6 +18,10 @@
     </Filter>
     <Filter Include="Modules\Tools\PuguiXML">
       <UniqueIdentifier>{a8fdf163-b34f-4dfc-af07-e4e71fb2502f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{d0faecb2-41df-4357-bbc0-dbe2ba8249e4}</UniqueIdentifier>
+      <Extensions>GUI*</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +69,21 @@
     </ClCompile>
     <ClCompile Include="p2Log.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="j1GUI.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIElement.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIImage.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILabel.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIInputText.cpp">
+      <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +149,21 @@
     </ClInclude>
     <ClInclude Include="p2SString.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="j1GUI.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElement.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIImage.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUILabel.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIInputText.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
