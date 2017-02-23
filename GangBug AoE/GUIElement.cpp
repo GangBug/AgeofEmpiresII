@@ -135,10 +135,6 @@ void GUIElement::SetParent(GUIElement * _parent)
 void GUIElement::SetType(GuiTypes _type) 
 {
 }
-void GUIElement::SetListener(j1Module* _listerner) 
-{
-	listener = _listerner;
-}
 void GUIElement::SetRectangle(rectangle _rect) 
 {
 	rect = _rect;

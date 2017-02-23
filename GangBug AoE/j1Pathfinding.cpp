@@ -89,7 +89,7 @@ std::list<PathNode>::iterator* PathList::GetNodeLowestScore()
 	std::list<PathNode>::iterator* ret = NULL;
 	int min = 65535;
 
-	for(std::list<PathNode>::reverse_iterator item = list.rbegin; item != list.rend(); item++)
+	for(std::list<PathNode>::reverse_iterator item = list.rbegin(); item != list.rend(); item++)
 	{
 		if((*item).Score() < min)
 		{

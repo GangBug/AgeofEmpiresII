@@ -77,7 +77,6 @@ public:
 	void SetActive(bool _active);
 	void SetParent(GUIElement* _parent);
 	void SetType(GuiTypes _type);
-	void SetListener(j1Module* _listerner);
 	void SetRectangle(rectangle _rect);
 	void SetRectangle(int x, int y, int w, int h);
 

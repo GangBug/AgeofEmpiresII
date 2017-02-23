@@ -23,6 +23,9 @@
       <UniqueIdentifier>{d0faecb2-41df-4357-bbc0-dbe2ba8249e4}</UniqueIdentifier>
       <Extensions>GUI*</Extensions>
     </Filter>
+    <Filter Include="Entity System">
+      <UniqueIdentifier>{128f71d3-31b3-4441-a872-ee70526bd806}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="j1Audio.cpp">
@@ -84,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="GUIInputText.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Entity System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="GUIInputText.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Entity System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

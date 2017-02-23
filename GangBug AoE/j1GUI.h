@@ -20,8 +20,8 @@ public:
 
 public:
 
-	std::list<GUIElement> guiList;
-	std::list<GUIElement> debug_guiList;
+	std::list<GUIElement*> guiList;
+	std::list<GUIElement*> debug_guiList;
 
 };
 
