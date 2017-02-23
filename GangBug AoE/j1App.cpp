@@ -13,6 +13,8 @@
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1Fonts.h"
+#include "j1EntityManager.h"
+
 #include "j1App.h"
 
 // Constructor
@@ -29,6 +31,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	pathfinding = new j1PathFinding();
 	font = new j1Fonts();
+	entityManager = new j1EntityManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -40,6 +43,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(font);
+	AddModule(entityManager);
 
 	// render last to swap buffer
 	AddModule(render);

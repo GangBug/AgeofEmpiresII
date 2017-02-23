@@ -91,6 +91,9 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Entity System</Filter>
     </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Entity System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Audio.h">
@@ -172,6 +175,9 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
       <Filter>Entity System</Filter>
     </ClInclude>
   </ItemGroup>

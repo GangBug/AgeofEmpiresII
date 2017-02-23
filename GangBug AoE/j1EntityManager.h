@@ -1,0 +1,51 @@
+#ifndef __J1ENTITY_MANAGER_H__
+#define __J1ENTITY_MANAGER_H__
+
+#include "j1Module.h"
+
+class Entity;
+
+class j1EntityManager : public j1Module
+{
+public:
+	j1EntityManager();
+	virtual ~j1EntityManager();
+
+	bool Awake(pugi::xml_node&)override;
+	bool Start()override;
+	bool PreUpdate()override;
+	bool Update(float dt)override;
+	bool PostUpdate()override;
+	bool CleanUp()override;
+
+
+	Entity* CreateEntity(Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
+
+	Entity* GetSceneRoot()const;
+	Entity* FindEntity(); //TODO: Used if UID are in use
+
+	void Draw();
+	void DrawDebug();
+
+	void InsertEntityToTree(Entity* et);
+	void EraseEntityFromTree(Entity* et);
+
+	void LoadScene(); //TODO: Lot of work before using this
+	void SaveScene(); //TODO: Lot of work before using this
+
+private:
+	void RemoveFlagged();
+	bool SaveSceneNow();
+	bool LoadSceneNow();
+
+public:
+	bool showQauds = false;
+	//JQuadTree* sceneTree = nullptr;
+
+private:
+	Entity* root = nullptr;
+	bool mustSaveScene = false;
+	bool mustLoadScene = false;
+};
+
+#endif // !__J1ENTITY_MANAGER_H__

@@ -18,6 +18,7 @@ class j1FileSystem;
 class j1Map;
 class j1PathFinding;
 class j1Fonts;
+class j1EntityManager;
 
 
 class j1App
@@ -92,6 +93,7 @@ public:
 	j1Map*				map = NULL;
 	j1PathFinding*		pathfinding = NULL;
 	j1Fonts*			font = NULL;
+	j1EntityManager*	entityManager = NULL;
 
 private:
 
