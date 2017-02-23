@@ -2,6 +2,8 @@
 #define __j1INPUT_H__
 
 #include "j1Module.h"
+#include "SDL/include/SDL_scancode.h"
+#include "SDL/include/SDL_mouse.h"
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5

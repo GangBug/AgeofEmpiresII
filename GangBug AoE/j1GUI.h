@@ -18,6 +18,8 @@ public:
 	bool UpdateGuiList();
 	bool UpdateDebug_guiList();
 
+	GUIElement* FindMouseHover();
+
 public:
 
 	std::list<GUIElement*> guiList;

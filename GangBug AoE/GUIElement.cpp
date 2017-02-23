@@ -16,6 +16,13 @@ GUIElement::~GUIElement()
 void GUIElement::CheckInput(const GUIElement * mouse_hover, const GUIElement * focus)
 {
 }
+bool GUIElement::CheckMouseOver() const
+{
+	iPoint mousePosition;
+	App->input->GetMousePosition(mousePosition.x, mousePosition.y);
+	
+	return rect.Contains(mousePosition.x, mousePosition.y);
+}
 void GUIElement::Center()
 {
 	int frame_w = (parent) ? parent->GetLocalRect().w : App->render->camera.w;
@@ -95,17 +102,13 @@ GuiTypes GUIElement::GetType() const
 {
 	return type;
 }
-j1Module* GUIElement::GetListener() const
+std::list<j1Module*> GUIElement::GetListeners() const
 {
-	return listener;
+	return listeners;
 }
 bool GUIElement::GetMouseInside() const
 {
 	return mouse_inside;
-}
-void GUIElement::SetListener(j1Module * _module)
-{
-	listener = _module;
 }
 void GUIElement::SetLocalPos(int x, int y)
 {
@@ -145,6 +148,10 @@ void GUIElement::SetRectangle(int x, int y, int w, int h)
 	rect.y = y;
 	rect.w = w;
 	rect.h = h;
+}
+void GUIElement::SetMouseInside(bool ins)
+{
+	mouse_inside = ins;
 }
 void GUIElement::SetSize(int w, int h)
 {

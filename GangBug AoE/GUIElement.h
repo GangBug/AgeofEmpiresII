@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include "p2Point.h"
+#include "j1Input.h"
 
 class j1Module;
 
@@ -20,7 +21,6 @@ enum GuiEvents
 	value_changed,
 	return_down
 };
-
 enum GuiTypes
 {
 	unknown,
@@ -35,7 +35,6 @@ enum GuiTypes
 	gui_rect
 };
 
-
 class GUIElement
 {
 	//Methods
@@ -47,11 +46,14 @@ public:
 	virtual void Draw() const {};// Print the element
 	virtual void DebugDraw() const {}; // Print debug things if the element
 	void CheckInput(const GUIElement* mouse_hover, const GUIElement* focus); //Getting the input
+	bool CheckMouseOver() const;
 	void Center();
 	void CenterX();
 	void CenterY();
+	void AddListener(j1Module moduleToAdd);
+	void RemoveListener(j1Module moduleToRemove);
 
-	//Getters & Setters
+	//Getters & Setters ------------------------------------------ START -------------------
 	rectangle GetScreenRect() const;
 	rectangle GetLocalRect() const;
 	rectangle GetRectangle() const;
@@ -64,12 +66,10 @@ public:
 	GUIElement* GetParent() const;
 	const std::list<GUIElement*> GetChilds() const;
 	GuiTypes GetType() const;
-	j1Module* GetListener() const;
+	std::list<j1Module*> GetListeners() const;
 	bool GetMouseInside() const;
-	
 
 
-	void SetListener(j1Module* _module);
 	void SetLocalPos(int x, int y);
 	void SetDraggable(bool _draggable);
 	void SetInteractive(bool _interactive);
@@ -79,6 +79,8 @@ public:
 	void SetType(GuiTypes _type);
 	void SetRectangle(rectangle _rect);
 	void SetRectangle(int x, int y, int w, int h);
+	void SetMouseInside(bool ins);
+	//Getters & Setters ------------------------------------------ END -------------------
 
 protected:
 	void SetSize(int w, int h);
@@ -95,7 +97,7 @@ private:
 	GuiTypes type = GuiTypes::unknown; // Gui Type
 
 protected:
-	j1Module* listener = nullptr;
+	std::list<j1Module*> listeners;
 	bool have_focus = false;
 
 private:
