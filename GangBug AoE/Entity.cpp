@@ -1,6 +1,10 @@
 #include "Entity.h"
 #include "p2Log.h"
 
+//TMP
+#include "j1App.h"
+#include "j1Render.h"
+
 
 Entity::Entity(Entity* parent) : parent(parent)
 {
@@ -184,7 +188,16 @@ void Entity::Draw()
 {}
 
 void Entity::DrawDebug()
-{}
+{
+	//TMP
+	App->render->DrawCircle(localPosition.x, localPosition.y, 30, 255, 0, 0, 255);
+
+	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+	{
+		if ((*it))
+			(*it)->DrawDebug();
+	}
+}
 
 void Entity::Remove()
 {

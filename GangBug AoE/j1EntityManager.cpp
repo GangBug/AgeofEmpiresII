@@ -35,6 +35,11 @@ bool j1EntityManager::Start()
 	LOG("Entity manager: Start.");
 	bool ret = true;
 
+	Entity* et = CreateEntity(nullptr, 100, 100);
+	CreateEntity(nullptr, 800, 600);
+	CreateEntity(nullptr, 100, 900);
+	CreateEntity(nullptr, 700, 400);
+
 	return ret;
 }
 
@@ -142,7 +147,11 @@ void j1EntityManager::Draw()
 	if (root)
 	{
 		//TODO: Must order here or on renderer the list. Also must test with quadtree the drawable entites
-		root->Draw();
+		for (std::vector<Entity*>::iterator it = root->childs.begin(); it != root->childs.end(); ++it)
+		{
+			if ((*it))
+				(*it)->Draw();
+		}
 	}
 	else
 	{
@@ -154,7 +163,11 @@ void j1EntityManager::DrawDebug()
 {
 	if (root)
 	{
-		root->DrawDebug();
+		for (std::vector<Entity*>::iterator it = root->childs.begin(); it != root->childs.end(); ++it)
+		{
+			if ((*it))
+				(*it)->DrawDebug();
+		}
 	}
 	else
 	{

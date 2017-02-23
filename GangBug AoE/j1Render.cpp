@@ -4,6 +4,10 @@
 #include "j1Window.h"
 #include "j1Render.h"
 
+//TMP
+#include "Entity.h"
+#include "j1EntityManager.h"
+
 #define VSYNC true
 
 j1Render::j1Render() : j1Module()
@@ -69,6 +73,8 @@ bool j1Render::PreUpdate()
 
 bool j1Render::PostUpdate()
 {
+	App->entityManager->DrawDebug();
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
