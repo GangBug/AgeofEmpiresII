@@ -21,7 +21,7 @@ public:
 	bool UpdateDebug_guiList();
 
 	GUIElement* FindMouseHover();
-	void ManageEvents(GUIElement* mouseHover, GUIElement* focus = nullptr);
+	void ManageEvents();
 	void BroadcastEventToListeners(GUIElement* element, GuiEvents event);
 
 	void DrawDebug() override;
