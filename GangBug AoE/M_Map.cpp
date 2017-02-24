@@ -1,23 +1,22 @@
-#include "p2Defs.h"
-#include "p2Log.h"
-#include "j1App.h"
-#include "j1Render.h"
-#include "j1FileSystem.h"
-#include "j1Textures.h"
-#include "j1Map.h"
+#include "Log.h"
+#include "App.h"
+#include "M_Render.h"
+#include "M_FileSystem.h"
+#include "M_Textures.h"
+#include "M_Map.h"
 #include <math.h>
 
-j1Map::j1Map() : j1Module(), map_loaded(false)
+M_Map::M_Map() : Module(), mapLoaded(false)
 {
 	name.create("map");
 }
 
 // Destructor
-j1Map::~j1Map()
+M_Map::~M_Map()
 {}
 
 // Called before render is available
-bool j1Map::Awake(pugi::xml_node& config)
+bool M_Map::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
@@ -27,9 +26,9 @@ bool j1Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-void j1Map::Draw()
+void M_Map::Draw()
 {
-	if(map_loaded == false)
+	if(mapLoaded == false)
 		return;
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
@@ -53,14 +52,14 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					app->render->Blit(tileset->texture, pos.x, pos.y, &r);
 				}
 			}
 		}
 	}
 }
 
-int Properties::Get(const char* value, int default_value) const
+int Properties::Get(const char* value, int defaultValue) const
 {
 	std::list<Property*>::const_iterator item = list.begin();
 
@@ -71,10 +70,10 @@ int Properties::Get(const char* value, int default_value) const
 		item++;
 	}
 
-	return default_value;
+	return defaultValue;
 }
 
-TileSet* j1Map::GetTilesetFromTileId(int id) const
+TileSet* M_Map::GetTilesetFromTileId(int id) const
 {
 	std::list<TileSet*>::const_iterator item = data.tilesets.begin();
 	TileSet* set = (*item);
@@ -93,19 +92,19 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	return set;
 }
 
-iPoint j1Map::MapToWorld(int x, int y) const
+iPoint M_Map::MapToWorld(int x, int y) const
 {
 	iPoint ret;
 
 	if(data.type == MAPTYPE_ORTHOGONAL)
 	{
-		ret.x = x * data.tile_width;
-		ret.y = y * data.tile_height;
+		ret.x = x * data.tileWidth;
+		ret.y = y * data.tileHeight;
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
-		ret.x = (x - y) * (data.tile_width * 0.5f);
-		ret.y = (x + y) * (data.tile_height * 0.5f);
+		ret.x = (x - y) * (data.tileWidth * 0.5f);
+		ret.y = (x + y) * (data.tileHeight * 0.5f);
 	}
 	else
 	{
@@ -116,20 +115,20 @@ iPoint j1Map::MapToWorld(int x, int y) const
 	return ret;
 }
 
-iPoint j1Map::WorldToMap(int x, int y) const
+iPoint M_Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0,0);
 
 	if(data.type == MAPTYPE_ORTHOGONAL)
 	{
-		ret.x = x / data.tile_width;
-		ret.y = y / data.tile_height;
+		ret.x = x / data.tileWidth;
+		ret.y = y / data.tileHeight;
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
 		
-		float half_width = data.tile_width * 0.5f;
-		float half_height = data.tile_height * 0.5f;
+		float half_width = data.tileWidth * 0.5f;
+		float half_height = data.tileHeight * 0.5f;
 		ret.x = int( (x / half_width + y / half_height) / 2) - 1;
 		ret.y = int( (y / half_height - (x / half_width)) / 2);
 	}
@@ -146,15 +145,15 @@ SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
 	SDL_Rect rect;
-	rect.w = tile_width;
-	rect.h = tile_height;
-	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
-	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
+	rect.w = tileWidth;
+	rect.h = tileHeight;
+	rect.x = margin + ((rect.w + spacing) * (relative_id % numTilesWidth));
+	rect.y = margin + ((rect.h + spacing) * (relative_id / numTilesWidth));
 	return rect;
 }
 
 // Called before quitting
-bool j1Map::CleanUp()
+bool M_Map::CleanUp()
 {
 	LOG("Unloading map");
 
@@ -181,26 +180,26 @@ bool j1Map::CleanUp()
 	data.layers.clear();
 
 	// Clean up the pugui tree
-	map_file.reset();
+	mapFile.reset();
 
 	return true;
 }
 
 // Load new map
-bool j1Map::Load(const char* file_name)
+bool M_Map::Load(const char* path)
 {
 	bool ret = true;
-	p2SString tmp("%s%s", folder.GetString(), file_name);
+	p2SString tmp("%s%s", folder.GetString(), path);
 
 	char* buf;
-	int size = App->fs->Load(tmp.GetString(), &buf);
-	pugi::xml_parse_result result = map_file.load_buffer(buf, size);
+	int size = app->fs->Load(tmp.GetString(), &buf);
+	pugi::xml_parse_result result = mapFile.load_buffer(buf, size);
 
 	RELEASE(buf);
 
 	if(result == NULL)
 	{
-		LOG("Could not load map xml file %s. pugi error: %s", file_name, result.description());
+		LOG("Could not load map xml file %s. pugi error: %s", path, result.description());
 		ret = false;
 	}
 
@@ -212,7 +211,7 @@ bool j1Map::Load(const char* file_name)
 
 	// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
-	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
+	for(tileset = mapFile.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
 		TileSet* set = new TileSet();
 
@@ -231,7 +230,7 @@ bool j1Map::Load(const char* file_name)
 
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
-	for(layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
+	for(layer = mapFile.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
 		MapLayer* lay = new MapLayer();
 
@@ -243,9 +242,9 @@ bool j1Map::Load(const char* file_name)
 
 	if(ret == true)
 	{
-		LOG("Successfully parsed map XML file: %s", file_name);
+		LOG("Successfully parsed map XML file: %s", path);
 		LOG("width: %d height: %d", data.width, data.height);
-		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
+		LOG("tile_width: %d tile_height: %d", data.tileWidth, data.tileHeight);
 
 		std::list<TileSet*>::iterator item = data.tilesets.begin();
 		while(item != data.tilesets.end())
@@ -253,7 +252,7 @@ bool j1Map::Load(const char* file_name)
 			TileSet* s = item._Ptr->_Myval;
 			LOG("Tileset ----");
 			LOG("name: %s firstgid: %d", s->name.GetString(), s->firstgid);
-			LOG("tile width: %d tile height: %d", s->tile_width, s->tile_height);
+			LOG("tile width: %d tile height: %d", s->tileWidth, s->tileHeight);
 			LOG("spacing: %d margin: %d", s->spacing, s->margin);
 			item._Ptr = item._Ptr->_Next;
 		}
@@ -269,16 +268,16 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
-	map_loaded = ret;
+	mapLoaded = ret;
 
 	return ret;
 }
 
 // Load map general properties
-bool j1Map::LoadMap()
+bool M_Map::LoadMap()
 {
 	bool ret = true;
-	pugi::xml_node map = map_file.child("map");
+	pugi::xml_node map = mapFile.child("map");
 
 	if(map == NULL)
 	{
@@ -289,14 +288,14 @@ bool j1Map::LoadMap()
 	{
 		data.width = map.attribute("width").as_int();
 		data.height = map.attribute("height").as_int();
-		data.tile_width = map.attribute("tilewidth").as_int();
-		data.tile_height = map.attribute("tileheight").as_int();
+		data.tileWidth = map.attribute("tilewidth").as_int();
+		data.tileHeight = map.attribute("tileheight").as_int();
 		p2SString bg_color(map.attribute("backgroundcolor").as_string());
 
-		data.background_color.r = 0;
-		data.background_color.g = 0;
-		data.background_color.b = 0;
-		data.background_color.a = 0;
+		data.backgroundColor.r = 0;
+		data.backgroundColor.g = 0;
+		data.backgroundColor.b = 0;
+		data.backgroundColor.a = 0;
 
 		if(bg_color.Length() > 0)
 		{
@@ -308,13 +307,13 @@ bool j1Map::LoadMap()
 			int v = 0;
 
 			sscanf_s(red.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.r = v;
+			if(v >= 0 && v <= 255) data.backgroundColor.r = v;
 
 			sscanf_s(green.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.g = v;
+			if(v >= 0 && v <= 255) data.backgroundColor.g = v;
 
 			sscanf_s(blue.GetString(), "%x", &v);
-			if(v >= 0 && v <= 255) data.background_color.b = v;
+			if(v >= 0 && v <= 255) data.backgroundColor.b = v;
 		}
 
 		p2SString orientation(map.attribute("orientation").as_string());
@@ -340,35 +339,35 @@ bool j1Map::LoadMap()
 	return ret;
 }
 
-bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
+bool M_Map::LoadTilesetDetails(pugi::xml_node& tilesetNode, TileSet* set)
 {
 	bool ret = true;
-	set->name.create(tileset_node.attribute("name").as_string());
-	set->firstgid = tileset_node.attribute("firstgid").as_int();
-	set->tile_width = tileset_node.attribute("tilewidth").as_int();
-	set->tile_height = tileset_node.attribute("tileheight").as_int();
-	set->margin = tileset_node.attribute("margin").as_int();
-	set->spacing = tileset_node.attribute("spacing").as_int();
-	pugi::xml_node offset = tileset_node.child("tileoffset");
+	set->name.create(tilesetNode.attribute("name").as_string());
+	set->firstgid = tilesetNode.attribute("firstgid").as_int();
+	set->tileWidth = tilesetNode.attribute("tilewidth").as_int();
+	set->tileHeight = tilesetNode.attribute("tileheight").as_int();
+	set->margin = tilesetNode.attribute("margin").as_int();
+	set->spacing = tilesetNode.attribute("spacing").as_int();
+	pugi::xml_node offset = tilesetNode.child("tileoffset");
 
 	if(offset != NULL)
 	{
-		set->offset_x = offset.attribute("x").as_int();
-		set->offset_y = offset.attribute("y").as_int();
+		set->offsetX = offset.attribute("x").as_int();
+		set->offsetY = offset.attribute("y").as_int();
 	}
 	else
 	{
-		set->offset_x = 0;
-		set->offset_y = 0;
+		set->offsetX = 0;
+		set->offsetY = 0;
 	}
 
 	return ret;
 }
 
-bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
+bool M_Map::LoadTilesetImage(pugi::xml_node& tilesetNode, TileSet* set)
 {
 	bool ret = true;
-	pugi::xml_node image = tileset_node.child("image");
+	pugi::xml_node image = tilesetNode.child("image");
 
 	if(image == NULL)
 	{
@@ -377,31 +376,31 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	}
 	else
 	{
-		set->texture = App->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+		set->texture = app->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
 		int w, h;
 		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);
-		set->tex_width = image.attribute("width").as_int();
+		set->texWidth = image.attribute("width").as_int();
 
-		if(set->tex_width <= 0)
+		if(set->texWidth <= 0)
 		{
-			set->tex_width = w;
+			set->texWidth = w;
 		}
 
-		set->tex_height = image.attribute("height").as_int();
+		set->texHeight = image.attribute("height").as_int();
 
-		if(set->tex_height <= 0)
+		if(set->texHeight <= 0)
 		{
-			set->tex_height = h;
+			set->texHeight = h;
 		}
 
-		set->num_tiles_width = set->tex_width / set->tile_width;
-		set->num_tiles_height = set->tex_height / set->tile_height;
+		set->numTilesWidth = set->texWidth / set->tileWidth;
+		set->numTilesHeight = set->texHeight / set->tileHeight;
 	}
 
 	return ret;
 }
 
-bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
+bool M_Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	bool ret = true;
 
@@ -433,7 +432,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 }
 
 // Load a group of properties from a node and fill a list with it
-bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
+bool M_Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
 	bool ret = false;
 
@@ -457,7 +456,7 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	return ret;
 }
 
-bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
+bool M_Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
 	bool ret = false;
 	std::list<MapLayer*>::const_iterator item;
@@ -505,6 +504,6 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	return ret;
 }
 
-void j1Map::DrawDebug()
+void M_Map::DrawDebug()
 {
 }

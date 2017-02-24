@@ -1,25 +1,24 @@
-#include "p2Defs.h"
-#include "p2Log.h"
-#include "j1App.h"
-#include "j1Textures.h"
-#include "j1FileSystem.h"
-#include "j1Fonts.h"
+#include "Log.h"
+#include "App.h"
+#include "M_Textures.h"
+#include "M_FileSystem.h"
+#include "M_Fonts.h"
 
 #include "SDL\include\SDL.h"
 #include "SDL_TTF\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
 
-j1Fonts::j1Fonts() : j1Module()
+M_Fonts::M_Fonts() : Module()
 {
 	name.create("fonts");
 }
 
 // Destructor
-j1Fonts::~j1Fonts()
+M_Fonts::~M_Fonts()
 {}
 
 // Called before render is available
-bool j1Fonts::Awake(pugi::xml_node& conf)
+bool M_Fonts::Awake(pugi::xml_node& conf)
 {
 	LOG("Init True Type Font library");
 	bool ret = true;
@@ -41,7 +40,7 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 }
 
 // Called before quitting
-bool j1Fonts::CleanUp()
+bool M_Fonts::CleanUp()
 {
 	LOG("Freeing True Type fonts and library");
 	std::list<TTF_Font*>::iterator item;
@@ -57,9 +56,9 @@ bool j1Fonts::CleanUp()
 }
 
 // Load new texture from file path
-TTF_Font* const j1Fonts::Load(const char* path, int size)
+TTF_Font* const M_Fonts::Load(const char* path, int size)
 {
-	TTF_Font* font = TTF_OpenFontRW(App->fs->Load(path), 1, size);
+	TTF_Font* font = TTF_OpenFontRW(app->fs->Load(path), 1, size);
 
 	if(font == NULL)
 	{
@@ -75,7 +74,7 @@ TTF_Font* const j1Fonts::Load(const char* path, int size)
 }
 
 // Print text using font
-SDL_Texture* j1Fonts::Print(const char* text, TTF_Font* font, SDL_Color color)
+SDL_Texture* M_Fonts::Print(const char* text, _TTF_Font* font, SDL_Color color)
 {
 	SDL_Texture* ret = NULL;
 	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : default, text, color);
@@ -86,7 +85,7 @@ SDL_Texture* j1Fonts::Print(const char* text, TTF_Font* font, SDL_Color color)
 	}
 	else
 	{
-		ret = App->tex->LoadSurface(surface);
+		ret = app->tex->LoadSurface(surface);
 		SDL_FreeSurface(surface);
 	}
 
@@ -94,7 +93,7 @@ SDL_Texture* j1Fonts::Print(const char* text, TTF_Font* font, SDL_Color color)
 }
 
 // calculate size of a text
-bool j1Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* font) const
+bool M_Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* font) const
 {
 	bool ret = false;
 
@@ -106,6 +105,6 @@ bool j1Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* fon
 	return ret;
 }
 
-void j1Fonts::DrawDebug()
+void M_Fonts::DrawDebug()
 {
 }

@@ -1,32 +1,31 @@
-#include "p2Defs.h"
-#include "p2Log.h"
-#include "j1App.h"
-#include "j1PathFinding.h"
+#include "Log.h"
+#include "App.h"
+#include "M_PathFinding.h"
 #include <algorithm>
 
-j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
+M_PathFinding::M_PathFinding() : Module(), map(NULL), lastPath(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
 	name.create("pathfinding");
 }
 
 // Destructor
-j1PathFinding::~j1PathFinding()
+M_PathFinding::~M_PathFinding()
 {
 	RELEASE_ARRAY(map);
 }
 
 // Called before quitting
-bool j1PathFinding::CleanUp()
+bool M_PathFinding::CleanUp()
 {
 	LOG("Freeing pathfinding library");
 
-	last_path.Clear();
+	lastPath.Clear();
 	RELEASE_ARRAY(map);
 	return true;
 }
 
 // Sets up the walkability map
-void j1PathFinding::SetMap(uint width, uint height, uchar* data)
+void M_PathFinding::SetMap(uint width, uint height, uchar* data)
 {
 	this->width = width;
 	this->height = height;
@@ -37,21 +36,21 @@ void j1PathFinding::SetMap(uint width, uint height, uchar* data)
 }
 
 // Utility: return true if pos is inside the map boundaries
-bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
+bool M_PathFinding::CheckBoundaries(const iPoint& pos) const
 {
 	return (pos.x >= 0 && pos.x <= (int)width &&
 			pos.y >= 0 && pos.y <= (int)height);
 }
 
 // Utility: returns true is the tile is walkable
-bool j1PathFinding::IsWalkable(const iPoint& pos) const
+bool M_PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
 	return t != INVALID_WALK_CODE && t > 0;
 }
 
 // Utility: return the walkability value of a tile
-uchar j1PathFinding::GetTileAt(const iPoint& pos) const
+uchar M_PathFinding::GetTileAt(const iPoint& pos) const
 {
 	if(CheckBoundaries(pos))
 		return map[(pos.y*width) + pos.x];
@@ -59,15 +58,15 @@ uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 	return INVALID_WALK_CODE;
 }
 
-void j1PathFinding::DrawDebug()
+void M_PathFinding::DrawDebug()
 {
 }
 
 //TODO change 
 // To request all tiles involved in the last generated path
-const p2DynArray<iPoint>* j1PathFinding::GetLastPath() const
+const p2DynArray<iPoint>* M_PathFinding::GetLastPath() const
 {
-	return &last_path;
+	return &lastPath;
 }
 
 // PathList ------------------------------------------------------------------------
@@ -119,32 +118,32 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
-uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
+uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
 {
 	iPoint cell;
-	uint before = list_to_fill.list.size();
+	uint before = listToFill.list.size();
 
 	// north
 	cell.create(pos.x, pos.y + 1);
-	if(App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+	if(app->pathfinding->IsWalkable(cell))
+		listToFill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// south
 	cell.create(pos.x, pos.y - 1);
-	if(App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+	if(app->pathfinding->IsWalkable(cell))
+		listToFill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// east
 	cell.create(pos.x + 1, pos.y);
-	if(App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+	if(app->pathfinding->IsWalkable(cell))
+		listToFill.list.push_back(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x - 1, pos.y);
-	if(App->pathfinding->IsWalkable(cell))
-		list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+	if(app->pathfinding->IsWalkable(cell))
+		listToFill.list.push_back(PathNode(-1, -1, cell, this));
 
-	return list_to_fill.list.size();
+	return listToFill.list.size();
 }
 
 // PathNode -------------------------------------------------------------------------
@@ -169,10 +168,10 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
+int M_PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	if (IsWalkable(origin) && IsWalkable(destination)) {
-		last_path.Clear();
+		lastPath.Clear();
 		PathList open;
 		PathList close;
 		PathList adjacents;
@@ -185,9 +184,9 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			open.list.erase(*open.GetNodeLowestScore());
 			if (close.list.end()->pos == destination) {
 				for (const PathNode* backtrack = close.list.end()->parent; backtrack; backtrack = backtrack->parent) {
-					last_path.PushBack(backtrack->pos);
+					lastPath.PushBack(backtrack->pos);
 				}
-				last_path.Flip();
+				lastPath.Flip();
 				return index;
 			}
 			uint adjnum = close.list.end()->FindWalkableAdjacents(adjacents);

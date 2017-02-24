@@ -1,25 +1,24 @@
-#include "p2Defs.h"
-#include "p2Log.h"
-#include "j1App.h"
-#include "j1FileSystem.h"
-#include "j1Audio.h"
+#include "Log.h"
+#include "App.h"
+#include "M_FileSystem.h"
+#include "M_Audio.h"
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
-j1Audio::j1Audio() : j1Module()
+M_Audio::M_Audio() : Module()
 {
 	music = NULL;
 	name.create("audio");
 }
 
 // Destructor
-j1Audio::~j1Audio()
+M_Audio::~M_Audio()
 {}
 
 // Called before render is available
-bool j1Audio::Awake(pugi::xml_node& config)
+bool M_Audio::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
@@ -55,7 +54,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 }
 
 // Called before quitting
-bool j1Audio::CleanUp()
+bool M_Audio::CleanUp()
 {
 	if(!active)
 		return true;
@@ -81,7 +80,7 @@ bool j1Audio::CleanUp()
 }
 
 // Play a music file
-bool j1Audio::PlayMusic(const char* path, float fade_time)
+bool M_Audio::PlayMusic(const char* path, float fadeTime)
 {
 	bool ret = true;
 
@@ -90,9 +89,9 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 
 	if(music != NULL)
 	{
-		if(fade_time > 0.0f)
+		if(fadeTime > 0.0f)
 		{
-			Mix_FadeOutMusic(int(fade_time * 1000.0f));
+			Mix_FadeOutMusic(int(fadeTime * 1000.0f));
 		}
 		else
 		{
@@ -103,7 +102,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
-	music = Mix_LoadMUS_RW(App->fs->Load(path), 1);
+	music = Mix_LoadMUS_RW(app->fs->Load(path), 1);
 
 	if(music == NULL)
 	{
@@ -112,9 +111,9 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	}
 	else
 	{
-		if(fade_time > 0.0f)
+		if(fadeTime > 0.0f)
 		{
-			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
+			if(Mix_FadeInMusic(music, -1, (int) (fadeTime * 1000.0f)) < 0)
 			{
 				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
@@ -135,14 +134,14 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 }
 
 // Load WAV
-unsigned int j1Audio::LoadFx(const char* path)
+unsigned int M_Audio::LoadFx(const char* path)
 {
 	unsigned int ret = 0;
 
 	if(!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV_RW(App->fs->Load(path), 1);
+	Mix_Chunk* chunk = Mix_LoadWAV_RW(app->fs->Load(path), 1);
 
 	if(chunk == NULL)
 	{
@@ -158,7 +157,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 }
 
 // Play WAV
-bool j1Audio::PlayFx(unsigned int id, int repeat)
+bool M_Audio::PlayFx(unsigned int id, int repeat)
 {
 	bool ret = false;
 
@@ -173,6 +172,6 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
-void j1Audio::DrawDebug()
+void M_Audio::DrawDebug()
 {
 }

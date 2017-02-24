@@ -1,26 +1,27 @@
 // ----------------------------------------------------
-// j1Module.h
+// Module.h
 // Interface for all engine modules
 // ----------------------------------------------------
 
-#ifndef __j1MODULE_H__
-#define __j1MODULE_H__
+#ifndef __MODULE_H__
+#define __MODULE_H__
 
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
+#include "Defs.h"
 
-class j1App;
+class App;
 class GUIElement;
 enum GuiEvents;
 
-class j1Module
+class Module
 {
 public:
 
-	j1Module() : active(false)
+	Module() : active(false)
 	{}
 
-	virtual ~j1Module()
+	virtual ~Module()
 	{}
 
 	virtual void Init()
@@ -86,4 +87,4 @@ public:
 
 };
 
-#endif // __j1MODULE_H__
+#endif // __MODULE_H__

@@ -1,24 +1,23 @@
-#include "p2Defs.h"
-#include "p2Log.h"
-#include "j1App.h"
-#include "j1Render.h"
-#include "j1FileSystem.h"
-#include "j1Textures.h"
+#include "Log.h"
+#include "App.h"
+#include "M_Render.h"
+#include "M_FileSystem.h"
+#include "M_Textures.h"
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
-j1Textures::j1Textures() : j1Module()
+M_Textures::M_Textures() : Module()
 {
 	name.create("textures");
 }
 
 // Destructor
-j1Textures::~j1Textures()
+M_Textures::~M_Textures()
 {}
 
 // Called before render is available
-bool j1Textures::Awake(pugi::xml_node& config)
+bool M_Textures::Awake(pugi::xml_node& config)
 {
 	LOG("Init Image library");
 	bool ret = true;
@@ -36,7 +35,7 @@ bool j1Textures::Awake(pugi::xml_node& config)
 }
 
 // Called before the first frame
-bool j1Textures::Start()
+bool M_Textures::Start()
 {
 	LOG("start textures");
 	bool ret = true;
@@ -44,7 +43,7 @@ bool j1Textures::Start()
 }
 
 // Called before quitting
-bool j1Textures::CleanUp()
+bool M_Textures::CleanUp()
 {
 	LOG("Freeing textures and Image library");
 	std::list<SDL_Texture*>::iterator item;
@@ -60,10 +59,10 @@ bool j1Textures::CleanUp()
 }
 
 // Load new texture from file path
-SDL_Texture* const j1Textures::Load(const char* path)
+SDL_Texture* const M_Textures::Load(const char* path)
 {
 	SDL_Texture* texture = NULL;
-	SDL_Surface* surface = IMG_Load_RW(App->fs->Load(path), 1);
+	SDL_Surface* surface = IMG_Load_RW(app->fs->Load(path), 1);
 
 	if(surface == NULL)
 	{
@@ -79,7 +78,7 @@ SDL_Texture* const j1Textures::Load(const char* path)
 }
 
 // Unload texture
-bool j1Textures::UnLoad(SDL_Texture* texture)
+bool M_Textures::UnLoad(SDL_Texture* texture)
 {
 	std::list<SDL_Texture*>::iterator item;
 
@@ -97,9 +96,9 @@ bool j1Textures::UnLoad(SDL_Texture* texture)
 }
 
 // Translate a surface into a texture
-SDL_Texture* const j1Textures::LoadSurface(SDL_Surface* surface)
+SDL_Texture* const M_Textures::LoadSurface(SDL_Surface* surface)
 {
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(App->render->renderer, surface);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(app->render->renderer, surface);
 
 	if(texture == NULL)
 	{
@@ -114,11 +113,11 @@ SDL_Texture* const j1Textures::LoadSurface(SDL_Surface* surface)
 }
 
 // Retrieve size of a texture
-void j1Textures::GetSize(const SDL_Texture* texture, uint& width, uint& height) const
+void M_Textures::GetSize(const SDL_Texture* texture, uint& width, uint& height) const
 {
 	SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, (int*) &width, (int*) &height);
 }
 
-void j1Textures::DrawDebug()
+void M_Textures::DrawDebug()
 {
 }

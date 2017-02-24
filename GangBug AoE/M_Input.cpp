@@ -1,31 +1,30 @@
-#include "p2Defs.h"
-#include "p2Log.h"
-#include "j1App.h"
-#include "j1Input.h"
-#include "j1Window.h"
+#include "Log.h"
+#include "App.h"
+#include "M_Input.h"
+#include "M_Window.h"
 #include "SDL/include/SDL.h"
 
 #define MAX_KEYS 300
 #define _CRT_SECURE_NO_WARNINGS
 
-j1Input::j1Input() : j1Module()
+M_Input::M_Input() : Module()
 {
 	name.create("input");
 
-	keyboard = new j1KeyState[MAX_KEYS];
-	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
-	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
+	keyboard = new key_state[MAX_KEYS];
+	memset(keyboard, KEY_IDLE, sizeof(key_state) * MAX_KEYS);
+	memset(mouse_buttons, KEY_IDLE, sizeof(key_state) * NUM_MOUSE_BUTTONS);
 
 }
 
 // Destructor
-j1Input::~j1Input()
+M_Input::~M_Input()
 {
 	delete[] keyboard;
 }
 
 // Called before render is available
-bool j1Input::Awake(pugi::xml_node& config)
+bool M_Input::Awake(pugi::xml_node& config)
 {
 	LOG("Init SDL input event system");
 	bool ret = true;
@@ -43,14 +42,14 @@ bool j1Input::Awake(pugi::xml_node& config)
 }
 
 // Called before the first frame
-bool j1Input::Start()
+bool M_Input::Start()
 {
 	//SDL_StartTextInput();
 	return true;
 }
 
 // Called each loop iteration
-bool j1Input::PreUpdate()
+bool M_Input::PreUpdate()
 {
 	static SDL_Event event;
 	
@@ -221,11 +220,11 @@ bool j1Input::PreUpdate()
 			break;
 
 			case SDL_MOUSEMOTION:
-				int scale = App->win->GetScale();
-				mouse_motion_x = event.motion.xrel / scale;
-				mouse_motion_y = event.motion.yrel / scale;
-				mouse_x = event.motion.x / scale;
-				mouse_y = event.motion.y / scale;
+				int scale = app->win->GetScale();
+				mouseMotionX = event.motion.xrel / scale;
+				mouseMotionY = event.motion.yrel / scale;
+				mouseX = event.motion.x / scale;
+				mouseY = event.motion.y / scale;
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 
@@ -236,24 +235,24 @@ bool j1Input::PreUpdate()
 	return true;
 }
 
-void j1Input::StartTyping() {
-	if (!text_input) {
-		text_input = true;
+void M_Input::StartTyping() {
+	if (!textInput) {
+		textInput = true;
 		SDL_StartTextInput();
 	}
 }
-void j1Input::StopTyping() {
-	if (text_input) {
-		text_input = false;
+void M_Input::StopTyping() {
+	if (textInput) {
+		textInput = false;
 		SDL_StopTextInput();
 	}
 }
-const char* j1Input::GetText() {
+const char* M_Input::GetText() {
 	return lastText.GetString();
 }
 
 // Called before quitting
-bool j1Input::CleanUp()
+bool M_Input::CleanUp()
 {
 	LOG("Quitting SDL event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
@@ -263,23 +262,23 @@ bool j1Input::CleanUp()
 
 
 // ---------
-bool j1Input::GetWindowEvent(j1EventWindow ev)
+bool M_Input::GetWindowEvent(event_window ev)
 {
 	return windowEvents[ev];
 }
 
-void j1Input::GetMousePosition(int& x, int& y)
+void M_Input::GetMousePosition(int& x, int& y)
 {
-	x = mouse_x;
-	y = mouse_y;
+	x = mouseX;
+	y = mouseY;
 }
 
-void j1Input::GetMouseMotion(int& x, int& y)
+void M_Input::GetMouseMotion(int& x, int& y)
 {
-	x = mouse_motion_x;
-	y = mouse_motion_y;
+	x = mouseMotionX;
+	y = mouseMotionY;
 }
 
-void j1Input::DrawDebug()
+void M_Input::DrawDebug()
 {
 }

@@ -1,6 +1,6 @@
 #include "GUIElement.h"
-#include "j1App.h"
-#include "j1Render.h"
+#include "App.h"
+#include "M_Render.h"
 
 GUIElement::GUIElement() : rect({0,0,0,0})
 {
@@ -19,26 +19,26 @@ void GUIElement::CheckInput(const GUIElement * mouse_hover, const GUIElement * f
 bool GUIElement::CheckMouseOver() const
 {
 	iPoint mousePosition;
-	App->input->GetMousePosition(mousePosition.x, mousePosition.y);
+	app->input->GetMousePosition(mousePosition.x, mousePosition.y);
 	
 	return rect.Contains(mousePosition.x, mousePosition.y);
 }
 void GUIElement::Center()
 {
-	int frame_w = (parent) ? parent->GetLocalRect().w : App->render->camera.w;
-	int frame_h = (parent) ? parent->GetLocalRect().h : App->render->camera.h;
+	int frame_w = (parent) ? parent->GetLocalRect().w : app->render->camera.w;
+	int frame_h = (parent) ? parent->GetLocalRect().h : app->render->camera.h;
 
 	SetLocalPos(frame_w / 2 - rect.w / 2, frame_h / 2 - rect.h / 2);
 }
 void GUIElement::CenterX()
 {
-	int frame_w = (parent) ? parent->GetLocalRect().w : App->render->camera.w;
+	int frame_w = (parent) ? parent->GetLocalRect().w : app->render->camera.w;
 
 	SetLocalPos(frame_w / 2 - rect.w / 2, rect.h);
 }
 void GUIElement::CenterY()
 {
-	int frame_h = (parent) ? parent->GetLocalRect().h : App->render->camera.h;
+	int frame_h = (parent) ? parent->GetLocalRect().h : app->render->camera.h;
 
 	SetLocalPos(rect.w, frame_h / 2 - rect.h / 2);
 }
@@ -102,7 +102,7 @@ GuiTypes GUIElement::GetType() const
 {
 	return type;
 }
-std::list<j1Module*> GUIElement::GetListeners() const
+std::list<Module*> GUIElement::GetListeners() const
 {
 	return listeners;
 }

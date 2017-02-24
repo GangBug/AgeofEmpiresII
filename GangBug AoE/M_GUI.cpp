@@ -1,25 +1,25 @@
-#include "j1GUI.h"
+#include "M_GUI.h"
 #include "GUIElement.h"
 #include "GUIImage.h"
-#include "j1App.h"
-#include "j1Input.h"
-#include "j1Render.h"
+#include "App.h"
+#include "M_Input.h"
+#include "M_Render.h"
 
-j1GUI::j1GUI() : j1Module()
+M_GUI::M_GUI() : Module()
 {
 	name.create("GUI");
 	active = true;
 }
-j1GUI::~j1GUI()
+M_GUI::~M_GUI()
 {
 }
 
-void j1GUI::Init()
+void M_GUI::Init()
 {
 	
 }
 
-bool j1GUI::Awake(pugi::xml_node &)
+bool M_GUI::Awake(pugi::xml_node &)
 {
 	GUIImage* img = new GUIImage();
 	img->SetRectangle(20, 20, 100, 30);
@@ -32,7 +32,7 @@ bool j1GUI::Awake(pugi::xml_node &)
 
 
 
-bool j1GUI::PreUpdate()
+bool M_GUI::PreUpdate()
 {
 	bool ret = true;	
 
@@ -44,38 +44,38 @@ bool j1GUI::PreUpdate()
 	{
 		(*it)->Update(mouseHover, focus);
 	}
-	for (it = debug_guiList.begin(); it != debug_guiList.end(); it++)
+	for (it = debugGuiList.begin(); it != debugGuiList.end(); it++)
 	{
 		(*it)->Update(mouseHover, focus);
 	}
 	return ret;
 }
-bool j1GUI::Update(float dt)
+bool M_GUI::Update(float dt)
 {
 	bool ret = true;
 
 	return ret;
 }
-bool j1GUI::PostUpdate()
+bool M_GUI::PostUpdate()
 {
 	DrawDebug();
 	return true;
 }
-bool j1GUI::UpdateGuiList()
+bool M_GUI::UpdateGuiList()
 {
 	return true;
 }
-bool j1GUI::UpdateDebug_guiList()
+bool M_GUI::UpdateDebugGuiList()
 {
 	return true;
 }
 //Checks if cursor is inside an element | returns null if anything found
-GUIElement * j1GUI::FindMouseHover()
+GUIElement * M_GUI::FindMouseHover()
 {
 	GUIElement* ret = nullptr;
 	std::list<GUIElement*>::reverse_iterator it;
 
-	for (it = debug_guiList.rbegin(); it != debug_guiList.rend(); it++)
+	for (it = debugGuiList.rbegin(); it != debugGuiList.rend(); it++)
 	{
 		if ((*it)->CheckMouseOver())
 		{
@@ -93,7 +93,7 @@ GUIElement * j1GUI::FindMouseHover()
 	return ret;
 }
 //Manages the events on hover and focus
-void j1GUI::ManageEvents()
+void M_GUI::ManageEvents()
 {
 	std::list<GUIElement*>::iterator it;
 	GUIElement* newMouseHover = nullptr;
@@ -127,7 +127,7 @@ void j1GUI::ManageEvents()
 	}
 	// TODO trobar quin element te el focus
 	// TODO manage the input & events
-	if (mouseHover != nullptr && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == j1KeyState::KEY_DOWN)
+	if (mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_DOWN)
 	{
 		if (focus != mouseHover && focus != nullptr)
 		{
@@ -137,11 +137,11 @@ void j1GUI::ManageEvents()
 		BroadcastEventToListeners(mouseHover, mouse_lclick_down);
 		BroadcastEventToListeners(mouseHover, gain_focus);
 	}
-	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == j1KeyState::KEY_UP)
+	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
 	{
 		BroadcastEventToListeners(mouseHover, mouse_lclick_up);
 	}
-	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == j1KeyState::KEY_DOWN)
+	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_DOWN)
 	{
 		if (focus != mouseHover)
 		{
@@ -151,30 +151,30 @@ void j1GUI::ManageEvents()
 		BroadcastEventToListeners(mouseHover, mouse_rclick_down);
 		BroadcastEventToListeners(mouseHover, gain_focus);
 	}
-	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == j1KeyState::KEY_UP)
+	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
 	{
 		BroadcastEventToListeners(mouseHover, mouse_rclick_up);
 	}
 }
 //Broadcast an event to all GUIElement listeners
-void j1GUI::BroadcastEventToListeners(GUIElement * element, GuiEvents event)
+void M_GUI::BroadcastEventToListeners(GUIElement * element, GuiEvents event)
 {
 	if (event != mouse_enters)
 		SDL_Log("Event: %d", event);
 	//First we get listeners list of previous element hovered
-	std::list<j1Module*> tmpListeners = element->GetListeners();
+	std::list<Module*> tmpListeners = element->GetListeners();
 	//Iterate over listeners list to send them hover is lost
-	for (std::list<j1Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
+	for (std::list<Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
 	{
 		(*it)->GuiEvent(element, event);		
 	}
 }
-void j1GUI::DrawDebug()
+void M_GUI::DrawDebug()
 {
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
 		rectangle rect = (*it)->GetRectangle();
-		App->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
+		app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
 	}
 	
 }

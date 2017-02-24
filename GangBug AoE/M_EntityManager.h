@@ -1,15 +1,15 @@
-#ifndef __J1ENTITY_MANAGER_H__
-#define __J1ENTITY_MANAGER_H__
+#ifndef __M_ENTITY_MANAGER_H__
+#define __M_ENTITY_MANAGER_H__
 
-#include "j1Module.h"
+#include "Module.h"
 
 class Entity;
 
-class j1EntityManager : public j1Module
+class M_EntityManager : public Module
 {
 public:
-	j1EntityManager();
-	virtual ~j1EntityManager();
+	M_EntityManager();
+	virtual ~M_EntityManager();
 
 	bool Awake(pugi::xml_node&)override;
 	bool Start()override;
@@ -48,4 +48,4 @@ private:
 	bool mustLoadScene = false;
 };
 
-#endif // !__J1ENTITY_MANAGER_H__
+#endif // !__M_ENTITY_MANAGER_H__

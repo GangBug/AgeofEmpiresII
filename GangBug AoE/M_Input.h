@@ -1,7 +1,7 @@
-#ifndef __j1INPUT_H__
-#define __j1INPUT_H__
+#ifndef __M_INPUT_H__
+#define __M_INPUT_H__
 
-#include "j1Module.h"
+#include "Module.h"
 #include "SDL/include/SDL_scancode.h"
 #include "SDL/include/SDL_mouse.h"
 
@@ -12,7 +12,7 @@
 
 struct SDL_Rect;
 
-enum j1EventWindow
+enum event_window
 {
 	WE_QUIT = 0,
 	WE_HIDE = 1,
@@ -20,7 +20,7 @@ enum j1EventWindow
 	WE_COUNT
 };
 
-enum j1KeyState
+enum key_state
 {
 	KEY_IDLE = 0,
 	KEY_DOWN,
@@ -28,15 +28,15 @@ enum j1KeyState
 	KEY_UP
 };
 
-class j1Input : public j1Module
+class M_Input : public Module
 {
 
 public:
 
-	j1Input();
+	M_Input();
 
 	// Destructor
-	virtual ~j1Input();
+	virtual ~M_Input();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -51,15 +51,15 @@ public:
 	bool CleanUp();
 
 	// Gather relevant win events
-	bool GetWindowEvent(j1EventWindow ev);
+	bool GetWindowEvent(event_window ev);
 
 	// Check key states (includes mouse and joy buttons)
-	j1KeyState GetKey(int id) const
+	key_state GetKey(int id) const
 	{
 		return keyboard[id];
 	}
 
-	j1KeyState GetMouseButtonDown(int id) const
+	key_state GetMouseButtonDown(int id) const
 	{
 		return mouse_buttons[id - 1];
 	}
@@ -79,18 +79,18 @@ public:
 
 private:
 	bool		windowEvents[WE_COUNT];
-	j1KeyState*	keyboard;
-	j1KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
-	int			mouse_motion_x = 0;
-	int			mouse_motion_y = 0;
-	int			mouse_x = 0;
-	int			mouse_y = 0;
+	key_state*	keyboard;
+	key_state	mouse_buttons[NUM_MOUSE_BUTTONS];
+	int			mouseMotionX = 0;
+	int			mouseMotionY = 0;
+	int			mouseX = 0;
+	int			mouseY = 0;
 
 	//text
-	bool text_input;
+	bool textInput;
 	p2SString lastText;
 	int cursor = 0;
-	int selection_len = 0;
+	int selectionLen = 0;
 };
 
-#endif // __j1INPUT_H__
+#endif // __M_INPUT_H__

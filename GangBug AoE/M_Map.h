@@ -1,9 +1,11 @@
-#ifndef __j1MAP_H__
-#define __j1MAP_H__
+#ifndef __M_MAP_H__
+#define __M_MAP_H__
 
 #include "PugiXml/src/pugixml.hpp"
 #include "p2Point.h"
-#include "j1Module.h"
+#include "Module.h"
+#include <list>
+#include "SDL\include\SDL.h"
 
 // ----------------------------------------------------
 struct Properties
@@ -28,7 +30,7 @@ struct Properties
 		list.clear();
 	}
 
-	int Get(const char* name, int default_value = 0) const;
+	int Get(const char* name, int defaultValue = 0) const;
 
 	std::list<Property*>	list;
 };
@@ -65,18 +67,18 @@ struct TileSet
 	int					firstgid;
 	int					margin;
 	int					spacing;
-	int					tile_width;
-	int					tile_height;
+	int					tileWidth;
+	int					tileHeight;
 	SDL_Texture*		texture;
-	int					tex_width;
-	int					tex_height;
-	int					num_tiles_width;
-	int					num_tiles_height;
-	int					offset_x;
-	int					offset_y;
+	int					texWidth;
+	int					texHeight;
+	int					numTilesWidth;
+	int					numTilesHeight;
+	int					offsetX;
+	int					offsetY;
 };
 
-enum MapTypes
+enum map_types
 {
 	MAPTYPE_UNKNOWN = 0,
 	MAPTYPE_ORTHOGONAL,
@@ -88,23 +90,23 @@ struct MapData
 {
 	int					width;
 	int					height;
-	int					tile_width;
-	int					tile_height;
-	SDL_Color			background_color;
-	MapTypes			type;
+	int					tileWidth;
+	int					tileHeight;
+	SDL_Color			backgroundColor;
+	map_types			type;
 	std::list<TileSet*>	tilesets;
 	std::list<MapLayer*>	layers;
 };
 
 // ----------------------------------------------------
-class j1Map : public j1Module
+class M_Map : public Module
 {
 public:
 
-	j1Map();
+	M_Map();
 
 	// Destructor
-	virtual ~j1Map();
+	virtual ~M_Map();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
@@ -127,8 +129,8 @@ public:
 private:
 
 	bool LoadMap();
-	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
-	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
+	bool LoadTilesetDetails(pugi::xml_node& tilesetNode, TileSet* set);
+	bool LoadTilesetImage(pugi::xml_node& tilesetNode, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
@@ -140,9 +142,9 @@ public:
 
 private:
 
-	pugi::xml_document	map_file;
+	pugi::xml_document	mapFile;
 	p2SString			folder;
-	bool				map_loaded;
+	bool				mapLoaded;
 };
 
-#endif // __j1MAP_H__
+#endif // __M_MAP_H__

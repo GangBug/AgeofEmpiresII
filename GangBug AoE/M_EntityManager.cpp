@@ -1,21 +1,21 @@
-#include "j1EntityManager.h"
+#include "M_EntityManager.h"
 #include "Entity.h"
 
-#include "p2Log.h"
+#include "Log.h"
 
 
-j1EntityManager::j1EntityManager()
+M_EntityManager::M_EntityManager()
 {
 	LOG("Entity manager: Creation.");
 }
 
 
-j1EntityManager::~j1EntityManager()
+M_EntityManager::~M_EntityManager()
 {
 	LOG("Entity manager: Destroying.");
 }
 
-bool j1EntityManager::Awake(pugi::xml_node&)
+bool M_EntityManager::Awake(pugi::xml_node&)
 {
 	LOG("Entity manager: Awake.");
 	bool ret = true;
@@ -30,7 +30,7 @@ bool j1EntityManager::Awake(pugi::xml_node&)
 	return ret;
 }
 
-bool j1EntityManager::Start()
+bool M_EntityManager::Start()
 {
 	LOG("Entity manager: Start.");
 	bool ret = true;
@@ -43,7 +43,7 @@ bool j1EntityManager::Start()
 	return ret;
 }
 
-bool j1EntityManager::PreUpdate()
+bool M_EntityManager::PreUpdate()
 {
 	bool ret = true;
 
@@ -73,7 +73,7 @@ bool j1EntityManager::PreUpdate()
 	return ret;
 }
 
-bool j1EntityManager::Update(float dt)
+bool M_EntityManager::Update(float dt)
 {
 	bool ret = true;
 
@@ -90,14 +90,14 @@ bool j1EntityManager::Update(float dt)
 	return ret;
 }
 
-bool j1EntityManager::PostUpdate()
+bool M_EntityManager::PostUpdate()
 {
 	bool ret = true;
 
 	return ret;
 }
 
-bool j1EntityManager::CleanUp()
+bool M_EntityManager::CleanUp()
 {
 	LOG("Entity manager: CleanUp.");
 	bool ret = true;
@@ -110,7 +110,7 @@ bool j1EntityManager::CleanUp()
 	return ret;
 }
 
-Entity* j1EntityManager::CreateEntity(Entity* parent, int posX, int posY, int rectX, int rectY)
+Entity* M_EntityManager::CreateEntity(Entity* parent, int posX, int posY, int rectX, int rectY)
 {
 	Entity* ret = nullptr;
 
@@ -132,17 +132,17 @@ Entity* j1EntityManager::CreateEntity(Entity* parent, int posX, int posY, int re
 	return ret;
 }
 
-Entity* j1EntityManager::GetSceneRoot()const
+Entity* M_EntityManager::GetSceneRoot()const
 {
 	return root;
 }
 
-Entity* j1EntityManager::FindEntity()
+Entity* M_EntityManager::FindEntity()
 {
 	return nullptr; //TODO
 }
 
-void j1EntityManager::Draw()
+void M_EntityManager::Draw()
 {
 	if (root)
 	{
@@ -159,7 +159,7 @@ void j1EntityManager::Draw()
 	}
 }
 
-void j1EntityManager::DrawDebug()
+void M_EntityManager::DrawDebug()
 {
 	if (root)
 	{
@@ -175,27 +175,27 @@ void j1EntityManager::DrawDebug()
 	}
 }
 
-void j1EntityManager::InsertEntityToTree(Entity* et)
+void M_EntityManager::InsertEntityToTree(Entity* et)
 {
 
 }
 
-void j1EntityManager::EraseEntityFromTree(Entity* et)
+void M_EntityManager::EraseEntityFromTree(Entity* et)
 {
 
 }
 
-void j1EntityManager::LoadScene()
+void M_EntityManager::LoadScene()
 {
 	mustLoadScene = true;
 }
 
-void j1EntityManager::SaveScene()
+void M_EntityManager::SaveScene()
 {
 	mustSaveScene = true;
 }
 
-void j1EntityManager::RemoveFlagged()
+void M_EntityManager::RemoveFlagged()
 {
 	if (root)
 	{
@@ -219,12 +219,12 @@ void j1EntityManager::RemoveFlagged()
 	}
 }
 
-bool j1EntityManager::LoadSceneNow()
+bool M_EntityManager::LoadSceneNow()
 {
 	return false;
 }
 
-bool j1EntityManager::SaveSceneNow()
+bool M_EntityManager::SaveSceneNow()
 {
 	return false;
 }

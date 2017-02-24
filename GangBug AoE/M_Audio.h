@@ -1,7 +1,7 @@
-#ifndef __j1AUDIO_H__
-#define __j1AUDIO_H__
+#ifndef __M_AUDIO_H__
+#define __M_AUDIO_H__
 
-#include "j1Module.h"
+#include "Module.h"
 #include <vector>
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
@@ -9,14 +9,14 @@
 struct _Mix_Music;
 struct Mix_Chunk;
 
-class j1Audio : public j1Module
+class M_Audio : public Module
 {
 public:
 
-	j1Audio();
+	M_Audio();
 
 	// Destructor
-	virtual ~j1Audio();
+	virtual ~M_Audio();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -25,7 +25,7 @@ public:
 	bool CleanUp();
 
 	// Play a music file
-	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
+	bool PlayMusic(const char* path, float fadeTime = DEFAULT_MUSIC_FADE_TIME);
 
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
@@ -41,4 +41,4 @@ private:
 	std::vector<Mix_Chunk*>	fx;
 };
 
-#endif // __j1AUDIO_H__
+#endif // __M_AUDIO_H__

@@ -1,9 +1,9 @@
 #include "Entity.h"
-#include "p2Log.h"
+#include "Log.h"
 
 //TMP
-#include "j1App.h"
-#include "j1Render.h"
+#include "App.h"
+#include "M_Render.h"
 
 
 Entity::Entity(Entity* parent) : parent(parent)
@@ -190,7 +190,7 @@ void Entity::Draw()
 void Entity::DrawDebug()
 {
 	//TMP
-	App->render->DrawCircle(localPosition.x, localPosition.y, 30, 255, 0, 0, 255);
+	app->render->DrawCircle(localPosition.x, localPosition.y, 30, 255, 0, 0, 255);
 
 	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
 	{

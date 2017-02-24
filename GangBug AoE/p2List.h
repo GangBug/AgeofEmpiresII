@@ -1,7 +1,7 @@
 #ifndef __p2List_H__
 #define __p2List_H__
 
-#include "p2Defs.h"
+#include "Defs.h"
 
 /**
 * Contains items from double linked list

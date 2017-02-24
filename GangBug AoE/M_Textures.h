@@ -1,20 +1,20 @@
-#ifndef __j1TEXTURES_H__
-#define __j1TEXTURES_H__
+#ifndef __M_TEXTURES_H__
+#define __M_TEXTURES_H__
 
-#include "j1Module.h"
+#include "Module.h"
 #include <list>
 
 struct SDL_Texture;
 struct SDL_Surface;
 
-class j1Textures : public j1Module
+class M_Textures : public Module
 {
 public:
 
-	j1Textures();
+	M_Textures();
 
 	// Destructor
-	virtual ~j1Textures();
+	virtual ~M_Textures();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
@@ -39,4 +39,4 @@ public:
 };
 
 
-#endif // __j1TEXTURES_H__
+#endif // __M_TEXTURES_H__

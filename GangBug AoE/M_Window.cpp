@@ -1,25 +1,24 @@
-#include "p2Defs.h"
-#include "p2Log.h"
-#include "j1App.h"
-#include "j1Window.h"
+#include "Log.h"
+#include "App.h"
+#include "M_Window.h"
 
 #include "SDL/include/SDL.h"
 
 
-j1Window::j1Window() : j1Module()
+M_Window::M_Window() : Module()
 {
 	window = NULL;
-	screen_surface = NULL;
+	screenSurface = NULL;
 	name.create("window");
 }
 
 // Destructor
-j1Window::~j1Window()
+M_Window::~M_Window()
 {
 }
 
 // Called before render is available
-bool j1Window::Awake(pugi::xml_node& config)
+bool M_Window::Awake(pugi::xml_node& config)
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
@@ -62,7 +61,7 @@ bool j1Window::Awake(pugi::xml_node& config)
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(App->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(app->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
 		{
@@ -72,7 +71,7 @@ bool j1Window::Awake(pugi::xml_node& config)
 		else
 		{
 			//Get window surface
-			screen_surface = SDL_GetWindowSurface(window);
+			screenSurface = SDL_GetWindowSurface(window);
 		}
 	}
 
@@ -80,7 +79,7 @@ bool j1Window::Awake(pugi::xml_node& config)
 }
 
 // Called before quitting
-bool j1Window::CleanUp()
+bool M_Window::CleanUp()
 {
 	LOG("Destroying SDL window and quitting all SDL systems");
 
@@ -96,23 +95,23 @@ bool j1Window::CleanUp()
 }
 
 // Set new window title
-void j1Window::SetTitle(const char* new_title)
+void M_Window::SetTitle(const char* newTitle)
 {
 	//title.create(new_title);
-	SDL_SetWindowTitle(window, new_title);
+	SDL_SetWindowTitle(window, newTitle);
 }
 
-void j1Window::GetWindowSize(uint& width, uint& height) const
+void M_Window::GetWindowSize(uint& width, uint& height) const
 {
 	width = this->width;
 	height = this->height;
 }
 
-uint j1Window::GetScale() const
+uint M_Window::GetScale() const
 {
 	return scale;
 }
 
-void j1Window::DrawDebug()
+void M_Window::DrawDebug()
 {
 }

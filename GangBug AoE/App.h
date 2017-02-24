@@ -3,34 +3,36 @@
 
 #include <iostream>
 #include <list>
-#include "j1Module.h"
 #include "j1PerfTimer.h"
 #include "j1Timer.h"
 #include "PugiXml\src\pugixml.hpp"
+#include "p2SString.h"
 
 // Modules
-class j1Window;
-class j1Input;
-class j1Render;
-class j1Textures;
-class j1Audio;
-class j1FileSystem;
-class j1Map;
-class j1PathFinding;
-class j1Fonts;
-class j1EntityManager;
-class j1GUI;
+class Module;
+
+class M_Window;
+class M_Input;
+class M_Render;
+class M_Textures;
+class M_Audio;
+class M_FileSystem;
+class M_Map;
+class M_PathFinding;
+class M_Fonts;
+class M_EntityManager;
+class M_GUI;
 
 
-class j1App
+class App
 {
 public:
 
 	// Constructor
-	j1App(int argc, char* args[]);
+	App(int argc, char* args[]);
 
 	// Destructor
-	virtual ~j1App();
+	virtual ~App();
 
 	// Called before render is available
 	bool Awake();
@@ -45,7 +47,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(j1Module* module);
+	void AddModule(Module* module);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -56,7 +58,7 @@ public:
 
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
-	void GetSaveGames(std::list<p2SString>& list_to_fill) const;
+	void GetSaveGames(std::list<p2SString>& listToFill) const;
 
 private:
 
@@ -85,43 +87,43 @@ private:
 public:
 
 	// Modules
-	j1Window*			win = nullptr;
-	j1Input*			input = nullptr;
-	j1Render*			render = nullptr;
-	j1Textures*			tex = nullptr;
-	j1Audio*			audio = nullptr;
-	j1FileSystem*		fs = nullptr;
-	j1Map*				map = nullptr;
-	j1PathFinding*		pathfinding = nullptr;
-	j1Fonts*			font = nullptr;
-	j1EntityManager*	entityManager = nullptr;
-	j1GUI*				gui = nullptr;
+	M_Window*			win = nullptr;
+	M_Input*			input = nullptr;
+	M_Render*			render = nullptr;
+	M_Textures*			tex = nullptr;
+	M_Audio*			audio = nullptr;
+	M_FileSystem*		fs = nullptr;
+	M_Map*				map = nullptr;
+	M_PathFinding*		pathfinding = nullptr;
+	M_Fonts*			font = nullptr;
+	M_EntityManager*	entityManager = nullptr;
+	M_GUI*				gui = nullptr;
 
 private:
 
-	std::list<j1Module*>	modules;
+	std::list<Module*>	modules;
 	int					argc;
 	char**				args;
 
 	p2SString			title;
 	p2SString			organization;
 
-	mutable bool		want_to_save = false;
-	bool				want_to_load = false;
-	p2SString			load_game;
-	mutable p2SString	save_game;
+	mutable bool		wantToSave = false;
+	bool				wantToLoad = false;
+	p2SString			loadGame;
+	mutable p2SString	saveGame;
 
-	j1PerfTimer			ptimer;
-	uint64				frame_count = 0;
-	j1Timer				startup_time;
-	j1Timer				frame_time;
-	j1Timer				last_sec_frame_time;
-	uint32				last_sec_frame_count = 0;
-	uint32				prev_last_sec_frame_count = 0;
+	PerfTimer			ptimer;
+	uint64				frameCount = 0;
+	Timer				startupTime;
+	Timer				frameTime;
+	Timer				lastSecFrameTime;
+	uint32				lastSecFrameCount = 0;
+	uint32				prevLastSecFrameCount = 0;
 	float				dt = 0.0f;
-	int					capped_ms = -1;
+	int					cappedMs = -1;
 };
 
-extern j1App* App;
+extern App* app;
 
 #endif

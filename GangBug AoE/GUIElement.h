@@ -1,9 +1,9 @@
 #pragma once
 #include <list>
 #include "p2Point.h"
-#include "j1Input.h"
+#include "M_Input.h"
 
-class j1Module;
+class Module;
 
 enum GuiEvents
 {
@@ -50,8 +50,8 @@ public:
 	void Center();
 	void CenterX();
 	void CenterY();
-	void AddListener(j1Module* moduleToAdd);
-	void RemoveListener(j1Module* moduleToRemove);
+	void AddListener(Module* moduleToAdd);
+	void RemoveListener(Module* moduleToRemove);
 
 	//Getters & Setters ------------------------------------------ START -------------------
 	rectangle GetScreenRect() const;
@@ -66,7 +66,7 @@ public:
 	GUIElement* GetParent() const;
 	const std::list<GUIElement*> GetChilds() const;
 	GuiTypes GetType() const;
-	std::list<j1Module*> GetListeners() const;
+	std::list<Module*> GetListeners() const;
 	bool GetMouseInside() const;
 
 
@@ -97,7 +97,7 @@ private:
 	GuiTypes type = GuiTypes::unknown; // Gui Type
 
 protected:
-	std::list<j1Module*> listeners;
+	std::list<Module*> listeners;
 	bool have_focus = false; // TODO implement it on event management
 
 private:

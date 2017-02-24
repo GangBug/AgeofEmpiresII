@@ -1,15 +1,16 @@
-#pragma once
+#ifndef __M_GUI_H__
+#define __M_GUI_H__
+
 #include <list>
-#include "j1Module.h"
+#include "Module.h"
 
 class GUIElement;
 
-class j1GUI :
-	public j1Module
+class M_GUI : public Module
 {
 public:
-	j1GUI();
-	virtual ~j1GUI();
+	M_GUI();
+	virtual ~M_GUI();
 
 	void Init() override;
 	bool Awake(pugi::xml_node&) override;
@@ -18,7 +19,7 @@ public:
 	bool PostUpdate() override;
 
 	bool UpdateGuiList();
-	bool UpdateDebug_guiList();
+	bool UpdateDebugGuiList();
 
 	GUIElement* FindMouseHover();
 	void ManageEvents();
@@ -29,7 +30,7 @@ public:
 
 public:
 	std::list<GUIElement*> guiList;
-	std::list<GUIElement*> debug_guiList;
+	std::list<GUIElement*> debugGuiList;
 
 private:
 	GUIElement* mouseHover = nullptr;
@@ -37,3 +38,4 @@ private:
 
 };
 
+#endif // !__M_GUI_H__

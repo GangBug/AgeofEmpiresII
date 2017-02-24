@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
-#include "p2Defs.h"
-#include "p2Log.h"
-#include "j1App.h"
+#include "Defs.h"
+#include "Log.h"
+#include "App.h"
 
 // This is needed here because SDL redefines main function
 // do not add any other libraries here, instead put them in their modules
@@ -10,7 +10,7 @@
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 
-enum MainState
+enum main_state
 {
 	CREATE = 1,
 	AWAKE,
@@ -21,13 +21,13 @@ enum MainState
 	EXIT
 };
 
-j1App* App = NULL;
+App* app = NULL;
 
 int main(int argc, char* args[])
 {
 	LOG("Engine starting ... %d");
 
-	MainState state = MainState::CREATE;
+	main_state state = main_state::CREATE;
 	int result = EXIT_FAILURE;
 
 	while(state != EXIT)
@@ -39,9 +39,9 @@ int main(int argc, char* args[])
 			case CREATE:
 			LOG("CREATION PHASE ===============================");
 
-			App = new j1App(argc, args);
+			app = new App(argc, args);
 
-			if(App != NULL)
+			if(app != NULL)
 				state = AWAKE;
 			else
 				state = FAIL;
@@ -51,7 +51,7 @@ int main(int argc, char* args[])
 			// Awake all modules -----------------------------------------------
 			case AWAKE:
 			LOG("AWAKE PHASE ===============================");
-			if(App->Awake() == true)
+			if(app->Awake() == true)
 				state = START;
 			else
 			{
@@ -64,7 +64,7 @@ int main(int argc, char* args[])
 			// Call all modules before first frame  ----------------------------
 			case START:
 			LOG("START PHASE ===============================");
-			if(App->Start() == true)
+			if(app->Start() == true)
 			{
 				state = LOOP;
 				LOG("UPDATE PHASE ===============================");
@@ -78,16 +78,16 @@ int main(int argc, char* args[])
 
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
-			if(App->Update() == false)
+			if(app->Update() == false)
 				state = CLEAN;
 			break;
 
 			// Cleanup allocated memory -----------------------------------------
 			case CLEAN:
 			LOG("CLEANUP PHASE ===============================");
-			if(App->CleanUp() == true)
+			if(app->CleanUp() == true)
 			{
-				RELEASE(App);
+				RELEASE(app);
 				result = EXIT_SUCCESS;
 				state = EXIT;
 			}

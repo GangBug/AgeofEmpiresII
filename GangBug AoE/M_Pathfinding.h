@@ -1,21 +1,22 @@
-#ifndef __j1PATHFINDING_H__
-#define __j1PATHFINDING_H__
+#ifndef __M_PATHFINDING_H__
+#define __M_PATHFINDING_H__
 
-#include "j1Module.h"
+#include "Module.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
+#include <list>
 
 #define DEFAULT_PATH_LENGTH 50
 #define INVALID_WALK_CODE 255
 
-class j1PathFinding : public j1Module
+class M_PathFinding : public Module
 {
 public:
 
-	j1PathFinding();
+	M_PathFinding();
 
 	// Destructor
-	~j1PathFinding();
+	~M_PathFinding();
 
 	// Called before quitting
 	bool CleanUp();
@@ -47,7 +48,7 @@ private:
 	// all map walkability values [0..255]
 	uchar* map;
 	// we store the created path here
-	p2DynArray<iPoint> last_path;
+	p2DynArray<iPoint> lastPath;
 };
 
 // forward declaration
@@ -64,7 +65,7 @@ struct PathNode
 	PathNode(const PathNode& node);
 
 	// Fills a list (PathList) of all valid adjacent pathnodes
-	uint FindWalkableAdjacents(PathList& list_to_fill) const;
+	uint FindWalkableAdjacents(PathList& listToFill) const;
 	// Calculates this tile score
 	int Score() const;
 	// Calculate the F for a specific destination tile
@@ -95,4 +96,4 @@ struct PathList
 
 
 
-#endif // __j1PATHFINDING_H__
+#endif // __M_PATHFINDING_H__
