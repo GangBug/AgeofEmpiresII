@@ -3,7 +3,7 @@
 #include "M_PathFinding.h"
 #include <algorithm>
 
-M_PathFinding::M_PathFinding() : Module(), map(NULL), lastPath(DEFAULT_PATH_LENGTH),width(0), height(0)
+M_PathFinding::M_PathFinding(bool startEnabled) : Module(startEnabled), map(nullptr), lastPath(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
 	name.create("pathfinding");
 }
@@ -81,7 +81,7 @@ std::list<PathNode>::iterator* PathList::Find(const iPoint& point)
 			return &item;
 		item++;
 	}
-	return NULL;
+	return nullptr;
 }
 
 // PathList ------------------------------------------------------------------------
@@ -89,7 +89,7 @@ std::list<PathNode>::iterator* PathList::Find(const iPoint& point)
 // ---------------------------------------------------------------------------------
 std::list<PathNode>::iterator* PathList::GetNodeLowestScore()
 {
-	std::list<PathNode>::iterator* ret = NULL;
+	std::list<PathNode>::iterator* ret = nullptr;
 	int min = 65535;
 
 	for(std::list<PathNode>::reverse_iterator item = list.rbegin(); item != list.rend(); item++)
@@ -106,7 +106,7 @@ std::list<PathNode>::iterator* PathList::GetNodeLowestScore()
 // PathNode -------------------------------------------------------------------------
 // Convenient constructors
 // ----------------------------------------------------------------------------------
-PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
+PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(nullptr)
 {}
 
 PathNode::PathNode(int g, int h, const iPoint& pos, const PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
@@ -175,7 +175,7 @@ int M_PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		PathList open;
 		PathList close;
 		PathList adjacents;
-		PathNode pathorigin(0, origin.DistanceManhattan(destination), origin, NULL);
+		PathNode pathorigin(0, origin.DistanceManhattan(destination), origin, nullptr);
 		int index = 0;
 		open.list.push_back(pathorigin);
 
@@ -193,10 +193,10 @@ int M_PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			index++;
 			std::list<PathNode>::iterator it = adjacents.list.begin();
 			for (int i = 0; i < adjnum; i++, ++it) {
-				if (close.Find(it._Ptr->_Myval.pos) != NULL) {
+				if (close.Find(it._Ptr->_Myval.pos) != nullptr) {
 					continue;
 				}
-				if (open.Find(it._Ptr->_Myval.pos) == NULL) {
+				if (open.Find(it._Ptr->_Myval.pos) == nullptr) {
 					it._Ptr->_Myval.parent = &close.list.end()._Ptr->_Myval;
 					it._Ptr->_Myval.h = it._Ptr->_Myval.pos.DistanceManhattan(destination);
 					it._Ptr->_Myval.g = close.list.end()->g + 1;

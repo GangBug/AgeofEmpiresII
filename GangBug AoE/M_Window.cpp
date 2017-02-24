@@ -5,10 +5,10 @@
 #include "SDL/include/SDL.h"
 
 
-M_Window::M_Window() : Module()
+M_Window::M_Window(bool startEnabled) : Module(startEnabled)
 {
-	window = NULL;
-	screenSurface = NULL;
+	window = nullptr;
+	screenSurface = nullptr;
 	name.create("window");
 }
 
@@ -63,7 +63,7 @@ bool M_Window::Awake(pugi::xml_node& config)
 
 		window = SDL_CreateWindow(app->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
-		if(window == NULL)
+		if(window == nullptr)
 		{
 			LOG("Window could not be created! SDL_Error: %s\n", SDL_GetError());
 			ret = false;
@@ -84,7 +84,7 @@ bool M_Window::CleanUp()
 	LOG("Destroying SDL window and quitting all SDL systems");
 
 	//Destroy window
-	if(window != NULL)
+	if(window != nullptr)
 	{
 		SDL_DestroyWindow(window);
 	}

@@ -18,15 +18,20 @@ class Module
 {
 public:
 
-	Module() : active(false)
+	Module(bool startEnabled) : active(startEnabled)
 	{}
 
 	virtual ~Module()
 	{}
 
-	virtual void Init()
+	void Enable()
 	{
 		active = true;
+	}
+
+	void Disable()
+	{
+		active = false;
 	}
 
 	// Called before render is available

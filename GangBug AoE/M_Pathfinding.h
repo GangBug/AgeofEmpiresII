@@ -13,13 +13,13 @@ class M_PathFinding : public Module
 {
 public:
 
-	M_PathFinding();
+	M_PathFinding(bool startEnabled = true);
 
 	// Destructor
 	~M_PathFinding();
 
 	// Called before quitting
-	bool CleanUp();
+	bool CleanUp()override;
 
 	// Sets up the walkability map
 	void SetMap(uint width, uint height, uchar* data);
@@ -39,7 +39,7 @@ public:
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
 
-	void DrawDebug();
+	void DrawDebug()override;
 private:
 
 	// size of the map

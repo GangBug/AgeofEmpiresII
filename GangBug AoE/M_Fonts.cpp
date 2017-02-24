@@ -8,7 +8,7 @@
 #include "SDL_TTF\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
 
-M_Fonts::M_Fonts() : Module()
+M_Fonts::M_Fonts(bool startEnabled) : Module(startEnabled)
 {
 	name.create("fonts");
 }
@@ -60,7 +60,7 @@ TTF_Font* const M_Fonts::Load(const char* path, int size)
 {
 	TTF_Font* font = TTF_OpenFontRW(app->fs->Load(path), 1, size);
 
-	if(font == NULL)
+	if(font == nullptr)
 	{
 		LOG("Could not load TTF font with path: %s. TTF_OpenFont: %s", path, TTF_GetError());
 	}
@@ -76,10 +76,10 @@ TTF_Font* const M_Fonts::Load(const char* path, int size)
 // Print text using font
 SDL_Texture* M_Fonts::Print(const char* text, _TTF_Font* font, SDL_Color color)
 {
-	SDL_Texture* ret = NULL;
+	SDL_Texture* ret = nullptr;
 	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : default, text, color);
 
-	if(surface == NULL)
+	if(surface == nullptr)
 	{
 		LOG("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	}

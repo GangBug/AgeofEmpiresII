@@ -6,7 +6,7 @@
 #include "M_Map.h"
 #include <math.h>
 
-M_Map::M_Map() : Module(), mapLoaded(false)
+M_Map::M_Map(bool startEnabled) : Module(startEnabled), mapLoaded(false)
 {
 	name.create("map");
 }
@@ -279,7 +279,7 @@ bool M_Map::LoadMap()
 	bool ret = true;
 	pugi::xml_node map = mapFile.child("map");
 
-	if(map == NULL)
+	if(map == nullptr)
 	{
 		LOG("Error parsing map xml file: Cannot find 'map' tag.");
 		ret = false;
@@ -350,7 +350,7 @@ bool M_Map::LoadTilesetDetails(pugi::xml_node& tilesetNode, TileSet* set)
 	set->spacing = tilesetNode.attribute("spacing").as_int();
 	pugi::xml_node offset = tilesetNode.child("tileoffset");
 
-	if(offset != NULL)
+	if(offset != nullptr)
 	{
 		set->offsetX = offset.attribute("x").as_int();
 		set->offsetY = offset.attribute("y").as_int();
@@ -369,7 +369,7 @@ bool M_Map::LoadTilesetImage(pugi::xml_node& tilesetNode, TileSet* set)
 	bool ret = true;
 	pugi::xml_node image = tilesetNode.child("image");
 
-	if(image == NULL)
+	if(image == nullptr)
 	{
 		LOG("Error parsing tileset xml file: Cannot find 'image' tag.");
 		ret = false;
@@ -378,7 +378,7 @@ bool M_Map::LoadTilesetImage(pugi::xml_node& tilesetNode, TileSet* set)
 	{
 		set->texture = app->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
 		int w, h;
-		SDL_QueryTexture(set->texture, NULL, NULL, &w, &h);
+		SDL_QueryTexture(set->texture, nullptr, nullptr, &w, &h);
 		set->texWidth = image.attribute("width").as_int();
 
 		if(set->texWidth <= 0)
@@ -410,7 +410,7 @@ bool M_Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	LoadProperties(node, layer->properties);
 	pugi::xml_node layer_data = node.child("data");
 
-	if(layer_data == NULL)
+	if(layer_data == nullptr)
 	{
 		LOG("Error parsing map xml file: Cannot find 'layer/data' tag.");
 		ret = false;
@@ -438,7 +438,7 @@ bool M_Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
 	pugi::xml_node data = node.child("properties");
 
-	if(data != NULL)
+	if(data != nullptr)
 	{
 		pugi::xml_node prop;
 
@@ -479,13 +479,13 @@ bool M_Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 				int i = (y*layer->width) + x;
 
 				int tile_id = layer->Get(x, y);
-				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
+				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : nullptr;
 				
-				if(tileset != NULL)
+				if(tileset != nullptr)
 				{
 					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
 					/*TileType* ts = tileset->GetTileType(tile_id);
-					if(ts != NULL)
+					if(ts != nullptr)
 					{
 						map[i] = ts->properties.Get("walkable", 1);
 					}*/

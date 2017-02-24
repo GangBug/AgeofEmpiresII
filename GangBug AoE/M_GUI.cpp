@@ -5,18 +5,13 @@
 #include "M_Input.h"
 #include "M_Render.h"
 
-M_GUI::M_GUI() : Module()
+M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 {
 	name.create("GUI");
 	active = true;
 }
 M_GUI::~M_GUI()
 {
-}
-
-void M_GUI::Init()
-{
-	
 }
 
 bool M_GUI::Awake(pugi::xml_node &)

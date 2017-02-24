@@ -6,7 +6,7 @@
 
 #pragma comment( lib, "PhysFS/libx86/physfs.lib" )
 
-M_FileSystem::M_FileSystem() : Module()
+M_FileSystem::M_FileSystem(bool startEnabled) : Module(startEnabled)
 {
 	name.create("file_system");
 
@@ -94,7 +94,7 @@ unsigned int M_FileSystem::Load(const char* file, char** buffer) const
 
 	PHYSFS_file* fs_file = PHYSFS_openRead(file);
 
-	if(fs_file != NULL)
+	if(fs_file != nullptr)
 	{
 		PHYSFS_sint64 size = PHYSFS_fileLength(fs_file);
 
@@ -129,13 +129,13 @@ SDL_RWops* M_FileSystem::Load(const char* file) const
 	if(size > 0)
 	{
 		SDL_RWops* r = SDL_RWFromConstMem(buffer, size);
-		if(r != NULL)
+		if(r != nullptr)
 			r->close = closeSdlRwops;
 
 		return r;
 	}
 	else
-		return NULL;
+		return nullptr;
 }
 
 int closeSdlRwops(SDL_RWops *rw)
@@ -152,7 +152,7 @@ unsigned int M_FileSystem::Save(const char* file, const char* buffer, unsigned i
 
 	PHYSFS_file* fs_file = PHYSFS_openWrite(file);
 
-	if(fs_file != NULL)
+	if(fs_file != nullptr)
 	{
 		PHYSFS_sint64 written = PHYSFS_write(fs_file, (const void*)buffer, 1, size);
 		if(written != size)

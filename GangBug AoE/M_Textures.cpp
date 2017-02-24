@@ -7,7 +7,7 @@
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
-M_Textures::M_Textures() : Module()
+M_Textures::M_Textures(bool startEnabled) : Module(startEnabled)
 {
 	name.create("textures");
 }
@@ -61,10 +61,10 @@ bool M_Textures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const M_Textures::Load(const char* path)
 {
-	SDL_Texture* texture = NULL;
+	SDL_Texture* texture = nullptr;
 	SDL_Surface* surface = IMG_Load_RW(app->fs->Load(path), 1);
 
-	if(surface == NULL)
+	if(surface == nullptr)
 	{
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
 	}
@@ -100,7 +100,7 @@ SDL_Texture* const M_Textures::LoadSurface(SDL_Surface* surface)
 {
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(app->render->renderer, surface);
 
-	if(texture == NULL)
+	if(texture == nullptr)
 	{
 		LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError());
 	}
@@ -115,7 +115,7 @@ SDL_Texture* const M_Textures::LoadSurface(SDL_Surface* surface)
 // Retrieve size of a texture
 void M_Textures::GetSize(const SDL_Texture* texture, uint& width, uint& height) const
 {
-	SDL_QueryTexture((SDL_Texture*)texture, NULL, NULL, (int*) &width, (int*) &height);
+	SDL_QueryTexture((SDL_Texture*)texture, nullptr, nullptr, (int*) &width, (int*) &height);
 }
 
 void M_Textures::DrawDebug()

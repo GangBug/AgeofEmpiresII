@@ -9,10 +9,9 @@ class GUIElement;
 class M_GUI : public Module
 {
 public:
-	M_GUI();
+	M_GUI(bool startEnabled = true);
 	virtual ~M_GUI();
 
-	void Init() override;
 	bool Awake(pugi::xml_node&) override;
 	bool PreUpdate() override;
 	bool Update(float dt) override;

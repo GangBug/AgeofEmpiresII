@@ -9,7 +9,7 @@
 
 #define VSYNC true
 
-M_Render::M_Render() : Module()
+M_Render::M_Render(bool startEnabled) : Module(startEnabled)
 {
 	name.create("renderer");
 	background.r = 0;
@@ -38,7 +38,7 @@ bool M_Render::Awake(pugi::xml_node& config)
 
 	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
 
-	if(renderer == NULL)
+	if(renderer == nullptr)
 	{
 		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
@@ -147,20 +147,20 @@ bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	rect.x = (int)(camera.x * speed) + x * scale;
 	rect.y = (int)(camera.y * speed) + y * scale;
 
-	if(section != NULL)
+	if(section != nullptr)
 	{
 		rect.w = section->w;
 		rect.h = section->h;
 	}
 	else
 	{
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+		SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
 	}
 
 	rect.w *= scale;
 	rect.h *= scale;
 
-	SDL_Point* p = NULL;
+	SDL_Point* p = nullptr;
 	SDL_Point pivot;
 
 	if(pivotX != INT_MAX && pivotY != INT_MAX)

@@ -33,22 +33,22 @@ class M_Input : public Module
 
 public:
 
-	M_Input();
+	M_Input(bool startEnabled = true);
 
 	// Destructor
 	virtual ~M_Input();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node&)override;
 
 	// Called before the first frame
-	bool Start();
+	bool Start()override;
 
 	// Called each loop iteration
-	bool PreUpdate();
+	bool PreUpdate()override;
 
 	// Called before quitting
-	bool CleanUp();
+	bool CleanUp()override;
 
 	// Gather relevant win events
 	bool GetWindowEvent(event_window ev);

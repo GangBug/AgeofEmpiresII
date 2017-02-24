@@ -67,7 +67,6 @@ App::~App()
 
 void App::AddModule(Module* module)
 {
-	module->Init();
 	modules.push_back(module);
 }
 
@@ -227,7 +226,7 @@ bool App::PreUpdate()
 	bool ret = true;
 	std::list<Module*>::iterator item;
 	item = modules.begin();
-	Module* pModule = NULL;
+	Module* pModule = nullptr;
 
 	for(item = modules.begin(); item!=modules.end() && ret == true; item++)
 	{
@@ -249,7 +248,7 @@ bool App::DoUpdate()
 	bool ret = true;
 	std::list<Module*>::iterator item;
 	item = modules.begin();
-	Module* pModule = NULL;
+	Module* pModule = nullptr;
 
 	for(item = modules.begin(); item!=modules.end() && ret == true; item++)
 	{
@@ -270,7 +269,7 @@ bool App::PostUpdate()
 {
 	bool ret = true;
 	std::list<Module*>::iterator item;
-	Module* pModule = NULL;
+	Module* pModule = nullptr;
 
 	for(item = modules.begin(); item != modules.end() && ret == true; item++)
 	{
@@ -313,7 +312,7 @@ const char* App::GetArgv(int index) const
 	if(index < argc)
 		return args[index];
 	else
-		return NULL;
+		return nullptr;
 }
 
 // ---------------------------------------
@@ -382,7 +381,7 @@ bool App::LoadGameNow()
 			std::list<Module*>::iterator item = modules.begin();
 			ret = true;
 
-			while(item._Ptr != NULL && ret == true)
+			while(item._Ptr != nullptr && ret == true)
 			{
 				ret = item._Ptr->_Myval->Load(root.child(item._Ptr->_Myval->name.GetString()));
 				item._Ptr = item._Ptr->_Next;
@@ -392,7 +391,7 @@ bool App::LoadGameNow()
 			if(ret == true)
 				LOG("...finished loading");
 			else
-				LOG("...loading process interrupted with error on module %s", (item._Ptr != NULL) ? item._Ptr->_Myval->name.GetString() : "unknown");
+				LOG("...loading process interrupted with error on module %s", (item._Ptr != nullptr) ? item._Ptr->_Myval->name.GetString() : "unknown");
 		}
 		else
 			LOG("Could not parse game state xml file %s. pugi error: %s", loadGame.GetString(), result.description());

@@ -7,9 +7,9 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
-M_Audio::M_Audio() : Module()
+M_Audio::M_Audio(bool startEnabled) : Module(startEnabled)
 {
-	music = NULL;
+	music = nullptr;
 	name.create("audio");
 }
 
@@ -61,7 +61,7 @@ bool M_Audio::CleanUp()
 
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	if(music != NULL)
+	if(music != nullptr)
 	{
 		Mix_FreeMusic(music);
 	}
@@ -87,7 +87,7 @@ bool M_Audio::PlayMusic(const char* path, float fadeTime)
 	if(!active)
 		return false;
 
-	if(music != NULL)
+	if(music != nullptr)
 	{
 		if(fadeTime > 0.0f)
 		{
@@ -104,7 +104,7 @@ bool M_Audio::PlayMusic(const char* path, float fadeTime)
 
 	music = Mix_LoadMUS_RW(app->fs->Load(path), 1);
 
-	if(music == NULL)
+	if(music == nullptr)
 	{
 		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
 		ret = false;
@@ -143,7 +143,7 @@ unsigned int M_Audio::LoadFx(const char* path)
 
 	Mix_Chunk* chunk = Mix_LoadWAV_RW(app->fs->Load(path), 1);
 
-	if(chunk == NULL)
+	if(chunk == nullptr)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
 	}

@@ -8,7 +8,7 @@ class Entity;
 class M_EntityManager : public Module
 {
 public:
-	M_EntityManager();
+	M_EntityManager(bool startEnabled = true);
 	virtual ~M_EntityManager();
 
 	bool Awake(pugi::xml_node&)override;
@@ -25,7 +25,7 @@ public:
 	Entity* FindEntity(); //TODO: Used if UID are in use
 
 	void Draw();
-	void DrawDebug();
+	void DrawDebug()override;
 
 	void InsertEntityToTree(Entity* et);
 	void EraseEntityFromTree(Entity* et);

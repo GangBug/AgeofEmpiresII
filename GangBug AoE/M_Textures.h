@@ -11,19 +11,19 @@ class M_Textures : public Module
 {
 public:
 
-	M_Textures();
+	M_Textures(bool startEnabled = true);
 
 	// Destructor
 	virtual ~M_Textures();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node&)override;
 
 	// Called before the first frame
-	bool Start();
+	bool Start()override;
 
 	// Called before quitting
-	bool CleanUp();
+	bool CleanUp()override;
 
 	// Load Texture
 	SDL_Texture* const	Load(const char* path);
@@ -31,7 +31,7 @@ public:
 	SDL_Texture* const	LoadSurface(SDL_Surface* surface);
 	void				GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
 
-	void DrawDebug();
+	void DrawDebug()override;
 
 public:
 

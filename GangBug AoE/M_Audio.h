@@ -13,16 +13,16 @@ class M_Audio : public Module
 {
 public:
 
-	M_Audio();
+	M_Audio(bool startEnabled = true);
 
 	// Destructor
 	virtual ~M_Audio();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node&)override;
 
 	// Called before quitting
-	bool CleanUp();
+	bool CleanUp()override;
 
 	// Play a music file
 	bool PlayMusic(const char* path, float fadeTime = DEFAULT_MUSIC_FADE_TIME);
@@ -33,11 +33,11 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
-	void DrawDebug();
+	void DrawDebug()override;
 
 private:
 
-	_Mix_Music*			music = NULL;
+	_Mix_Music*			music = nullptr;
 	std::vector<Mix_Chunk*>	fx;
 };
 

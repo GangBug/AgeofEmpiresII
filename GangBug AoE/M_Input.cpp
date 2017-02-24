@@ -7,7 +7,7 @@
 #define MAX_KEYS 300
 #define _CRT_SECURE_NO_WARNINGS
 
-M_Input::M_Input() : Module()
+M_Input::M_Input(bool startEnabled) : Module(startEnabled)
 {
 	name.create("input");
 
@@ -53,7 +53,7 @@ bool M_Input::PreUpdate()
 {
 	static SDL_Event event;
 	
-	const Uint8* keys = SDL_GetKeyboardState(NULL);
+	const Uint8* keys = SDL_GetKeyboardState(nullptr);
 
 	for(int i = 0; i < MAX_KEYS; ++i)
 	{

@@ -10,16 +10,16 @@ class M_Window : public Module
 {
 public:
 
-	M_Window();
+	M_Window(bool startEnabled = true);
 
 	// Destructor
 	virtual ~M_Window();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&);
+	bool Awake(pugi::xml_node&)override;
 
 	// Called before quitting
-	bool CleanUp();
+	bool CleanUp()override;
 
 	// Changae title
 	void SetTitle(const char* newTitle);
@@ -30,7 +30,7 @@ public:
 	// Retrieve window scale
 	uint GetScale() const;
 
-	void DrawDebug();
+	void DrawDebug()override;
 
 public:
 	//The window we'll be rendering to

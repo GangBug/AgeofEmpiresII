@@ -44,7 +44,7 @@ struct MapLayer
 	uint*		data;
 	Properties	properties;
 
-	MapLayer() : data(NULL)
+	MapLayer() : data(nullptr)
 	{}
 
 	~MapLayer()
@@ -103,19 +103,19 @@ class M_Map : public Module
 {
 public:
 
-	M_Map();
+	M_Map(bool startEnabled = true);
 
 	// Destructor
 	virtual ~M_Map();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node& conf);
+	bool Awake(pugi::xml_node& conf)override;
 
 	// Called each loop iteration
 	void Draw();
 
 	// Called before quitting
-	bool CleanUp();
+	bool CleanUp()override;
 
 	// Load new map
 	bool Load(const char* path);
@@ -124,7 +124,7 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
-	void DrawDebug();
+	void DrawDebug()override;
 
 private:
 
