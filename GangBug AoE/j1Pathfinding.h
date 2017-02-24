@@ -38,6 +38,7 @@ public:
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
 
+	void DrawDebug();
 private:
 
 	// size of the map

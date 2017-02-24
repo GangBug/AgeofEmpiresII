@@ -14,6 +14,7 @@
 #include "j1Pathfinding.h"
 #include "j1Fonts.h"
 #include "j1EntityManager.h"
+#include "j1GUI.h"
 
 #include "j1App.h"
 
@@ -32,6 +33,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	font = new j1Fonts();
 	entityManager = new j1EntityManager();
+	gui = new j1GUI();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,6 +47,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(font);
 	AddModule(entityManager);
 
+	AddModule(gui);
 	// render last to swap buffer
 	AddModule(render);
 

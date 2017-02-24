@@ -122,6 +122,8 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
+	void DrawDebug();
+
 private:
 
 	bool LoadMap();

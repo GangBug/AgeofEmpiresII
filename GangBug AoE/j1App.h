@@ -19,6 +19,7 @@ class j1Map;
 class j1PathFinding;
 class j1Fonts;
 class j1EntityManager;
+class j1GUI;
 
 
 class j1App
@@ -84,16 +85,17 @@ private:
 public:
 
 	// Modules
-	j1Window*			win = NULL;
-	j1Input*			input = NULL;
-	j1Render*			render = NULL;
-	j1Textures*			tex = NULL;
-	j1Audio*			audio = NULL;
-	j1FileSystem*		fs = NULL;
-	j1Map*				map = NULL;
-	j1PathFinding*		pathfinding = NULL;
-	j1Fonts*			font = NULL;
-	j1EntityManager*	entityManager = NULL;
+	j1Window*			win = nullptr;
+	j1Input*			input = nullptr;
+	j1Render*			render = nullptr;
+	j1Textures*			tex = nullptr;
+	j1Audio*			audio = nullptr;
+	j1FileSystem*		fs = nullptr;
+	j1Map*				map = nullptr;
+	j1PathFinding*		pathfinding = nullptr;
+	j1Fonts*			font = nullptr;
+	j1EntityManager*	entityManager = nullptr;
+	j1GUI*				gui = nullptr;
 
 private:
 

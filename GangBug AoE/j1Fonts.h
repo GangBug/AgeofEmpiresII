@@ -34,6 +34,8 @@ public:
 
 	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
 
+	void DrawDebug();
+
 public:
 
 	std::list<_TTF_Font*>	fonts;

@@ -172,3 +172,7 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+void j1Audio::DrawDebug()
+{
+}
