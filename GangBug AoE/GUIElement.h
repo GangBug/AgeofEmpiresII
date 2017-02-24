@@ -50,8 +50,8 @@ public:
 	void Center();
 	void CenterX();
 	void CenterY();
-	void AddListener(j1Module moduleToAdd);
-	void RemoveListener(j1Module moduleToRemove);
+	void AddListener(j1Module* moduleToAdd);
+	void RemoveListener(j1Module* moduleToRemove);
 
 	//Getters & Setters ------------------------------------------ START -------------------
 	rectangle GetScreenRect() const;

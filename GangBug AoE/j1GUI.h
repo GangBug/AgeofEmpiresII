@@ -11,9 +11,11 @@ public:
 	j1GUI();
 	virtual ~j1GUI();
 
-	bool PreUpdate();
-	bool Update();
-	bool PostUpdate();
+	void Init() override;
+	bool Awake(pugi::xml_node&) override;
+	bool PreUpdate() override;
+	bool Update(float dt) override;
+	bool PostUpdate() override;
 
 	bool UpdateGuiList();
 	bool UpdateDebug_guiList();
@@ -22,15 +24,14 @@ public:
 	void ManageEvents(GUIElement* mouseHover, GUIElement* focus = nullptr);
 	void BroadcastEventToListeners(GUIElement* element, GuiEvents event);
 
+	void DrawDebug() override;
 	//Getters & Setters
 
 public:
-
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debug_guiList;
 
 private:
-
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
 

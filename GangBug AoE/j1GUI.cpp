@@ -1,15 +1,33 @@
 #include "j1GUI.h"
 #include "GUIElement.h"
+#include "GUIImage.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "j1Render.h"
 
-
-j1GUI::j1GUI()
+j1GUI::j1GUI() : j1Module()
 {
+	name.create("GUI");
+	active = true;
 }
 j1GUI::~j1GUI()
 {
 }
+
+void j1GUI::Init()
+{
+	
+}
+
+bool j1GUI::Awake(pugi::xml_node &)
+{
+	GUIImage* img = new GUIImage();
+	img->SetRectangle(20, 20, 100, 30);
+	guiList.push_back(img);
+	return true;
+}
+
+
 
 bool j1GUI::PreUpdate()
 {
@@ -27,10 +45,10 @@ bool j1GUI::PreUpdate()
 	{
 		(*it)->Update(mouseHover, focus);
 	}
-
+	
 	return ret;
 }
-bool j1GUI::Update()
+bool j1GUI::Update(float dt)
 {
 	bool ret = true;
 
@@ -38,6 +56,7 @@ bool j1GUI::Update()
 }
 bool j1GUI::PostUpdate()
 {
+	DrawDebug();
 	return true;
 }
 bool j1GUI::UpdateGuiList()
@@ -48,7 +67,7 @@ bool j1GUI::UpdateDebug_guiList()
 {
 	return true;
 }
-//Checks if cursos is inside an element | returns null if anything found
+//Checks if cursor is inside an element | returns null if anything found
 GUIElement * j1GUI::FindMouseHover()
 {
 	GUIElement* ret = nullptr;
@@ -97,11 +116,11 @@ void j1GUI::ManageEvents(GUIElement * mouseHover, GUIElement * focus)
 		//send entering event
 		BroadcastEventToListeners(mouseHover, mouse_enters);
 	}
-	else if (newMouseHover == nullptr) //This is maybe unnecessary, but i think this check here helps to a better readability
+	else if (newMouseHover == nullptr && mouseHover != nullptr) //This is maybe unnecessary, but i think this check here helps to a better readability
 	{
 		BroadcastEventToListeners(mouseHover, mouse_leaves);
 		mouseHover->SetMouseInside(false);
-		mouseHover = nullptr;
+		mouseHover = nullptr;				
 	}
 	// TODO trobar quin element te el focus
 	// TODO manage the input & events
@@ -143,6 +162,16 @@ void j1GUI::BroadcastEventToListeners(GUIElement * element, GuiEvents event)
 	for (std::list<j1Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
 	{
 		(*it)->GuiEvent(element, event);
+		SDL_Log("Event: %d", event);
 	}
+}
+void j1GUI::DrawDebug()
+{
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	{
+		rectangle rect = (*it)->GetRectangle();
+		App->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
+	}
+	
 }
 
