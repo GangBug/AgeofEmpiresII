@@ -8,14 +8,14 @@ class j1Module;
 enum GuiEvents
 {
 	listening_ends,
-	mouse_enters,
-	mouse_leaves,
-	mouse_lclick_down,
-	mouse_lclick_up,
-	mouse_rclick_down,
-	mouse_rclick_up,
-	gain_focus,
-	lost_focus,
+	mouse_enters, // done
+	mouse_leaves, // done
+	mouse_lclick_down,// done
+	mouse_lclick_up,// done
+	mouse_rclick_down,// done
+	mouse_rclick_up,// done
+	gain_focus, // done
+	lost_focus,  // done
 	input_changed,
 	input_submit,
 	value_changed,
@@ -98,7 +98,7 @@ private:
 
 protected:
 	std::list<j1Module*> listeners;
-	bool have_focus = false;
+	bool have_focus = false; // TODO implement it on event management
 
 private:
 	bool mouse_inside = false;

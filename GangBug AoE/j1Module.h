@@ -10,8 +10,8 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
-class Element;
-enum Event;
+class GUIElement;
+enum GuiEvents;
 
 class j1Module
 {
@@ -74,7 +74,7 @@ public:
 		return true;
 	}
 
-	virtual void GuiEvent(Element* element, Event event) {
+	virtual void GuiEvent(GUIElement* element, GuiEvents event) {
 
 	}
 

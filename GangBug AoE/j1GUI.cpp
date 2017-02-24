@@ -7,61 +7,48 @@
 j1GUI::j1GUI()
 {
 }
-
-
 j1GUI::~j1GUI()
 {
 }
 
 bool j1GUI::PreUpdate()
 {
-	bool ret = true;
-	std::list<GUIElement*>::iterator it;
-	GUIElement* mouseHover = nullptr;
-	GUIElement* focus = nullptr;
+	bool ret = true;	
 
-	// TODO trobar sobre quin element esta el ratolí
-	mouseHover = FindMouseHover();
-
-	// TODO trobar quin element te el focus
-	// TODO manage the input
-	if (mouseHover && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == j1KeyState::KEY_DOWN)
-		focus = mouseHover;
-	if (true)
-	{
-
-	}
+	ManageEvents(mouseHover, focus);
+	
 	// TODO do Update()
+	std::list<GUIElement*>::iterator it;
 	for (it = guiList.begin(); it != guiList.end(); it++)
+	{
+		(*it)->Update(mouseHover, focus);
+	}
+	for (it = debug_guiList.begin(); it != debug_guiList.end(); it++)
 	{
 		(*it)->Update(mouseHover, focus);
 	}
 
 	return ret;
 }
-
 bool j1GUI::Update()
 {
 	bool ret = true;
 
 	return ret;
 }
-
 bool j1GUI::PostUpdate()
 {
 	return true;
 }
-
 bool j1GUI::UpdateGuiList()
 {
 	return true;
 }
-
 bool j1GUI::UpdateDebug_guiList()
 {
 	return true;
 }
-
+//Checks if cursos is inside an element | returns null if anything found
 GUIElement * j1GUI::FindMouseHover()
 {
 	GUIElement* ret = nullptr;
@@ -83,5 +70,79 @@ GUIElement * j1GUI::FindMouseHover()
 	}	
 
 	return ret;
+}
+//Manages the events on hover and focus
+void j1GUI::ManageEvents(GUIElement * mouseHover, GUIElement * focus)
+{
+	std::list<GUIElement*>::iterator it;
+	GUIElement* newMouseHover = nullptr;
+
+	//Find the element that is hovered actually
+	newMouseHover = FindMouseHover();
+	//If the hover is null it gets the new element to hover
+	if (mouseHover == nullptr && newMouseHover != nullptr)
+	{
+		mouseHover = newMouseHover;
+		mouseHover->SetMouseInside(true);
+	}
+	//If the hovered elements are diferent events ant status are managed here
+	else if (mouseHover != newMouseHover && newMouseHover != nullptr)
+	{
+		//Send leaving event
+		BroadcastEventToListeners(mouseHover, mouse_leaves);
+		//Set the new hover
+		mouseHover->SetMouseInside(false);
+		mouseHover = newMouseHover;
+		mouseHover->SetMouseInside(true);
+		//send entering event
+		BroadcastEventToListeners(mouseHover, mouse_enters);
+	}
+	else if (newMouseHover == nullptr) //This is maybe unnecessary, but i think this check here helps to a better readability
+	{
+		BroadcastEventToListeners(mouseHover, mouse_leaves);
+		mouseHover->SetMouseInside(false);
+		mouseHover = nullptr;
+	}
+	// TODO trobar quin element te el focus
+	// TODO manage the input & events
+	if (mouseHover && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == j1KeyState::KEY_DOWN)
+	{
+		if (focus != mouseHover)
+		{
+			BroadcastEventToListeners(focus, lost_focus);
+		}
+		focus = mouseHover;
+		BroadcastEventToListeners(mouseHover, mouse_lclick_down);
+		BroadcastEventToListeners(mouseHover, gain_focus);
+	}
+	else if (focus && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == j1KeyState::KEY_UP)
+	{
+		BroadcastEventToListeners(mouseHover, mouse_lclick_up);
+	}
+	else if (focus && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == j1KeyState::KEY_DOWN)
+	{
+		if (focus != mouseHover)
+		{
+			BroadcastEventToListeners(focus, lost_focus);
+		}
+		focus = mouseHover;
+		BroadcastEventToListeners(mouseHover, mouse_rclick_down);
+		BroadcastEventToListeners(mouseHover, gain_focus);
+	}
+	else if (focus && mouseHover->GetCanFocus() == true && App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == j1KeyState::KEY_UP)
+	{
+		BroadcastEventToListeners(mouseHover, mouse_rclick_up);
+	}
+}
+//Broadcast an event to all GUIElement listeners
+void j1GUI::BroadcastEventToListeners(GUIElement * element, GuiEvents event)
+{
+	//First we get listeners list of previous element hovered
+	std::list<j1Module*> tmpListeners = element->GetListeners();
+	//Iterate over listeners list to send them hover is lost
+	for (std::list<j1Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
+	{
+		(*it)->GuiEvent(element, event);
+	}
 }
 

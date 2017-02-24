@@ -19,11 +19,20 @@ public:
 	bool UpdateDebug_guiList();
 
 	GUIElement* FindMouseHover();
+	void ManageEvents(GUIElement* mouseHover, GUIElement* focus = nullptr);
+	void BroadcastEventToListeners(GUIElement* element, GuiEvents event);
+
+	//Getters & Setters
 
 public:
 
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debug_guiList;
+
+private:
+
+	GUIElement* mouseHover = nullptr;
+	GUIElement* focus = nullptr;
 
 };
 
