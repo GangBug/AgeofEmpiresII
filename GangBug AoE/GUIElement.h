@@ -5,34 +5,34 @@
 
 class Module;
 
-enum GuiEvents
+enum gui_events
 {
-	listening_ends,
-	mouse_enters, // done
-	mouse_leaves, // done
-	mouse_lclick_down,// done
-	mouse_lclick_up,// done
-	mouse_rclick_down,// done
-	mouse_rclick_up,// done
-	gain_focus, // done
-	lost_focus,  // done
-	input_changed,
-	input_submit,
-	value_changed,
-	return_down
+	LISTENING_END,
+	MOUSE_ENTER, // done
+	MOUSE_LEAVES, // done
+	MOUSE_LCLICK_DOWN,// done
+	MOUSE_LCLICK_UP,// done
+	MOUSE_RCLICK_DOWN,// done
+	MOUSE_RCLICK_UP,// done
+	GAIN_FOCUS, // done
+	LOST_FOUCS,  // done
+	INPUT_CHANGED,
+	INPUT_SUBMIT,
+	VALUE_CHANGED,
+	RETURN_DOWN
 };
-enum GuiTypes
+enum gui_types
 {
-	unknown,
-	image,
-	label,
-	button,
-	input_text,
-	load_bar,
-	h_slider,
-	v_slider,
-	mouse_cursor,
-	gui_rect
+	GUI_UNKNOWN,
+	GUI_IMAGE,
+	GUI_LABEL,
+	GUI_BUTTON,
+	GUI_INPUT_TEXT,
+	GUI_LOAD_BAR,
+	GUI_H_SLIDER,
+	GUI_V_SLIDER,
+	GUI_MOUSE_CURSOR,
+	GUI_RECT
 };
 
 class GUIElement
@@ -42,10 +42,10 @@ public:
 	GUIElement();
 	virtual ~GUIElement();
 	
-	virtual void Update(const GUIElement* mouse_hover, const GUIElement* focus) {} //Do something	
+	virtual void Update(const GUIElement* mouseHover, const GUIElement* focus) {} //Do something	
 	virtual void Draw() const {};// Print the element
 	virtual void DebugDraw() const {}; // Print debug things if the element
-	void CheckInput(const GUIElement* mouse_hover, const GUIElement* focus); //Getting the input
+	void CheckInput(const GUIElement* mouseHover, const GUIElement* focus); //Getting the input
 	bool CheckMouseOver() const;
 	void Center();
 	void CenterX();
@@ -65,7 +65,7 @@ public:
 	bool GetActive() const;
 	GUIElement* GetParent() const;
 	const std::list<GUIElement*> GetChilds() const;
-	GuiTypes GetType() const;
+	gui_types GetType() const;
 	std::list<Module*> GetListeners() const;
 	bool GetMouseInside() const;
 
@@ -76,7 +76,7 @@ public:
 	void SetCanFocus(bool _focus);
 	void SetActive(bool _active);
 	void SetParent(GUIElement* _parent);
-	void SetType(GuiTypes _type);
+	void SetType(gui_types _type);
 	void SetRectangle(rectangle _rect);
 	void SetRectangle(int x, int y, int w, int h);
 	void SetMouseInside(bool ins);
@@ -94,14 +94,14 @@ private:
 	bool active = true;				// Is active? if not dont do uptade
 	GUIElement* parent = nullptr;	// Parent element
 	std::list<GUIElement*> childs;	// Child elements
-	GuiTypes type = GuiTypes::unknown; // Gui Type
+	gui_types type = gui_types::GUI_UNKNOWN; // Gui Type
 
 protected:
 	std::list<Module*> listeners;
-	bool have_focus = false; // TODO implement it on event management
+	bool haveFocus = false; // TODO implement it on event management
 
 private:
-	bool mouse_inside = false;
+	bool mouseInside = false;
 	rectangle rect;
 };
 

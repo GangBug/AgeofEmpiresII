@@ -13,7 +13,7 @@ GUIElement::~GUIElement()
 	}
 	childs.clear();
 }
-void GUIElement::CheckInput(const GUIElement * mouse_hover, const GUIElement * focus)
+void GUIElement::CheckInput(const GUIElement * mouseHover, const GUIElement * focus)
 {
 }
 bool GUIElement::CheckMouseOver() const
@@ -98,7 +98,7 @@ const std::list<GUIElement*> GUIElement::GetChilds() const
 {
 	return childs;
 }
-GuiTypes GUIElement::GetType() const
+gui_types GUIElement::GetType() const
 {
 	return type;
 }
@@ -108,7 +108,7 @@ std::list<Module*> GUIElement::GetListeners() const
 }
 bool GUIElement::GetMouseInside() const
 {
-	return mouse_inside;
+	return mouseInside;
 }
 void GUIElement::SetLocalPos(int x, int y)
 {
@@ -135,7 +135,7 @@ void GUIElement::SetParent(GUIElement * _parent)
 {
 	parent = _parent;
 }
-void GUIElement::SetType(GuiTypes _type) 
+void GUIElement::SetType(gui_types _type)
 {
 }
 void GUIElement::SetRectangle(rectangle _rect) 
@@ -151,7 +151,7 @@ void GUIElement::SetRectangle(int x, int y, int w, int h)
 }
 void GUIElement::SetMouseInside(bool ins)
 {
-	mouse_inside = ins;
+	mouseInside = ins;
 }
 void GUIElement::SetSize(int w, int h)
 {

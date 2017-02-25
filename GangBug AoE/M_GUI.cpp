@@ -100,19 +100,19 @@ void M_GUI::ManageEvents()
 	{
 		mouseHover = newMouseHover;
 		mouseHover->SetMouseInside(true);
-		BroadcastEventToListeners(mouseHover, mouse_enters);
+		BroadcastEventToListeners(mouseHover, MOUSE_ENTERS);
 	}
 	//If the hovered elements are diferent events ant status are managed here
 	if (mouseHover != newMouseHover && newMouseHover != nullptr)
 	{
 		//Send leaving event
-		BroadcastEventToListeners(mouseHover, mouse_leaves);
+		BroadcastEventToListeners(mouseHover, MOUSE_LEAVES);
 		//Set the new hover
 		mouseHover->SetMouseInside(false);
 		mouseHover = newMouseHover;
 		mouseHover->SetMouseInside(true);
 		//send entering event
-		BroadcastEventToListeners(mouseHover, mouse_enters);
+		BroadcastEventToListeners(mouseHover, MOUSE_ENTERS);
 	}
 	if (newMouseHover == nullptr && mouseHover != nullptr) //This is maybe unnecessary, but i think this check here helps to a better readability
 	{
@@ -152,7 +152,7 @@ void M_GUI::ManageEvents()
 	}
 }
 //Broadcast an event to all GUIElement listeners
-void M_GUI::BroadcastEventToListeners(GUIElement * element, GuiEvents event)
+void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 {
 	if (event != mouse_enters)
 		SDL_Log("Event: %d", event);

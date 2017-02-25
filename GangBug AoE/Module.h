@@ -12,7 +12,7 @@
 
 class App;
 class GUIElement;
-enum GuiEvents;
+enum gui_events;
 
 class Module
 {
@@ -80,7 +80,7 @@ public:
 		return true;
 	}
 
-	virtual void GuiEvent(GUIElement* element, GuiEvents event) {
+	virtual void GuiEvent(GUIElement* element, gui_events event) {
 
 	}
 

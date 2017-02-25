@@ -22,7 +22,7 @@ public:
 
 	GUIElement* FindMouseHover();
 	void ManageEvents();
-	void BroadcastEventToListeners(GUIElement* element, GuiEvents event);
+	void BroadcastEventToListeners(GUIElement* element, gui_events event);
 
 	void DrawDebug() override;
 	//Getters & Setters
