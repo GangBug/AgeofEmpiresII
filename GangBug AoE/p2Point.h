@@ -75,6 +75,20 @@ public:
 		return(*this);
 	}
 
+	const p2Point& operator *=(const TYPE& f)
+	{
+		x *= f;
+		y *= f;
+		return (*this);
+	}
+
+	const p2Point& operator /=(const TYPE& f) //Care with 0 divisons.
+	{
+		x /= f;
+		y /= f;
+		return (*this);
+	}
+
 	bool operator ==(const p2Point& v) const
 	{
 		return (x == v.x && y == v.y);
@@ -126,6 +140,86 @@ public:
 	{
 		return abs(v.x - x) + abs(v.y - y);
 	}
+
+	//Vector ---------------------------------------------------
+
+	float GetModule()const
+	{
+		return DistanceTo({ 0, 0 });
+	}
+
+	void Normalize()
+	{
+		float module = GetModule();
+		if (module != 0)
+		{
+			x /= module;
+			y /= module;
+		}
+		else
+		{
+			x = y = 0;
+		}
+	}
+
+	const p2Point Normalized()const
+	{
+		p2Point p(x, y);
+		p.Normalize();
+		return p;
+	}
+
+	const p2Point GetNormal()const
+	{
+		float module = GetModule();
+		if (module != 0)
+			return ({ (x / module), (y / module) });
+		else
+			return ({ 0, 0 });
+	}
+
+	void SetModule(const float& f)
+	{
+		Normalize();
+
+		x *= f;
+		y *= f;
+	}
+
+	float GetAngle()const //Radians
+	{
+		return atan2(x, y);
+	}
+
+	float GetAngleDeg()const //Degrees
+	{
+		return atan2(x, y) * RADTODEG;
+	}
+
+	float GetDirectionAngle(p2Point& p)
+	{
+		return atan2((x - p.x), (y - p.y));
+	}
+
+	float GetDirectionAngleDeg(p2Point& p)
+	{
+		return atan2((x - p.x), (y - p.y)) * RADTODEG;
+	}
+
+	//---------------------------------------------------------
+
+	const p2Point<float> ConvToFloat()
+	{
+		return p2Point<float>((float)x, (float)y);
+	}
+
+	const p2Point<int> ConvToInt()
+	{
+		return p2Point<int>((int)x, (int)y);
+	}
+
+	//-------------------------------------------------------------
+
 };
 
 typedef p2Point<int> iPoint;
