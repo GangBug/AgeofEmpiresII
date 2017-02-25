@@ -3,9 +3,8 @@
 #include "M_Window.h"
 #include "M_Render.h"
 
-//TMP
-#include "Entity.h"
 #include "M_EntityManager.h"
+#include "M_Map.h"
 
 #define VSYNC true
 
@@ -72,7 +71,15 @@ update_status M_Render::PreUpdate(float dt)
 
 update_status M_Render::PostUpdate(float dt)
 {
-	app->entityManager->DrawDebug(); //TMP
+	//TODO: Might have a better organitzation to draw map or change map system
+	app->map->Draw();
+
+	app->entityManager->Draw();
+
+	if (app->debug)
+	{
+		app->DrawDebug();
+	}
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);

@@ -47,6 +47,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//Called if debug mode and iterate all modules
+	void DrawDebug();
+
 	// Add a new module to handle
 	void AddModule(Module* module);
 

@@ -305,6 +305,15 @@ bool App::CleanUp()
 	return ret;
 }
 
+void App::DrawDebug()
+{
+	for (std::list<Module*>::iterator it = modules.begin(); it != modules.end(); ++it)
+	{
+		if ((*it)->active)
+			(*it)->DrawDebug();
+	}
+}
+
 // ---------------------------------------
 int App::GetArgc() const
 {
