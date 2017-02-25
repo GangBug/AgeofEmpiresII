@@ -7,6 +7,7 @@
 #include "j1Timer.h"
 #include "PugiXml\src\pugixml.hpp"
 #include "p2SString.h"
+#include "Defs.h"
 
 // Modules
 class Module;
@@ -41,7 +42,7 @@ public:
 	bool Start();
 
 	// Called each loop iteration
-	bool Update();
+	update_status Update();
 
 	// Called before quitting
 	bool CleanUp();
@@ -72,13 +73,13 @@ private:
 	void FinishUpdate();
 
 	// Call modules before each loop iteration
-	bool PreUpdate();
+	update_status PreUpdate();
 
 	// Call modules on each loop iteration
-	bool DoUpdate();
+	update_status DoUpdate();
 
 	// Call modules after each loop iteration
-	bool PostUpdate();
+	update_status PostUpdate();
 
 	// Load / Save
 	bool LoadGameNow();
@@ -98,6 +99,9 @@ public:
 	M_Fonts*			font = nullptr;
 	M_EntityManager*	entityManager = nullptr;
 	M_GUI*				gui = nullptr;
+
+	bool debug = false;
+	bool quit = false;
 
 private:
 

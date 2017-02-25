@@ -78,8 +78,18 @@ int main(int argc, char* args[])
 
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
-			if(app->Update() == false)
-				state = CLEAN;
+			{	
+				int updateRet = app->Update();
+				if (updateRet == UPDATE_ERROR)
+				{
+					LOG("Application Update exits with ERRORS.");
+					state = EXIT;
+				}
+
+				if (updateRet == UPDATE_STOP)
+					state = CLEAN;
+
+			}
 			break;
 
 			// Cleanup allocated memory -----------------------------------------

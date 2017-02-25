@@ -8,7 +8,7 @@ class Module;
 enum gui_events
 {
 	LISTENING_END,
-	MOUSE_ENTER, // done
+	MOUSE_ENTERS, // done
 	MOUSE_LEAVES, // done
 	MOUSE_LCLICK_DOWN,// done
 	MOUSE_LCLICK_UP,// done

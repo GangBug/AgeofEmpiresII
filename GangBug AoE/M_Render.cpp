@@ -64,19 +64,19 @@ bool M_Render::Start()
 }
 
 // Called each loop iteration
-bool M_Render::PreUpdate()
+update_status M_Render::PreUpdate(float dt)
 {
 	SDL_RenderClear(renderer);
-	return true;
+	return UPDATE_CONTINUE;
 }
 
-bool M_Render::PostUpdate()
+update_status M_Render::PostUpdate(float dt)
 {
-	app->entityManager->DrawDebug();
+	app->entityManager->DrawDebug(); //TMP
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
-	return true;
+	return UPDATE_CONTINUE;
 }
 
 // Called before quitting

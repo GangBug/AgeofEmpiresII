@@ -45,7 +45,7 @@ public:
 	bool Start()override;
 
 	// Called each loop iteration
-	bool PreUpdate()override;
+	update_status PreUpdate(float dt)override;
 
 	// Called before quitting
 	bool CleanUp()override;

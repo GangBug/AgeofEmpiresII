@@ -47,21 +47,21 @@ public:
 	}
 
 	// Called each loop iteration
-	virtual bool PreUpdate()
+	virtual update_status PreUpdate(float dt)
 	{
-		return true;
+		return UPDATE_CONTINUE;
 	}
 
 	// Called each loop iteration
-	virtual bool Update(float dt)
+	virtual update_status Update(float dt)
 	{
-		return true;
+		return UPDATE_CONTINUE;
 	}
 
 	// Called each loop iteration
-	virtual bool PostUpdate()
+	virtual update_status PostUpdate(float dt)
 	{
-		return true;
+		return UPDATE_CONTINUE;
 	}
 
 	// Called before quitting

@@ -1,7 +1,6 @@
 #include <iostream> 
 #include <sstream> 
 
-#include "Defs.h"
 #include "Log.h"
 
 #include "M_Window.h"
@@ -135,24 +134,30 @@ bool App::Start()
 }
 
 // Called each loop iteration
-bool App::Update()
+update_status App::Update()
 {
-	bool ret = true;
+	update_status ret = UPDATE_CONTINUE;
+
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug = !debug;
+
 	PrepareUpdate();
 
-	if(input->GetWindowEvent(WE_QUIT) == true)
-		ret = false;
 
-	if(ret == true)
+	if(ret == UPDATE_CONTINUE)
 		ret = PreUpdate();
 
-	if(ret == true)
+	if(ret == UPDATE_CONTINUE)
 		ret = DoUpdate();
 
-	if(ret == true)
+	if(ret == UPDATE_CONTINUE)
 		ret = PostUpdate();
 
 	FinishUpdate();
+
+	if(quit)
+		ret = UPDATE_STOP;
+
 	return ret;
 }
 
@@ -221,14 +226,14 @@ void App::FinishUpdate()
 }
 
 // Call modules before each loop iteration
-bool App::PreUpdate()
+update_status App::PreUpdate()
 {
-	bool ret = true;
+	update_status ret = UPDATE_CONTINUE;
 	std::list<Module*>::iterator item;
 	item = modules.begin();
 	Module* pModule = nullptr;
 
-	for(item = modules.begin(); item!=modules.end() && ret == true; item++)
+	for(item = modules.begin(); item!=modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
 		pModule = *item;
 
@@ -236,21 +241,21 @@ bool App::PreUpdate()
 			continue;
 		}
 
-		ret = (*item)->PreUpdate();
+		ret = (*item)->PreUpdate(dt);
 	}
 
 	return ret;
 }
 
 // Call modules on each loop iteration
-bool App::DoUpdate()
+update_status App::DoUpdate()
 {
-	bool ret = true;
+	update_status ret = UPDATE_CONTINUE;
 	std::list<Module*>::iterator item;
 	item = modules.begin();
 	Module* pModule = nullptr;
 
-	for(item = modules.begin(); item!=modules.end() && ret == true; item++)
+	for(item = modules.begin(); item!=modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
 		pModule = (*item);
 
@@ -265,13 +270,13 @@ bool App::DoUpdate()
 }
 
 // Call modules after each loop iteration
-bool App::PostUpdate()
+update_status App::PostUpdate()
 {
-	bool ret = true;
+	update_status ret = UPDATE_CONTINUE;
 	std::list<Module*>::iterator item;
 	Module* pModule = nullptr;
 
-	for(item = modules.begin(); item != modules.end() && ret == true; item++)
+	for(item = modules.begin(); item != modules.end() && ret == UPDATE_CONTINUE; item++)
 	{
 		pModule = *item;
 
@@ -279,7 +284,7 @@ bool App::PostUpdate()
 			continue;
 		}
 
-		ret = (*item)->PostUpdate();
+		ret = (*item)->PostUpdate(dt);
 	}
 
 	return ret;

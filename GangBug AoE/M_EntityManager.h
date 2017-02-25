@@ -13,9 +13,9 @@ public:
 
 	bool Awake(pugi::xml_node&)override;
 	bool Start()override;
-	bool PreUpdate()override;
-	bool Update(float dt)override;
-	bool PostUpdate()override;
+	update_status PreUpdate(float dt)override;
+	update_status Update(float dt)override;
+	update_status PostUpdate(float dt)override;
 	bool CleanUp()override;
 
 

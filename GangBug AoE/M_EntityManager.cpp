@@ -43,9 +43,9 @@ bool M_EntityManager::Start()
 	return ret;
 }
 
-bool M_EntityManager::PreUpdate()
+update_status M_EntityManager::PreUpdate(float dt)
 {
-	bool ret = true;
+	update_status ret = UPDATE_CONTINUE;
 
 	RemoveFlagged();
 
@@ -56,15 +56,16 @@ bool M_EntityManager::PreUpdate()
 	else
 	{
 		LOG("ERROR: Invalid root, is NULL.");
+		ret = UPDATE_ERROR;
 	}
 
-	if (mustSaveScene)
+	if (mustSaveScene && ret == UPDATE_CONTINUE)
 	{
 		SaveSceneNow();
 		mustSaveScene = false;
 	}
 
-	if (mustLoadScene)
+	if (mustLoadScene && ret == UPDATE_CONTINUE)
 	{
 		LoadSceneNow();
 		mustLoadScene = false;
@@ -73,9 +74,9 @@ bool M_EntityManager::PreUpdate()
 	return ret;
 }
 
-bool M_EntityManager::Update(float dt)
+update_status M_EntityManager::Update(float dt)
 {
-	bool ret = true;
+	update_status ret = UPDATE_CONTINUE;
 
 	if (root)
 	{
@@ -85,14 +86,15 @@ bool M_EntityManager::Update(float dt)
 	else
 	{
 		LOG("ERROR: Invalid root, is NULL.");
+		ret = UPDATE_ERROR;
 	}
 
 	return ret;
 }
 
-bool M_EntityManager::PostUpdate()
+update_status M_EntityManager::PostUpdate(float dt)
 {
-	bool ret = true;
+	update_status ret = UPDATE_CONTINUE;
 
 	return ret;
 }

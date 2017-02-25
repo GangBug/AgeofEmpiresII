@@ -21,8 +21,8 @@ public:
 	bool Start()override;
 
 	// Called each loop iteration
-	bool PreUpdate()override;
-	bool PostUpdate()override;
+	update_status PreUpdate(float dt)override;
+	update_status PostUpdate(float dt)override;
 
 	// Called before quitting
 	bool CleanUp()override;

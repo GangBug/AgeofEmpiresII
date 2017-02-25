@@ -27,9 +27,9 @@ bool M_GUI::Awake(pugi::xml_node &)
 
 
 
-bool M_GUI::PreUpdate()
+update_status M_GUI::PreUpdate(float dt)
 {
-	bool ret = true;	
+	update_status ret = UPDATE_CONTINUE;
 
 	ManageEvents();
 	
@@ -45,16 +45,16 @@ bool M_GUI::PreUpdate()
 	}
 	return ret;
 }
-bool M_GUI::Update(float dt)
+update_status M_GUI::Update(float dt)
 {
-	bool ret = true;
+	update_status ret = UPDATE_CONTINUE;
 
 	return ret;
 }
-bool M_GUI::PostUpdate()
+update_status M_GUI::PostUpdate(float dt)
 {
 	DrawDebug();
-	return true;
+	return UPDATE_CONTINUE;
 }
 bool M_GUI::UpdateGuiList()
 {
@@ -116,7 +116,7 @@ void M_GUI::ManageEvents()
 	}
 	if (newMouseHover == nullptr && mouseHover != nullptr) //This is maybe unnecessary, but i think this check here helps to a better readability
 	{
-		BroadcastEventToListeners(mouseHover, mouse_leaves);
+		BroadcastEventToListeners(mouseHover, MOUSE_LEAVES);
 		mouseHover->SetMouseInside(false);
 		mouseHover = nullptr;				
 	}
@@ -126,35 +126,35 @@ void M_GUI::ManageEvents()
 	{
 		if (focus != mouseHover && focus != nullptr)
 		{
-			BroadcastEventToListeners(focus, lost_focus);
+			BroadcastEventToListeners(focus, LOST_FOUCS);
 		}
 		focus = mouseHover;
-		BroadcastEventToListeners(mouseHover, mouse_lclick_down);
-		BroadcastEventToListeners(mouseHover, gain_focus);
+		BroadcastEventToListeners(mouseHover, MOUSE_LCLICK_DOWN);
+		BroadcastEventToListeners(mouseHover, GAIN_FOCUS);
 	}
 	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
 	{
-		BroadcastEventToListeners(mouseHover, mouse_lclick_up);
+		BroadcastEventToListeners(mouseHover, MOUSE_LCLICK_UP);
 	}
 	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_DOWN)
 	{
 		if (focus != mouseHover)
 		{
-			BroadcastEventToListeners(focus, lost_focus);
+			BroadcastEventToListeners(focus, LOST_FOUCS);
 		}
 		focus = mouseHover;
-		BroadcastEventToListeners(mouseHover, mouse_rclick_down);
-		BroadcastEventToListeners(mouseHover, gain_focus);
+		BroadcastEventToListeners(mouseHover, MOUSE_RCLICK_DOWN);
+		BroadcastEventToListeners(mouseHover, GAIN_FOCUS);
 	}
 	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
 	{
-		BroadcastEventToListeners(mouseHover, mouse_rclick_up);
+		BroadcastEventToListeners(mouseHover, MOUSE_RCLICK_UP);
 	}
 }
 //Broadcast an event to all GUIElement listeners
 void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 {
-	if (event != mouse_enters)
+	if (event != MOUSE_ENTERS)
 		SDL_Log("Event: %d", event);
 	//First we get listeners list of previous element hovered
 	std::list<Module*> tmpListeners = element->GetListeners();

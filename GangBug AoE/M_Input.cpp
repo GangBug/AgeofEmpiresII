@@ -49,7 +49,7 @@ bool M_Input::Start()
 }
 
 // Called each loop iteration
-bool M_Input::PreUpdate()
+update_status M_Input::PreUpdate(float dt)
 {
 	static SDL_Event event;
 	
@@ -90,6 +90,7 @@ bool M_Input::PreUpdate()
 		{
 		case SDL_QUIT:
 			windowEvents[WE_QUIT] = true;
+			app->quit = true;
 			break;
 
 		case SDL_WINDOWEVENT:
@@ -232,7 +233,7 @@ bool M_Input::PreUpdate()
 	}
 
 
-	return true;
+	return UPDATE_CONTINUE;
 }
 
 void M_Input::StartTyping() {
