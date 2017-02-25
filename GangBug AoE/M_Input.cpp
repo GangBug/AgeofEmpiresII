@@ -9,7 +9,7 @@
 
 M_Input::M_Input(bool startEnabled) : Module(startEnabled)
 {
-	name.create("input");
+	name.assign("input");
 
 	keyboard = new key_state[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(key_state) * MAX_KEYS);
@@ -249,7 +249,7 @@ void M_Input::StopTyping() {
 	}
 }
 const char* M_Input::GetText() {
-	return lastText.GetString();
+	return lastText.c_str();
 }
 
 // Called before quitting

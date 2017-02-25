@@ -163,11 +163,8 @@
     <ClInclude Include="M_Window.h" />
     <ClInclude Include="M_EntityManager.h" />
     <ClInclude Include="Defs.h" />
-    <ClInclude Include="p2DynArray.h" />
-    <ClInclude Include="p2List.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="p2Point.h" />
-    <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
   </ItemGroup>

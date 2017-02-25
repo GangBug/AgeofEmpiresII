@@ -9,7 +9,7 @@
 
 M_Textures::M_Textures(bool startEnabled) : Module(startEnabled)
 {
-	name.create("textures");
+	name.assign("textures");
 }
 
 // Destructor

@@ -87,8 +87,8 @@ bool App::Awake()
 		// self-config
 		ret = true;
 		app_config = config.child("app");
-		title.create(app_config.child("title").child_value());
-		organization.create(app_config.child("organization").child_value());
+		title.assign(app_config.child("title").child_value());
+		organization.assign(app_config.child("organization").child_value());
 
 		int cap = app_config.attribute("framerate_cap").as_int(-1);
 
@@ -103,7 +103,7 @@ bool App::Awake()
 		std::list<Module*>::iterator it = modules.begin();
 		while (it!=modules.end() && ret == true) 
 		{
-			(*it)->Awake(config.child((*it)->name.GetString()));
+			(*it)->Awake(config.child((*it)->name.c_str()));
 			it++;
 		}
 	}
@@ -332,7 +332,7 @@ const char* App::GetArgv(int index) const
 // ---------------------------------------
 const char* App::GetTitle() const
 {
-	return title.GetString();
+	return title.c_str();
 }
 
 // ---------------------------------------
@@ -344,7 +344,7 @@ float App::GetDT() const
 // ---------------------------------------
 const char* App::GetOrganization() const
 {
-	return organization.GetString();
+	return organization.c_str();
 }
 
 // Load / Save
@@ -353,7 +353,7 @@ void App::LoadGame(const char* file)
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
 	wantToLoad = true;
-	loadGame.create("%s%s", fs->GetSaveDirectory(), file);
+	loadGame.assign(fs->GetSaveDirectory(), file);
 }
 
 // ---------------------------------------
@@ -362,11 +362,11 @@ void App::SaveGame(const char* file) const
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
 	wantToSave = true;
-	saveGame.create(file);
+	saveGame.assign(file);
 }
 
 // ---------------------------------------
-void App::GetSaveGames(std::list<p2SString>& listToFill) const
+void App::GetSaveGames(std::list<std::string>& listToFill) const
 {
 	// need to add functionality to file_system module for this to work
 }
@@ -376,7 +376,7 @@ bool App::LoadGameNow()
 	bool ret = false;
 
 	char* buffer;
-	uint size = fs->Load(loadGame.GetString(), &buffer);
+	uint size = fs->Load(loadGame.c_str(), &buffer);
 
 	if(size > 0)
 	{
@@ -388,7 +388,7 @@ bool App::LoadGameNow()
 
 		if(result != NULL)
 		{
-			LOG("Loading new Game State from %s...", loadGame.GetString());
+			LOG("Loading new Game State from %s...", loadGame.c_str());
 
 			root = data.child("game_state");
 
@@ -397,7 +397,7 @@ bool App::LoadGameNow()
 
 			while(item._Ptr != nullptr && ret == true)
 			{
-				ret = item._Ptr->_Myval->Load(root.child(item._Ptr->_Myval->name.GetString()));
+				ret = item._Ptr->_Myval->Load(root.child(item._Ptr->_Myval->name.c_str()));
 				item._Ptr = item._Ptr->_Next;
 			}
 
@@ -405,13 +405,13 @@ bool App::LoadGameNow()
 			if(ret == true)
 				LOG("...finished loading");
 			else
-				LOG("...loading process interrupted with error on module %s", (item._Ptr != nullptr) ? item._Ptr->_Myval->name.GetString() : "unknown");
+				LOG("...loading process interrupted with error on module %s", (item._Ptr != nullptr) ? item._Ptr->_Myval->name.c_str() : "unknown");
 		}
 		else
-			LOG("Could not parse game state xml file %s. pugi error: %s", loadGame.GetString(), result.description());
+			LOG("Could not parse game state xml file %s. pugi error: %s", loadGame.c_str(), result.description());
 	}
 	else
-		LOG("Could not load game state xml file %s", loadGame.GetString());
+		LOG("Could not load game state xml file %s", loadGame.c_str());
 
 	wantToLoad = false;
 	return ret;
@@ -421,7 +421,7 @@ bool App::SavegameNow() const
 {
 	bool ret = true;
 
-	LOG("Saving Game State to %s...", saveGame.GetString());
+	LOG("Saving Game State to %s...", saveGame.c_str());
 
 	pugi::xml_document data;
 	pugi::xml_node root;
@@ -431,7 +431,7 @@ bool App::SavegameNow() const
 	std::list<Module*>::const_iterator item;
 	for(item = modules.begin(); item != modules.end() && ret == true; item++)
 	{
-		ret = (*item)->Save(root.append_child((*item)->name.GetString()));
+		ret = (*item)->Save(root.append_child((*item)->name.c_str()));
 		item++;
 	}
 
@@ -440,11 +440,11 @@ bool App::SavegameNow() const
 		std::stringstream stream;
 		data.save(stream);
 
-		fs->Save(saveGame.GetString(), stream.str().c_str(), stream.str().length());
-		LOG("... finished saving", saveGame.GetString());
+		fs->Save(saveGame.c_str(), stream.str().c_str(), stream.str().length());
+		LOG("... finished saving", saveGame.c_str());
 	}
 	else //This LOG coul have some bugs on the (item != modules.end())
-		LOG("Save process halted from an error in module %s", (item != modules.end()) ? (*item)->name.GetString() : "unknown");
+		LOG("Save process halted from an error in module %s", (item != modules.end()) ? (*item)->name.c_str() : "unknown");
 
 	data.reset();
 	wantToSave = false;

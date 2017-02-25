@@ -10,7 +10,7 @@
 
 M_Render::M_Render(bool startEnabled) : Module(startEnabled)
 {
-	name.create("renderer");
+	name.assign("renderer");
 	background.r = 0;
 	background.g = 0;
 	background.b = 0;

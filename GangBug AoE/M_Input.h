@@ -88,7 +88,7 @@ private:
 
 	//text
 	bool textInput;
-	p2SString lastText;
+	std::string lastText;
 	int cursor = 0;
 	int selectionLen = 0;
 };

@@ -8,7 +8,7 @@
 
 M_FileSystem::M_FileSystem(bool startEnabled) : Module(startEnabled)
 {
-	name.create("file_system");
+	name.assign("file_system");
 
 	// need to be created before Awake so other modules can use it
 	char* base_path = SDL_GetBasePath();

@@ -108,16 +108,7 @@
     <ClInclude Include="j1Timer.h">
       <Filter>Modules\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="p2DynArray.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="p2List.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="p2Point.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="p2SString.h">
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="GUIElement.h">

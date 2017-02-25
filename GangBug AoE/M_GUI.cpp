@@ -7,7 +7,7 @@
 
 M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 {
-	name.create("GUI");
+	name.assign("GUI");
 	active = true;
 }
 M_GUI::~M_GUI()

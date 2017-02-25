@@ -5,7 +5,7 @@
 
 M_PathFinding::M_PathFinding(bool startEnabled) : Module(startEnabled), map(nullptr), lastPath(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
-	name.create("pathfinding");
+	name.assign("pathfinding");
 }
 
 // Destructor
@@ -19,7 +19,7 @@ bool M_PathFinding::CleanUp()
 {
 	LOG("Freeing pathfinding library");
 
-	lastPath.Clear();
+	lastPath.clear();
 	RELEASE_ARRAY(map);
 	return true;
 }
@@ -64,7 +64,7 @@ void M_PathFinding::DrawDebug()
 
 //TODO change 
 // To request all tiles involved in the last generated path
-const p2DynArray<iPoint>* M_PathFinding::GetLastPath() const
+const std::vector<iPoint>* M_PathFinding::GetLastPath() const
 {
 	return &lastPath;
 }
@@ -171,7 +171,7 @@ int PathNode::CalculateF(const iPoint& destination)
 int M_PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
 	if (IsWalkable(origin) && IsWalkable(destination)) {
-		lastPath.Clear();
+		lastPath.clear();
 		PathList open;
 		PathList close;
 		PathList adjacents;
@@ -184,28 +184,28 @@ int M_PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			open.list.erase(*open.GetNodeLowestScore());
 			if (close.list.end()->pos == destination) {
 				for (const PathNode* backtrack = close.list.end()->parent; backtrack; backtrack = backtrack->parent) {
-					lastPath.PushBack(backtrack->pos);
+					lastPath.push_back(backtrack->pos);
 				}
-				lastPath.Flip();
+				std::reverse(lastPath.begin(), lastPath.end());
 				return index;
 			}
 			uint adjnum = close.list.end()->FindWalkableAdjacents(adjacents);
 			index++;
 			std::list<PathNode>::iterator it = adjacents.list.begin();
 			for (int i = 0; i < adjnum; i++, ++it) {
-				if (close.Find(it._Ptr->_Myval.pos) != nullptr) {
+				if (close.Find((*it).pos) != nullptr) {
 					continue;
 				}
 				if (open.Find(it._Ptr->_Myval.pos) == nullptr) {
-					it._Ptr->_Myval.parent = &close.list.end()._Ptr->_Myval;
-					it._Ptr->_Myval.h = it._Ptr->_Myval.pos.DistanceManhattan(destination);
-					it._Ptr->_Myval.g = close.list.end()->g + 1;
-					open.list.push_back(it._Ptr->_Myval);
+					(*it).parent = &(*close.list.end());
+					(*it).h = (*it).pos.DistanceManhattan(destination);
+					(*it).g = close.list.end()->g + 1;
+					open.list.push_back((*it));
 				}
 				else {
-					std::list<PathNode>::iterator tocompare = *open.Find(it._Ptr->_Myval.pos);
-					if (tocompare._Ptr->_Myval.g > it._Ptr->_Myval.g) {
-						tocompare._Ptr->_Myval.parent = &close.list.end()._Ptr->_Myval;
+					std::list<PathNode>::iterator tocompare = *open.Find((*it).pos);
+					if ((*tocompare).g > (*it).g) {
+						(*tocompare).parent = &(*close.list.end());
 					}
 				}
 			}

@@ -9,7 +9,7 @@ M_Window::M_Window(bool startEnabled) : Module(startEnabled)
 {
 	window = nullptr;
 	screenSurface = nullptr;
-	name.create("window");
+	name.assign("window");
 }
 
 // Destructor

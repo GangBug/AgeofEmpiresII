@@ -10,7 +10,7 @@
 
 M_Fonts::M_Fonts(bool startEnabled) : Module(startEnabled)
 {
-	name.create("fonts");
+	name.assign("fonts");
 }
 
 // Destructor

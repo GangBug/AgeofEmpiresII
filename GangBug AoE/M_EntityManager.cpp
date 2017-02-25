@@ -7,6 +7,7 @@
 M_EntityManager::M_EntityManager(bool startEnabled) : Module(startEnabled)
 {
 	LOG("Entity manager: Creation.");
+	name.assign("entity_manager");
 }
 
 

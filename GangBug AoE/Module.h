@@ -6,7 +6,7 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
-#include "p2SString.h"
+#include <string>
 #include "PugiXml\src\pugixml.hpp"
 #include "Defs.h"
 
@@ -87,7 +87,7 @@ public:
 	virtual void DrawDebug() = 0;
 public:
 
-	p2SString	name;
+	std::string	name;
 	bool		active;
 
 };

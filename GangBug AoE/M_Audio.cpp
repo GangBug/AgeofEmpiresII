@@ -10,7 +10,7 @@
 M_Audio::M_Audio(bool startEnabled) : Module(startEnabled)
 {
 	music = nullptr;
-	name.create("audio");
+	name.assign("audio");
 }
 
 // Destructor

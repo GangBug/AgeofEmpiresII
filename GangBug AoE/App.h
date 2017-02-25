@@ -3,10 +3,11 @@
 
 #include <iostream>
 #include <list>
+#include <string>
+
 #include "j1PerfTimer.h"
 #include "j1Timer.h"
 #include "PugiXml\src\pugixml.hpp"
-#include "p2SString.h"
 #include "Defs.h"
 
 // Modules
@@ -62,7 +63,7 @@ public:
 
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
-	void GetSaveGames(std::list<p2SString>& listToFill) const;
+	void GetSaveGames(std::list<std::string>& listToFill) const;
 
 private:
 
@@ -112,13 +113,13 @@ private:
 	int					argc;
 	char**				args;
 
-	p2SString			title;
-	p2SString			organization;
+	std::string			title;
+	std::string			organization;
 
 	mutable bool		wantToSave = false;
 	bool				wantToLoad = false;
-	p2SString			loadGame;
-	mutable p2SString	saveGame;
+	std::string			loadGame;
+	mutable std::string	saveGame;
 
 	PerfTimer			ptimer;
 	uint64				frameCount = 0;

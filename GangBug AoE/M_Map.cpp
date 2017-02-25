@@ -8,7 +8,7 @@
 
 M_Map::M_Map(bool startEnabled) : Module(startEnabled), mapLoaded(false)
 {
-	name.create("map");
+	name.assign("map");
 }
 
 // Destructor
@@ -21,7 +21,7 @@ bool M_Map::Awake(pugi::xml_node& config)
 	LOG("Loading Map Parser");
 	bool ret = true;
 
-	folder.create(config.child("folder").child_value());
+	folder.assign(config.child("folder").child_value());
 
 	return ret;
 }
@@ -189,10 +189,10 @@ bool M_Map::CleanUp()
 bool M_Map::Load(const char* path)
 {
 	bool ret = true;
-	p2SString tmp("%s%s", folder.GetString(), path);
+	std::string tmp(folder.c_str(), path);
 
 	char* buf;
-	int size = app->fs->Load(tmp.GetString(), &buf);
+	int size = app->fs->Load(tmp.c_str(), &buf);
 	pugi::xml_parse_result result = mapFile.load_buffer(buf, size);
 
 	RELEASE(buf);
@@ -251,7 +251,7 @@ bool M_Map::Load(const char* path)
 		{
 			TileSet* s = item._Ptr->_Myval;
 			LOG("Tileset ----");
-			LOG("name: %s firstgid: %d", s->name.GetString(), s->firstgid);
+			LOG("name: %s firstgid: %d", s->name.c_str(), s->firstgid);
 			LOG("tile width: %d tile height: %d", s->tileWidth, s->tileHeight);
 			LOG("spacing: %d margin: %d", s->spacing, s->margin);
 			item._Ptr = item._Ptr->_Next;
@@ -262,7 +262,7 @@ bool M_Map::Load(const char* path)
 		{
 			MapLayer* l = item_layer._Ptr->_Myval;
 			LOG("Layer ----");
-			LOG("name: %s", l->name.GetString());
+			LOG("name: %s", l->name.c_str());
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer._Ptr = item_layer._Ptr->_Next;
 		}
@@ -290,33 +290,33 @@ bool M_Map::LoadMap()
 		data.height = map.attribute("height").as_int();
 		data.tileWidth = map.attribute("tilewidth").as_int();
 		data.tileHeight = map.attribute("tileheight").as_int();
-		p2SString bg_color(map.attribute("backgroundcolor").as_string());
+		std::string bg_color(map.attribute("backgroundcolor").as_string());
 
 		data.backgroundColor.r = 0;
 		data.backgroundColor.g = 0;
 		data.backgroundColor.b = 0;
 		data.backgroundColor.a = 0;
 
-		if(bg_color.Length() > 0)
+		if(bg_color.size() > 0)
 		{
-			p2SString red, green, blue;
-			bg_color.SubString(1, 2, red);
-			bg_color.SubString(3, 4, green);
-			bg_color.SubString(5, 6, blue);
+			std::string red, green, blue;
+			red = bg_color.substr(1, 2);	//TODO: Parameters may be ivalid. Check 0, 1
+			green = bg_color.substr(3, 4);			 //TODO: Parameters may be ivalid. Check 1, 1
+			blue = bg_color.substr(5, 6);			 //TODO: Parameters may be ivalid. Check 2, 1
 
 			int v = 0;
 
-			sscanf_s(red.GetString(), "%x", &v);
+			sscanf_s(red.c_str(), "%x", &v);
 			if(v >= 0 && v <= 255) data.backgroundColor.r = v;
 
-			sscanf_s(green.GetString(), "%x", &v);
+			sscanf_s(green.c_str(), "%x", &v);
 			if(v >= 0 && v <= 255) data.backgroundColor.g = v;
 
-			sscanf_s(blue.GetString(), "%x", &v);
+			sscanf_s(blue.c_str(), "%x", &v);
 			if(v >= 0 && v <= 255) data.backgroundColor.b = v;
 		}
 
-		p2SString orientation(map.attribute("orientation").as_string());
+		std::string orientation(map.attribute("orientation").as_string());
 
 		if(orientation == "orthogonal")
 		{
@@ -342,7 +342,7 @@ bool M_Map::LoadMap()
 bool M_Map::LoadTilesetDetails(pugi::xml_node& tilesetNode, TileSet* set)
 {
 	bool ret = true;
-	set->name.create(tilesetNode.attribute("name").as_string());
+	set->name.assign(tilesetNode.attribute("name").as_string());
 	set->firstgid = tilesetNode.attribute("firstgid").as_int();
 	set->tileWidth = tilesetNode.attribute("tilewidth").as_int();
 	set->tileHeight = tilesetNode.attribute("tileheight").as_int();
@@ -376,7 +376,7 @@ bool M_Map::LoadTilesetImage(pugi::xml_node& tilesetNode, TileSet* set)
 	}
 	else
 	{
-		set->texture = app->tex->Load(PATH(folder.GetString(), image.attribute("source").as_string()));
+		set->texture = app->tex->Load(PATH(folder.c_str(), image.attribute("source").as_string()));
 		int w, h;
 		SDL_QueryTexture(set->texture, nullptr, nullptr, &w, &h);
 		set->texWidth = image.attribute("width").as_int();
