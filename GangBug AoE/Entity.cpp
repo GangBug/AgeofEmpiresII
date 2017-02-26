@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "Log.h"
 
+#include "M_EntityManager.h"
 //TMP
 #include "App.h"
 #include "M_Render.h"
@@ -71,9 +72,34 @@ bool Entity::RecRemoveFlagged()
 	return ret;
 }
 
-void Entity::OnTransUpdated()
+void Entity::RecCalcTransform(iPoint parentGlobalPos, bool force)
 {
-	//TODO: Recalc global pos in order to not calcing every draw frame
+	if (transformHasChanged == true || force == true)
+	{
+		force = true;
+		dirty = true;
+
+		//1.Recalc globalPosition
+		globalPosition = parentGlobalPos + localPosition;
+		//TODO: Box position must be updated 
+
+		//2.Notify globalPosition has changed
+		OnTransformUpdated();
+
+		//3.Update from quadtree
+		app->entityManager->EraseEntityFromTree(this); //TODO: Too brute... Define static entities???
+		app->entityManager->InsertEntityToTree(this);
+	}
+	else
+	{
+		dirty = false;
+	}
+
+	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+	{
+		if ((*it))
+			(*it)->RecCalcTransform(globalPosition, force);
+	}
 }
 
 void Entity::SetNewParent(Entity* newParent)
@@ -110,11 +136,13 @@ void Entity::GetLocalPosition(int&x, int& y)const
 void Entity::SetLocalPosition(iPoint pos) //TODO: Must recalc global pos
 {
 	localPosition = pos;
+	transformHasChanged = true;
 }
 
 void Entity::SetLocalPosition(int x, int y) //TODO: Must recalc global pos
 {
 	localPosition.create(x, y);
+	transformHasChanged = true;
 }
 
 iPoint Entity::GetGlobalPosition()const
@@ -190,7 +218,7 @@ void Entity::Draw()
 void Entity::DrawDebug()
 {
 	//TMP
-	app->render->DrawCircle(localPosition.x, localPosition.y, 30, 255, 0, 0, 255);
+	app->render->DrawCircle(globalPosition.x, globalPosition.y, 30, 255, 0, 0, 255);
 
 	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
 	{
@@ -221,3 +249,5 @@ void Entity::OnDisable()
 void Entity::OnUpdate(float dt)
 {}
 
+void Entity::OnTransformUpdated()
+{}

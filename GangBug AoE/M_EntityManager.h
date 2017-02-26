@@ -46,6 +46,9 @@ private:
 	Entity* root = nullptr;
 	bool mustSaveScene = false;
 	bool mustLoadScene = false;
+
+	Entity* et = nullptr;
+	Entity* et2 = nullptr;
 };
 
 #endif // !__M_ENTITY_MANAGER_H__

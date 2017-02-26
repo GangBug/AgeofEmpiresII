@@ -1,8 +1,11 @@
 #include "M_EntityManager.h"
 #include "Entity.h"
 
+#include "App.h"
 #include "Log.h"
 
+//TMP
+#include "M_Input.h"
 
 M_EntityManager::M_EntityManager(bool startEnabled) : Module(startEnabled)
 {
@@ -36,8 +39,8 @@ bool M_EntityManager::Start()
 	LOG("Entity manager: Start.");
 	bool ret = true;
 
-	Entity* et = CreateEntity(nullptr, 100, 100);
-	CreateEntity(nullptr, 800, 600);
+	et = CreateEntity(nullptr, 100, 100);
+	et2 = CreateEntity(et, 50, 50);
 	CreateEntity(nullptr, 100, 900);
 	CreateEntity(nullptr, 700, 400);
 
@@ -52,7 +55,8 @@ update_status M_EntityManager::PreUpdate(float dt)
 
 	if (root)
 	{
-		//TODO: Update rans
+		root->RecCalcTransform({ 0, 0 });
+		//TODO: Recalc boxes??
 	}
 	else
 	{
@@ -71,6 +75,11 @@ update_status M_EntityManager::PreUpdate(float dt)
 		LoadSceneNow();
 		mustLoadScene = false;
 	}
+	//TMP
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		et->SetLocalPosition(0, 0);
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		et2->SetLocalPosition(100, 100);
 
 	return ret;
 }

@@ -19,7 +19,7 @@ public:
 	Entity* GetParent()const;
 
 	bool RecRemoveFlagged();
-	void OnTransUpdated();
+	void RecCalcTransform(iPoint parentGlobalPos, bool force = false);
 	void SetNewParent(Entity* newParent);
 
 	iPoint GetLocalPosition()const;
@@ -51,6 +51,7 @@ public:
 	virtual void OnFinish();
 	virtual void OnEnable();
 	virtual void OnDisable();
+	virtual void OnTransformUpdated(); //Called whenever transform has changed and recalculed.
 
 	virtual void OnUpdate(float dt);
 
@@ -59,10 +60,14 @@ protected:
 	bool selfActive = true;
 	std::string name;
 
+private:  //Set position to private because I want to modify position with methods to control global position change
 	iPoint localPosition; //NOTE: Float point would be better??? For sure velocities must be used with floats
 	iPoint globalPosition; //Actually draw position.
 
 	//TODO: Rectangle enclosing box
+
+	bool transformHasChanged = false;
+	bool dirty = true;
 
 public:
 	std::vector<Entity*> childs;
