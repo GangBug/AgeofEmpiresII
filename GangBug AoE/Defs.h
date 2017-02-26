@@ -82,6 +82,22 @@ struct rectangle
 	{
 		return ((x >= this->x) && (x < (this->x + w)) && (y >= this->y) && (y < (this->y + h)));
 	}
+
+	void Move(int x, int y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+
+	void Set(int x, int y, int w, int h)
+	{
+		this->x = x;
+		this->y = y;
+		this->w = w;
+		this->h = h;
+	}
+
+	bool Collides(rectangle rect);
 };
 
 #endif

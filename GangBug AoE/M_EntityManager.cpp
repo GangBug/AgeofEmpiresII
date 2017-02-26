@@ -39,8 +39,8 @@ bool M_EntityManager::Start()
 	LOG("Entity manager: Start.");
 	bool ret = true;
 
-	et = CreateEntity(nullptr, 100, 100);
-	et2 = CreateEntity(et, 50, 50);
+	et = CreateEntity(nullptr, 100, 100, 30, 50);
+	et2 = CreateEntity(et, 50, 50, 40, 10);
 	CreateEntity(nullptr, 100, 900);
 	CreateEntity(nullptr, 700, 400);
 
@@ -56,7 +56,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	if (root)
 	{
 		root->RecCalcTransform({ 0, 0 });
-		//TODO: Recalc boxes??
+		root->RecCalcBox();
 	}
 	else
 	{
@@ -134,7 +134,7 @@ Entity* M_EntityManager::CreateEntity(Entity* parent, int posX, int posY, int re
 	if (ret)
 	{
 		ret->SetLocalPosition(posX, posY);
-		//ret->SetRect(rectX, rectY);
+		ret->SetEnclosingBox(posX, posY, rectX, rectY);
 	}
 	else
 	{
