@@ -2,8 +2,10 @@
 #define __M_ENTITY_MANAGER_H__
 
 #include "Module.h"
+#include <vector>
 
 class Entity;
+class SDL_Texture;
 
 class M_EntityManager : public Module
 {
@@ -24,7 +26,7 @@ public:
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
 
-	void Draw();
+	void Draw(std::vector<Entity*>& entitiesToDraw);
 	void DrawDebug()override;
 
 	void InsertEntityToTree(Entity* et);
@@ -38,6 +40,8 @@ private:
 	bool SaveSceneNow();
 	bool LoadSceneNow();
 
+	void RecColectEntitiesToDraw(std::vector<Entity*>& entitiesToDraw, Entity* et);
+
 public:
 	bool showQauds = false;
 	//JQuadTree* sceneTree = nullptr;
@@ -49,6 +53,7 @@ private:
 
 	Entity* et = nullptr;
 	Entity* et2 = nullptr;
+	SDL_Texture* textTexture = nullptr;
 };
 
 #endif // !__M_ENTITY_MANAGER_H__

@@ -4,6 +4,7 @@
 #include "M_Render.h"
 
 #include "M_EntityManager.h"
+#include "Entity.h"
 #include "M_Map.h"
 
 #define VSYNC true
@@ -74,7 +75,9 @@ update_status M_Render::PostUpdate(float dt)
 	//TODO: Might have a better organitzation to draw map or change map system
 	app->map->Draw();
 
-	app->entityManager->Draw();
+	std::vector<Entity*> entitiesVect;
+	app->entityManager->Draw(entitiesVect);
+	DrawEntities(entitiesVect);
 
 	if (app->debug)
 	{
@@ -266,4 +269,23 @@ bool M_Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	}
 
 	return ret;
+}
+
+
+void M_Render::DrawEntities(std::vector<Entity*> entities)
+{
+	//TODO: Order this before drawing this
+
+	for (std::vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
+	{
+		Entity* tmp = (*it);
+
+		if (tmp != nullptr)
+		{
+			iPoint pos = tmp->GetGlobalPosition();
+			GB_Rectangle<int> drawRec = tmp->GetDrawQuad();
+			SDL_Rect r = drawRec.GetSDLrect();
+			Blit(tmp->GetTexture(), pos.x, pos.y, &r); //TODO: Draw only the correct region.
+		}
+	}
 }

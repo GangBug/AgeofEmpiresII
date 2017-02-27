@@ -7,10 +7,12 @@
 #include <vector>
 #include "GB_Rectangle.h"
 
+class SDL_Texture;
+
 class Entity
 {
 public:
-	Entity(Entity* parent); //TODO: Might be usefull to implement a UID system
+	Entity(Entity* parent, SDL_Texture* texture = nullptr, GB_Rectangle<int> drawRect = ZeroRectangle); //TODO: Might be usefull to implement a UID system
 	virtual ~Entity();
 
 	Entity* AddChild(); //TODO: Maybe add a parameter to force ID?
@@ -68,11 +70,21 @@ public:
 
 	//---------------------------------------------------------------
 
+	bool HasTexture();
+	SDL_Texture* GetTexture()const;
+	void SetTexture(SDL_Texture* texture, GB_Rectangle<int> drawRect = ZeroRectangle);
+
+	GB_Rectangle<int> GetDrawQuad()const;
+	GB_Rectangle<int> GetEnclosingBox()const;
+
 protected:
 	Entity* parent = nullptr;
 	bool selfActive = true;
 	std::string name;
 	GB_Rectangle<int> enclosingRect;
+
+	SDL_Texture* entityTexture = nullptr;
+	GB_Rectangle<int> drawQuad;
 
 private:  //Set position to private because I want to modify position with methods to control global position change
 	iPoint localPosition; //NOTE: Float point would be better??? For sure velocities must be used with floats

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __GB_RECTANGLE__
+#define __GB_RECTANGLE__
+
 #include "SDL\include\SDL_rect.h"
 
 template <class type>
@@ -37,6 +39,16 @@ public:
 		this->w = copy.w;
 		this->h = copy.h;
 		return (*this);
+	}
+
+	bool operator== (const GB_Rectangle& rect)
+	{
+		return (x == rect.x && y == rect.y && w == rect.w && h == rect.h);
+	}
+
+	bool operator!= (const GB_Rectangle& rect)
+	{
+		return (x != rect.x || y != rect.y || w != rect.w || h != rect.h);
 	}
 
 	inline bool Contains(type x, type y) const
@@ -79,3 +91,7 @@ public:
 	int x, y, w, h;
 };
 
+extern GB_Rectangle<int> ZeroRectangle;
+extern GB_Rectangle<int> OneRectangle;
+
+#endif // !__GB_RECTANGLE__

@@ -1,15 +1,24 @@
 #include "Entity.h"
 #include "Log.h"
 #include "M_EntityManager.h"
+
+#include "SDL\include\SDL.h"
+
 //TMP
 #include "App.h"
 #include "M_Render.h"
+#include "M_Textures.h"
 
 
-Entity::Entity(Entity* parent) : parent(parent)
+Entity::Entity(Entity* parent, SDL_Texture* texture, GB_Rectangle<int> drawRect) : parent(parent), entityTexture(texture), drawQuad(drawRect)
 {
 	name.assign("entity");
 	enclosingRect.Set(0, 0, 0, 0);
+	if (texture != nullptr && drawRect == ZeroRectangle)
+	{
+		app->tex->GetSize(texture, (uint&)enclosingRect.w, (uint&)enclosingRect.h);
+		drawQuad = enclosingRect;
+	}
 }
 
 
@@ -88,10 +97,8 @@ void Entity::RecCalcTransform(iPoint parentGlobalPos, bool force)
 		//3.Update from quadtree
 		app->entityManager->EraseEntityFromTree(this); //TODO: Too brute... Define static entities???
 		app->entityManager->InsertEntityToTree(this);
-	}
-	else
-	{
-		dirty = false;
+
+		transformHasChanged = false;
 	}
 
 	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
@@ -107,6 +114,7 @@ void Entity::RecCalcBox()
 	{
 		//Actualy recalc box pos/size
 		enclosingRect.Move(globalPosition.x, globalPosition.y);
+		dirty = false;
 	}
 
 	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
@@ -175,14 +183,16 @@ void Entity::GetGlobalPosition(int& x, int& y)const
 	y = globalPosition.y;
 }
 
-void Entity::SetGlobalPosition(iPoint pos)
+void Entity::SetGlobalPosition(iPoint pos) //TODO: Must change local pos to make it fit later when parent is moved
 {
 	globalPosition = pos;
+	dirty = true;
 }
 
-void Entity::SetGlobalPosition(int x, int y)
+void Entity::SetGlobalPosition(int x, int y) //TODO: Must change local pos to make it fit later when parent is moved
 {
 	globalPosition.create(x, y);
+	dirty = true;
 }
 
 void Entity::SetEnclosingBoxPosition(int x, int y)
@@ -269,6 +279,47 @@ void Entity::DrawDebug()
 void Entity::Remove()
 {
 	removeFlag = true;
+}
+
+bool Entity::HasTexture()
+{
+	return entityTexture != nullptr;
+}
+
+SDL_Texture* Entity::GetTexture()const
+{
+	return entityTexture;
+}
+
+void Entity::SetTexture(SDL_Texture* texture, GB_Rectangle<int> drawRect)
+{
+	entityTexture = texture;
+
+	if (texture != nullptr)
+	{
+		if (drawRect == ZeroRectangle)
+		{
+			app->tex->GetSize(texture, (uint&)enclosingRect.w, (uint&)enclosingRect.h);
+			drawQuad.w = enclosingRect.w;
+			drawQuad.h = enclosingRect.h;
+		}
+		else
+		{
+			drawQuad = drawRect;
+			enclosingRect.w = drawQuad.w;
+			enclosingRect.h = drawQuad.h;
+		}
+	}
+}
+
+GB_Rectangle<int> Entity::GetDrawQuad()const
+{
+	return drawQuad;
+}
+
+GB_Rectangle<int> Entity::GetEnclosingBox()const
+{
+	return enclosingRect;
 }
 
 ///------------------------------------------------

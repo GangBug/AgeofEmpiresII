@@ -6,6 +6,8 @@
 
 //TMP
 #include "M_Input.h"
+#include "SDL\include\SDL.h"
+#include "M_Textures.h"
 
 M_EntityManager::M_EntityManager(bool startEnabled) : Module(startEnabled)
 {
@@ -39,10 +41,13 @@ bool M_EntityManager::Start()
 	LOG("Entity manager: Start.");
 	bool ret = true;
 
-	et = CreateEntity(nullptr, 100, 100, 30, 50);
-	et2 = CreateEntity(et, 50, 50, 40, 10);
-	CreateEntity(nullptr, 100, 900);
-	CreateEntity(nullptr, 700, 400);
+	//TMP
+	textTexture = app->tex->Load("textures/test.png");
+
+	et = CreateEntity(nullptr, 100, 100);
+	et->SetTexture(textTexture);
+	et2 = CreateEntity(et, 50, 50);
+	et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
 
 	return ret;
 }
@@ -75,11 +80,22 @@ update_status M_EntityManager::PreUpdate(float dt)
 		LoadSceneNow();
 		mustLoadScene = false;
 	}
+
 	//TMP
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		et->SetLocalPosition(0, 0);
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-		et2->SetLocalPosition(100, 100);
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	{
+		iPoint pos;
+		app->input->GetMousePosition(pos.x, pos.y);
+		et->SetLocalPosition(pos);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
+	{
+		iPoint pos;
+		app->input->GetMousePosition(pos.x, pos.y);
+		//et2->SetLocalPosition(pos);
+		et2->SetGlobalPosition(pos);
+	}
 
 	return ret;
 }
@@ -154,15 +170,14 @@ Entity* M_EntityManager::FindEntity()
 	return nullptr; //TODO
 }
 
-void M_EntityManager::Draw()
+void M_EntityManager::Draw(std::vector<Entity*>& entitiesToDraw)
 {
 	if (root)
 	{
-		//TODO: Must order here or on renderer the list. Also must test with quadtree the drawable entites
+		//TODO: Must check with quadtree
 		for (std::vector<Entity*>::iterator it = root->childs.begin(); it != root->childs.end(); ++it)
 		{
-			if ((*it))
-				(*it)->Draw();
+			RecColectEntitiesToDraw(entitiesToDraw, (*it));
 		}
 	}
 	else
@@ -228,6 +243,20 @@ void M_EntityManager::RemoveFlagged()
 	else
 	{
 		LOG("ERROR: Invalid root, is NULL.");
+	}
+}
+
+void M_EntityManager::RecColectEntitiesToDraw(std::vector<Entity*>& entitiesToDraw, Entity* et)
+{
+	if (et != nullptr)
+	{
+		if(et->HasTexture())
+			entitiesToDraw.push_back(et);
+
+		for (std::vector<Entity*>::iterator it = et->childs.begin(); it != et->childs.end(); ++it)
+		{
+			RecColectEntitiesToDraw(entitiesToDraw, (*it));
+		}
 	}
 }
 

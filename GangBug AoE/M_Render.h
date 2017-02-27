@@ -4,6 +4,9 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 #include "Module.h"
+#include <vector>
+
+class Entity;
 
 class M_Render : public Module
 {
@@ -46,6 +49,11 @@ public:
 	void SetBackgroundColor(SDL_Color color);
 
 	void DrawDebug()override;
+
+private:
+	void DrawEntities(std::vector<Entity*> entities);
+
+
 public:
 
 	SDL_Renderer*	renderer;
