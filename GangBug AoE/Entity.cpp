@@ -10,6 +10,7 @@
 Entity::Entity(Entity* parent) : parent(parent)
 {
 	name.assign("entity");
+	enclosingRect.Set(0, 0, 0, 0);
 }
 
 
@@ -57,7 +58,7 @@ bool Entity::RecRemoveFlagged()
 		if (tmp && tmp->removeFlag)
 		{
 			tmp->OnFinish();
-			//TODO: Erase from quadtree
+			app->entityManager->EraseEntityFromTree(this);
 			RELEASE(tmp);
 			it = childs.erase(it);
 			ret = true;
@@ -81,7 +82,6 @@ void Entity::RecCalcTransform(iPoint parentGlobalPos, bool force)
 
 		//1.Recalc globalPosition
 		globalPosition = parentGlobalPos + localPosition;
-		//TODO: Box position must be updated 
 
 		//2.Notify globalPosition has changed
 		OnTransformUpdated();
@@ -102,7 +102,22 @@ void Entity::RecCalcTransform(iPoint parentGlobalPos, bool force)
 	}
 }
 
-void Entity::SetNewParent(Entity* newParent)
+void Entity::RecCalcBox()
+{
+	if (selfActive == true && dirty == true)
+	{
+		//Actualy recalc box pos/size
+		enclosingRect.Move(globalPosition.x, globalPosition.y);
+	}
+
+	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+	{
+		if ((*it))
+			(*it)->RecCalcBox();
+	}
+}
+
+void Entity::SetNewParent(Entity* newParent, bool forceRecalcTransform)
 {
 	if (newParent == parent)
 		return;
@@ -119,7 +134,12 @@ void Entity::SetNewParent(Entity* newParent)
 	if (newParent)
 		newParent->childs.push_back(this);
 
-	//TODO: If force recalc transform do it
+	dirty = true;
+
+	if (forceRecalcTransform == true && newParent)
+	{
+		globalPosition = newParent->GetGlobalPosition() + localPosition;
+	}
 }
 
 iPoint Entity::GetLocalPosition()const
@@ -133,13 +153,13 @@ void Entity::GetLocalPosition(int&x, int& y)const
 	y = localPosition.y;
 }
 
-void Entity::SetLocalPosition(iPoint pos) //TODO: Must recalc global pos
+void Entity::SetLocalPosition(iPoint pos)
 {
 	localPosition = pos;
 	transformHasChanged = true;
 }
 
-void Entity::SetLocalPosition(int x, int y) //TODO: Must recalc global pos
+void Entity::SetLocalPosition(int x, int y)
 {
 	localPosition.create(x, y);
 	transformHasChanged = true;
@@ -164,6 +184,27 @@ void Entity::SetGlobalPosition(iPoint pos)
 void Entity::SetGlobalPosition(int x, int y)
 {
 	globalPosition.create(x, y);
+}
+
+void Entity::SetEnclosingBoxPosition(int x, int y)
+{
+	enclosingRect.Move(x, y);
+}
+
+void Entity::SetEnclosingBoxSize(int w, int h)
+{
+	enclosingRect.w = w;
+	enclosingRect.y = h;
+}
+
+void Entity::SetEnclosingBox(int x, int y, int w, int h)
+{
+	enclosingRect.Set(x, y, w, h);
+}
+
+void Entity::SetEnclosingBox(rectangle r)
+{
+	enclosingRect.Set(r.x, r.y, r.w, r.h);
 }
 
 bool Entity::IsActive()const
@@ -217,8 +258,7 @@ void Entity::Draw()
 
 void Entity::DrawDebug()
 {
-	//TMP
-	app->render->DrawCircle(globalPosition.x, globalPosition.y, 30, 255, 0, 0, 255);
+	app->render->DrawQuad({enclosingRect.x, enclosingRect.y, enclosingRect.w, enclosingRect.h}, 255, 0, 0, 255, false);
 
 	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
 	{

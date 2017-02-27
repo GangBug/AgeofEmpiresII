@@ -94,6 +94,9 @@
     <ClCompile Include="Log.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Defs.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">

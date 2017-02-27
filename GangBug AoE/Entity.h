@@ -12,27 +12,32 @@ public:
 	Entity(Entity* parent); //TODO: Might be usefull to implement a UID system
 	virtual ~Entity();
 
-	virtual bool Save(); //TODO: xml_node as parameter
-	virtual bool Load(); //TODO: xml_node as parameter
-
 	Entity* AddChild(); //TODO: Maybe add a parameter to force ID?
 	Entity* GetParent()const;
 
 	bool RecRemoveFlagged();
 	void RecCalcTransform(iPoint parentGlobalPos, bool force = false);
-	void SetNewParent(Entity* newParent);
+	void RecCalcBox();
+	void SetNewParent(Entity* newParent, bool forceRecalcTransform = false);
 
+	/** Local transform */
 	iPoint GetLocalPosition()const;
 	void GetLocalPosition(int& x, int& y)const;
 	void SetLocalPosition(iPoint pos);
 	void SetLocalPosition(int x, int y);
 
+	/** Global transform */
 	iPoint GetGlobalPosition()const;
 	void GetGlobalPosition(int& x, int& y)const;
 	void SetGlobalPosition(iPoint pos);
 	void SetGlobalPosition(int x, int y);
 
 	//TODO: Rectangle enclosing box and methods...
+	/** Enclosing box methods */
+	void SetEnclosingBoxPosition(int x, int y);
+	void SetEnclosingBoxSize(int w, int h);
+	void SetEnclosingBox(int x, int y, int w, int h);
+	void SetEnclosingBox(rectangle r);
 
 	bool IsActive()const;
 	void SetActive(bool set);
@@ -42,10 +47,9 @@ public:
 	const char* GetName()const;
 	void SetName(const char* str);
 
-	virtual void Draw();			//TODO: Const?? Probably
-	virtual void DrawDebug();		//TODO: Const?? Probably
-
 	void Remove();
+
+	//---------------------------------------------------------------
 
 	virtual void OnStart();
 	virtual void OnFinish();
@@ -55,10 +59,19 @@ public:
 
 	virtual void OnUpdate(float dt);
 
+	virtual bool Save(); //TODO: xml_node as parameter
+	virtual bool Load(); //TODO: xml_node as parameter
+
+	virtual void Draw();			//TODO: Const?? Probably
+	virtual void DrawDebug();		//TODO: Const?? Probably
+
+	//---------------------------------------------------------------
+
 protected:
 	Entity* parent = nullptr;
 	bool selfActive = true;
 	std::string name;
+	rectangle enclosingRect;
 
 private:  //Set position to private because I want to modify position with methods to control global position change
 	iPoint localPosition; //NOTE: Float point would be better??? For sure velocities must be used with floats

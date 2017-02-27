@@ -92,6 +92,19 @@ struct rectangle
 		rect.h = h;		
 		return rect;
 	}
+	void Move(int x, int y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+	void Set(int x, int y, int w, int h)
+	{
+		this->x = x;
+		this->y = y;
+		this->w = w;
+		this->h = h;
+	}
+	bool Collides(rectangle rect);
 };
 
 #endif

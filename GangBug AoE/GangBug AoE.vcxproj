@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Defs.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIImage.cpp" />
