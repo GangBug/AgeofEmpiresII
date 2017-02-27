@@ -32,13 +32,14 @@ bool M_Window::Awake(pugi::xml_node& config)
 	{
 		//Create window
 		Uint32 flags = SDL_WINDOW_SHOWN;
-		bool fullscreen = config.child("fullscreen").attribute("value").as_bool(false);
-		bool borderless = config.child("borderless").attribute("value").as_bool(false);
-		bool resizable = config.child("resizable").attribute("value").as_bool(false);
-		bool fullscreen_window = config.child("fullscreen_window").attribute("value").as_bool(false);
+		bool fullscreen = config.child("fullscreen").attribute("value").as_bool();
+		bool borderless = config.child("borderless").attribute("value").as_bool();
+		bool resizable = config.child("resizable").attribute("value").as_bool();
+		bool fullscreen_window = config.child("fullscreen_window").attribute("value").as_bool();
+		bool start_maximized = config.child("start_maximized").attribute("value").as_bool();
 
-		width = config.child("resolution").attribute("width").as_int(640);
-		height = config.child("resolution").attribute("height").as_int(480);
+		width = config.child("resolution").attribute("width").as_int();
+		height = config.child("resolution").attribute("height").as_int();
 		scale = config.child("resolution").attribute("scale").as_int(1);
 
 		if(fullscreen == true)
@@ -59,6 +60,10 @@ bool M_Window::Awake(pugi::xml_node& config)
 		if(fullscreen_window == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+		}
+		if (start_maximized)
+		{
+			flags |= SDL_WINDOW_MAXIMIZED;
 		}
 
 		window = SDL_CreateWindow(app->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
