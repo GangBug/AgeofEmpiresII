@@ -2,7 +2,7 @@
 
 <config>
   <app framerate_cap="">
-    <title>Pathfinding Test</title>
+    <title>Age of Empires - Gangbug Project</title>
     <organization>UPC</organization>
   </app>
 	
@@ -24,6 +24,7 @@
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
+    <start_maximized value="true"/>
   </window>
 
   <file_system>
