@@ -97,9 +97,6 @@
     <ClCompile Include="Defs.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="GB_Rectangle.cpp">
-      <Filter>Modules\Tools</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">

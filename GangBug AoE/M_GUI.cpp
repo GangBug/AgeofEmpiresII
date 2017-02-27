@@ -169,7 +169,7 @@ void M_GUI::DrawDebug()
 	rect.x = 0;
 	rect.y = 0;
 	SDL_QueryTexture(atlas, NULL, NULL, &rect.w, &rect.h);
-	SDL_Rect sdlrect = rect.getSDLrect();
+	SDL_Rect sdlrect = rect.GetSDLrect();
 	sdlrect.x = 0;
 	sdlrect.y = 110;
 	sdlrect.w = 231;
