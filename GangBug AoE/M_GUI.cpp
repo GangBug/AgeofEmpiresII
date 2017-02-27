@@ -4,6 +4,7 @@
 #include "App.h"
 #include "M_Input.h"
 #include "M_Render.h"
+#include "M_Textures.h"
 
 M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 {
@@ -24,9 +25,6 @@ bool M_GUI::Awake(pugi::xml_node &)
 	guiList.push_back(img);
 	return true;
 }
-
-
-
 update_status M_GUI::PreUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
@@ -53,7 +51,6 @@ update_status M_GUI::Update(float dt)
 }
 update_status M_GUI::PostUpdate(float dt)
 {
-	DrawDebug();
 	return UPDATE_CONTINUE;
 }
 bool M_GUI::UpdateGuiList()
@@ -166,11 +163,24 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 }
 void M_GUI::DrawDebug()
 {
+	SDL_Texture* atlas = app->tex->Load("gui/atlas.png");
+	rectangle rect;
+	rect.x = 0;
+	rect.y = 0;
+	SDL_QueryTexture(atlas, NULL, NULL, &rect.w, &rect.h);
+	SDL_Rect sdlrect = rect.getSDLrect();
+	sdlrect.x = 0;
+	sdlrect.y = 110;
+	sdlrect.w = 231;
+	sdlrect.h = 71;
+	app->render->Blit(atlas, 0, 0, &sdlrect);
+
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
 		rectangle rect = (*it)->GetRectangle();
 		app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
 	}
+	
 	
 }
 
