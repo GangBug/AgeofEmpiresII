@@ -1,10 +1,11 @@
 #include "M_GUI.h"
+#include "App.h"
 #include "GUIElement.h"
 #include "GUIImage.h"
-#include "App.h"
 #include "M_Input.h"
 #include "M_Render.h"
 #include "M_Textures.h"
+#include "GB_Rectangle.h"
 
 M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 {
@@ -164,7 +165,7 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 void M_GUI::DrawDebug()
 {
 	SDL_Texture* atlas = app->tex->Load("gui/atlas.png");
-	rectangle rect;
+	GB_Rectangle<int> rect;
 	rect.x = 0;
 	rect.y = 0;
 	SDL_QueryTexture(atlas, NULL, NULL, &rect.w, &rect.h);
@@ -177,7 +178,7 @@ void M_GUI::DrawDebug()
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
-		rectangle rect = (*it)->GetRectangle();
+		GB_Rectangle<int> rect = (*it)->GetRectangle();
 		app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
 	}
 	

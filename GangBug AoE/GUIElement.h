@@ -2,6 +2,7 @@
 #include <list>
 #include "p2Point.h"
 #include "M_Input.h"
+#include "GB_Rectangle.h"
 
 class Module;
 
@@ -54,9 +55,9 @@ public:
 	void RemoveListener(Module* moduleToRemove);
 
 	//Getters & Setters ------------------------------------------ START -------------------
-	rectangle GetScreenRect() const;
-	rectangle GetLocalRect() const;
-	rectangle GetRectangle() const;
+	GB_Rectangle<int> GetScreenRect() const;
+	GB_Rectangle<int> GetLocalRect() const;
+	GB_Rectangle<int> GetRectangle() const;
 	iPoint GetScreenPos() const;
 	iPoint GetLocalPos() const;
 	bool GetDraggable() const;
@@ -77,7 +78,7 @@ public:
 	void SetActive(bool _active);
 	void SetParent(GUIElement* _parent);
 	void SetType(gui_types _type);
-	void SetRectangle(rectangle _rect);
+	void SetRectangle(GB_Rectangle<int> _rect);
 	void SetRectangle(int x, int y, int w, int h);
 	void SetMouseInside(bool ins);
 	//Getters & Setters ------------------------------------------ END -------------------
@@ -102,6 +103,6 @@ protected:
 
 private:
 	bool mouseInside = false;
-	rectangle rect;
+	GB_Rectangle<int> rect;
 };
 

@@ -75,36 +75,5 @@ inline const char* const PATH(const char* folder, const char* file)
 #define PERF_START(timer) timer.Start()
 #define PERF_PEEK(timer) LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
 
-struct rectangle
-{
-	int x, y, w, h;
-
-	bool Contains(int x, int y) const
-	{
-		return ((x >= this->x) && (x < (this->x + w)) && (y >= this->y) && (y < (this->y + h)));
-	}
-	SDL_Rect getSDLrect()
-	{
-		SDL_Rect rect;
-		rect.x = x;
-		rect.y = y;
-		rect.w = w;
-		rect.h = h;		
-		return rect;
-	}
-	void Move(int x, int y)
-	{
-		this->x = x;
-		this->y = y;
-	}
-	void Set(int x, int y, int w, int h)
-	{
-		this->x = x;
-		this->y = y;
-		this->w = w;
-		this->h = h;
-	}
-	bool Collides(rectangle rect);
-};
 
 #endif

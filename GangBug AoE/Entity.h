@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include <string>
 #include <vector>
+#include "GB_Rectangle.h"
 
 class Entity
 {
@@ -37,7 +38,7 @@ public:
 	void SetEnclosingBoxPosition(int x, int y);
 	void SetEnclosingBoxSize(int w, int h);
 	void SetEnclosingBox(int x, int y, int w, int h);
-	void SetEnclosingBox(rectangle r);
+	void SetEnclosingBox(GB_Rectangle<int> r);
 
 	bool IsActive()const;
 	void SetActive(bool set);
@@ -71,7 +72,7 @@ protected:
 	Entity* parent = nullptr;
 	bool selfActive = true;
 	std::string name;
-	rectangle enclosingRect;
+	GB_Rectangle<int> enclosingRect;
 
 private:  //Set position to private because I want to modify position with methods to control global position change
 	iPoint localPosition; //NOTE: Float point would be better??? For sure velocities must be used with floats

@@ -26,7 +26,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	for (int i = 0; i < argc; i++)
 	{
 		std::string str(args[i]);
-		std::cout << "\narg " << i << ": " << str << "\n";
+		//std::cout << "\narg " << i << ": " << str << "\n";
 		if (str == "-debug")
 		{
 			debug = true;

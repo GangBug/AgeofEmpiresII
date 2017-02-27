@@ -2,7 +2,7 @@
 #include "App.h"
 #include "M_Render.h"
 
-GUIElement::GUIElement() : rect({0,0,0,0})
+GUIElement::GUIElement() : rect(0,0,0,0)
 {
 }
 GUIElement::~GUIElement()
@@ -42,7 +42,7 @@ void GUIElement::CenterY()
 
 	SetLocalPos(rect.w, frame_h / 2 - rect.h / 2);
 }
-rectangle GUIElement::GetScreenRect() const
+GB_Rectangle<int> GUIElement::GetScreenRect() const
 {
 	if (parent != nullptr)
 	{
@@ -51,11 +51,11 @@ rectangle GUIElement::GetScreenRect() const
 	}
 	return rect;
 }
-rectangle GUIElement::GetLocalRect() const
+GB_Rectangle<int> GUIElement::GetLocalRect() const
 {
 	return rect;
 }
-rectangle GUIElement::GetRectangle() const
+GB_Rectangle<int> GUIElement::GetRectangle() const
 {
 	return rect;
 }
@@ -138,7 +138,7 @@ void GUIElement::SetParent(GUIElement * _parent)
 void GUIElement::SetType(gui_types _type)
 {
 }
-void GUIElement::SetRectangle(rectangle _rect) 
+void GUIElement::SetRectangle(GB_Rectangle<int> _rect)
 {
 	rect = _rect;
 }

@@ -1,6 +1,5 @@
 #include "Entity.h"
 #include "Log.h"
-
 #include "M_EntityManager.h"
 //TMP
 #include "App.h"
@@ -202,7 +201,7 @@ void Entity::SetEnclosingBox(int x, int y, int w, int h)
 	enclosingRect.Set(x, y, w, h);
 }
 
-void Entity::SetEnclosingBox(rectangle r)
+void Entity::SetEnclosingBox(GB_Rectangle<int> r)
 {
 	enclosingRect.Set(r.x, r.y, r.w, r.h);
 }
