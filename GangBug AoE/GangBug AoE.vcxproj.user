@@ -4,5 +4,6 @@
     <LocalDebuggerWorkingDirectory>$(SolutionDir)Game\</LocalDebuggerWorkingDirectory>
     <LocalDebuggerEnvironment>PATH=%PATH%;$(SolutionDir)Build\</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-debug</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

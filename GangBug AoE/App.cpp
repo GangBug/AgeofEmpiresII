@@ -22,6 +22,17 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	PERF_START(ptimer);
 
+	//TODO this is a prototype of how to get command line parameters and do something with them, i'll enhance it when i get some more time.
+	for (int i = 0; i < argc; i++)
+	{
+		std::string str(args[i]);
+		std::cout << "\narg " << i << ": " << str << "\n";
+		if (str == "-debug")
+		{
+			debug = true;
+		}
+	}
+	
 	input = new M_Input();
 	win = new M_Window();
 	render = new M_Render();
