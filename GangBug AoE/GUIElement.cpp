@@ -137,6 +137,7 @@ void GUIElement::SetParent(GUIElement * _parent)
 }
 void GUIElement::SetType(gui_types _type)
 {
+	type = _type;
 }
 void GUIElement::SetRectangle(GB_Rectangle<int> _rect)
 {

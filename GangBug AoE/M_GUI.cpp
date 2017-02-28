@@ -2,6 +2,7 @@
 #include "App.h"
 #include "GUIElement.h"
 #include "GUIImage.h"
+#include "GUILabel.h"
 #include "M_Input.h"
 #include "M_Render.h"
 #include "M_Textures.h"
@@ -18,12 +19,25 @@ M_GUI::~M_GUI()
 
 bool M_GUI::Awake(pugi::xml_node &)
 {
+	
+	
+	return true;
+}
+bool M_GUI::Start()
+{
 	GUIImage* img = new GUIImage();
 	img->SetRectangle(20, 20, 100, 30);
 	img->SetInteractive(true);
 	img->SetCanFocus(true);
-
 	guiList.push_back(img);
+
+	GUILabel* label = new GUILabel();
+	label->SetInteractive(true);
+	label->SetCanFocus(true);
+	label->SetText("Hello World!");
+	label->CenterX();
+	guiList.push_back(label);
+
 	return true;
 }
 update_status M_GUI::PreUpdate(float dt)
@@ -162,9 +176,20 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 		(*it)->GuiEvent(element, event);		
 	}
 }
+void M_GUI::Draw()
+{
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	{
+		(*it)->Draw();
+	}
+	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
+	{
+		(*it)->Draw();
+	}
+}
 void M_GUI::DrawDebug()
 {
-	SDL_Texture* atlas = app->tex->Load("gui/atlas.png");
+	atlas = app->tex->Load("gui/atlas.png");
 	GB_Rectangle<int> rect;
 	rect.x = 0;
 	rect.y = 0;
@@ -183,5 +208,15 @@ void M_GUI::DrawDebug()
 	}
 	
 	
+}
+
+const SDL_Texture* M_GUI::GetAtlas() const
+{
+	return atlas;
+}
+
+void M_GUI::SetAtlas(SDL_Texture * texture)
+{
+	atlas = texture;
 }
 

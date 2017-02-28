@@ -6,6 +6,7 @@
 #include "M_EntityManager.h"
 #include "Entity.h"
 #include "M_Map.h"
+#include "M_GUI.h"
 
 #define VSYNC true
 
@@ -78,6 +79,8 @@ update_status M_Render::PostUpdate(float dt)
 	std::vector<Entity*> entitiesVect;
 	app->entityManager->Draw(entitiesVect);
 	DrawEntities(entitiesVect);
+
+	app->gui->Draw();
 
 	if (app->debug)
 	{

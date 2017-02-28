@@ -13,6 +13,7 @@ public:
 	virtual ~M_GUI();
 
 	bool Awake(pugi::xml_node&) override;
+	bool Start() override;
 	update_status PreUpdate(float dt) override;
 	update_status Update(float dt) override;
 	update_status PostUpdate(float dt) override;
@@ -24,14 +25,20 @@ public:
 	void ManageEvents();
 	void BroadcastEventToListeners(GUIElement* element, gui_events event);
 
+	void Draw();
 	void DrawDebug() override;
+	
 	//Getters & Setters
+	const SDL_Texture* GetAtlas() const;
+	void SetAtlas(SDL_Texture* texture);
 
 public:
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debugGuiList;
 
 private:
+
+	SDL_Texture* atlas;
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
 

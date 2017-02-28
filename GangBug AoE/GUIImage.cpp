@@ -4,6 +4,8 @@
 
 GUIImage::GUIImage()
 {
+	SetType(GUI_IMAGE);
+	//texture = nullptr;
 }
 
 
