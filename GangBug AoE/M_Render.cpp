@@ -8,6 +8,9 @@
 #include "M_Map.h"
 #include "M_GUI.h"
 
+//TEMP
+#include "M_Textures.h"
+
 #define VSYNC true
 
 M_Render::M_Render(bool startEnabled) : Module(startEnabled)
@@ -59,8 +62,29 @@ bool M_Render::Awake(pugi::xml_node& config)
 bool M_Render::Start()
 {
 	LOG("render start");
+	//Top right viewport
+	if (app->debug == true)
+	{
+		editorViewPort = app->win->GetWindowSize().GetSDLrect();
+		gameViewPort = app->win->GetWindowSize().GetSDLrect();
+
+		gameViewPort.y = 0;
+		gameViewPort.w = gameViewPort.w / 1.5f;
+		gameViewPort.h = gameViewPort.h / 1.5f;
+		gameViewPort.x = (editorViewPort.w - gameViewPort.w)/2;
+		game_tex_background = app->tex->Load("gui/TestingTexture.png");
+		 editor_tex_background = app->tex->Load("gui/TestingTexture_Green.png");
+	}
+	else
+	{
+		SDL_RenderGetViewport(renderer, &gameViewPort);
+	}
+	
+	
+	//Render texture to screen
+	
 	// back background
-	SDL_RenderGetViewport(renderer, &viewport);
+	
 	return true;
 }
 
@@ -73,6 +97,16 @@ update_status M_Render::PreUpdate(float dt)
 
 update_status M_Render::PostUpdate(float dt)
 {
+	if (app->debug)
+	{	
+		//Here goes the Editor UI
+		SetViewPort(editorViewPort);
+		SDL_RenderCopy(renderer, editor_tex_background, NULL, NULL);
+		app->gui->Draw();
+	}	
+
+	SetViewPort(gameViewPort);
+	SDL_RenderCopy(renderer, game_tex_background, NULL, NULL);
 	//TODO: Might have a better organitzation to draw map or change map system
 	app->map->Draw();
 
@@ -80,8 +114,7 @@ update_status M_Render::PostUpdate(float dt)
 	app->entityManager->Draw(entitiesVect);
 	DrawEntities(entitiesVect);
 
-	app->gui->Draw();
-
+	
 	if (app->debug)
 	{
 		app->DrawDebug();
@@ -136,7 +169,7 @@ void M_Render::SetViewPort(const SDL_Rect& rect)
 
 void M_Render::ResetViewPort()
 {
-	SDL_RenderSetViewport(renderer, &viewport);
+	//SDL_RenderSetViewport(renderer, &viewport);
 }
 
 iPoint M_Render::ScreenToWorld(int x, int y) const

@@ -112,6 +112,14 @@ void M_Window::GetWindowSize(uint& width, uint& height) const
 	height = this->height;
 }
 
+GB_Rectangle<int> M_Window::GetWindowSize() const
+{
+	GB_Rectangle<int> rect;
+	rect.w = width;
+	rect.h = height;
+	return rect;
+}
+
 uint M_Window::GetScale() const
 {
 	return scale;

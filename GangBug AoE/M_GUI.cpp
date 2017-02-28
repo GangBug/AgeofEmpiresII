@@ -25,6 +25,7 @@ bool M_GUI::Awake(pugi::xml_node &)
 }
 bool M_GUI::Start()
 {
+	atlas = app->tex->Load("gui/atlas.png");
 	GUIImage* img = new GUIImage();
 	img->SetRectangle(20, 20, 100, 30);
 	img->SetInteractive(true);
@@ -189,7 +190,6 @@ void M_GUI::Draw()
 }
 void M_GUI::DrawDebug()
 {
-	atlas = app->tex->Load("gui/atlas.png");
 	GB_Rectangle<int> rect;
 	rect.x = 0;
 	rect.y = 0;

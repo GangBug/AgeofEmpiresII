@@ -32,6 +32,13 @@ ipch/
 *.o
 *.obj
 
+# Compilation resultant trash
+
+Game/*.exp
+Game/*.ilk
+Game/*.lib
+Game/*.pdb
+
 # Precompiled Headers
 *.gch
 *.pch

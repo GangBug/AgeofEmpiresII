@@ -58,8 +58,14 @@ public:
 
 	SDL_Renderer*	renderer;
 	SDL_Rect		camera;
-	SDL_Rect		viewport;
+	//SDL_Rect		viewport;
 	SDL_Color		background;
+
+	SDL_Rect		editorViewPort;
+	SDL_Rect		gameViewPort;
+	SDL_Rect		miniMapViewPort;
+	SDL_Texture*	game_tex_background;
+	SDL_Texture*	editor_tex_background;
 };
 
 #endif // __j1RENDER_H__

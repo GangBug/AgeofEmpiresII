@@ -2,6 +2,7 @@
 #define __M_WINDOW_H__
 
 #include "Module.h"
+#include "GB_Rectangle.h"
 
 struct SDL_Window;
 struct SDL_Surface;
@@ -26,7 +27,7 @@ public:
 
 	// Retrive window size
 	void GetWindowSize(uint& width, uint& height) const;
-
+	GB_Rectangle<int> GetWindowSize() const;
 	// Retrieve window scale
 	uint GetScale() const;
 
