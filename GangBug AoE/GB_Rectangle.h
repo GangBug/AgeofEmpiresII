@@ -23,6 +23,9 @@ public:
 		this->w = copy.w;
 		this->h = copy.h;
 	}
+
+	GB_Rectangle(const SDL_Rect& r) : x(r.x), y(r.y), w(r.w), h(r.h)
+	{}
 	
 	GB_Rectangle() : x(0), y(0), w(0), h(0)
 	{

@@ -10,6 +10,7 @@
 
 //TEMP
 #include "M_Textures.h"
+#include <algorithm>
 
 #define VSYNC true
 
@@ -225,7 +226,7 @@ bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	return ret;
 }
 
-bool M_Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool useCamera) const
+bool M_Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool useCamera, bool useGameViewPort) const
 {
 	bool ret = true;
 	uint scale = app->win->GetScale();
@@ -236,7 +237,7 @@ bool M_Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	SDL_Rect rec(rect);
 	if(useCamera)
 	{
-		rec.x = (int)(camera.x + rect.x * scale);
+		rec.x = (int)(camera.x + rect.x - (useGameViewPort == true ? gameViewPort.x : 0)  * scale);
 		rec.y = (int)(camera.y + rect.y * scale);
 		rec.w *= scale;
 		rec.h *= scale;
@@ -253,7 +254,7 @@ bool M_Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	return ret;
 }
 
-bool M_Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool useCamera) const
+bool M_Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool useCamera, bool useGameViewPort) const
 {
 	bool ret = true;
 	uint scale = app->win->GetScale();
@@ -262,22 +263,24 @@ bool M_Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
 	int result = -1;
+	int realPosX1 = x1 - (useGameViewPort == true ? gameViewPort.x : 0);
+	int realPosX2 = x2 - (useGameViewPort == true ? gameViewPort.x : 0);
 
 	if(useCamera)
-		result = SDL_RenderDrawLine(renderer, camera.x + x1 * scale, camera.y + y1 * scale, camera.x + x2 * scale, camera.y + y2 * scale);
+		result = SDL_RenderDrawLine(renderer, camera.x + realPosX1 * scale, camera.y + y1 * scale, camera.x + realPosX2 * scale, camera.y + y2 * scale);
 	else
-		result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
+		result = SDL_RenderDrawLine(renderer, realPosX1 * scale, y1 * scale, realPosX2 * scale, y2 * scale);
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		LOG("Cannot draw line to screen. SDL_RenderDrawLine error: %s", SDL_GetError());
 		ret = false;
 	}
 
 	return ret;
 }
 
-bool M_Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool useCamera) const
+bool M_Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool useCamera, bool useGameViewPort) const
 {
 	bool ret = true;
 	uint scale = app->win->GetScale();
@@ -290,9 +293,11 @@ bool M_Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	float factor = (float)M_PI / 180.0f;
 
+	int realPosX = x - (useGameViewPort == true ? gameViewPort.x : 0);
+
 	for(uint i = 0; i < 360; ++i)
 	{
-		points[i].x = (int)(x + radius * cos(i * factor));
+		points[i].x = (int)(realPosX + radius * cos(i * factor));
 		points[i].y = (int)(y + radius * sin(i * factor));
 	}
 
@@ -300,17 +305,18 @@ bool M_Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		LOG("Cannot draw circle to screen. SDL_RenderDrawPoints error: %s", SDL_GetError());
 		ret = false;
 	}
 
 	return ret;
 }
 
-
 void M_Render::DrawEntities(std::vector<Entity*> entities)
 {
-	//TODO: Order this before drawing this
+	//TODO: This comparison must be check with final units and objects to check which would be the best way to order the vector.
+	std::sort(entities.begin(), entities.end(), ([](Entity* et1, Entity* et2) { return (et1->GetGlobalPosition().y + et1->GetEnclosingBox().h / 2) < (et2->GetGlobalPosition().y + et2->GetEnclosingBox().h / 2); }));
+	//return et1->GetGlobalPosition().y < et2->GetGlobalPosition().y;
 
 	for (std::vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
 	{
@@ -318,10 +324,28 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 
 		if (tmp != nullptr)
 		{
-			iPoint pos = tmp->GetGlobalPosition();
-			GB_Rectangle<int> drawRec = tmp->GetDrawQuad();
-			SDL_Rect r = drawRec.GetSDLrect();
-			Blit(tmp->GetTexture(), pos.x, pos.y, &r); //TODO: Draw only the correct region.
+			SDL_Texture* texture = tmp->GetTexture();
+
+			if (texture != nullptr)
+			{
+				uint scale = app->win->GetScale();
+				GB_Rectangle<int> section = tmp->GetDrawQuad();
+				iPoint pos = tmp->GetGlobalPosition();
+				SDL_Rect finalRect;
+
+				finalRect.x = (int)(camera.x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
+				finalRect.y = (int)(camera.y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
+
+				finalRect.w = section.w * scale; //TODO: Viewport ratio
+				finalRect.h = section.h * scale; //TODO: Viewport ratio
+
+				if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, nullptr, SDL_FLIP_NONE) != 0)
+				{
+					LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
+				}
+
+			}
+
 		}
 	}
 }
