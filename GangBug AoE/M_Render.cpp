@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "M_Map.h"
 #include "M_GUI.h"
+#include "M_Animation.h"
 
 //TEMP
 #include "M_Textures.h"
@@ -328,24 +329,51 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 
 			if (texture != nullptr)
 			{
-				uint scale = app->win->GetScale();
-				GB_Rectangle<int> section = tmp->GetDrawQuad();
-				iPoint pos = tmp->GetGlobalPosition();
-				SDL_Rect finalRect;
+				if (strcmp(tmp->GetName(), "unit") != 0) {
+					uint scale = app->win->GetScale();
+					GB_Rectangle<int> section = tmp->GetDrawQuad();
+					iPoint pos = tmp->GetGlobalPosition();
+					SDL_Rect finalRect;
 
-				finalRect.x = (int)(camera.x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
-				finalRect.y = (int)(camera.y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
+					finalRect.x = (int)(camera.x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
+					finalRect.y = (int)(camera.y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
 
-				finalRect.w = section.w * scale; //TODO: Viewport ratio
-				finalRect.h = section.h * scale; //TODO: Viewport ratio
+					finalRect.w = section.w * scale; //TODO: Viewport ratio
+					finalRect.h = section.h * scale; //TODO: Viewport ratio
 
-				if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, nullptr, SDL_FLIP_NONE) != 0)
-				{
-					LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
+					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, nullptr, SDL_FLIP_NONE) != 0)
+					{
+						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
+					}
 				}
+				else if (strcmp(tmp->GetName(), "unit") == 0)
+				{
+					uint scale = app->win->GetScale();
 
+					GB_Rectangle<int> section;
+					iPoint pivot;
+					app->animation->GetFrame(section, pivot, (Unit*)tmp);
+					SDL_Point tempPivot;
+					tempPivot.x = pivot.x;
+					tempPivot.y = pivot.y;
+
+					iPoint pos = tmp->GetGlobalPosition();
+					SDL_Rect finalRect;
+
+					finalRect.x = (int)(camera.x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
+					finalRect.y = (int)(camera.y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
+
+					finalRect.w = section.w * scale; //TODO: Viewport ratio
+					finalRect.h = section.h * scale; //TODO: Viewport ratio
+
+
+					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, &tempPivot,SDL_FLIP_NONE) != 0)//FLIP?
+					{
+						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
+					}
+
+				}
 			}
-
 		}
 	}
 }

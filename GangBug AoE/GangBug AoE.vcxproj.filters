@@ -100,6 +100,12 @@
     <ClCompile Include="GB_Rectangle.cpp">
       <Filter>Modules\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="M_Animation.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Entity System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -179,6 +185,12 @@
     </ClInclude>
     <ClInclude Include="GB_Rectangle.h">
       <Filter>Modules\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Animation.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Entity System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@
 #include "M_Fonts.h"
 #include "M_EntityManager.h"
 #include "M_GUI.h"
+#include "M_Animation.h"
 
 #include "App.h"
 
@@ -44,6 +45,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	font = new M_Fonts();
 	entityManager = new M_EntityManager();
 	gui = new M_GUI();
+	animation = new M_Animation();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -56,6 +58,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(font);
 	AddModule(entityManager);
+	AddModule(animation);
 
 	AddModule(gui);
 	// render last to swap buffer

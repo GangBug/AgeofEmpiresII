@@ -44,10 +44,11 @@ bool M_EntityManager::Start()
 	//TMP
 	textTexture = app->tex->Load("textures/test.png");
 
-	et = CreateEntity(nullptr, 100, 100);
+	et = CreateEntity(nullptr, 300, 100);
 	et->SetTexture(textTexture);
-	et2 = CreateEntity(et, 50, 50);
-	et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
+	//et2 = CreateEntity(et, 50, 50);
+	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
+	archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 	return ret;
 }
@@ -140,12 +141,12 @@ bool M_EntityManager::CleanUp()
 
 Entity* M_EntityManager::CreateEntity(Entity* parent, int posX, int posY, int rectX, int rectY)
 {
-	Entity* ret = nullptr;
+	Entity* ret = new Entity(parent);
 
 	if (parent)
-		ret = parent->AddChild();
+		parent->AddChild(ret);
 	else
-		ret = root->AddChild();
+		root->AddChild(ret);
 
 	if (ret)
 	{
@@ -155,6 +156,28 @@ Entity* M_EntityManager::CreateEntity(Entity* parent, int posX, int posY, int re
 	else
 	{
 		LOG("ERROR: Could not create a new entity.");
+	}
+
+	return ret;
+}
+
+Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, int posY, int rectX, int rectY)
+{
+	Entity* ret = (Entity*) new Unit(type, parent);
+
+	if (parent)
+		parent->AddChild(ret);
+	else
+		root->AddChild(ret);
+
+	if (ret)
+	{
+		ret->SetLocalPosition(posX, posY);
+		ret->SetEnclosingBox(posX, posY, rectX, rectY);
+	}
+	else
+	{
+		LOG("ERROR: Could not create a new unit.");
 	}
 
 	return ret;

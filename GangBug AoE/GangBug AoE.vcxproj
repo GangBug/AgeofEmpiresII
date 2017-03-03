@@ -130,6 +130,7 @@
     <ClCompile Include="GUIInputText.cpp" />
     <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="M_Animation.cpp" />
     <ClCompile Include="M_Audio.cpp" />
     <ClCompile Include="M_FileSystem.cpp" />
     <ClCompile Include="M_Fonts.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="M_EntityManager.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
@@ -154,6 +156,7 @@
     <ClInclude Include="GUIInputText.h" />
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="App.h" />
+    <ClInclude Include="M_Animation.h" />
     <ClInclude Include="M_Audio.h" />
     <ClInclude Include="M_FileSystem.h" />
     <ClInclude Include="M_Fonts.h" />
@@ -174,6 +177,7 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="GB_Rectangle.h" />
+    <ClInclude Include="Unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

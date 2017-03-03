@@ -23,6 +23,7 @@ bool M_GUI::Awake(pugi::xml_node &)
 	
 	return true;
 }
+
 bool M_GUI::Start()
 {
 	atlas = app->tex->Load("gui/atlas.png");

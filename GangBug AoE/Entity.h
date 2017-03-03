@@ -15,7 +15,7 @@ public:
 	Entity(Entity* parent, SDL_Texture* texture = nullptr, GB_Rectangle<int> drawRect = ZeroRectangle); //TODO: Might be usefull to implement a UID system
 	virtual ~Entity();
 
-	Entity* AddChild(); //TODO: Maybe add a parameter to force ID?
+	void AddChild(Entity* child); //TODO: Maybe add a parameter to force ID?
 	Entity* GetParent()const;
 
 	bool RecRemoveFlagged();

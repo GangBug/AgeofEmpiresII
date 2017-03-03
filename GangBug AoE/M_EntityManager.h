@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include <vector>
+#include "Unit.h"
 
 class Entity;
 class SDL_Texture;
@@ -22,6 +23,7 @@ public:
 
 
 	Entity* CreateEntity(Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
+	Entity* CreateUnit(unit_type type = DEFAULT_UNIT, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
@@ -53,6 +55,7 @@ private:
 
 	Entity* et = nullptr;
 	Entity* et2 = nullptr;
+	Entity* archer = nullptr;
 	SDL_Texture* textTexture = nullptr;
 };
 

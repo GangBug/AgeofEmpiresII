@@ -24,6 +24,7 @@ class M_PathFinding;
 class M_Fonts;
 class M_EntityManager;
 class M_GUI;
+class M_Animation;
 
 
 class App
@@ -103,6 +104,7 @@ public:
 	M_Fonts*			font = nullptr;
 	M_EntityManager*	entityManager = nullptr;
 	M_GUI*				gui = nullptr;
+	M_Animation*		animation = nullptr;
 
 	bool debug = false;
 	bool quit = false;

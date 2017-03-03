@@ -38,17 +38,9 @@ bool Entity::Load()
 	return false;
 }
 
-Entity* Entity::AddChild()
+void Entity::AddChild(Entity* child)
 {
-	Entity* ret = nullptr;
-
-	ret = new Entity(this);
-	if (ret)
-		childs.push_back(ret);
-	else
-		LOG("ERROR: Could not create a new entity child of [%s].", parent->GetName());
-
-	return ret;
+	childs.push_back(child);
 }
 
 Entity* Entity::GetParent()const
@@ -337,7 +329,20 @@ void Entity::OnDisable()
 {}
 
 void Entity::OnUpdate(float dt)
-{}
+{
+
+	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+	{
+		if (strcmp((*it)->name.c_str(), "unit") == 0)
+		{
+			dynamic_cast<Unit*>(*it)->OnUpdate(dt);
+		}
+		else
+		{
+			(*it)->OnUpdate(dt);
+		}
+	}
+}
 
 void Entity::OnTransformUpdated()
 {}
