@@ -81,16 +81,23 @@ protected:
 	Entity* parent = nullptr;
 	bool selfActive = true;
 	std::string name;
+	/** Is a rectangle the enclose the entity and will be used to collide with the quadtree and might be and aproximation to simulate simple physics collisions. */
 	GB_Rectangle<int> enclosingRect;
 
 	SDL_Texture* entityTexture = nullptr;
+	/** It's a rectangle that determine the section of the texture that must be drawn. If an enclosing box is not provided this rect will be used to set it. */
 	GB_Rectangle<int> drawQuad;
 
 private:  //Set position to private because I want to modify position with methods to control global position change
 	iPoint localPosition; //NOTE: Float point would be better??? For sure velocities must be used with floats
 	iPoint globalPosition; //Actually draw position.
 
-	//TODO: Rectangle enclosing box
+	/**
+		GlobalPosition is the position in the world representation system. It's the position where the entity will be draw.
+		Local position is the position in relation with its parent. 
+		
+		If parents position is 5, 5 and this entity local position is 1, 1 it will be drawn on 6, 6.
+	*/
 
 	bool transformHasChanged = false;
 	bool dirty = true;

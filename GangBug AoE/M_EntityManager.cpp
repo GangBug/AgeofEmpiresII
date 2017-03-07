@@ -9,18 +9,34 @@
 #include "SDL\include\SDL.h"
 #include "M_Textures.h"
 
+/**
+	Contructor: Creates the module that manages all entities.
+
+	Parameters: Boolean. Module creates enabled or not.
+*/
 M_EntityManager::M_EntityManager(bool startEnabled) : Module(startEnabled)
 {
 	LOG("Entity manager: Creation.");
 	name.assign("entity_manager");
 }
 
-
+/**
+	Destructor
+*/
 M_EntityManager::~M_EntityManager()
 {
 	LOG("Entity manager: Destroying.");
 }
 
+/**
+	Awake: Called before the first frame. Creates the root entity of the scene.
+
+	Return:
+		-True if succes.
+		-False if could not create the root.
+
+	Parameters: xml_node with the config file section.
+*/
 bool M_EntityManager::Awake(pugi::xml_node&)
 {
 	LOG("Entity manager: Awake.");
@@ -36,6 +52,15 @@ bool M_EntityManager::Awake(pugi::xml_node&)
 	return ret;
 }
 
+/**
+	Start: Called before first frame if module is active. Sets the base scene.
+
+	Return:
+		-True if succes.
+		-False if any error.
+
+	Parameters: Void.
+*/
 bool M_EntityManager::Start()
 {
 	LOG("Entity manager: Start.");
@@ -53,6 +78,16 @@ bool M_EntityManager::Start()
 	return ret;
 }
 
+/**
+	PreUpdate: Called every frame. Does logic calcs on all entities.
+
+	Return: 
+		-UPDATE_CONTINUE if all is correct.
+		-UPDATE_STOP if the engine has to stop correctly.
+		-UPDATE_ERROR if there's any error.
+
+		Parameters: Float delta time.
+*/
 update_status M_EntityManager::PreUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
@@ -101,6 +136,16 @@ update_status M_EntityManager::PreUpdate(float dt)
 	return ret;
 }
 
+/**
+	Update: Called every frame. Calls all entities updates.
+	
+	Return:
+		-UPDATE_CONTINUE if all is correct.
+		-UPDATE_STOP if the engine has to stop correctly.
+		-UPDATE_ERROR if there's any error.
+	
+	Parameters: Float delta time.
+*/
 update_status M_EntityManager::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
@@ -108,7 +153,7 @@ update_status M_EntityManager::Update(float dt)
 	if (root)
 	{
 		//TODO: Only if play mode??
-		root->OnUpdate(dt);
+		root->OnUpdate(dt); //TODO: Test with tree??? If not drawn why update?? Add static and dynamic entities??
 	}
 	else
 	{
@@ -119,6 +164,16 @@ update_status M_EntityManager::Update(float dt)
 	return ret;
 }
 
+/**
+	PostUpdate: Called every frame.
+	
+	Return:
+		-UPDATE_CONTINUE if all is correct.
+		-UPDATE_STOP if the engine has to stop correctly.
+		-UPDATE_ERROR if there's any error.
+	
+	Parameters: Float delta time.
+*/
 update_status M_EntityManager::PostUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
@@ -126,6 +181,15 @@ update_status M_EntityManager::PostUpdate(float dt)
 	return ret;
 }
 
+/**
+	CleanUp: Called At the end of the execution. Cleans all the scene.
+	
+	Return:
+		-True if succes.
+		-False if any error.
+	
+	Parameters: Void.
+*/
 bool M_EntityManager::CleanUp()
 {
 	LOG("Entity manager: CleanUp.");
@@ -139,9 +203,22 @@ bool M_EntityManager::CleanUp()
 	return ret;
 }
 
+/**
+	CreateEntity: Creates a new entity and adds it to the scene.
+
+	Return:
+		-Entity pointer if succes.
+		-Nullptr if failure.
+
+	Parameters:
+		-Entity* if force a parent. Root by default.
+		-posX, posY to force a position. 0,0 by default.
+		-rectX, rectY to force an enclosing box size. 1,1 by default.
+*/
 Entity* M_EntityManager::CreateEntity(Entity* parent, int posX, int posY, int rectX, int rectY)
 {
-	Entity* ret = new Entity(parent);
+	Entity* ret = nullptr; //First set to nullptr to assure we can check for errors later.
+	ret = new Entity(parent);
 
 	if (parent)
 		parent->AddChild(ret);
@@ -161,6 +238,19 @@ Entity* M_EntityManager::CreateEntity(Entity* parent, int posX, int posY, int re
 	return ret;
 }
 
+/**
+	CreateUnit: Creates a new unit and adds it to scene.
+
+	Return:
+		-Entity pointer if succes.
+		-Nullptr if failure.
+
+	Parameters:
+		-unit_type to determine the unit type.
+		-Entity* if force a parent. Root by default.
+		-posX, posY to force a position. 0,0 by default.
+		-rectX, rectY to force an enclosing box size. 1,1 by default.
+*/
 Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, int posY, int rectX, int rectY)
 {
 	Entity* ret = (Entity*) new Unit(type, parent);
@@ -183,6 +273,15 @@ Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, in
 	return ret;
 }
 
+/**
+	GetSceneRoot: Return the root entity of the scene.
+
+	Return:
+		-Constant entity.
+
+	Parameters:
+		-Void.
+*/
 Entity* M_EntityManager::GetSceneRoot()const
 {
 	return root;
@@ -193,6 +292,15 @@ Entity* M_EntityManager::FindEntity()
 	return nullptr; //TODO
 }
 
+/**
+	Draw: Collect all enitities that must be drawn on screen by testing the camera with the quadtree(TODO) and fill a vector with them.
+
+	Return: 
+		-Void.
+
+	Parameters:
+		-Entiti* vector by reference that will be filled.
+*/
 void M_EntityManager::Draw(std::vector<Entity*>& entitiesToDraw)
 {
 	if (root)
@@ -209,13 +317,22 @@ void M_EntityManager::Draw(std::vector<Entity*>& entitiesToDraw)
 	}
 }
 
+/**
+	DrawDebug: Called every frame if debug mode is enabled. Calls all active entities DrawDebug.
+
+	Return: 
+		-Void.
+
+	Parameters:
+		-Void.
+*/
 void M_EntityManager::DrawDebug()
 {
 	if (root)
 	{
 		for (std::vector<Entity*>::iterator it = root->childs.begin(); it != root->childs.end(); ++it)
 		{
-			if ((*it))
+			if ((*it) && (*it)->IsActive())
 				(*it)->DrawDebug();
 		}
 	}
@@ -225,26 +342,53 @@ void M_EntityManager::DrawDebug()
 	}
 }
 
+/**
+	InsertEntityToTree: Adds an entity to the scene quadtree.
+
+	Return: 
+		-Void.
+
+	Parameters:
+		-Entity to add.
+*/
 void M_EntityManager::InsertEntityToTree(Entity* et)
 {
 
 }
 
+/**
+	EraseEntityFromTree: Remove an entity to the scene quadtree.
+
+	Return:
+		-Void.
+
+	Parameters:
+		-Entity to remove.
+*/
 void M_EntityManager::EraseEntityFromTree(Entity* et)
 {
 
 }
 
+/**
+	LoadScene: Mark to load an scene on next frame.
+*/
 void M_EntityManager::LoadScene()
 {
 	mustLoadScene = true;
 }
 
+/**
+	SaveScene: Mark to save an scene on next frame.
+*/
 void M_EntityManager::SaveScene()
 {
 	mustSaveScene = true;
 }
 
+/**
+	RemoveFlagged: Iterate all marked to remove entities and deletes them. Must be called on a save moment.
+*/
 void M_EntityManager::RemoveFlagged()
 {
 	if (root)
@@ -269,6 +413,16 @@ void M_EntityManager::RemoveFlagged()
 	}
 }
 
+/**
+	RecColectEntitiesToDraw: Recursively iterate all entities and collects them to later draw.
+
+	Return: 
+		-Void.
+
+	Parameters:
+		-Enitiy vector by reference to fill.
+		-Current entity iterating.
+*/
 void M_EntityManager::RecColectEntitiesToDraw(std::vector<Entity*>& entitiesToDraw, Entity* et)
 {
 	if (et != nullptr)
@@ -283,11 +437,25 @@ void M_EntityManager::RecColectEntitiesToDraw(std::vector<Entity*>& entitiesToDr
 	}
 }
 
+/**
+	LoadSceneNow: Actually load a scene in a save moment.
+
+	Return:
+		-True if succes.
+		-False if failure.
+*/
 bool M_EntityManager::LoadSceneNow()
 {
 	return false;
 }
 
+/**
+	SaveSceneNow: Actually save a scene in a save moment.
+
+	Return:
+		-True if succes.
+		-False if failure.
+*/
 bool M_EntityManager::SaveSceneNow()
 {
 	return false;

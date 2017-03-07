@@ -9,45 +9,79 @@
 #include "M_Render.h"
 #include "M_Textures.h"
 
+/**
+	Constructor: Fill some entity data.
 
+	Parameters:
+		-Entity* parent of the new entity.
+		-SDL_Texture* entity texture if it has. Nullptr by default.
+		-GB_Rectangle<int> drawRect: Is the texture section that must be drawn. ZeroRectangle(0, 0, 0, 0) by default.
+*/
 Entity::Entity(Entity* parent, SDL_Texture* texture, GB_Rectangle<int> drawRect) : parent(parent), entityTexture(texture), drawQuad(drawRect)
 {
 	name.assign("entity");
 	enclosingRect.Set(0, 0, 0, 0);
 	if (texture != nullptr && drawRect == ZeroRectangle)
 	{
-		app->tex->GetSize(texture, (uint&)enclosingRect.w, (uint&)enclosingRect.h);
+		app->tex->GetSize(texture, (uint&)enclosingRect.w, (uint&)enclosingRect.h); //TODO: Enclosing box should not be the full texture size.
 		drawQuad = enclosingRect;
 	}
 }
 
-
+/**
+	Destructor: Destroy the entity and all its childs.
+*/
 Entity::~Entity()
 {
 	for (uint i = 0; i < childs.size(); ++i)
 		RELEASE(childs[i]);
 }
 
+/**
+	Save: Saves the entity information.
+*/
 bool Entity::Save()
 {
 	return false;
 }
 
+/**
+	Load: Loads the entity information.
+*/
 bool Entity::Load()
 {
 	return false;
 }
 
-void Entity::AddChild(Entity* child)
+/**
+	AddChild: Add a passed entity to child vector.
+
+	Parameters:
+		-Entity to add.
+*/
+void Entity::AddChild(Entity* child) //NOTE!!! : The old AddChild was usefull to abstract a bit of system complexity.
 {
 	childs.push_back(child);
 }
 
+/**
+	GetParent: Return the entity parent.
+
+	Return: 
+		-Entity*.
+*/
 Entity* Entity::GetParent()const
 {
 	return parent;
 }
 
+/**
+	RecRemoveFlagged: Actually deletes all marked childs after calling theirs OnFinish.
+
+	Return:
+		-True if any child has been deleted.
+		-False if any child has been deletes.
+*/
 bool Entity::RecRemoveFlagged()
 {
 	bool ret = false;
@@ -73,6 +107,13 @@ bool Entity::RecRemoveFlagged()
 	return ret;
 }
 
+/**
+	RecCalcTransform: Update the global position according to its parent global position and its own local position if this one has changed. Adter this recusecly calls all childs.
+
+	Parameters: 
+		-iPoint parentGlobalPosition.
+		-bool force if want to force the calc when position have not changed.
+*/
 void Entity::RecCalcTransform(iPoint parentGlobalPos, bool force)
 {
 	if (transformHasChanged == true || force == true)
@@ -100,6 +141,9 @@ void Entity::RecCalcTransform(iPoint parentGlobalPos, bool force)
 	}
 }
 
+/**
+	RecCalcBox: If entity is dirty, recalculate the enclosing box and recursively recalc childs.
+*/
 void Entity::RecCalcBox()
 {
 	if (selfActive == true && dirty == true)
@@ -116,6 +160,13 @@ void Entity::RecCalcBox()
 	}
 }
 
+/**
+	SetNewParent: Set a new parent to the entity.
+
+	Parameters:
+		-Entity* the new parent.
+		-Bool if want to force to recalculate the position.
+*/
 void Entity::SetNewParent(Entity* newParent, bool forceRecalcTransform)
 {
 	if (newParent == parent)
@@ -141,78 +192,120 @@ void Entity::SetNewParent(Entity* newParent, bool forceRecalcTransform)
 	}
 }
 
+/**
+	GetLocalPosition: Returns an iPoint with the local position in relation with its parent.
+*/
 iPoint Entity::GetLocalPosition()const
 {
 	return localPosition;
 }
 
+/**
+	GetLocalPosition: Fill tow ints with the local position in relation with its parent.
+*/
 void Entity::GetLocalPosition(int&x, int& y)const
 {
 	x = localPosition.x;
 	y = localPosition.y;
 }
 
+/**
+	SetLocalPos: Sets the local position of the entity.
+*/
 void Entity::SetLocalPosition(iPoint pos)
 {
 	localPosition = pos;
 	transformHasChanged = true;
 }
 
+/**
+	SetLocalPos: Sets the local position of the entity.
+*/
 void Entity::SetLocalPosition(int x, int y)
 {
 	localPosition.create(x, y);
 	transformHasChanged = true;
 }
 
+/**
+	GetGlobalPos: Return the global position in world coords reference.
+*/
 iPoint Entity::GetGlobalPosition()const
 {
 	return globalPosition;
 }
 
+/**
+	GetGlobalPos: Return the global position in world coords reference.
+*/
 void Entity::GetGlobalPosition(int& x, int& y)const
 {
 	x = globalPosition.x;
 	y = globalPosition.y;
 }
 
+/**
+	SetGlobalPos: Sets the global position of the entity.
+*/
 void Entity::SetGlobalPosition(iPoint pos) //TODO: Must change local pos to make it fit later when parent is moved
 {
 	globalPosition = pos;
 	dirty = true;
 }
 
+/**
+	SetGlobalPos: Sets the global position of the entity.
+*/
 void Entity::SetGlobalPosition(int x, int y) //TODO: Must change local pos to make it fit later when parent is moved
 {
 	globalPosition.create(x, y);
 	dirty = true;
 }
 
+/**
+	SetEnclosingBoxPosition: Moves the enclosing box to a certain point. This coords will be treated on world reference system.
+*/
 void Entity::SetEnclosingBoxPosition(int x, int y)
 {
 	enclosingRect.Move(x, y);
 }
 
+/**
+	SetEnclosingBoxSize: Sets the size of the enclosing box.
+*/
 void Entity::SetEnclosingBoxSize(int w, int h)
 {
 	enclosingRect.w = w;
 	enclosingRect.y = h;
 }
 
+/**
+	SetEnclosingBox: Sets a new enclosing box.
+*/
 void Entity::SetEnclosingBox(int x, int y, int w, int h)
 {
 	enclosingRect.Set(x, y, w, h);
 }
 
+/**
+	SetEnclosingBox: Sets a new enclosing box.
+*/
 void Entity::SetEnclosingBox(GB_Rectangle<int> r)
 {
 	enclosingRect.Set(r.x, r.y, r.w, r.h);
 }
 
+/**
+	IsActive: Return true if entity is active and false if not.
+*/
 bool Entity::IsActive()const
 {
 	return selfActive;
 }
 
+/**
+	SetActive: Sets entity self active. If it has changed calls OnEnable or OnDisable.
+*/
 void Entity::SetActive(bool set)
 {
 	if (set != selfActive)
@@ -225,6 +318,9 @@ void Entity::SetActive(bool set)
 	}
 }
 
+/**
+	Enable: Set entity active to true and calls OnEnable if it wasnt active before.
+*/
 void Entity::Enable()
 {
 	if (!selfActive)
@@ -234,6 +330,9 @@ void Entity::Enable()
 	}
 }
 
+/**
+	Disable: Set entity active to false and calls OnDisable if it was active before.
+*/
 void Entity::Disable()
 {
 	if (selfActive)
@@ -243,11 +342,13 @@ void Entity::Disable()
 	}
 }
 
+/** GetName: Returns entity name. */
 const char* Entity::GetName()const
 {
 	return name.c_str();
 }
 
+/** SetsName: Sets entity name. */
 void Entity::SetName(const char* str)
 {
 	if (str)
@@ -257,6 +358,7 @@ void Entity::SetName(const char* str)
 void Entity::Draw()
 {}
 
+/** DrawDebug: Draw all debug info about the entity. */
 void Entity::DrawDebug()
 {
 	app->render->DrawQuad({enclosingRect.x, enclosingRect.y, enclosingRect.w, enclosingRect.h}, 255, 0, 0, 255, false);
@@ -268,21 +370,37 @@ void Entity::DrawDebug()
 	}
 }
 
+/** 
+	Remove: Mark the entity to delete it in a save moment.
+*/
 void Entity::Remove()
 {
 	removeFlag = true;
 }
 
+/**
+	HasTexture: Return true if has a texture or false if not.
+*/
 bool Entity::HasTexture()
 {
 	return entityTexture != nullptr;
 }
 
+/**
+	GetTexture: Return the texture or nullptr.
+*/
 SDL_Texture* Entity::GetTexture()const
 {
 	return entityTexture;
 }
 
+/**
+	SetTexture: Change the enitity texture.
+
+	Parameters:
+		-SDL_Texture* the new texture.
+		-GB_Rectangle<int> the section of the texture to draw. Will be also used to set the enclosing box. ZeroRect by default. If ZeroRect, it usesthe texture size.
+*/
 void Entity::SetTexture(SDL_Texture* texture, GB_Rectangle<int> drawRect)
 {
 	entityTexture = texture;
@@ -304,11 +422,13 @@ void Entity::SetTexture(SDL_Texture* texture, GB_Rectangle<int> drawRect)
 	}
 }
 
+/** GetDrawQuad: Returns the section of the texture to draw. */
 GB_Rectangle<int> Entity::GetDrawQuad()const
 {
 	return drawQuad;
 }
 
+/** GetEnclosingBox: Returns the box that enclose the entity. */
 GB_Rectangle<int> Entity::GetEnclosingBox()const
 {
 	return enclosingRect;
@@ -316,19 +436,34 @@ GB_Rectangle<int> Entity::GetEnclosingBox()const
 
 ///------------------------------------------------
 
+/**
+	OnStart: Virtual method called after entity creation.
+*/
 void Entity::OnStart()
 {}
 
+/**
+	OnFinish: Virtual method called before entity delete.
+*/
 void Entity::OnFinish()
 {}
 
+/**
+	OnEnable: Virtual method called when entity is enabled.
+*/
 void Entity::OnEnable()
 {}
 
+/**
+	OnDisable: Virtual method called when entity is disabled.
+*/
 void Entity::OnDisable()
 {}
 
-void Entity::OnUpdate(float dt)
+/**
+	OnUpdate: Virtual method called every frame if its active and calls childs OnUpdate.
+*/
+void Entity::OnUpdate(float dt) //TODO: Might add an Update method and an OnUpdate. -> Update calls OnUpdate and childs one but Update actually does concrete entity logic.
 {
 
 	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
@@ -344,5 +479,8 @@ void Entity::OnUpdate(float dt)
 	}
 }
 
+/**
+	OnTransformUpdated: Virtual method called when transform/global position has changed.
+*/
 void Entity::OnTransformUpdated()
 {}

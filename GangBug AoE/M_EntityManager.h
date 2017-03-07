@@ -53,6 +53,7 @@ private:
 	bool mustSaveScene = false;
 	bool mustLoadScene = false;
 
+	//TMP
 	Entity* et = nullptr;
 	Entity* et2 = nullptr;
 	Entity* archer = nullptr;
