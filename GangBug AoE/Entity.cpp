@@ -250,6 +250,9 @@ void Entity::GetGlobalPosition(int& x, int& y)const
 void Entity::SetGlobalPosition(iPoint pos) //TODO: Must change local pos to make it fit later when parent is moved
 {
 	globalPosition = pos;
+	iPoint tmp = { 0, 0 };
+	tmp = globalPosition - ((parent != nullptr) ? parent->GetGlobalPosition() : iPoint(0, 0));
+	SetLocalPosition(tmp); //TODO: Must test this.
 	dirty = true;
 }
 
@@ -259,6 +262,9 @@ void Entity::SetGlobalPosition(iPoint pos) //TODO: Must change local pos to make
 void Entity::SetGlobalPosition(int x, int y) //TODO: Must change local pos to make it fit later when parent is moved
 {
 	globalPosition.create(x, y);
+	iPoint tmp = { 0, 0 };
+	tmp = globalPosition - ((parent != nullptr) ? parent->GetGlobalPosition() : iPoint(0, 0));
+	SetLocalPosition(tmp); //TODO: Must test this.
 	dirty = true;
 }
 
@@ -355,9 +361,6 @@ void Entity::SetName(const char* str)
 		name.assign(str);
 }
 
-void Entity::Draw()
-{}
-
 /** DrawDebug: Draw all debug info about the entity. */
 void Entity::DrawDebug()
 {
@@ -376,6 +379,44 @@ void Entity::DrawDebug()
 void Entity::Remove()
 {
 	removeFlag = true;
+}
+
+/**
+	Update: Called every frame. Calls OnUpdate where logic is placed and recursively calls childs update.
+*/
+void Entity::Update(float dt)
+{
+	if (selfActive == true)
+	{
+		OnUpdate(dt);
+
+		for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+		{
+			Entity* tmp = (*it);
+
+			if (tmp != nullptr && tmp->IsActive())
+			{
+				tmp->Update(dt);
+			}
+		}
+
+	}
+	
+	//No longer done like this but keep until I understand dynamic_cast
+	/*for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+	{
+		if((*it)->IsActive())
+		{ 
+			if (strcmp((*it)->name.c_str(), "unit") == 0)
+			{
+				dynamic_cast<Unit*>(*it)->Update(dt);
+			}
+			else
+			{
+				(*it)->Update(dt);
+			}
+		}
+	}*/
 }
 
 /**
@@ -461,23 +502,10 @@ void Entity::OnDisable()
 {}
 
 /**
-	OnUpdate: Virtual method called every frame if its active and calls childs OnUpdate.
+	OnUpdate: Virtual method called every frame and must containt the logic of the entity.
 */
-void Entity::OnUpdate(float dt) //TODO: Might add an Update method and an OnUpdate. -> Update calls OnUpdate and childs one but Update actually does concrete entity logic.
-{
-
-	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
-	{
-		if (strcmp((*it)->name.c_str(), "unit") == 0)
-		{
-			dynamic_cast<Unit*>(*it)->OnUpdate(dt);
-		}
-		else
-		{
-			(*it)->OnUpdate(dt);
-		}
-	}
-}
+void Entity::OnUpdate(float dt)
+{}
 
 /**
 	OnTransformUpdated: Virtual method called when transform/global position has changed.

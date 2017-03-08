@@ -71,8 +71,8 @@ bool M_EntityManager::Start()
 
 	et = CreateEntity(nullptr, 300, 100);
 	et->SetTexture(textTexture);
-	//et2 = CreateEntity(et, 50, 50);
-	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
+	et2 = CreateEntity(et, 50, 50);
+	met2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
 	archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 	return ret;
@@ -153,7 +153,7 @@ update_status M_EntityManager::Update(float dt)
 	if (root)
 	{
 		//TODO: Only if play mode??
-		root->OnUpdate(dt); //TODO: Test with tree??? If not drawn why update?? Add static and dynamic entities??
+		root->Update(dt); //TODO: Test with tree??? If not drawn why update?? Add static and dynamic entities??
 	}
 	else
 	{

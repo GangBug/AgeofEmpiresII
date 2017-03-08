@@ -52,6 +52,8 @@ public:
 
 	void Remove();
 
+	void Update(float dt);
+
 	//---------------------------------------------------------------
 
 	virtual void OnStart();
@@ -65,7 +67,6 @@ public:
 	virtual bool Save(); //TODO: xml_node as parameter
 	virtual bool Load(); //TODO: xml_node as parameter
 
-	virtual void Draw();			//TODO: Const?? Probably
 	virtual void DrawDebug();		//TODO: Const?? Probably
 
 	//---------------------------------------------------------------
