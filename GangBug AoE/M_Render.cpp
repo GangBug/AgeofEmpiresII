@@ -318,7 +318,6 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 	//TODO: This comparison must be check with final units and objects to check which would be the best way to order the vector.
 	std::sort(entities.begin(), entities.end(), ([](Entity* et1, Entity* et2) { return (et1->GetGlobalPosition().y + et1->GetEnclosingBox().h / 2) < (et2->GetGlobalPosition().y + et2->GetEnclosingBox().h / 2); }));
 	//return et1->GetGlobalPosition().y < et2->GetGlobalPosition().y;
-
 	for (std::vector<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
 	{
 		Entity* tmp = (*it);

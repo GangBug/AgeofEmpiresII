@@ -64,8 +64,8 @@ bool M_Animation::Awake(pugi::xml_node& none)
 				std::string animName = node.name();
 				newAnim->name = animName + "_" + actionNode.name() + "_" + directionNode.name();
 				newAnim->SetUnit(node);
-				//newAnim->SetAction(actionNode);//TODO
-				//newAnim->SetDirection(directionNode);//TODO
+				newAnim->SetAction(actionNode);//TODO
+				newAnim->SetDirection(directionNode);//TODO
 
 				std::string action = actionNode.name();
 				if (!action.compare("disappear"))
@@ -110,11 +110,12 @@ bool M_Animation::CleanUp()
 	return ret;
 }
 
-Animation* M_Animation::GetAnimation(unit_type unit)const
+Animation* M_Animation::GetAnimation(unit_type unit, action_type action, direction unitDirection)const
 {
 	for (std::list<Animation*>::const_iterator it = animations.begin(); it != animations.end(); it++)
 	{
-		if ((*it)->unitType == unit) {
+		if ((*it)->unitType == unit && (*it)->unitAction == action && (*it)->unitDirection == unitDirection)
+		{
 			return *it;
 		}
 	}
@@ -137,7 +138,7 @@ SDL_Texture* M_Animation::GetTexture(unit_type type) const{
 
 void M_Animation::GetFrame(GB_Rectangle<int>& rect, iPoint& pivot, const Unit* unit)
 {
-	Animation* tmp = GetAnimation(unit->GetType());
+	Animation* tmp = GetAnimation(unit->GetType(), unit->GetAction(), unit->GetDirection());
 
 	if (tmp == nullptr) 
 	{
@@ -195,7 +196,7 @@ void Animation::Reset()
 	loops = 0;
 }
 
-void Animation::SetUnit(pugi::xml_node node)
+void Animation::SetUnit(const pugi::xml_node node)
 {
 	//IMPORTANT: NEW UNITS NEED TO GO HERE TOO
 	if (strcmp(node.name(), "cavalryarcher") == 0) {
@@ -206,6 +207,68 @@ void Animation::SetUnit(pugi::xml_node node)
 		unitType = DEFAULT_UNIT;
 		LOG("XML node couldn't find a suitable unit.");
 	}
+}
+
+void Animation::SetAction(const pugi::xml_node node)
+{
+	if (strcmp(node.name(), "attack") == 0)
+	{
+		unitAction = ATTACK;
+	}
+
+	else if (strcmp(node.name(), "idle") == 0)
+	{
+		unitAction = IDLE;
+	}
+
+	else if (strcmp(node.name(), "walk") == 0)
+	{
+		unitAction = WALK;
+	}
+}
+
+void Animation::SetDirection(const pugi::xml_node node)
+{
+	if (strcmp(node.name(), "north") == 0)
+	{
+		unitDirection = NORTH;
+	}
+
+	else if (strcmp(node.name(), "north_west") == 0)
+	{
+		unitDirection = SOUTH;
+	}
+
+	else if (strcmp(node.name(), "north_east") == 0)
+	{
+		unitDirection = NORTH_EAST;
+	}
+
+	else if (strcmp(node.name(), "east") == 0)
+	{
+		unitDirection = EAST;
+	}
+
+	else if (strcmp(node.name(), "west") == 0)
+	{
+		unitDirection = WEST;
+	}
+
+	else if (strcmp(node.name(), "south") == 0)
+	{
+		unitDirection = SOUTH;
+	}
+
+	else if (strcmp(node.name(), "south_east") == 0)
+	{
+		unitDirection = SOUTH_EAST;
+	}
+
+	else if (strcmp(node.name(), "south_west") == 0)
+	{
+		unitDirection = SOUTH_WEST;
+	}
+
 }
 
 GB_Rectangle<int>& Animation::GetCurrentFrame()

@@ -9,6 +9,25 @@ enum unit_type
 	CAVALRY_ARCHER
 };
 
+enum action_type
+{
+	ATTACK,
+	IDLE,
+	WALK
+};
+
+enum direction
+{
+	NORTH,
+	NORTH_WEST,
+	NORTH_EAST,
+	EAST,
+	WEST,
+	SOUTH,
+	SOUTH_EAST,
+	SOUTH_WEST
+};
+
 class Unit :public Entity
 {
 public:
@@ -17,9 +36,13 @@ public:
 	void OnUpdate(float dt);
 
 	unit_type GetType() const;
+	action_type GetAction() const;
+	direction GetDirection() const;
 
 private:
 	unit_type type;
+	action_type action;
+	direction unitDirection;
 
 	//STATS?
 };

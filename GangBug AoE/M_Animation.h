@@ -35,8 +35,8 @@ public:
 private:
 	void CleanUp();
 	void SetUnit(const pugi::xml_node node);
-	void SetAction(const pugi::xml_node node);//TODO
-	void SetDirection(const pugi::xml_node node);//TODO
+	void SetAction(const pugi::xml_node node);
+	void SetDirection(const pugi::xml_node node);
 
 	GB_Rectangle<int>& GetCurrentFrame();
 	iPoint& GetCurrentPivot();
@@ -44,6 +44,8 @@ private:
 private:
 	std::string name;
 	unit_type unitType;
+	action_type unitAction;
+	direction unitDirection;
 
 	std::vector<GB_Rectangle<int>> frames;
 	std::vector<iPoint> pivotPoints;
@@ -66,9 +68,8 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	Animation* DrawAnim(unit_type unit, iPoint pos);
 	SDL_Texture* GetTexture(unit_type type)const;
-	Animation* GetAnimation(unit_type unit)const;//needs direction/action too
+	Animation* GetAnimation(unit_type unit, action_type action, direction unitDirection)const;
 	void GetFrame(GB_Rectangle<int>& rect, iPoint& pivot, const Unit* unit);
 
 	void DrawDebug()override;

@@ -189,7 +189,7 @@ bool M_Map::CleanUp()
 bool M_Map::Load(const char* path)
 {
 	bool ret = true;
-	std::string tmp(folder.c_str(), path);
+	std::string tmp = folder + std::string(path);
 
 	char* buf;
 	int size = app->fs->Load(tmp.c_str(), &buf);

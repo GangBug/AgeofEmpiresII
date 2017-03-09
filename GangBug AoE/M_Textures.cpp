@@ -70,6 +70,7 @@ SDL_Texture* const M_Textures::Load(const char* path)
 	}
 	else
 	{
+		SDL_SetColorKey(surface, 1, SDL_MapRGB(surface->format, 0xFF, 0, 0xFF));//WITH THIS WE IGNORE THE PINK ON THE SPRITESHEETS
 		texture = LoadSurface(surface);
 		SDL_FreeSurface(surface);
 	}
