@@ -54,6 +54,22 @@ bool Entity::Load()
 }
 
 /**
+	AddChild: Creates a new child and adds it to childs vector.
+*/
+Entity* Entity::AddChild()
+{
+	Entity* ret = nullptr;
+
+	ret = new Entity(this);
+	if (ret != nullptr)
+		childs.push_back(ret);
+	else
+		LOG("ERROR: Could not create a new entity child of [%s].", parent->GetName());
+
+	return ret;
+}
+
+/**
 	AddChild: Add a passed entity to child vector.
 
 	Parameters:
