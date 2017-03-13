@@ -70,6 +70,12 @@ public:
 		this->w = w;
 		this->h = h;
 	}
+
+	void GetCenter(type& x, type& y)
+	{
+		x = this->x + w / 2;
+		y = this->y + h / 2;
+	}
 	
 	SDL_Rect GetSDLrect()
 	{
