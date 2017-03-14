@@ -22,7 +22,7 @@ M_EntityManager::M_EntityManager(bool startEnabled) : Module(startEnabled)
 {
 	LOG("Entity manager: Creation.");
 	name.assign("entity_manager");
-	srand(time(nullptr));
+	srand(time(nullptr));//TMP
 }
 
 /**
@@ -143,7 +143,8 @@ update_status M_EntityManager::PreUpdate(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
 	{
-		CreateRandomTestEntity();
+		//CreateRandomTestEntity();
+		et2->SetScale(1.f, 2.f);
 	}
 
 	return ret;

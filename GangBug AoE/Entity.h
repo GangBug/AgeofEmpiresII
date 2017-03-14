@@ -36,12 +36,18 @@ public:
 	void SetGlobalPosition(iPoint pos);
 	void SetGlobalPosition(int x, int y);
 
-	//TODO: Rectangle enclosing box and methods...
 	/** Enclosing box methods */
 	void SetEnclosingBoxPosition(int x, int y);
 	void SetEnclosingBoxSize(int w, int h);
 	void SetEnclosingBox(int x, int y, int w, int h);
 	void SetEnclosingBox(GB_Rectangle<int> r);
+
+	/** Size/Scale methods */
+	fPoint GetScale()const;
+	void GetScale(float& w, float& h)const;
+	void SetScale(fPoint scl);
+	void SetScale(float w, float h);
+	void SetScale(float scl);
 
 	bool IsActive()const;
 	void SetActive(bool set);
@@ -108,6 +114,8 @@ public:
 	std::vector<Entity*> childs;
 	bool removeFlag = false;
 
+	/** Scale of entity on each axis. */
+	fPoint scale;
 };
 
 #endif // !__ENTITY_H__
