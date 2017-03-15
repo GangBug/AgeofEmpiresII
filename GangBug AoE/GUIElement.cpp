@@ -43,6 +43,16 @@ void GUIElement::CenterY()
 	SetLocalPos(rect.w, frame_h / 2 - rect.h / 2);
 }
 
+void GUIElement::AddListener(Module * moduleToAdd)
+{
+	listeners.push_back(moduleToAdd);
+}
+
+void GUIElement::RemoveListener(Module * moduleToRemove)
+{
+	listeners.remove(moduleToRemove);
+}
+
 GB_Rectangle<int> GUIElement::GetScreenRect() const
 {
 	if (parent != nullptr)
