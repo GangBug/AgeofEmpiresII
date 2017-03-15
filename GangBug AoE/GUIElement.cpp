@@ -73,19 +73,19 @@ iPoint GUIElement::GetLocalPos() const
 }
 bool GUIElement::GetDraggable() const
 {
-	return draggable;
+	return status.draggable;
 }
 bool GUIElement::GetInteractive() const
 {
-	return interactive;
+	return status.interactive;
 }
 bool GUIElement::GetCanFocus() const
 {
-	return can_focus;
+	return status.can_focus;
 }
 bool GUIElement::GetActive() const
 {
-	return active;
+	return status.active;
 }
 GUIElement * GUIElement::GetParent() const
 {
@@ -109,12 +109,27 @@ std::list<Module*> GUIElement::GetListeners() const
 }
 bool GUIElement::GetMouseInside() const
 {
-	return mouseInside;
+	return status.mouseInside;
 }
 
 fPoint GUIElement::GetScale() const
 {
 	return scale;
+}
+
+bool GUIElement::GetLClicked() const
+{
+	return status.lClicked;
+}
+
+bool GUIElement::GetRClicked() const
+{
+	return status.rClicked;
+}
+
+ElementStatus GUIElement::GetElementStatus() const
+{
+	return status;
 }
 
 void GUIElement::SetLocalPos(int x, int y)
@@ -124,31 +139,38 @@ void GUIElement::SetLocalPos(int x, int y)
 }
 void GUIElement::SetDraggable(bool _draggable) 
 {
-	draggable = _draggable;
+	status.draggable = _draggable;
+	status.statusChanged = true;
 }
 void GUIElement::SetInteractive(bool _interactive)
 {
-	interactive = _interactive;
+	status.interactive = _interactive;
+	status.statusChanged = true;
 }
 void GUIElement::SetCanFocus(bool _focus)
 {
-	can_focus = _focus;
+	status.can_focus = _focus;
+	status.statusChanged = true;
 }
 void GUIElement::SetActive(bool _active) 
 {
-	active = _active;
+	status.active = _active;
+	status.statusChanged = true;
 }
 void GUIElement::SetParent(GUIElement * _parent) 
 {
 	parent = _parent;
+	status.statusChanged = true;
 }
 void GUIElement::SetType(gui_types _type)
 {
 	type = _type;
+	status.statusChanged = true;
 }
 void GUIElement::SetRectangle(GB_Rectangle<int> _rect)
 {
 	rect = _rect;
+	status.statusChanged = true;
 }
 void GUIElement::SetRectangle(int x, int y, int w, int h)
 {
@@ -156,30 +178,50 @@ void GUIElement::SetRectangle(int x, int y, int w, int h)
 	rect.y = y;
 	rect.w = w;
 	rect.h = h;
+	status.statusChanged = true;
 }
 void GUIElement::SetMouseInside(bool ins)
 {
-	mouseInside = ins;
+	status.mouseInside = ins;
+	status.statusChanged = true;
 }
 void GUIElement::SetScale(fPoint _scale)
 {
 	scale = _scale;
 	resize(_scale);
+	status.statusChanged = true;
 }
 void GUIElement::SetScale(float _scaleX, float _scaleY)
 {
 	scale.x = _scaleX;
 	scale.y = _scaleY;
 	resize(fPoint(_scaleX, _scaleY));
+	status.statusChanged = true;
+}
+void GUIElement::SetLClicked(bool l)
+{
+	status.lClicked = l;
+	status.statusChanged = true;
+}
+void GUIElement::SetRClicked(bool r)
+{
+	status.rClicked = r;
+	status.statusChanged = true;
+}
+void GUIElement::SetStatusChanged(bool changed)
+{
+	status.statusChanged = changed;
 }
 void GUIElement::resize(fPoint newScale)
 {
 	fPoint variation = fPoint(scale.x / newScale.x, scale.y / newScale.y);
 	rect.x *= variation.x;
 	rect.y *= variation.y;
+	status.statusChanged = true;
 }
 void GUIElement::SetSize(int w, int h)
 {
 	rect.w = w;
 	rect.h = h;
+	status.statusChanged = true;
 }

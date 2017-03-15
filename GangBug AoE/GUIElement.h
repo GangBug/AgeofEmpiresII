@@ -8,6 +8,22 @@
 
 class Module;
 
+struct ElementStatus
+{
+//Private acces
+	bool draggable		= false;				// Can be moved?
+	bool interactive	= false;			// Is interactable?
+    //bool cut_childs	= false;			// I dont know a shit about this...
+	bool can_focus		= false;				// Can get the focus?
+	bool active			= true;					// Is active? if not dont do uptade
+	bool mouseInside	= false;
+//Public access
+	bool lClicked		= false;				// Left clicked
+	bool rClicked		= false;				// Right clicked
+	bool statusChanged	= false;			// Element status changed
+
+};
+
 enum gui_events
 {
 	LISTENING_END,
@@ -72,6 +88,9 @@ public:
 	std::list<Module*> GetListeners() const;
 	bool GetMouseInside() const;
 	fPoint GetScale() const;
+	bool GetLClicked() const;
+	bool GetRClicked() const;
+	ElementStatus GetElementStatus() const;
 
 
 	void SetLocalPos(int x, int y);
@@ -86,30 +105,30 @@ public:
 	void SetMouseInside(bool ins);
 	void SetScale(fPoint _scale);
 	void SetScale(float _scaleX, float _scaleY);
+	void SetLClicked(bool l);
+	void SetRClicked(bool r);
+	void SetStatusChanged(bool changed);
+
 	//Getters & Setters ·········································· END ···················
+
 private:
 	void resize(fPoint newScale);
+
 protected:
 	void SetSize(int w, int h);
 
 	//Attributes
 private:
-	bool draggable = false;					 // Can be moved?
-	bool interactive = false;				 // Is interactable?
-	//bool cut_childs = false;				 // I dont know a shit about this...
-	bool can_focus = false;					 // Can get the focus?
-	bool active = true;						 // Is active? if not dont do uptade
 	GUIElement* parent = nullptr;			 // Parent element
 	std::list<GUIElement*> childs;			 // Child elements
-	gui_types type = gui_types::GUI_UNKNOWN; // Gui Type
+	gui_types type = gui_types::GUI_UNKNOWN; // Gui Type	
+	GB_Rectangle<int> rect;
+	fPoint scale = fPoint(1.f, 1.f);
+	ElementStatus status;
 
 protected:
 	std::list<Module*> listeners;
 	bool haveFocus = false; // TODO implement it on event management
 
-private:
-	bool mouseInside = false;
-	GB_Rectangle<int> rect;
-	fPoint scale = fPoint(1.f, 1.f);
 };
 
