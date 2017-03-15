@@ -48,7 +48,7 @@ bool M_EntityManager::Awake(pugi::xml_node&)
 	bool ret = true;
 
 	sceneTree = new GB_QuadTree();
-	sceneTree->SetRoot(GB_Rectangle<int>(10, 10, 1000, 900)); //NOTE: Position and sizze of this starting rectangle must be changed depending on the map size.
+	sceneTree->SetRoot(GB_Rectangle<int>(-2000, -2000, 4000, 4000)); //TODO/NOTE: Position and sizze of this starting rectangle must be changed depending on the map size.
 
 	root = new Entity(nullptr);
 	if (!root)
