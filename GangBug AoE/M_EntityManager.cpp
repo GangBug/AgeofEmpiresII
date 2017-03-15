@@ -146,6 +146,12 @@ update_status M_EntityManager::PreUpdate(float dt)
 		//CreateRandomTestEntity();
 		et2->SetScale(1.f, 2.f);
 	}
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+	{
+		//CreateRandomTestEntity();
+		et2->SetScale(1.f, 1.f);
+	}
+
 
 	return ret;
 }

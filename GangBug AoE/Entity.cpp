@@ -27,7 +27,7 @@ Entity::Entity(Entity* parent, SDL_Texture* texture, GB_Rectangle<int> drawRect)
 		drawQuad = enclosingRect;
 	}
 
-	scale.create(1.0f, 1.0f); //TODO: Must check how this interact with enclosing box.
+	scale.create(1.0f, 1.0f);
 }
 
 /**
@@ -341,7 +341,10 @@ void Entity::GetScale(float& w, float& h)const
 */
 void Entity::SetScale(fPoint scl)
 {
+	fPoint tmp(scl.x / scale.x, scl.y / scale.y);
 	scale = scl;
+	enclosingRect.w *= tmp.x;
+	enclosingRect.h *= tmp.y;
 }
 
 /**
@@ -349,7 +352,10 @@ void Entity::SetScale(fPoint scl)
 */
 void Entity::SetScale(float w, float h)
 {
+	fPoint tmp(w / scale.x, h / scale.y);
 	scale.create(w, h);
+	enclosingRect.w *= tmp.x;
+	enclosingRect.h *= tmp.y;
 }
 
 /**
@@ -357,7 +363,7 @@ void Entity::SetScale(float w, float h)
 */
 void Entity::SetScale(float scl)
 {
-	scale.create(scl, scl);
+	SetScale(scl, scl);
 }
 
 /**
