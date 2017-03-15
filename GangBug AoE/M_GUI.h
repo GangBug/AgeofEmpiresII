@@ -20,6 +20,7 @@ public:
 
 	bool UpdateGuiList();
 	bool UpdateDebugGuiList();
+	bool UpdateEditorGuiList();
 
 	GUIElement* FindMouseHover();
 	void ManageEvents();

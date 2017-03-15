@@ -28,7 +28,8 @@ bool M_GUI::Start()
 	atlas = app->tex->Load("gui/atlas.png");
 
 	GUIImage* img = new GUIImage();
-	img->SetRectangle(0, 110, 231, 71);
+	img->SetRectangle(0, 0, 231, 71);
+	img->SetSection(0, 110, 231, 71);
 	img->SetInteractive(true);		   
 	img->SetCanFocus(true);			   
 	guiList.push_back(img);			   

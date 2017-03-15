@@ -112,6 +112,11 @@ bool GUIElement::GetMouseInside() const
 	return mouseInside;
 }
 
+fPoint GUIElement::GetScale() const
+{
+	return scale;
+}
+
 void GUIElement::SetLocalPos(int x, int y)
 {
 	rect.x = x;
@@ -155,6 +160,23 @@ void GUIElement::SetRectangle(int x, int y, int w, int h)
 void GUIElement::SetMouseInside(bool ins)
 {
 	mouseInside = ins;
+}
+void GUIElement::SetScale(fPoint _scale)
+{
+	scale = _scale;
+	resize(_scale);
+}
+void GUIElement::SetScale(float _scaleX, float _scaleY)
+{
+	scale.x = _scaleX;
+	scale.y = _scaleY;
+	resize(fPoint(_scaleX, _scaleY));
+}
+void GUIElement::resize(fPoint newScale)
+{
+	fPoint variation = fPoint(scale.x / newScale.x, scale.y / newScale.y);
+	rect.x *= variation.x;
+	rect.y *= variation.y;
 }
 void GUIElement::SetSize(int w, int h)
 {
