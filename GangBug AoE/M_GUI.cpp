@@ -3,6 +3,7 @@
 #include "GUIElement.h"
 #include "GUIImage.h"
 #include "GUILabel.h"
+#include "GUIButton.h"
 #include "M_Input.h"
 #include "M_Render.h"
 #include "M_Textures.h"
@@ -40,6 +41,9 @@ bool M_GUI::Start()
 	label->SetText("Hello World!");
 	label->CenterX();
 	guiList.push_back(label);
+
+	GUIButton* button = new GUIButton(GB_Rectangle<int>(0, 110, 231, 71), GB_Rectangle<int>(416, 171, 231, 71), GB_Rectangle<int>(647, 171, 231, 71));
+	guiList.push_back(button);
 	
 	return true;
 }
@@ -105,7 +109,6 @@ GUIElement * M_GUI::FindMouseHover()
 //Manages the events on hover and focus
 void M_GUI::ManageEvents()
 {
-	std::list<GUIElement*>::iterator it;
 	GUIElement* newMouseHover = nullptr;
 
 	//Find the element that is hovered actually
@@ -144,12 +147,14 @@ void M_GUI::ManageEvents()
 			BroadcastEventToListeners(focus, LOST_FOUCS);
 		}
 		focus = mouseHover;
+		mouseHover->SetLClicked(true);
 		BroadcastEventToListeners(mouseHover, MOUSE_LCLICK_DOWN);
 		BroadcastEventToListeners(mouseHover, GAIN_FOCUS);
 	}
 	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
 	{
 		BroadcastEventToListeners(mouseHover, MOUSE_LCLICK_UP);
+		mouseHover->SetLClicked(false);
 	}
 	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_DOWN)
 	{
@@ -158,12 +163,14 @@ void M_GUI::ManageEvents()
 			BroadcastEventToListeners(focus, LOST_FOUCS);
 		}
 		focus = mouseHover;
+		mouseHover->SetRClicked(true);
 		BroadcastEventToListeners(mouseHover, MOUSE_RCLICK_DOWN);
 		BroadcastEventToListeners(mouseHover, GAIN_FOCUS);
 	}
 	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
 	{
 		BroadcastEventToListeners(mouseHover, MOUSE_RCLICK_UP);
+		mouseHover->SetRClicked(false);
 	}
 }
 //Broadcast an event to all GUIElement listeners

@@ -178,6 +178,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GB_QuadTree.cpp" />
     <ClCompile Include="GB_Rectangle.cpp" />
+    <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIImage.cpp" />
     <ClCompile Include="GUIInputText.cpp" />
@@ -205,6 +206,7 @@
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GB_QuadTree.h" />
+    <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUIImage.h" />
     <ClInclude Include="GUIInputText.h" />
