@@ -141,6 +141,7 @@ void Entity::RecCalcTransform(iPoint parentGlobalPos, bool force)
 
 		//1.Recalc globalPosition
 		globalPosition = parentGlobalPos + localPosition;
+		enclosingRect.Move(globalPosition.x, globalPosition.y);
 
 		//2.Notify globalPosition has changed
 		OnTransformUpdated();
@@ -300,7 +301,7 @@ void Entity::SetEnclosingBoxPosition(int x, int y)
 void Entity::SetEnclosingBoxSize(int w, int h)
 {
 	enclosingRect.w = w;
-	enclosingRect.y = h;
+	enclosingRect.h = h;
 }
 
 /**

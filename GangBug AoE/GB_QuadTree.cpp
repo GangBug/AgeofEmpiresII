@@ -97,15 +97,15 @@ void GB_QuadTreeNode::DivideNode()
 
 	//TOP-RIGHT
 	tmp.Set(box.x + newSize.x, box.y, newSize.x, newSize.y);
-	childs[0] = new GB_QuadTreeNode(tmp);
+	childs[1] = new GB_QuadTreeNode(tmp);
 
 	//BOTTOM-RIGHT
-	tmp.Set(box.x + newSize.x, box.y - newSize.y, newSize.x, newSize.y); //TODO: Must check coord system on Y axis, dont remember if must sum or rest the y
-	childs[0] = new GB_QuadTreeNode(tmp);
+	tmp.Set(box.x + newSize.x, box.y + newSize.y, newSize.x, newSize.y); //TODO: Must check coord system on Y axis, dont remember if must sum or rest the y
+	childs[2] = new GB_QuadTreeNode(tmp);
 
 	//BOTTOM-LEFT
-	tmp.Set(box.x, box.y - newSize.y, newSize.x, newSize.y); //TODO: Must check coord system on Y axis, dont remember if must sum or rest the y
-	childs[0] = new GB_QuadTreeNode(tmp);
+	tmp.Set(box.x, box.y + newSize.y, newSize.x, newSize.y); //TODO: Must check coord system on Y axis, dont remember if must sum or rest the y
+	childs[3] = new GB_QuadTreeNode(tmp);
 
 	for (unsigned int i = 0; i < 4; ++i)
 	{
@@ -119,7 +119,7 @@ void GB_QuadTreeNode::AjustNode()
 
 	while (it != entities.end())
 	{
-		Entity* tmp = (*it);
+		Entity* tmp = *it;
 		GB_Rectangle<int> b(tmp->GetEnclosingBox());
 
 		bool intersections[4];
@@ -166,7 +166,8 @@ GB_QuadTree::~GB_QuadTree()
 void GB_QuadTree::Insert(Entity* et)
 {
 	if (root != nullptr && et != nullptr)
-		root->Insert(et);
+		if(root->box.Collides(et->GetEnclosingBox()) == true)
+			root->Insert(et);
 }
 
 void GB_QuadTree::Erase(Entity* et)

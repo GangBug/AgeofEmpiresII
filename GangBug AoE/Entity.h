@@ -45,7 +45,7 @@ public:
 	/** Size/Scale methods */
 	fPoint GetScale()const;
 	void GetScale(float& w, float& h)const;
-	void SetScale(fPoint scl);
+	void SetScale(fPoint scl);            
 	void SetScale(float w, float h);
 	void SetScale(float scl);
 

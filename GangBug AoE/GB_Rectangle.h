@@ -89,11 +89,10 @@ public:
 
 	bool Collides(GB_Rectangle rect)
 	{
-		SDL_Rect r;
-		r.x = x; r.y = y; r.w = w; r.h = h;
-		SDL_Rect r2;
-		r2.x = rect.x; r2.y = rect.y; r2.w = rect.w; r2.h = rect.h;
-		return (bool)SDL_HasIntersection((const SDL_Rect*)&r, (const SDL_Rect*)&r2);
+		return (x < rect.x + rect.w &&
+			x + w > rect.x &&
+			y < rect.y + rect.h &&
+			h + y > rect.y);
 	}
 
 public:

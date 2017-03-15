@@ -48,7 +48,7 @@ bool M_EntityManager::Awake(pugi::xml_node&)
 	bool ret = true;
 
 	sceneTree = new GB_QuadTree();
-	sceneTree->SetRoot(GB_Rectangle<int>(10, 10, 500, 400)); //NOTE: Position and sizze of this starting rectangle must be changed depending on the map size.
+	sceneTree->SetRoot(GB_Rectangle<int>(10, 10, 1000, 900)); //NOTE: Position and sizze of this starting rectangle must be changed depending on the map size.
 
 	root = new Entity(nullptr);
 	if (!root)
@@ -77,11 +77,11 @@ bool M_EntityManager::Start()
 	//TMP
 	textTexture = app->tex->Load("textures/test.png");
 
-	et = CreateEntity(nullptr, 300, 100);
-	et->SetTexture(textTexture);
-	et2 = CreateEntity(et, 50, 50);
-	et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
-	archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
+	//et = CreateEntity(nullptr, 300, 100);
+	//et->SetTexture(textTexture);
+	//et2 = CreateEntity(et, 50, 50);
+	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
+	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 	return ret;
 }
@@ -143,13 +143,18 @@ update_status M_EntityManager::PreUpdate(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
 	{
-		//CreateRandomTestEntity();
 		et2->SetScale(1.f, 2.f);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
 	{
-		//CreateRandomTestEntity();
 		et2->SetScale(1.f, 1.f);
+	}
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		iPoint pos;
+		app->input->GetMousePosition(pos.x, pos.y);
+		Entity* et = CreateRandomTestEntity();
+		et->SetLocalPosition(pos);
 	}
 
 
@@ -267,8 +272,7 @@ Entity* M_EntityManager::CreateRandomTestEntity()
 
 	if (ret != nullptr)
 	{
-		ret->SetGlobalPosition({ rand() % 100, rand() % 100 });
-		ret->SetEnclosingBoxSize(rand() % 10, rand() % 10);
+		ret->SetEnclosingBoxSize(rand() % 10 + 30, rand() % 10 + 30);
 	}
 	else
 	{
@@ -386,7 +390,7 @@ void M_EntityManager::DrawDebug()
 
 			for (std::vector<GB_Rectangle<int>>::iterator it = treeQuads.begin(); it != treeQuads.end(); ++it)
 			{
-				app->render->DrawQuad((*it).GetSDLrect(), 255, 255, 0, 255, false, true, false);
+				app->render->DrawQuad((*it).GetSDLrect(), 255, 255, 0, 255, false);
 				//TODO: Would be cool move debug functions to another place in order to avoid having dependencies with renderer.
 			}
 		}
