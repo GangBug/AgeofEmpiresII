@@ -26,6 +26,8 @@ Entity::Entity(Entity* parent, SDL_Texture* texture, GB_Rectangle<int> drawRect)
 		app->tex->GetSize(texture, (uint&)enclosingRect.w, (uint&)enclosingRect.h); //TODO: Enclosing box should not be the full texture size.
 		drawQuad = enclosingRect;
 	}
+
+	scale.create(1.0f, 1.0f);
 }
 
 /**
@@ -315,6 +317,53 @@ void Entity::SetEnclosingBox(int x, int y, int w, int h)
 void Entity::SetEnclosingBox(GB_Rectangle<int> r)
 {
 	enclosingRect.Set(r.x, r.y, r.w, r.h);
+}
+
+/**
+	GetScale: Returns the scale of the entity as a fPoint.
+*/
+fPoint Entity::GetScale()const
+{
+	return scale;
+}
+
+/**
+	GetScale: Returns the scale of the entity by two floats as reference.
+*/
+void Entity::GetScale(float& w, float& h)const
+{
+	w = scale.x;
+	h = scale.y;
+}
+
+/**
+	SetScale: Set the scale from a fPoint.
+*/
+void Entity::SetScale(fPoint scl)
+{
+	fPoint tmp(scl.x / scale.x, scl.y / scale.y);
+	scale = scl;
+	enclosingRect.w *= tmp.x;
+	enclosingRect.h *= tmp.y;
+}
+
+/**
+	SetScale: Set the scale from two floats, one for each axis.
+*/
+void Entity::SetScale(float w, float h)
+{
+	fPoint tmp(w / scale.x, h / scale.y);
+	scale.create(w, h);
+	enclosingRect.w *= tmp.x;
+	enclosingRect.h *= tmp.y;
+}
+
+/**
+	SetScale: Set the scale from one float, the same will be applied to both axis to keep the scale ratio.
+*/
+void Entity::SetScale(float scl)
+{
+	SetScale(scl, scl);
 }
 
 /**

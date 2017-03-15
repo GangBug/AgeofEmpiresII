@@ -4,10 +4,14 @@
 #include "App.h"
 #include "Log.h"
 
+#include "GB_QuadTree.h"
+
 //TMP
 #include "M_Input.h"
 #include "SDL\include\SDL.h"
 #include "M_Textures.h"
+#include "M_Render.h"
+#include <time.h>
 
 /**
 	Contructor: Creates the module that manages all entities.
@@ -18,6 +22,7 @@ M_EntityManager::M_EntityManager(bool startEnabled) : Module(startEnabled)
 {
 	LOG("Entity manager: Creation.");
 	name.assign("entity_manager");
+	srand(time(nullptr));//TMP
 }
 
 /**
@@ -41,6 +46,9 @@ bool M_EntityManager::Awake(pugi::xml_node&)
 {
 	LOG("Entity manager: Awake.");
 	bool ret = true;
+
+	sceneTree = new GB_QuadTree();
+	sceneTree->SetRoot(GB_Rectangle<int>(10, 10, 500, 400)); //NOTE: Position and sizze of this starting rectangle must be changed depending on the map size.
 
 	root = new Entity(nullptr);
 	if (!root)
@@ -133,6 +141,18 @@ update_status M_EntityManager::PreUpdate(float dt)
 		et2->SetGlobalPosition(pos);
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+	{
+		//CreateRandomTestEntity();
+		et2->SetScale(1.f, 2.f);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+	{
+		//CreateRandomTestEntity();
+		et2->SetScale(1.f, 1.f);
+	}
+
+
 	return ret;
 }
 
@@ -218,12 +238,11 @@ bool M_EntityManager::CleanUp()
 Entity* M_EntityManager::CreateEntity(Entity* parent, int posX, int posY, int rectX, int rectY)
 {
 	Entity* ret = nullptr; //First set to nullptr to assure we can check for errors later.
-	ret = new Entity(parent);
 
 	if (parent)
-		parent->AddChild(ret);
+		ret = parent->AddChild();
 	else
-		root->AddChild(ret);
+		ret = root->AddChild();
 
 	if (ret)
 	{
@@ -237,6 +256,29 @@ Entity* M_EntityManager::CreateEntity(Entity* parent, int posX, int posY, int re
 
 	return ret;
 }
+
+//--------------------------
+//TMP
+Entity* M_EntityManager::CreateRandomTestEntity()
+{
+	Entity* ret = nullptr;
+
+	ret = root->AddChild();
+
+	if (ret != nullptr)
+	{
+		ret->SetGlobalPosition({ rand() % 100, rand() % 100 });
+		ret->SetEnclosingBoxSize(rand() % 10, rand() % 10);
+	}
+	else
+	{
+		LOG("ERROR: Could not create a new entity.");
+	}
+
+	return ret;
+}
+
+//--------------------------
 
 /**
 	CreateUnit: Creates a new unit and adds it to scene.
@@ -330,11 +372,25 @@ void M_EntityManager::DrawDebug()
 {
 	if (root)
 	{
+		//TODO: Might add a flag in order to have specific control on entities debug and module debug.
 		for (std::vector<Entity*>::iterator it = root->childs.begin(); it != root->childs.end(); ++it)
 		{
 			if ((*it) && (*it)->IsActive())
 				(*it)->DrawDebug();
 		}
+
+		if (sceneTree != nullptr)
+		{
+			std::vector<GB_Rectangle<int>> treeQuads;
+			sceneTree->CollectTreeBoxes(treeQuads);
+
+			for (std::vector<GB_Rectangle<int>>::iterator it = treeQuads.begin(); it != treeQuads.end(); ++it)
+			{
+				app->render->DrawQuad((*it).GetSDLrect(), 255, 255, 0, 255, false, true, false);
+				//TODO: Would be cool move debug functions to another place in order to avoid having dependencies with renderer.
+			}
+		}
+
 	}
 	else
 	{
@@ -353,7 +409,8 @@ void M_EntityManager::DrawDebug()
 */
 void M_EntityManager::InsertEntityToTree(Entity* et)
 {
-
+	if (et != nullptr && sceneTree != nullptr)
+		sceneTree->Insert(et);
 }
 
 /**
@@ -367,7 +424,8 @@ void M_EntityManager::InsertEntityToTree(Entity* et)
 */
 void M_EntityManager::EraseEntityFromTree(Entity* et)
 {
-
+	if (et != nullptr && sceneTree != nullptr)
+		sceneTree->Erase(et);
 }
 
 /**

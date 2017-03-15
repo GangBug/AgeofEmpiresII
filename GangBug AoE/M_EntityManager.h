@@ -8,6 +8,8 @@
 class Entity;
 class SDL_Texture;
 
+class GB_QuadTree;
+
 class M_EntityManager : public Module
 {
 public:
@@ -37,6 +39,9 @@ public:
 	void LoadScene(); //TODO: Lot of work before using this
 	void SaveScene(); //TODO: Lot of work before using this
 
+	//-------------------------------
+	Entity* CreateRandomTestEntity();
+
 private:
 	void RemoveFlagged();
 	bool SaveSceneNow();
@@ -46,7 +51,7 @@ private:
 
 public:
 	bool showQauds = false;
-	//JQuadTree* sceneTree = nullptr;
+	GB_QuadTree* sceneTree = nullptr;
 
 private:
 	Entity* root = nullptr;

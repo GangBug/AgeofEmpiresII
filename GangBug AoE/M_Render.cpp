@@ -338,8 +338,8 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 					finalRect.x = (int)(camera.x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
 					finalRect.y = (int)(camera.y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
 
-					finalRect.w = section.w * scale; //TODO: Viewport ratio
-					finalRect.h = section.h * scale; //TODO: Viewport ratio
+					finalRect.w = section.w * scale * tmp->scale.x; //TODO: Viewport ratio
+					finalRect.h = section.h * scale * tmp->scale.y; //TODO: Viewport ratio
 
 					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, nullptr, SDL_FLIP_NONE) != 0)
 					{
