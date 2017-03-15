@@ -26,15 +26,20 @@ public:
 	void BroadcastEventToListeners(GUIElement* element, gui_events event);
 
 	void Draw();
+	void DrawEditor();
 	void DrawDebug() override;
 	
 	//Getters & Setters
-	const SDL_Texture* GetAtlas() const;
+	SDL_Texture* GetAtlas() const;
 	void SetAtlas(SDL_Texture* texture);
+
+	// UI factory
+	//GUIImage* createImage();
 
 public:
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debugGuiList;
+	std::list<GUIElement*> editorGuiList;
 
 private:
 

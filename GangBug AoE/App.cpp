@@ -32,6 +32,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 		{
 			debug = true;
 		}
+		if (str == "-editor")
+		{
+			editor = true;
+		}
 	}
 	
 	input = new M_Input();

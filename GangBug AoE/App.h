@@ -107,6 +107,7 @@ public:
 	M_Animation*		animation = nullptr;
 
 	bool debug = false;
+	bool editor = false;
 	bool quit = false;
 
 private:

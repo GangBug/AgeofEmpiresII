@@ -3,6 +3,8 @@
 #include "p2Point.h"
 #include "M_Input.h"
 #include "GB_Rectangle.h"
+#include "App.h"
+
 
 class Module;
 
@@ -44,8 +46,8 @@ public:
 	virtual ~GUIElement();
 	
 	virtual void Update(const GUIElement* mouseHover, const GUIElement* focus) {} //Do something	
-	virtual void Draw() const {};// Print the element
-	virtual void DebugDraw() const {}; // Print debug things if the element
+	virtual void Draw() const {}// Print the element
+	virtual void DebugDraw() const {} // Print debug things if the element
 	void CheckInput(const GUIElement* mouseHover, const GUIElement* focus); //Getting the input
 	bool CheckMouseOver() const;
 	void Center();
@@ -104,5 +106,7 @@ protected:
 private:
 	bool mouseInside = false;
 	GB_Rectangle<int> rect;
+public:
+	float scale = 1;
 };
 

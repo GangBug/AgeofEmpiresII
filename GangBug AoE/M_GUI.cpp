@@ -23,15 +23,15 @@ bool M_GUI::Awake(pugi::xml_node &)
 	
 	return true;
 }
-
 bool M_GUI::Start()
 {
 	atlas = app->tex->Load("gui/atlas.png");
+
 	GUIImage* img = new GUIImage();
-	img->SetRectangle(20, 20, 100, 30);
-	img->SetInteractive(true);
-	img->SetCanFocus(true);
-	guiList.push_back(img);
+	img->SetRectangle(0, 110, 231, 71);
+	img->SetInteractive(true);		   
+	img->SetCanFocus(true);			   
+	guiList.push_back(img);			   
 
 	GUILabel* label = new GUILabel();
 	label->SetInteractive(true);
@@ -39,7 +39,7 @@ bool M_GUI::Start()
 	label->SetText("Hello World!");
 	label->CenterX();
 	guiList.push_back(label);
-
+	
 	return true;
 }
 update_status M_GUI::PreUpdate(float dt)
@@ -184,38 +184,43 @@ void M_GUI::Draw()
 	{
 		(*it)->Draw();
 	}
-	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
+}
+void M_GUI::DrawEditor()
+{
+	for (std::list<GUIElement*>::iterator it = editorGuiList.begin(); it != editorGuiList.end(); it++)
 	{
 		(*it)->Draw();
 	}
 }
 void M_GUI::DrawDebug()
 {
-	GB_Rectangle<int> rect;
-	rect.x = 0;
-	rect.y = 0;
-	SDL_QueryTexture(atlas, NULL, NULL, &rect.w, &rect.h);
-	SDL_Rect sdlrect = rect.GetSDLrect();
-	sdlrect.x = 0;
-	sdlrect.y = 110;
-	sdlrect.w = 231;
-	sdlrect.h = 71;
-	app->render->Blit(atlas, 0, 0, &sdlrect);
+	//GB_Rectangle<int> rect;
+	//rect.x = 0;
+	//rect.y = 0;
+	//SDL_QueryTexture(atlas, NULL, NULL, &rect.w, &rect.h);
+	//SDL_Rect sdlrect = rect.GetSDLrect();
+	//sdlrect.x = 0;
+	//sdlrect.y = 110;
+	//sdlrect.w = 231;
+	//sdlrect.h = 71;
+	//app->render->Blit(atlas, 0, 0, &sdlrect);
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
 		GB_Rectangle<int> rect = (*it)->GetRectangle();
 		app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
 	}
-	
+	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
+	{
+		(*it)->Draw();
+	}
 	
 }
 
-const SDL_Texture* M_GUI::GetAtlas() const
+SDL_Texture* M_GUI::GetAtlas() const
 {
 	return atlas;
 }
-
 void M_GUI::SetAtlas(SDL_Texture * texture)
 {
 	atlas = texture;

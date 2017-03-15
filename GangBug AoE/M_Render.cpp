@@ -65,7 +65,7 @@ bool M_Render::Start()
 {
 	LOG("render start");
 	//Top right viewport
-	if (app->debug == true)
+	if (app->editor == true)
 	{
 		editorViewPort = app->win->GetWindowSize().GetSDLrect();
 		gameViewPort = app->win->GetWindowSize().GetSDLrect();
@@ -75,7 +75,7 @@ bool M_Render::Start()
 		gameViewPort.h = gameViewPort.h / 1.5f;
 		gameViewPort.x = (editorViewPort.w - gameViewPort.w)/2;
 		game_tex_background = app->tex->Load("gui/TestingTexture.png");
-		 editor_tex_background = app->tex->Load("gui/TestingTexture_Green.png");
+		editor_tex_background = app->tex->Load("gui/TestingTexture_Green.png");
 	}
 	else
 	{
@@ -99,12 +99,12 @@ update_status M_Render::PreUpdate(float dt)
 
 update_status M_Render::PostUpdate(float dt)
 {
-	if (app->debug)
+	if (app->editor)
 	{	
 		//Here goes the Editor UI
 		SetViewPort(editorViewPort);
 		SDL_RenderCopy(renderer, editor_tex_background, NULL, NULL);
-		app->gui->Draw();
+		app->gui->DrawEditor();
 	}	
 
 	SetViewPort(gameViewPort);
@@ -116,7 +116,8 @@ update_status M_Render::PostUpdate(float dt)
 	app->entityManager->Draw(entitiesVect);
 	DrawEntities(entitiesVect);
 
-	
+	app->gui->Draw();
+
 	if (app->debug)
 	{
 		app->DrawDebug();

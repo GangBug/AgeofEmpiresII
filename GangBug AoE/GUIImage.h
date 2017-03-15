@@ -6,5 +6,7 @@ class GUIImage :
 public:
 	GUIImage();
 	virtual ~GUIImage();
+
+	void Draw() const;
 };
 

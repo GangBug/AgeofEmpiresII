@@ -42,6 +42,7 @@ void GUIElement::CenterY()
 
 	SetLocalPos(rect.w, frame_h / 2 - rect.h / 2);
 }
+
 GB_Rectangle<int> GUIElement::GetScreenRect() const
 {
 	if (parent != nullptr)
@@ -110,6 +111,7 @@ bool GUIElement::GetMouseInside() const
 {
 	return mouseInside;
 }
+
 void GUIElement::SetLocalPos(int x, int y)
 {
 	rect.x = x;
