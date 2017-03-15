@@ -77,10 +77,10 @@ bool M_EntityManager::Start()
 	//TMP
 	textTexture = app->tex->Load("textures/test.png");
 
-	//et = CreateEntity(nullptr, 300, 100);
-	//et->SetTexture(textTexture);
-	//et2 = CreateEntity(et, 50, 50);
-	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
+	et = CreateEntity(nullptr, 300, 100);
+	et->SetTexture(textTexture);
+	et2 = CreateEntity(et, 50, 50);
+	et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
 	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 	return ret;
@@ -347,14 +347,20 @@ Entity* M_EntityManager::FindEntity()
 	Parameters:
 		-Entiti* vector by reference that will be filled.
 */
-void M_EntityManager::Draw(std::vector<Entity*>& entitiesToDraw)
+void M_EntityManager::Draw(std::vector<Entity*>& entitiesToDraw, GB_Rectangle<int> camToTest)
 {
 	if (root)
 	{
-		//TODO: Must check with quadtree
-		for (std::vector<Entity*>::iterator it = root->childs.begin(); it != root->childs.end(); ++it)
+		if (culling == true)
 		{
-			RecColectEntitiesToDraw(entitiesToDraw, (*it));
+			sceneTree->CollectCandidates(entitiesToDraw, camToTest);
+		}
+		else
+		{
+			for (std::vector<Entity*>::iterator it = root->childs.begin(); it != root->childs.end(); ++it)
+			{
+				RecColectEntitiesToDraw(entitiesToDraw, (*it));
+			}
 		}
 	}
 	else

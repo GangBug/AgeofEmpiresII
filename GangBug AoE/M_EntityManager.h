@@ -30,7 +30,7 @@ public:
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
 
-	void Draw(std::vector<Entity*>& entitiesToDraw);
+	void Draw(std::vector<Entity*>& entitiesToDraw, GB_Rectangle<int> camToTest);
 	void DrawDebug()override;
 
 	void InsertEntityToTree(Entity* et);
@@ -51,6 +51,7 @@ private:
 
 public:
 	bool showQauds = false;
+	bool culling = true;
 	GB_QuadTree* sceneTree = nullptr;
 
 private:

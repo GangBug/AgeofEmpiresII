@@ -113,7 +113,7 @@ update_status M_Render::PostUpdate(float dt)
 	app->map->Draw();
 
 	std::vector<Entity*> entitiesVect;
-	app->entityManager->Draw(entitiesVect);
+	app->entityManager->Draw(entitiesVect, camera);
 	DrawEntities(entitiesVect);
 
 	app->gui->Draw();
