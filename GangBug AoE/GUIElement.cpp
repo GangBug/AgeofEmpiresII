@@ -45,12 +45,26 @@ void GUIElement::CenterY()
 
 void GUIElement::AddListener(Module * moduleToAdd)
 {
-	listeners.push_back(moduleToAdd);
-}
+	bool listenerFound = false;
+	for (std::list<Module*>::iterator it = listeners.begin(); it != listeners.end(); it++)
+	{
+		if ((*it) == moduleToAdd)
+		{
+			listenerFound = true;
+		}
+	}
 
+	if (listenerFound) listeners.push_back(moduleToAdd);
+}
 void GUIElement::RemoveListener(Module * moduleToRemove)
 {
-	listeners.remove(moduleToRemove);
+	for (std::list<Module*>::iterator it = listeners.begin(); it != listeners.end(); it++)
+	{
+		if ((*it) == moduleToRemove)
+		{
+			listeners.erase(it);
+		}
+	}	
 }
 
 GB_Rectangle<int> GUIElement::GetScreenRect() const
@@ -121,22 +135,18 @@ bool GUIElement::GetMouseInside() const
 {
 	return status.mouseInside;
 }
-
 fPoint GUIElement::GetScale() const
 {
 	return scale;
 }
-
 bool GUIElement::GetLClicked() const
 {
 	return status.lClicked;
 }
-
 bool GUIElement::GetRClicked() const
 {
 	return status.rClicked;
 }
-
 ElementStatus GUIElement::GetElementStatus() const
 {
 	return status;

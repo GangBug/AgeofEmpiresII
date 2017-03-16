@@ -83,7 +83,7 @@ bool M_GUI::UpdateDebugGuiList()
 {
 	return true;
 }
-//Checks if cursor is inside an element | returns null if anything found
+//Checks if cursor is inside an element | returns null if nothing found
 GUIElement * M_GUI::FindMouseHover()
 {
 	GUIElement* ret = nullptr;
