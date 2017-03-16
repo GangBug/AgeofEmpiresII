@@ -13,6 +13,7 @@ GUIElement::~GUIElement()
 	}
 	childs.clear();
 }
+
 void GUIElement::CheckInput(const GUIElement * mouseHover, const GUIElement * focus)
 {
 }
@@ -42,7 +43,6 @@ void GUIElement::CenterY()
 
 	SetLocalPos(rect.w, frame_h / 2 - rect.h / 2);
 }
-
 void GUIElement::AddListener(Module * moduleToAdd)
 {
 	bool listenerFound = false;

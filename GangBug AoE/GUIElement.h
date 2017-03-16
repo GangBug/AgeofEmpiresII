@@ -92,7 +92,6 @@ public:
 	bool GetRClicked() const;
 	ElementStatus GetElementStatus() const;
 
-
 	void SetLocalPos(int x, int y);
 	void SetDraggable(bool _draggable);
 	void SetInteractive(bool _interactive);
