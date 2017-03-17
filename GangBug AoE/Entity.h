@@ -7,6 +7,8 @@
 #include <vector>
 #include "GB_Rectangle.h"
 
+#include "PugiXml\src\pugixml.hpp"
+
 class SDL_Texture;
 
 class Entity
@@ -71,8 +73,11 @@ public:
 
 	virtual void OnUpdate(float dt);
 
-	virtual bool Save(); //TODO: xml_node as parameter
-	virtual bool Load(); //TODO: xml_node as parameter
+	virtual bool OnSave(pugi::xml_node& node)const;
+	virtual bool OnLoad(pugi::xml_node* node);
+
+	bool Save(pugi::xml_node& node)const;
+	bool Load(pugi::xml_node* node);
 
 	virtual void DrawDebug();		//TODO: Const?? Probably
 
@@ -92,7 +97,7 @@ protected:
 	/** Is a rectangle the enclose the entity and will be used to collide with the quadtree and might be and aproximation to simulate simple physics collisions. */
 	GB_Rectangle<int> enclosingRect;
 
-	SDL_Texture* entityTexture = nullptr;
+	SDL_Texture* entityTexture = nullptr; //TODO: Instead of a SDL_Testure directly would be better to have a structure that holds it with a UID or the texture path in order to load it later.
 	/** It's a rectangle that determine the section of the texture that must be drawn. If an enclosing box is not provided this rect will be used to set it. */
 	GB_Rectangle<int> drawQuad;
 

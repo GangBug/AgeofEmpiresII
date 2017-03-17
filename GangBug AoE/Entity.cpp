@@ -40,19 +40,155 @@ Entity::~Entity()
 }
 
 /**
-	Save: Saves the entity information.
+	Save: Saves the entity basic information, call OnSave and iterate all childs saving them.
 */
-bool Entity::Save()
+bool Entity::Save(pugi::xml_node& node)const
 {
-	return false;
+	bool ret = true;
+
+	//Name
+	node.append_child("entity_name").append_attribute("value") = name.c_str();
+	//Self active
+	node.append_child("entity_self_active").append_attribute("value") = selfActive;
+
+	//Global position
+	pugi::xml_node gPos = node.append_child("global_position");
+	gPos.append_attribute("x") = globalPosition.x;
+	gPos.append_attribute("y") = globalPosition.y;
+
+	//Local position
+	pugi::xml_node lPos = node.append_child("local_position");
+	lPos.append_attribute("x") = localPosition.x;
+	lPos.append_attribute("y") = localPosition.y;
+
+	//Enclosing box
+	pugi::xml_node eBox = node.append_child("enclosing_box");
+	eBox.append_attribute("x") = enclosingRect.x;
+	eBox.append_attribute("y") = enclosingRect.y;
+	eBox.append_attribute("w") = enclosingRect.w;
+	eBox.append_attribute("h") = enclosingRect.h;
+
+	//Draw quad
+	pugi::xml_node dQuad = node.append_child("draw_quad");
+	dQuad.append_attribute("x") = drawQuad.x;
+	dQuad.append_attribute("y") = drawQuad.y;
+	dQuad.append_attribute("w") = drawQuad.w;
+	dQuad.append_attribute("h") = drawQuad.h;
+
+	//Scale
+	pugi::xml_node scl = node.append_child("scale");
+	scl.append_attribute("x") = scale.x;
+	scl.append_attribute("y") = scale.y;
+
+	//TODO: Saving texture
+	//TODO: Add UID and save the hierarchy with UIDs
+
+	pugi::xml_node text = node.append_child("entity_texture");
+	if (entityTexture != nullptr)
+	{
+		text.append_attribute("has_texture") = true;
+		//Texture path/UID
+		text.append_attribute("texture_path") = "???";
+	}
+	else
+	{
+		text.append_attribute("has_texture") = false;
+	}
+
+	//-----------------------------------
+
+	ret = OnSave(node);
+
+	//Childs
+	pugi::xml_node childsN = node.append_child("childs");
+
+	for (std::vector<Entity*>::const_iterator it = childs.begin(); it != childs.end() && ret == true; ++it)
+	{
+		Entity* tmp = *it;
+		if (tmp != nullptr)
+		{
+			pugi::xml_node child = childsN.append_child(tmp->GetName());
+			ret = tmp->Save(child);
+		}
+	}
+
+	return ret;
 }
 
 /**
-	Load: Loads the entity information.
+	Load: Loads the entity information, call OnLoad and iterate all childs loading them.
 */
-bool Entity::Load()
+bool Entity::Load(pugi::xml_node* node)
 {
-	return false;
+	bool ret = true;
+
+	if (node == nullptr)
+		return false;
+
+	//Name
+	SetName(node->child("entity_name").attribute("value").as_string("_entity"));
+	//SelfActive
+	SetActive(node->child("entity_self_active").attribute("value").as_bool(true));
+
+	//Gloal position
+	iPoint gPos;
+	pugi::xml_node gPosN = node->child("global_position");
+	gPos.x = gPosN.attribute("x").as_int(0);
+	gPos.y = gPosN.attribute("y").as_int(0);
+	SetGlobalPosition(gPos);
+
+	//Local position
+	iPoint lPos;
+	pugi::xml_node lPosN = node->child("local_position");
+	lPos.x = lPosN.attribute("x").as_int(0);
+	lPos.y = lPosN.attribute("y").as_int(0);
+	SetLocalPosition(lPos);
+
+	//Enclosing box
+	GB_Rectangle<int> eBox;
+	pugi::xml_node eBoxN = node->child("enclosing_box");
+	eBox.x = eBoxN.attribute("x").as_int(0);
+	eBox.y = eBoxN.attribute("y").as_int(0);
+	eBox.w = eBoxN.attribute("w").as_int(1);
+	eBox.h = eBoxN.attribute("h").as_int(1);
+	SetEnclosingBox(eBox);
+
+	//DrawQuad
+	pugi::xml_node dQuadN = node->child("draw_quad");
+	drawQuad.x = dQuadN.attribute("x").as_int(0);
+	drawQuad.y = dQuadN.attribute("y").as_int(0);
+	drawQuad.w = dQuadN.attribute("w").as_int(1);
+	drawQuad.h = dQuadN.attribute("h").as_int(1);
+
+	//Scale
+	fPoint scl;
+	pugi::xml_node sclN = node->child("scale");
+	scl.x = sclN.attribute("x").as_float(1.0f);
+	scl.y = sclN.attribute("y").as_float(1.0f);
+	SetScale(scl);
+
+	//TODO: Loading texture
+	//TODO: Add UID and load the hierarchy with UIDs
+
+	pugi::xml_node text = node->child("entity_texture");
+	if (text.attribute("has_texture").as_bool(false) == true)
+	{
+		//Load texture
+	}
+
+	ret = OnLoad(node);
+
+	pugi::xml_node childsN = node->child("childs");
+	for (pugi::xml_node it = childsN.first_child(); it != NULL; it = it.next_sibling())
+	{
+		Entity* tmp = this->AddChild();
+		if (tmp != nullptr)
+		{
+			ret = tmp->Load(&it);
+		}
+	}
+
+	return ret;
 }
 
 /**
@@ -578,3 +714,19 @@ void Entity::OnUpdate(float dt)
 */
 void Entity::OnTransformUpdated()
 {}
+
+/**
+	OnSave: Virtual method called when entity is saved. This method is supposed to be override to save especific entity data.
+*/
+bool Entity::OnSave(pugi::xml_node& node)const
+{
+	return true;
+}
+
+/**
+	OnLoade: Virtual method called when entity is loaded. This method is supposed to be override to load especific entity data.
+*/
+bool Entity::OnLoad(pugi::xml_node* node)
+{
+	return true;
+}
