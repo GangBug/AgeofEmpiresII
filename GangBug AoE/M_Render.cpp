@@ -112,9 +112,16 @@ update_status M_Render::PostUpdate(float dt)
 	//TODO: Might have a better organitzation to draw map or change map system
 	app->map->Draw();
 
+	PerfTimer timer;
 	std::vector<Entity*> entitiesVect;
 	app->entityManager->Draw(entitiesVect, camera);
+	double tmp = timer.ReadMs();
+	//LOG("Collecting entities lasted %f ms.", tmp);
 	DrawEntities(entitiesVect);
+	double tmp2 = timer.ReadMs();
+	//LOG("Drawing entities lasted: %f ms.", tmp2 - tmp);
+	//LOG("Total process lasted: %f ms.", tmp2);
+
 
 	app->gui->Draw();
 

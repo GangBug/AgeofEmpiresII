@@ -54,6 +54,8 @@ public:
 	bool culling = true;
 	GB_QuadTree* sceneTree = nullptr;
 
+	double lastFrameDrawDuration = 0;
+
 private:
 	Entity* root = nullptr;
 	bool mustSaveScene = false;

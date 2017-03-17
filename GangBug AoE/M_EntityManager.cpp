@@ -351,9 +351,12 @@ void M_EntityManager::Draw(std::vector<Entity*>& entitiesToDraw, GB_Rectangle<in
 {
 	if (root)
 	{
+		PerfTimer timer;
 		if (culling == true)
 		{
 			sceneTree->CollectCandidates(entitiesToDraw, camToTest);
+			lastFrameDrawDuration = timer.ReadMs();
+			//LOG("Culling lasted: %f ms.", lastFrameDrawDuration);
 		}
 		else
 		{
@@ -361,6 +364,8 @@ void M_EntityManager::Draw(std::vector<Entity*>& entitiesToDraw, GB_Rectangle<in
 			{
 				RecColectEntitiesToDraw(entitiesToDraw, (*it));
 			}
+			lastFrameDrawDuration = timer.ReadMs();
+			//LOG("Collecting all entities lasted: %f ms.", lastFrameDrawDuration);
 		}
 	}
 	else
