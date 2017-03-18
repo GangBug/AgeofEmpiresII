@@ -4,7 +4,12 @@
 #include "App.h"
 #include "Log.h"
 
+#include "M_FileSystem.h"
+
 #include "GB_QuadTree.h"
+
+#include <iostream> 
+#include <sstream> 
 
 //TMP
 #include "M_Input.h"
@@ -56,6 +61,10 @@ bool M_EntityManager::Awake(pugi::xml_node&)
 		ret = false;
 		LOG("ERROR: Could not create scene root entity.");
 	}
+	else
+	{
+		root->SetName("root_entity");
+	}
 
 	return ret;
 }
@@ -77,10 +86,10 @@ bool M_EntityManager::Start()
 	//TMP
 	textTexture = app->tex->Load("textures/test.png");
 
-	et = CreateEntity(nullptr, 300, 100);
-	et->SetTexture(textTexture);
-	et2 = CreateEntity(et, 50, 50);
-	et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
+	//et = CreateEntity(nullptr, 300, 100);
+	//et->SetTexture(textTexture);
+	//et2 = CreateEntity(et, 50, 50);
+	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
 	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 	return ret;
@@ -156,6 +165,11 @@ update_status M_EntityManager::PreUpdate(float dt)
 		Entity* et = CreateRandomTestEntity();
 		et->SetLocalPosition(pos);
 	}
+
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+		SaveScene();
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_MIDDLE) == KEY_DOWN)
+		LoadScene();
 
 
 	return ret;
@@ -519,7 +533,54 @@ void M_EntityManager::RecColectEntitiesToDraw(std::vector<Entity*>& entitiesToDr
 */
 bool M_EntityManager::LoadSceneNow()
 {
-	return false;
+	bool ret = false;
+
+	LOG("Loading scene.");
+
+	char* buffer = nullptr;
+	char path[256];
+	sprintf_s(path, 256, "%sscene1.xml", app->fs->GetSaveDirectory());
+
+	uint size = app->fs->Load(path, &buffer);
+	
+	if (size > 0 && buffer != nullptr)
+	{
+		LOG("Loading scene.");
+
+		pugi::xml_document data;
+		pugi::xml_node rootN;
+
+		pugi::xml_parse_result result = data.load_buffer(buffer, size);
+		RELEASE(buffer);
+
+		if (result != NULL)
+		{
+			rootN = data.child("root_entity");
+
+			ret = root->Load(&rootN);
+
+			data.reset();
+
+			if (ret == true)
+			{
+				LOG("... scene loaded with succes.");
+			}
+			else
+			{
+				LOG("ERROR: ...loading scene process had an error.");
+			}
+		}
+		else
+		{
+			LOG("Could not parse scene xml.");
+		}
+	}
+	else
+	{
+		LOG("Could not load scene1.xml");
+	}
+
+	return ret;
 }
 
 /**
@@ -531,5 +592,31 @@ bool M_EntityManager::LoadSceneNow()
 */
 bool M_EntityManager::SaveSceneNow()
 {
-	return false;
+	bool ret = true;
+
+	LOG("Saving scene.");
+
+	pugi::xml_document data;
+	pugi::xml_node rootN;
+
+	rootN = data.append_child(root->GetName());
+
+	ret = root->Save(rootN);
+
+	if (ret == true)
+	{
+		std::stringstream stream;
+		data.save(stream);
+
+		app->fs->Save("scene1.xml", stream.str().c_str(), stream.str().length());
+		LOG("... just saved the scene: scene1.xml");
+	}
+	else
+	{
+		LOG("Could not save the scene.");
+	}
+
+	data.reset();
+
+	return ret;
 }
