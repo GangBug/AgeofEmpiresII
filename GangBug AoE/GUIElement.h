@@ -61,7 +61,7 @@ public:
 	GUIElement();
 	virtual ~GUIElement();
 	
-	virtual void Update(const GUIElement* mouseHover, const GUIElement* focus) {} //Do something	
+	virtual void Update(const GUIElement* mouseHover, const GUIElement* focus) {} //Do something	// must implement dt
 	virtual void Draw() const {}// Print the element
 	virtual void DebugDraw() const {} // Print debug things if the element
 	void CheckInput(const GUIElement* mouseHover, const GUIElement* focus); //Getting the input

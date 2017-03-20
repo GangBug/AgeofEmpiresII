@@ -112,6 +112,7 @@
     <ClCompile Include="GUIButton.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GUIInputBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -204,5 +205,6 @@
     <ClInclude Include="GUIButton.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="GUIInputBox.h" />
   </ItemGroup>
 </Project>
