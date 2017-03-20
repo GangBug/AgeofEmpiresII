@@ -4,6 +4,7 @@
 #include "GUIImage.h"
 #include "GUILabel.h"
 #include "GUIButton.h"
+#include "GUIInputText.h"
 #include "M_Input.h"
 #include "M_Render.h"
 #include "M_Textures.h"
@@ -28,7 +29,7 @@ bool M_GUI::Start()
 {
 	atlas = app->tex->Load("gui/atlas.png");
 
-	GUIImage* img = new GUIImage();
+	/*GUIImage* img = new GUIImage();
 	img->SetRectangle(0, 0, 231, 71);
 	img->SetSection(0, 110, 231, 71);
 	img->SetInteractive(true);		   
@@ -43,7 +44,22 @@ bool M_GUI::Start()
 	guiList.push_back(label);
 
 	GUIButton* button = new GUIButton(GB_Rectangle<int>(0, 110, 231, 71), GB_Rectangle<int>(416, 171, 231, 71), GB_Rectangle<int>(647, 171, 231, 71));
-	guiList.push_back(button);
+	guiList.push_back(button);*/
+	GUIInputText * input2 = new GUIInputText();
+	input2->image->SetRectangle(0, 300, 231, 71);
+	input2->label->SetLocalPos(0, 300);
+	input2->SetRectangle(0, 300, 231, 71);
+	guiList.push_back(input2);
+	guiList.push_back(input2->image);
+	guiList.push_back(input2->label);
+
+
+	GUIInputText * input = new GUIInputText();	
+	guiList.push_back(input);
+	guiList.push_back(input->image);
+	guiList.push_back(input->label);
+	
+
 	
 	return true;
 }
@@ -53,6 +69,15 @@ update_status M_GUI::PreUpdate(float dt)
 
 	ManageEvents();
 	
+	if (focus != nullptr && focus->GetType() == GUI_INPUT_TEXT)
+	{
+		//printf("Texti input has focus");
+		app->input->StartTyping();
+	}
+	else
+	{
+		app->input->StopTyping();
+	}
 	// TODO do Update()
 	std::list<GUIElement*>::iterator it;
 	for (it = guiList.begin(); it != guiList.end(); it++)
@@ -113,6 +138,11 @@ void M_GUI::ManageEvents()
 
 	//Find the element that is hovered actually
 	newMouseHover = FindMouseHover();
+	if (focus != nullptr && newMouseHover == nullptr && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_DOWN)
+	{
+		BroadcastEventToListeners(focus, LOST_FOUCS);
+		focus = nullptr;
+	}
 	//If the hover is null it gets the new element to hover
 	if (mouseHover == nullptr && newMouseHover != nullptr)
 	{

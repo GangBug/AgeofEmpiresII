@@ -112,6 +112,22 @@ update_status M_Input::PreUpdate(float dt)
 				break;
 			}
 			break;
+		case SDL_KEYUP:
+			if (textInput)
+			{
+				printf("a");
+			}
+			break;
+		case SDL_TEXTINPUT:
+			if (textInput)
+			{
+				lastText += event.text.text;
+
+				cursor += strlen(event.text.text);
+
+				LOG("Input event: %s", event.edit.text);
+			}
+			break;
 		/*case SDL_KEYUP:
 
 			// Special case of micro controlling text input
