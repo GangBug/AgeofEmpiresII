@@ -4,12 +4,14 @@
 #include <list>
 #include "Module.h"
 #include "GB_Rectangle.h"
+#include "GUIAutoLabel.h"
 
 class GUIElement;
 class GUIButton;
 class GUILabel;
 class GUIImage;
 class GUIMouse;
+
 
 class M_GUI : public Module
 {
@@ -61,9 +63,13 @@ private:
 	SDL_Texture* atlas;
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
+	
+	//debuging things and some stuff
+	GUIMouse* curs = nullptr; // this goes to scene entity
+	GUIAutoLabel<uint32>* lastFrameMS;
+	GUIAutoLabel<uint32>* fps;
 
 
-	GUIElement* curs = NULL;
 };
 
 #endif // !__M_GUI_H__

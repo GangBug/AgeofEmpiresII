@@ -51,6 +51,7 @@ bool M_Input::Start()
 // Called each loop iteration
 update_status M_Input::PreUpdate(float dt)
 {
+	lastText = "";
 	static SDL_Event event;
 	
 	const Uint8* keys = SDL_GetKeyboardState(nullptr);

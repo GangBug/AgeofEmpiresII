@@ -179,6 +179,7 @@
     <ClCompile Include="EntityUi.cpp" />
     <ClCompile Include="GB_QuadTree.cpp" />
     <ClCompile Include="GB_Rectangle.cpp" />
+    <ClCompile Include="GUIAutoLabel.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIImage.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityUi.h" />
     <ClInclude Include="GB_QuadTree.h" />
+    <ClInclude Include="GUIAutoLabel.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUIImage.h" />
