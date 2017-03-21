@@ -9,6 +9,7 @@
 #include "M_Render.h"
 #include "M_Textures.h"
 #include "GB_Rectangle.h"
+#include "GUIMouse.h"
 
 M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 {
@@ -25,6 +26,7 @@ bool M_GUI::Awake(pugi::xml_node &)
 	
 	return true;
 }
+
 bool M_GUI::Start()
 {
 	atlas = app->tex->Load("gui/atlas.png");
@@ -60,9 +62,15 @@ bool M_GUI::Start()
 	guiList.push_back(input->label);
 	
 
-	
+	curs = new GUICursor({ 994,728, 25, 23 }, 0, 0);
+	//cursor  ------------------------------------------
+	//curs = app->gui->createelement(uicursor, sdl_rect{ 994,728, 25, 23 }, p2point<int>{ 0, 0 },true);
+	//curs->setlistener(this);
+
+
 	return true;
 }
+
 update_status M_GUI::PreUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
@@ -90,25 +98,31 @@ update_status M_GUI::PreUpdate(float dt)
 	}
 	return ret;
 }
+
 update_status M_GUI::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
 	return ret;
 }
+
 update_status M_GUI::PostUpdate(float dt)
 {
 	return UPDATE_CONTINUE;
 }
+
 bool M_GUI::UpdateGuiList()
 {
 	return true;
 }
+
 bool M_GUI::UpdateDebugGuiList()
 {
 	return true;
 }
+
 //Checks if cursor is inside an element | returns null if nothing found
+
 GUIElement * M_GUI::FindMouseHover()
 {
 	GUIElement* ret = nullptr;
@@ -131,7 +145,9 @@ GUIElement * M_GUI::FindMouseHover()
 
 	return ret;
 }
+
 //Manages the events on hover and focus
+
 void M_GUI::ManageEvents()
 {
 	GUIElement* newMouseHover = nullptr;
@@ -203,7 +219,9 @@ void M_GUI::ManageEvents()
 		mouseHover->SetRClicked(false);
 	}
 }
+
 //Broadcast an event to all GUIElement listeners
+
 void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 {
 	if (event != MOUSE_ENTERS)
@@ -216,6 +234,7 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 		(*it)->GuiEvent(element, event);		
 	}
 }
+
 void M_GUI::Draw()
 {
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
@@ -223,6 +242,7 @@ void M_GUI::Draw()
 		(*it)->Draw();
 	}
 }
+
 void M_GUI::DrawEditor()
 {
 	for (std::list<GUIElement*>::iterator it = editorGuiList.begin(); it != editorGuiList.end(); it++)
@@ -230,6 +250,7 @@ void M_GUI::DrawEditor()
 		(*it)->Draw();
 	}
 }
+
 void M_GUI::DrawDebug()
 {
 	//GB_Rectangle<int> rect;
@@ -259,8 +280,19 @@ SDL_Texture* M_GUI::GetAtlas() const
 {
 	return atlas;
 }
+
 void M_GUI::SetAtlas(SDL_Texture * texture)
 {
 	atlas = texture;
+}
+
+GUIElement * M_GUI::guiFactory()
+{
+
+
+
+
+
+	return nullptr;
 }
 

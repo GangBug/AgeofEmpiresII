@@ -35,7 +35,11 @@ public:
 	void SetAtlas(SDL_Texture* texture);
 
 	// UI factory
+
+	
 	//GUIImage* createImage();
+
+	GUIElement* guiFactory();
 
 public:
 	std::list<GUIElement*> guiList;
@@ -48,6 +52,8 @@ private:
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
 
+
+	GUIElement* curs = NULL;
 };
 
 #endif // !__M_GUI_H__
