@@ -5,6 +5,7 @@
 GUIImage::GUIImage()
 {
 	SetType(GUI_IMAGE);
+	atlas = app->gui->GetAtlas();
 	//texture = nullptr;
 }
 
@@ -15,7 +16,7 @@ GUIImage::~GUIImage()
 
 void GUIImage::Draw() const
 {
-	app->render->Blit(app->gui->GetAtlas(), GetRectangle().x, GetRectangle().y, &GetSection().GetSDLrect());
+	app->render->Blit(atlas, GetRectangle().x, GetRectangle().y, &GetSection().GetSDLrect());
 }
 
 GB_Rectangle<int> GUIImage::GetSection() const

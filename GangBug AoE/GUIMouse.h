@@ -2,22 +2,25 @@
 #include "M_GUI.h"
 #include "p2Point.h"
 #include "GUIElement.h"
+#include "GUIImage.h"
 
-class GUICursor :public GUIElement
+class GUIMouse :public GUIElement
 {
 public:
-	GUICursor(int margin_x, int margin_y);
-	GUICursor(const SDL_Rect& section, int margin_x, int margin_y);
-	~GUICursor();
+	GUIMouse(iPoint margin, GB_Rectangle<int> _section);
+	GUIMouse(const SDL_Rect& section, int margin_x, int margin_y);
+	~GUIMouse();
 
-	void SetSection(const SDL_Rect& section);
-	SDL_Rect GetSection()const;
-	bool draw();
-	void Update(const GUIElement* mouse_hover, const GUIElement* focus);
-	SDL_Texture* GetTexture()const;
+	void Draw() const override;
+	void Update(const GUIElement* mouse_hover, const GUIElement* focus) override;
+
+
+	GB_Rectangle<int> GUIMouse::GetSection() const;
+	void SetSection(const GB_Rectangle<int> section);
 
 private:
-	SDL_Rect section;
-	SDL_Texture* curs = nullptr;
+	GB_Rectangle<int> section;
+	GUIImage* curs = nullptr;
 	iPoint margin;
+	iPoint position;
 };

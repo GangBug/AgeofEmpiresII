@@ -9,6 +9,7 @@ class GUIElement;
 class GUIButton;
 class GUILabel;
 class GUIImage;
+class GUIMouse;
 
 class M_GUI : public Module
 {
@@ -45,6 +46,7 @@ public:
 							 GB_Rectangle<int> _clickedSection);
 	GUILabel*	CreateLabel(GB_Rectangle<int> _position, const char* _text = nullptr);
 	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section);
+	GUIMouse*	CreateMouse ()
 	//GUIImage* createImage();
 
 	GUIElement* GuiFactory();

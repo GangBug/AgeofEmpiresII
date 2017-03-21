@@ -16,5 +16,6 @@ public:
 
 private:
 	GB_Rectangle<int> section;
+	SDL_Texture* atlas;
 };
 

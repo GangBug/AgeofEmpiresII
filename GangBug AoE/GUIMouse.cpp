@@ -8,24 +8,15 @@
 
 
 // class GuiMCursor ---------------------------------------------------
-GUICursor::GUICursor(int margin_x, int margin_y) : GUIElement(), margin(margin_x, margin_y)
+GUIMouse::GUIMouse(iPoint margin, GB_Rectangle<int> _section) : GUIElement(), margin(margin_x, margin_y)
 {
-	section.x = section.y = 0;
-
-	curs = app->gui->GetAtlas();
-	app->tex->GetSize(curs, (uint&)section.w, (uint&)section.h);
-
-	SetSize(section.w, section.h);
-	iPoint p;
-	app->input->GetMousePosition(p.x, p.y);
-	SetLocalPos(p.x - margin.x, p.y - margin.y);
-
-
+	section = _section;
+	
 	SetType(GUI_MOUSE_CURSOR);
 }
 
 // --------------------------
-GUICursor::GUICursor(const SDL_Rect& section, int margin_x, int margin_y) : GUIElement(), section(section), margin(margin_x, margin_y)
+GUIMouse::GUIMouse(const SDL_Rect& section, int margin_x, int margin_y) : GUIElement(), section(section), margin(margin_x, margin_y)
 {
 	curs = app->gui->GetAtlas();
 	SetSize(section.w, section.h);
@@ -36,44 +27,34 @@ GUICursor::GUICursor(const SDL_Rect& section, int margin_x, int margin_y) : GUIE
 }
 
 // --------------------------
-GUICursor::~GUICursor()
+GUIMouse::~GUIMouse()
 {}
 
 //---------------------------
-SDL_Rect GUICursor::GetSection()const
+GB_Rectangle<int> GUIMouse::GetSection()const
 {
 	return section;
 }
 
 // --------------------------
-void GUICursor::SetSection(const SDL_Rect& section)
+void GUIMouse::SetSection(const GB_Rectangle<int> section)
 {
 	this->section = section;
 }
 
 // --------------------------
-bool GUICursor::draw()
+void GUIMouse::Draw() const
+{
+	curs->Draw();
+}
+
+//----------------------------
+
+void GUIMouse::Update(const GUIElement* mouse_hover, const GUIElement* focus)
 {
 	SDL_ShowCursor(SDL_DISABLE);
-
-	iPoint p;
-	app->input->GetMousePosition(p.x, p.y);
-	app->render->Blit(curs, p.x - margin.x, p.y - margin.y, (SDL_Rect*)&section, 0.0f);
-	return true;
-}
-
-//----------------------------
-
-SDL_Texture* GUICursor::GetTexture()const
-{
-	return curs;
-}
-
-//----------------------------
-
-void GUICursor::Update(const GUIElement* mouse_hover, const GUIElement* focus)
-{
-
+	app->input->GetMousePosition(position.x, position.y);
+	curs->SetLocalPos(position.x, position.y);
 	//if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	//	app->gui->ManageEvents();
 	//	app->scene->behaviour(this, UIEvents::mouse_lclick_down);
