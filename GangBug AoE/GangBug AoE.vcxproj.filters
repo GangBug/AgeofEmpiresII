@@ -120,6 +120,7 @@
     </ClCompile>
     <ClCompile Include="EntityUi.cpp">
       <Filter>Entity System\Entities</Filter>
+    </ClCompile>
     <ClCompile Include="GUIAutoLabel.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
@@ -220,6 +221,7 @@
     </ClInclude>
     <ClInclude Include="EntityUi.h">
       <Filter>Entity System\Entities</Filter>
+    </ClInclude>
     <ClInclude Include="GUIAutoLabel.h">
       <Filter>GUI</Filter>
     </ClInclude>
