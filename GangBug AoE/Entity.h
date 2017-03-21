@@ -30,21 +30,21 @@ public:
 	Entity* GetParent()const;
 
 	bool RecRemoveFlagged();
-	void RecCalcTransform(iPoint parentGlobalPos, bool force = false);
+	void RecCalcTransform(fPoint parentGlobalPos, bool force = false);
 	void RecCalcBox();
 	void SetNewParent(Entity* newParent, bool forceRecalcTransform = false);
 
 	/** Local transform */
-	iPoint GetLocalPosition()const;
-	void GetLocalPosition(int& x, int& y)const;
-	void SetLocalPosition(iPoint pos);
+	fPoint GetLocalPosition()const;
+	void GetLocalPosition(float& x, float& y)const;
+	void SetLocalPosition(fPoint pos);
 	void SetLocalPosition(int x, int y);
 
 	/** Global transform */
-	iPoint GetGlobalPosition()const;
-	void GetGlobalPosition(int& x, int& y)const;
-	void SetGlobalPosition(iPoint pos);
-	void SetGlobalPosition(int x, int y);
+	fPoint GetGlobalPosition()const;
+	void GetGlobalPosition(float& x, float& y)const;
+	void SetGlobalPosition(fPoint pos);
+	void SetGlobalPosition(float x, float y);
 
 	/** Enclosing box methods */
 	void SetEnclosingBoxPosition(int x, int y);
@@ -110,8 +110,8 @@ protected:
 	GB_Rectangle<int> drawQuad;
 
 private:  //Set position to private because I want to modify position with methods to control global position change
-	iPoint localPosition; //NOTE: Float point would be better??? For sure velocities must be used with floats
-	iPoint globalPosition; //Actually draw position.
+	fPoint localPosition; //NOTE: Float point would be better??? For sure velocities must be used with floats
+	fPoint globalPosition; //Actually draw position.
 
 	/**
 		GlobalPosition is the position in the world representation system. It's the position where the entity will be draw.

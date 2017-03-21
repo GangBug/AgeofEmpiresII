@@ -339,7 +339,7 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 				if (strcmp(tmp->GetName(), "unit") != 0) {
 					uint scale = app->win->GetScale();
 					GB_Rectangle<int> section = tmp->GetDrawQuad();
-					iPoint pos = tmp->GetGlobalPosition();
+					fPoint pos = tmp->GetGlobalPosition();
 					SDL_Rect finalRect;
 
 					finalRect.x = (int)(camera.x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
@@ -364,7 +364,7 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 					tempPivot.x = pivot.x;
 					tempPivot.y = pivot.y;
 
-					iPoint pos = tmp->GetGlobalPosition();
+					fPoint pos = tmp->GetGlobalPosition();
 					SDL_Rect finalRect;
 
 					finalRect.x = (int)(camera.x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
@@ -374,7 +374,7 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 					finalRect.h = section.h * scale; //TODO: Viewport ratio
 
 
-					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, &tempPivot,SDL_FLIP_NONE) != 0)//FLIP?
+					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, &tempPivot, SDL_FLIP_NONE) != 0)//FLIP?
 					{
 						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
 					}

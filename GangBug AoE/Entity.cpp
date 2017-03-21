@@ -131,21 +131,19 @@ bool Entity::Load(pugi::xml_node* node)
 	SetName(node->child("entity_name").attribute("value").as_string("_entity"));
 	//SelfActive
 	SetActive(node->child("entity_self_active").attribute("value").as_bool(true));
-	//Get the type
-	entity_type typ = (entity_type)node->child("entity_type").attribute("value").as_int(-1);
 
 	//Gloal position
-	iPoint gPos;
+	fPoint gPos;
 	pugi::xml_node gPosN = node->child("global_position");
-	gPos.x = gPosN.attribute("x").as_int(0);
-	gPos.y = gPosN.attribute("y").as_int(0);
+	gPos.x = gPosN.attribute("x").as_float(0);
+	gPos.y = gPosN.attribute("y").as_float(0);
 	SetGlobalPosition(gPos);
 
 	//Local position
-	iPoint lPos;
+	fPoint lPos;
 	pugi::xml_node lPosN = node->child("local_position");
-	lPos.x = lPosN.attribute("x").as_int(0);
-	lPos.y = lPosN.attribute("y").as_int(0);
+	lPos.x = lPosN.attribute("x").as_float(0);
+	lPos.y = lPosN.attribute("y").as_float(0);
 	SetLocalPosition(lPos);
 
 	//Enclosing box
@@ -188,7 +186,9 @@ bool Entity::Load(pugi::xml_node* node)
 	pugi::xml_node childsN = node->child("childs");
 	for (pugi::xml_node it = childsN.first_child(); it != NULL; it = it.next_sibling())
 	{
-		Entity* tmp = this->AddChild(); //TODO: Use the entity type to create the child
+		//Get the child type
+		entity_type typ = (entity_type)it.child("entity_type").attribute("value").as_int(-1);
+		Entity* tmp = app->entityManager->CreateEntity(typ, this);
 		if (tmp != nullptr)
 		{
 			ret = tmp->Load(&it);
@@ -275,7 +275,7 @@ bool Entity::RecRemoveFlagged()
 		-iPoint parentGlobalPosition.
 		-bool force if want to force the calc when position have not changed.
 */
-void Entity::RecCalcTransform(iPoint parentGlobalPos, bool force)
+void Entity::RecCalcTransform(fPoint parentGlobalPos, bool force)
 {
 	if (transformHasChanged == true || force == true)
 	{
@@ -357,7 +357,7 @@ void Entity::SetNewParent(Entity* newParent, bool forceRecalcTransform)
 /**
 	GetLocalPosition: Returns an iPoint with the local position in relation with its parent.
 */
-iPoint Entity::GetLocalPosition()const
+fPoint Entity::GetLocalPosition()const
 {
 	return localPosition;
 }
@@ -365,7 +365,7 @@ iPoint Entity::GetLocalPosition()const
 /**
 	GetLocalPosition: Fill tow ints with the local position in relation with its parent.
 */
-void Entity::GetLocalPosition(int&x, int& y)const
+void Entity::GetLocalPosition(float&x, float& y)const
 {
 	x = localPosition.x;
 	y = localPosition.y;
@@ -374,7 +374,7 @@ void Entity::GetLocalPosition(int&x, int& y)const
 /**
 	SetLocalPos: Sets the local position of the entity.
 */
-void Entity::SetLocalPosition(iPoint pos)
+void Entity::SetLocalPosition(fPoint pos)
 {
 	localPosition = pos;
 	transformHasChanged = true;
@@ -392,7 +392,7 @@ void Entity::SetLocalPosition(int x, int y)
 /**
 	GetGlobalPos: Return the global position in world coords reference.
 */
-iPoint Entity::GetGlobalPosition()const
+fPoint Entity::GetGlobalPosition()const
 {
 	return globalPosition;
 }
@@ -400,7 +400,7 @@ iPoint Entity::GetGlobalPosition()const
 /**
 	GetGlobalPos: Return the global position in world coords reference.
 */
-void Entity::GetGlobalPosition(int& x, int& y)const
+void Entity::GetGlobalPosition(float& x, float& y)const
 {
 	x = globalPosition.x;
 	y = globalPosition.y;
@@ -409,11 +409,11 @@ void Entity::GetGlobalPosition(int& x, int& y)const
 /**
 	SetGlobalPos: Sets the global position of the entity.
 */
-void Entity::SetGlobalPosition(iPoint pos) //TODO: Must change local pos to make it fit later when parent is moved
+void Entity::SetGlobalPosition(fPoint pos) //TODO: Must change local pos to make it fit later when parent is moved
 {
 	globalPosition = pos;
-	iPoint tmp = { 0, 0 };
-	tmp = globalPosition - ((parent != nullptr) ? parent->GetGlobalPosition() : iPoint(0, 0));
+	fPoint tmp = { 0.f, 0.f };
+	tmp = globalPosition - ((parent != nullptr) ? parent->GetGlobalPosition() : fPoint(0, 0));
 	SetLocalPosition(tmp); //TODO: Must test this.
 	dirty = true;
 }
@@ -421,11 +421,11 @@ void Entity::SetGlobalPosition(iPoint pos) //TODO: Must change local pos to make
 /**
 	SetGlobalPos: Sets the global position of the entity.
 */
-void Entity::SetGlobalPosition(int x, int y) //TODO: Must change local pos to make it fit later when parent is moved
+void Entity::SetGlobalPosition(float x, float y) //TODO: Must change local pos to make it fit later when parent is moved
 {
 	globalPosition.create(x, y);
-	iPoint tmp = { 0, 0 };
-	tmp = globalPosition - ((parent != nullptr) ? parent->GetGlobalPosition() : iPoint(0, 0));
+	fPoint tmp = { 0.f, 0.f };
+	tmp = globalPosition - ((parent != nullptr) ? parent->GetGlobalPosition() : fPoint(0, 0));
 	SetLocalPosition(tmp); //TODO: Must test this.
 	dirty = true;
 }

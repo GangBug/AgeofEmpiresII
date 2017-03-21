@@ -139,15 +139,15 @@ update_status M_EntityManager::PreUpdate(float dt)
 	//TMP
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
-		iPoint pos;
-		app->input->GetMousePosition(pos.x, pos.y);
+		fPoint pos;
+		app->input->GetMousePosition((int&)pos.x, (int&)pos.y);
 		et->SetLocalPosition(pos);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
 	{
-		iPoint pos;
-		app->input->GetMousePosition(pos.x, pos.y);
+		fPoint pos;
+		app->input->GetMousePosition((int&)pos.x, (int&)pos.y);
 		//et2->SetLocalPosition(pos);
 		et2->SetGlobalPosition(pos);
 	}
@@ -157,10 +157,17 @@ update_status M_EntityManager::PreUpdate(float dt)
 		CreateEntity(ENTITY_UI, nullptr);
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+	{
+		Entity* t = CreateEntity(ENTITY_UNIT, nullptr);
+		t->SetEnclosingBoxSize(100, 100);
+		t->SetGlobalPosition(200, 200);
+	}
+
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		iPoint pos;
-		app->input->GetMousePosition(pos.x, pos.y);
+		fPoint pos;
+		app->input->GetMousePosition((int&)pos.x, (int&)pos.y);
 		Entity* et = CreateRandomTestEntity();
 		et->SetLocalPosition(pos);
 	}
@@ -252,6 +259,7 @@ Entity* M_EntityManager::CreateEntity(entity_type type, Entity* parent)
 		break;
 
 	case ENTITY_UNIT:
+		ret = new Unit(DEFAULT_UNIT, nullptr);
 		break;
 
 	case ENTITY_UI:
