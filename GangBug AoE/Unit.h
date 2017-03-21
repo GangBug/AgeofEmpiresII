@@ -33,16 +33,19 @@ class Unit :public Entity
 public:
 	Unit(unit_type type, Entity* parent = nullptr);
 
-	void OnUpdate(float dt);
+	void OnUpdate(float dt)override;
 
 	unit_type GetType() const;
 	action_type GetAction() const;
 	direction GetDirection() const;
 
 private:
-	unit_type type;
+	unit_type unitType;
 	action_type action;
 	direction unitDirection;
+
+	fPoint velocity = {0.f, 0.f};
+	float speed = 100.f;
 
 	//STATS?
 };
