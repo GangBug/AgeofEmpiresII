@@ -9,7 +9,7 @@
 
 Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT, parent)
 {
-	name.assign("unit");
+	name.assign("unit_");
 	action = WALK;
 	unitDirection = SOUTH;
 	entityTexture = app->animation->GetTexture(CAVALRY_ARCHER);
