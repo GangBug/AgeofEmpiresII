@@ -3,8 +3,12 @@
 
 #include <list>
 #include "Module.h"
+#include "GB_Rectangle.h"
 
 class GUIElement;
+class GUIButton;
+class GUILabel;
+class GUIImage;
 
 class M_GUI : public Module
 {
@@ -35,11 +39,15 @@ public:
 	void SetAtlas(SDL_Texture* texture);
 
 	// UI factory
-
-	
+	GUIButton*	CreateButton(GB_Rectangle<int> _position, 
+							 GB_Rectangle<int> _standBySection, 
+							 GB_Rectangle<int> _hoverSection, 
+							 GB_Rectangle<int> _clickedSection);
+	GUILabel*	CreateLabel(GB_Rectangle<int> _position, const char* _text = nullptr);
+	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section);
 	//GUIImage* createImage();
 
-	GUIElement* guiFactory();
+	GUIElement* GuiFactory();
 
 public:
 	std::list<GUIElement*> guiList;

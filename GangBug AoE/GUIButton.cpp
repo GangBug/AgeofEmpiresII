@@ -2,10 +2,11 @@
 #include "M_Render.h"
 #include "M_GUI.h"
 
-GUIButton::GUIButton(GB_Rectangle<int> _standBySection, GB_Rectangle<int> _hoverSection, GB_Rectangle<int> _clickedSection)
+GUIButton::GUIButton(GB_Rectangle<int> _position, GB_Rectangle<int> _standBySection, GB_Rectangle<int> _hoverSection, GB_Rectangle<int> _clickedSection)
 {
 	SetType(GUI_BUTTON);
-	SetRectangle(0, 100, 231, 71);
+	//SetRectangle(0, 100, 231, 71);
+	SetRectangle(_position);
 	clickedSection = _clickedSection;
 	hoverSection = _hoverSection;
 	standBySection = _standBySection;
@@ -14,7 +15,7 @@ GUIButton::GUIButton(GB_Rectangle<int> _standBySection, GB_Rectangle<int> _hover
 
 	image = new GUIImage();
 	image->SetParent(this);
-	image->SetRectangle(0, 100, 231, 71);	
+	image->SetRectangle(_position);	
 	image->SetInteractive(true);
 	image->SetCanFocus(true);
 	image->SetSection(standBySection);

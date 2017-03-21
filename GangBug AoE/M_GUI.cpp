@@ -286,7 +286,40 @@ void M_GUI::SetAtlas(SDL_Texture * texture)
 	atlas = texture;
 }
 
-GUIElement * M_GUI::guiFactory()
+GUIButton * M_GUI::CreateButton(GB_Rectangle<int> _position, 
+								GB_Rectangle<int> _standBySection, 
+								GB_Rectangle<int> _hoverSection, 
+								GB_Rectangle<int> _clickedSection)
+{
+	GUIButton* button = new GUIButton(_position, _standBySection, _hoverSection, _clickedSection);
+	return button;
+}
+
+GUILabel * M_GUI::CreateLabel(GB_Rectangle<int> _position, const char* _text)
+{
+	GUILabel* label;
+	if (_text != nullptr)
+	{
+		label = new GUILabel(_text);
+	}
+	else
+	{
+		label = new GUILabel();
+	}
+	label->SetRectangle(_position);
+	
+	return nullptr;
+}
+
+GUIImage * M_GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section)
+{
+	GUIImage* image = new GUIImage();
+	image->SetSection(_section);
+	image->SetRectangle(_position);
+	return image;
+}
+
+GUIElement * M_GUI::GuiFactory()
 {
 
 

@@ -8,7 +8,10 @@ class GUIButton :
 	public GUIElement
 {
 public:
-	GUIButton(GB_Rectangle<int> _standBySection, GB_Rectangle<int> _hoverSection, GB_Rectangle<int> _clickedSection);
+	GUIButton(GB_Rectangle<int> _position, 
+			  GB_Rectangle<int> _standBySection, 
+			  GB_Rectangle<int> _hoverSection, 
+			  GB_Rectangle<int> _clickedSection);
 	~GUIButton();
 
 	void Update(const GUIElement* mouseHover, const GUIElement* focus) override;
