@@ -3,7 +3,7 @@
 #include "M_Animation.h"
 #include "M_Render.h"
 
-Unit::Unit(unit_type type, Entity* parent) : type(type), Entity(parent)
+Unit::Unit(unit_type type, Entity* parent) : type(type), Entity(ENTITY_UNIT, parent)
 {
 	name.assign("unit");
 }

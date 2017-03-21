@@ -26,6 +26,9 @@
     <Filter Include="Entity System">
       <UniqueIdentifier>{128f71d3-31b3-4441-a872-ee70526bd806}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity System\Entities">
+      <UniqueIdentifier>{524a239b-e188-4d29-865e-3a1782faa42a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PugiXml\src\pugixml.cpp">
@@ -103,9 +106,6 @@
     <ClCompile Include="M_Animation.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Unit.cpp">
-      <Filter>Entity System</Filter>
-    </ClCompile>
     <ClCompile Include="GB_QuadTree.cpp">
       <Filter>Modules\Tools</Filter>
     </ClCompile>
@@ -114,6 +114,9 @@
     </ClCompile>
     <ClCompile Include="GUIMouse.cpp">
       <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Entity System\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,9 +201,6 @@
     <ClInclude Include="M_Animation.h">
       <Filter>Modules\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Unit.h">
-      <Filter>Entity System</Filter>
-    </ClInclude>
     <ClInclude Include="GB_QuadTree.h">
       <Filter>Modules\Tools</Filter>
     </ClInclude>
@@ -209,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="GUIMouse.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

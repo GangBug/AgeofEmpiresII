@@ -11,10 +11,17 @@
 
 class SDL_Texture;
 
+enum entity_type
+{
+	ENTITY_UNKNOWN = -1,
+	ENTITY_BASE,
+	ENTITY_UNIT
+};
+
 class Entity
 {
 public:
-	Entity(Entity* parent, SDL_Texture* texture = nullptr, GB_Rectangle<int> drawRect = ZeroRectangle); //TODO: Might be usefull to implement a UID system
+	Entity(entity_type type, Entity* parent, SDL_Texture* texture = nullptr, GB_Rectangle<int> drawRect = ZeroRectangle); //TODO: Might be usefull to implement a UID system
 	virtual ~Entity();
 
 	Entity* AddChild();
@@ -121,6 +128,8 @@ public:
 
 	/** Scale of entity on each axis. */
 	fPoint scale;
+
+	entity_type type = ENTITY_UNKNOWN;
 };
 
 #endif // !__ENTITY_H__

@@ -17,7 +17,7 @@
 		-SDL_Texture* entity texture if it has. Nullptr by default.
 		-GB_Rectangle<int> drawRect: Is the texture section that must be drawn. ZeroRectangle(0, 0, 0, 0) by default.
 */
-Entity::Entity(Entity* parent, SDL_Texture* texture, GB_Rectangle<int> drawRect) : parent(parent), entityTexture(texture), drawQuad(drawRect)
+Entity::Entity(entity_type type, Entity* parent, SDL_Texture* texture, GB_Rectangle<int> drawRect) : type(type), parent(parent), entityTexture(texture), drawQuad(drawRect)
 {
 	name.assign("entity");
 	enclosingRect.Set(0, 0, 0, 0);
@@ -50,6 +50,8 @@ bool Entity::Save(pugi::xml_node& node)const
 	node.append_child("entity_name").append_attribute("value") = name.c_str();
 	//Self active
 	node.append_child("entity_self_active").append_attribute("value") = selfActive;
+	//TYPE
+	node.append_child("entity_type").append_attribute("value") = (int)type;
 
 	//Global position
 	pugi::xml_node gPos = node.append_child("global_position");
@@ -129,6 +131,8 @@ bool Entity::Load(pugi::xml_node* node)
 	SetName(node->child("entity_name").attribute("value").as_string("_entity"));
 	//SelfActive
 	SetActive(node->child("entity_self_active").attribute("value").as_bool(true));
+	//Get the type
+	entity_type typ = (entity_type)node->child("entity_type").attribute("value").as_int(-1);
 
 	//Gloal position
 	iPoint gPos;
@@ -181,7 +185,7 @@ bool Entity::Load(pugi::xml_node* node)
 	pugi::xml_node childsN = node->child("childs");
 	for (pugi::xml_node it = childsN.first_child(); it != NULL; it = it.next_sibling())
 	{
-		Entity* tmp = this->AddChild();
+		Entity* tmp = this->AddChild(); //TODO: Use the entity type to create the child
 		if (tmp != nullptr)
 		{
 			ret = tmp->Load(&it);
@@ -198,7 +202,7 @@ Entity* Entity::AddChild()
 {
 	Entity* ret = nullptr;
 
-	ret = new Entity(this);
+	ret = new Entity(ENTITY_BASE, this);
 	if (ret != nullptr)
 		childs.push_back(ret);
 	else
