@@ -1,15 +1,21 @@
-#include "M_GUI.h"
 #include "App.h"
+#include "M_GUI.h"
+#include "M_Input.h"
+#include "M_Render.h"
+#include "M_Textures.h"
+#include "GB_Rectangle.h"
+
+// GUI includes
 #include "GUIElement.h"
 #include "GUIImage.h"
 #include "GUILabel.h"
 #include "GUIButton.h"
 #include "GUIInputText.h"
-#include "M_Input.h"
-#include "M_Render.h"
-#include "M_Textures.h"
-#include "GB_Rectangle.h"
+#include "GUIAutoLabel.h"
 #include "GUIMouse.h"
+
+
+
 
 M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 {
@@ -67,6 +73,12 @@ bool M_GUI::Start()
 	//curs = app->gui->createelement(uicursor, sdl_rect{ 994,728, 25, 23 }, p2point<int>{ 0, 0 },true);
 	//curs->setlistener(this);
 
+	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms);
+	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update);
+	debugGuiList.push_back(lastFrameMS);
+	debugGuiList.push_back(fps);
+	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, "ms"));
+	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, "fps"));
 
 	return true;
 }
@@ -307,8 +319,8 @@ GUILabel * M_GUI::CreateLabel(GB_Rectangle<int> _position, const char* _text)
 		label = new GUILabel();
 	}
 	label->SetRectangle(_position);
-	
-	return nullptr;
+	label->SetLocalPos(_position.x, _position.y);
+	return label;
 }
 
 GUIImage * M_GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section)

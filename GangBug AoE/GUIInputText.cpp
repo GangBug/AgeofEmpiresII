@@ -30,7 +30,7 @@ void GUIInputText::Update(const GUIElement * mouseHover, const GUIElement * focu
 {
 	if (focus == this)
 	{
-		text = app->input->GetText();
+		text += app->input->GetText();
 	}
 	label->SetText(text.c_str());
 	if (label->GetRectangle().w > GetRectangle().w)

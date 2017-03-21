@@ -115,6 +115,9 @@
     <ClCompile Include="GUIMouse.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GUIAutoLabel.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -208,6 +211,9 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUIMouse.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIAutoLabel.h">
       <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>

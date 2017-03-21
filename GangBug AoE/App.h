@@ -110,6 +110,9 @@ public:
 	bool editor = false;
 	bool quit = false;
 
+	uint32 last_frame_ms;
+	uint32 frames_on_last_update;
+
 private:
 
 	std::list<Module*>	modules;
