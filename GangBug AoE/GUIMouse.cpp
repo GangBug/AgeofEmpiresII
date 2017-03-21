@@ -8,21 +8,10 @@
 
 
 // class GuiMCursor ---------------------------------------------------
-GUIMouse::GUIMouse(iPoint margin, GB_Rectangle<int> _section) : GUIElement(), margin(margin_x, margin_y)
+GUIMouse::GUIMouse(iPoint margin, GB_Rectangle<int> _section) : GUIElement(), margin(margin)
 {
 	section = _section;
 	
-	SetType(GUI_MOUSE_CURSOR);
-}
-
-// --------------------------
-GUIMouse::GUIMouse(const SDL_Rect& section, int margin_x, int margin_y) : GUIElement(), section(section), margin(margin_x, margin_y)
-{
-	curs = app->gui->GetAtlas();
-	SetSize(section.w, section.h);
-	iPoint p;
-	app->input->GetMousePosition(p.x, p.y);
-	SetLocalPos(p.x - margin.x, p.y - margin.y);
 	SetType(GUI_MOUSE_CURSOR);
 }
 

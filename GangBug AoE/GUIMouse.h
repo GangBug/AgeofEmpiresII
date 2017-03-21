@@ -8,7 +8,6 @@ class GUIMouse :public GUIElement
 {
 public:
 	GUIMouse(iPoint margin, GB_Rectangle<int> _section);
-	GUIMouse(const SDL_Rect& section, int margin_x, int margin_y);
 	~GUIMouse();
 
 	void Draw() const override;

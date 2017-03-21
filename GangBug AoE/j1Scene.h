@@ -1,13 +1,13 @@
 #ifndef __j1SCENE_H__
 #define __j1SCENE_H__
 
-#include "j1Module.h"
+#include "Module.h"
 
 struct SDL_Texture;
 class GuiImage;
 class GuiText;
 
-class j1Scene : public j1Module
+class j1Scene : public Module
 {
 public:
 
@@ -34,7 +34,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void GuiEvent(Element* element, Event state);
+	//void GuiEvent(GUIElement* element, gui_events state);
 
 private:
 	SDL_Texture* debug_tex;

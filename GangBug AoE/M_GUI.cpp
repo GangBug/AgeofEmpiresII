@@ -62,7 +62,7 @@ bool M_GUI::Start()
 	guiList.push_back(input->label);
 	
 
-	curs = new GUICursor({ 994,728, 25, 23 }, 0, 0);
+	curs = new GUIMouse({ 0, 0 }, { 994,728, 25, 23 });
 	//cursor  ------------------------------------------
 	//curs = app->gui->createelement(uicursor, sdl_rect{ 994,728, 25, 23 }, p2point<int>{ 0, 0 },true);
 	//curs->setlistener(this);
