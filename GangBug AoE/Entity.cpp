@@ -182,6 +182,9 @@ bool Entity::Load(pugi::xml_node* node)
 
 	ret = OnLoad(node);
 
+	if (ret == true && selfActive == true)
+		OnStart();
+
 	pugi::xml_node childsN = node->child("childs");
 	for (pugi::xml_node it = childsN.first_child(); it != NULL; it = it.next_sibling())
 	{

@@ -15,7 +15,8 @@ enum entity_type
 {
 	ENTITY_UNKNOWN = -1,
 	ENTITY_BASE,
-	ENTITY_UNIT
+	ENTITY_UNIT,
+	ENTITY_UI
 };
 
 class Entity

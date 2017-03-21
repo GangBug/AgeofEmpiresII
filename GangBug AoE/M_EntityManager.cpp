@@ -8,6 +8,8 @@
 
 #include "GB_QuadTree.h"
 
+#include "EntityUi.h"
+
 #include <iostream> 
 #include <sstream> 
 
@@ -152,12 +154,9 @@ update_status M_EntityManager::PreUpdate(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
 	{
-		et2->SetScale(1.f, 2.f);
+		CreateEntity(ENTITY_UI, nullptr);
 	}
-	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
-	{
-		et2->SetScale(1.f, 1.f);
-	}
+
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		iPoint pos;
@@ -238,6 +237,41 @@ bool M_EntityManager::CleanUp()
 	//TODO: Autosave scene
 
 	RELEASE(root);
+
+	return ret;
+}
+
+Entity* M_EntityManager::CreateEntity(entity_type type, Entity* parent)
+{
+	Entity* ret = nullptr;
+
+	switch (type)
+	{
+	case ENTITY_BASE:
+		ret = ((parent == nullptr) ? root->AddChild() : parent->AddChild());
+		break;
+
+	case ENTITY_UNIT:
+		break;
+
+	case ENTITY_UI:
+		ret = new EntityUi(nullptr);
+		break;
+
+		//TODO: More entities cases
+
+	default:
+		LOG("ERROR: Could not create entity, invalid entity type.");
+		break;
+	}
+
+	if (ret != nullptr)
+	{
+		if (parent != nullptr)
+			ret->SetNewParent(parent);
+		else
+			ret->SetNewParent(root);
+	}
 
 	return ret;
 }

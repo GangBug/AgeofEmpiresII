@@ -176,6 +176,7 @@
   <ItemGroup>
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityUi.cpp" />
     <ClCompile Include="GB_QuadTree.cpp" />
     <ClCompile Include="GB_Rectangle.cpp" />
     <ClCompile Include="GUIButton.cpp" />
@@ -206,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityUi.h" />
     <ClInclude Include="GB_QuadTree.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />

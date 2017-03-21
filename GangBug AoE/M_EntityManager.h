@@ -24,6 +24,7 @@ public:
 	bool CleanUp()override;
 
 
+	Entity* CreateEntity(entity_type type, Entity* parent);
 	Entity* CreateEntity(Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 	Entity* CreateUnit(unit_type type = DEFAULT_UNIT, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 

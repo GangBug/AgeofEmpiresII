@@ -118,6 +118,9 @@
     <ClCompile Include="Unit.cpp">
       <Filter>Entity System\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="EntityUi.cpp">
+      <Filter>Entity System\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -211,6 +214,9 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="Unit.h">
+      <Filter>Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityUi.h">
       <Filter>Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>
