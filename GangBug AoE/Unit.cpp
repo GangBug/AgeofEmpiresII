@@ -13,6 +13,11 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 	action = IDLE;
 	unitDirection = SOUTH;
 	entityTexture = app->animation->GetTexture(unitType);
+
+	iPoint p;
+	app->animation->GetFrame(drawQuad, p, this);
+	SetEnclosingBoxSize(drawQuad.w, drawQuad.h);
+	SetPivot(p);
 }
 
 void Unit::OnUpdate(float dt)
@@ -33,10 +38,9 @@ void Unit::OnUpdate(float dt)
 				unitDirection = dir;
 
 			iPoint p;
-			GB_Rectangle<int> tmp;
-			app->animation->GetFrame(tmp, p, this);
-			SetEnclosingBoxSize(tmp.w, tmp.h);
-			drawQuad = tmp;
+			app->animation->GetFrame(drawQuad, p, this);
+			SetEnclosingBoxSize(drawQuad.w, drawQuad.h);
+			SetPivot(p);
 
 			fPoint p2 = { (float)p.x, (float)p.y };
 			SetGlobalPosition(gPos + velocity);

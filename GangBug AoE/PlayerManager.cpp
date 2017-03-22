@@ -124,7 +124,11 @@ void PlayerManager::DrawDebug()
 		Entity* tmp = (*it);
 		if (tmp != nullptr)
 		{
-			app->render->DrawQuad(tmp->GetEnclosingBox().GetSDLrect(), 0, 0, 255, 255);
+			iPoint p = tmp->GetPivot();
+			GB_Rectangle<int> r = tmp->GetEnclosingBox();
+			r.x -= p.x;
+			r.y -= p.y;
+			app->render->DrawQuad(r.GetSDLrect(), 0, 0, 255, 255);
 		}
 	}
 }
