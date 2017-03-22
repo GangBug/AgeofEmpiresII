@@ -124,6 +124,9 @@
     <ClCompile Include="GUIAutoLabel.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>Entity System\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="GUIAutoLabel.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

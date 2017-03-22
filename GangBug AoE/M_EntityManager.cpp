@@ -9,6 +9,7 @@
 #include "GB_QuadTree.h"
 
 #include "EntityUi.h"
+#include "PlayerManager.h"
 
 #include <iostream> 
 #include <sstream> 
@@ -88,10 +89,11 @@ bool M_EntityManager::Start()
 	//TMP
 	textTexture = app->tex->Load("textures/test.png");
 
-	et = CreateEntity(nullptr, 300, 100);
-	et->SetTexture(textTexture);
-	et2 = CreateEntity(et, 50, 50);
-	et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
+	CreateEntity(ENTITY_PLAYER_MAN, nullptr);
+	//et = CreateEntity(nullptr, 300, 100);
+	//et->SetTexture(textTexture);
+	//et2 = CreateEntity(et, 50, 50);
+	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
 	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 	return ret;
@@ -136,6 +138,9 @@ update_status M_EntityManager::PreUpdate(float dt)
 		mustLoadScene = false;
 	}
 
+
+
+
 	//TMP
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
@@ -166,7 +171,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 		t->SetGlobalPosition(200, 200);
 	}
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
 	{
 		int x, y;
 		app->input->GetMousePosition(x, y);
@@ -175,9 +180,9 @@ update_status M_EntityManager::PreUpdate(float dt)
 		et->SetGlobalPosition(pos);
 	}
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		SaveScene();
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_MIDDLE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		LoadScene();
 
 
@@ -243,10 +248,11 @@ bool M_EntityManager::CleanUp()
 	LOG("Entity manager: CleanUp.");
 	bool ret = true;
 
-	root->Remove();
 	//TODO: Autosave scene
-
+	root->Remove();
+	RemoveFlagged();
 	RELEASE(root);
+	RELEASE(sceneTree);
 
 	return ret;
 }
@@ -267,6 +273,10 @@ Entity* M_EntityManager::CreateEntity(entity_type type, Entity* parent)
 
 	case ENTITY_UI:
 		ret = new EntityUi(nullptr);
+		break;
+
+	case ENTITY_PLAYER_MAN:
+		ret = new PlayerManager(nullptr);
 		break;
 
 		//TODO: More entities cases
@@ -395,6 +405,20 @@ Entity* M_EntityManager::GetSceneRoot()const
 Entity* M_EntityManager::FindEntity()
 {
 	return nullptr; //TODO
+}
+
+void M_EntityManager::GetEntitiesOnRect(entity_type type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle)
+{
+	//TODO: Would be cool to be able to ask for several types just like layers (using bit operators | )
+	if (type != ENTITY_UNKNOWN && sceneTree != nullptr)
+	{
+		//TODO: Change this, i dont like it at all...
+		std::vector<Entity*> vec2;
+		sceneTree->CollectCandidates(vec2, rectangle);
+		for (std::vector<Entity*>::iterator it = vec2.begin(); it != vec2.end(); ++it)
+			if ((*it)->type == type)
+				vec.push_back((*it));
+	}
 }
 
 /**

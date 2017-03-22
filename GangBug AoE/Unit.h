@@ -39,8 +39,14 @@ public:
 	action_type GetAction() const;
 	direction GetDirection() const;
 
+	void SetDestination(int x, int y);
+	void SetDestination(iPoint dst);
+
 protected:
 	direction GetDirectionFromVelocity(fPoint vel);
+
+public:
+	iPoint destination;
 
 private:
 	unit_type unitType;
@@ -49,6 +55,9 @@ private:
 
 	fPoint velocity = {0.f, 0.f};
 	float speed = 100.f;
+	int arriveRadius = 5; //This radius is a distance to detect the arriving because an exact point is almost impossible to check
+
+	bool haveADestination = false;
 
 	//STATS?
 };

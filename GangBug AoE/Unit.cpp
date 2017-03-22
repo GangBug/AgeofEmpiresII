@@ -10,34 +10,46 @@
 Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT, parent)
 {
 	name.assign("unit_");
-	action = WALK;
+	action = IDLE;
 	unitDirection = SOUTH;
 	entityTexture = app->animation->GetTexture(unitType);
 }
 
 void Unit::OnUpdate(float dt)
 {
-	int x, y;
-	app->input->GetMousePosition(x, y);
-	fPoint mPos(x, y);
+	if (haveADestination == true)
+	{
+		fPoint gPos = GetGlobalPosition();
+		fPoint desPos(destination.x, destination.y);
 
-	fPoint gPos = GetGlobalPosition();
-	velocity = mPos - gPos;
-	velocity.Normalize();
-	velocity *= (speed * dt);
+		if (gPos.DistanceNoSqrt(desPos) > arriveRadius * arriveRadius) //TODO: Maybe check in a circle or area instead of a point
+		{
+			velocity = desPos - gPos;
+			velocity.Normalize();
+			velocity *= (speed * dt);
 
-	direction dir = GetDirectionFromVelocity(velocity);
-	if (dir != unitDirection)
-		unitDirection = dir;
+			direction dir = GetDirectionFromVelocity(velocity);
+			if (dir != unitDirection)
+				unitDirection = dir;
 
-	iPoint p;
-	GB_Rectangle<int> tmp;
-	app->animation->GetFrame(tmp, p, this);
-	SetEnclosingBoxSize(tmp.w, tmp.h);
-	drawQuad = tmp;
+			iPoint p;
+			GB_Rectangle<int> tmp;
+			app->animation->GetFrame(tmp, p, this);
+			SetEnclosingBoxSize(tmp.w, tmp.h);
+			drawQuad = tmp;
 
-	fPoint p2 = { (float)p.x, (float)p.y };
-	SetGlobalPosition(gPos + velocity);
+			fPoint p2 = { (float)p.x, (float)p.y };
+			SetGlobalPosition(gPos + velocity);
+		}
+		else
+		{
+			//Has arrived
+			haveADestination = false;
+			action = IDLE;
+		}
+	}
+
+	
 }
 
 unit_type Unit::GetType() const
@@ -53,6 +65,20 @@ action_type Unit::GetAction() const
 direction Unit::GetDirection() const
 {
 	return unitDirection;
+}
+
+void Unit::SetDestination(int x, int y)
+{
+	destination.create(x, y);
+	haveADestination = true;
+	action = WALK;
+}
+
+void Unit::SetDestination(iPoint dst)
+{
+	destination = dst;
+	haveADestination = true;
+	action = WALK;
 }
 
 direction Unit::GetDirectionFromVelocity(fPoint vel)

@@ -31,6 +31,8 @@ public:
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
 
+	void GetEntitiesOnRect(entity_type type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle);
+
 	void Draw(std::vector<Entity*>& entitiesToDraw, GB_Rectangle<int> camToTest);
 	void DrawDebug()override;
 
