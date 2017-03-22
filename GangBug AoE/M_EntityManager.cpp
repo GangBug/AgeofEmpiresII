@@ -88,10 +88,10 @@ bool M_EntityManager::Start()
 	//TMP
 	textTexture = app->tex->Load("textures/test.png");
 
-	//et = CreateEntity(nullptr, 300, 100);
-	//et->SetTexture(textTexture);
-	//et2 = CreateEntity(et, 50, 50);
-	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
+	et = CreateEntity(nullptr, 300, 100);
+	et->SetTexture(textTexture);
+	et2 = CreateEntity(et, 50, 50);
+	et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
 	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 	return ret;
@@ -139,16 +139,18 @@ update_status M_EntityManager::PreUpdate(float dt)
 	//TMP
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
-		fPoint pos;
-		app->input->GetMousePosition((int&)pos.x, (int&)pos.y);
+		int x, y;
+		app->input->GetMousePosition(x, y);
+		fPoint pos(x, y);
 		et->SetLocalPosition(pos);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
 	{
-		fPoint pos;
-		app->input->GetMousePosition((int&)pos.x, (int&)pos.y);
+		int x, y;
+		app->input->GetMousePosition(x, y);
 		//et2->SetLocalPosition(pos);
+		fPoint pos(x, y);
 		et2->SetGlobalPosition(pos);
 	}
 
@@ -166,10 +168,11 @@ update_status M_EntityManager::PreUpdate(float dt)
 
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		fPoint pos;
-		app->input->GetMousePosition((int&)pos.x, (int&)pos.y);
+		int x, y;
+		app->input->GetMousePosition(x, y);
 		Entity* et = CreateRandomTestEntity();
-		et->SetLocalPosition(pos);
+		fPoint pos(x, y);
+		et->SetGlobalPosition(pos);
 	}
 
 	if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
