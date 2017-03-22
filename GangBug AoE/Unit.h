@@ -39,6 +39,9 @@ public:
 	action_type GetAction() const;
 	direction GetDirection() const;
 
+protected:
+	direction GetDirectionFromVelocity(fPoint vel);
+
 private:
 	unit_type unitType;
 	action_type action;

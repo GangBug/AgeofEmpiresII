@@ -39,6 +39,10 @@
 #define CLAMP01( x ) ( x < 0) ? 0 : ( x > 1 ) ? 1 : x
 #define CLAMP( x, min, max ) ( x < min) ? min : ( x > max ) ? max : x
 
+#define RADTODEG 57.295779513082320876f
+#define DEGTORAD 0.0174532925199432957f
+#define PI 3.14159265358979323846264338327950288
+
 typedef unsigned int uint;
 typedef unsigned __int32 uint32;
 typedef unsigned __int64 uint64;
