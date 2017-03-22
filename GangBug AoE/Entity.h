@@ -87,7 +87,7 @@ public:
 	bool Save(pugi::xml_node& node)const;
 	bool Load(pugi::xml_node* node);
 
-	virtual void DrawDebug();		//TODO: Const?? Probably
+	virtual void DrawDebug();
 
 	//---------------------------------------------------------------
 

@@ -409,24 +409,24 @@ void Entity::GetGlobalPosition(float& x, float& y)const
 /**
 	SetGlobalPos: Sets the global position of the entity.
 */
-void Entity::SetGlobalPosition(fPoint pos) //TODO: Must change local pos to make it fit later when parent is moved
+void Entity::SetGlobalPosition(fPoint pos)
 {
 	globalPosition = pos;
 	fPoint tmp = { 0.f, 0.f };
 	tmp = globalPosition - ((parent != nullptr) ? parent->GetGlobalPosition() : fPoint(0, 0));
-	SetLocalPosition(tmp); //TODO: Must test this.
+	SetLocalPosition(tmp);
 	dirty = true;
 }
 
 /**
 	SetGlobalPos: Sets the global position of the entity.
 */
-void Entity::SetGlobalPosition(float x, float y) //TODO: Must change local pos to make it fit later when parent is moved
+void Entity::SetGlobalPosition(float x, float y)
 {
 	globalPosition.create(x, y);
 	fPoint tmp = { 0.f, 0.f };
 	tmp = globalPosition - ((parent != nullptr) ? parent->GetGlobalPosition() : fPoint(0, 0));
-	SetLocalPosition(tmp); //TODO: Must test this.
+	SetLocalPosition(tmp);
 	dirty = true;
 }
 

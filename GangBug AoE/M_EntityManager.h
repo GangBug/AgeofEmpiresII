@@ -37,8 +37,8 @@ public:
 	void InsertEntityToTree(Entity* et);
 	void EraseEntityFromTree(Entity* et);
 
-	void LoadScene(); //TODO: Lot of work before using this
-	void SaveScene(); //TODO: Lot of work before using this
+	void LoadScene();
+	void SaveScene();
 
 	//-------------------------------
 	Entity* CreateRandomTestEntity();

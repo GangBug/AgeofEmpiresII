@@ -60,7 +60,8 @@ void GB_QuadTreeNode::CollectCandidates(std::vector<Entity*>& vec, const GB_Rect
 	{
 		for (std::list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
 		{
-			vec.push_back((*it));
+			if((*it)->GetEnclosingBox().Collides(test) == true)
+				vec.push_back((*it));
 		}
 	}
 
@@ -100,11 +101,11 @@ void GB_QuadTreeNode::DivideNode()
 	childs[1] = new GB_QuadTreeNode(tmp);
 
 	//BOTTOM-RIGHT
-	tmp.Set(box.x + newSize.x, box.y + newSize.y, newSize.x, newSize.y); //TODO: Must check coord system on Y axis, dont remember if must sum or rest the y
+	tmp.Set(box.x + newSize.x, box.y + newSize.y, newSize.x, newSize.y);
 	childs[2] = new GB_QuadTreeNode(tmp);
 
 	//BOTTOM-LEFT
-	tmp.Set(box.x, box.y + newSize.y, newSize.x, newSize.y); //TODO: Must check coord system on Y axis, dont remember if must sum or rest the y
+	tmp.Set(box.x, box.y + newSize.y, newSize.x, newSize.y);
 	childs[3] = new GB_QuadTreeNode(tmp);
 
 	for (unsigned int i = 0; i < 4; ++i)

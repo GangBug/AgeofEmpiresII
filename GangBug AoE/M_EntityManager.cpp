@@ -398,7 +398,7 @@ Entity* M_EntityManager::FindEntity()
 }
 
 /**
-	Draw: Collect all enitities that must be drawn on screen by testing the camera with the quadtree(TODO) and fill a vector with them.
+	Draw: Collect all enitities that must be drawn on screen by testing the camera with the quadtree and fill a vector with them.
 
 	Return: 
 		-Void.
