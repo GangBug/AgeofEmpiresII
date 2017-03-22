@@ -10,31 +10,29 @@ class Module;
 
 struct ElementStatus
 {
-//Private acces
-	bool draggable		= false;				// Can be moved?
-	bool interactive	= false;			// Is interactable?
-    //bool cut_childs	= false;			// I dont know a shit about this...
-	bool can_focus		= false;				// Can get the focus?
-	bool active			= true;					// Is active? if not dont do uptade
+	bool draggable		= false;	// Can be moved?
+	bool interactive	= false;	// Is interactable?
+    //bool cut_childs	= false;	// I dont know a shit about this...
+	bool can_focus		= false;	// Can get the focus?
+	bool active			= true;		// Is active? if not dont do uptade
 	bool mouseInside	= false;
-//Public access
-	bool lClicked		= false;				// Left clicked
-	bool rClicked		= false;				// Right clicked
-	bool statusChanged	= false;			// Element status changed
+	bool lClicked		= false;	// Left clicked
+	bool rClicked		= false;	// Right clicked
+	bool statusChanged	= false;	// Element status changed
 
 };
 
 enum gui_events
 {
 	LISTENING_END,
-	MOUSE_ENTERS, // done
-	MOUSE_LEAVES, // done
-	MOUSE_LCLICK_DOWN,// done
-	MOUSE_LCLICK_UP,// done
-	MOUSE_RCLICK_DOWN,// done
-	MOUSE_RCLICK_UP,// done
-	GAIN_FOCUS, // done
-	LOST_FOUCS,  // done
+	MOUSE_ENTERS,			// done
+	MOUSE_LEAVES,			// done
+	MOUSE_LCLICK_DOWN,		// done
+	MOUSE_LCLICK_UP,		// done
+	MOUSE_RCLICK_DOWN,		// done
+	MOUSE_RCLICK_UP,		// done
+	GAIN_FOCUS,				// done
+	LOST_FOUCS,				// done
 	INPUT_CHANGED,
 	INPUT_SUBMIT,
 	VALUE_CHANGED,
@@ -43,14 +41,14 @@ enum gui_events
 enum gui_types
 {
 	GUI_UNKNOWN,
-	GUI_IMAGE,
-	GUI_LABEL,
-	GUI_BUTTON,
+	GUI_IMAGE,				//done
+	GUI_LABEL,				//done
+	GUI_BUTTON,				//done
 	GUI_INPUT_TEXT,
 	GUI_LOAD_BAR,
 	GUI_H_SLIDER,
 	GUI_V_SLIDER,
-	GUI_MOUSE_CURSOR,
+	GUI_MOUSE_CURSOR,		//done
 	GUI_RECT
 };
 

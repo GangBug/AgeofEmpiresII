@@ -3,6 +3,7 @@
 #include "GB_Rectangle.h"
 #include <string>
 
+//Use this label with caution
 template <class t>
 class GUIAutoLabel :
 	public GUILabel

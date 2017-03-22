@@ -41,7 +41,13 @@ public:
 	SDL_Texture* GetAtlas() const;
 	void SetAtlas(SDL_Texture* texture);
 
+	//This method is in testing phase
+	void IterateList(std::list<GUIElement>* list, void* method);
+
 	// UI factory
+	// Any create adds the GUIElement into lists, this job
+	// is for who is using this methods
+	// This section is unfinished, so for now use this with caution
 	GUIButton*	CreateButton(GB_Rectangle<int> _position, 
 							 GB_Rectangle<int> _standBySection, 
 							 GB_Rectangle<int> _hoverSection, 

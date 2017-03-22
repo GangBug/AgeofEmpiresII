@@ -109,11 +109,14 @@ update_status M_GUI::PreUpdate(float dt)
 	std::list<GUIElement*>::iterator it;
 	for (it = guiList.begin(); it != guiList.end(); it++)
 	{
-		(*it)->Update(mouseHover, focus);
+		if ((*it)->GetElementStatus().active) // Do update only if element is active
+			(*it)->Update(mouseHover, focus);
+		
 	}
 	for (it = debugGuiList.begin(); it != debugGuiList.end(); it++)
 	{
-		(*it)->Update(mouseHover, focus);
+		if ((*it)->GetElementStatus().active) // Do update only if element is active
+			(*it)->Update(mouseHover, focus);
 	}
 	return ret;
 }
@@ -173,69 +176,72 @@ void M_GUI::ManageEvents()
 
 	//Find the element that is hovered actually
 	newMouseHover = FindMouseHover();
-	if (focus != nullptr && newMouseHover == nullptr && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_DOWN)
+	if (newMouseHover != nullptr && newMouseHover->GetElementStatus().interactive && newMouseHover->GetElementStatus().active)
 	{
-		BroadcastEventToListeners(focus, LOST_FOUCS);
-		focus = nullptr;
-	}
-	//If the hover is null it gets the new element to hover
-	if (mouseHover == nullptr && newMouseHover != nullptr)
-	{
-		mouseHover = newMouseHover;
-		mouseHover->SetMouseInside(true);
-		BroadcastEventToListeners(mouseHover, MOUSE_ENTERS);
-	}
-	//If the hovered elements are diferent events ant status are managed here
-	if (mouseHover != newMouseHover && newMouseHover != nullptr)
-	{
-		//Send leaving event
-		BroadcastEventToListeners(mouseHover, MOUSE_LEAVES);
-		//Set the new hover
-		mouseHover->SetMouseInside(false);
-		mouseHover = newMouseHover;
-		mouseHover->SetMouseInside(true);
-		//send entering event
-		BroadcastEventToListeners(mouseHover, MOUSE_ENTERS);
-	}
-	if (newMouseHover == nullptr && mouseHover != nullptr) //This is maybe unnecessary, but i think this check here helps to a better readability
-	{
-		BroadcastEventToListeners(mouseHover, MOUSE_LEAVES);
-		mouseHover->SetMouseInside(false);
-		mouseHover = nullptr;				
-	}
-	// TODO trobar quin element te el focus
-	// TODO manage the input & events
-	if (mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_DOWN)
-	{
-		if (focus != mouseHover && focus != nullptr)
+		if (focus != nullptr && newMouseHover == nullptr && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_DOWN)
 		{
 			BroadcastEventToListeners(focus, LOST_FOUCS);
+			focus = nullptr;
 		}
-		focus = mouseHover;
-		mouseHover->SetLClicked(true);
-		BroadcastEventToListeners(mouseHover, MOUSE_LCLICK_DOWN);
-		BroadcastEventToListeners(mouseHover, GAIN_FOCUS);
-	}
-	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
-	{
-		BroadcastEventToListeners(mouseHover, MOUSE_LCLICK_UP);
-		mouseHover->SetLClicked(false);
-	}
-	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_DOWN)
-	{
-		if (focus != mouseHover)
+		//If the hover is null it gets the new element to hover
+		if (mouseHover == nullptr && newMouseHover != nullptr)
 		{
-			BroadcastEventToListeners(focus, LOST_FOUCS);
+			mouseHover = newMouseHover;
+			mouseHover->SetMouseInside(true);
+			BroadcastEventToListeners(mouseHover, MOUSE_ENTERS);
 		}
-		focus = mouseHover;
-		mouseHover->SetRClicked(true);
-		BroadcastEventToListeners(mouseHover, MOUSE_RCLICK_DOWN);
-		BroadcastEventToListeners(mouseHover, GAIN_FOCUS);
-	}
-	if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
-	{
-		BroadcastEventToListeners(mouseHover, MOUSE_RCLICK_UP);
-		mouseHover->SetRClicked(false);
+		//If the hovered elements are diferent events ant status are managed here
+		if (mouseHover != newMouseHover && newMouseHover != nullptr)
+		{
+			//Send leaving event
+			BroadcastEventToListeners(mouseHover, MOUSE_LEAVES);
+			//Set the new hover
+			mouseHover->SetMouseInside(false);
+			mouseHover = newMouseHover;
+			mouseHover->SetMouseInside(true);
+			//send entering event
+			BroadcastEventToListeners(mouseHover, MOUSE_ENTERS);
+		}
+		if (newMouseHover == nullptr && mouseHover != nullptr) //This is maybe unnecessary, but i think this check here helps to a better readability
+		{
+			BroadcastEventToListeners(mouseHover, MOUSE_LEAVES);
+			mouseHover->SetMouseInside(false);
+			mouseHover = nullptr;
+		}
+		// TODO trobar quin element te el focus
+		// TODO manage the input & events
+		if (mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_DOWN)
+		{
+			if (focus != mouseHover && focus != nullptr)
+			{
+				BroadcastEventToListeners(focus, LOST_FOUCS);
+			}
+			focus = mouseHover;
+			mouseHover->SetLClicked(true);
+			BroadcastEventToListeners(mouseHover, MOUSE_LCLICK_DOWN);
+			BroadcastEventToListeners(mouseHover, GAIN_FOCUS);
+		}
+		if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
+		{
+			BroadcastEventToListeners(mouseHover, MOUSE_LCLICK_UP);
+			mouseHover->SetLClicked(false);
+		}
+		if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_DOWN)
+		{
+			if (focus != mouseHover)
+			{
+				BroadcastEventToListeners(focus, LOST_FOUCS);
+			}
+			focus = mouseHover;
+			mouseHover->SetRClicked(true);
+			BroadcastEventToListeners(mouseHover, MOUSE_RCLICK_DOWN);
+			BroadcastEventToListeners(mouseHover, GAIN_FOCUS);
+		}
+		if (focus != nullptr && mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
+		{
+			BroadcastEventToListeners(mouseHover, MOUSE_RCLICK_UP);
+			mouseHover->SetRClicked(false);
+		}
 	}
 }
 
@@ -258,7 +264,8 @@ void M_GUI::Draw()
 {
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
-		(*it)->Draw();
+		if ((*it)->GetElementStatus().active) // Do update only if element is active
+			(*it)->Draw();
 	}
 }
 
@@ -266,7 +273,8 @@ void M_GUI::DrawEditor()
 {
 	for (std::list<GUIElement*>::iterator it = editorGuiList.begin(); it != editorGuiList.end(); it++)
 	{
-		(*it)->Draw();
+		if ((*it)->GetElementStatus().active) // Do update only if element is active
+			(*it)->Draw();
 	}
 }
 
@@ -311,6 +319,14 @@ void M_GUI::SetAtlas(SDL_Texture * texture)
 {
 	atlas = texture;
 }
+
+//void M_GUI::IterateList(std::list<GUIElement>* list, void * method)
+//{
+//	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+//	{
+//		(*it);
+//	}
+//}
 
 GUIButton * M_GUI::CreateButton(GB_Rectangle<int> _position, 
 								GB_Rectangle<int> _standBySection, 
