@@ -46,7 +46,7 @@ public:
 							 GB_Rectangle<int> _standBySection, 
 							 GB_Rectangle<int> _hoverSection, 
 							 GB_Rectangle<int> _clickedSection);
-	GUILabel*	CreateLabel(GB_Rectangle<int> _position, const char* _text = nullptr);
+	GUILabel*	CreateLabel(GB_Rectangle<int> _position, size _size, const char* _text = nullptr);
 	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section);
 	GUIMouse*	CreateMouse();
 	//GUIImage* createImage();
@@ -68,6 +68,8 @@ private:
 	GUIMouse* curs = nullptr; // this goes to scene entity
 	GUIAutoLabel<uint32>* lastFrameMS;
 	GUIAutoLabel<uint32>* fps;
+	GUILabel* xMouse;
+	GUILabel* yMouse;
 
 
 };

@@ -13,9 +13,9 @@ GUILabel::GUILabel() : GUIElement()
 	SetType(GUI_LABEL);
 	texture = nullptr;
 }
-GUILabel::GUILabel(const char * text) : GUIElement()
+GUILabel::GUILabel(const char * text, size _size) : GUIElement()
 {
-	SetText(text);
+	SetText(text, _size);
 	SetType(gui_types::GUI_LABEL);
 }
 
@@ -25,13 +25,27 @@ GUILabel::~GUILabel()
 		app->tex->UnLoad(texture);
 }
 
-void GUILabel::SetText(const char* text)
+void GUILabel::SetText(const char* text, size _size)
 {
 	if (texture != nullptr)
 		SDL_DestroyTexture(texture);
 
 	this->text = text;
-	texture = app->font->Print(text, app->font->default);
+	switch (_size)
+	{
+		case DEFAULT:
+			texture = app->font->Print(text, app->font->defaultFont);
+			break;
+		case MEDIUM:
+			texture = app->font->Print(text, app->font->mediumFont);
+			break;
+		case SMALL:
+			texture = app->font->Print(text, app->font->smallFont);
+			break;
+		default:
+			break;
+	}
+	
 	int w, h;
 	app->tex->GetSize(texture, (uint&)w, (uint&)h);
 	SetSize(w, h);

@@ -19,7 +19,7 @@ public:
 	void Update(const GUIElement * mouseHover, const GUIElement * focus)
 	{
 		std::string str = std::to_string(*watchingVar);
-		SetText(str.c_str());
+		SetText(str.c_str(), MEDIUM);
 	}
 
 	t* watchingVar;

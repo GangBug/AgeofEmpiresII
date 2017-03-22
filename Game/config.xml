@@ -12,6 +12,8 @@
 
   <fonts>
     <default_font file="fonts/open_sans/OpenSans-Regular.ttf" size="24"/>
+	<medium_font file="fonts/open_sans/OpenSans-Regular.ttf" size="18"/>
+	<small_font file="fonts/open_sans/OpenSans-Regular.ttf" size="12"/>
   </fonts>
 
   <gui>

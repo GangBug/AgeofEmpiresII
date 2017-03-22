@@ -32,7 +32,14 @@ bool M_Fonts::Awake(pugi::xml_node& conf)
 	{
 		const char* path = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
-		default = Load(path, size);
+		defaultFont = Load(path, size);
+		//char* path = conf.child("medium_font").attribute("file").as_string(DEFAULT_FONT);
+		size = conf.child("medium_font").attribute("size").as_int(MEDIUM_FONT_SIZE);
+		mediumFont = Load(path, size);
+		//char* path = conf.child("small_font").attribute("file").as_string(DEFAULT_FONT);
+		size = conf.child("small_font").attribute("size").as_int(SMALL_FONT_SIZE);
+		smallFont = Load(path, size);
+		
 		WOW = Load("MORPHEUS.ttf", 18);
 	}
 
@@ -77,7 +84,7 @@ TTF_Font* const M_Fonts::Load(const char* path, int size)
 SDL_Texture* M_Fonts::Print(const char* text, _TTF_Font* font, SDL_Color color)
 {
 	SDL_Texture* ret = nullptr;
-	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : default, text, color);
+	SDL_Surface* surface = TTF_RenderText_Blended((font) ? font : defaultFont, text, color);
 
 	if(surface == nullptr)
 	{
@@ -97,7 +104,7 @@ bool M_Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* fon
 {
 	bool ret = false;
 
-	if(TTF_SizeText((font) ? font : default, text, &width, &height) != 0)
+	if(TTF_SizeText((font) ? font : defaultFont, text, &width, &height) != 0)
 		LOG("Unable to calc size of text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	else
 		ret = true;

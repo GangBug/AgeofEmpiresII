@@ -77,8 +77,15 @@ bool M_GUI::Start()
 	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update);
 	debugGuiList.push_back(lastFrameMS);
 	debugGuiList.push_back(fps);
-	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, "ms"));
-	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, "fps"));
+	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
+	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
+
+	
+	xMouse = new GUILabel("", SMALL);
+	yMouse = new GUILabel("", SMALL);
+
+	debugGuiList.push_back(xMouse);
+	debugGuiList.push_back(yMouse);
 
 	return true;
 }
@@ -275,6 +282,13 @@ void M_GUI::DrawDebug()
 	//sdlrect.w = 231;
 	//sdlrect.h = 71;
 	//app->render->Blit(atlas, 0, 0, &sdlrect);
+	int x;
+	int y;
+	app->input->GetMousePosition(x, y);
+	xMouse->SetText(std::to_string(x).c_str(), SMALL);
+	yMouse->SetText(std::to_string(y).c_str(), SMALL);
+	xMouse->SetLocalPos(x + 10, y);
+	yMouse->SetLocalPos(x + 40, y);
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
@@ -307,12 +321,12 @@ GUIButton * M_GUI::CreateButton(GB_Rectangle<int> _position,
 	return button;
 }
 
-GUILabel * M_GUI::CreateLabel(GB_Rectangle<int> _position, const char* _text)
+GUILabel * M_GUI::CreateLabel(GB_Rectangle<int> _position, size _size, const char* _text)
 {
 	GUILabel* label;
 	if (_text != nullptr)
 	{
-		label = new GUILabel(_text);
+		label = new GUILabel(_text, _size);
 	}
 	else
 	{

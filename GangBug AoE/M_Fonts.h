@@ -7,6 +7,9 @@
 
 #define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf" //default font from Ric	
 #define DEFAULT_FONT_SIZE 24
+#define MEDIUM_FONT_SIZE 12
+#define SMALL_FONT_SIZE 8
+
 
 struct SDL_Texture;
 struct _TTF_Font;
@@ -39,7 +42,9 @@ public:
 public:
 
 	std::list<_TTF_Font*>	fonts;
-	_TTF_Font*			default;
+	_TTF_Font*			defaultFont;
+	_TTF_Font*			mediumFont;
+	_TTF_Font*			smallFont;
 	_TTF_Font*			WOW;
 };
 

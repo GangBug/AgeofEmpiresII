@@ -32,7 +32,7 @@ void GUIInputText::Update(const GUIElement * mouseHover, const GUIElement * focu
 	{
 		text += app->input->GetText();
 	}
-	label->SetText(text.c_str());
+	label->SetText(text.c_str(), MEDIUM);
 	if (label->GetRectangle().w > GetRectangle().w)
 		label->SetRectangle(GetRectangle());
 	//label->SetRectangle(GB_Rectangle<int>(0, 200, 231, 71));
