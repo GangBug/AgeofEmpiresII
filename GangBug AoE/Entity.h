@@ -60,6 +60,12 @@ public:
 	void SetScale(float w, float h);
 	void SetScale(float scl);
 
+	/** Pivot methods */
+	iPoint GetPivot()const;
+	void GetPivot(int& x, int& y)const;
+	void SetPivot(iPoint piv);
+	void SetPivot(int x, int y);
+
 	bool IsActive()const;
 	void SetActive(bool set);
 	void Enable();
@@ -130,6 +136,8 @@ public:
 
 	/** Scale of entity on each axis. */
 	fPoint scale;
+
+	iPoint pivot = { 0, 0 };
 
 	entity_type type = ENTITY_UNKNOWN;
 };

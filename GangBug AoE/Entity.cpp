@@ -510,6 +510,27 @@ void Entity::SetScale(float scl)
 	SetScale(scl, scl);
 }
 
+iPoint Entity::GetPivot()const
+{
+	return pivot;
+}
+
+void Entity::GetPivot(int& x, int& y)const
+{
+	x = pivot.x;
+	y = pivot.y;
+}
+
+void Entity::SetPivot(iPoint piv)
+{
+	pivot = piv;
+}
+
+void Entity::SetPivot(int x, int y)
+{
+	pivot.create(x, y);
+}
+
 /**
 	IsActive: Return true if entity is active and false if not.
 */
@@ -573,7 +594,7 @@ void Entity::SetName(const char* str)
 /** DrawDebug: Draw all debug info about the entity. */
 void Entity::DrawDebug()
 {
-	app->render->DrawQuad({enclosingRect.x, enclosingRect.y, enclosingRect.w, enclosingRect.h}, 255, 0, 0, 255, false);
+	app->render->DrawQuad({enclosingRect.x - pivot.x, enclosingRect.y - pivot.y, enclosingRect.w, enclosingRect.h}, 255, 0, 0, 255, false);
 
 	for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
 	{
