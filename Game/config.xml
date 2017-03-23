@@ -2,7 +2,7 @@
 
 <config>
   <app framerate_cap="">
-    <title>Age of Empires - Gangbug Project</title>
+    <title>Pathfinding Test</title>
     <organization>UPC</organization>
   </app>
 	
@@ -10,21 +10,20 @@
     <vsync value="true"/>
   </renderer>
 
-  <fonts>
-    <default_font file="fonts/open_sans/OpenSans-Regular.ttf" size="24"/>
-  </fonts>
+  <font>
+    <default_font file="fonts/open_sans/OpenSans-Regular.ttf" size="12"/>
+  </font>
 
-  <gui>
-    <atlas file="gui/atlas_lol.png"/>
-  </gui>
+  <uimanager>
+    <atlas file="uimanager/atlas.png"/>
+  </uimanager>
     
   <window>
-    <resolution width="1920" height="1080" scale="1"/>
+    <resolution width="1024" height="768" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
-    <start_maximized value="true"/>
   </window>
 
   <file_system>

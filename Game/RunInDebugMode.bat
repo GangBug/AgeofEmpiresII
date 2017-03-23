@@ -1,1 +1,0 @@
-"GangBug AoE.exe" -debug
