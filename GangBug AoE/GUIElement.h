@@ -13,7 +13,7 @@ struct ElementStatus
 	bool draggable		= false;	// Can be moved?
 	bool interactive	= false;	// Is interactable?
     //bool cut_childs	= false;	// I dont know a shit about this...
-	bool can_focus		= false;	// Can get the focus?
+	bool canFocus		= false;	// Can get the focus? --- For now this is not used...
 	bool active			= true;		// Is active? if not dont do uptade
 	bool mouseInside	= false;
 	bool lClicked		= false;	// Left clicked
@@ -73,9 +73,9 @@ public:
 	//Getters & Setters ·········································· START ···················
 	GB_Rectangle<int> GetScreenRect() const;
 	GB_Rectangle<int> GetLocalRect() const;
-	GB_Rectangle<int> GetRectangle() const;
 	iPoint GetScreenPos() const;
 	iPoint GetLocalPos() const;
+	iPoint GetSize() const;
 	bool GetDraggable() const;
 	bool GetInteractive() const;
 	bool GetCanFocus() const;
@@ -91,6 +91,7 @@ public:
 	ElementStatus GetElementStatus() const;
 
 	void SetLocalPos(int x, int y);
+	void SetSize(int w, int h);
 	void SetDraggable(bool _draggable);
 	void SetInteractive(bool _interactive);
 	void SetCanFocus(bool _focus);
@@ -111,8 +112,8 @@ public:
 private:
 	void resize(fPoint newScale);
 
-protected:
-	void SetSize(int w, int h);
+//protected:
+//	void SetSize(int w, int h);
 
 	//Attributes
 private:

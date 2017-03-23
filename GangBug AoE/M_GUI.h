@@ -42,7 +42,9 @@ public:
 	void SetAtlas(SDL_Texture* texture);
 
 	//This method is in testing phase
-	void IterateList(std::list<GUIElement>* list, void* method);
+	void IterateList(std::list<GUIElement*>* list, void (M_GUI::*method)(GUIElement*));
+	void DoElementUpdate(GUIElement* element);
+	void DoElementDraw(GUIElement* element);
 
 	// UI factory
 	// Any create adds the GUIElement into lists, this job
@@ -52,7 +54,7 @@ public:
 							 GB_Rectangle<int> _standBySection, 
 							 GB_Rectangle<int> _hoverSection, 
 							 GB_Rectangle<int> _clickedSection);
-	GUILabel*	CreateLabel(GB_Rectangle<int> _position, size _size, const char* _text = nullptr);
+	GUILabel*	CreateLabel(GB_Rectangle<int> _position, label_size _size, const char* _text = nullptr);
 	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section);
 	GUIMouse*	CreateMouse();
 	//GUIImage* createImage();

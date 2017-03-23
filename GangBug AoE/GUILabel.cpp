@@ -13,7 +13,7 @@ GUILabel::GUILabel() : GUIElement()
 	SetType(GUI_LABEL);
 	texture = nullptr;
 }
-GUILabel::GUILabel(const char * text, size _size) : GUIElement()
+GUILabel::GUILabel(const char * text, label_size _size) : GUIElement()
 {
 	SetText(text, _size);
 	SetType(gui_types::GUI_LABEL);
@@ -25,7 +25,7 @@ GUILabel::~GUILabel()
 		app->tex->UnLoad(texture);
 }
 
-void GUILabel::SetText(const char* text, size _size)
+void GUILabel::SetText(const char* text, label_size _size)
 {
 	if (texture != nullptr)
 		SDL_DestroyTexture(texture);
@@ -60,7 +60,7 @@ void GUILabel::Draw() const
 {
 	if (texture != nullptr)
 	{
-		GB_Rectangle<int> rect = GetRectangle();
+		GB_Rectangle<int> rect = GetLocalRect();
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 		app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
 	}

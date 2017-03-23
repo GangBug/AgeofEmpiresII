@@ -2,7 +2,7 @@
 #include "M_Render.h"
 #include "M_GUI.h"
 
-GUIButton::GUIButton(GB_Rectangle<int> _position, GB_Rectangle<int> _standBySection, GB_Rectangle<int> _hoverSection, GB_Rectangle<int> _clickedSection)
+GUIButton::GUIButton(GB_Rectangle<int> _position, GB_Rectangle<int> _standBySection, GB_Rectangle<int> _hoverSection, GB_Rectangle<int> _clickedSection, char* text, label_size _size)
 {
 	SetType(GUI_BUTTON);
 	//SetRectangle(0, 100, 231, 71);
@@ -16,36 +16,52 @@ GUIButton::GUIButton(GB_Rectangle<int> _position, GB_Rectangle<int> _standBySect
 	image = new GUIImage();
 	image->SetParent(this);
 	image->SetRectangle(_position);	
-	image->SetInteractive(true);
-	image->SetCanFocus(true);
+	image->SetInteractive(false);
+	image->SetCanFocus(false);
 	image->SetSection(standBySection);
+
+	label = new GUILabel();
+	label->SetParent(this);
+	label->SetLocalPos(_position.x, _position.y);
+	label->SetInteractive(false);
+	label->SetCanFocus(false);
+	
+	if (text != nullptr)
+	{
+		label->SetText(text, _size);
+	}
+	label->Center();
 }
 GUIButton::~GUIButton()
 {
 }
 void GUIButton::Update(const GUIElement * mouseHover, const GUIElement * focus)
 {
-	if (GetElementStatus().statusChanged)
+	if (GetElementStatus().active)
 	{
-		if (GetElementStatus().lClicked || GetElementStatus().rClicked)
+		if (GetElementStatus().statusChanged)
 		{
-			image->SetSection(clickedSection);
+			if (GetElementStatus().lClicked || GetElementStatus().rClicked)
+			{
+				image->SetSection(clickedSection);
+			}
+			else if (mouseHover == this)
+			{
+				image->SetSection(hoverSection);
+			}
+			else
+			{
+				image->SetSection(standBySection);
+			}
 		}
-		else if (mouseHover == this)
-		{
-			image->SetSection(hoverSection);
-		}
-		else
-		{
-			image->SetSection(standBySection);
-		}
-	}	
-	
-	//This goes the last 4ever
-	SetStatusChanged(false);
+
+		//This goes the last 4ever
+		SetStatusChanged(false);
+	}
 }
 void GUIButton::Draw() const
 {
 	image->Draw();
+	label->Draw();
 }
 

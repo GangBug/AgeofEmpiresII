@@ -26,8 +26,8 @@ bool GUIElement::CheckMouseOver() const
 }
 void GUIElement::Center()
 {
-	int frame_w = (parent) ? parent->GetLocalRect().w : app->render->camera.w;
-	int frame_h = (parent) ? parent->GetLocalRect().h : app->render->camera.h;
+	int frame_w = (parent) ? parent->GetLocalRect().w : app->render->camera.w - (GetLocalRect().w / 2);
+	int frame_h = (parent) ? parent->GetLocalRect().h : app->render->camera.h - (GetLocalRect().h / 2);
 
 	SetLocalPos(frame_w / 2 - rect.w / 2, frame_h / 2 - rect.h / 2);
 }
@@ -80,10 +80,6 @@ GB_Rectangle<int> GUIElement::GetLocalRect() const
 {
 	return rect;
 }
-GB_Rectangle<int> GUIElement::GetRectangle() const
-{
-	return rect;
-}
 iPoint GUIElement::GetScreenPos() const
 {
 	if (parent != nullptr)
@@ -95,6 +91,10 @@ iPoint GUIElement::GetLocalPos() const
 {
 	return iPoint(rect.x, rect.y);
 }
+iPoint GUIElement::GetSize() const
+{
+	return iPoint(rect.w, rect.h);
+}
 bool GUIElement::GetDraggable() const
 {
 	return status.draggable;
@@ -105,7 +105,7 @@ bool GUIElement::GetInteractive() const
 }
 bool GUIElement::GetCanFocus() const
 {
-	return status.can_focus;
+	return status.canFocus;
 }
 bool GUIElement::GetActive() const
 {
@@ -154,8 +154,17 @@ ElementStatus GUIElement::GetElementStatus() const
 
 void GUIElement::SetLocalPos(int x, int y)
 {
-	rect.x = x;
-	rect.y = y;
+	if (parent)
+	{
+		rect.x = x + parent->GetLocalPos().x;
+		rect.y = y + parent->GetLocalPos().y;
+	}
+	else
+	{
+		rect.x = x;
+		rect.y = y;
+	}
+	
 }
 void GUIElement::SetDraggable(bool _draggable) 
 {
@@ -169,7 +178,7 @@ void GUIElement::SetInteractive(bool _interactive)
 }
 void GUIElement::SetCanFocus(bool _focus)
 {
-	status.can_focus = _focus;
+	status.canFocus = _focus;
 	status.statusChanged = true;
 }
 void GUIElement::SetActive(bool _active) 
@@ -202,8 +211,12 @@ void GUIElement::SetRectangle(int x, int y, int w, int h)
 }
 void GUIElement::SetMouseInside(bool ins)
 {
-	status.mouseInside = ins;
-	status.statusChanged = true;
+	if (status.interactive && status.active)
+	{
+		status.mouseInside = ins;
+		status.statusChanged = true;
+	}
+
 }
 void GUIElement::SetScale(fPoint _scale)
 {
@@ -220,13 +233,19 @@ void GUIElement::SetScale(float _scaleX, float _scaleY)
 }
 void GUIElement::SetLClicked(bool l)
 {
-	status.lClicked = l;
-	status.statusChanged = true;
+	if (status.interactive && status.active)
+	{
+		status.lClicked = l;
+		status.statusChanged = true;
+	}
 }
 void GUIElement::SetRClicked(bool r)
 {
-	status.rClicked = r;
-	status.statusChanged = true;
+	if (status.interactive && status.active)
+	{
+		status.rClicked = r;
+		status.statusChanged = true;
+	}
 }
 void GUIElement::SetStatusChanged(bool changed)
 {

@@ -16,7 +16,7 @@ GUIImage::~GUIImage()
 
 void GUIImage::Draw() const
 {
-	app->render->Blit(atlas, GetRectangle().x, GetRectangle().y, &GetSection().GetSDLrect());
+	app->render->Blit(atlas, GetLocalRect().x, GetLocalRect().y, &GetSection().GetSDLrect());
 }
 
 GB_Rectangle<int> GUIImage::GetSection() const

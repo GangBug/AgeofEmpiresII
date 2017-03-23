@@ -1,7 +1,7 @@
 #pragma once
 #include "GUIElement.h"
 
-enum size
+enum label_size
 {
 	DEFAULT,
 	MEDIUM,
@@ -13,10 +13,10 @@ class GUILabel :
 {
 public:
 	GUILabel();
-	GUILabel(const char* text, size _size);
+	GUILabel(const char* text, label_size _size);
 	virtual ~GUILabel();
 
-	void SetText(const char* text, size _size);
+	void SetText(const char* text, label_size _size);
 	const SDL_Texture* GetTexture() const;
 	void Draw() const;
 
