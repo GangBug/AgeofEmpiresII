@@ -2,7 +2,7 @@
 #include "M_Render.h"
 #include "M_GUI.h"
 
-GUIImage::GUIImage()
+GUIImage::GUIImage(int flags) : GUIElement(flags)
 {
 	SetType(GUI_IMAGE);
 	atlas = app->gui->GetAtlas();

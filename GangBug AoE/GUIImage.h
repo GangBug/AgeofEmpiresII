@@ -5,7 +5,7 @@ class GUIImage :
 	public GUIElement
 {
 public:
-	GUIImage();
+	GUIImage(int flags = STANDARD_PRESET);
 	virtual ~GUIImage();
 
 	void Draw() const;

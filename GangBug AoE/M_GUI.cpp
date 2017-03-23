@@ -53,9 +53,9 @@ bool M_GUI::Start()
 	GUIButton* button = new GUIButton(GB_Rectangle<int>(100, 100, 231, 71), 
 									  GB_Rectangle<int>(0, 110, 231, 71), 
 									  GB_Rectangle<int>(416, 171, 231, 71), 
-									  GB_Rectangle<int>(647, 171, 231, 71), "hola");
-	button->SetInteractive(true);
-	button->SetActive(true);
+									  GB_Rectangle<int>(647, 171, 231, 71), STANDARD_PRESET, "hola");
+	//button->SetInteractive(true);
+	//button->SetActive(true);
 	guiList.push_back(button);
 
 	//GUIInputText * input2 = new GUIInputText();
@@ -74,8 +74,8 @@ bool M_GUI::Start()
 	//guiList.push_back(input->image);
 	//guiList.push_back(input->label);
 	//
-
-	curs = new GUIMouse({ 0, 0 }, { 994,728, 25, 23 });
+	int flags = ACTIVE;
+	curs = new GUIMouse({ 0, 0 }, { 994,728, 25, 23 }, flags);
 	//cursor  ------------------------------------------
 	//curs = app->gui->createelement(uicursor, sdl_rect{ 994,728, 25, 23 }, p2point<int>{ 0, 0 },true);
 	//curs->setlistener(this);

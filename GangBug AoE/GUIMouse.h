@@ -7,7 +7,7 @@
 class GUIMouse :public GUIElement
 {
 public:
-	GUIMouse(iPoint margin, GB_Rectangle<int> _section);
+	GUIMouse(iPoint margin, GB_Rectangle<int> _section, int flags);
 	~GUIMouse();
 
 	void Draw() const override;

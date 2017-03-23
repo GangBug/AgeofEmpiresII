@@ -9,7 +9,7 @@ class GUIInputText :
 	public GUIElement
 {
 public:
-	GUIInputText();
+	GUIInputText(int flags = STANDARD_PRESET);
 	virtual ~GUIInputText();
 
 	void Update(const GUIElement* mouseHover, const GUIElement* focus) override;

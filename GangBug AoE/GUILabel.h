@@ -12,7 +12,7 @@ class GUILabel :
 	public GUIElement
 {
 public:
-	GUILabel();
+	GUILabel(int flags = STANDARD_PRESET);
 	GUILabel(const char* text, label_size _size);
 	virtual ~GUILabel();
 

@@ -8,6 +8,16 @@
 
 class Module;
 
+enum status_flags
+{
+	NO_FLAGS		= 0,
+	DRAGGABLE		= (1 << 0),
+	INTERACTIVE		= (1 << 1),
+	CAN_FOCUS		= (1 << 2),
+	ACTIVE			= (1 << 3),
+	STANDARD_PRESET = (1 << 4)
+};
+
 struct ElementStatus
 {
 	bool draggable		= false;	// Can be moved?
@@ -56,7 +66,7 @@ class GUIElement
 {
 	//Methods
 public:
-	GUIElement();
+	GUIElement(int flags = NO_FLAGS);
 	virtual ~GUIElement();
 	
 	virtual void Update(const GUIElement* mouseHover, const GUIElement* focus) {} //Do something	// must implement dt

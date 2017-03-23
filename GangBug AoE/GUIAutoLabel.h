@@ -9,7 +9,7 @@ class GUIAutoLabel :
 	public GUILabel
 {
 public:
-	GUIAutoLabel(GB_Rectangle<int> position, t * _watcher)
+	GUIAutoLabel(GB_Rectangle<int> position, t * _watcher, int flags = STANDARD_PRESET)
 	{
 		watchingVar = _watcher;
 		SetRectangle(position);

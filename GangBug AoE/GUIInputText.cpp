@@ -2,7 +2,7 @@
 
 
 
-GUIInputText::GUIInputText()
+GUIInputText::GUIInputText(int flags) : GUIElement(flags)
 {
 	SetType(GUI_INPUT_TEXT);
 	SetRectangle(0, 200, 231, 71);

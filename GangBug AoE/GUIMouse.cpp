@@ -8,7 +8,7 @@
 
 
 // class GuiMCursor ---------------------------------------------------
-GUIMouse::GUIMouse(iPoint margin, GB_Rectangle<int> _section) : GUIElement(), margin(margin)
+GUIMouse::GUIMouse(iPoint margin, GB_Rectangle<int> _section, int flags) : GUIElement(flags), margin(margin)
 {
 	section = _section;
 	

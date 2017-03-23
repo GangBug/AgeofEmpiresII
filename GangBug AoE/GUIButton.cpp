@@ -2,7 +2,12 @@
 #include "M_Render.h"
 #include "M_GUI.h"
 
-GUIButton::GUIButton(GB_Rectangle<int> _position, GB_Rectangle<int> _standBySection, GB_Rectangle<int> _hoverSection, GB_Rectangle<int> _clickedSection, char* text, label_size _size)
+GUIButton::GUIButton(GB_Rectangle<int> _position, 
+					 GB_Rectangle<int> _standBySection, 
+					 GB_Rectangle<int> _hoverSection, 
+					 GB_Rectangle<int> _clickedSection,
+					 int flags,
+					 char* text, label_size _size) : GUIElement(flags)
 {
 	SetType(GUI_BUTTON);
 	//SetRectangle(0, 100, 231, 71);

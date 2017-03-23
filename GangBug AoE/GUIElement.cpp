@@ -2,8 +2,36 @@
 #include "App.h"
 #include "M_Render.h"
 
-GUIElement::GUIElement() : rect(0,0,0,0)
+GUIElement::GUIElement(int flags) : rect(0,0,0,0)
 {
+	if (flags & DRAGGABLE)
+		SetDraggable(true);
+	else
+		SetDraggable(false);
+
+	if (flags & INTERACTIVE)
+		SetInteractive(true);
+	else
+		SetInteractive(false);
+
+	if (flags & CAN_FOCUS)
+		SetCanFocus(true);
+	else
+		SetCanFocus(false);
+
+	if (flags & ACTIVE)
+		SetActive(true);
+	else
+		SetActive(false);
+	
+	if (flags & STANDARD_PRESET)
+	{
+		SetActive(true);
+		SetCanFocus(true);
+		SetInteractive(true);
+		SetDraggable(false);
+	}
+
 }
 GUIElement::~GUIElement()
 {

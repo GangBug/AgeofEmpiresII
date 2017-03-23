@@ -11,7 +11,8 @@ public:
 	GUIButton(GB_Rectangle<int> _position, 
 			  GB_Rectangle<int> _standBySection, 
 			  GB_Rectangle<int> _hoverSection, 
-			  GB_Rectangle<int> _clickedSection, 
+			  GB_Rectangle<int> _clickedSection,
+			  int flags = STANDARD_PRESET,
 			  char* text = nullptr, 
 			  label_size _size = DEFAULT);
 	~GUIButton();
