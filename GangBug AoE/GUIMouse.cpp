@@ -39,7 +39,7 @@ void GUIMouse::Draw() const
 
 //----------------------------
 
-void GUIMouse::Update(const GUIElement* mouse_hover, const GUIElement* focus)
+void GUIMouse::OnUpdate(const GUIElement* mouse_hover, const GUIElement* focus)
 {
 	SDL_ShowCursor(SDL_DISABLE);
 	app->input->GetMousePosition(position.x, position.y);

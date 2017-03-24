@@ -11,7 +11,7 @@ public:
 	~GUIMouse();
 
 	void Draw() const override;
-	void Update(const GUIElement* mouse_hover, const GUIElement* focus) override;
+	void OnUpdate(const GUIElement* mouse_hover, const GUIElement* focus) override;
 
 
 	GB_Rectangle<int> GUIMouse::GetSection() const;

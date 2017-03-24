@@ -26,7 +26,7 @@ GUIInputText::~GUIInputText()
 {
 }
 
-void GUIInputText::Update(const GUIElement * mouseHover, const GUIElement * focus)
+void GUIInputText::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus)
 {
 	if (focus == this)
 	{

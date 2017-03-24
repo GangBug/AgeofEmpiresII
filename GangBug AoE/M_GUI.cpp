@@ -235,6 +235,8 @@ void M_GUI::ManageEvents()
 //Broadcast an event to all GUIElement listeners
 void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 {
+	element->OnGuiEvent(event);
+
 	if (element->GetElementStatus().interactive && element->GetElementStatus().active)
 	{
 		//if (event != MOUSE_ENTERS)

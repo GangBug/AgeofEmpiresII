@@ -12,7 +12,7 @@ public:
 	GUIInputText(int flags = STANDARD_PRESET);
 	virtual ~GUIInputText();
 
-	void Update(const GUIElement* mouseHover, const GUIElement* focus) override;
+	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus) override;
 
 	std::string text;
 	uint cursorPosition;

@@ -84,15 +84,25 @@ void GUIElement::AddListener(Module * moduleToAdd)
 
 	if (listenerFound) listeners.push_back(moduleToAdd);
 }
-void GUIElement::RemoveListener(Module * moduleToRemove)
+void GUIElement::RemoveListener(Module * moduleToRemove) //NOTE: Check std::find
 {
-	for (std::list<Module*>::iterator it = listeners.begin(); it != listeners.end(); it++)
+	std::list<Module*>::iterator it = std::find(listeners.begin(), listeners.end(), moduleToRemove);
+	if (it != listeners.end())
 	{
-		if ((*it) == moduleToRemove)
-		{
-			listeners.erase(it);
-		}
+		listeners.erase(it);
 	}	
+}
+void GUIElement::OnGuiEvent(gui_events eventToReact)
+{
+	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+	if (it != transAndAnimations.end())
+	{
+		staticAnim_or_transition tmp = it->second;
+		if (tmp < SAT_SEPARATOR)
+			currentStaticAnimation = tmp;
+		else if (tmp > SAT_SEPARATOR)
+			currentTransition = tmp;
+	}
 }
 
 GB_Rectangle<int> GUIElement::GetScreenRect() const
@@ -141,11 +151,7 @@ bool GUIElement::GetActive() const
 }
 GUIElement * GUIElement::GetParent() const
 {
-	if (parent != nullptr)
-	{
-		return parent;
-	}
-	return nullptr;
+	return parent;
 }
 const std::list<GUIElement*> GUIElement::GetChilds() const
 {
@@ -279,6 +285,51 @@ void GUIElement::SetStatusChanged(bool changed)
 {
 	status.statusChanged = changed;
 }
+void GUIElement::AddAnimationOrTransition(gui_events eventToReact, staticAnim_or_transition animOrTransition)
+{
+	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+	if (it != transAndAnimations.end())
+	{
+		//If we find that that event has already been told to react we overide it.
+		it->second = animOrTransition;
+	}
+	else
+	{
+		//If we doont find that event reaction setted already we just set it.
+		transAndAnimations.insert(std::pair<gui_events, staticAnim_or_transition>(eventToReact, animOrTransition));
+	}
+}
+void GUIElement::RemoveAnimationOrTransitionReaction(gui_events eventToReact)
+{
+	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+	if (it != transAndAnimations.end())
+	{
+		transAndAnimations.erase(it);
+	}
+}
+void GUIElement::GetAllAnimationAndTransitions(std::vector<std::pair<gui_events, staticAnim_or_transition>>& animsAndTrans)
+{
+	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.begin();
+	for (; it != transAndAnimations.end(); ++it)
+	{
+		animsAndTrans.push_back((*it));
+	}
+}
+bool GUIElement::HasEventReactionSet(gui_events eventToReact)
+{
+	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+	return it != transAndAnimations.end();
+}
+staticAnim_or_transition GUIElement::GetAnimOrTransitionForEvent(gui_events eventToReact)
+{
+	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+	if (it != transAndAnimations.end())
+	{
+		return it->second;
+	}
+
+	return SAT_NONE;
+}
 void GUIElement::resize(fPoint newScale)
 {
 	fPoint variation = fPoint(scale.x / newScale.x, scale.y / newScale.y);
@@ -291,4 +342,27 @@ void GUIElement::SetSize(int w, int h)
 	rect.w = w;
 	rect.h = h;
 	status.statusChanged = true;
+}
+
+void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
+{
+	//TODO: Add dt as a parameter. Animations really need it.
+
+	//When updateing first do the element particular update overrided in each subtype.
+	OnUpdate(mouseHover, focus);
+
+	//Then process the animations and transitions.
+	if (currentStaticAnimation != SAT_NONE)
+	{
+		//Do here the animation according the active one.
+
+		//If the animation has finished set currentStaticAnimation to SAT_NONE.
+	}
+
+	if (currentTransition != SAT_NONE)
+	{
+		//DO here the transition logic according the one active.
+
+		//When the transition has ended set currentTransition to SAT_NONE.
+	}
 }

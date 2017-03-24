@@ -17,7 +17,7 @@ public:
 			  label_size _size = DEFAULT);
 	~GUIButton();
 
-	void Update(const GUIElement* mouseHover, const GUIElement* focus) override;
+	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus) override;
 	void Draw() const override;
 	GUIImage* image = nullptr;
 	GUILabel* label = nullptr;

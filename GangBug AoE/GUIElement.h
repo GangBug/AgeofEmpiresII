@@ -1,9 +1,11 @@
 #pragma once
 #include <list>
+#include <vector>
 #include "p2Point.h"
 #include "M_Input.h"
 #include "GB_Rectangle.h"
 #include "App.h"
+#include <map>
 
 
 class Module;
@@ -62,6 +64,24 @@ enum gui_types
 	GUI_RECT
 };
 
+enum staticAnim_or_transition
+{
+	SAT_NONE = 0,
+
+	SA_FLASH,
+	SA_SHAKE,
+	SA_PULSE,
+	SA_BOUNCE,
+
+	SAT_SEPARATOR, //Dont really like this must change it but for now i use this to know if it is a transition or a 
+
+	T_SCALE,
+	T_FADE,
+	T_DROP,
+	T_FLY,
+	T_SLIDE
+};
+
 class GUIElement
 {
 	//Methods
@@ -69,7 +89,9 @@ public:
 	GUIElement(int flags = NO_FLAGS);
 	virtual ~GUIElement();
 	
-	virtual void Update(const GUIElement* mouseHover, const GUIElement* focus) {} //Do something	// must implement dt
+	void Update(const GUIElement* mouseHover, const GUIElement* focus); //Do something	// must implement dt
+	
+	virtual void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus){}
 	virtual void Draw() const {}// Print the element
 	virtual void DebugDraw() const {} // Print debug things if the element
 	void CheckInput(const GUIElement* mouseHover, const GUIElement* focus); //Getting the input
@@ -79,6 +101,8 @@ public:
 	void CenterY();
 	void AddListener(Module* moduleToAdd);
 	void RemoveListener(Module* moduleToRemove);
+
+	void OnGuiEvent(gui_events eventToReact);
 
 	//Getters & Setters ·········································· START ···················
 	GB_Rectangle<int> GetScreenRect() const;
@@ -117,6 +141,12 @@ public:
 	void SetRClicked(bool r);
 	void SetStatusChanged(bool changed);
 
+	void AddAnimationOrTransition(gui_events eventToReact, staticAnim_or_transition animOrTransition);
+	void RemoveAnimationOrTransitionReaction(gui_events eventToReact);
+	void GetAllAnimationAndTransitions(std::vector<std::pair<gui_events, staticAnim_or_transition>>& animsAndTrans);
+	bool HasEventReactionSet(gui_events eventToReact);
+	staticAnim_or_transition GetAnimOrTransitionForEvent(gui_events eventToReact);
+
 	//Getters & Setters ·········································· END ···················
 
 private:
@@ -134,6 +164,11 @@ private:
 	fPoint scale = fPoint(1.f, 1.f);
 	ElementStatus status;
 
+	staticAnim_or_transition currentStaticAnimation = SAT_NONE;
+	staticAnim_or_transition currentTransition = SAT_NONE;
+	std::map<gui_events, staticAnim_or_transition> transAndAnimations;
+	//TODO: Thought i could have a gui_events variable that stores all events i have a reaction to in order to not searching with map.find
+	
 protected:
 	std::list<Module*> listeners;
 	bool haveFocus = false; // TODO implement it on event management

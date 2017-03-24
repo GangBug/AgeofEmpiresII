@@ -40,7 +40,7 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 GUIButton::~GUIButton()
 {
 }
-void GUIButton::Update(const GUIElement * mouseHover, const GUIElement * focus)
+void GUIButton::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus)
 {
 	if (GetElementStatus().active)
 	{

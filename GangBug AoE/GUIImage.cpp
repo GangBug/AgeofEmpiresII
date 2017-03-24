@@ -14,7 +14,7 @@ GUIImage::~GUIImage()
 {
 }
 
-void GUIImage::Update(const GUIElement * mouseHover, const GUIElement * focus)
+void GUIImage::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus)
 {
 	if (GetDraggable() && GetLClicked())
 	{
