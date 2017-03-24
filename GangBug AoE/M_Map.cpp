@@ -212,7 +212,7 @@ bool M_Map::CleanUp()
 
 	while(item2 != data.layers.end())
 	{
-		RELEASE((*item));
+		RELEASE((*item2));
 		item2++;
 	}
 	data.layers.clear();
