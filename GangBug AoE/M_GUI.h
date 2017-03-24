@@ -25,8 +25,11 @@ public:
 	update_status Update(float dt) override;
 	update_status PostUpdate(float dt) override;
 
+	//Not implemented
 	bool UpdateGuiList();
+	//Not implemented
 	bool UpdateDebugGuiList();
+	//Not implemented
 	bool UpdateEditorGuiList();
 
 	GUIElement* FindMouseHover();
@@ -61,6 +64,9 @@ public:
 
 	GUIElement* GuiFactory();
 
+	bool GetUIEditing() const;
+	void SetUIEditing(bool edit);
+
 public:
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debugGuiList;
@@ -78,7 +84,7 @@ private:
 	GUIAutoLabel<uint32>* fps;
 	GUILabel* xMouse;
 	GUILabel* yMouse;
-
+	bool UIEditing = false;
 
 };
 

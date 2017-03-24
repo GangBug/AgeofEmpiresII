@@ -39,15 +39,17 @@ bool M_GUI::Start()
 	GUIImage* img = new GUIImage();
 	img->SetRectangle(100, 500, 231, 71);
 	img->SetSection(0, 110, 231, 71);
-	img->SetInteractive(false);		   
-	img->SetCanFocus(true);			   
+	img->SetInteractive(true);		   
+	img->SetCanFocus(true);		
+	img->SetDraggable(true);
 	guiList.push_back(img);			   
 
 	GUILabel* label = new GUILabel();
-	label->SetInteractive(false);
+	label->SetInteractive(true);
 	label->SetCanFocus(true);
 	label->SetText("Hello World!", DEFAULT);
 	label->CenterX();
+	label->SetDraggable(true);
 	guiList.push_back(label);
 
 	GUIButton* button = new GUIButton(GB_Rectangle<int>(100, 100, 231, 71), 
@@ -107,16 +109,10 @@ update_status M_GUI::PreUpdate(float dt)
 	else
 		app->input->StopTyping();
 
+	//This code depends on UI Edition or not
 	//This is the git gud code...
 	IterateList(&guiList, &M_GUI::DoElementUpdate);
 	IterateList(&debugGuiList, &M_GUI::DoElementUpdate);
-
-
-	// ···········································································
-	//WARNING: testing some dangerous shit here
-
-
-
 	return ret;
 }
 update_status M_GUI::Update(float dt)
@@ -136,6 +132,10 @@ bool M_GUI::UpdateGuiList()
 bool M_GUI::UpdateDebugGuiList()
 {
 	return true;
+}
+bool M_GUI::UpdateEditorGuiList()
+{
+	return false;
 }
 //Checks if cursor is inside an element | returns null if nothing found
 GUIElement * M_GUI::FindMouseHover()
@@ -197,7 +197,7 @@ void M_GUI::ManageEvents()
 		mouseHover->SetMouseInside(false);
 		mouseHover = nullptr;
 	}
-	// TODO trobar quin element te el focus
+	// TODO find wich element has the focus
 	// TODO manage the input & events
 	if (mouseHover != nullptr && mouseHover->GetCanFocus() == true && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_DOWN)
 	{
@@ -353,5 +353,15 @@ GUIElement * M_GUI::GuiFactory()
 
 
 	return nullptr;
+}
+
+bool M_GUI::GetUIEditing() const
+{
+	return UIEditing;
+}
+
+void M_GUI::SetUIEditing(bool edit)
+{
+	UIEditing = edit;
 }
 

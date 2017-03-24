@@ -1,7 +1,7 @@
 #ifndef __GB_QUADTREE__
 #define __GB_QUADTREE__
 
-#define MAX_NODE_ENTITIES 8
+#define MAX_NODE_ENTITIES 20
 
 #include <list>
 #include <vector>

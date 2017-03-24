@@ -8,6 +8,7 @@ public:
 	GUIImage(int flags = STANDARD_PRESET);
 	virtual ~GUIImage();
 
+	void Update(const GUIElement* mouseHover, const GUIElement* focus) override;
 	void Draw() const;
 
 	GB_Rectangle<int> GetSection() const;

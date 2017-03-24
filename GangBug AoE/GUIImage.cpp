@@ -14,6 +14,16 @@ GUIImage::~GUIImage()
 {
 }
 
+void GUIImage::Update(const GUIElement * mouseHover, const GUIElement * focus)
+{
+	if (GetDraggable() && GetLClicked())
+	{
+		iPoint p;
+		app->input->GetMousePosition(p.x, p.y);
+		SetLocalPos(p.x, p.y);
+	}
+}
+
 void GUIImage::Draw() const
 {
 	app->render->Blit(atlas, GetLocalRect().x, GetLocalRect().y, &GetSection().GetSDLrect());
