@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "Log.h"
 #include "M_EntityManager.h"
+#include "GB_QuadTree.h"
 
 #include "SDL\include\SDL.h"
 
@@ -20,7 +21,7 @@
 Entity::Entity(entity_type type, Entity* parent, SDL_Texture* texture, GB_Rectangle<int> drawRect) : type(type), parent(parent), entityTexture(texture), drawQuad(drawRect)
 {
 	name.assign("entity");
-	enclosingRect.Set(0, 0, 0, 0);
+	enclosingRect.Set(0, 0, 1, 1);
 	if (texture != nullptr && drawRect == ZeroRectangle)
 	{
 		app->tex->GetSize(texture, (uint&)enclosingRect.w, (uint&)enclosingRect.h); //TODO: Enclosing box should not be the full texture size.
@@ -28,6 +29,7 @@ Entity::Entity(entity_type type, Entity* parent, SDL_Texture* texture, GB_Rectan
 	}
 
 	scale.create(1.0f, 1.0f);
+	app->entityManager->InsertEntityToTree(this);
 }
 
 /**
@@ -290,8 +292,14 @@ void Entity::RecCalcTransform(fPoint parentGlobalPos, bool force)
 		OnTransformUpdated();
 
 		//3.Update from quadtree
-		app->entityManager->EraseEntityFromTree(this); //TODO: Too brute... Define static entities???
-		app->entityManager->InsertEntityToTree(this);
+		if (currentQuadTreeNode != nullptr)
+		{
+			if (currentQuadTreeNode->box.Collides(enclosingRect) == false)
+			{
+				app->entityManager->EraseEntityFromTree(this); //TODO: Too brute... Define static entities???
+				app->entityManager->InsertEntityToTree(this);
+			}
+		}
 
 		transformHasChanged = false;
 	}

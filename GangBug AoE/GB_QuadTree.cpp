@@ -21,18 +21,19 @@ void GB_QuadTreeNode::Insert(Entity* et)
 {
 	if (et != nullptr)
 	{
-		if (childs[0] == nullptr && entities.size() < MAX_NODE_ENTITIES)
+		if ((childs[0] == nullptr && entities.size() < MAX_NODE_ENTITIES) || currentProfundity >= MAX_NODE_PROFUNDITY)
 		{
 			entities.push_back(et);
 		}
 		else
 		{
-			if (childs[0] == nullptr)
+			if (childs[0] == nullptr && currentProfundity < MAX_NODE_PROFUNDITY)
 				DivideNode();
 
 			entities.push_back(et);
 			AjustNode();
 		}
+		et->currentQuadTreeNode = this;
 	}
 }
 
@@ -111,6 +112,7 @@ void GB_QuadTreeNode::DivideNode()
 	for (unsigned int i = 0; i < 4; ++i)
 	{
 		childs[i]->parent = this;
+		childs[i]->currentProfundity = currentProfundity + 1;
 	}
 }
 

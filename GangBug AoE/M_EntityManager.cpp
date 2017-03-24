@@ -187,7 +187,9 @@ update_status M_EntityManager::PreUpdate(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
 	{
-		CreateEntity(ENTITY_UI, nullptr);
+		iPoint mP;
+		app->input->GetMousePosition(mP.x, mP.y);
+		CreateRandomTestEntity()->SetGlobalPosition(mP.x, mP.y);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)

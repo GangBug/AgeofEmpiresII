@@ -2,6 +2,7 @@
 #define __GB_QUADTREE__
 
 #define MAX_NODE_ENTITIES 20
+#define MAX_NODE_PROFUNDITY 6
 
 #include <list>
 #include <vector>
@@ -30,7 +31,7 @@ public:
 	std::list<Entity*> entities;
 	GB_QuadTreeNode* parent = nullptr;
 	GB_QuadTreeNode* childs[4];
-	
+	int currentProfundity = 0;
 };
 
 class GB_QuadTree

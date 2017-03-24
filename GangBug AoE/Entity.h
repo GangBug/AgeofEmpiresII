@@ -10,6 +10,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class SDL_Texture;
+class GB_QuadTreeNode;
 
 enum entity_type
 {
@@ -132,6 +133,7 @@ private:  //Set position to private because I want to modify position with metho
 	bool transformHasChanged = false;
 	bool dirty = true;
 
+
 public:
 	std::vector<Entity*> childs;
 	bool removeFlag = false;
@@ -142,6 +144,9 @@ public:
 	iPoint pivot = { 0, 0 };
 
 	entity_type type = ENTITY_UNKNOWN;
+
+
+	GB_QuadTreeNode* currentQuadTreeNode = nullptr;
 };
 
 #endif // !__ENTITY_H__
