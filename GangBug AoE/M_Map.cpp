@@ -37,7 +37,7 @@ void M_Map::Draw()
 	{
 		MapLayer* layer = (*item);
 
-		if(layer->properties.Get("Nodraw") != 0)
+		if((layer->properties.Get("Nodraw") != 0 || layer->properties.Get("Navigation") == 1) && app->debug == false)
 			continue;
 
 		for(int y = 0; y < data.height; ++y)
@@ -120,7 +120,7 @@ TileSet* M_Map::GetTilesetFromTileId(int id) const
 	{
 		if(id < (*item)->firstgid)
 		{
-			set = (*item);
+			//set = (*item);
 			break;
 		}
 		set = (*item);
@@ -485,7 +485,7 @@ bool M_Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 			Properties::Property* p = new Properties::Property();
 
 			p->name = prop.attribute("name").as_string();
-			p->value = prop.attribute("value").as_int();
+			p->value = prop.attribute("value").as_int(0);
 
 			properties.list.push_back(p);
 		}
