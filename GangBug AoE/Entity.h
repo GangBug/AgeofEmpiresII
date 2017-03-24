@@ -17,6 +17,7 @@ enum entity_type
 	ENTITY_BASE,
 	ENTITY_UNIT,
 	ENTITY_UI,
+	ENTITY_MAP,
 	ENTITY_PLAYER_MAN
 };
 
@@ -77,6 +78,7 @@ public:
 	void Remove();
 
 	void Update(float dt);
+	void Start();
 
 	//---------------------------------------------------------------
 

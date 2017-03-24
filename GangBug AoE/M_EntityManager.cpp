@@ -7,9 +7,17 @@
 #include "M_FileSystem.h"
 
 #include "GB_QuadTree.h"
-
+// Entities
 #include "EntityUi.h"
 #include "PlayerManager.h"
+#include "EntityMap.h"
+//
+
+
+ // -------------- to delete after serialize
+#include "M_Map.h"
+#include "M_Pathfinding.h"
+ // -------------- to delete after serialize
 
 #include <iostream> 
 #include <sstream> 
@@ -85,16 +93,34 @@ bool M_EntityManager::Start()
 {
 	LOG("Entity manager: Start.");
 	bool ret = true;
+	
+	
+
 
 	//TMP
 	textTexture = app->tex->Load("textures/test.png");
 
 	CreateEntity(ENTITY_PLAYER_MAN, nullptr);
+
+	CreateEntity(ENTITY_MAP, nullptr);
 	//et = CreateEntity(nullptr, 300, 100);
 	//et->SetTexture(textTexture);
 	//et2 = CreateEntity(et, 50, 50);
 	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
 	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
+
+
+	if (app->map->Load("0.1Map.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+		if (app->map->CreateWalkabilityMap(w, h, &data))
+			app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
+
+	//root->Start();
 
 	return ret;
 }
@@ -278,6 +304,10 @@ Entity* M_EntityManager::CreateEntity(entity_type type, Entity* parent)
 
 	case ENTITY_PLAYER_MAN:
 		ret = new PlayerManager(nullptr);
+		break;
+
+	case ENTITY_MAP:
+		ret = new EntityMap(nullptr);
 		break;
 
 		//TODO: More entities cases

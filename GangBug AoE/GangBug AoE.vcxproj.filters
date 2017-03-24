@@ -127,6 +127,9 @@
     <ClCompile Include="PlayerManager.cpp">
       <Filter>Entity System\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="EntityMap.cpp">
+      <Filter>Entity System\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -229,6 +232,9 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="PlayerManager.h">
+      <Filter>Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityMap.h">
       <Filter>Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>

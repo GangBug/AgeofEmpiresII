@@ -649,6 +649,27 @@ void Entity::Update(float dt)
 	}*/
 }
 
+void Entity::Start()
+{
+
+	if (selfActive == true)
+	{
+		OnStart();
+
+		for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+		{
+			Entity* tmp = (*it);
+
+			if (tmp != nullptr && tmp->IsActive())
+			{
+				tmp->Start();
+			}
+		}
+
+	}
+
+}
+
 /**
 	HasTexture: Return true if has a texture or false if not.
 */
@@ -711,7 +732,8 @@ GB_Rectangle<int> Entity::GetEnclosingBox()const
 	OnStart: Virtual method called after entity creation.
 */
 void Entity::OnStart()
-{}
+{
+}
 
 /**
 	OnFinish: Virtual method called before entity delete.
