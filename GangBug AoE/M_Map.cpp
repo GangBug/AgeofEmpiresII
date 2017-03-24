@@ -120,7 +120,7 @@ TileSet* M_Map::GetTilesetFromTileId(int id) const
 	{
 		if(id < (*item)->firstgid)
 		{
-			//set = (*item);
+			set = (*item-1);
 			break;
 		}
 		set = (*item);
