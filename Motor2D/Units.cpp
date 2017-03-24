@@ -16,7 +16,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 	{
 		//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
 	case TWOHANDEDSWORDMAN:
-		SetHp(60);
+		SetHp(600);
 		attack = 12;
 		SetArmor(1);
 		speed = 0.9;
@@ -91,8 +91,10 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 
 void Unit::Update()
 {
-	if (!AI) {
-		if (state == NONE) {
+	if (!AI)
+	{
+		if (state == NONE) 
+		{
 			CheckSurroundings();
 		}
 
@@ -102,8 +104,12 @@ void Unit::Update()
 			App->input->GetMousePosition(destination.x, destination.y);
 			destination.x -= App->render->camera.x;
 			destination.y -= App->render->camera.y;
+
+			destin = { destination };
+
 			if (this->GetPath({ destination.x, destination.y }) != -1)
 			{
+				arrived = false;
 				path_list.pop_front();
 				GetNextTile();
 				this->action_type = WALK;
@@ -166,29 +172,36 @@ void Unit::PostUpdate()
 
 void Unit::Move()
 {
-		this->SetPosition(GetX() + move_vector.x*speed, GetY() + move_vector.y*speed);
+	this->SetPosition(GetX() + move_vector.x*speed, GetY() + move_vector.y*speed);
 
-		iPoint unit_world;
-		unit_world.x = GetX();
-		unit_world.y = GetY();
+	iPoint unit_world;
+	unit_world.x = GetX();
+	unit_world.y = GetY();
 
-		if (path_objective.DistanceTo(unit_world) < 3)
+	if (destin.x - 35 < unit_world.x && destin.x + 35 > unit_world.x && destin.y - 35 < unit_world.y && destin.y + 35 > unit_world.y)
+	{
+		LOG("TRUE");
+		arrived = true;
+	}
+
+	if (path_objective.DistanceTo(unit_world) < 3)
+	{
+		//center the unit to the tile
+		this->SetPosition(path_objective.x, path_objective.y);
+		if (!GetNextTile())
 		{
-			//center the unit to the tile
-			this->SetPosition(path_objective.x, path_objective.y);
-			if (!GetNextTile())
+			if (state == MOVING_TO_ATTACK)
 			{
-				if (state == MOVING_TO_ATTACK)
-				{
-					state = ATTACKING;
-					this->action_type = IDLE;
-				}
-				else {
-					state = NONE;
-					this->action_type = IDLE;
-				}
+				state = ATTACKING;
+				this->action_type = IDLE;
+			}
+			else
+			{
+				state = NONE;
+				this->action_type = IDLE;
 			}
 		}
+	}
 }
 
 void Unit::DoAI()
@@ -324,7 +337,8 @@ bool Unit::AttackUnit()
 {
 	bool ret = false;
 
-	if (enemy != nullptr && enemy->GetHP() > 0) {
+	if (enemy != nullptr && enemy->GetHP() > 0) 
+	{
 
 		ret = true;
 
@@ -336,11 +350,13 @@ bool Unit::AttackUnit()
 				SetFightingArea();
 		}
 
-		else {
+		else 
+		{
 			action_type = ATTACK;
 			LookAtEnemy();
 
-			if (attackingTimer.ReadSec() > 1) {//Attack every second
+			if (attackingTimer.ReadSec() > 1) //Attack every second
+			{
 				enemy->SetHp(enemy->GetHP() - attack);
 				attackingTimer.Start();
 			}
@@ -352,7 +368,6 @@ bool Unit::AttackUnit()
 		enemy = nullptr;
 		state = NONE;
 		action_type = IDLE;
-
 	}
 	
 	return ret;
@@ -360,8 +375,8 @@ bool Unit::AttackUnit()
 
 bool Unit::CheckSurroundings()
 {
-	if (logicTimer.ReadSec() > 1) {//Calculates each 0.5s
-
+	if (logicTimer.ReadSec() > 1) //Calculates each 0.5s
+	{ 
 		frontier.clear();
 		visited.clear();//Reset frontier and visited
 		logicTimer.Start();//Start timer again
@@ -407,17 +422,20 @@ bool Unit::CheckSurroundings()
 				}
 
 				bool alreadyVisited = false;
-				for (int i = 0; i <= 3; i++) {
+				for (int i = 0; i <= 3; i++) 
+				{
 					if (frontierNum == 1)
 					{
 						frontier.push_back(iPoint(neighbors[i]));
 						visited.push_back(iPoint(neighbors[i]));
 					}
-					else {
+					else 
+					{
 						std::list<iPoint>::iterator tmp = visited.begin();
 						int visitedNum = visited.size();
 						alreadyVisited = false;
-						for (int p = 0; p < visitedNum; tmp++, p++) {
+						for (int p = 0; p < visitedNum; tmp++, p++) 
+						{
 							if ((*tmp).x == neighbors[i].x && (*tmp).y == neighbors[i].y)
 							{
 								alreadyVisited = true;
@@ -439,10 +457,11 @@ bool Unit::CheckSurroundings()
 
 bool Unit::SetFightingArea()
 {
-	if (enemy != nullptr)
+	bool ret;
+
+	if (enemy != nullptr && arrived == true)
 	{
 		state = MOVING_TO_ATTACK;
-		bool ret;
 
 		iPoint enemyPos = App->map->WorldToMap(enemy->GetX(), enemy->GetY());
 		iPoint Pos = App->map->WorldToMap(GetX(), GetY());
@@ -459,8 +478,8 @@ bool Unit::SetFightingArea()
 				state = ATTACKING; //If you're ranged, just attack
 				enemy->state = ATTACKING;
 			}
-			else if (unit_class == RANGED && enemy->unit_class != RANGED) {//If you're ranged, attack and set the enemy next to you.
-
+			else if (unit_class == RANGED && enemy->unit_class != RANGED) //If you're ranged, attack and set the enemy next to you.
+			{
 				state = ATTACKING;
 				//Then calculate new enemy pos
 				iPoint newEnemyPos;
@@ -550,7 +569,8 @@ bool Unit::SetFightingArea()
 			}
 			else
 			{
-				if (enemy->state == ATTACKING) {//If he's attacking we'll move to a tile next to him if possible.
+				if (enemy->state == ATTACKING)  //If he's attacking we'll move to a tile next to him if possible.
+				{
 					iPoint newPos;
 					if (enemy->GetFreeAdjacent(newPos))
 					{
@@ -575,7 +595,7 @@ bool Unit::SetFightingArea()
 					}
 				}
 
-				else if (enemy->state == MOVING_TO_ATTACK)//If he's moving, we'll move next to the tile where he's going
+				else if (enemy->state == MOVING_TO_ATTACK) //If he's moving, we'll move next to the tile where he's going
 				{
 					iPoint newPos;
 					if (this->GetAdjacentTile(enemy->destination, newPos))
@@ -602,6 +622,38 @@ bool Unit::SetFightingArea()
 				}
 			}
 		}
+	}
+
+	if (enemy != nullptr && arrived == false) // This code is supposed to force the enemy unit to follow the played if he tries to escape
+	{
+		/*
+		iPoint enemyPos = App->map->WorldToMap(enemy->GetX(), enemy->GetY());
+		iPoint Pos = App->map->WorldToMap(GetX(), GetY());
+
+		iPoint distance = Pos - enemyPos;
+
+		if (enemy->enemy == nullptr || enemy->enemy == this)  //If the enemy's enemy is... YOU or a nullptr 
+		{
+			enemy->enemy = this;
+
+			enemy->path_list.clear();
+			if (enemy->GetPath(App->map->MapToWorld(enemyPos.x, enemyPos.y)) != -1)
+			{
+				enemy->state = MOVING_TO_ATTACK;
+				enemy->path_list.pop_front();
+				enemy->GetNextTile();
+				enemy->action_type = WALK;
+				ret = false;
+			}
+			else
+			{
+				enemy->state = NONE;
+			}
+		}
+		else
+		{
+			enemy->state = NONE;
+		}*/
 	}
 	return true;
 }

@@ -129,6 +129,9 @@ public:
 	bool GetAdjacentTile(iPoint tile, iPoint& Adjacent) const;
 	void DrawDebugRadius();
 
+
+	bool arrived = false;
+	iPoint destin;
 };
 
 #endif
