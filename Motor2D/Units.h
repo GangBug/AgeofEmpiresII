@@ -130,7 +130,7 @@ public:
 	void DrawDebugRadius();
 
 
-	bool arrived = false;
+	bool arrived = true;
 	iPoint destin;
 };
 

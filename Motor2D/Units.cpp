@@ -178,7 +178,7 @@ void Unit::Move()
 	unit_world.x = GetX();
 	unit_world.y = GetY();
 
-	if (destin.x - 35 < unit_world.x && destin.x + 35 > unit_world.x && destin.y - 35 < unit_world.y && destin.y + 35 > unit_world.y)
+	if (destin.x - 35 < unit_world.x && destin.x + 35 > unit_world.x && destin.y - 35 < unit_world.y && destin.y + 35 > unit_world.y && arrived == false)
 	{
 		LOG("TRUE");
 		arrived = true;
