@@ -656,38 +656,6 @@ bool Unit::SetFightingArea()
 			}
 		}
 	}
-
-	if (enemy != nullptr && arrived == false) // This code is supposed to force the enemy unit to follow the played if he tries to escape
-	{
-		/*
-		iPoint enemyPos = App->map->WorldToMap(enemy->GetX(), enemy->GetY());
-		iPoint Pos = App->map->WorldToMap(GetX(), GetY());
-
-		iPoint distance = Pos - enemyPos;
-
-		if (enemy->enemy == nullptr || enemy->enemy == this)  //If the enemy's enemy is... YOU or a nullptr 
-		{
-			enemy->enemy = this;
-
-			enemy->path_list.clear();
-			if (enemy->GetPath(App->map->MapToWorld(enemyPos.x, enemyPos.y)) != -1)
-			{
-				enemy->state = MOVING_TO_ATTACK;
-				enemy->path_list.pop_front();
-				enemy->GetNextTile();
-				enemy->action_type = WALK;
-				ret = false;
-			}
-			else
-			{
-				enemy->state = NONE;
-			}
-		}
-		else
-		{
-			enemy->state = NONE;
-		}*/
-	}
 	return true;
 }
 
