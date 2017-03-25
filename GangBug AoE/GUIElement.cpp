@@ -1,6 +1,7 @@
 #include "GUIElement.h"
 #include "App.h"
 #include "M_Render.h"
+#include <functional>
 
 GUIElement::GUIElement(int flags) : rect(0,0,0,0)
 {
@@ -73,18 +74,11 @@ void GUIElement::CenterY()
 }
 void GUIElement::AddListener(Module * moduleToAdd)
 {
-	bool listenerFound = false;
-	for (std::list<Module*>::iterator it = listeners.begin(); it != listeners.end(); it++)
-	{
-		if ((*it) == moduleToAdd)
-		{
-			listenerFound = true;
-		}
-	}
-
-	if (listenerFound) listeners.push_back(moduleToAdd);
+	std::list<Module*>::iterator it = std::find(listeners.begin(), listeners.end(), moduleToAdd);
+	if (it == listeners.end())
+		listeners.push_back(moduleToAdd);
 }
-void GUIElement::RemoveListener(Module * moduleToRemove) //NOTE: Check std::find
+void GUIElement::RemoveListener(Module * moduleToRemove)
 {
 	std::list<Module*>::iterator it = std::find(listeners.begin(), listeners.end(), moduleToRemove);
 	if (it != listeners.end())
@@ -94,14 +88,20 @@ void GUIElement::RemoveListener(Module * moduleToRemove) //NOTE: Check std::find
 }
 void GUIElement::OnGuiEvent(gui_events eventToReact)
 {
-	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
-	if (it != transAndAnimations.end())
+	if (this->eventsToReact & eventToReact)
 	{
-		staticAnim_or_transition tmp = it->second;
-		if (tmp < SAT_SEPARATOR)
-			currentStaticAnimation = tmp;
-		else if (tmp > SAT_SEPARATOR)
-			currentTransition = tmp;
+		std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+		if (it != transAndAnimations.end())
+		{
+			staticAnim_or_transition tmp = it->second;
+			if (tmp < SAT_SEPARATOR)
+				currentStaticAnimation = tmp;
+			else if (tmp > SAT_SEPARATOR)
+				currentTransition = tmp;
+
+			//Testing
+			//currentSAnimMetod = &this->DropT; //TODO: HERE is the problem
+		}
 	}
 }
 
@@ -217,8 +217,10 @@ void GUIElement::SetCanFocus(bool _focus)
 }
 void GUIElement::SetActive(bool _active) 
 {
-	status.active = _active;
-	status.statusChanged = true;
+	if (_active)
+		Enable();
+	else
+		Disable();
 }
 void GUIElement::SetParent(GUIElement * _parent) 
 {
@@ -285,6 +287,24 @@ void GUIElement::SetStatusChanged(bool changed)
 {
 	status.statusChanged = changed;
 }
+void GUIElement::Enable()
+{
+	if (!status.active)
+	{
+		status.active = true; 
+		status.statusChanged = true;
+		OnGuiEvent(ENABLE);
+	}
+}
+void GUIElement::Disable()
+{
+	if (status.active)
+	{
+		status.active = false;//TODO: Mustnt change directly active bool. If there is a transition to do, activate it and when is finished, then set status.active to false.
+		status.statusChanged = true;
+		OnGuiEvent(DISABLE);
+	}
+}
 void GUIElement::AddAnimationOrTransition(gui_events eventToReact, staticAnim_or_transition animOrTransition)
 {
 	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
@@ -297,14 +317,19 @@ void GUIElement::AddAnimationOrTransition(gui_events eventToReact, staticAnim_or
 	{
 		//If we doont find that event reaction setted already we just set it.
 		transAndAnimations.insert(std::pair<gui_events, staticAnim_or_transition>(eventToReact, animOrTransition));
+		this->eventsToReact = (gui_events)(this->eventsToReact | eventToReact);
 	}
 }
 void GUIElement::RemoveAnimationOrTransitionReaction(gui_events eventToReact)
 {
-	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
-	if (it != transAndAnimations.end())
+	if (this->eventsToReact & eventToReact)
 	{
-		transAndAnimations.erase(it);
+		std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+		if (it != transAndAnimations.end())
+		{
+			transAndAnimations.erase(it);
+			this->eventsToReact = (gui_events)(this->eventsToReact & ~eventToReact);
+		}
 	}
 }
 void GUIElement::GetAllAnimationAndTransitions(std::vector<std::pair<gui_events, staticAnim_or_transition>>& animsAndTrans)
@@ -317,15 +342,17 @@ void GUIElement::GetAllAnimationAndTransitions(std::vector<std::pair<gui_events,
 }
 bool GUIElement::HasEventReactionSet(gui_events eventToReact)
 {
-	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
-	return it != transAndAnimations.end();
+	return (eventsToReact & eventToReact);
 }
 staticAnim_or_transition GUIElement::GetAnimOrTransitionForEvent(gui_events eventToReact)
 {
-	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
-	if (it != transAndAnimations.end())
+	if (this->eventsToReact & eventToReact)
 	{
-		return it->second;
+		std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+		if (it != transAndAnimations.end())
+		{
+			return it->second;
+		}
 	}
 
 	return SAT_NONE;
@@ -355,7 +382,8 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 	if (currentStaticAnimation != SAT_NONE)
 	{
 		//Do here the animation according the active one.
-
+		if(currentSAnimMetod != nullptr)
+			currentSAnimMetod();
 		//If the animation has finished set currentStaticAnimation to SAT_NONE.
 	}
 
@@ -365,4 +393,10 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 
 		//When the transition has ended set currentTransition to SAT_NONE.
 	}
+}
+
+void GUIElement::DropT()
+{
+	SDL_Log("Hello, im a test of a pointer to amethod.");
+	currentSAnimMetod = nullptr;
 }
