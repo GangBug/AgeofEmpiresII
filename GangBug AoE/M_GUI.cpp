@@ -42,7 +42,15 @@ bool M_GUI::Start()
 	img->SetInteractive(true);		   
 	img->SetCanFocus(true);		
 	img->SetDraggable(true);
-	guiList.push_back(img);			   
+	guiList.push_back(img);			
+	img->AddAnimationOrTransition(LISTENING_END, SA_FLASH);//
+	img->AddAnimationOrTransition(MOUSE_ENTERS, SA_PULSE);//
+	img->RemoveAnimationOrTransitionReaction(LISTENING_END);//
+	img->RemoveAnimationOrTransitionReaction(MOUSE_LCLICK_DOWN);//
+	bool a = img->HasEventReactionSet(MOUSE_ENTERS);
+	bool b = img->HasEventReactionSet(MOUSE_LCLICK_DOWN);
+	img->SetActive(false);
+	img->SetActive(true);
 
 	GUILabel* label = new GUILabel();
 	label->SetInteractive(true);

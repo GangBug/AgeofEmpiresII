@@ -36,19 +36,23 @@ struct ElementStatus
 
 enum gui_events
 {
-	LISTENING_END,
-	MOUSE_ENTERS,			// done
-	MOUSE_LEAVES,			// done
-	MOUSE_LCLICK_DOWN,		// done
-	MOUSE_LCLICK_UP,		// done
-	MOUSE_RCLICK_DOWN,		// done
-	MOUSE_RCLICK_UP,		// done
-	GAIN_FOCUS,				// done
-	LOST_FOUCS,				// done
-	INPUT_CHANGED,
-	INPUT_SUBMIT,
-	VALUE_CHANGED,
-	RETURN_DOWN
+	EVENT_NONE			= 0,
+	LISTENING_END		= (1 << 0),
+	MOUSE_ENTERS		= (1 << 1),			// done
+	MOUSE_LEAVES		= (1 << 2),			// done
+	MOUSE_LCLICK_DOWN	= (1 << 3),		// done
+	MOUSE_LCLICK_UP		= (1 << 4),		// done
+	MOUSE_RCLICK_DOWN	= (1 << 5),		// done
+	MOUSE_RCLICK_UP		= (1 << 6),		// done
+	GAIN_FOCUS			= (1 << 7),				// done
+	LOST_FOUCS			= (1 << 8),				// done
+	INPUT_CHANGED		= (1 << 9),
+	INPUT_SUBMIT		= (1 << 10),
+	VALUE_CHANGED		= (1 << 11),
+	RETURN_DOWN			= (1 << 12),
+
+	ENABLE				= (1 << 13),
+	DISABLE				= (1 << 14)
 };
 enum gui_types
 {
@@ -141,6 +145,9 @@ public:
 	void SetRClicked(bool r);
 	void SetStatusChanged(bool changed);
 
+	void Enable();
+	void Disable();
+
 	void AddAnimationOrTransition(gui_events eventToReact, staticAnim_or_transition animOrTransition);
 	void RemoveAnimationOrTransitionReaction(gui_events eventToReact);
 	void GetAllAnimationAndTransitions(std::vector<std::pair<gui_events, staticAnim_or_transition>>& animsAndTrans);
@@ -168,7 +175,8 @@ private:
 	staticAnim_or_transition currentTransition = SAT_NONE;
 	std::map<gui_events, staticAnim_or_transition> transAndAnimations;
 	//TODO: Thought i could have a gui_events variable that stores all events i have a reaction to in order to not searching with map.find
-	
+	gui_events eventsToReact = EVENT_NONE;
+
 protected:
 	std::list<Module*> listeners;
 	bool haveFocus = false; // TODO implement it on event management
