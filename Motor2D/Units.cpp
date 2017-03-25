@@ -113,7 +113,15 @@ void Unit::Update()
 				path_list.pop_front();
 				GetNextTile();
 				this->action_type = WALK;
-				state = MOVING;
+				if (state == NONE) 
+				{
+					state = MOVING;
+				}
+				else 
+				{
+					state = FLEEING;
+					enemy = nullptr;
+				}
 			}
 			else
 			{
@@ -128,7 +136,7 @@ void Unit::Update()
 			CheckSurroundings();
 		}
 
-		if (state == MOVING_TO_ATTACK)
+		if (state == MOVING_TO_ATTACK || state == FLEEING)
 		{
 			Move();
 		}
@@ -409,7 +417,7 @@ bool Unit::CheckSurroundings()
 					if (App->entity_manager->IsUnitInTile(this, neighbors[n]))
 					{
 						Unit* unit2 = App->entity_manager->GetUnitInTile(neighbors[n]);
-						if (unit2->AI != this->AI)//If we find a unit and he's not of your army, clear your lists and set him as your enemy! Now you have to find where' you'll fight him 
+						if (unit2->AI != this->AI && state!=FLEEING)//If we find a unit and he's not of your army, clear your lists and set him as your enemy! Now you have to find where' you'll fight him 
 						{
 							frontier.clear();
 							visited.clear();
@@ -459,7 +467,7 @@ bool Unit::SetFightingArea()
 {
 	bool ret;
 
-	if (enemy != nullptr && arrived == true)
+	if (enemy != nullptr && arrived == true && state != FLEEING)
 	{
 		state = MOVING_TO_ATTACK;
 
@@ -469,7 +477,7 @@ bool Unit::SetFightingArea()
 		iPoint distance = Pos - enemyPos;
 
 		//UNIT
-		if (enemy->enemy == nullptr || enemy->enemy == this) {//If the enemy's enemy is... YOU or a nullptr 
+		if ((enemy->enemy == nullptr || enemy->enemy == this) && enemy->state != FLEEING) {//If the enemy's enemy is... YOU or a nullptr 
 
 			enemy->enemy = this;
 
@@ -488,7 +496,6 @@ bool Unit::SetFightingArea()
 					enemy->path_list.clear();
 					if (enemy->GetPath(App->map->MapToWorld(newEnemyPos.x, newEnemyPos.y)) != -1)
 					{
-						enemy->state = MOVING_TO_ATTACK;
 						enemy->path_list.pop_front();
 						enemy->GetNextTile();
 						enemy->action_type = WALK;
@@ -561,6 +568,32 @@ bool Unit::SetFightingArea()
 			}
 		}
 
+		if (enemy->state == FLEEING) {//If the enemy's fleeing
+
+			if (unit_class == RANGED)
+			{
+				state = ATTACKING; //If you're ranged, just attack
+			}
+			else if (unit_class != RANGED) // If not we'll go next to his tile
+			{
+				state = MOVING_TO_ATTACK;
+				iPoint newPos;
+				enemy->GetFreeAdjacent(newPos);
+				path_list.clear();
+				if (GetPath(App->map->MapToWorld(newPos.x, newPos.y)) != -1)
+				{
+					path_list.pop_front();
+					GetNextTile();
+					action_type = WALK;
+					ret = false;
+				}
+				else
+				{
+					state = NONE;
+				}
+			}
+		}
+
 		else if (enemy->enemy != nullptr && enemy->enemy != this) //Enemy is already in combat with someone else, WE WON'T MOVE HIM!
 		{
 			if (unit_class == RANGED)
@@ -595,7 +628,7 @@ bool Unit::SetFightingArea()
 					}
 				}
 
-				else if (enemy->state == MOVING_TO_ATTACK) //If he's moving, we'll move next to the tile where he's going
+				else if (enemy->state == MOVING_TO_ATTACK || enemy->state == FLEEING) //If he's moving, we'll move next to the tile where he's going
 				{
 					iPoint newPos;
 					if (this->GetAdjacentTile(enemy->destination, newPos))
