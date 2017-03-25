@@ -34,23 +34,19 @@ bool M_GUI::Awake(pugi::xml_node &)
 }
 bool M_GUI::Start()
 {
-	atlas = app->tex->Load("gui/atlas.png");
+	atlas = app->tex->Load("gui/atlas2.png");
 
 	GUIImage* img = new GUIImage();
-	img->SetRectangle(100, 500, 231, 71);
-	img->SetSection(0, 110, 231, 71);
+	//img->SetRectangle(100, 500, 231, 71);
+	//img->SetSection(0, 110, 231, 71);
+	img->SetRectangle(100, 100, 484, 512);
+	img->SetSection(0, 513, 484, 512);
 	img->SetInteractive(true);		   
 	img->SetCanFocus(true);		
 	img->SetDraggable(true);
 	guiList.push_back(img);			
 	img->AddAnimationOrTransition(LISTENING_END, SA_FLASH);//
 	img->AddAnimationOrTransition(MOUSE_ENTERS, SA_PULSE);//
-	img->RemoveAnimationOrTransitionReaction(LISTENING_END);//
-	img->RemoveAnimationOrTransitionReaction(MOUSE_LCLICK_DOWN);//
-	bool a = img->HasEventReactionSet(MOUSE_ENTERS);
-	bool b = img->HasEventReactionSet(MOUSE_LCLICK_DOWN);
-	img->SetActive(false);
-	img->SetActive(true);
 
 	GUILabel* label = new GUILabel();
 	label->SetInteractive(true);

@@ -1,6 +1,7 @@
 #include "GUIElement.h"
 #include "App.h"
 #include "M_Render.h"
+#include <functional>
 
 GUIElement::GUIElement(int flags) : rect(0,0,0,0)
 {
@@ -97,6 +98,9 @@ void GUIElement::OnGuiEvent(gui_events eventToReact)
 				currentStaticAnimation = tmp;
 			else if (tmp > SAT_SEPARATOR)
 				currentTransition = tmp;
+
+			//Testing
+			//currentSAnimMetod = &this->DropT; //TODO: HERE is the problem
 		}
 	}
 }
@@ -378,7 +382,8 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 	if (currentStaticAnimation != SAT_NONE)
 	{
 		//Do here the animation according the active one.
-
+		if(currentSAnimMetod != nullptr)
+			currentSAnimMetod();
 		//If the animation has finished set currentStaticAnimation to SAT_NONE.
 	}
 
@@ -388,4 +393,10 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 
 		//When the transition has ended set currentTransition to SAT_NONE.
 	}
+}
+
+void GUIElement::DropT()
+{
+	SDL_Log("Hello, im a test of a pointer to amethod.");
+	currentSAnimMetod = nullptr;
 }
