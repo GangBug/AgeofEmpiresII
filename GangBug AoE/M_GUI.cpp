@@ -34,13 +34,13 @@ bool M_GUI::Awake(pugi::xml_node &)
 }
 bool M_GUI::Start()
 {
-	atlas = app->tex->Load("gui/atlas2.png");
+	atlas = app->tex->Load("gui/atlas.png");
 
 	GUIImage* img = new GUIImage();
-	//img->SetRectangle(100, 500, 231, 71);
-	//img->SetSection(0, 110, 231, 71);
-	img->SetRectangle(100, 100, 484, 512);
-	img->SetSection(0, 513, 484, 512);
+	img->SetRectangle(100, 500, 231, 71);
+	img->SetSection(0, 110, 231, 71);
+	//img->SetRectangle(100, 100, 484, 512);
+	//img->SetSection(0, 513, 484, 512);
 	img->SetInteractive(true);		   
 	img->SetCanFocus(true);		
 	img->SetDraggable(true);

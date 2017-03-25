@@ -110,7 +110,7 @@ bool M_EntityManager::Start()
 	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 
-	if (app->map->Load("0.1Map.tmx") == true)
+	/*if (app->map->Load("0.1Map.tmx") == true)
 	{
 		//int w, h;
 		//uchar* data = NULL;
@@ -118,7 +118,7 @@ bool M_EntityManager::Start()
 		//	app->pathfinding->SetMap(w, h, data);
 
 		//RELEASE_ARRAY(data);
-	}
+	}*/
 
 	//root->Start();
 
