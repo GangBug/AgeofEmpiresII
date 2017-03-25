@@ -45,8 +45,8 @@ bool M_GUI::Start()
 	img->SetCanFocus(true);		
 	img->SetDraggable(true);
 	guiList.push_back(img);			
-	img->AddAnimationOrTransition(LISTENING_END, SA_FLASH);//
-	img->AddAnimationOrTransition(MOUSE_ENTERS, SA_PULSE);//
+	//img->AddAnimationOrTransition(LISTENING_END, SA_FLASH);//
+	//img->AddAnimationOrTransition(MOUSE_ENTERS, T_DROP);//
 
 	GUILabel* label = new GUILabel();
 	label->SetInteractive(true);

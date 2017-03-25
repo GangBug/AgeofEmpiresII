@@ -176,10 +176,7 @@ private:
 	staticAnim_or_transition currentStaticAnimation = SAT_NONE;
 	staticAnim_or_transition currentTransition = SAT_NONE;
 	std::map<gui_events, staticAnim_or_transition> transAndAnimations;
-	//TODO: Thought i could have a gui_events variable that stores all events i have a reaction to in order to not searching with map.find
 	gui_events eventsToReact = EVENT_NONE;
-	std::is_function<void()> currentTransMethod;
-	void (*currentSAnimMetod)(void) = nullptr;
 
 protected:
 	std::list<Module*> listeners;
