@@ -52,13 +52,95 @@ bool M_GUI::Start()
 	label->SetDraggable(true);
 	guiList.push_back(label);
 
-	GUIButton* button = new GUIButton(GB_Rectangle<int>(100, 100, 231, 71), 
-									  GB_Rectangle<int>(0, 110, 231, 71), 
-									  GB_Rectangle<int>(416, 171, 231, 71), 
-									  GB_Rectangle<int>(647, 171, 231, 71), STANDARD_PRESET, "hola");
-	//button->SetInteractive(true);
-	//button->SetActive(true);
-	guiList.push_back(button);
+
+
+	GUIImage* minimap = CreateImage({ 1471,726,449,354 }, GB_Rectangle<int> {1128, 12, 1, 1});
+	guiList.push_back(minimap);
+	
+	GUIImage* resourceBar = CreateImage({ 0,0,1, 1}, GB_Rectangle<int> {14, 906, 1312, 46});
+	guiList.push_back(resourceBar);
+	
+	GUIImage* useBar = CreateImage({ 1536,0,1, 1}, GB_Rectangle<int> {13, 719, 959, 179});
+	guiList.push_back(useBar);
+
+	GUIImage* saveBar = CreateImage({ 0,901,1, 1 }, GB_Rectangle<int> {680, 656, 384, 45});
+	guiList.push_back(saveBar);
+
+	GUIImage* wood = CreateImage({ 150,5,1, 1 }, GB_Rectangle<int> {669,595,54, 52 });
+	guiList.push_back(wood);
+
+	GUIImage* food = CreateImage({ 300,5,1, 1 }, GB_Rectangle<int> {724, 594, 56, 53});
+	guiList.push_back(food);
+
+	GUIImage* gold = CreateImage({ 450,5,1, 1 }, GB_Rectangle<int> {783, 594, 55, 51});
+	guiList.push_back(gold);
+
+	GUIImage* rock = CreateImage({ 600,5,1, 1 }, GB_Rectangle<int> {840, 594, 56, 52});
+	guiList.push_back(rock);
+
+	GUIImage* populationLimit = CreateImage({ 750,5,1, 1 }, GB_Rectangle<int> { 929, 596, 54, 34});
+	guiList.push_back(populationLimit);
+
+	GUIImage* controlBar = CreateImage({ 0,1080 - 180,1, 1 }, GB_Rectangle<int> { 13, 719, 960, 180});
+	guiList.push_back(controlBar);
+	
+	GUIImage* menuWindow = CreateImage({ 960,200 ,1, 1 }, GB_Rectangle<int> { 669, 12, 457, 577});
+	guiList.push_back(controlBar);
+	/*
+	//start menu
+
+	GUIImage* startMenuTittle = CreateImage({ 245,920,1, 1 }, GB_Rectangle<int> { 14, 12, 643, 452});
+	guiList.push_back(startMenuTittle);
+
+		GUIButton* startMenuButton1 = new GUIButton(GB_Rectangle<int>(245, 620, 1, 1),
+		GB_Rectangle<int>(14, 481, 305, 43),
+		GB_Rectangle<int>(14, 531, 305, 43),
+		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	guiList.push_back(startMenuButton1);
+
+	GUIButton* startMenuButton2 = new GUIButton(GB_Rectangle<int>(245, 680, 1, 1),
+		GB_Rectangle<int>(14, 481, 305, 43),
+		GB_Rectangle<int>(14, 531, 305, 43),
+		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	guiList.push_back(startMenuButton1);
+
+	GUIButton* startMenuButton3 = new GUIButton(GB_Rectangle<int>(245, 740, 1, 1),
+		GB_Rectangle<int>(14, 481, 305, 43),
+		GB_Rectangle<int>(14, 531, 305, 43),
+		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	guiList.push_back(startMenuButton1);
+
+	GUIButton* startMenuButton4 = new GUIButton(GB_Rectangle<int>(245, 800, 1, 1),
+		GB_Rectangle<int>(14, 481, 305, 43),
+		GB_Rectangle<int>(14, 531, 305, 43),
+		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	guiList.push_back(startMenuButton1);
+
+	GUIButton* startMenuButton5 = new GUIButton(GB_Rectangle<int>(245, 860, 1, 1),
+		GB_Rectangle<int>(14, 481, 305, 43),
+		GB_Rectangle<int>(14, 531, 305, 43),
+		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	guiList.push_back(startMenuButton1);
+
+		*/ 
+		
+		//_position, GB_Rectangle<int> _section)
+
+
+	GUIButton* resourcesMenuButton = new GUIButton(	GB_Rectangle<int>(1920 - 111, 1080 - 82, 111, 82),
+													GB_Rectangle<int>(294, 631, 111, 82),
+													GB_Rectangle<int>(412, 631, 111, 82),
+													GB_Rectangle<int>(540, 631, 111, 82), STANDARD_PRESET, "");
+	guiList.push_back(resourcesMenuButton);
+
+	GUIButton* menuButton = new GUIButton(	GB_Rectangle<int>(0, 0, 98, 83),
+											GB_Rectangle<int>(336, 531, 98, 83),
+											GB_Rectangle<int>(443, 531, 98, 83),
+											GB_Rectangle<int>(553, 530, 98, 83), STANDARD_PRESET, "");
+	guiList.push_back(menuButton);
+
+
+	
 
 	//GUIInputText * input2 = new GUIInputText();
 	//input2->image->SetRectangle(0, 300, 231, 71);
@@ -345,8 +427,10 @@ GUIImage * M_GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _se
 	GUIImage* image = new GUIImage();
 	image->SetSection(_section);
 	image->SetRectangle(_position);
+
 	return image;
 }
+
 GUIElement * M_GUI::GuiFactory()
 {
 
