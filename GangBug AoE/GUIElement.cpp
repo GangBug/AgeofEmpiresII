@@ -2,7 +2,9 @@
 #include "App.h"
 #include "M_Render.h"
 
-GUIElement::GUIElement(int flags) : rect(0,0,0,0)
+#include "M_Window.h"
+
+GUIElement::GUIElement(int flags) : rect(0,0,0,0), logicalRect(0.f, 0.f, 0.f, 0.f)
 {
 	if (flags & DRAGGABLE)
 		SetDraggable(true);
@@ -188,11 +190,15 @@ void GUIElement::SetLocalPos(int x, int y)
 	{
 		rect.x = x + parent->GetLocalPos().x;
 		rect.y = y + parent->GetLocalPos().y;
+		logicalRect.x = x + parent->GetLocalPos().x;
+		logicalRect.y = y + parent->GetLocalPos().y;
 	}
 	else
 	{
 		rect.x = x;
 		rect.y = y;
+		logicalRect.x = x;
+		logicalRect.y = y;
 	}
 	
 }
@@ -231,6 +237,7 @@ void GUIElement::SetType(gui_types _type)
 void GUIElement::SetRectangle(GB_Rectangle<int> _rect)
 {
 	rect = _rect;
+	logicalRect.Set(_rect.x, _rect.y, _rect.w, _rect.h);
 	status.statusChanged = true;
 }
 void GUIElement::SetRectangle(int x, int y, int w, int h)
@@ -239,6 +246,7 @@ void GUIElement::SetRectangle(int x, int y, int w, int h)
 	rect.y = y;
 	rect.w = w;
 	rect.h = h;
+	logicalRect.Set(x, y, w, h);
 	status.statusChanged = true;
 }
 void GUIElement::SetMouseInside(bool ins)
@@ -382,14 +390,16 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 		switch (currentStaticAnimation)
 		{
 		case SA_FLASH:
+			FlashSA();
 			break;
 		case SA_SHAKE:
+			ShakeSA();
 			break;
 		case SA_PULSE:
+			PulseSA();
 			break;
 		case SA_BOUNCE:
-			break;
-		case SAT_SEPARATOR:
+			BounceSA();
 			break;
 		}
 		
@@ -403,15 +413,22 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 		switch (currentTransition)
 		{
 		case T_SCALE:
+			ScaleT();
 			break;
 		case T_FADE:
+			FadeT();
 			break;
 		case T_DROP:
 			DropT();
 			break;
 		case T_FLY:
+			FlyT();
 			break;
 		case T_SLIDE:
+			SlideT();
+			break;
+		case T_MOVE_TO_RIGHT:
+			MoveToRightT(1.f/60.f);
 			break;
 		}
 
@@ -419,8 +436,58 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 	}
 }
 
+
+
+void GUIElement::FlashSA()
+{
+	currentStaticAnimation = SAT_NONE;
+}
+void GUIElement::ShakeSA()
+{
+	currentStaticAnimation = SAT_NONE;
+}
+void GUIElement::PulseSA()
+{
+	currentStaticAnimation = SAT_NONE;
+}
+void GUIElement::BounceSA()
+{
+	currentStaticAnimation = SAT_NONE;
+}
+
+void GUIElement::ScaleT()
+{
+	currentTransition = SAT_NONE;
+}
+void GUIElement::FadeT()
+{
+	currentTransition = SAT_NONE;
+}
 void GUIElement::DropT()
 {
-	SDL_Log("Hello, im a test of a pointer to amethod.");
 	currentTransition = SAT_NONE;
+}
+void GUIElement::FlyT()
+{
+	currentTransition = SAT_NONE;
+}
+void GUIElement::SlideT()
+{
+	currentTransition = SAT_NONE;
+}
+void GUIElement::MoveToRightT(float dt)
+{
+	static int screenRXBorderPos = app->win->GetWindowSize().x;
+
+	int dif = screenRXBorderPos - (logicalRect.x + rect.w);
+
+	if (dif <= 0)
+	{
+		currentTransition = SAT_NONE;
+		return;
+	}
+
+	float speed = 300 * dt;
+	logicalRect.x += speed;
+	SetRectangle(logicalRect.x, rect.y, rect.w, rect.h);
 }

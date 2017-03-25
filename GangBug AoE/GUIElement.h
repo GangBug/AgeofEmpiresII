@@ -83,7 +83,8 @@ enum staticAnim_or_transition
 	T_FADE,
 	T_DROP,
 	T_FLY,
-	T_SLIDE
+	T_SLIDE,
+	T_MOVE_TO_RIGHT
 };
 
 class GUIElement
@@ -159,7 +160,17 @@ public:
 private:
 	void resize(fPoint newScale);
 
+	void FlashSA();
+	void ShakeSA();
+	void PulseSA();
+	void BounceSA();
+
+	void ScaleT();
+	void FadeT();
 	void DropT();
+	void FlyT();
+	void SlideT();
+	void MoveToRightT(float dt);
 
 //protected:
 //	void SetSize(int w, int h);
@@ -177,6 +188,7 @@ private:
 	staticAnim_or_transition currentTransition = SAT_NONE;
 	std::map<gui_events, staticAnim_or_transition> transAndAnimations;
 	gui_events eventsToReact = EVENT_NONE;
+	GB_Rectangle<float> logicalRect;
 
 protected:
 	std::list<Module*> listeners;

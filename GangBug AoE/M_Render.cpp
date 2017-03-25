@@ -67,8 +67,8 @@ bool M_Render::Start()
 	//Top right viewport
 	if (app->editor == true)
 	{
-		editorViewPort = app->win->GetWindowSize().GetSDLrect();
-		gameViewPort = app->win->GetWindowSize().GetSDLrect();
+		editorViewPort = { 0, 0, app->win->GetWindowSize().x, app->win->GetWindowSize().y };
+		gameViewPort = { 0, 0, app->win->GetWindowSize().x, app->win->GetWindowSize().y };
 
 		gameViewPort.y = 0;
 		gameViewPort.w = gameViewPort.w / 1.5f;

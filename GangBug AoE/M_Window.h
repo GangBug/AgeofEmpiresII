@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "GB_Rectangle.h"
+#include "p2Point.h"
 
 struct SDL_Window;
 struct SDL_Surface;
@@ -27,7 +28,7 @@ public:
 
 	// Retrive window size
 	void GetWindowSize(uint& width, uint& height) const;
-	GB_Rectangle<int> GetWindowSize() const;
+	iPoint GetWindowSize() const;
 	// Retrieve window scale
 	uint GetScale() const;
 
