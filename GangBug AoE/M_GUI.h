@@ -12,7 +12,6 @@ class GUILabel;
 class GUIImage;
 class GUIMouse;
 
-
 class M_GUI : public Module
 {
 public:
@@ -64,8 +63,15 @@ public:
 
 	GUIElement* GuiFactory();
 
+	void LoadUI();
+	void SaveUI();
+
 	bool GetUIEditing() const;
 	void SetUIEditing(bool edit);
+
+private:
+	bool SaveUINow();
+	bool LoadUINow();
 
 public:
 	std::list<GUIElement*> guiList;
@@ -77,7 +83,11 @@ private:
 	SDL_Texture* atlas;
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
-	
+	std::map<std::string, GUIElement> GuiPresets; // A map of basic UI elements defined on the xml
+	bool mustSaveScene = false;
+	bool mustLoadScene = false;
+
+
 	//debuging things and some stuff
 	GUIMouse* curs = nullptr; // this goes to scene entity
 	GUIAutoLabel<uint32>* lastFrameMS;
@@ -85,6 +95,8 @@ private:
 	GUILabel* xMouse;
 	GUILabel* yMouse;
 	bool UIEditing = false;
+
+
 
 };
 

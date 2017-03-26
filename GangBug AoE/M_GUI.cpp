@@ -3,7 +3,12 @@
 #include "M_Input.h"
 #include "M_Render.h"
 #include "M_Textures.h"
+#include "M_FileSystem.h"
 #include "GB_Rectangle.h"
+#include "Log.h"
+
+#include <iostream> 
+#include <sstream> 
 
 // GUI includes
 #include "GUIElement.h"
@@ -34,139 +39,113 @@ bool M_GUI::Awake(pugi::xml_node &)
 }
 bool M_GUI::Start()
 {
+	bool ret = true;
+	//TODO 1: Load atlas
 	atlas = app->tex->Load("gui/atlas2.png");
 
-	/*GUIImage* img = new GUIImage();
-	//img->SetRectangle(100, 500, 231, 71);
-	//img->SetSection(0, 110, 231, 71);
-	img->SetRectangle(100, 100, 484, 512);
-	img->SetSection(0, 513, 484, 512);
-	img->SetInteractive(true);		   
-	img->SetCanFocus(true);		
-	img->SetDraggable(true);
+	//TODO 2: Load UI presets
+	LOG("Loading UI xml");
+	char* buffer = nullptr;
+	char path[256];
+	//sprintf_s(path, 256, "%sui.xml", app->fs->GetSaveDirectory());
+	uint size = app->fs->Load("gui/gui.xml", &buffer);
+	if (size > 0 && buffer != nullptr)
+	{
+		LOG("Loading scene.");
+
+		pugi::xml_document data;
+		pugi::xml_node root;
+
+		pugi::xml_parse_result result = data.load_buffer(buffer, size);
+		RELEASE(buffer);
+
+		if (result != NULL)
+		{
+			root = data.child("gui").child("elements");
+			pugi::xml_node buttons = root.child("buttons");
+			pugi::xml_node imgs = root.child("imgs");
+
+			for (pugi::xml_node it = buttons.first_child(); it != NULL; it = it.next_sibling())
+			{
+				std::string name = it.attribute("type_name").as_string();
+				pugi::xml_object_range<pugi::xml_node_iterator> sections = it.child("sections").children();
+
+				GB_Rectangle<int> stb;
+				GB_Rectangle<int> hov;
+				GB_Rectangle<int> clk;
+				for (pugi::xml_node_iterator it_sections = sections.begin(); it_sections != sections.end(); it_sections++)
+				{
+					int flag = 0;
+					if (!strcmp(it_sections->attribute("type").value(), "standBy"))
+						flag = (1 << 1);
+					else if (!strcmp((*it_sections).attribute("type").value(), "hover"))
+						flag = (1 << 2);
+					else if (!strcmp((*it_sections).attribute("type").value(), "clicked"))
+						flag = (1 << 3);
+
+					switch (flag)
+					{
+						case 2:
+							stb.x = (*it_sections).attribute("x").as_int();
+							stb.y = (*it_sections).attribute("y").as_int();
+							stb.w = (*it_sections).attribute("w").as_int();
+							stb.h = (*it_sections).attribute("h").as_int();
+							break;
+						case 4:
+							hov.x = (*it_sections).attribute("x").as_int();
+							hov.y = (*it_sections).attribute("y").as_int();
+							hov.w = (*it_sections).attribute("w").as_int();
+							hov.h = (*it_sections).attribute("h").as_int();
+							break;
+						case 8:
+							clk.x = (*it_sections).attribute("x").as_int();
+							clk.y = (*it_sections).attribute("y").as_int();
+							clk.w = (*it_sections).attribute("w").as_int();
+							clk.h = (*it_sections).attribute("h").as_int();
+							break;
+						default:
+							ret = false;
+							break;
+					}
+				}
+			}
+
+			//ret = root->Load(&rootN);
+			data.reset();
+
+			if (ret == true)
+			{
+				LOG("... ui loaded with succes.");
+			}
+			else
+			{
+				LOG("ERROR: ...loading ui process had an error.");
+			}
+		}
+		else
+		{
+			LOG("Could not parse ui xml.");
+		}
+	}
+	else
+	{
+		LOG("Could not load ui.xml");
+	}
+
+	
+
+	//TODO 3: Load UI layout
+
+	GUIImage* img = CreateImage({ 0, 100, 328, 103 }, { 485, 829, 328, 103 });
 	guiList.push_back(img);
-	img->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);//*/
 
-	GUILabel* label = new GUILabel();
-	label->SetInteractive(true);
-	label->SetCanFocus(true);
-	label->SetText("Hello World!", DEFAULT);
-	label->CenterX();
-	label->SetDraggable(true);
-	guiList.push_back(label);
+	GUIImage* img_small = CreateImage({ 500, 100, 328/2, 103/2 }, { 485, 829, 328, 103 });
+	guiList.push_back(img_small);
 
+	GUIImage* img_big = CreateImage({ 1000, 100, 328*2, 103*2 }, { 485, 829, 328, 103 });
+	guiList.push_back(img_big);
 
-
-	GUIImage* minimap = CreateImage({ 1471,726,449,354 }, GB_Rectangle<int> {1128, 12, 1, 1});
-	guiList.push_back(minimap);
-	
-	GUIImage* resourceBar = CreateImage({ 0,0,1, 1}, GB_Rectangle<int> {14, 906, 1312, 46});
-	guiList.push_back(resourceBar);
-	
-	GUIImage* useBar = CreateImage({ 1536,0,1, 1}, GB_Rectangle<int> {13, 719, 959, 179});
-	guiList.push_back(useBar);
-
-	GUIImage* saveBar = CreateImage({ 0,901,1, 1 }, GB_Rectangle<int> {680, 656, 384, 45});
-	guiList.push_back(saveBar);
-
-	GUIImage* wood = CreateImage({ 150,5,1, 1 }, GB_Rectangle<int> {669,595,54, 52 });
-	guiList.push_back(wood);
-
-	GUIImage* food = CreateImage({ 300,5,1, 1 }, GB_Rectangle<int> {724, 594, 56, 53});
-	guiList.push_back(food);
-
-	GUIImage* gold = CreateImage({ 450,5,1, 1 }, GB_Rectangle<int> {783, 594, 55, 51});
-	guiList.push_back(gold);
-
-	GUIImage* rock = CreateImage({ 600,5,1, 1 }, GB_Rectangle<int> {840, 594, 56, 52});
-	guiList.push_back(rock);
-
-	GUIImage* populationLimit = CreateImage({ 750,5,1, 1 }, GB_Rectangle<int> { 929, 596, 54, 34});
-	guiList.push_back(populationLimit);
-
-	GUIImage* controlBar = CreateImage({ 0,1080 - 180,1, 1 }, GB_Rectangle<int> { 13, 719, 960, 180});
-	guiList.push_back(controlBar);
-	
-	GUIImage* menuWindow = CreateImage({ 960,200 ,1, 1 }, GB_Rectangle<int> { 669, 12, 457, 577});
-	guiList.push_back(controlBar);
-	/*
-	//start menu
-
-	GUIImage* startMenuTittle = CreateImage({ 245,920,1, 1 }, GB_Rectangle<int> { 14, 12, 643, 452});
-	guiList.push_back(startMenuTittle);
-
-		GUIButton* startMenuButton1 = new GUIButton(GB_Rectangle<int>(245, 620, 1, 1),
-		GB_Rectangle<int>(14, 481, 305, 43),
-		GB_Rectangle<int>(14, 531, 305, 43),
-		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	guiList.push_back(startMenuButton1);
-
-	GUIButton* startMenuButton2 = new GUIButton(GB_Rectangle<int>(245, 680, 1, 1),
-		GB_Rectangle<int>(14, 481, 305, 43),
-		GB_Rectangle<int>(14, 531, 305, 43),
-		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	guiList.push_back(startMenuButton1);
-
-	GUIButton* startMenuButton3 = new GUIButton(GB_Rectangle<int>(245, 740, 1, 1),
-		GB_Rectangle<int>(14, 481, 305, 43),
-		GB_Rectangle<int>(14, 531, 305, 43),
-		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	guiList.push_back(startMenuButton1);
-
-	GUIButton* startMenuButton4 = new GUIButton(GB_Rectangle<int>(245, 800, 1, 1),
-		GB_Rectangle<int>(14, 481, 305, 43),
-		GB_Rectangle<int>(14, 531, 305, 43),
-		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	guiList.push_back(startMenuButton1);
-
-	GUIButton* startMenuButton5 = new GUIButton(GB_Rectangle<int>(245, 860, 1, 1),
-		GB_Rectangle<int>(14, 481, 305, 43),
-		GB_Rectangle<int>(14, 531, 305, 43),
-		GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	guiList.push_back(startMenuButton1);
-
-		*/ 
-		
-		//_position, GB_Rectangle<int> _section)
-
-
-	GUIButton* resourcesMenuButton = new GUIButton(	GB_Rectangle<int>(1920 - 111, 1080 - 82, 111, 82),
-													GB_Rectangle<int>(294, 631, 111, 82),
-													GB_Rectangle<int>(412, 631, 111, 82),
-													GB_Rectangle<int>(540, 631, 111, 82), STANDARD_PRESET, "");
-	guiList.push_back(resourcesMenuButton);
-
-	GUIButton* menuButton = new GUIButton(	GB_Rectangle<int>(0, 0, 98, 83),
-											GB_Rectangle<int>(336, 531, 98, 83),
-											GB_Rectangle<int>(443, 531, 98, 83),
-											GB_Rectangle<int>(553, 530, 98, 83), STANDARD_PRESET, "");
-	guiList.push_back(menuButton);
-
-
-	
-
-	//GUIInputText * input2 = new GUIInputText();
-	//input2->image->SetRectangle(0, 300, 231, 71);
-	//input2->label->SetLocalPos(0, 300);
-	//input2->SetRectangle(0, 300, 231, 71);
-	//input2->SetActive(true);
-	//guiList.push_back(input2);
-	//guiList.push_back(input2->image);
-	//guiList.push_back(input2->label);
-
-
-	//GUIInputText * input = new GUIInputText();	
-	//input->SetInteractive(false);
-	//guiList.push_back(input);
-	//guiList.push_back(input->image);
-	//guiList.push_back(input->label);
-	//
-	int flags = ACTIVE;
-	curs = new GUIMouse({ 0, 0 }, { 994,728, 25, 23 }, flags);
-	//cursor  ------------------------------------------
-	//curs = app->gui->createelement(uicursor, sdl_rect{ 994,728, 25, 23 }, p2point<int>{ 0, 0 },true);
-	//curs->setlistener(this);
-
+	//Debug UI
 	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms);
 	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update);
 	debugGuiList.push_back(lastFrameMS);
@@ -174,14 +153,151 @@ bool M_GUI::Start()
 	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
 	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
 
-	
 	xMouse = new GUILabel("", SMALL);
 	yMouse = new GUILabel("", SMALL);
 
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
 
-	return true;
+
+#pragma region UI Comented
+	///*GUIImage* img = new GUIImage();
+	////img->SetRectangle(100, 500, 231, 71);
+	////img->SetSection(0, 110, 231, 71);
+	//img->SetRectangle(100, 100, 484, 512);
+	//img->SetSection(0, 513, 484, 512);
+	//img->SetInteractive(true);		   
+	//img->SetCanFocus(true);		
+	//img->SetDraggable(true);
+	//guiList.push_back(img);
+	//img->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);//*/
+
+	//GUILabel* label = new GUILabel();
+	//label->SetInteractive(true);
+	//label->SetCanFocus(true);
+	//label->SetText("Hello World!", DEFAULT);
+	//label->CenterX();
+	//label->SetDraggable(true);
+	//guiList.push_back(label);
+
+
+
+	//GUIImage* minimap = CreateImage({ 1471,726,449,354 }, GB_Rectangle<int> {1128, 12, 1, 1});
+	//guiList.push_back(minimap);
+	//
+	//GUIImage* resourceBar = CreateImage({ 0,0,1, 1}, GB_Rectangle<int> {14, 906, 1312, 46});
+	//guiList.push_back(resourceBar);
+	//
+	//GUIImage* useBar = CreateImage({ 1536,0,1, 1}, GB_Rectangle<int> {13, 719, 959, 179});
+	//guiList.push_back(useBar);
+
+	//GUIImage* saveBar = CreateImage({ 0,901,1, 1 }, GB_Rectangle<int> {680, 656, 384, 45});
+	//guiList.push_back(saveBar);
+
+	//GUIImage* wood = CreateImage({ 150,5,1, 1 }, GB_Rectangle<int> {669,595,54, 52 });
+	//guiList.push_back(wood);
+
+	//GUIImage* food = CreateImage({ 300,5,1, 1 }, GB_Rectangle<int> {724, 594, 56, 53});
+	//guiList.push_back(food);
+
+	//GUIImage* gold = CreateImage({ 450,5,1, 1 }, GB_Rectangle<int> {783, 594, 55, 51});
+	//guiList.push_back(gold);
+
+	//GUIImage* rock = CreateImage({ 600,5,1, 1 }, GB_Rectangle<int> {840, 594, 56, 52});
+	//guiList.push_back(rock);
+
+	//GUIImage* populationLimit = CreateImage({ 750,5,1, 1 }, GB_Rectangle<int> { 929, 596, 54, 34});
+	//guiList.push_back(populationLimit);
+
+	//GUIImage* controlBar = CreateImage({ 0,1080 - 180,1, 1 }, GB_Rectangle<int> { 13, 719, 960, 180});
+	//guiList.push_back(controlBar);
+	//
+	//GUIImage* menuWindow = CreateImage({ 960,200 ,1, 1 }, GB_Rectangle<int> { 669, 12, 457, 577});
+	//guiList.push_back(controlBar);
+	///*
+	////start menu
+
+	//GUIImage* startMenuTittle = CreateImage({ 245,920,1, 1 }, GB_Rectangle<int> { 14, 12, 643, 452});
+	//guiList.push_back(startMenuTittle);
+
+	//	GUIButton* startMenuButton1 = new GUIButton(GB_Rectangle<int>(245, 620, 1, 1),
+	//	GB_Rectangle<int>(14, 481, 305, 43),
+	//	GB_Rectangle<int>(14, 531, 305, 43),
+	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	//guiList.push_back(startMenuButton1);
+
+	//GUIButton* startMenuButton2 = new GUIButton(GB_Rectangle<int>(245, 680, 1, 1),
+	//	GB_Rectangle<int>(14, 481, 305, 43),
+	//	GB_Rectangle<int>(14, 531, 305, 43),
+	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	//guiList.push_back(startMenuButton1);
+
+	//GUIButton* startMenuButton3 = new GUIButton(GB_Rectangle<int>(245, 740, 1, 1),
+	//	GB_Rectangle<int>(14, 481, 305, 43),
+	//	GB_Rectangle<int>(14, 531, 305, 43),
+	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	//guiList.push_back(startMenuButton1);
+
+	//GUIButton* startMenuButton4 = new GUIButton(GB_Rectangle<int>(245, 800, 1, 1),
+	//	GB_Rectangle<int>(14, 481, 305, 43),
+	//	GB_Rectangle<int>(14, 531, 305, 43),
+	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	//guiList.push_back(startMenuButton1);
+
+	//GUIButton* startMenuButton5 = new GUIButton(GB_Rectangle<int>(245, 860, 1, 1),
+	//	GB_Rectangle<int>(14, 481, 305, 43),
+	//	GB_Rectangle<int>(14, 531, 305, 43),
+	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
+	//guiList.push_back(startMenuButton1);
+
+	//	*/ 
+	//	
+	//	//_position, GB_Rectangle<int> _section)
+
+
+	//GUIButton* resourcesMenuButton = new GUIButton(	GB_Rectangle<int>(1920 - 111, 1080 - 82, 111, 82),
+	//												GB_Rectangle<int>(294, 631, 111, 82),
+	//												GB_Rectangle<int>(412, 631, 111, 82),
+	//												GB_Rectangle<int>(540, 631, 111, 82), STANDARD_PRESET, "");
+	//guiList.push_back(resourcesMenuButton);
+
+	//GUIButton* menuButton = new GUIButton(	GB_Rectangle<int>(0, 0, 98, 83),
+	//										GB_Rectangle<int>(336, 531, 98, 83),
+	//										GB_Rectangle<int>(443, 531, 98, 83),
+	//										GB_Rectangle<int>(553, 530, 98, 83), STANDARD_PRESET, "");
+	//guiList.push_back(menuButton);
+
+
+	//
+
+	////GUIInputText * input2 = new GUIInputText();
+	////input2->image->SetRectangle(0, 300, 231, 71);
+	////input2->label->SetLocalPos(0, 300);
+	////input2->SetRectangle(0, 300, 231, 71);
+	////input2->SetActive(true);
+	////guiList.push_back(input2);
+	////guiList.push_back(input2->image);
+	////guiList.push_back(input2->label);
+
+
+	////GUIInputText * input = new GUIInputText();	
+	////input->SetInteractive(false);
+	////guiList.push_back(input);
+	////guiList.push_back(input->image);
+	////guiList.push_back(input->label);
+	////
+	//int flags = ACTIVE;
+	//curs = new GUIMouse({ 0, 0 }, { 994,728, 25, 23 }, flags);
+	////cursor  ------------------------------------------
+	////curs = app->gui->createelement(uicursor, sdl_rect{ 994,728, 25, 23 }, p2point<int>{ 0, 0 },true);
+	////curs->setlistener(this);
+
+
+#pragma endregion
+
+
+
+	return ret;
 }
 update_status M_GUI::PreUpdate(float dt)
 {
@@ -443,6 +559,21 @@ GUIElement * M_GUI::GuiFactory()
 
 	return nullptr;
 }
+/**
+LoadUI: Mark to load UI state on next frame.
+*/
+void M_GUI::LoadUI()
+{
+	mustLoadScene = true;
+}
+
+/**
+SaveUI: Mark to save UI state on next frame.
+*/
+void M_GUI::SaveUI()
+{
+	mustSaveScene = true;
+}
 
 bool M_GUI::GetUIEditing() const
 {
@@ -452,5 +583,49 @@ bool M_GUI::GetUIEditing() const
 void M_GUI::SetUIEditing(bool edit)
 {
 	UIEditing = edit;
+}
+
+bool M_GUI::SaveUINow()
+{
+	bool ret = true;
+
+	LOG("Saving UI.");
+
+	pugi::xml_document data;
+	pugi::xml_node rootN;
+
+	rootN = data.append_child("UI");
+
+	//Making the xml structure
+	pugi::xml_node guiListRoot = rootN.append_child("guiList");
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	{
+		ret = (*it)->Save(guiListRoot);
+	}
+	//ret = root->Save(rootN);
+
+	if (ret == true)
+	{
+		std::stringstream stream;
+		data.save(stream);
+
+		//Serializing ui
+		app->fs->Save("ui.xml", stream.str().c_str(), stream.str().length());
+		LOG("... just saved the UI: ui.xml");
+	}
+	else
+	{
+		LOG("Could not save the scene.");
+	}
+
+	data.reset();
+
+	return ret;
+
+}
+
+bool M_GUI::LoadUINow()
+{
+	return false;
 }
 

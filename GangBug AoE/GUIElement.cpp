@@ -87,6 +87,12 @@ void GUIElement::RemoveListener(Module * moduleToRemove)
 		listeners.erase(it);
 	}	
 }
+bool GUIElement::Save(pugi::xml_node & node) const
+{
+	bool ret = true;
+
+	return false;
+}
 void GUIElement::OnGuiEvent(gui_events eventToReact)
 {
 	if (this->eventsToReact & eventToReact)

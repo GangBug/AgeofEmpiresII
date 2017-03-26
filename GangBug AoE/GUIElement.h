@@ -107,6 +107,12 @@ public:
 	void AddListener(Module* moduleToAdd);
 	void RemoveListener(Module* moduleToRemove);
 
+	bool Save(pugi::xml_node& node) const;
+	//bool Load(pugi::xml_node& node);
+
+	//virtual bool OnSave(pugi::xml_node& node)const;
+	//virtual bool OnLoad(pugi::xml_node* node);
+
 	void OnGuiEvent(gui_events eventToReact);
 
 	//Getters & Setters ·········································· START ···················
