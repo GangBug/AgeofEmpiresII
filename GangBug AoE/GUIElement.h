@@ -94,7 +94,7 @@ public:
 	GUIElement(int flags = NO_FLAGS);
 	virtual ~GUIElement();
 	
-	void Update(const GUIElement* mouseHover, const GUIElement* focus); //Do something	// must implement dt
+	void Update(const GUIElement* mouseHover, const GUIElement* focus, float dt); //Do something	// must implement dt
 	
 	virtual void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus){}
 	virtual void Draw() const {}// Print the element

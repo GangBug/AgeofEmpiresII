@@ -45,9 +45,9 @@ public:
 	void SetAtlas(SDL_Texture* texture);
 
 	//This method is in testing phase
-	void IterateList(std::list<GUIElement*>* list, void (M_GUI::*method)(GUIElement*));
-	void DoElementUpdate(GUIElement* element);
-	void DoElementDraw(GUIElement* element);
+	//void IterateList(std::list<GUIElement*>* list, void (M_GUI::*method)(GUIElement*));
+	//void DoElementUpdate(GUIElement* element, float dt);
+	//void DoElementDraw(GUIElement* element);
 
 	// UI factory
 	// Any create adds the GUIElement into lists, this job

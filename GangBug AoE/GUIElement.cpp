@@ -312,9 +312,18 @@ void GUIElement::Disable()
 {
 	if (status.active)
 	{
-		status.active = false;//TODO: Mustnt change directly active bool. If there is a transition to do, activate it and when is finished, then set status.active to false.
+		//If we have a reaction to use at disable dont set active to false directly, 
+		//send the event and later in the transition set it to false.
+		//If there is no reaction just set active to false
+		if (eventsToReact & DISABLE)
+		{
+			OnGuiEvent(DISABLE);
+		}
+		else
+		{
+			status.active = false;
+		}
 		status.statusChanged = true;
-		OnGuiEvent(DISABLE);
 	}
 }
 void GUIElement::AddAnimationOrTransition(gui_events eventToReact, staticAnim_or_transition animOrTransition)
@@ -383,7 +392,7 @@ void GUIElement::SetSize(int w, int h)
 	status.statusChanged = true;
 }
 
-void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
+void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
 {
 	//TODO: Add dt as a parameter. Animations really need it.
 
@@ -436,7 +445,7 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 			SlideT();
 			break;
 		case T_MOVE_TO_RIGHT:
-			MoveToRightT(1.f/60.f);
+			MoveToRightT(dt);
 			break;
 		}
 
@@ -493,9 +502,10 @@ void GUIElement::MoveToRightT(float dt)
 	{
 		currentTransition = SAT_NONE;
 		drawRect.x = rect.x;
+		status.active = false;
 		return;
 	}
 
-	float speed = 300 * dt;
+	float speed = 600 * dt;
 	drawRect.x += speed;
 }

@@ -36,7 +36,7 @@ bool M_GUI::Start()
 {
 	atlas = app->tex->Load("gui/atlas.png");
 
-	/*GUIImage* img = new GUIImage();
+	GUIImage* img = new GUIImage();
 	//img->SetRectangle(100, 500, 231, 71);
 	//img->SetSection(0, 110, 231, 71);
 	img->SetRectangle(100, 100, 484, 512);
@@ -45,7 +45,7 @@ bool M_GUI::Start()
 	img->SetCanFocus(true);		
 	img->SetDraggable(true);
 	guiList.push_back(img);
-	img->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);//*/
+	img->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);//
 
 	GUILabel* label = new GUILabel();
 	label->SetInteractive(true);
@@ -196,8 +196,21 @@ update_status M_GUI::PreUpdate(float dt)
 
 	//This code depends on UI Edition or not
 	//This is the git gud code...
-	IterateList(&guiList, &M_GUI::DoElementUpdate);
-	IterateList(&debugGuiList, &M_GUI::DoElementUpdate);
+	//IterateList(&guiList, &M_GUI::DoElementUpdate, dt);
+	//IterateList(&debugGuiList, &M_GUI::DoElementUpdate, dt);
+
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	{
+		if ((*it)->GetActive())
+			(*it)->Update(mouseHover, focus, dt);
+	}
+
+	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
+	{
+		if ((*it)->GetActive())
+			(*it)->Update(mouseHover, focus, dt);
+	}
+
 	return ret;
 }
 update_status M_GUI::Update(float dt)
@@ -337,7 +350,12 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
 }
 void M_GUI::Draw()
 {
-	IterateList(&guiList, &M_GUI::DoElementDraw);
+	//IterateList(&guiList, &M_GUI::DoElementDraw);
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	{
+		if ((*it)->GetActive())
+			(*it)->Draw();
+	}
 }
 void M_GUI::DrawEditor()
 {
@@ -369,10 +387,19 @@ void M_GUI::DrawDebug()
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
-		GB_Rectangle<float> rect = (*it)->GetDrawRect();
-		app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
+		if ((*it)->GetActive())
+		{
+			GB_Rectangle<float> rect = (*it)->GetDrawRect();
+			app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
+		}
 	}
-	IterateList(&debugGuiList, &M_GUI::DoElementDraw);
+	//IterateList(&debugGuiList, &M_GUI::DoElementDraw);
+
+	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
+	{
+		if ((*it)->GetActive())
+			(*it)->Draw();
+	}
 }
 SDL_Texture* M_GUI::GetAtlas() const
 {
@@ -383,24 +410,24 @@ void M_GUI::SetAtlas(SDL_Texture * texture)
 	atlas = texture;
 }
 //Experimental methods, I just did this because of yes...
-void M_GUI::IterateList(std::list<GUIElement*>* list, void (M_GUI::*method)(GUIElement*))
+/*void M_GUI::IterateList(std::list<GUIElement*>* list, void (M_GUI::*method)(GUIElement*))
 {
 	for (std::list<GUIElement*>::iterator it = (*list).begin(); it != (*list).end(); it++)
 	{
 		(*this.*method)(*it);
 	}
-}
-void M_GUI::DoElementUpdate(GUIElement * element)
+}*/
+/*void M_GUI::DoElementUpdate(GUIElement * element, float dt)
 {
 	if (element->GetElementStatus().active)
-		element->Update(mouseHover, focus);
+		element->Update(mouseHover, focus, dt);
 	
-}
-void M_GUI::DoElementDraw(GUIElement * element)
+}*/
+/*void M_GUI::DoElementDraw(GUIElement * element)
 {
 	if (element->GetElementStatus().active)
 		element->Draw();
-}
+}*/
 //Experimental methods, I just did this because of yes...
 GUIButton * M_GUI::CreateButton(GB_Rectangle<int> _position, 
 								GB_Rectangle<int> _standBySection, 
