@@ -235,6 +235,41 @@ bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	return ret;
 }
 
+// Blit to screen
+bool M_Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
+{
+	bool ret = true;
+	uint scale = app->win->GetScale();
+
+	SDL_Rect rect;
+	rect.x = (int)(camera.x * speed) + _rect->x * scale;
+	rect.y = (int)(camera.y * speed) + _rect->y * scale;
+
+	rect.w = _rect->w;
+	rect.h = _rect->h;
+
+	rect.w *= scale;
+	rect.h *= scale;
+
+	SDL_Point* p = nullptr;
+	SDL_Point pivot;
+
+	if (pivotX != INT_MAX && pivotY != INT_MAX)
+	{
+		pivot.x = pivotX;
+		pivot.y = pivotY;
+		p = &pivot;
+	}
+
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}
+
 bool M_Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool useCamera, bool useGameViewPort) const
 {
 	bool ret = true;
