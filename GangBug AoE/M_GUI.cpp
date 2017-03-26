@@ -159,16 +159,17 @@ bool M_GUI::Start()
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
 
-	GUIImage* img2 = new GUIImage();
+	img2 = new GUIImage();
 	//img->SetRectangle(100, 500, 231, 71);
 	//img->SetSection(0, 110, 231, 71);
 	img2->SetRectangle(100, 100, 484, 512);
 	img2->SetSection(0, 513, 484, 512);
 	img2->SetInteractive(true);
 	img2->SetCanFocus(true);
-	img2->SetDraggable(true);
+	img2->SetDraggable(false);
 	guiList.push_back(img2);
-	img2->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);
+	img2->AddAnimationOrTransition(MOUSE_ENTERS, T_DROP);
+	img2->AddAnimationOrTransition(ENABLE, T_DROP);
 
 
 #pragma region UI Comented
@@ -325,6 +326,13 @@ update_status M_GUI::PreUpdate(float dt)
 	//This is the git gud code...
 	//IterateList(&guiList, &M_GUI::DoElementUpdate, dt);
 	//IterateList(&debugGuiList, &M_GUI::DoElementUpdate, dt);
+
+	//TMP
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+	{
+		if (img2) img2->Enable();
+	}
+	//---
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{

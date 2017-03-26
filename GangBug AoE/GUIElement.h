@@ -169,16 +169,16 @@ public:
 private:
 	void resize(fPoint newScale);
 
-	void FlashSA();
-	void ShakeSA();
-	void PulseSA();
-	void BounceSA();
+	void FlashSA(float dt);
+	void ShakeSA(float dt);
+	void PulseSA(float dt);
+	void BounceSA(float dt);
 
-	void ScaleT();
-	void FadeT();
-	void DropT();
-	void FlyT();
-	void SlideT();
+	void ScaleT(float dt);
+	void FadeT(float dt);
+	void DropT(float dt);
+	void FlyT(float dt);
+	void SlideT(float dt);
 	void MoveToRightT(float dt);
 
 //protected:
@@ -198,6 +198,8 @@ private:
 	std::map<gui_events, staticAnim_or_transition> transAndAnimations;
 	gui_events eventsToReact = EVENT_NONE;
 	GB_Rectangle<float> drawRect;
+
+	bool mustDisable = false;
 
 protected:
 	std::list<Module*> listeners;
