@@ -153,6 +153,7 @@ public:
 	void SetLClicked(bool l);
 	void SetRClicked(bool r);
 	void SetStatusChanged(bool changed);
+	void SetDrawPosition(float x, float y);
 
 	void Enable();
 	void Disable();

@@ -200,21 +200,23 @@ GB_Rectangle<float> GUIElement::GetDrawRect()const
 
 void GUIElement::SetLocalPos(int x, int y)
 {
+	//Changes this item position and its childs.
 	if (parent)
 	{
 		rect.x = x + parent->GetLocalPos().x;
 		rect.y = y + parent->GetLocalPos().y;
-		drawRect.x = x + parent->GetLocalPos().x;
-		drawRect.y = y + parent->GetLocalPos().y;
 	}
 	else
 	{
 		rect.x = x;
 		rect.y = y;
-		drawRect.x = x;
-		drawRect.y = y;
 	}
+	drawRect.x = rect.x;
+	drawRect.y = rect.y;
 	
+	for (std::list<GUIElement*>::iterator it = childs.begin(); it != childs.end(); ++it)
+		if ((*it)) (*it)->SetLocalPos((*it)->GetLocalPos().x + x, (*it)->GetLocalPos().y + y);
+			
 }
 void GUIElement::SetDraggable(bool _draggable) 
 {
@@ -250,6 +252,7 @@ void GUIElement::SetType(gui_types _type)
 }
 void GUIElement::SetRectangle(GB_Rectangle<int> _rect)
 {
+	//Only modifies this element but doesnt change childs.
 	rect = _rect;
 	drawRect.Set(_rect.x, _rect.y, _rect.w, _rect.h);
 	status.statusChanged = true;
@@ -309,9 +312,16 @@ void GUIElement::Enable()
 {
 	if (!status.active)
 	{
+		if (eventsToReact & ENABLE)
+		{
+			OnGuiEvent(ENABLE);
+		}
+		else
+		{
+			drawRect.Set(rect.x, rect.y, rect.w, rect.h);
+		}
 		status.active = true; 
 		status.statusChanged = true;
-		OnGuiEvent(ENABLE);
 	}
 }
 void GUIElement::Disable()
@@ -389,19 +399,28 @@ void GUIElement::resize(fPoint newScale)
 	fPoint variation = fPoint(scale.x / newScale.x, scale.y / newScale.y);
 	rect.x *= variation.x;
 	rect.y *= variation.y;
+	drawRect.x *= variation.x;
+	drawRect.y *= variation.y;
 	status.statusChanged = true;
 }
 void GUIElement::SetSize(int w, int h)
 {
 	rect.w = w;
 	rect.h = h;
+	drawRect.w = w;
+	drawRect.h = h;
 	status.statusChanged = true;
+}
+void GUIElement::SetDrawPosition(float x, float y)
+{
+	drawRect.Move(x, y);
+
+	for (std::list<GUIElement*>::iterator it = childs.begin(); it != childs.end(); ++it)
+		if ((*it)) (*it)->SetDrawPosition((*it)->drawRect.x + x, (*it)->drawRect.y + y);
 }
 
 void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
 {
-	//TODO: Add dt as a parameter. Animations really need it.
-
 	//When updateing first do the element particular update overrided in each subtype.
 	OnUpdate(mouseHover, focus);
 
@@ -426,7 +445,6 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 			break;
 		}
 		
-		//If the animation has finished set currentStaticAnimation to SAT_NONE.
 	}
 
 	if (currentTransition != SAT_NONE)
@@ -455,7 +473,6 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 			break;
 		}
 
-		//When the transition has ended set currentTransition to SAT_NONE.
 	}
 }
 
@@ -513,5 +530,6 @@ void GUIElement::MoveToRightT(float dt)
 	}
 
 	float speed = 600 * dt;
-	drawRect.x += speed;
+	SetDrawPosition(drawRect.x += speed, drawRect.y);
+	
 }
