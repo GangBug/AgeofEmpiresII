@@ -414,12 +414,7 @@ void Camera::SetZoom(float zoom_percentage)
 	zoom = zoom_percentage;
 }
 
-void Camera::ZoomIn(float percentage)
-{
-	zoom += percentage;
-}
-
-void Camera::ZoomOut(float percentage)
+void Camera::Zoom(float percentage)
 {
 	zoom -= percentage;
 }
@@ -447,15 +442,15 @@ void Camera::FadeToBlack(int secs_to_black, int wait, int secs_to_light)
 	opacity_delta = 255 / frames_to_black;
 }
 
-void Camera::Pan(Entity * entity)
+void Camera::CenterCamUnit(Entity * entity)
 {
 	follow = entity;
-	pan = true;
+	centerCamUnit = true;
 }
 
-void Camera::UnPan()
+void Camera::UnCenterCamUnit()
 {
-	pan = false;
+	centerCamUnit = false;
 }
 
 void Camera::SetCenter(iPoint pos)
@@ -529,6 +524,6 @@ void Camera::UpdateCamera()
 		frames_to_light--;
 	}
 
-	if (pan && follow != nullptr)
+	if (centerCamUnit && follow != nullptr)
 		SetCenter(iPoint(follow->GetX(), follow->GetY()));
 }

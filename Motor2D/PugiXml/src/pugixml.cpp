@@ -3296,9 +3296,9 @@ PUGI__NS_BEGIN
 			bufsize = offset + 6;
 		}
 
-		// utf8 maximum expansion: x4 (-> utf32)
-		// utf16 maximum expansion: x2 (-> utf32)
-		// utf32 maximum expansion: x1
+		// utf8 maximum exCenterCamUnitsion: x4 (-> utf32)
+		// utf16 maximum exCenterCamUnitsion: x2 (-> utf32)
+		// utf32 maximum exCenterCamUnitsion: x1
 		enum
 		{
 			bufcapacitybytes =
@@ -6415,7 +6415,7 @@ PUGI__NS_BEGIN
 	{
 		I eqbeg = middle, eqend = middle + 1;
 
-		// expand equal range
+		// exCenterCamUnitd equal range
 		while (eqbeg != begin && *(eqbeg - 1) == *eqbeg) --eqbeg;
 		while (eqend != end && *eqend == *eqbeg) ++eqend;
 

@@ -92,10 +92,10 @@ bool j1Scene::Update(float dt)
 		App->render->camera->MoveRight(floor(200.0f * dt));
 
 	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-		App->render->camera->ZoomIn();
+		App->render->camera->Zoom(1);
 
 	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
-		App->render->camera->ZoomOut();
+		App->render->camera->Zoom(-1);
 
 	App->map->Draw();
 	

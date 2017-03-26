@@ -25,7 +25,7 @@ private:
 	int frames_in_black;
 	int frames_to_light;
 	int opacity_delta;
-	bool pan;
+	bool centerCamUnit;
 	Entity* follow;
 
 public:
@@ -52,15 +52,14 @@ public:
 
 	void SetZoom(float percentage); //%
 
-	void ZoomIn(float percentage = 1);//percentage per frame
-	void ZoomOut(float percentage = 1);
+	void Zoom(float percentage = 1);//percentage per frame
 
 	SDL_Rect GetZoomedRect(const SDL_Rect &rect) const;
 
 	void FadeToBlack(int secs_to_black, int wait, int secs_to_light);// secs at 60fps
 
-	void Pan(Entity* entity);
-	void UnPan();
+	void CenterCamUnit(Entity* entity);
+	void UnCenterCamUnit();
 	void SetCenter(iPoint pos);
 
 	void UpdateCamera();

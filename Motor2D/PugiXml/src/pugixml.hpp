@@ -128,7 +128,7 @@ namespace pugi
 	// This flag is off by default; turning it on usually results in slower parsing and more memory consumption.
 	const unsigned int parse_ws_pcdata = 0x0008;
 
-	// This flag determines if character and entity references are expanded during parsing. This flag is on by default.
+	// This flag determines if character and entity references are exCenterCamUnitded during parsing. This flag is on by default.
 	const unsigned int parse_escapes = 0x0010;
 
 	// This flag determines if EOL characters are normalized (converted to #xA) during parsing. This flag is on by default.
@@ -159,12 +159,12 @@ namespace pugi
 	const unsigned int parse_fragment = 0x1000;
 
 	// The default parsing mode.
-	// Elements, PCDATA and CDATA sections are added to the DOM tree, character/reference entities are expanded,
+	// Elements, PCDATA and CDATA sections are added to the DOM tree, character/reference entities are exCenterCamUnitded,
 	// End-of-Line characters are normalized, attribute values are normalized using CDATA normalization rules.
 	const unsigned int parse_default = parse_cdata | parse_escapes | parse_wconv_attribute | parse_eol;
 
 	// The full parsing mode.
-	// Nodes of all types are added to the DOM tree, character/reference entities are expanded,
+	// Nodes of all types are added to the DOM tree, character/reference entities are exCenterCamUnitded,
 	// End-of-Line characters are normalized, attribute values are normalized using CDATA normalization rules.
 	const unsigned int parse_full = parse_default | parse_pi | parse_comments | parse_declaration | parse_doctype;
 
@@ -1334,7 +1334,7 @@ namespace std
 #endif
 
 // Make sure implementation is included in header-only mode
-// Use macro expansion in #include to work around QMake (QTBUG-11923)
+// Use macro exCenterCamUnitsion in #include to work around QMake (QTBUG-11923)
 #if defined(PUGIXML_HEADER_ONLY) && !defined(PUGIXML_SOURCE)
 #	define PUGIXML_SOURCE "pugixml.cpp"
 #	include PUGIXML_SOURCE

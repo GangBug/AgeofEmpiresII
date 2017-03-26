@@ -33,10 +33,7 @@ public:
 	virtual void DoAI() = 0;
 	virtual void Draw() = 0;
 
-
 	void Die();//to_delete = true
-
-
 
 	//Geters
 	bool ToDelete() const;
