@@ -102,8 +102,8 @@ void Unit::Update()
 		{
 			this->path_list.clear();
 			App->input->GetMousePosition(destination.x, destination.y);
-			destination.x -= App->render->camera.x;
-			destination.y -= App->render->camera.y;
+			destination.x -=  App->render->camera->GetPosition().x;
+			destination.y -=  App->render->camera->GetPosition().y;
 
 			destin = { destination };
 
@@ -244,7 +244,7 @@ void Unit::Draw()
 		App->render->Blit(tex, GetX() - pivot.x, GetY() - pivot.y, &rect);
 
 	if (this->GetEntityStatus() == E_SELECTED)
-		App->render->DrawCircle(this->GetX() + App->render->camera.x, this->GetY() + App->render->camera.y, this->unit_radius, 255, 255, 255);
+		App->render->DrawCircle(this->GetX() +  App->render->camera->GetPosition().x, this->GetY() + App->render->camera->GetPosition().y, this->unit_radius, 255, 255, 255);
 }
 
 const DIRECTION Unit::GetDir() const
