@@ -34,7 +34,7 @@ bool M_GUI::Awake(pugi::xml_node &)
 }
 bool M_GUI::Start()
 {
-	atlas = app->tex->Load("gui/atlas2.png");
+	atlas = app->tex->Load("gui/atlas.png");
 
 	/*GUIImage* img = new GUIImage();
 	//img->SetRectangle(100, 500, 231, 71);
@@ -369,7 +369,7 @@ void M_GUI::DrawDebug()
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
-		GB_Rectangle<int> rect = (*it)->GetLocalRect();
+		GB_Rectangle<float> rect = (*it)->GetDrawRect();
 		app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
 	}
 	IterateList(&debugGuiList, &M_GUI::DoElementDraw);

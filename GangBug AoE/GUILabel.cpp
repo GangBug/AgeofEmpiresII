@@ -60,7 +60,7 @@ void GUILabel::Draw() const
 {
 	if (texture != nullptr)
 	{
-		GB_Rectangle<int> rect = GetLocalRect();
+		GB_Rectangle<float> rect = GetDrawRect();
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 		app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
 	}

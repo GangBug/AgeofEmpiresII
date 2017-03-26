@@ -26,7 +26,7 @@ void GUIImage::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus)
 
 void GUIImage::Draw() const
 {
-	app->render->Blit(atlas, GetLocalRect().x, GetLocalRect().y, &GetSection().GetSDLrect());
+	app->render->Blit(atlas, GetDrawPosition().x, GetDrawPosition().y, &GetSection().GetSDLrect());
 }
 
 GB_Rectangle<int> GUIImage::GetSection() const
