@@ -4,7 +4,7 @@
 
 #include "M_Window.h"
 
-GUIElement::GUIElement(int flags) : rect(0,0,0,0), logicalRect(0.f, 0.f, 0.f, 0.f)
+GUIElement::GUIElement(int flags) : rect(0,0,0,0), drawRect(0.f, 0.f, 0.f, 0.f)
 {
 	if (flags & DRAGGABLE)
 		SetDraggable(true);
@@ -189,6 +189,14 @@ ElementStatus GUIElement::GetElementStatus() const
 {
 	return status;
 }
+iPoint GUIElement::GetDrawPosition()const
+{
+	return iPoint(drawRect.x, drawRect.y);
+}
+GB_Rectangle<float> GUIElement::GetDrawRect()const
+{
+	return drawRect;
+}
 
 void GUIElement::SetLocalPos(int x, int y)
 {
@@ -196,15 +204,15 @@ void GUIElement::SetLocalPos(int x, int y)
 	{
 		rect.x = x + parent->GetLocalPos().x;
 		rect.y = y + parent->GetLocalPos().y;
-		logicalRect.x = x + parent->GetLocalPos().x;
-		logicalRect.y = y + parent->GetLocalPos().y;
+		drawRect.x = x + parent->GetLocalPos().x;
+		drawRect.y = y + parent->GetLocalPos().y;
 	}
 	else
 	{
 		rect.x = x;
 		rect.y = y;
-		logicalRect.x = x;
-		logicalRect.y = y;
+		drawRect.x = x;
+		drawRect.y = y;
 	}
 	
 }
@@ -243,7 +251,7 @@ void GUIElement::SetType(gui_types _type)
 void GUIElement::SetRectangle(GB_Rectangle<int> _rect)
 {
 	rect = _rect;
-	logicalRect.Set(_rect.x, _rect.y, _rect.w, _rect.h);
+	drawRect.Set(_rect.x, _rect.y, _rect.w, _rect.h);
 	status.statusChanged = true;
 }
 void GUIElement::SetRectangle(int x, int y, int w, int h)
@@ -252,7 +260,7 @@ void GUIElement::SetRectangle(int x, int y, int w, int h)
 	rect.y = y;
 	rect.w = w;
 	rect.h = h;
-	logicalRect.Set(x, y, w, h);
+	drawRect.Set(x, y, w, h);
 	status.statusChanged = true;
 }
 void GUIElement::SetMouseInside(bool ins)
@@ -310,9 +318,18 @@ void GUIElement::Disable()
 {
 	if (status.active)
 	{
-		status.active = false;//TODO: Mustnt change directly active bool. If there is a transition to do, activate it and when is finished, then set status.active to false.
+		//If we have a reaction to use at disable dont set active to false directly, 
+		//send the event and later in the transition set it to false.
+		//If there is no reaction just set active to false
+		if (eventsToReact & DISABLE)
+		{
+			OnGuiEvent(DISABLE);
+		}
+		else
+		{
+			status.active = false;
+		}
 		status.statusChanged = true;
-		OnGuiEvent(DISABLE);
 	}
 }
 void GUIElement::AddAnimationOrTransition(gui_events eventToReact, staticAnim_or_transition animOrTransition)
@@ -381,7 +398,7 @@ void GUIElement::SetSize(int w, int h)
 	status.statusChanged = true;
 }
 
-void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
+void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
 {
 	//TODO: Add dt as a parameter. Animations really need it.
 
@@ -434,7 +451,7 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus)
 			SlideT();
 			break;
 		case T_MOVE_TO_RIGHT:
-			MoveToRightT(1.f/60.f);
+			MoveToRightT(dt);
 			break;
 		}
 
@@ -485,15 +502,16 @@ void GUIElement::MoveToRightT(float dt)
 {
 	static int screenRXBorderPos = app->win->GetWindowSize().x;
 
-	int dif = screenRXBorderPos - (logicalRect.x + rect.w);
+	int dif = screenRXBorderPos - (drawRect.x + rect.w);
 
 	if (dif <= 0)
 	{
 		currentTransition = SAT_NONE;
+		drawRect.x = rect.x;
+		status.active = false;
 		return;
 	}
 
-	float speed = 300 * dt;
-	logicalRect.x += speed;
-	SetRectangle(logicalRect.x, rect.y, rect.w, rect.h);
+	float speed = 600 * dt;
+	drawRect.x += speed;
 }

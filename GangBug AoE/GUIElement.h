@@ -94,7 +94,7 @@ public:
 	GUIElement(int flags = NO_FLAGS);
 	virtual ~GUIElement();
 	
-	void Update(const GUIElement* mouseHover, const GUIElement* focus); //Do something	// must implement dt
+	void Update(const GUIElement* mouseHover, const GUIElement* focus, float dt); //Do something	// must implement dt
 	
 	virtual void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus){}
 	virtual void Draw() const {}// Print the element
@@ -134,6 +134,8 @@ public:
 	bool GetLClicked() const;
 	bool GetRClicked() const;
 	ElementStatus GetElementStatus() const;
+	iPoint GetDrawPosition()const;
+	GB_Rectangle<float> GetDrawRect()const;
 
 	void SetLocalPos(int x, int y);
 	void SetSize(int w, int h);
@@ -194,7 +196,7 @@ private:
 	staticAnim_or_transition currentTransition = SAT_NONE;
 	std::map<gui_events, staticAnim_or_transition> transAndAnimations;
 	gui_events eventsToReact = EVENT_NONE;
-	GB_Rectangle<float> logicalRect;
+	GB_Rectangle<float> drawRect;
 
 protected:
 	std::list<Module*> listeners;
