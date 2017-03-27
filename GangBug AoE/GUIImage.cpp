@@ -22,7 +22,7 @@ GUIImage::~GUIImage()
 {
 }
 
-void GUIImage::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus)
+void GUIImage::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)
 {
 	if (GetDraggable() && GetLClicked())
 	{

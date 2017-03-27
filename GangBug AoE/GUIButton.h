@@ -18,7 +18,7 @@ public:
 	GUIButton(const GUIButton &btn, int flags = STANDARD_PRESET);
 	~GUIButton();
 
-	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus) override;
+	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt) override;
 	void Draw() const override;
 	GUIImage* image = nullptr;
 	GUILabel* label = nullptr;

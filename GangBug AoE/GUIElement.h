@@ -96,7 +96,7 @@ public:
 	
 	void Update(const GUIElement* mouseHover, const GUIElement* focus, float dt); //Do something	// must implement dt
 	
-	virtual void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus){}
+	virtual void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt){}
 	virtual void Draw() const {}// Print the element
 	virtual void DebugDraw() const {} // Print debug things if the element
 	void CheckInput(const GUIElement* mouseHover, const GUIElement* focus); //Getting the input
