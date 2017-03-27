@@ -17,7 +17,7 @@ public:
 	~GUIAutoLabel()
 	{
 	}
-	void OnUpdate(const GUIElement * mouseHover, const GUIElement * focus)
+	void OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)override
 	{
 		std::string str = std::to_string(*watchingVar);
 		SetText(str.c_str(), MEDIUM);

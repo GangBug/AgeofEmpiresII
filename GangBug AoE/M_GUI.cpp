@@ -81,7 +81,7 @@ bool M_GUI::Start()
 	img2->SetCanFocus(true);
 	img2->SetDraggable(false);
 	guiList.push_back(img2);
-	img2->AddAnimationOrTransition(MOUSE_ENTERS, T_DROP);
+	img2->AddAnimationOrTransition(MOUSE_LCLICK_DOWN, T_SCALE);
 	//img2->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);
 	img2->AddAnimationOrTransition(ENABLE, T_SCALE);
 
