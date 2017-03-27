@@ -281,6 +281,7 @@ update_status M_GUI::PostUpdate(float dt)
 	}
 	return UPDATE_CONTINUE;
 }
+//TODO: LoadLayout needs lots of improvements...
 bool M_GUI::LoadLayout()
 {
 	bool ret = true;
@@ -475,6 +476,7 @@ bool M_GUI::LoadLayout()
 	}
 	return ret;
 }
+//TODO: SaveLayout needs lots of improvements...
 bool M_GUI::SaveLayout()
 {
 	bool ret = true;
