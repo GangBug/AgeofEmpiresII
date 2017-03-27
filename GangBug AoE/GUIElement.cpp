@@ -439,7 +439,7 @@ void GUIElement::SetPresetType(std::string str)
 void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
 {
 	//When updateing first do the element particular update overrided in each subtype.
-	OnUpdate(mouseHover, focus);
+	OnUpdate(mouseHover, focus, dt);
 
 	//Then process the animations and transitions.
 	if (currentStaticAnimation != SAT_NONE)
@@ -512,7 +512,34 @@ void GUIElement::BounceSA(float dt)
 
 void GUIElement::ScaleT(float dt)
 {
-	currentTransition = SAT_NONE;
+	float speed;
+
+	if (mustDisable)
+	{
+		if (drawRect.w <= rect.w * 0.2 || drawRect.h <= rect.h * 0.2)
+		{
+			currentTransition = SAT_NONE;
+			status.active = false;
+			mustDisable = false;
+			return;
+		}
+		speed = 500 * dt;
+	}
+	else
+	{
+		if (/*drawRect.x <= rect.x || drawRect.y <= rect.y ||*/ drawRect.w >= rect.w || drawRect.h >= rect.h)
+		{
+			currentTransition = SAT_NONE;
+			drawRect.Set(rect.x, rect.y, rect.w, rect.h);
+			return;
+		}
+		speed = -500 * dt;
+	}
+
+	drawRect.x += speed/2;
+	drawRect.y += speed/2;
+	drawRect.w -= speed;
+	drawRect.h -= speed;	
 }
 void GUIElement::FadeT(float dt)
 {
@@ -545,8 +572,7 @@ void GUIElement::DropT(float dt)
 		else
 		{
 			currentTransition = SAT_NONE;
-			drawRect.w = rect.w;
-			drawRect.h = rect.h;
+			drawRect.Set(rect.x, rect.y, rect.w, rect.h);
 			return;
 		}
 	}
@@ -566,17 +592,35 @@ void GUIElement::MoveToRightT(float dt)
 {
 	static int screenRXBorderPos = app->win->GetWindowSize().x;
 
-	int dif = screenRXBorderPos - (drawRect.x + rect.w);
+	float speed;
 
-	if (dif <= 0)
+	if (mustDisable)
 	{
-		currentTransition = SAT_NONE;
-		drawRect.x = rect.x;
-		status.active = false;
-		return;
-	}
+		int dif = screenRXBorderPos - (drawRect.x + rect.w);
 
-	float speed = 600 * dt;
+		if (dif <= 0)
+		{
+			currentTransition = SAT_NONE;
+			status.active = false;
+			mustDisable = false;
+			return;
+		}
+
+		speed = 600 * dt;
+	}
+	else
+	{
+		int dif = rect.x - drawRect.x;
+
+		if (dif >= 0)
+		{
+			currentTransition = SAT_NONE;
+			drawRect.Set(rect.x, rect.y, rect.w, rect.h);
+			return;
+		}
+
+		speed = -600 * dt;
+	}
+		
 	SetDrawPosition(drawRect.x += speed, drawRect.y);
-	
 }

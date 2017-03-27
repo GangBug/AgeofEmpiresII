@@ -9,7 +9,7 @@ public:
 	GUIImage(const GUIImage &img, int flags = STANDARD_PRESET);
 	virtual ~GUIImage();
 
-	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus) override;
+	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt) override;
 	void Draw() const;
 
 	GB_Rectangle<int> GetSection() const;
