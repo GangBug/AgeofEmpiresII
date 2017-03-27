@@ -219,18 +219,7 @@ bool M_GUI::Start()
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
 
-<<<<<<< HEAD
-	//GUIImage* img2 = new GUIImage();
-	////img->SetRectangle(100, 500, 231, 71);
-	////img->SetSection(0, 110, 231, 71);
-	//img2->SetRectangle(100, 100, 484, 512);
-	//img2->SetSection(0, 513, 484, 512);
-	//img2->SetInteractive(true);
-	//img2->SetCanFocus(true);
-	//img2->SetDraggable(true);
-	//guiList.push_back(img2);
-	//img2->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);
-=======
+
 	img2 = new GUIImage();
 	//img->SetRectangle(100, 500, 231, 71);
 	//img->SetSection(0, 110, 231, 71);
@@ -242,7 +231,6 @@ bool M_GUI::Start()
 	guiList.push_back(img2);
 	img2->AddAnimationOrTransition(MOUSE_ENTERS, T_DROP);
 	img2->AddAnimationOrTransition(ENABLE, T_DROP);
->>>>>>> origin/master
 
 
 #pragma region UI Comented
