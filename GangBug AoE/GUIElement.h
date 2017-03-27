@@ -136,6 +136,7 @@ public:
 	ElementStatus GetElementStatus() const;
 	iPoint GetDrawPosition()const;
 	GB_Rectangle<float> GetDrawRect()const;
+	std::string GetPresetType() const;
 
 	void SetLocalPos(int x, int y);
 	void SetSize(int w, int h);
@@ -154,6 +155,7 @@ public:
 	void SetRClicked(bool r);
 	void SetStatusChanged(bool changed);
 	void SetDrawPosition(float x, float y);
+	void SetPresetType(std::string str);
 
 	void Enable();
 	void Disable();
@@ -196,6 +198,7 @@ private:
 	staticAnim_or_transition currentStaticAnimation = SAT_NONE;
 	staticAnim_or_transition currentTransition = SAT_NONE;
 	std::map<gui_events, staticAnim_or_transition> transAndAnimations;
+	std::string presetName;
 	gui_events eventsToReact = EVENT_NONE;
 	GB_Rectangle<float> drawRect;
 

@@ -39,8 +39,15 @@ bool M_FileSystem::Awake(pugi::xml_node& config)
 	}
 
 	// Ask SDL for a write dir
-	char* write_path = SDL_GetPrefPath(app->GetOrganization(), app->GetTitle());
-
+	char* write_path;
+	if (app->debug)
+	{
+		write_path = "./data/";
+	}
+	else
+	{
+		write_path = SDL_GetPrefPath(app->GetOrganization(), app->GetTitle());
+	}
 	if(PHYSFS_setWriteDir(write_path) == 0)
 		LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
 	else

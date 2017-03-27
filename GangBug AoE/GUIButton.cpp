@@ -51,6 +51,7 @@ GUIButton::GUIButton(const GUIButton & btn, int flags) : GUIElement(flags)
 GUIButton::~GUIButton()
 {
 }
+
 void GUIButton::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus)
 {
 	if (GetElementStatus().active)

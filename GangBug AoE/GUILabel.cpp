@@ -13,7 +13,7 @@ GUILabel::GUILabel(int flags) : GUIElement(flags)
 	SetType(GUI_LABEL);
 	texture = nullptr;
 }
-GUILabel::GUILabel(const char * text, label_size _size) : GUIElement()
+GUILabel::GUILabel(const char * text, label_size _size, int flags) : GUIElement(flags)
 {
 	SetText(text, _size);
 	SetType(gui_types::GUI_LABEL);

@@ -13,7 +13,7 @@ class GUILabel :
 {
 public:
 	GUILabel(int flags = STANDARD_PRESET);
-	GUILabel(const char* text, label_size _size);
+	GUILabel(const char* text, label_size _size, int flags = STANDARD_PRESET);
 	virtual ~GUILabel();
 
 	void SetText(const char* text, label_size _size);

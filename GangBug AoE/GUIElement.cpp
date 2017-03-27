@@ -204,6 +204,11 @@ GB_Rectangle<float> GUIElement::GetDrawRect()const
 	return drawRect;
 }
 
+std::string GUIElement::GetPresetType() const
+{
+	return presetName;
+}
+
 void GUIElement::SetLocalPos(int x, int y)
 {
 	//Changes this item position and its childs.
@@ -426,6 +431,11 @@ void GUIElement::SetDrawPosition(float x, float y)
 		if ((*it)) (*it)->SetDrawPosition((*it)->drawRect.x + x, (*it)->drawRect.y + y);
 }
 
+void GUIElement::SetPresetType(std::string str)
+{
+	presetName = str;
+}
+
 void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
 {
 	//When updateing first do the element particular update overrided in each subtype.
@@ -482,8 +492,6 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 
 	}
 }
-
-
 
 void GUIElement::FlashSA(float dt)
 {

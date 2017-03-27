@@ -30,7 +30,8 @@
   </window>
 
   <file_system>
-    <path>data.zip</path>
+    <path>data</path>
+    <path>data.zip</path>    
   </file_system>
 
   <map>

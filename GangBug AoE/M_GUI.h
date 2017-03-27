@@ -24,6 +24,9 @@ public:
 	update_status Update(float dt) override;
 	update_status PostUpdate(float dt) override;
 
+	bool LoadLayout();
+	bool SaveLayout();
+
 	//Not implemented
 	bool UpdateGuiList();
 	//Not implemented

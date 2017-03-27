@@ -43,157 +43,8 @@ bool M_GUI::Start()
 	//TODO 1: Load atlas
 	atlas = app->tex->Load("gui/atlas2.png");
 
+	ret = LoadLayout();
 	
-	LOG("Loading UI xml");
-	char* buffer = nullptr;
-	char path[256];
-	//sprintf_s(path, 256, "%sui.xml", app->fs->GetSaveDirectory());
-	uint size = app->fs->Load("gui/gui.xml", &buffer);
-	if (size > 0 && buffer != nullptr)
-	{
-		LOG("Loading scene.");
-
-		pugi::xml_document data;
-		pugi::xml_node root;
-
-		pugi::xml_parse_result result = data.load_buffer(buffer, size);
-		RELEASE(buffer);
-
-		if (result != NULL)
-		{
-			root = data.child("gui").child("elements");
-			pugi::xml_node buttons = root.child("buttons");
-			pugi::xml_node imgs = root.child("imgs");
-			//TODO 2: Load UI presets
-			//Loading button presets
-			for (pugi::xml_node it = buttons.first_child(); it != NULL; it = it.next_sibling())
-			{
-				std::string name = it.attribute("type_name").as_string();
-				pugi::xml_object_range<pugi::xml_node_iterator> sections = it.child("sections").children();
-
-				GB_Rectangle<int> stb;
-				GB_Rectangle<int> hov;
-				GB_Rectangle<int> clk;
-				for (pugi::xml_node_iterator it_sections = sections.begin(); it_sections != sections.end(); it_sections++)
-				{
-					int flag = 0;
-					if (!strcmp(it_sections->attribute("type").value(), "standBy"))
-						flag = (1 << 1);
-					else if (!strcmp((*it_sections).attribute("type").value(), "hover"))
-						flag = (1 << 2);
-					else if (!strcmp((*it_sections).attribute("type").value(), "clicked"))
-						flag = (1 << 3);
-
-					switch (flag)
-					{
-						case 2:
-							stb.x = (*it_sections).attribute("x").as_int();
-							stb.y = (*it_sections).attribute("y").as_int();
-							stb.w = (*it_sections).attribute("w").as_int();
-							stb.h = (*it_sections).attribute("h").as_int();
-							break;
-						case 4:
-							hov.x = (*it_sections).attribute("x").as_int();
-							hov.y = (*it_sections).attribute("y").as_int();
-							hov.w = (*it_sections).attribute("w").as_int();
-							hov.h = (*it_sections).attribute("h").as_int();
-							break;
-						case 8:
-							clk.x = (*it_sections).attribute("x").as_int();
-							clk.y = (*it_sections).attribute("y").as_int();
-							clk.w = (*it_sections).attribute("w").as_int();
-							clk.h = (*it_sections).attribute("h").as_int();
-							break;
-						default:
-							ret = false;
-							break;
-					}
-				}
-				GUIButton* btn = CreateButton({ 0,0,stb.w,stb.h }, stb, hov, clk);
-				GuiPresets.insert(std::pair<std::string, GUIElement*>(name, btn));
-			}
-
-			//Loading image presets
-			for (pugi::xml_node it = imgs.first_child(); it != NULL; it = it.next_sibling())
-			{
-				std::string name = it.attribute("type_name").as_string();
-				pugi::xml_node section = it.child("section");
-
-				GB_Rectangle<int> stb;
-				if (!strcmp(section.attribute("type").as_string(), "standBy"))
-				{
-					stb.x = section.attribute("x").as_int();
-					stb.y = section.attribute("y").as_int();
-					stb.w = section.attribute("w").as_int();
-					stb.h = section.attribute("h").as_int();
-				}
-				else
-				{
-					ret = false;
-				}
-				GUIImage* img = CreateImage({ 0,0,stb.w,stb.h }, stb);
-				GuiPresets.insert(std::pair<std::string, GUIElement*>(name, img));
-			}
-
-			//TODO: Make label presets makes no sense for me, any other new GUI presset goes here, but for the moment
-			//		only 3 Gui items are implemented Label, Image and Button...
-			// bla bla some preset SLIDER
-			// bla bla some preset LIFEBAR
-			// NEWER PRESETS go here
-			
-			//TODO 3: Load UI layout
-			root = data.child("gui").child("layout");
-			pugi::xml_object_range<pugi::xml_node_iterator> elements = root.children();
-			for (pugi::xml_node_iterator it_elements = elements.begin();
-				 it_elements != elements.end(); it_elements++)
-			{
-				if (!strcmp(it_elements->name(), "button"))
-				{
-					GB_Rectangle<int> rect;
-					rect.x = it_elements->child("position").attribute("x").as_int();
-					rect.y = it_elements->child("position").attribute("y").as_int();
-					rect.w = it_elements->child("size").attribute("w").as_int();
-					rect.h = it_elements->child("size").attribute("h").as_int();
-					std::string name = it_elements->attribute("type").value();
-					GUIButton* btn = CreateButtonFromPreset(rect, name);
-					guiList.push_back(btn);
-					LOG("Item %s created", (*it_elements).name());
-				}
-				else if (!strcmp(it_elements->name(), "img"))
-				{
-					GB_Rectangle<int> rect;
-					rect.x = it_elements->child("position").attribute("x").as_int();
-					rect.y = it_elements->child("position").attribute("y").as_int();
-					rect.w = it_elements->child("size").attribute("w").as_int();
-					rect.h = it_elements->child("size").attribute("h").as_int();
-					std::string name = it_elements->attribute("type").value();
-					GUIImage* img = CreateImageFromPreset(rect, name);
-					guiList.push_back(img);
-					LOG("Item %s created", (*it_elements).name());
-				}
-				//Newer types of GUI elements to load go here
-			}
-
-			data.reset();
-			if (ret == true)
-			{
-				LOG("... ui loaded with succes.");
-			}
-			else
-			{
-				LOG("ERROR: ...loading ui process had an error.");
-			}
-			
-		}
-		else
-		{
-			LOG("Could not parse ui xml.");
-		}
-	}
-	else
-	{
-		LOG("Could not load ui.xml");
-	}
 	
 
 	//GUIImage* img = CreateImage({ 0, 100, 328, 103 }, { 485, 829, 328, 103 });
@@ -206,12 +57,12 @@ bool M_GUI::Start()
 	//guiList.push_back(img_big);
 
 	////Debug UI
-	//lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms);
-	//fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update);
-	//debugGuiList.push_back(lastFrameMS);
-	//debugGuiList.push_back(fps);
-	//debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
-	//debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
+	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms);
+	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update);
+	debugGuiList.push_back(lastFrameMS);
+	debugGuiList.push_back(fps);
+	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
+	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
 
 	xMouse = new GUILabel("", SMALL);
 	yMouse = new GUILabel("", SMALL);
@@ -417,7 +268,229 @@ update_status M_GUI::Update(float dt)
 }
 update_status M_GUI::PostUpdate(float dt)
 {
+	if (UIEditing && app->input->GetKey(SDL_SCANCODE_2) == key_state::KEY_UP)
+	{
+		bool ret = SaveLayout();
+		if (!ret)
+		{
+			LOG("Error loading ui.xml");
+			return UPDATE_ERROR;
+		}
+	}
 	return UPDATE_CONTINUE;
+}
+bool M_GUI::LoadLayout()
+{
+	bool ret = true;
+
+	LOG("Loading UI xml");
+	char* buffer = nullptr;
+	char path[256];
+	//sprintf_s(path, 256, "%sui.xml", app->fs->GetSaveDirectory());
+	uint size = app->fs->Load("gui/gui.xml", &buffer);
+	if (size > 0 && buffer != nullptr)
+	{
+		LOG("Loading scene.");
+
+		pugi::xml_document data;
+		pugi::xml_node root;
+
+		pugi::xml_parse_result result = data.load_buffer(buffer, size);
+		RELEASE(buffer);
+
+		if (result != NULL)
+		{
+			root = data.child("gui").child("elements");
+			pugi::xml_node buttons = root.child("buttons");
+			pugi::xml_node imgs = root.child("imgs");
+			//TODO 2: Load UI presets
+			//Loading button presets
+			for (pugi::xml_node it = buttons.first_child(); it != NULL; it = it.next_sibling())
+			{
+				std::string name = it.attribute("type_name").as_string();
+				pugi::xml_object_range<pugi::xml_node_iterator> sections = it.child("sections").children();
+
+				GB_Rectangle<int> stb;
+				GB_Rectangle<int> hov;
+				GB_Rectangle<int> clk;
+				for (pugi::xml_node_iterator it_sections = sections.begin(); it_sections != sections.end(); it_sections++)
+				{
+					int flag = 0;
+					if (!strcmp(it_sections->attribute("type").value(), "standBy"))
+						flag = (1 << 1);
+					else if (!strcmp((*it_sections).attribute("type").value(), "hover"))
+						flag = (1 << 2);
+					else if (!strcmp((*it_sections).attribute("type").value(), "clicked"))
+						flag = (1 << 3);
+
+					switch (flag)
+					{
+						case 2:
+							stb.x = (*it_sections).attribute("x").as_int();
+							stb.y = (*it_sections).attribute("y").as_int();
+							stb.w = (*it_sections).attribute("w").as_int();
+							stb.h = (*it_sections).attribute("h").as_int();
+							break;
+						case 4:
+							hov.x = (*it_sections).attribute("x").as_int();
+							hov.y = (*it_sections).attribute("y").as_int();
+							hov.w = (*it_sections).attribute("w").as_int();
+							hov.h = (*it_sections).attribute("h").as_int();
+							break;
+						case 8:
+							clk.x = (*it_sections).attribute("x").as_int();
+							clk.y = (*it_sections).attribute("y").as_int();
+							clk.w = (*it_sections).attribute("w").as_int();
+							clk.h = (*it_sections).attribute("h").as_int();
+							break;
+						default:
+							ret = false;
+							break;
+					}
+				}
+				GUIButton* btn = CreateButton({ 0,0,stb.w,stb.h }, stb, hov, clk);
+				GuiPresets.insert(std::pair<std::string, GUIElement*>(name, btn));
+			}
+
+			//Loading image presets
+			for (pugi::xml_node it = imgs.first_child(); it != NULL; it = it.next_sibling())
+			{
+				std::string name = it.attribute("type_name").as_string();
+				pugi::xml_node section = it.child("section");
+
+				GB_Rectangle<int> stb;
+				if (!strcmp(section.attribute("type").as_string(), "standBy"))
+				{
+					stb.x = section.attribute("x").as_int();
+					stb.y = section.attribute("y").as_int();
+					stb.w = section.attribute("w").as_int();
+					stb.h = section.attribute("h").as_int();
+				}
+				else
+				{
+					ret = false;
+				}
+				GUIImage* img = CreateImage({ 0,0,stb.w,stb.h }, stb);
+				GuiPresets.insert(std::pair<std::string, GUIElement*>(name, img));
+			}
+
+			//TODO: Make label presets makes no sense for me, any other new GUI presset goes here, but for the moment
+			//		only 3 Gui items are implemented Label, Image and Button...
+			// bla bla some preset SLIDER
+			// bla bla some preset LIFEBAR
+			// NEWER PRESETS go here
+
+			//TODO 3: Load UI layout
+			root = data.child("gui").child("layout");
+			pugi::xml_object_range<pugi::xml_node_iterator> elements = root.children();
+			for (pugi::xml_node_iterator it_elements = elements.begin();
+				 it_elements != elements.end(); it_elements++)
+			{
+				if (!strcmp(it_elements->name(), "button"))
+				{
+					GB_Rectangle<int> rect;
+					rect.x = it_elements->child("position").attribute("x").as_int();
+					rect.y = it_elements->child("position").attribute("y").as_int();
+					rect.w = it_elements->child("size").attribute("w").as_int();
+					rect.h = it_elements->child("size").attribute("h").as_int();
+					std::string name = it_elements->attribute("type").as_string();
+					GUIButton* btn = CreateButtonFromPreset(rect, name);
+					guiList.push_back(btn);
+					LOG("Item %s created", (*it_elements).name());
+				}
+				else if (!strcmp(it_elements->name(), "img"))
+				{
+					GB_Rectangle<int> rect;
+					rect.x = it_elements->child("position").attribute("x").as_int();
+					rect.y = it_elements->child("position").attribute("y").as_int();
+					rect.w = it_elements->child("size").attribute("w").as_int();
+					rect.h = it_elements->child("size").attribute("h").as_int();
+					std::string name = it_elements->attribute("type").as_string();
+					GUIImage* img = CreateImageFromPreset(rect, name);
+					guiList.push_back(img);
+					LOG("Item %s created", (*it_elements).name());
+				}
+				else if (!strcmp(it_elements->name(), "label"))
+				{
+					GB_Rectangle<int> rect;
+					rect.x = it_elements->child("position").attribute("x").as_int();
+					rect.y = it_elements->child("position").attribute("y").as_int();
+					label_size size = (label_size)it_elements->attribute("size").as_int();
+					std::string txt = it_elements->attribute("text").as_string();
+					GUILabel* lb = CreateLabel(rect, size, txt.c_str());
+					guiList.push_back(lb);
+					LOG("Item %s created", (*it_elements).name());
+				}
+				//Newer types of GUI elements to load go here
+			}
+
+			data.reset();
+			if (ret == true)
+			{
+				LOG("... ui loaded with succes.");
+			}
+			else
+			{
+				LOG("ERROR: ...loading ui process had an error.");
+			}
+
+		}
+		else
+		{
+			LOG("Could not parse ui xml.");
+		}
+	}
+	else
+	{
+		LOG("Could not load ui.xml");
+	}
+	return ret;
+}
+bool M_GUI::SaveLayout()
+{
+	bool ret = true;
+
+	LOG("Loading UI xml");
+	char* buffer = nullptr;
+
+	pugi::xml_document data;
+	pugi::xml_node root = data.append_child("layout");
+
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	{
+		switch ((*it)->GetType())
+		{
+			case GUI_UNKNOWN:
+				break;
+			case GUI_IMAGE:
+				//pugi::xml_node img = root.append_child("img");
+				//img.append_attribute("type");
+				break;
+			case GUI_LABEL:
+				break;
+			case GUI_BUTTON:
+				break;
+			case GUI_INPUT_TEXT:
+				break;
+			case GUI_LOAD_BAR:
+				break;
+			case GUI_H_SLIDER:
+				break;
+			case GUI_V_SLIDER:
+				break;
+			case GUI_MOUSE_CURSOR:
+				break;
+			case GUI_RECT:
+				break;
+			default:
+				break;
+		}
+	}
+
+
+	
+
+	return ret;
 }
 bool M_GUI::UpdateGuiList()
 {
@@ -637,6 +710,7 @@ GUIButton * M_GUI::CreateButtonFromPreset(GB_Rectangle<int> _position, std::stri
 {
 	GUIButton* btn_preset = (GUIButton*)GuiPresets.find(preset)->second;
 	GUIButton* btn = new GUIButton(*btn_preset);
+	btn->SetPresetType(preset);
 	btn->SetRectangle(_position);
 	btn->image->SetRectangle(_position);
 	return btn;
@@ -652,7 +726,6 @@ GUILabel * M_GUI::CreateLabel(GB_Rectangle<int> _position, label_size _size, con
 	{
 		label = new GUILabel();
 	}
-	label->SetRectangle(_position);
 	label->SetLocalPos(_position.x, _position.y);
 	return label;
 }
@@ -664,11 +737,11 @@ GUIImage * M_GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _se
 
 	return image;
 }
-
 GUIImage * M_GUI::CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset)
 {
 	GUIImage* img_preset = (GUIImage*)GuiPresets.find(preset)->second;
 	GUIImage* img = new GUIImage(*img_preset);
+	img->SetPresetType(preset);
 	img->SetRectangle(_position);
 
 	return img;
@@ -690,7 +763,6 @@ void M_GUI::LoadUI()
 {
 	mustLoadScene = true;
 }
-
 /**
 SaveUI: Mark to save UI state on next frame.
 */
@@ -698,56 +770,22 @@ void M_GUI::SaveUI()
 {
 	mustSaveScene = true;
 }
-
 bool M_GUI::GetUIEditing() const
 {
 	return UIEditing;
 }
-
 void M_GUI::SetUIEditing(bool edit)
 {
 	UIEditing = edit;
 }
-
+//TODO: Dont know if i'll implement it... With a simple SaveLayout() its enough
 bool M_GUI::SaveUINow()
 {
 	bool ret = true;
 
-	LOG("Saving UI.");
-
-	pugi::xml_document data;
-	pugi::xml_node rootN;
-
-	rootN = data.append_child("UI");
-
-	//Making the xml structure
-	pugi::xml_node guiListRoot = rootN.append_child("guiList");
-	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
-	{
-		ret = (*it)->Save(guiListRoot);
-	}
-	//ret = root->Save(rootN);
-
-	if (ret == true)
-	{
-		std::stringstream stream;
-		data.save(stream);
-
-		//Serializing ui
-		app->fs->Save("ui.xml", stream.str().c_str(), stream.str().length());
-		LOG("... just saved the UI: ui.xml");
-	}
-	else
-	{
-		LOG("Could not save the scene.");
-	}
-
-	data.reset();
-
 	return ret;
 
 }
-
 bool M_GUI::LoadUINow()
 {
 	return false;

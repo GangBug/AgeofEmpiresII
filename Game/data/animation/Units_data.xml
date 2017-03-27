@@ -1,0 +1,903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:db1ea4cf818c80f6d785f1f6dd9e312d:903c776033eaf436005a5476e67b53dc:e5f85de8d1a36c1e2bfa2a587cb8909b$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<Sprites>
+  <!--TWO HANDED SWORD MAN-->
+  <twohandedswordman imagePath="Twohandedswordman.png" width="689" height="689">
+    <attack>
+      <south>
+        <sprite n="twoHandedSwordman_attack/000_twoHandedSwordman_attack.bmp" x="1" y="1" w="27" h="47" pX="0.296296" pY="0.829787"/>
+        <sprite n="twoHandedSwordman_attack/001_twoHandedSwordman_attack.bmp" x="30" y="1" w="37" h="42" pX="0.189189" pY="0.809524"/>
+        <sprite n="twoHandedSwordman_attack/002_twoHandedSwordman_attack.bmp" x="69" y="1" w="45" h="39" pX="0.133333" pY="0.820513"/>
+        <sprite n="twoHandedSwordman_attack/003_twoHandedSwordman_attack.bmp" x="116" y="1" w="29" h="57" pX="0.206897" pY="0.877193"/>
+        <sprite n="twoHandedSwordman_attack/004_twoHandedSwordman_attack.bmp" x="147" y="1" w="45" h="39" pX="0.133333" pY="0.769231"/>
+        <sprite n="twoHandedSwordman_attack/005_twoHandedSwordman_attack.bmp" x="194" y="1" w="25" h="55" pX="0.48" pY="0.563636"/>
+        <sprite n="twoHandedSwordman_attack/006_twoHandedSwordman_attack.bmp" x="221" y="1" w="47" h="39" pX="0.765957" pY="0.794872"/>
+        <sprite n="twoHandedSwordman_attack/007_twoHandedSwordman_attack.bmp" x="270" y="1" w="50" h="39" pX="0.76" pY="0.820513"/>
+        <sprite n="twoHandedSwordman_attack/008_twoHandedSwordman_attack.bmp" x="322" y="1" w="31" h="53" pX="0.580645" pY="0.622642"/>
+        <sprite n="twoHandedSwordman_attack/009_twoHandedSwordman_attack.bmp" x="355" y="1" w="26" h="46" pX="0.346154" pY="0.717391"/>
+      </south>
+      <south_west>
+        <sprite n="twoHandedSwordman_attack/010_twoHandedSwordman_attack.bmp" x="383" y="1" w="32" h="46" pX="0.71875" pY="0.826087"/>
+        <sprite n="twoHandedSwordman_attack/011_twoHandedSwordman_attack.bmp" x="417" y="1" w="23" h="61" pX="0.565217" pY="0.901639"/>
+        <sprite n="twoHandedSwordman_attack/012_twoHandedSwordman_attack.bmp" x="442" y="1" w="35" h="61" pX="0.371429" pY="0.918033"/>
+        <sprite n="twoHandedSwordman_attack/013_twoHandedSwordman_attack.bmp" x="479" y="1" w="38" h="45" pX="0.289474" pY="0.911111"/>
+        <sprite n="twoHandedSwordman_attack/014_twoHandedSwordman_attack.bmp" x="519" y="1" w="38" h="63" pX="0.473684" pY="0.873016"/>
+        <sprite n="twoHandedSwordman_attack/015_twoHandedSwordman_attack.bmp" x="559" y="1" w="45" h="49" pX="0.777778" pY="0.632653"/>
+        <sprite n="twoHandedSwordman_attack/016_twoHandedSwordman_attack.bmp" x="606" y="1" w="44" h="44" pX="0.795455" pY="0.590909"/>
+        <sprite n="twoHandedSwordman_attack/017_twoHandedSwordman_attack.bmp" x="1" y="66" w="42" h="44" pX="0.785714" pY="0.613636"/>
+        <sprite n="twoHandedSwordman_attack/018_twoHandedSwordman_attack.bmp" x="45" y="66" w="45" h="48" pX="0.8" pY="0.645833"/>
+        <sprite n="twoHandedSwordman_attack/019_twoHandedSwordman_attack.bmp" x="92" y="66" w="41" h="47" pX="0.780488" pY="0.723404"/>
+      </south_west>
+      <west>
+        <sprite n="twoHandedSwordman_attack/020_twoHandedSwordman_attack.bmp" x="135" y="66" w="28" h="46" pX="0.642857" pY="0.804348"/>
+        <sprite n="twoHandedSwordman_attack/021_twoHandedSwordman_attack.bmp" x="165" y="66" w="28" h="46" pX="0.642857" pY="0.673913"/>
+        <sprite n="twoHandedSwordman_attack/022_twoHandedSwordman_attack.bmp" x="195" y="66" w="24" h="49" pX="0.541667" pY="0.591837"/>
+        <sprite n="twoHandedSwordman_attack/023_twoHandedSwordman_attack.bmp" x="221" y="66" w="36" h="44" pX="0.388889" pY="0.727273"/>
+        <sprite n="twoHandedSwordman_attack/024_twoHandedSwordman_attack.bmp" x="259" y="66" w="30" h="50" pX="0.6" pY="0.58"/>
+        <sprite n="twoHandedSwordman_attack/025_twoHandedSwordman_attack.bmp" x="291" y="66" w="55" h="38" pX="0.8" pY="0.815789"/>
+        <sprite n="twoHandedSwordman_attack/026_twoHandedSwordman_attack.bmp" x="348" y="66" w="27" h="40" pX="0.592593" pY="0.85"/>
+        <sprite n="twoHandedSwordman_attack/027_twoHandedSwordman_attack.bmp" x="377" y="66" w="26" h="42" pX="0.576923" pY="0.833333"/>
+        <sprite n="twoHandedSwordman_attack/028_twoHandedSwordman_attack.bmp" x="405" y="66" w="49" h="41" pX="0.795918" pY="0.829268"/>
+        <sprite n="twoHandedSwordman_attack/029_twoHandedSwordman_attack.bmp" x="456" y="66" w="39" h="42" pX="0.74359" pY="0.809524"/>
+      </west>
+      <north_west>
+        <sprite n="twoHandedSwordman_attack/030_twoHandedSwordman_attack.bmp" x="497" y="66" w="29" h="59" pX="0.689655" pY="0.898305"/>
+        <sprite n="twoHandedSwordman_attack/031_twoHandedSwordman_attack.bmp" x="528" y="66" w="26" h="63" pX="0.538462" pY="0.904762"/>
+        <sprite n="twoHandedSwordman_attack/032_twoHandedSwordman_attack.bmp" x="556" y="66" w="34" h="53" pX="0.352941" pY="0.773585"/>
+        <sprite n="twoHandedSwordman_attack/033_twoHandedSwordman_attack.bmp" x="592" y="66" w="32" h="54" pX="0.34375" pY="0.722222"/>
+        <sprite n="twoHandedSwordman_attack/034_twoHandedSwordman_attack.bmp" x="626" y="66" w="26" h="53" pX="0.653846" pY="0.811321"/>
+        <sprite n="twoHandedSwordman_attack/035_twoHandedSwordman_attack.bmp" x="1" y="131" w="46" h="64" pX="0.847826" pY="0.90625"/>
+        <sprite n="twoHandedSwordman_attack/036_twoHandedSwordman_attack.bmp" x="49" y="131" w="39" h="44" pX="0.820513" pY="0.863636"/>
+        <sprite n="twoHandedSwordman_attack/037_twoHandedSwordman_attack.bmp" x="90" y="131" w="37" h="43" pX="0.783784" pY="0.883721"/>
+        <sprite n="twoHandedSwordman_attack/038_twoHandedSwordman_attack.bmp" x="129" y="131" w="39" h="44" pX="0.794872" pY="0.886364"/>
+        <sprite n="twoHandedSwordman_attack/039_twoHandedSwordman_attack.bmp" x="170" y="131" w="35" h="54" pX="0.8" pY="0.907407"/>
+      </north_west>
+      <north>
+        <sprite n="twoHandedSwordman_attack/040_twoHandedSwordman_attack.bmp" x="207" y="131" w="30" h="56" pX="0.733333" pY="0.875"/>
+        <sprite n="twoHandedSwordman_attack/041_twoHandedSwordman_attack.bmp" x="239" y="131" w="41" h="52" pX="0.804878" pY="0.865385"/>
+        <sprite n="twoHandedSwordman_attack/042_twoHandedSwordman_attack.bmp" x="282" y="131" w="44" h="44" pX="0.818182" pY="0.840909"/>
+        <sprite n="twoHandedSwordman_attack/043_twoHandedSwordman_attack.bmp" x="328" y="131" w="36" h="46" pX="0.777778" pY="0.76087"/>
+        <sprite n="twoHandedSwordman_attack/044_twoHandedSwordman_attack.bmp" x="366" y="131" w="50" h="43" pX="0.84" pY="0.837209"/>
+        <sprite n="twoHandedSwordman_attack/045_twoHandedSwordman_attack.bmp" x="418" y="131" w="24" h="49" pX="0.583333" pY="0.857143"/>
+        <sprite n="twoHandedSwordman_attack/046_twoHandedSwordman_attack.bmp" x="444" y="131" w="48" h="44" pX="0.270833" pY="0.840909"/>
+        <sprite n="twoHandedSwordman_attack/047_twoHandedSwordman_attack.bmp" x="494" y="131" w="49" h="45" pX="0.265306" pY="0.844444"/>
+        <sprite n="twoHandedSwordman_attack/048_twoHandedSwordman_attack.bmp" x="545" y="131" w="29" h="50" pX="0.482759" pY="0.88"/>
+        <sprite n="twoHandedSwordman_attack/049_twoHandedSwordman_attack.bmp" x="576" y="131" w="28" h="59" pX="0.714286" pY="0.881356"/>
+      </north>
+    </attack>
+
+    <die>
+      <south>
+        <sprite n="twoHandedSwordman_die/000_twoHandedSwordman_die.bmp" x="606" y="131" w="46" h="46" pX="0.173913" pY="0.782609"/>
+        <sprite n="twoHandedSwordman_die/001_twoHandedSwordman_die.bmp" x="1" y="197" w="52" h="44" pX="0.115385" pY="0.772727"/>
+        <sprite n="twoHandedSwordman_die/002_twoHandedSwordman_die.bmp" x="55" y="197" w="51" h="43" pX="0.0588235" pY="0.744186"/>
+        <sprite n="twoHandedSwordman_die/003_twoHandedSwordman_die.bmp" x="108" y="197" w="48" h="45" pX="0.0208333" pY="0.733333"/>
+        <sprite n="twoHandedSwordman_die/004_twoHandedSwordman_die.bmp" x="158" y="197" w="45" h="44" pX="-0.0444444" pY="0.704545"/>
+        <sprite n="twoHandedSwordman_die/005_twoHandedSwordman_die.bmp" x="205" y="197" w="46" h="37" pX="-0.0217391" pY="0.648649"/>
+        <sprite n="twoHandedSwordman_die/006_twoHandedSwordman_die.bmp" x="253" y="197" w="50" h="25" pX="-0.02" pY="0.48"/>
+        <sprite n="twoHandedSwordman_die/007_twoHandedSwordman_die.bmp" x="305" y="197" w="51" h="25" pX="-0.0196078" pY="0.48"/>
+        <sprite n="twoHandedSwordman_die/008_twoHandedSwordman_die.bmp" x="358" y="197" w="50" h="25" pX="-0.06" pY="0.48"/>
+        <sprite n="twoHandedSwordman_die/009_twoHandedSwordman_die.bmp" x="410" y="197" w="52" h="25" pX="-0.0769231" pY="0.44"/>
+      </south>
+      <south_west>
+        <sprite n="twoHandedSwordman_die/010_twoHandedSwordman_die.bmp" x="464" y="197" w="27" h="46" pX="0.592593" pY="0.804348"/>
+        <sprite n="twoHandedSwordman_die/011_twoHandedSwordman_die.bmp" x="493" y="197" w="32" h="49" pX="0.6875" pY="0.836735"/>
+        <sprite n="twoHandedSwordman_die/012_twoHandedSwordman_die.bmp" x="527" y="197" w="31" h="50" pX="0.709677" pY="0.8"/>
+        <sprite n="twoHandedSwordman_die/013_twoHandedSwordman_die.bmp" x="560" y="197" w="28" h="51" pX="0.75" pY="0.764706"/>
+        <sprite n="twoHandedSwordman_die/014_twoHandedSwordman_die.bmp" x="590" y="197" w="30" h="53" pX="0.8" pY="0.773585"/>
+        <sprite n="twoHandedSwordman_die/015_twoHandedSwordman_die.bmp" x="622" y="197" w="41" h="48" pX="0.902439" pY="0.729167"/>
+        <sprite n="twoHandedSwordman_die/016_twoHandedSwordman_die.bmp" x="1" y="252" w="38" h="37" pX="0.842105" pY="0.675676"/>
+        <sprite n="twoHandedSwordman_die/017_twoHandedSwordman_die.bmp" x="41" y="252" w="39" h="35" pX="0.820513" pY="0.657143"/>
+        <sprite n="twoHandedSwordman_die/018_twoHandedSwordman_die.bmp" x="82" y="252" w="40" h="36" pX="0.85" pY="0.666667"/>
+        <sprite n="twoHandedSwordman_die/019_twoHandedSwordman_die.bmp" x="124" y="252" w="41" h="37" pX="0.853659" pY="0.675676"/>
+      </south_west>
+      <west>
+        <sprite n="twoHandedSwordman_die/020_twoHandedSwordman_die.bmp" x="167" y="252" w="32" h="55" pX="0.6875" pY="0.636364"/>
+        <sprite n="twoHandedSwordman_die/021_twoHandedSwordman_die.bmp" x="201" y="252" w="30" h="56" pX="0.666667" pY="0.571429"/>
+        <sprite n="twoHandedSwordman_die/022_twoHandedSwordman_die.bmp" x="233" y="252" w="32" h="54" pX="0.59375" pY="0.537037"/>
+        <sprite n="twoHandedSwordman_die/023_twoHandedSwordman_die.bmp" x="267" y="252" w="36" h="49" pX="0.583333" pY="0.489796"/>
+        <sprite n="twoHandedSwordman_die/024_twoHandedSwordman_die.bmp" x="305" y="252" w="39" h="42" pX="0.564103" pY="0.428571"/>
+        <sprite n="twoHandedSwordman_die/025_twoHandedSwordman_die.bmp" x="346" y="252" w="39" h="31" pX="0.564103" pY="0.193548"/>
+        <sprite n="twoHandedSwordman_die/026_twoHandedSwordman_die.bmp" x="387" y="252" w="39" h="30" pX="0.564103" pY="0.1"/>
+        <sprite n="twoHandedSwordman_die/027_twoHandedSwordman_die.bmp" x="428" y="252" w="40" h="32" pX="0.55" pY="0.125"/>
+        <sprite n="twoHandedSwordman_die/028_twoHandedSwordman_die.bmp" x="470" y="252" w="41" h="33" pX="0.560976" pY="0.121212"/>
+        <sprite n="twoHandedSwordman_die/029_twoHandedSwordman_die.bmp" x="513" y="252" w="42" h="31" pX="0.571429" pY="0.0322581"/>
+      </west>
+      <north_west>
+        <sprite n="twoHandedSwordman_die/030_twoHandedSwordman_die.bmp" x="557" y="252" w="32" h="56" pX="0.71875" pY="0.875"/>
+        <sprite n="twoHandedSwordman_die/031_twoHandedSwordman_die.bmp" x="591" y="252" w="36" h="54" pX="0.527778" pY="0.888889"/>
+        <sprite n="twoHandedSwordman_die/032_twoHandedSwordman_die.bmp" x="629" y="252" w="46" h="44" pX="0.478261" pY="0.886364"/>
+        <sprite n="twoHandedSwordman_die/033_twoHandedSwordman_die.bmp" x="1" y="310" w="53" h="34" pX="0.433962" pY="0.852941"/>
+        <sprite n="twoHandedSwordman_die/034_twoHandedSwordman_die.bmp" x="56" y="310" w="56" h="40" pX="0.375" pY="0.925"/>
+        <sprite n="twoHandedSwordman_die/035_twoHandedSwordman_die.bmp" x="114" y="310" w="59" h="35" pX="0.338983" pY="0.914286"/>
+        <sprite n="twoHandedSwordman_die/036_twoHandedSwordman_die.bmp" x="175" y="310" w="63" h="24" pX="0.31746" pY="0.833333"/>
+        <sprite n="twoHandedSwordman_die/037_twoHandedSwordman_die.bmp" x="240" y="310" w="66" h="23" pX="0.30303" pY="0.826087"/>
+        <sprite n="twoHandedSwordman_die/038_twoHandedSwordman_die.bmp" x="308" y="310" w="66" h="25" pX="0.30303" pY="0.84"/>
+        <sprite n="twoHandedSwordman_die/039_twoHandedSwordman_die.bmp" x="376" y="310" w="66" h="25" pX="0.30303" pY="0.84"/>
+      </north_west>
+      <north>
+        <sprite n="twoHandedSwordman_die/040_twoHandedSwordman_die.bmp" x="444" y="310" w="48" h="44" pX="0.833333" pY="0.840909"/>
+        <sprite n="twoHandedSwordman_die/041_twoHandedSwordman_die.bmp" x="494" y="310" w="50" h="41" pX="0.84" pY="0.878049"/>
+        <sprite n="twoHandedSwordman_die/042_twoHandedSwordman_die.bmp" x="546" y="310" w="49" h="41" pX="0.897959" pY="0.829268"/>
+        <sprite n="twoHandedSwordman_die/043_twoHandedSwordman_die.bmp" x="597" y="310" w="46" h="38" pX="0.956522" pY="0.789474"/>
+        <sprite n="twoHandedSwordman_die/044_twoHandedSwordman_die.bmp" x="1" y="356" w="44" h="36" pX="1" pY="0.777778"/>
+        <sprite n="twoHandedSwordman_die/045_twoHandedSwordman_die.bmp" x="47" y="356" w="47" h="31" pX="0.978723" pY="0.709677"/>
+        <sprite n="twoHandedSwordman_die/046_twoHandedSwordman_die.bmp" x="96" y="356" w="50" h="21" pX="0.98" pY="0.52381"/>
+        <sprite n="twoHandedSwordman_die/047_twoHandedSwordman_die.bmp" x="148" y="356" w="52" h="21" pX="0.980769" pY="0.52381"/>
+        <sprite n="twoHandedSwordman_die/048_twoHandedSwordman_die.bmp" x="202" y="356" w="52" h="22" pX="1" pY="0.545455"/>
+        <sprite n="twoHandedSwordman_die/049_twoHandedSwordman_die.bmp" x="256" y="356" w="52" h="22" pX="1.03846" pY="0.545455"/>
+      </north>
+    </die>
+
+    <disappear>
+      <south>
+        <sprite n="twoHandedSwordman_dissapear/000_twoHandedSwordman_dissapear.bmp" x="310" y="356" w="50" h="23" pX="-0.1" pY="0.434783"/>
+        <sprite n="twoHandedSwordman_dissapear/001_twoHandedSwordman_dissapear.bmp" x="362" y="356" w="48" h="22" pX="-0.125" pY="0.409091"/>
+        <sprite n="twoHandedSwordman_dissapear/002_twoHandedSwordman_dissapear.bmp" x="412" y="356" w="45" h="21" pX="-0.177778" pY="0.428571"/>
+        <sprite n="twoHandedSwordman_dissapear/003_twoHandedSwordman_dissapear.bmp" x="459" y="356" w="43" h="14" pX="-0.186047" pY="0.571429"/>
+        <sprite n="twoHandedSwordman_dissapear/004_twoHandedSwordman_dissapear.bmp" x="504" y="356" w="41" h="12" pX="-0.195122" pY="0.583333"/>
+      </south>
+      <south_west>
+        <sprite n="twoHandedSwordman_dissapear/005_twoHandedSwordman_dissapear.bmp" x="547" y="356" w="39" h="35" pX="0.871795" pY="0.685714"/>
+        <sprite n="twoHandedSwordman_dissapear/006_twoHandedSwordman_dissapear.bmp" x="588" y="356" w="39" h="35" pX="0.871795" pY="0.685714"/>
+        <sprite n="twoHandedSwordman_dissapear/007_twoHandedSwordman_dissapear.bmp" x="629" y="356" w="38" h="34" pX="0.868421" pY="0.676471"/>
+        <sprite n="twoHandedSwordman_dissapear/008_twoHandedSwordman_dissapear.bmp" x="1" y="394" w="36" h="33" pX="0.916667" pY="0.666667"/>
+        <sprite n="twoHandedSwordman_dissapear/009_twoHandedSwordman_dissapear.bmp" x="39" y="394" w="33" h="33" pX="0.909091" pY="0.666667"/>
+      </south_west>
+      <west>
+        <sprite n="twoHandedSwordman_dissapear/010_twoHandedSwordman_dissapear.bmp" x="74" y="394" w="40" h="29" pX="0.575" pY="0"/>
+        <sprite n="twoHandedSwordman_dissapear/011_twoHandedSwordman_dissapear.bmp" x="116" y="394" w="37" h="27" pX="0.594595" pY="-0.037037"/>
+        <sprite n="twoHandedSwordman_dissapear/012_twoHandedSwordman_dissapear.bmp" x="155" y="394" w="32" h="24" pX="0.5625" pY="-0.0833333"/>
+        <sprite n="twoHandedSwordman_dissapear/013_twoHandedSwordman_dissapear.bmp" x="189" y="394" w="31" h="19" pX="0.580645" pY="-0.263158"/>
+        <sprite n="twoHandedSwordman_dissapear/014_twoHandedSwordman_dissapear.bmp" x="222" y="394" w="25" h="18" pX="0.6" pY="-0.277778"/>
+      </west>
+      <north_west>
+        <sprite n="twoHandedSwordman_dissapear/015_twoHandedSwordman_dissapear.bmp" x="249" y="394" w="64" h="23" pX="0.296875" pY="0.869565"/>
+        <sprite n="twoHandedSwordman_dissapear/016_twoHandedSwordman_dissapear.bmp" x="315" y="394" w="62" h="21" pX="0.290323" pY="0.904762"/>
+        <sprite n="twoHandedSwordman_dissapear/017_twoHandedSwordman_dissapear.bmp" x="379" y="394" w="62" h="20" pX="0.290323" pY="0.95"/>
+        <sprite n="twoHandedSwordman_dissapear/018_twoHandedSwordman_dissapear.bmp" x="443" y="394" w="60" h="19" pX="0.3" pY="0.947368"/>
+        <sprite n="twoHandedSwordman_dissapear/019_twoHandedSwordman_dissapear.bmp" x="505" y="394" w="60" h="19" pX="0.3" pY="0.947368"/>
+      </north_west>
+      <north>
+        <sprite n="twoHandedSwordman_dissapear/020_twoHandedSwordman_dissapear.bmp" x="567" y="394" w="50" h="20" pX="1.06" pY="0.55"/>
+        <sprite n="twoHandedSwordman_dissapear/021_twoHandedSwordman_dissapear.bmp" x="619" y="394" w="49" h="16" pX="1.08163" pY="0.5625"/>
+        <sprite n="twoHandedSwordman_dissapear/022_twoHandedSwordman_dissapear.bmp" x="1" y="429" w="48" h="13" pX="1.08333" pY="0.538462"/>
+        <sprite n="twoHandedSwordman_dissapear/023_twoHandedSwordman_dissapear.bmp" x="51" y="429" w="48" h="12" pX="1.08333" pY="0.5"/>
+        <sprite n="twoHandedSwordman_dissapear/024_twoHandedSwordman_dissapear.bmp" x="101" y="429" w="47" h="10" pX="1.10638" pY="0.5"/>
+      </north>
+    </disappear>
+
+    <idle>
+      <south>
+        <sprite n="twoHandedSwordman_idle/000_twoHandedSwordman_idle.bmp" x="150" y="429" w="37" h="42" pX="0.540541" pY="0.833333"/>
+        <sprite n="twoHandedSwordman_idle/001_twoHandedSwordman_idle.bmp" x="189" y="429" w="40" h="42" pX="0.55" pY="0.833333"/>
+        <sprite n="twoHandedSwordman_idle/002_twoHandedSwordman_idle.bmp" x="231" y="429" w="36" h="43" pX="0.5" pY="0.813953"/>
+        <sprite n="twoHandedSwordman_idle/003_twoHandedSwordman_idle.bmp" x="269" y="429" w="37" h="44" pX="0.513514" pY="0.795455"/>
+        <sprite n="twoHandedSwordman_idle/004_twoHandedSwordman_idle.bmp" x="308" y="429" w="38" h="43" pX="0.526316" pY="0.813953"/>
+        <sprite n="twoHandedSwordman_idle/005_twoHandedSwordman_idle.bmp" x="348" y="429" w="40" h="42" pX="0.55" pY="0.833333"/>
+      </south>
+      <south_west>
+        <sprite n="twoHandedSwordman_idle/006_twoHandedSwordman_idle.bmp" x="390" y="429" w="30" h="45" pX="0.7" pY="0.8"/>
+        <sprite n="twoHandedSwordman_idle/007_twoHandedSwordman_idle.bmp" x="422" y="429" w="32" h="45" pX="0.6875" pY="0.8"/>
+        <sprite n="twoHandedSwordman_idle/008_twoHandedSwordman_idle.bmp" x="456" y="429" w="34" h="44" pX="0.617647" pY="0.818182"/>
+        <sprite n="twoHandedSwordman_idle/009_twoHandedSwordman_idle.bmp" x="492" y="429" w="37" h="43" pX="0.621622" pY="0.837209"/>
+        <sprite n="twoHandedSwordman_idle/010_twoHandedSwordman_idle.bmp" x="531" y="429" w="36" h="44" pX="0.638889" pY="0.818182"/>
+        <sprite n="twoHandedSwordman_idle/011_twoHandedSwordman_idle.bmp" x="569" y="429" w="31" h="44" pX="0.677419" pY="0.818182"/>
+      </south_west>
+      <west>
+        <sprite n="twoHandedSwordman_idle/012_twoHandedSwordman_idle.bmp" x="602" y="429" w="45" h="43" pX="0.777778" pY="0.860465"/>
+        <sprite n="twoHandedSwordman_idle/013_twoHandedSwordman_idle.bmp" x="1" y="476" w="45" h="44" pX="0.777778" pY="0.840909"/>
+        <sprite n="twoHandedSwordman_idle/014_twoHandedSwordman_idle.bmp" x="48" y="476" w="46" h="43" pX="0.782609" pY="0.860465"/>
+        <sprite n="twoHandedSwordman_idle/015_twoHandedSwordman_idle.bmp" x="96" y="476" w="45" h="42" pX="0.777778" pY="0.880952"/>
+        <sprite n="twoHandedSwordman_idle/016_twoHandedSwordman_idle.bmp" x="143" y="476" w="46" h="42" pX="0.782609" pY="0.880952"/>
+        <sprite n="twoHandedSwordman_idle/017_twoHandedSwordman_idle.bmp" x="191" y="476" w="44" h="42" pX="0.772727" pY="0.880952"/>
+      </west>
+      <north_west>
+        <sprite n="twoHandedSwordman_idle/018_twoHandedSwordman_idle.bmp" x="237" y="476" w="37" h="50" pX="0.783784" pY="0.88"/>
+        <sprite n="twoHandedSwordman_idle/019_twoHandedSwordman_idle.bmp" x="276" y="476" w="40" h="49" pX="0.8" pY="0.877551"/>
+        <sprite n="twoHandedSwordman_idle/020_twoHandedSwordman_idle.bmp" x="318" y="476" w="42" h="50" pX="0.809524" pY="0.88"/>
+        <sprite n="twoHandedSwordman_idle/021_twoHandedSwordman_idle.bmp" x="362" y="476" w="38" h="50" pX="0.789474" pY="0.88"/>
+        <sprite n="twoHandedSwordman_idle/022_twoHandedSwordman_idle.bmp" x="402" y="476" w="37" h="50" pX="0.783784" pY="0.88"/>
+        <sprite n="twoHandedSwordman_idle/023_twoHandedSwordman_idle.bmp" x="441" y="476" w="39" h="50" pX="0.794872" pY="0.88"/>
+      </north_west>
+      <north>
+        <sprite n="twoHandedSwordman_idle/024_twoHandedSwordman_idle.bmp" x="482" y="476" w="39" h="44" pX="0.435897" pY="0.863636"/>
+        <sprite n="twoHandedSwordman_idle/025_twoHandedSwordman_idle.bmp" x="523" y="476" w="39" h="44" pX="0.461538" pY="0.863636"/>
+        <sprite n="twoHandedSwordman_idle/026_twoHandedSwordman_idle.bmp" x="564" y="476" w="37" h="44" pX="0.486486" pY="0.863636"/>
+        <sprite n="twoHandedSwordman_idle/027_twoHandedSwordman_idle.bmp" x="603" y="476" w="36" h="44" pX="0.5" pY="0.863636"/>
+        <sprite n="twoHandedSwordman_idle/028_twoHandedSwordman_idle.bmp" x="641" y="476" w="36" h="44" pX="0.5" pY="0.863636"/>
+        <sprite n="twoHandedSwordman_idle/029_twoHandedSwordman_idle.bmp" x="1" y="528" w="36" h="44" pX="0.472222" pY="0.863636"/>
+      </north>
+    </idle>
+
+    <walk>
+      <south>
+        <sprite n="twoHandedSwordman_walk/000_twoHandedSwordman_walk.bmp" x="39" y="528" w="23" h="53" pX="0.565217" pY="0.830189"/>
+        <sprite n="twoHandedSwordman_walk/001_twoHandedSwordman_walk.bmp" x="64" y="528" w="24" h="48" pX="0.625" pY="0.854167"/>
+        <sprite n="twoHandedSwordman_walk/002_twoHandedSwordman_walk.bmp" x="90" y="528" w="23" h="49" pX="0.608696" pY="0.877551"/>
+        <sprite n="twoHandedSwordman_walk/003_twoHandedSwordman_walk.bmp" x="115" y="528" w="24" h="52" pX="0.625" pY="0.884615"/>
+        <sprite n="twoHandedSwordman_walk/004_twoHandedSwordman_walk.bmp" x="141" y="528" w="25" h="51" pX="0.6" pY="0.901961"/>
+        <sprite n="twoHandedSwordman_walk/005_twoHandedSwordman_walk.bmp" x="168" y="528" w="24" h="53" pX="0.583333" pY="0.830189"/>
+        <sprite n="twoHandedSwordman_walk/006_twoHandedSwordman_walk.bmp" x="194" y="528" w="25" h="50" pX="0.56" pY="0.86"/>
+        <sprite n="twoHandedSwordman_walk/007_twoHandedSwordman_walk.bmp" x="221" y="528" w="23" h="50" pX="0.565217" pY="0.9"/>
+        <sprite n="twoHandedSwordman_walk/008_twoHandedSwordman_walk.bmp" x="246" y="528" w="23" h="52" pX="0.565217" pY="0.884615"/>
+        <sprite n="twoHandedSwordman_walk/009_twoHandedSwordman_walk.bmp" x="271" y="528" w="23" h="51" pX="0.565217" pY="0.862745"/>
+      </south>
+      <south_west>
+        <sprite n="twoHandedSwordman_walk/010_twoHandedSwordman_walk.bmp" x="296" y="528" w="28" h="54" pX="0.607143" pY="0.87037"/>
+        <sprite n="twoHandedSwordman_walk/011_twoHandedSwordman_walk.bmp" x="326" y="528" w="33" h="51" pX="0.606061" pY="0.882353"/>
+        <sprite n="twoHandedSwordman_walk/012_twoHandedSwordman_walk.bmp" x="361" y="528" w="29" h="53" pX="0.62069" pY="0.886792"/>
+        <sprite n="twoHandedSwordman_walk/013_twoHandedSwordman_walk.bmp" x="392" y="528" w="24" h="54" pX="0.625" pY="0.888889"/>
+        <sprite n="twoHandedSwordman_walk/014_twoHandedSwordman_walk.bmp" x="418" y="528" w="21" h="53" pX="0.52381" pY="0.886792"/>
+        <sprite n="twoHandedSwordman_walk/015_twoHandedSwordman_walk.bmp" x="441" y="528" w="23" h="54" pX="0.565217" pY="0.851852"/>
+        <sprite n="twoHandedSwordman_walk/016_twoHandedSwordman_walk.bmp" x="466" y="528" w="25" h="53" pX="0.64" pY="0.867925"/>
+        <sprite n="twoHandedSwordman_walk/017_twoHandedSwordman_walk.bmp" x="493" y="528" w="25" h="54" pX="0.64" pY="0.888889"/>
+        <sprite n="twoHandedSwordman_walk/018_twoHandedSwordman_walk.bmp" x="520" y="528" w="24" h="54" pX="0.625" pY="0.888889"/>
+        <sprite n="twoHandedSwordman_walk/019_twoHandedSwordman_walk.bmp" x="546" y="528" w="25" h="53" pX="0.64" pY="0.886792"/>
+      </south_west>
+      <west>
+        <sprite n="twoHandedSwordman_walk/020_twoHandedSwordman_walk.bmp" x="573" y="528" w="26" h="55" pX="0.538462" pY="0.909091"/>
+        <sprite n="twoHandedSwordman_walk/021_twoHandedSwordman_walk.bmp" x="601" y="528" w="31" h="55" pX="0.548387" pY="0.909091"/>
+        <sprite n="twoHandedSwordman_walk/022_twoHandedSwordman_walk.bmp" x="634" y="528" w="26" h="56" pX="0.538462" pY="0.910714"/>
+        <sprite n="twoHandedSwordman_walk/023_twoHandedSwordman_walk.bmp" x="662" y="528" w="22" h="56" pX="0.590909" pY="0.910714"/>
+        <sprite n="twoHandedSwordman_walk/024_twoHandedSwordman_walk.bmp" x="1" y="586" w="21" h="55" pX="0.571429" pY="0.909091"/>
+        <sprite n="twoHandedSwordman_walk/025_twoHandedSwordman_walk.bmp" x="24" y="586" w="27" h="53" pX="0.481481" pY="0.90566"/>
+        <sprite n="twoHandedSwordman_walk/026_twoHandedSwordman_walk.bmp" x="53" y="586" w="29" h="54" pX="0.551724" pY="0.907407"/>
+        <sprite n="twoHandedSwordman_walk/027_twoHandedSwordman_walk.bmp" x="84" y="586" w="25" h="56" pX="0.56" pY="0.910714"/>
+        <sprite n="twoHandedSwordman_walk/028_twoHandedSwordman_walk.bmp" x="111" y="586" w="21" h="56" pX="0.619048" pY="0.910714"/>
+        <sprite n="twoHandedSwordman_walk/029_twoHandedSwordman_walk.bmp" x="134" y="586" w="23" h="55" pX="0.565217" pY="0.909091"/>
+      </west>
+      <north_west>
+        <sprite n="twoHandedSwordman_walk/030_twoHandedSwordman_walk.bmp" x="159" y="586" w="24" h="59" pX="0.5" pY="0.881356"/>
+        <sprite n="twoHandedSwordman_walk/031_twoHandedSwordman_walk.bmp" x="185" y="586" w="24" h="58" pX="0.5" pY="0.87931"/>
+        <sprite n="twoHandedSwordman_walk/032_twoHandedSwordman_walk.bmp" x="211" y="586" w="25" h="60" pX="0.52" pY="0.883333"/>
+        <sprite n="twoHandedSwordman_walk/033_twoHandedSwordman_walk.bmp" x="238" y="586" w="25" h="57" pX="0.52" pY="0.912281"/>
+        <sprite n="twoHandedSwordman_walk/034_twoHandedSwordman_walk.bmp" x="265" y="586" w="25" h="56" pX="0.52" pY="0.910714"/>
+        <sprite n="twoHandedSwordman_walk/035_twoHandedSwordman_walk.bmp" x="292" y="586" w="24" h="56" pX="0.5" pY="0.910714"/>
+        <sprite n="twoHandedSwordman_walk/036_twoHandedSwordman_walk.bmp" x="318" y="586" w="25" h="57" pX="0.52" pY="0.912281"/>
+        <sprite n="twoHandedSwordman_walk/037_twoHandedSwordman_walk.bmp" x="345" y="586" w="25" h="57" pX="0.52" pY="0.912281"/>
+        <sprite n="twoHandedSwordman_walk/038_twoHandedSwordman_walk.bmp" x="372" y="586" w="25" h="56" pX="0.52" pY="0.910714"/>
+        <sprite n="twoHandedSwordman_walk/039_twoHandedSwordman_walk.bmp" x="399" y="586" w="24" h="57" pX="0.5" pY="0.912281"/>
+      </north_west>
+      <north>
+        <sprite n="twoHandedSwordman_walk/040_twoHandedSwordman_walk.bmp" x="425" y="586" w="24" h="58" pX="0.5" pY="0.87931"/>
+        <sprite n="twoHandedSwordman_walk/041_twoHandedSwordman_walk.bmp" x="451" y="586" w="24" h="58" pX="0.458333" pY="0.862069"/>
+        <sprite n="twoHandedSwordman_walk/042_twoHandedSwordman_walk.bmp" x="477" y="586" w="24" h="59" pX="0.458333" pY="0.881356"/>
+        <sprite n="twoHandedSwordman_walk/043_twoHandedSwordman_walk.bmp" x="503" y="586" w="25" h="57" pX="0.48" pY="0.912281"/>
+        <sprite n="twoHandedSwordman_walk/044_twoHandedSwordman_walk.bmp" x="530" y="586" w="25" h="57" pX="0.48" pY="0.894737"/>
+        <sprite n="twoHandedSwordman_walk/045_twoHandedSwordman_walk.bmp" x="557" y="586" w="25" h="58" pX="0.48" pY="0.862069"/>
+        <sprite n="twoHandedSwordman_walk/046_twoHandedSwordman_walk.bmp" x="584" y="586" w="26" h="60" pX="0.5" pY="0.866667"/>
+        <sprite n="twoHandedSwordman_walk/047_twoHandedSwordman_walk.bmp" x="612" y="586" w="24" h="59" pX="0.5" pY="0.881356"/>
+        <sprite n="twoHandedSwordman_walk/048_twoHandedSwordman_walk.bmp" x="638" y="586" w="24" h="57" pX="0.5" pY="0.912281"/>
+        <sprite n="twoHandedSwordman_walk/049_twoHandedSwordman_walk.bmp" x="664" y="586" w="24" h="57" pX="0.5" pY="0.894737"/>
+      </north>
+    </walk>
+  </twohandedswordman>
+
+  <!--CAVALRY ARCHER-->
+  
+  <cavalryarcher imagePath="CavalryArcher.png" width="1144" height="1144">
+    <attack>
+      <south>
+        <sprite n="CavalryArcher_attack/000_CavalryArcher_attack.bmp" x="1" y="1" w="36" h="81" pX="0.611111" pY="0.641975"/>
+        <sprite n="CavalryArcher_attack/001_CavalryArcher_attack.bmp" x="39" y="1" w="40" h="83" pX="0.6" pY="0.638554"/>
+        <sprite n="CavalryArcher_attack/002_CavalryArcher_attack.bmp" x="81" y="1" w="39" h="83" pX="0.692308" pY="0.638554"/>
+        <sprite n="CavalryArcher_attack/003_CavalryArcher_attack.bmp" x="122" y="1" w="44" h="83" pX="0.727273" pY="0.638554"/>
+        <sprite n="CavalryArcher_attack/004_CavalryArcher_attack.bmp" x="168" y="1" w="45" h="94" pX="0.733333" pY="0.680851"/>
+        <sprite n="CavalryArcher_attack/005_CavalryArcher_attack.bmp" x="215" y="1" w="47" h="80" pX="0.744681" pY="0.625"/>
+        <sprite n="CavalryArcher_attack/006_CavalryArcher_attack.bmp" x="264" y="1" w="48" h="80" pX="0.770833" pY="0.625"/>
+        <sprite n="CavalryArcher_attack/007_CavalryArcher_attack.bmp" x="314" y="1" w="36" h="81" pX="0.722222" pY="0.62963"/>
+        <sprite n="CavalryArcher_attack/008_CavalryArcher_attack.bmp" x="352" y="1" w="33" h="81" pX="0.69697" pY="0.62963"/>
+        <sprite n="CavalryArcher_attack/009_CavalryArcher_attack.bmp" x="387" y="1" w="35" h="81" pX="0.685714" pY="0.62963"/>
+        <sprite n="CavalryArcher_attack/010_CavalryArcher_attack.bmp" x="424" y="1" w="38" h="81" pX="0.684211" pY="0.62963"/>
+        <sprite n="CavalryArcher_attack/011_CavalryArcher_attack.bmp" x="464" y="1" w="35" h="80" pX="0.685714" pY="0.6375"/>
+        <sprite n="CavalryArcher_attack/012_CavalryArcher_attack.bmp" x="501" y="1" w="33" h="80" pX="0.666667" pY="0.6375"/>
+      </south>
+      <south_west>
+        <sprite n="CavalryArcher_attack/013_CavalryArcher_attack.bmp" x="536" y="1" w="63" h="76" pX="0.634921" pY="0.684211"/>
+        <sprite n="CavalryArcher_attack/014_CavalryArcher_attack.bmp" x="601" y="1" w="64" h="76" pX="0.625" pY="0.684211"/>
+        <sprite n="CavalryArcher_attack/015_CavalryArcher_attack.bmp" x="667" y="1" w="62" h="75" pX="0.645161" pY="0.68"/>
+        <sprite n="CavalryArcher_attack/016_CavalryArcher_attack.bmp" x="731" y="1" w="59" h="76" pX="0.677966" pY="0.671053"/>
+        <sprite n="CavalryArcher_attack/017_CavalryArcher_attack.bmp" x="792" y="1" w="58" h="88" pX="0.689655" pY="0.715909"/>
+        <sprite n="CavalryArcher_attack/018_CavalryArcher_attack.bmp" x="852" y="1" w="58" h="76" pX="0.689655" pY="0.671053"/>
+        <sprite n="CavalryArcher_attack/019_CavalryArcher_attack.bmp" x="912" y="1" w="60" h="76" pX="0.7" pY="0.671053"/>
+        <sprite n="CavalryArcher_attack/020_CavalryArcher_attack.bmp" x="974" y="1" w="59" h="78" pX="0.677966" pY="0.679487"/>
+        <sprite n="CavalryArcher_attack/021_CavalryArcher_attack.bmp" x="1035" y="1" w="61" h="76" pX="0.655738" pY="0.671053"/>
+        <sprite n="CavalryArcher_attack/022_CavalryArcher_attack.bmp" x="1" y="97" w="64" h="75" pX="0.625" pY="0.68"/>
+        <sprite n="CavalryArcher_attack/023_CavalryArcher_attack.bmp" x="67" y="97" w="64" h="75" pX="0.625" pY="0.68"/>
+        <sprite n="CavalryArcher_attack/024_CavalryArcher_attack.bmp" x="133" y="97" w="61" h="75" pX="0.655738" pY="0.68"/>
+        <sprite n="CavalryArcher_attack/025_CavalryArcher_attack.bmp" x="196" y="97" w="59" h="75" pX="0.677966" pY="0.68"/>
+      </south_west>
+      <west>
+        <sprite n="CavalryArcher_attack/026_CavalryArcher_attack.bmp" x="257" y="97" w="78" h="70" pX="0.615385" pY="0.728571"/>
+        <sprite n="CavalryArcher_attack/027_CavalryArcher_attack.bmp" x="337" y="97" w="82" h="71" pX="0.597561" pY="0.732394"/>
+        <sprite n="CavalryArcher_attack/028_CavalryArcher_attack.bmp" x="421" y="97" w="81" h="68" pX="0.604938" pY="0.735294"/>
+        <sprite n="CavalryArcher_attack/029_CavalryArcher_attack.bmp" x="504" y="97" w="83" h="68" pX="0.60241" pY="0.735294"/>
+        <sprite n="CavalryArcher_attack/030_CavalryArcher_attack.bmp" x="589" y="97" w="75" h="81" pX="0.666667" pY="0.777778"/>
+        <sprite n="CavalryArcher_attack/031_CavalryArcher_attack.bmp" x="666" y="97" w="76" h="69" pX="0.657895" pY="0.73913"/>
+        <sprite n="CavalryArcher_attack/032_CavalryArcher_attack.bmp" x="744" y="97" w="78" h="70" pX="0.641026" pY="0.757143"/>
+        <sprite n="CavalryArcher_attack/033_CavalryArcher_attack.bmp" x="824" y="97" w="76" h="76" pX="0.657895" pY="0.776316"/>
+        <sprite n="CavalryArcher_attack/034_CavalryArcher_attack.bmp" x="902" y="97" w="75" h="75" pX="0.666667" pY="0.773333"/>
+        <sprite n="CavalryArcher_attack/035_CavalryArcher_attack.bmp" x="979" y="97" w="74" h="75" pX="0.662162" pY="0.76"/>
+        <sprite n="CavalryArcher_attack/036_CavalryArcher_attack.bmp" x="1055" y="97" w="73" h="69" pX="0.671233" pY="0.73913"/>
+        <sprite n="CavalryArcher_attack/037_CavalryArcher_attack.bmp" x="1" y="180" w="73" h="68" pX="0.657534" pY="0.75"/>
+        <sprite n="CavalryArcher_attack/038_CavalryArcher_attack.bmp" x="76" y="180" w="74" h="69" pX="0.648649" pY="0.73913"/>
+      </west>
+      <north_west>
+        <sprite n="CavalryArcher_attack/039_CavalryArcher_attack.bmp" x="152" y="180" w="59" h="77" pX="0.644068" pY="0.688312"/>
+        <sprite n="CavalryArcher_attack/040_CavalryArcher_attack.bmp" x="213" y="180" w="61" h="77" pX="0.622951" pY="0.688312"/>
+        <sprite n="CavalryArcher_attack/041_CavalryArcher_attack.bmp" x="276" y="180" w="61" h="76" pX="0.622951" pY="0.697368"/>
+        <sprite n="CavalryArcher_attack/042_CavalryArcher_attack.bmp" x="339" y="180" w="64" h="75" pX="0.59375" pY="0.706667"/>
+        <sprite n="CavalryArcher_attack/043_CavalryArcher_attack.bmp" x="405" y="180" w="65" h="87" pX="0.6" pY="0.747126"/>
+        <sprite n="CavalryArcher_attack/044_CavalryArcher_attack.bmp" x="472" y="180" w="65" h="76" pX="0.6" pY="0.710526"/>
+        <sprite n="CavalryArcher_attack/045_CavalryArcher_attack.bmp" x="539" y="180" w="65" h="77" pX="0.6" pY="0.714286"/>
+        <sprite n="CavalryArcher_attack/046_CavalryArcher_attack.bmp" x="606" y="180" w="57" h="83" pX="0.684211" pY="0.73494"/>
+        <sprite n="CavalryArcher_attack/047_CavalryArcher_attack.bmp" x="665" y="180" w="55" h="85" pX="0.690909" pY="0.729412"/>
+        <sprite n="CavalryArcher_attack/048_CavalryArcher_attack.bmp" x="722" y="180" w="55" h="85" pX="0.690909" pY="0.717647"/>
+        <sprite n="CavalryArcher_attack/049_CavalryArcher_attack.bmp" x="779" y="180" w="55" h="80" pX="0.690909" pY="0.7"/>
+        <sprite n="CavalryArcher_attack/050_CavalryArcher_attack.bmp" x="836" y="180" w="55" h="76" pX="0.690909" pY="0.697368"/>
+        <sprite n="CavalryArcher_attack/051_CavalryArcher_attack.bmp" x="893" y="180" w="56" h="74" pX="0.678571" pY="0.702703"/>
+      </north_west>
+      <north>
+        <sprite n="CavalryArcher_attack/052_CavalryArcher_attack.bmp" x="951" y="180" w="38" h="84" pX="0.710526" pY="0.666667"/>
+        <sprite n="CavalryArcher_attack/053_CavalryArcher_attack.bmp" x="991" y="180" w="39" h="85" pX="0.692308" pY="0.658824"/>
+        <sprite n="CavalryArcher_attack/054_CavalryArcher_attack.bmp" x="1032" y="180" w="35" h="86" pX="0.628571" pY="0.662791"/>
+        <sprite n="CavalryArcher_attack/055_CavalryArcher_attack.bmp" x="1069" y="180" w="39" h="86" pX="0.564103" pY="0.662791"/>
+        <sprite n="CavalryArcher_attack/056_CavalryArcher_attack.bmp" x="1" y="269" w="42" h="91" pX="0.52381" pY="0.725275"/>
+        <sprite n="CavalryArcher_attack/057_CavalryArcher_attack.bmp" x="45" y="269" w="42" h="82" pX="0.52381" pY="0.695122"/>
+        <sprite n="CavalryArcher_attack/058_CavalryArcher_attack.bmp" x="89" y="269" w="42" h="83" pX="0.5" pY="0.686747"/>
+        <sprite n="CavalryArcher_attack/059_CavalryArcher_attack.bmp" x="133" y="269" w="33" h="85" pX="0.636364" pY="0.705882"/>
+        <sprite n="CavalryArcher_attack/060_CavalryArcher_attack.bmp" x="168" y="269" w="33" h="86" pX="0.636364" pY="0.709302"/>
+        <sprite n="CavalryArcher_attack/061_CavalryArcher_attack.bmp" x="203" y="269" w="33" h="85" pX="0.636364" pY="0.705882"/>
+        <sprite n="CavalryArcher_attack/062_CavalryArcher_attack.bmp" x="238" y="269" w="34" h="80" pX="0.647059" pY="0.7"/>
+        <sprite n="CavalryArcher_attack/063_CavalryArcher_attack.bmp" x="274" y="269" w="34" h="81" pX="0.647059" pY="0.691358"/>
+        <sprite n="CavalryArcher_attack/064_CavalryArcher_attack.bmp" x="310" y="269" w="34" h="81" pX="0.647059" pY="0.691358"/>
+      </north>
+    </attack>
+
+    <die>
+      <south>
+        <sprite n="CavalryArcher_die/000_CavalryArcher_die.bmp" x="346" y="269" w="40" h="78" pX="0.425" pY="0.641026"/>
+        <sprite n="CavalryArcher_die/001_CavalryArcher_die.bmp" x="388" y="269" w="38" h="78" pX="0.421053" pY="0.628205"/>
+        <sprite n="CavalryArcher_die/002_CavalryArcher_die.bmp" x="428" y="269" w="47" h="75" pX="0.723404" pY="0.733333"/>
+        <sprite n="CavalryArcher_die/003_CavalryArcher_die.bmp" x="477" y="269" w="67" h="70" pX="0.850746" pY="0.785714"/>
+        <sprite n="CavalryArcher_die/004_CavalryArcher_die.bmp" x="546" y="269" w="70" h="57" pX="0.728571" pY="0.666667"/>
+        <sprite n="CavalryArcher_die/005_CavalryArcher_die.bmp" x="618" y="269" w="59" h="55" pX="0.677966" pY="0.6"/>
+        <sprite n="CavalryArcher_die/006_CavalryArcher_die.bmp" x="679" y="269" w="64" h="42" pX="0.5" pY="0.309524"/>
+        <sprite n="CavalryArcher_die/007_CavalryArcher_die.bmp" x="745" y="269" w="72" h="46" pX="0.416667" pY="0.326087"/>
+        <sprite n="CavalryArcher_die/008_CavalryArcher_die.bmp" x="819" y="269" w="76" h="45" pX="0.394737" pY="0.311111"/>
+        <sprite n="CavalryArcher_die/009_CavalryArcher_die.bmp" x="897" y="269" w="81" h="45" pX="0.37037" pY="0.311111"/>
+      </south>
+      <south_west>
+        <sprite n="CavalryArcher_die/010_CavalryArcher_die.bmp" x="980" y="269" w="47" h="81" pX="0.595745" pY="0.617284"/>
+        <sprite n="CavalryArcher_die/011_CavalryArcher_die.bmp" x="1029" y="269" w="46" h="79" pX="0.543478" pY="0.607595"/>
+        <sprite n="CavalryArcher_die/012_CavalryArcher_die.bmp" x="1077" y="269" w="66" h="72" pX="0.590909" pY="0.75"/>
+        <sprite n="CavalryArcher_die/013_CavalryArcher_die.bmp" x="1" y="362" w="79" h="69" pX="0.582278" pY="0.811594"/>
+        <sprite n="CavalryArcher_die/014_CavalryArcher_die.bmp" x="82" y="362" w="79" h="65" pX="0.468354" pY="0.738462"/>
+        <sprite n="CavalryArcher_die/015_CavalryArcher_die.bmp" x="163" y="362" w="75" h="58" pX="0.48" pY="0.655172"/>
+        <sprite n="CavalryArcher_die/016_CavalryArcher_die.bmp" x="240" y="362" w="56" h="40" pX="0.642857" pY="0.325"/>
+        <sprite n="CavalryArcher_die/017_CavalryArcher_die.bmp" x="298" y="362" w="70" h="49" pX="0.528571" pY="0.306122"/>
+        <sprite n="CavalryArcher_die/018_CavalryArcher_die.bmp" x="370" y="362" w="75" h="49" pX="0.533333" pY="0.265306"/>
+        <sprite n="CavalryArcher_die/019_CavalryArcher_die.bmp" x="447" y="362" w="80" h="50" pX="0.5" pY="0.24"/>
+      </south_west>
+      <west>
+        <sprite n="CavalryArcher_die/020_CavalryArcher_die.bmp" x="529" y="362" w="69" h="72" pX="0.666667" pY="0.680556"/>
+        <sprite n="CavalryArcher_die/021_CavalryArcher_die.bmp" x="600" y="362" w="76" h="71" pX="0.605263" pY="0.676056"/>
+        <sprite n="CavalryArcher_die/022_CavalryArcher_die.bmp" x="678" y="362" w="65" h="73" pX="0.492308" pY="0.753425"/>
+        <sprite n="CavalryArcher_die/023_CavalryArcher_die.bmp" x="745" y="362" w="56" h="73" pX="0.339286" pY="0.767123"/>
+        <sprite n="CavalryArcher_die/024_CavalryArcher_die.bmp" x="803" y="362" w="66" h="72" pX="0.393939" pY="0.694444"/>
+        <sprite n="CavalryArcher_die/025_CavalryArcher_die.bmp" x="871" y="362" w="64" h="62" pX="0.46875" pY="0.645161"/>
+        <sprite n="CavalryArcher_die/026_CavalryArcher_die.bmp" x="937" y="362" w="71" h="43" pX="0.633803" pY="0.325581"/>
+        <sprite n="CavalryArcher_die/027_CavalryArcher_die.bmp" x="1010" y="362" w="73" h="43" pX="0.616438" pY="0.209302"/>
+        <sprite n="CavalryArcher_die/028_CavalryArcher_die.bmp" x="1" y="437" w="82" h="44" pX="0.560976" pY="0.181818"/>
+        <sprite n="CavalryArcher_die/029_CavalryArcher_die.bmp" x="85" y="437" w="82" h="46" pX="0.560976" pY="0.152174"/>
+      </west>
+      <north_west>
+        <sprite n="CavalryArcher_die/030_CavalryArcher_die.bmp" x="169" y="437" w="69" h="71" pX="0.73913" pY="0.690141"/>
+        <sprite n="CavalryArcher_die/031_CavalryArcher_die.bmp" x="240" y="437" w="71" h="71" pX="0.690141" pY="0.676056"/>
+        <sprite n="CavalryArcher_die/032_CavalryArcher_die.bmp" x="313" y="437" w="46" h="81" pX="0.5" pY="0.679012"/>
+        <sprite n="CavalryArcher_die/033_CavalryArcher_die.bmp" x="361" y="437" w="48" h="79" pX="0.354167" pY="0.632911"/>
+        <sprite n="CavalryArcher_die/034_CavalryArcher_die.bmp" x="411" y="437" w="55" h="77" pX="0.4" pY="0.558442"/>
+        <sprite n="CavalryArcher_die/035_CavalryArcher_die.bmp" x="468" y="437" w="59" h="74" pX="0.440678" pY="0.567568"/>
+        <sprite n="CavalryArcher_die/036_CavalryArcher_die.bmp" x="529" y="437" w="72" h="43" pX="0.527778" pY="0.488372"/>
+        <sprite n="CavalryArcher_die/037_CavalryArcher_die.bmp" x="603" y="437" w="82" h="43" pX="0.621951" pY="0.325581"/>
+        <sprite n="CavalryArcher_die/038_CavalryArcher_die.bmp" x="687" y="437" w="85" h="40" pX="0.635294" pY="0.25"/>
+        <sprite n="CavalryArcher_die/039_CavalryArcher_die.bmp" x="774" y="437" w="89" h="43" pX="0.651685" pY="0.232558"/>
+      </north_west>
+      <north>
+        <sprite n="CavalryArcher_die/040_CavalryArcher_die.bmp" x="865" y="437" w="42" h="73" pX="0.833333" pY="0.671233"/>
+        <sprite n="CavalryArcher_die/041_CavalryArcher_die.bmp" x="909" y="437" w="40" h="75" pX="0.825" pY="0.64"/>
+        <sprite n="CavalryArcher_die/042_CavalryArcher_die.bmp" x="951" y="437" w="45" h="80" pX="0.577778" pY="0.6375"/>
+        <sprite n="CavalryArcher_die/043_CavalryArcher_die.bmp" x="998" y="437" w="62" h="73" pX="0.33871" pY="0.575342"/>
+        <sprite n="CavalryArcher_die/044_CavalryArcher_die.bmp" x="1062" y="437" w="67" h="72" pX="0.447761" pY="0.541667"/>
+        <sprite n="CavalryArcher_die/045_CavalryArcher_die.bmp" x="1" y="520" w="59" h="68" pX="0.491525" pY="0.558824"/>
+        <sprite n="CavalryArcher_die/046_CavalryArcher_die.bmp" x="62" y="520" w="65" h="53" pX="0.630769" pY="0.528302"/>
+        <sprite n="CavalryArcher_die/047_CavalryArcher_die.bmp" x="129" y="520" w="71" h="45" pX="0.690141" pY="0.4"/>
+        <sprite n="CavalryArcher_die/048_CavalryArcher_die.bmp" x="202" y="520" w="74" h="48" pX="0.716216" pY="0.354167"/>
+        <sprite n="CavalryArcher_die/049_CavalryArcher_die.bmp" x="278" y="520" w="79" h="49" pX="0.734177" pY="0.367347"/>
+      </north>
+    </die>
+
+    <disappear>
+      <south>
+        <sprite n="CavalryArcher_dissapear/000_CavalryArcher_dissapear.bmp" x="359" y="520" w="79" h="43" pX="0.367089" pY="0.302326"/>
+        <sprite n="CavalryArcher_dissapear/001_CavalryArcher_dissapear.bmp" x="440" y="520" w="75" h="41" pX="0.346667" pY="0.292683"/>
+        <sprite n="CavalryArcher_dissapear/002_CavalryArcher_dissapear.bmp" x="517" y="520" w="73" h="40" pX="0.356164" pY="0.3"/>
+        <sprite n="CavalryArcher_dissapear/003_CavalryArcher_dissapear.bmp" x="592" y="520" w="73" h="38" pX="0.356164" pY="0.289474"/>
+        <sprite n="CavalryArcher_dissapear/004_CavalryArcher_dissapear.bmp" x="667" y="520" w="73" h="36" pX="0.356164" pY="0.25"/>
+      </south>
+      <south_west>
+        <sprite n="CavalryArcher_dissapear/005_CavalryArcher_dissapear.bmp" x="742" y="520" w="78" h="48" pX="0.5" pY="0.229167"/>
+        <sprite n="CavalryArcher_dissapear/006_CavalryArcher_dissapear.bmp" x="822" y="520" w="77" h="44" pX="0.493506" pY="0.227273"/>
+        <sprite n="CavalryArcher_dissapear/007_CavalryArcher_dissapear.bmp" x="901" y="520" w="69" h="41" pX="0.449275" pY="0.219512"/>
+        <sprite n="CavalryArcher_dissapear/008_CavalryArcher_dissapear.bmp" x="972" y="520" w="62" h="39" pX="0.419355" pY="0.205128"/>
+        <sprite n="CavalryArcher_dissapear/009_CavalryArcher_dissapear.bmp" x="1036" y="520" w="58" h="37" pX="0.431034" pY="0.162162"/>
+      </south_west>
+      <west>
+        <sprite n="CavalryArcher_dissapear/010_CavalryArcher_dissapear.bmp" x="1" y="590" w="80" h="44" pX="0.5625" pY="0.136364"/>
+        <sprite n="CavalryArcher_dissapear/011_CavalryArcher_dissapear.bmp" x="83" y="590" w="77" h="40" pX="0.584416" pY="0.125"/>
+        <sprite n="CavalryArcher_dissapear/012_CavalryArcher_dissapear.bmp" x="162" y="590" w="73" h="38" pX="0.589041" pY="0.105263"/>
+        <sprite n="CavalryArcher_dissapear/013_CavalryArcher_dissapear.bmp" x="237" y="590" w="71" h="37" pX="0.605634" pY="0.0810811"/>
+        <sprite n="CavalryArcher_dissapear/014_CavalryArcher_dissapear.bmp" x="310" y="590" w="66" h="36" pX="0.636364" pY="0.0555556"/>
+      </west>
+      <north_west>
+        <sprite n="CavalryArcher_dissapear/015_CavalryArcher_dissapear.bmp" x="378" y="590" w="87" h="41" pX="0.655172" pY="0.219512"/>
+        <sprite n="CavalryArcher_dissapear/016_CavalryArcher_dissapear.bmp" x="467" y="590" w="84" h="39" pX="0.654762" pY="0.205128"/>
+        <sprite n="CavalryArcher_dissapear/017_CavalryArcher_dissapear.bmp" x="553" y="590" w="81" h="39" pX="0.666667" pY="0.205128"/>
+        <sprite n="CavalryArcher_dissapear/018_CavalryArcher_dissapear.bmp" x="636" y="590" w="72" h="37" pX="0.652778" pY="0.189189"/>
+        <sprite n="CavalryArcher_dissapear/019_CavalryArcher_dissapear.bmp" x="710" y="590" w="71" h="35" pX="0.661972" pY="0.142857"/>
+      </north_west>
+      <north>
+        <sprite n="CavalryArcher_dissapear/020_CavalryArcher_dissapear.bmp" x="783" y="590" w="77" h="47" pX="0.74026" pY="0.361702"/>
+        <sprite n="CavalryArcher_dissapear/021_CavalryArcher_dissapear.bmp" x="862" y="590" w="74" h="42" pX="0.72973" pY="0.285714"/>
+        <sprite n="CavalryArcher_dissapear/022_CavalryArcher_dissapear.bmp" x="938" y="590" w="73" h="39" pX="0.726027" pY="0.282051"/>
+        <sprite n="CavalryArcher_dissapear/023_CavalryArcher_dissapear.bmp" x="1013" y="590" w="72" h="37" pX="0.736111" pY="0.297297"/>
+        <sprite n="CavalryArcher_dissapear/024_CavalryArcher_dissapear.bmp" x="1" y="639" w="59" h="29" pX="0.898305" pY="0.344828"/>
+      </north>
+    </disappear>
+
+    <idle>
+      <south>
+        <sprite n="CavalryArcher_idle/000_CavalryArcher_idle.bmp" x="62" y="639" w="34" h="82" pX="0.676471" pY="0.646341"/>
+        <sprite n="CavalryArcher_idle/001_CavalryArcher_idle.bmp" x="98" y="639" w="35" h="80" pX="0.657143" pY="0.6625"/>
+        <sprite n="CavalryArcher_idle/002_CavalryArcher_idle.bmp" x="135" y="639" w="36" h="80" pX="0.638889" pY="0.6625"/>
+        <sprite n="CavalryArcher_idle/003_CavalryArcher_idle.bmp" x="173" y="639" w="43" h="78" pX="0.697674" pY="0.641026"/>
+        <sprite n="CavalryArcher_idle/004_CavalryArcher_idle.bmp" x="218" y="639" w="47" h="76" pX="0.787234" pY="0.671053"/>
+        <sprite n="CavalryArcher_idle/005_CavalryArcher_idle.bmp" x="267" y="639" w="49" h="78" pX="0.795918" pY="0.679487"/>
+        <sprite n="CavalryArcher_idle/006_CavalryArcher_idle.bmp" x="318" y="639" w="44" h="78" pX="0.795455" pY="0.679487"/>
+        <sprite n="CavalryArcher_idle/007_CavalryArcher_idle.bmp" x="364" y="639" w="36" h="82" pX="0.666667" pY="0.634146"/>
+        <sprite n="CavalryArcher_idle/008_CavalryArcher_idle.bmp" x="402" y="639" w="38" h="80" pX="0.684211" pY="0.625"/>
+        <sprite n="CavalryArcher_idle/009_CavalryArcher_idle.bmp" x="442" y="639" w="39" h="82" pX="0.692308" pY="0.646341"/>
+      </south>
+      <south_west>
+        <sprite n="CavalryArcher_idle/010_CavalryArcher_idle.bmp" x="483" y="639" w="63" h="74" pX="0.571429" pY="0.716216"/>
+        <sprite n="CavalryArcher_idle/011_CavalryArcher_idle.bmp" x="548" y="639" w="51" h="72" pX="0.588235" pY="0.736111"/>
+        <sprite n="CavalryArcher_idle/012_CavalryArcher_idle.bmp" x="601" y="639" w="55" h="75" pX="0.545455" pY="0.746667"/>
+        <sprite n="CavalryArcher_idle/013_CavalryArcher_idle.bmp" x="658" y="639" w="59" h="75" pX="0.559322" pY="0.72"/>
+        <sprite n="CavalryArcher_idle/014_CavalryArcher_idle.bmp" x="719" y="639" w="53" h="74" pX="0.54717" pY="0.756757"/>
+        <sprite n="CavalryArcher_idle/015_CavalryArcher_idle.bmp" x="774" y="639" w="53" h="75" pX="0.54717" pY="0.76"/>
+        <sprite n="CavalryArcher_idle/016_CavalryArcher_idle.bmp" x="829" y="639" w="56" h="74" pX="0.625" pY="0.72973"/>
+        <sprite n="CavalryArcher_idle/017_CavalryArcher_idle.bmp" x="887" y="639" w="61" h="76" pX="0.688525" pY="0.671053"/>
+        <sprite n="CavalryArcher_idle/018_CavalryArcher_idle.bmp" x="950" y="639" w="60" h="76" pX="0.683333" pY="0.684211"/>
+        <sprite n="CavalryArcher_idle/019_CavalryArcher_idle.bmp" x="1012" y="639" w="58" h="76" pX="0.672414" pY="0.697368"/>
+      </south_west>
+      <west>
+        <sprite n="CavalryArcher_idle/020_CavalryArcher_idle.bmp" x="1" y="723" w="87" h="68" pX="0.517241" pY="0.75"/>
+        <sprite n="CavalryArcher_idle/021_CavalryArcher_idle.bmp" x="90" y="723" w="65" h="67" pX="0.569231" pY="0.746269"/>
+        <sprite n="CavalryArcher_idle/022_CavalryArcher_idle.bmp" x="157" y="723" w="73" h="69" pX="0.506849" pY="0.753623"/>
+        <sprite n="CavalryArcher_idle/023_CavalryArcher_idle.bmp" x="232" y="723" w="81" h="68" pX="0.518519" pY="0.75"/>
+        <sprite n="CavalryArcher_idle/024_CavalryArcher_idle.bmp" x="315" y="723" w="70" h="69" pX="0.5" pY="0.753623"/>
+        <sprite n="CavalryArcher_idle/025_CavalryArcher_idle.bmp" x="387" y="723" w="68" h="69" pX="0.529412" pY="0.753623"/>
+        <sprite n="CavalryArcher_idle/026_CavalryArcher_idle.bmp" x="457" y="723" w="73" h="67" pX="0.60274" pY="0.746269"/>
+        <sprite n="CavalryArcher_idle/027_CavalryArcher_idle.bmp" x="532" y="723" w="82" h="69" pX="0.646341" pY="0.753623"/>
+        <sprite n="CavalryArcher_idle/028_CavalryArcher_idle.bmp" x="616" y="723" w="79" h="70" pX="0.632911" pY="0.757143"/>
+        <sprite n="CavalryArcher_idle/029_CavalryArcher_idle.bmp" x="697" y="723" w="77" h="70" pX="0.623377" pY="0.757143"/>
+      </west>
+      <north_west>
+        <sprite n="CavalryArcher_idle/030_CavalryArcher_idle.bmp" x="776" y="723" w="66" h="78" pX="0.530303" pY="0.679487"/>
+        <sprite n="CavalryArcher_idle/031_CavalryArcher_idle.bmp" x="844" y="723" w="53" h="75" pX="0.566038" pY="0.693333"/>
+        <sprite n="CavalryArcher_idle/032_CavalryArcher_idle.bmp" x="899" y="723" w="57" h="75" pX="0.526316" pY="0.68"/>
+        <sprite n="CavalryArcher_idle/033_CavalryArcher_idle.bmp" x="958" y="723" w="62" h="73" pX="0.532258" pY="0.657534"/>
+        <sprite n="CavalryArcher_idle/034_CavalryArcher_idle.bmp" x="1022" y="723" w="53" h="77" pX="0.528302" pY="0.688312"/>
+        <sprite n="CavalryArcher_idle/035_CavalryArcher_idle.bmp" x="1077" y="723" w="52" h="79" pX="0.557692" pY="0.696203"/>
+        <sprite n="CavalryArcher_idle/036_CavalryArcher_idle.bmp" x="1" y="804" w="56" h="76" pX="0.607143" pY="0.710526"/>
+        <sprite n="CavalryArcher_idle/037_CavalryArcher_idle.bmp" x="59" y="804" w="62" h="73" pX="0.645161" pY="0.712329"/>
+        <sprite n="CavalryArcher_idle/038_CavalryArcher_idle.bmp" x="123" y="804" w="61" h="74" pX="0.639344" pY="0.716216"/>
+        <sprite n="CavalryArcher_idle/039_CavalryArcher_idle.bmp" x="186" y="804" w="60" h="73" pX="0.633333" pY="0.712329"/>
+      </north_west>
+      <north>
+        <sprite n="CavalryArcher_idle/040_CavalryArcher_idle.bmp" x="248" y="804" w="35" h="84" pX="0.685714" pY="0.714286"/>
+        <sprite n="CavalryArcher_idle/041_CavalryArcher_idle.bmp" x="285" y="804" w="37" h="83" pX="0.675676" pY="0.698795"/>
+        <sprite n="CavalryArcher_idle/042_CavalryArcher_idle.bmp" x="324" y="804" w="39" h="85" pX="0.692308" pY="0.717647"/>
+        <sprite n="CavalryArcher_idle/043_CavalryArcher_idle.bmp" x="365" y="804" w="40" h="81" pX="0.65" pY="0.716049"/>
+        <sprite n="CavalryArcher_idle/044_CavalryArcher_idle.bmp" x="407" y="804" w="45" h="77" pX="0.533333" pY="0.701299"/>
+        <sprite n="CavalryArcher_idle/045_CavalryArcher_idle.bmp" x="454" y="804" w="45" h="76" pX="0.511111" pY="0.697368"/>
+        <sprite n="CavalryArcher_idle/046_CavalryArcher_idle.bmp" x="501" y="804" w="42" h="79" pX="0.547619" pY="0.696203"/>
+        <sprite n="CavalryArcher_idle/047_CavalryArcher_idle.bmp" x="545" y="804" w="39" h="81" pX="0.641026" pY="0.703704"/>
+        <sprite n="CavalryArcher_idle/048_CavalryArcher_idle.bmp" x="586" y="804" w="38" h="80" pX="0.657895" pY="0.6875"/>
+        <sprite n="CavalryArcher_idle/049_CavalryArcher_idle.bmp" x="626" y="804" w="37" h="82" pX="0.621622" pY="0.695122"/>
+      </north>
+    </idle>
+
+    <walk>
+      <south>
+        <sprite n="CavalryArcher_walk/000_CavalryArcher_walk.bmp" x="665" y="804" w="33" h="80" pX="0.666667" pY="0.675"/>
+        <sprite n="CavalryArcher_walk/001_CavalryArcher_walk.bmp" x="700" y="804" w="33" h="80" pX="0.666667" pY="0.675"/>
+        <sprite n="CavalryArcher_walk/002_CavalryArcher_walk.bmp" x="735" y="804" w="33" h="81" pX="0.666667" pY="0.679012"/>
+        <sprite n="CavalryArcher_walk/003_CavalryArcher_walk.bmp" x="770" y="804" w="33" h="81" pX="0.666667" pY="0.691358"/>
+        <sprite n="CavalryArcher_walk/004_CavalryArcher_walk.bmp" x="805" y="804" w="33" h="82" pX="0.666667" pY="0.695122"/>
+        <sprite n="CavalryArcher_walk/005_CavalryArcher_walk.bmp" x="840" y="804" w="33" h="81" pX="0.666667" pY="0.691358"/>
+        <sprite n="CavalryArcher_walk/006_CavalryArcher_walk.bmp" x="875" y="804" w="33" h="79" pX="0.666667" pY="0.683544"/>
+        <sprite n="CavalryArcher_walk/007_CavalryArcher_walk.bmp" x="910" y="804" w="33" h="79" pX="0.666667" pY="0.670886"/>
+        <sprite n="CavalryArcher_walk/008_CavalryArcher_walk.bmp" x="945" y="804" w="33" h="79" pX="0.666667" pY="0.670886"/>
+        <sprite n="CavalryArcher_walk/009_CavalryArcher_walk.bmp" x="980" y="804" w="33" h="80" pX="0.666667" pY="0.6625"/>
+      </south>
+      <south_west>
+        <sprite n="CavalryArcher_walk/010_CavalryArcher_walk.bmp" x="1015" y="804" w="56" h="75" pX="0.642857" pY="0.706667"/>
+        <sprite n="CavalryArcher_walk/011_CavalryArcher_walk.bmp" x="1073" y="804" w="56" h="75" pX="0.642857" pY="0.72"/>
+        <sprite n="CavalryArcher_walk/012_CavalryArcher_walk.bmp" x="1" y="891" w="56" h="76" pX="0.642857" pY="0.723684"/>
+        <sprite n="CavalryArcher_walk/013_CavalryArcher_walk.bmp" x="59" y="891" w="57" h="77" pX="0.631579" pY="0.727273"/>
+        <sprite n="CavalryArcher_walk/014_CavalryArcher_walk.bmp" x="118" y="891" w="58" h="78" pX="0.62069" pY="0.730769"/>
+        <sprite n="CavalryArcher_walk/015_CavalryArcher_walk.bmp" x="178" y="891" w="59" h="77" pX="0.610169" pY="0.727273"/>
+        <sprite n="CavalryArcher_walk/016_CavalryArcher_walk.bmp" x="239" y="891" w="61" h="74" pX="0.590164" pY="0.716216"/>
+        <sprite n="CavalryArcher_walk/017_CavalryArcher_walk.bmp" x="302" y="891" w="61" h="75" pX="0.590164" pY="0.706667"/>
+        <sprite n="CavalryArcher_walk/018_CavalryArcher_walk.bmp" x="365" y="891" w="59" h="75" pX="0.610169" pY="0.706667"/>
+        <sprite n="CavalryArcher_walk/019_CavalryArcher_walk.bmp" x="426" y="891" w="58" h="75" pX="0.637931" pY="0.706667"/>
+      </south_west>
+      <west>
+        <sprite n="CavalryArcher_walk/020_CavalryArcher_walk.bmp" x="486" y="891" w="72" h="68" pX="0.611111" pY="0.764706"/>
+        <sprite n="CavalryArcher_walk/021_CavalryArcher_walk.bmp" x="560" y="891" w="71" h="69" pX="0.619718" pY="0.768116"/>
+        <sprite n="CavalryArcher_walk/022_CavalryArcher_walk.bmp" x="633" y="891" w="71" h="69" pX="0.605634" pY="0.768116"/>
+        <sprite n="CavalryArcher_walk/023_CavalryArcher_walk.bmp" x="706" y="891" w="73" h="70" pX="0.589041" pY="0.771429"/>
+        <sprite n="CavalryArcher_walk/024_CavalryArcher_walk.bmp" x="781" y="891" w="75" h="71" pX="0.573333" pY="0.774648"/>
+        <sprite n="CavalryArcher_walk/025_CavalryArcher_walk.bmp" x="858" y="891" w="76" h="70" pX="0.565789" pY="0.771429"/>
+        <sprite n="CavalryArcher_walk/026_CavalryArcher_walk.bmp" x="936" y="891" w="80" h="68" pX="0.5375" pY="0.764706"/>
+        <sprite n="CavalryArcher_walk/027_CavalryArcher_walk.bmp" x="1018" y="891" w="80" h="67" pX="0.5375" pY="0.761194"/>
+        <sprite n="CavalryArcher_walk/028_CavalryArcher_walk.bmp" x="1" y="971" w="78" h="67" pX="0.564103" pY="0.761194"/>
+        <sprite n="CavalryArcher_walk/029_CavalryArcher_walk.bmp" x="81" y="971" w="76" h="67" pX="0.592105" pY="0.761194"/>
+      </west>
+      <north_west>
+        <sprite n="CavalryArcher_walk/030_CavalryArcher_walk.bmp" x="159" y="971" w="58" h="75" pX="0.62069" pY="0.706667"/>
+        <sprite n="CavalryArcher_walk/031_CavalryArcher_walk.bmp" x="219" y="971" w="55" h="76" pX="0.636364" pY="0.710526"/>
+        <sprite n="CavalryArcher_walk/032_CavalryArcher_walk.bmp" x="276" y="971" w="55" h="76" pX="0.636364" pY="0.723684"/>
+        <sprite n="CavalryArcher_walk/033_CavalryArcher_walk.bmp" x="333" y="971" w="56" h="76" pX="0.625" pY="0.710526"/>
+        <sprite n="CavalryArcher_walk/034_CavalryArcher_walk.bmp" x="391" y="971" w="58" h="77" pX="0.603448" pY="0.714286"/>
+        <sprite n="CavalryArcher_walk/035_CavalryArcher_walk.bmp" x="451" y="971" w="58" h="76" pX="0.603448" pY="0.697368"/>
+        <sprite n="CavalryArcher_walk/036_CavalryArcher_walk.bmp" x="511" y="971" w="61" h="76" pX="0.57377" pY="0.671053"/>
+        <sprite n="CavalryArcher_walk/037_CavalryArcher_walk.bmp" x="574" y="971" w="61" h="76" pX="0.57377" pY="0.671053"/>
+        <sprite n="CavalryArcher_walk/038_CavalryArcher_walk.bmp" x="637" y="971" w="60" h="74" pX="0.6" pY="0.675676"/>
+        <sprite n="CavalryArcher_walk/039_CavalryArcher_walk.bmp" x="699" y="971" w="61" h="73" pX="0.590164" pY="0.69863"/>
+      </north_west>
+      <north>
+        <sprite n="CavalryArcher_walk/040_CavalryArcher_walk.bmp" x="762" y="971" w="34" h="81" pX="0.705882" pY="0.679012"/>
+        <sprite n="CavalryArcher_walk/041_CavalryArcher_walk.bmp" x="798" y="971" w="35" h="82" pX="0.714286" pY="0.695122"/>
+        <sprite n="CavalryArcher_walk/042_CavalryArcher_walk.bmp" x="835" y="971" w="35" h="84" pX="0.714286" pY="0.690476"/>
+        <sprite n="CavalryArcher_walk/043_CavalryArcher_walk.bmp" x="872" y="971" w="35" h="85" pX="0.714286" pY="0.682353"/>
+        <sprite n="CavalryArcher_walk/044_CavalryArcher_walk.bmp" x="909" y="971" w="35" h="86" pX="0.714286" pY="0.674419"/>
+        <sprite n="CavalryArcher_walk/045_CavalryArcher_walk.bmp" x="946" y="971" w="35" h="84" pX="0.714286" pY="0.666667"/>
+        <sprite n="CavalryArcher_walk/046_CavalryArcher_walk.bmp" x="983" y="971" w="34" h="86" pX="0.705882" pY="0.639535"/>
+        <sprite n="CavalryArcher_walk/047_CavalryArcher_walk.bmp" x="1019" y="971" w="34" h="86" pX="0.705882" pY="0.639535"/>
+        <sprite n="CavalryArcher_walk/048_CavalryArcher_walk.bmp" x="1055" y="971" w="34" h="83" pX="0.705882" pY="0.650602"/>
+        <sprite n="CavalryArcher_walk/049_CavalryArcher_walk.bmp" x="1091" y="971" w="34" h="81" pX="0.705882" pY="0.666667"/>
+      </north>
+    </walk>
+  </cavalryarcher>
+
+  <!--SIEGE RAM-->
+
+  <siegeram imagePath="Siege_Ram.png" width="1306" height="1306">
+    <attack>
+      <south>
+        <sprite n="SiegeRam_attack/000_SiegeRam_attack.bmp" x="1" y="1" w="42" h="53" pX="0.52381" pY="0.490566"/>
+        <sprite n="SiegeRam_attack/001_SiegeRam_attack.bmp" x="45" y="1" w="42" h="53" pX="0.52381" pY="0.490566"/>
+        <sprite n="SiegeRam_attack/002_SiegeRam_attack.bmp" x="89" y="1" w="42" h="52" pX="0.52381" pY="0.5"/>
+        <sprite n="SiegeRam_attack/003_SiegeRam_attack.bmp" x="133" y="1" w="42" h="51" pX="0.52381" pY="0.509804"/>
+        <sprite n="SiegeRam_attack/004_SiegeRam_attack.bmp" x="177" y="1" w="42" h="50" pX="0.52381" pY="0.52"/>
+        <sprite n="SiegeRam_attack/005_SiegeRam_attack.bmp" x="221" y="1" w="42" h="50" pX="0.52381" pY="0.52"/>
+        <sprite n="SiegeRam_attack/006_SiegeRam_attack.bmp" x="265" y="1" w="42" h="51" pX="0.52381" pY="0.509804"/>
+        <sprite n="SiegeRam_attack/007_SiegeRam_attack.bmp" x="309" y="1" w="42" h="57" pX="0.52381" pY="0.45614"/>
+        <sprite n="SiegeRam_attack/008_SiegeRam_attack.bmp" x="353" y="1" w="42" h="57" pX="0.52381" pY="0.45614"/>
+        <sprite n="SiegeRam_attack/009_SiegeRam_attack.bmp" x="397" y="1" w="42" h="56" pX="0.52381" pY="0.464286"/>
+        <sprite n="SiegeRam_attack/010_SiegeRam_attack.bmp" x="441" y="1" w="42" h="55" pX="0.52381" pY="0.472727"/>
+        <sprite n="SiegeRam_attack/011_SiegeRam_attack.bmp" x="485" y="1" w="42" h="55" pX="0.52381" pY="0.472727"/>
+        <sprite n="SiegeRam_attack/012_SiegeRam_attack.bmp" x="529" y="1" w="42" h="54" pX="0.52381" pY="0.481481"/>
+        <sprite n="SiegeRam_attack/013_SiegeRam_attack.bmp" x="573" y="1" w="42" h="53" pX="0.52381" pY="0.490566"/>
+        <sprite n="SiegeRam_attack/014_SiegeRam_attack.bmp" x="617" y="1" w="42" h="53" pX="0.52381" pY="0.490566"/>
+      </south>
+      <south_west>
+        <sprite n="SiegeRam_attack/015_SiegeRam_attack.bmp" x="661" y="1" w="36" h="47" pX="1.27778" pY="0.574468"/>
+        <sprite n="SiegeRam_attack/016_SiegeRam_attack.bmp" x="699" y="1" w="36" h="47" pX="1.27778" pY="0.574468"/>
+        <sprite n="SiegeRam_attack/017_SiegeRam_attack.bmp" x="737" y="1" w="35" h="47" pX="1.28571" pY="0.574468"/>
+        <sprite n="SiegeRam_attack/018_SiegeRam_attack.bmp" x="774" y="1" w="35" h="46" pX="1.28571" pY="0.586957"/>
+        <sprite n="SiegeRam_attack/019_SiegeRam_attack.bmp" x="811" y="1" w="35" h="46" pX="1.28571" pY="0.586957"/>
+        <sprite n="SiegeRam_attack/020_SiegeRam_attack.bmp" x="848" y="1" w="35" h="45" pX="1.28571" pY="0.6"/>
+        <sprite n="SiegeRam_attack/021_SiegeRam_attack.bmp" x="885" y="1" w="35" h="46" pX="1.28571" pY="0.586957"/>
+        <sprite n="SiegeRam_attack/022_SiegeRam_attack.bmp" x="922" y="1" w="41" h="50" pX="1.2439" pY="0.54"/>
+        <sprite n="SiegeRam_attack/023_SiegeRam_attack.bmp" x="965" y="1" w="42" h="50" pX="1.2381" pY="0.54"/>
+        <sprite n="SiegeRam_attack/024_SiegeRam_attack.bmp" x="1009" y="1" w="41" h="50" pX="1.2439" pY="0.54"/>
+        <sprite n="SiegeRam_attack/025_SiegeRam_attack.bmp" x="1052" y="1" w="40" h="49" pX="1.25" pY="0.55102"/>
+        <sprite n="SiegeRam_attack/026_SiegeRam_attack.bmp" x="1094" y="1" w="39" h="48" pX="1.25641" pY="0.5625"/>
+        <sprite n="SiegeRam_attack/027_SiegeRam_attack.bmp" x="1135" y="1" w="38" h="48" pX="1.26316" pY="0.5625"/>
+        <sprite n="SiegeRam_attack/028_SiegeRam_attack.bmp" x="1175" y="1" w="37" h="48" pX="1.27027" pY="0.5625"/>
+        <sprite n="SiegeRam_attack/029_SiegeRam_attack.bmp" x="1214" y="1" w="36" h="47" pX="1.27778" pY="0.574468"/>
+      </south_west>
+      <west>
+        <sprite n="SiegeRam_attack/030_SiegeRam_attack.bmp" x="1" y="60" w="105" h="51" pX="0.533333" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/031_SiegeRam_attack.bmp" x="108" y="60" w="105" h="51" pX="0.533333" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/032_SiegeRam_attack.bmp" x="215" y="60" w="105" h="51" pX="0.52381" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/033_SiegeRam_attack.bmp" x="322" y="60" w="105" h="51" pX="0.504762" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/034_SiegeRam_attack.bmp" x="429" y="60" w="104" h="51" pX="0.490385" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/035_SiegeRam_attack.bmp" x="535" y="60" w="104" h="51" pX="0.480769" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/036_SiegeRam_attack.bmp" x="641" y="60" w="105" h="51" pX="0.495238" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/037_SiegeRam_attack.bmp" x="748" y="60" w="105" h="51" pX="0.6" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/038_SiegeRam_attack.bmp" x="855" y="60" w="105" h="51" pX="0.609524" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/039_SiegeRam_attack.bmp" x="962" y="60" w="105" h="51" pX="0.6" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/040_SiegeRam_attack.bmp" x="1069" y="60" w="105" h="51" pX="0.580952" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/041_SiegeRam_attack.bmp" x="1176" y="60" w="105" h="51" pX="0.561905" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/042_SiegeRam_attack.bmp" x="1" y="113" w="105" h="51" pX="0.552381" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/043_SiegeRam_attack.bmp" x="108" y="113" w="105" h="51" pX="0.542857" pY="0.705882"/>
+        <sprite n="SiegeRam_attack/044_SiegeRam_attack.bmp" x="1" y="60" w="105" h="51" pX="0.533333" pY="0.705882"/>
+      </west>
+      <north_west>
+        <sprite n="SiegeRam_attack/045_SiegeRam_attack.bmp" x="215" y="113" w="94" h="72" pX="0.468085" pY="0.75"/>
+        <sprite n="SiegeRam_attack/046_SiegeRam_attack.bmp" x="311" y="113" w="94" h="73" pX="0.468085" pY="0.739726"/>
+        <sprite n="SiegeRam_attack/047_SiegeRam_attack.bmp" x="407" y="113" w="93" h="73" pX="0.462366" pY="0.739726"/>
+        <sprite n="SiegeRam_attack/048_SiegeRam_attack.bmp" x="502" y="113" w="92" h="74" pX="0.456522" pY="0.72973"/>
+        <sprite n="SiegeRam_attack/049_SiegeRam_attack.bmp" x="596" y="113" w="90" h="74" pX="0.444444" pY="0.72973"/>
+        <sprite n="SiegeRam_attack/050_SiegeRam_attack.bmp" x="688" y="113" w="90" h="75" pX="0.444444" pY="0.72"/>
+        <sprite n="SiegeRam_attack/051_SiegeRam_attack.bmp" x="780" y="113" w="91" h="74" pX="0.450549" pY="0.72973"/>
+        <sprite n="SiegeRam_attack/052_SiegeRam_attack.bmp" x="873" y="113" w="98" h="72" pX="0.489796" pY="0.75"/>
+        <sprite n="SiegeRam_attack/053_SiegeRam_attack.bmp" x="973" y="113" w="99" h="72" pX="0.494949" pY="0.75"/>
+        <sprite n="SiegeRam_attack/054_SiegeRam_attack.bmp" x="1074" y="113" w="98" h="72" pX="0.489796" pY="0.75"/>
+        <sprite n="SiegeRam_attack/055_SiegeRam_attack.bmp" x="1174" y="113" w="97" h="72" pX="0.484536" pY="0.75"/>
+        <sprite n="SiegeRam_attack/056_SiegeRam_attack.bmp" x="1" y="190" w="96" h="72" pX="0.479167" pY="0.75"/>
+        <sprite n="SiegeRam_attack/057_SiegeRam_attack.bmp" x="99" y="190" w="95" h="72" pX="0.473684" pY="0.75"/>
+        <sprite n="SiegeRam_attack/058_SiegeRam_attack.bmp" x="196" y="190" w="95" h="72" pX="0.473684" pY="0.75"/>
+        <sprite n="SiegeRam_attack/059_SiegeRam_attack.bmp" x="215" y="113" w="94" h="72" pX="0.468085" pY="0.75"/>
+      </north_west>
+      <north>
+        <sprite n="SiegeRam_attack/060_SiegeRam_attack.bmp" x="293" y="190" w="30" h="42" pX="0.466667" pY="0.404762"/>
+        <sprite n="SiegeRam_attack/061_SiegeRam_attack.bmp" x="325" y="190" w="30" h="42" pX="0.466667" pY="0.404762"/>
+        <sprite n="SiegeRam_attack/062_SiegeRam_attack.bmp" x="357" y="190" w="30" h="43" pX="0.466667" pY="0.395349"/>
+        <sprite n="SiegeRam_attack/063_SiegeRam_attack.bmp" x="389" y="190" w="30" h="43" pX="0.466667" pY="0.395349"/>
+        <sprite n="SiegeRam_attack/064_SiegeRam_attack.bmp" x="421" y="190" w="30" h="44" pX="0.466667" pY="0.386364"/>
+        <sprite n="SiegeRam_attack/065_SiegeRam_attack.bmp" x="453" y="190" w="30" h="45" pX="0.466667" pY="0.377778"/>
+        <sprite n="SiegeRam_attack/066_SiegeRam_attack.bmp" x="485" y="190" w="30" h="44" pX="0.466667" pY="0.386364"/>
+        <sprite n="SiegeRam_attack/067_SiegeRam_attack.bmp" x="517" y="190" w="30" h="38" pX="0.466667" pY="0.447368"/>
+        <sprite n="SiegeRam_attack/068_SiegeRam_attack.bmp" x="549" y="190" w="30" h="38" pX="0.466667" pY="0.447368"/>
+        <sprite n="SiegeRam_attack/069_SiegeRam_attack.bmp" x="581" y="190" w="30" h="38" pX="0.466667" pY="0.447368"/>
+        <sprite n="SiegeRam_attack/070_SiegeRam_attack.bmp" x="613" y="190" w="30" h="39" pX="0.466667" pY="0.435897"/>
+        <sprite n="SiegeRam_attack/071_SiegeRam_attack.bmp" x="645" y="190" w="30" h="40" pX="0.466667" pY="0.425"/>
+        <sprite n="SiegeRam_attack/072_SiegeRam_attack.bmp" x="677" y="190" w="30" h="41" pX="0.466667" pY="0.414634"/>
+        <sprite n="SiegeRam_attack/073_SiegeRam_attack.bmp" x="709" y="190" w="30" h="41" pX="0.466667" pY="0.414634"/>
+        <sprite n="SiegeRam_attack/074_SiegeRam_attack.bmp" x="293" y="190" w="30" h="42" pX="0.466667" pY="0.404762"/>
+      </north>
+    </attack>
+
+    <die>
+      <south>
+        <sprite n="SiegeRam_die/000_SiegeRam_die.bmp" x="741" y="190" w="68" h="92" pX="0.514706" pY="0.695652"/>
+        <sprite n="SiegeRam_die/001_SiegeRam_die.bmp" x="811" y="190" w="80" h="93" pX="0.5125" pY="0.677419"/>
+        <sprite n="SiegeRam_die/002_SiegeRam_die.bmp" x="893" y="190" w="88" h="96" pX="0.5" pY="0.645833"/>
+        <sprite n="SiegeRam_die/003_SiegeRam_die.bmp" x="983" y="190" w="91" h="101" pX="0.494505" pY="0.613861"/>
+        <sprite n="SiegeRam_die/004_SiegeRam_die.bmp" x="1076" y="190" w="91" h="103" pX="0.494505" pY="0.582524"/>
+        <sprite n="SiegeRam_die/005_SiegeRam_die.bmp" x="1169" y="190" w="91" h="104" pX="0.494505" pY="0.538462"/>
+        <sprite n="SiegeRam_die/006_SiegeRam_die.bmp" x="1" y="296" w="92" h="104" pX="0.48913" pY="0.5"/>
+        <sprite n="SiegeRam_die/007_SiegeRam_die.bmp" x="95" y="296" w="93" h="102" pX="0.483871" pY="0.490196"/>
+        <sprite n="SiegeRam_die/008_SiegeRam_die.bmp" x="190" y="296" w="93" h="105" pX="0.483871" pY="0.504762"/>
+        <sprite n="SiegeRam_die/009_SiegeRam_die.bmp" x="285" y="296" w="92" h="104" pX="0.48913" pY="0.5"/>
+      </south>
+      <south_west>
+        <sprite n="SiegeRam_die/010_SiegeRam_die.bmp" x="379" y="296" w="97" h="81" pX="0.484536" pY="0.728395"/>
+        <sprite n="SiegeRam_die/011_SiegeRam_die.bmp" x="478" y="296" w="102" h="82" pX="0.490196" pY="0.707317"/>
+        <sprite n="SiegeRam_die/012_SiegeRam_die.bmp" x="582" y="296" w="108" h="83" pX="0.509259" pY="0.662651"/>
+        <sprite n="SiegeRam_die/013_SiegeRam_die.bmp" x="692" y="296" w="113" h="84" pX="0.522124" pY="0.642857"/>
+        <sprite n="SiegeRam_die/014_SiegeRam_die.bmp" x="807" y="296" w="120" h="83" pX="0.533333" pY="0.614458"/>
+        <sprite n="SiegeRam_die/015_SiegeRam_die.bmp" x="929" y="296" w="128" h="80" pX="0.546875" pY="0.575"/>
+        <sprite n="SiegeRam_die/016_SiegeRam_die.bmp" x="1059" y="296" w="132" h="79" pX="0.560606" pY="0.531646"/>
+        <sprite n="SiegeRam_die/017_SiegeRam_die.bmp" x="1" y="403" w="135" h="77" pX="0.548148" pY="0.519481"/>
+        <sprite n="SiegeRam_die/018_SiegeRam_die.bmp" x="138" y="403" w="139" h="78" pX="0.532374" pY="0.525641"/>
+        <sprite n="SiegeRam_die/019_SiegeRam_die.bmp" x="279" y="403" w="141" h="77" pX="0.524823" pY="0.519481"/>
+      </south_west>
+      <west>
+        <sprite n="SiegeRam_die/020_SiegeRam_die.bmp" x="422" y="403" w="109" h="63" pX="0.53211" pY="0.730159"/>
+        <sprite n="SiegeRam_die/021_SiegeRam_die.bmp" x="533" y="403" w="117" h="66" pX="0.521368" pY="0.69697"/>
+        <sprite n="SiegeRam_die/022_SiegeRam_die.bmp" x="652" y="403" w="128" h="66" pX="0.523438" pY="0.651515"/>
+        <sprite n="SiegeRam_die/023_SiegeRam_die.bmp" x="782" y="403" w="142" h="60" pX="0.535211" pY="0.6"/>
+        <sprite n="SiegeRam_die/024_SiegeRam_die.bmp" x="926" y="403" w="154" h="57" pX="0.545455" pY="0.578947"/>
+        <sprite n="SiegeRam_die/025_SiegeRam_die.bmp" x="1082" y="403" w="169" h="55" pX="0.56213" pY="0.563636"/>
+        <sprite n="SiegeRam_die/026_SiegeRam_die.bmp" x="1" y="483" w="181" h="56" pX="0.552486" pY="0.553571"/>
+        <sprite n="SiegeRam_die/027_SiegeRam_die.bmp" x="184" y="483" w="183" h="56" pX="0.546448" pY="0.553571"/>
+        <sprite n="SiegeRam_die/028_SiegeRam_die.bmp" x="369" y="483" w="188" h="55" pX="0.531915" pY="0.545455"/>
+        <sprite n="SiegeRam_die/029_SiegeRam_die.bmp" x="559" y="483" w="194" h="55" pX="0.515464" pY="0.545455"/>
+      </west>
+      <north_west>
+        <sprite n="SiegeRam_die/030_SiegeRam_die.bmp" x="755" y="483" w="97" h="81" pX="0.474227" pY="0.679012"/>
+        <sprite n="SiegeRam_die/031_SiegeRam_die.bmp" x="854" y="483" w="102" h="82" pX="0.470588" pY="0.670732"/>
+        <sprite n="SiegeRam_die/032_SiegeRam_die.bmp" x="958" y="483" w="110" h="80" pX="0.490909" pY="0.65"/>
+        <sprite n="SiegeRam_die/033_SiegeRam_die.bmp" x="1070" y="483" w="114" h="79" pX="0.5" pY="0.64557"/>
+        <sprite n="SiegeRam_die/034_SiegeRam_die.bmp" x="1186" y="483" w="119" h="76" pX="0.521008" pY="0.618421"/>
+        <sprite n="SiegeRam_die/035_SiegeRam_die.bmp" x="1" y="567" w="124" h="77" pX="0.540323" pY="0.61039"/>
+        <sprite n="SiegeRam_die/036_SiegeRam_die.bmp" x="127" y="567" w="131" h="75" pX="0.541985" pY="0.6"/>
+        <sprite n="SiegeRam_die/037_SiegeRam_die.bmp" x="260" y="567" w="135" h="77" pX="0.525926" pY="0.584416"/>
+        <sprite n="SiegeRam_die/038_SiegeRam_die.bmp" x="397" y="567" w="138" h="79" pX="0.514493" pY="0.56962"/>
+        <sprite n="SiegeRam_die/039_SiegeRam_die.bmp" x="537" y="567" w="141" h="81" pX="0.503546" pY="0.555556"/>
+      </north_west>
+      <north>
+        <sprite n="SiegeRam_die/040_SiegeRam_die.bmp" x="680" y="567" w="67" h="85" pX="0.507463" pY="0.694118"/>
+        <sprite n="SiegeRam_die/041_SiegeRam_die.bmp" x="749" y="567" w="81" h="88" pX="0.493827" pY="0.670455"/>
+        <sprite n="SiegeRam_die/042_SiegeRam_die.bmp" x="832" y="567" w="89" h="88" pX="0.505618" pY="0.636364"/>
+        <sprite n="SiegeRam_die/043_SiegeRam_die.bmp" x="923" y="567" w="91" h="92" pX="0.505495" pY="0.630435"/>
+        <sprite n="SiegeRam_die/044_SiegeRam_die.bmp" x="1016" y="567" w="92" h="92" pX="0.51087" pY="0.597826"/>
+        <sprite n="SiegeRam_die/045_SiegeRam_die.bmp" x="1110" y="567" w="93" h="98" pX="0.516129" pY="0.602041"/>
+        <sprite n="SiegeRam_die/046_SiegeRam_die.bmp" x="1205" y="567" w="94" h="99" pX="0.521277" pY="0.575758"/>
+        <sprite n="SiegeRam_die/047_SiegeRam_die.bmp" x="1" y="668" w="95" h="100" pX="0.526316" pY="0.57"/>
+        <sprite n="SiegeRam_die/048_SiegeRam_die.bmp" x="98" y="668" w="94" h="103" pX="0.521277" pY="0.553398"/>
+        <sprite n="SiegeRam_die/049_SiegeRam_die.bmp" x="194" y="668" w="93" h="106" pX="0.516129" pY="0.537736"/>
+      </north>
+    </die>
+
+    <disappear>
+      <south>
+        <sprite n="SiegeRam_dissapear/000_SiegeRam_dissapear.bmp" x="289" y="668" w="90" h="102" pX="0.488889" pY="0.5"/>
+        <sprite n="SiegeRam_dissapear/001_SiegeRam_dissapear.bmp" x="381" y="668" w="88" h="101" pX="0.488636" pY="0.50495"/>
+        <sprite n="SiegeRam_dissapear/002_SiegeRam_dissapear.bmp" x="471" y="668" w="85" h="98" pX="0.494118" pY="0.510204"/>
+        <sprite n="SiegeRam_dissapear/003_SiegeRam_dissapear.bmp" x="558" y="668" w="83" h="96" pX="0.481928" pY="0.520833"/>
+        <sprite n="SiegeRam_dissapear/004_SiegeRam_dissapear.bmp" x="643" y="668" w="80" h="96" pX="0.4875" pY="0.520833"/>
+      </south>
+      <south_west>
+        <sprite n="SiegeRam_dissapear/005_SiegeRam_dissapear.bmp" x="725" y="668" w="139" h="75" pX="0.52518" pY="0.52"/>
+        <sprite n="SiegeRam_dissapear/006_SiegeRam_dissapear.bmp" x="866" y="668" w="137" h="74" pX="0.518248" pY="0.527027"/>
+        <sprite n="SiegeRam_dissapear/007_SiegeRam_dissapear.bmp" x="1005" y="668" w="135" h="73" pX="0.518519" pY="0.534247"/>
+        <sprite n="SiegeRam_dissapear/008_SiegeRam_dissapear.bmp" x="1142" y="668" w="133" h="73" pX="0.518797" pY="0.534247"/>
+        <sprite n="SiegeRam_dissapear/009_SiegeRam_dissapear.bmp" x="1" y="776" w="132" h="72" pX="0.515152" pY="0.541667"/>
+      </south_west>
+      <west>
+        <sprite n="SiegeRam_dissapear/010_SiegeRam_dissapear.bmp" x="135" y="776" w="192" h="53" pX="0.515625" pY="0.54717"/>
+        <sprite n="SiegeRam_dissapear/011_SiegeRam_dissapear.bmp" x="329" y="776" w="189" h="50" pX="0.507937" pY="0.56"/>
+        <sprite n="SiegeRam_dissapear/012_SiegeRam_dissapear.bmp" x="520" y="776" w="186" h="47" pX="0.510753" pY="0.553191"/>
+        <sprite n="SiegeRam_dissapear/013_SiegeRam_dissapear.bmp" x="708" y="776" w="184" h="46" pX="0.51087" pY="0.565217"/>
+        <sprite n="SiegeRam_dissapear/014_SiegeRam_dissapear.bmp" x="894" y="776" w="182" h="45" pX="0.516484" pY="0.555556"/>
+      </west>
+      <north_west>
+        <sprite n="SiegeRam_dissapear/015_SiegeRam_dissapear.bmp" x="1078" y="776" w="139" h="79" pX="0.503597" pY="0.556962"/>
+        <sprite n="SiegeRam_dissapear/016_SiegeRam_dissapear.bmp" x="1" y="857" w="135" h="77" pX="0.503704" pY="0.558442"/>
+        <sprite n="SiegeRam_dissapear/017_SiegeRam_dissapear.bmp" x="138" y="857" w="133" h="76" pX="0.496241" pY="0.565789"/>
+        <sprite n="SiegeRam_dissapear/018_SiegeRam_dissapear.bmp" x="273" y="857" w="132" h="73" pX="0.492424" pY="0.589041"/>
+        <sprite n="SiegeRam_dissapear/019_SiegeRam_dissapear.bmp" x="407" y="857" w="130" h="71" pX="0.492308" pY="0.591549"/>
+      </north_west>
+      <north>
+        <sprite n="SiegeRam_dissapear/020_SiegeRam_dissapear.bmp" x="539" y="857" w="91" h="104" pX="0.516484" pY="0.538462"/>
+        <sprite n="SiegeRam_dissapear/021_SiegeRam_dissapear.bmp" x="632" y="857" w="90" h="104" pX="0.522222" pY="0.538462"/>
+        <sprite n="SiegeRam_dissapear/022_SiegeRam_dissapear.bmp" x="724" y="857" w="90" h="101" pX="0.522222" pY="0.544554"/>
+        <sprite n="SiegeRam_dissapear/023_SiegeRam_dissapear.bmp" x="816" y="857" w="86" h="99" pX="0.5" pY="0.545455"/>
+        <sprite n="SiegeRam_dissapear/024_SiegeRam_dissapear.bmp" x="904" y="857" w="85" h="97" pX="0.505882" pY="0.556701"/>
+      </north>
+    </disappear>
+
+    <idle>
+      <south>
+        <sprite n="SiegeRam_idle/000_SiegeRam_idle.bmp" x="991" y="857" w="68" h="92" pX="0.529412" pY="0.695652"/>
+      </south>
+      <south_west>
+        <sprite n="SiegeRam_idle/001_SiegeRam_idle.bmp" x="1061" y="857" w="97" h="82" pX="0.484536" pY="0.719512"/>
+      </south_west>
+      <west>
+        <sprite n="SiegeRam_idle/002_SiegeRam_idle.bmp" x="1160" y="857" w="107" h="64" pX="0.53271" pY="0.734375"/>
+      </west>
+      <north_west>
+        <sprite n="SiegeRam_idle/003_SiegeRam_idle.bmp" x="1" y="963" w="96" h="81" pX="0.46875" pY="0.679012"/>
+      </north_west>
+      <north>
+        <sprite n="SiegeRam_idle/004_SiegeRam_idle.bmp" x="99" y="963" w="67" h="85" pX="0.507463" pY="0.694118"/>
+      </north>
+    </idle>
+
+    <walk>
+      <south>
+        <sprite n="SiegeRam_walk/000_SiegeRam_walk.bmp" x="168" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/001_SiegeRam_walk.bmp" x="236" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/002_SiegeRam_walk.bmp" x="304" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/003_SiegeRam_walk.bmp" x="372" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/004_SiegeRam_walk.bmp" x="440" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/005_SiegeRam_walk.bmp" x="508" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/006_SiegeRam_walk.bmp" x="576" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/007_SiegeRam_walk.bmp" x="644" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/008_SiegeRam_walk.bmp" x="712" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/009_SiegeRam_walk.bmp" x="780" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/010_SiegeRam_walk.bmp" x="848" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/011_SiegeRam_walk.bmp" x="916" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/012_SiegeRam_walk.bmp" x="984" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/013_SiegeRam_walk.bmp" x="1052" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+        <sprite n="SiegeRam_walk/014_SiegeRam_walk.bmp" x="1120" y="963" w="66" h="61" pX="0.530303" pY="0.737705"/>
+      </south>
+      <south_west>
+        <sprite n="SiegeRam_walk/015_SiegeRam_walk.bmp" x="1188" y="963" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/016_SiegeRam_walk.bmp" x="1" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/017_SiegeRam_walk.bmp" x="97" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/018_SiegeRam_walk.bmp" x="193" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/019_SiegeRam_walk.bmp" x="289" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/020_SiegeRam_walk.bmp" x="385" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/021_SiegeRam_walk.bmp" x="481" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/022_SiegeRam_walk.bmp" x="577" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/023_SiegeRam_walk.bmp" x="673" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/024_SiegeRam_walk.bmp" x="769" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/025_SiegeRam_walk.bmp" x="865" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/026_SiegeRam_walk.bmp" x="961" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/027_SiegeRam_walk.bmp" x="1057" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/028_SiegeRam_walk.bmp" x="1153" y="1050" w="94" h="44" pX="0.478723" pY="0.5"/>
+        <sprite n="SiegeRam_walk/029_SiegeRam_walk.bmp" x="1" y="1096" w="94" h="44" pX="0.478723" pY="0.5"/>
+      </south_west>
+      <west>
+        <sprite n="SiegeRam_walk/030_SiegeRam_walk.bmp" x="97" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/031_SiegeRam_walk.bmp" x="172" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/032_SiegeRam_walk.bmp" x="247" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/033_SiegeRam_walk.bmp" x="322" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/034_SiegeRam_walk.bmp" x="397" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/035_SiegeRam_walk.bmp" x="472" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/036_SiegeRam_walk.bmp" x="547" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/037_SiegeRam_walk.bmp" x="622" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/038_SiegeRam_walk.bmp" x="697" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/039_SiegeRam_walk.bmp" x="772" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/040_SiegeRam_walk.bmp" x="847" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/041_SiegeRam_walk.bmp" x="922" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/042_SiegeRam_walk.bmp" x="997" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/043_SiegeRam_walk.bmp" x="1072" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+        <sprite n="SiegeRam_walk/044_SiegeRam_walk.bmp" x="1147" y="1096" w="73" h="18" pX="0.438356" pY="0.111111"/>
+      </west>
+      <north_west>
+        <sprite n="SiegeRam_walk/045_SiegeRam_walk.bmp" x="1" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/046_SiegeRam_walk.bmp" x="97" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/047_SiegeRam_walk.bmp" x="193" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/048_SiegeRam_walk.bmp" x="289" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/049_SiegeRam_walk.bmp" x="385" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/050_SiegeRam_walk.bmp" x="481" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/051_SiegeRam_walk.bmp" x="577" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/052_SiegeRam_walk.bmp" x="673" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/053_SiegeRam_walk.bmp" x="769" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/054_SiegeRam_walk.bmp" x="865" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/055_SiegeRam_walk.bmp" x="961" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/056_SiegeRam_walk.bmp" x="1057" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/057_SiegeRam_walk.bmp" x="1153" y="1142" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/058_SiegeRam_walk.bmp" x="1" y="1188" w="94" h="44" pX="0.468085" pY="0.431818"/>
+        <sprite n="SiegeRam_walk/059_SiegeRam_walk.bmp" x="97" y="1188" w="94" h="44" pX="0.468085" pY="0.431818"/>
+      </north_west>
+      <north>
+        <sprite n="SiegeRam_walk/060_SiegeRam_walk.bmp" x="193" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/061_SiegeRam_walk.bmp" x="260" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/062_SiegeRam_walk.bmp" x="327" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/063_SiegeRam_walk.bmp" x="394" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/064_SiegeRam_walk.bmp" x="461" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/065_SiegeRam_walk.bmp" x="528" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/066_SiegeRam_walk.bmp" x="595" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/067_SiegeRam_walk.bmp" x="662" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/068_SiegeRam_walk.bmp" x="729" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/069_SiegeRam_walk.bmp" x="796" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/070_SiegeRam_walk.bmp" x="863" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/071_SiegeRam_walk.bmp" x="930" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/072_SiegeRam_walk.bmp" x="997" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/073_SiegeRam_walk.bmp" x="1064" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+        <sprite n="SiegeRam_walk/074_SiegeRam_walk.bmp" x="1131" y="1188" w="65" h="62" pX="0.507692" pY="0.66129"/>
+      </north>
+    </walk>
+  </siegeram>
+</Sprites>
