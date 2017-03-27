@@ -15,6 +15,7 @@ public:
 			  int flags = STANDARD_PRESET,
 			  char* text = nullptr, 
 			  label_size _size = DEFAULT);
+	GUIButton(const GUIButton &btn, int flags = STANDARD_PRESET);
 	~GUIButton();
 
 	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus) override;

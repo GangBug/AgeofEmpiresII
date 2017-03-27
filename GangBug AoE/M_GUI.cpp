@@ -43,7 +43,7 @@ bool M_GUI::Start()
 	//TODO 1: Load atlas
 	atlas = app->tex->Load("gui/atlas2.png");
 
-	//TODO 2: Load UI presets
+	
 	LOG("Loading UI xml");
 	char* buffer = nullptr;
 	char path[256];
@@ -64,7 +64,8 @@ bool M_GUI::Start()
 			root = data.child("gui").child("elements");
 			pugi::xml_node buttons = root.child("buttons");
 			pugi::xml_node imgs = root.child("imgs");
-
+			//TODO 2: Load UI presets
+			//Loading button presets
 			for (pugi::xml_node it = buttons.first_child(); it != NULL; it = it.next_sibling())
 			{
 				std::string name = it.attribute("type_name").as_string();
@@ -108,11 +109,72 @@ bool M_GUI::Start()
 							break;
 					}
 				}
+				GUIButton* btn = CreateButton({ 0,0,stb.w,stb.h }, stb, hov, clk);
+				GuiPresets.insert(std::pair<std::string, GUIElement*>(name, btn));
 			}
 
-			//ret = root->Load(&rootN);
-			data.reset();
+			//Loading image presets
+			for (pugi::xml_node it = imgs.first_child(); it != NULL; it = it.next_sibling())
+			{
+				std::string name = it.attribute("type_name").as_string();
+				pugi::xml_node section = it.child("section");
 
+				GB_Rectangle<int> stb;
+				if (!strcmp(section.attribute("type").as_string(), "standBy"))
+				{
+					stb.x = section.attribute("x").as_int();
+					stb.y = section.attribute("y").as_int();
+					stb.w = section.attribute("w").as_int();
+					stb.h = section.attribute("h").as_int();
+				}
+				else
+				{
+					ret = false;
+				}
+				GUIImage* img = CreateImage({ 0,0,stb.w,stb.h }, stb);
+				GuiPresets.insert(std::pair<std::string, GUIElement*>(name, img));
+			}
+
+			//TODO: Make label presets makes no sense for me, any other new GUI presset goes here, but for the moment
+			//		only 3 Gui items are implemented Label, Image and Button...
+			// bla bla some preset SLIDER
+			// bla bla some preset LIFEBAR
+			// NEWER PRESETS go here
+			
+			//TODO 3: Load UI layout
+			root = data.child("gui").child("layout");
+			pugi::xml_object_range<pugi::xml_node_iterator> elements = root.children();
+			for (pugi::xml_node_iterator it_elements = elements.begin();
+				 it_elements != elements.end(); it_elements++)
+			{
+				if (!strcmp(it_elements->name(), "button"))
+				{
+					GB_Rectangle<int> rect;
+					rect.x = it_elements->child("position").attribute("x").as_int();
+					rect.y = it_elements->child("position").attribute("y").as_int();
+					rect.w = it_elements->child("size").attribute("w").as_int();
+					rect.h = it_elements->child("size").attribute("h").as_int();
+					std::string name = it_elements->attribute("type").value();
+					GUIButton* btn = CreateButtonFromPreset(rect, name);
+					guiList.push_back(btn);
+					LOG("Item %s created", (*it_elements).name());
+				}
+				else if (!strcmp(it_elements->name(), "img"))
+				{
+					GB_Rectangle<int> rect;
+					rect.x = it_elements->child("position").attribute("x").as_int();
+					rect.y = it_elements->child("position").attribute("y").as_int();
+					rect.w = it_elements->child("size").attribute("w").as_int();
+					rect.h = it_elements->child("size").attribute("h").as_int();
+					std::string name = it_elements->attribute("type").value();
+					GUIImage* img = CreateImageFromPreset(rect, name);
+					guiList.push_back(img);
+					LOG("Item %s created", (*it_elements).name());
+				}
+				//Newer types of GUI elements to load go here
+			}
+
+			data.reset();
 			if (ret == true)
 			{
 				LOG("... ui loaded with succes.");
@@ -121,6 +183,7 @@ bool M_GUI::Start()
 			{
 				LOG("ERROR: ...loading ui process had an error.");
 			}
+			
 		}
 		else
 		{
@@ -131,27 +194,24 @@ bool M_GUI::Start()
 	{
 		LOG("Could not load ui.xml");
 	}
-
 	
 
-	//TODO 3: Load UI layout
+	//GUIImage* img = CreateImage({ 0, 100, 328, 103 }, { 485, 829, 328, 103 });
+	//guiList.push_back(img);
 
-	GUIImage* img = CreateImage({ 0, 100, 328, 103 }, { 485, 829, 328, 103 });
-	guiList.push_back(img);
+	//GUIImage* img_small = CreateImage({ 500, 100, 328/2, 103/2 }, { 485, 829, 328, 103 });
+	//guiList.push_back(img_small);
 
-	GUIImage* img_small = CreateImage({ 500, 100, 328/2, 103/2 }, { 485, 829, 328, 103 });
-	guiList.push_back(img_small);
+	//GUIImage* img_big = CreateImage({ 1000, 100, 328*2, 103*2 }, { 485, 829, 328, 103 });
+	//guiList.push_back(img_big);
 
-	GUIImage* img_big = CreateImage({ 1000, 100, 328*2, 103*2 }, { 485, 829, 328, 103 });
-	guiList.push_back(img_big);
-
-	//Debug UI
-	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms);
-	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update);
-	debugGuiList.push_back(lastFrameMS);
-	debugGuiList.push_back(fps);
-	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
-	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
+	////Debug UI
+	//lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms);
+	//fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update);
+	//debugGuiList.push_back(lastFrameMS);
+	//debugGuiList.push_back(fps);
+	//debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
+	//debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
 
 	xMouse = new GUILabel("", SMALL);
 	yMouse = new GUILabel("", SMALL);
@@ -159,16 +219,16 @@ bool M_GUI::Start()
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
 
-	GUIImage* img2 = new GUIImage();
-	//img->SetRectangle(100, 500, 231, 71);
-	//img->SetSection(0, 110, 231, 71);
-	img2->SetRectangle(100, 100, 484, 512);
-	img2->SetSection(0, 513, 484, 512);
-	img2->SetInteractive(true);
-	img2->SetCanFocus(true);
-	img2->SetDraggable(true);
-	guiList.push_back(img2);
-	img2->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);
+	//GUIImage* img2 = new GUIImage();
+	////img->SetRectangle(100, 500, 231, 71);
+	////img->SetSection(0, 110, 231, 71);
+	//img2->SetRectangle(100, 100, 484, 512);
+	//img2->SetSection(0, 513, 484, 512);
+	//img2->SetInteractive(true);
+	//img2->SetCanFocus(true);
+	//img2->SetDraggable(true);
+	//guiList.push_back(img2);
+	//img2->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);
 
 
 #pragma region UI Comented
@@ -564,6 +624,14 @@ GUIButton * M_GUI::CreateButton(GB_Rectangle<int> _position,
 	GUIButton* button = new GUIButton(_position, _standBySection, _hoverSection, _clickedSection);
 	return button;
 }
+GUIButton * M_GUI::CreateButtonFromPreset(GB_Rectangle<int> _position, std::string preset)
+{
+	GUIButton* btn_preset = (GUIButton*)GuiPresets.find(preset)->second;
+	GUIButton* btn = new GUIButton(*btn_preset);
+	btn->SetRectangle(_position);
+	btn->image->SetRectangle(_position);
+	return btn;
+}
 GUILabel * M_GUI::CreateLabel(GB_Rectangle<int> _position, label_size _size, const char* _text)
 {
 	GUILabel* label;
@@ -586,6 +654,15 @@ GUIImage * M_GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _se
 	image->SetRectangle(_position);
 
 	return image;
+}
+
+GUIImage * M_GUI::CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset)
+{
+	GUIImage* img_preset = (GUIImage*)GuiPresets.find(preset)->second;
+	GUIImage* img = new GUIImage(*img_preset);
+	img->SetRectangle(_position);
+
+	return img;
 }
 
 GUIElement * M_GUI::GuiFactory()

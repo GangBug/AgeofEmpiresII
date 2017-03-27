@@ -9,6 +9,14 @@ GUIImage::GUIImage(int flags) : GUIElement(flags)
 	//texture = nullptr;
 }
 
+GUIImage::GUIImage(const GUIImage & img, int flags) : GUIElement(flags)
+{
+	SetType(GUI_IMAGE);
+	atlas = app->gui->GetAtlas();
+	SetRectangle(img.GetLocalRect());
+	section = img.section;
+}
+
 
 GUIImage::~GUIImage()
 {

@@ -37,6 +37,17 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 	}
 	label->Center();
 }
+GUIButton::GUIButton(const GUIButton & btn, int flags) : GUIElement(flags)
+{
+	SetType(GUI_BUTTON);
+	SetRectangle(btn.GetLocalRect());
+	standBySection = btn.standBySection;
+	hoverSection = btn.hoverSection;
+	clickedSection = btn.clickedSection;
+	image = new GUIImage(*btn.image);
+	image->SetRectangle(btn.GetLocalRect());
+	label = btn.label;
+}
 GUIButton::~GUIButton()
 {
 }

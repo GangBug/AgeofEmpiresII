@@ -6,6 +6,7 @@ class GUIImage :
 {
 public:
 	GUIImage(int flags = STANDARD_PRESET);
+	GUIImage(const GUIImage &img, int flags = STANDARD_PRESET);
 	virtual ~GUIImage();
 
 	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus) override;

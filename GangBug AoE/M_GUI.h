@@ -55,11 +55,12 @@ public:
 	GUIButton*	CreateButton(GB_Rectangle<int> _position, 
 							 GB_Rectangle<int> _standBySection, 
 							 GB_Rectangle<int> _hoverSection, 
-							 GB_Rectangle<int> _clickedSection);
+							 GB_Rectangle<int> _clickedSection); // From nothing
+	GUIButton*	CreateButtonFromPreset(GB_Rectangle<int> _position, std::string preset); // From a preset
 	GUILabel*	CreateLabel(GB_Rectangle<int> _position, label_size _size, const char* _text = nullptr);
-	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section);
+	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section); // From nothing
+	GUIImage*	CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset); // From a preset
 	GUIMouse*	CreateMouse();
-	//GUIImage* createImage();
 
 	GUIElement* GuiFactory();
 
@@ -83,7 +84,7 @@ private:
 	SDL_Texture* atlas;
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
-	std::map<std::string, GUIElement> GuiPresets; // A map of basic UI elements defined on the xml
+	std::map<std::string, GUIElement*> GuiPresets; // A map of basic UI elements defined on the xml
 	bool mustSaveScene = false;
 	bool mustLoadScene = false;
 
