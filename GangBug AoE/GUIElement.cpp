@@ -102,9 +102,15 @@ void GUIElement::OnGuiEvent(gui_events eventToReact)
 		{
 			staticAnim_or_transition tmp = it->second;
 			if (tmp < SAT_SEPARATOR)
+			{
 				currentStaticAnimation = tmp;
+			}
 			else if (tmp > SAT_SEPARATOR)
+			{
 				currentTransition = tmp;
+				//Will asume all transitions enable/disable.
+				if (status.active) mustDisable = true;
+			}
 		}
 	}
 }
@@ -334,6 +340,7 @@ void GUIElement::Disable()
 		if (eventsToReact & DISABLE)
 		{
 			OnGuiEvent(DISABLE);
+			mustDisable = true;
 		}
 		else
 		{
@@ -432,16 +439,16 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 		switch (currentStaticAnimation)
 		{
 		case SA_FLASH:
-			FlashSA();
+			FlashSA(dt);
 			break;
 		case SA_SHAKE:
-			ShakeSA();
+			ShakeSA(dt);
 			break;
 		case SA_PULSE:
-			PulseSA();
+			PulseSA(dt);
 			break;
 		case SA_BOUNCE:
-			BounceSA();
+			BounceSA(dt);
 			break;
 		}
 		
@@ -454,19 +461,19 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 		switch (currentTransition)
 		{
 		case T_SCALE:
-			ScaleT();
+			ScaleT(dt);
 			break;
 		case T_FADE:
-			FadeT();
+			FadeT(dt);
 			break;
 		case T_DROP:
-			DropT();
+			DropT(dt);
 			break;
 		case T_FLY:
-			FlyT();
+			FlyT(dt);
 			break;
 		case T_SLIDE:
-			SlideT();
+			SlideT(dt);
 			break;
 		case T_MOVE_TO_RIGHT:
 			MoveToRightT(dt);
@@ -478,40 +485,72 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 
 
 
-void GUIElement::FlashSA()
+void GUIElement::FlashSA(float dt)
 {
 	currentStaticAnimation = SAT_NONE;
 }
-void GUIElement::ShakeSA()
+void GUIElement::ShakeSA(float dt)
 {
 	currentStaticAnimation = SAT_NONE;
 }
-void GUIElement::PulseSA()
+void GUIElement::PulseSA(float dt)
 {
 	currentStaticAnimation = SAT_NONE;
 }
-void GUIElement::BounceSA()
+void GUIElement::BounceSA(float dt)
 {
 	currentStaticAnimation = SAT_NONE;
 }
 
-void GUIElement::ScaleT()
+void GUIElement::ScaleT(float dt)
 {
 	currentTransition = SAT_NONE;
 }
-void GUIElement::FadeT()
+void GUIElement::FadeT(float dt)
 {
 	currentTransition = SAT_NONE;
 }
-void GUIElement::DropT()
+void GUIElement::DropT(float dt)
+{
+	float speed = 0.f;
+
+	if (mustDisable)
+	{
+		//Lets reduce its size
+		if (drawRect.w <= rect.w*0.2f || drawRect.h <= rect.h*0.2f)
+		{
+			currentTransition = SAT_NONE;
+			status.active = false;
+			mustDisable = false;
+			return;
+		}
+
+		speed = -700 * dt;
+	}
+	else
+	{
+		//Lets increase the size
+		if (drawRect.w < rect.w && drawRect.h < rect.h)
+		{
+			speed = 700 * dt;
+		}
+		else
+		{
+			currentTransition = SAT_NONE;
+			drawRect.w = rect.w;
+			drawRect.h = rect.h;
+			return;
+		}
+	}
+
+	drawRect.w += speed;
+	drawRect.h += speed;
+}
+void GUIElement::FlyT(float dt)
 {
 	currentTransition = SAT_NONE;
 }
-void GUIElement::FlyT()
-{
-	currentTransition = SAT_NONE;
-}
-void GUIElement::SlideT()
+void GUIElement::SlideT(float dt)
 {
 	currentTransition = SAT_NONE;
 }

@@ -97,7 +97,7 @@ private:
 	GUILabel* yMouse;
 	bool UIEditing = false;
 
-
+	GUIImage* img2 = nullptr; //TMP
 
 };
 
