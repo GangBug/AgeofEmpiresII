@@ -17,6 +17,7 @@ GUILabel::GUILabel(const char * text, label_size _size, int flags) : GUIElement(
 {
 	SetText(text, _size);
 	SetType(gui_types::GUI_LABEL);
+	lbSize = _size;
 }
 
 GUILabel::~GUILabel()
@@ -49,6 +50,7 @@ void GUILabel::SetText(const char* text, label_size _size)
 	int w, h;
 	app->tex->GetSize(texture, (uint&)w, (uint&)h);
 	SetSize(w, h);
+	lbSize = _size;
 }
 
 const SDL_Texture * GUILabel::GetTexture() const

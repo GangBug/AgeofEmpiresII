@@ -1,0 +1,50 @@
+<gui>
+    <elements>
+        <buttons>
+            <button type_name="button" have_animations= "0">
+                <sections>
+                    <section type = "standBy" x="0"   y="110"  w = "230" h = "71"/>
+                    <section type = "hover"   x="411"  y="166"  w = "230" h = "71"/>
+                    <section type = "clicked" x="642"  y="166"  w = "230" h = "71"/>
+                </sections>
+            </button>           
+			      <button type_name="another_button" have_animations= "0">
+                <sections>
+                    <section type = "standBy" x="683" y="74" w = "129" h = "41"/>
+                    <section type = "hover" x="888" y="91" w = "129" h = "41"/>
+                    <section type = "clicked" x="553" y="74" w = "129" h = "41"/>
+                </sections>
+            </button>
+        </buttons>
+		    <imgs>
+ 			      <img type_name="space_ship" have_animations= "0">
+                <section type = "standBy" x="485" y="829" w = "328" h = "103"/>
+            </img>
+        </imgs>
+    </elements>
+    <layout>
+        <button type="button" name="btn1" text="">
+            <position x = "0" y = "0"/>
+            <size w= "100" h = "100"/>
+        </button>
+        <button type="button" name="btn2" text="">
+            <position x = "300" y = "0"/>
+            <size w= "200" h = "100"/>
+        </button>
+        <button type="another_button" name="btn3" text="">
+            <position x = "0" y = "300"/>
+            <size w= "100" h = "100"/>
+        </button>
+        <button type="another_button" name="btn4" text="">
+            <position x = "300" y = "300"/>
+             <size w= "100" h = "100"/>
+        </button>
+        <img type="space_ship" name="tittle1">
+            <position x = "0" y = "600"/>
+            <size w= "100" h = "100"/>  
+        </img>
+        <label size="1" text="hola">
+          <position x = "300" y = "600"/>
+        </label>
+    </layout>
+</gui>

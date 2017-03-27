@@ -71,10 +71,11 @@ bool M_GUI::Start()
 	debugGuiList.push_back(yMouse);
 
 
-	img2 = new GUIImage();
+	
+	img2 = CreateImageFromPreset({ 100, 100, 484, 512 }, "window");
 	//img->SetRectangle(100, 500, 231, 71);
 	//img->SetSection(0, 110, 231, 71);
-	img2->SetRectangle(100, 100, 484, 512);
+	//img2->SetRectangle(100, 100, 484, 512);
 	img2->SetSection(0, 513, 484, 512);
 	img2->SetInteractive(true);
 	img2->SetCanFocus(true);
@@ -291,7 +292,7 @@ bool M_GUI::LoadLayout()
 	uint size = app->fs->Load("gui/gui.xml", &buffer);
 	if (size > 0 && buffer != nullptr)
 	{
-		LOG("Loading scene.");
+		LOG("Loading UI.");
 
 		pugi::xml_document data;
 		pugi::xml_node root;
@@ -317,11 +318,11 @@ bool M_GUI::LoadLayout()
 				for (pugi::xml_node_iterator it_sections = sections.begin(); it_sections != sections.end(); it_sections++)
 				{
 					int flag = 0;
-					if (!strcmp(it_sections->attribute("type").value(), "standBy"))
+					if (!strcmp(it_sections->attribute("type").as_string(), "standBy"))
 						flag = (1 << 1);
-					else if (!strcmp((*it_sections).attribute("type").value(), "hover"))
+					else if (!strcmp((*it_sections).attribute("type").as_string(), "hover"))
 						flag = (1 << 2);
-					else if (!strcmp((*it_sections).attribute("type").value(), "clicked"))
+					else if (!strcmp((*it_sections).attribute("type").as_string(), "clicked"))
 						flag = (1 << 3);
 
 					switch (flag)
@@ -389,38 +390,65 @@ bool M_GUI::LoadLayout()
 			{
 				if (!strcmp(it_elements->name(), "button"))
 				{
-					GB_Rectangle<int> rect;
-					rect.x = it_elements->child("position").attribute("x").as_int();
-					rect.y = it_elements->child("position").attribute("y").as_int();
-					rect.w = it_elements->child("size").attribute("w").as_int();
-					rect.h = it_elements->child("size").attribute("h").as_int();
 					std::string name = it_elements->attribute("type").as_string();
-					GUIButton* btn = CreateButtonFromPreset(rect, name);
-					guiList.push_back(btn);
-					LOG("Item %s created", (*it_elements).name());
+					std::map<std::string, GUIElement*>::iterator node = GuiPresets.find(name);
+					if (node != GuiPresets.end())
+					{
+						GB_Rectangle<int> rect;
+						rect.x = it_elements->child("position").attribute("x").as_int();
+						rect.y = it_elements->child("position").attribute("y").as_int();
+						rect.w = it_elements->child("size").attribute("w").as_int();
+						rect.h = it_elements->child("size").attribute("h").as_int();
+						std::string name = it_elements->attribute("type").as_string();
+						GUIButton* btn = CreateButtonFromPreset(rect, name);
+						guiList.push_back(btn);
+						LOG("Item %s created", (*it_elements).name());
+					}
+					else
+					{
+						LOG("Item %s not created", (*it_elements).name());
+					}
 				}
 				else if (!strcmp(it_elements->name(), "img"))
 				{
-					GB_Rectangle<int> rect;
-					rect.x = it_elements->child("position").attribute("x").as_int();
-					rect.y = it_elements->child("position").attribute("y").as_int();
-					rect.w = it_elements->child("size").attribute("w").as_int();
-					rect.h = it_elements->child("size").attribute("h").as_int();
 					std::string name = it_elements->attribute("type").as_string();
-					GUIImage* img = CreateImageFromPreset(rect, name);
-					guiList.push_back(img);
-					LOG("Item %s created", (*it_elements).name());
+					std::map<std::string, GUIElement*>::iterator node = GuiPresets.find(name);
+					if (node != GuiPresets.end())
+					{
+						GB_Rectangle<int> rect;
+						rect.x = it_elements->child("position").attribute("x").as_int();
+						rect.y = it_elements->child("position").attribute("y").as_int();
+						rect.w = it_elements->child("size").attribute("w").as_int();
+						rect.h = it_elements->child("size").attribute("h").as_int();
+						GUIImage* img = CreateImageFromPreset(rect, name);
+						guiList.push_back(img);
+						LOG("Item %s created", (*it_elements).name());
+					}
+					else
+					{
+						LOG("Item %s not created", (*it_elements).name());
+					}
+					
 				}
 				else if (!strcmp(it_elements->name(), "label"))
 				{
-					GB_Rectangle<int> rect;
-					rect.x = it_elements->child("position").attribute("x").as_int();
-					rect.y = it_elements->child("position").attribute("y").as_int();
-					label_size size = (label_size)it_elements->attribute("size").as_int();
-					std::string txt = it_elements->attribute("text").as_string();
-					GUILabel* lb = CreateLabel(rect, size, txt.c_str());
-					guiList.push_back(lb);
-					LOG("Item %s created", (*it_elements).name());
+					std::string name = it_elements->attribute("type").as_string();
+					std::map<std::string, GUIElement*>::iterator node = GuiPresets.find(name);
+					if (node != GuiPresets.end())
+					{
+						std::string txt = it_elements->attribute("text").as_string();
+						GB_Rectangle<int> rect;
+						rect.x = it_elements->child("position").attribute("x").as_int();
+						rect.y = it_elements->child("position").attribute("y").as_int();
+						label_size size = (label_size)it_elements->attribute("size").as_int();
+						GUILabel* lb = CreateLabel(rect, size, txt.c_str());
+						guiList.push_back(lb);
+						LOG("Item %s created", (*it_elements).name());
+					}
+					else
+					{
+						LOG("Item %s not created", (*it_elements).name());
+					}
 				}
 				//Newer types of GUI elements to load go here
 			}
@@ -451,45 +479,130 @@ bool M_GUI::SaveLayout()
 {
 	bool ret = true;
 
-	LOG("Loading UI xml");
 	char* buffer = nullptr;
-
+	LOG("Loading UI xml to serialize");
+	uint size = app->fs->Load("gui/gui.xml", &buffer);
+	LOG("Loading UI before serialize.");
 	pugi::xml_document data;
-	pugi::xml_node root = data.append_child("layout");
-
-	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	pugi::xml_node root;
+	pugi::xml_parse_result result = data.load_buffer(buffer, size);
+	RELEASE(buffer);
+	if (result != NULL)
 	{
-		switch ((*it)->GetType())
+		root = data.child("gui").child("layout");
+
+		for (pugi::xml_node child = root.first_child(); child; )
 		{
-			case GUI_UNKNOWN:
-				break;
-			case GUI_IMAGE:
-				//pugi::xml_node img = root.append_child("img");
-				//img.append_attribute("type");
-				break;
-			case GUI_LABEL:
-				break;
-			case GUI_BUTTON:
-				break;
-			case GUI_INPUT_TEXT:
-				break;
-			case GUI_LOAD_BAR:
-				break;
-			case GUI_H_SLIDER:
-				break;
-			case GUI_V_SLIDER:
-				break;
-			case GUI_MOUSE_CURSOR:
-				break;
-			case GUI_RECT:
-				break;
-			default:
-				break;
+			pugi::xml_node next = child.next_sibling();
+
+			child.parent().remove_child(child);
+
+			child = next;
 		}
+
+		for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+		{
+			GB_Rectangle<int> rect = (*it)->GetLocalRect();
+			pugi::xml_node element;
+			pugi::xml_attribute atr;
+			pugi::xml_node position;
+			pugi::xml_node size;
+			GUILabel* lb = nullptr;
+			if ((*it)->GetType() == GUI_LABEL)
+			{
+				lb = (GUILabel*)(*it);
+			}
+			switch ((*it)->GetType())
+			{
+				case GUI_UNKNOWN:
+					break;
+				case GUI_IMAGE:
+					//Create node img
+					element = root.append_child("img");
+					//Create atributes in img
+					atr = element.append_attribute("type");
+					atr.set_value((*it)->GetPresetType().c_str());
+					//Create node img/position
+					position = element.append_child("position");
+					//Create atributes in img/position
+					atr = position.append_attribute("x");
+					atr.set_value(rect.x);
+					atr = position.append_attribute("y");
+					atr.set_value(rect.y);
+					//Create node img/size
+					size = element.append_child("size");
+					//Create atributes in img/size
+					atr = size.append_attribute("w");
+					atr.set_value(rect.w);
+					atr = size.append_attribute("h");
+					atr.set_value(rect.h);
+					break;
+				case GUI_LABEL:
+					//Create node label
+					element = root.append_child("label");
+					//Create atributes in label
+					atr = element.append_attribute("size");
+					atr.set_value(lb->GetLabelSize());
+					atr = element.append_attribute("text");
+					atr.set_value(lb->GetText().c_str());
+					//Create node label/position
+					position = element.append_child("position");
+					//Create atributes in label/position
+					atr = position.append_attribute("x");
+					atr.set_value(rect.x);
+					atr = position.append_attribute("y");
+					atr.set_value(rect.y);
+					break;
+				case GUI_BUTTON:
+					//Create node button
+					element = root.append_child("button");
+					//Create atributes in button
+					atr = element.append_attribute("type");
+					atr.set_value((*it)->GetPresetType().c_str());
+					//Create node button/position
+					position = element.append_child("position");
+					//Create atributes in button/position
+					atr = position.append_attribute("x");
+					atr.set_value(rect.x);
+					atr = position.append_attribute("y");
+					atr.set_value(rect.y);
+					//Create node button/size
+					size = element.append_child("size");
+					//Create atributes in button/size
+					atr = size.append_attribute("w");
+					atr.set_value(rect.w);
+					atr = size.append_attribute("h");
+					atr.set_value(rect.h);
+					break;
+				case GUI_INPUT_TEXT:
+					break;
+				case GUI_LOAD_BAR:
+					break;
+				case GUI_H_SLIDER:
+					break;
+				case GUI_V_SLIDER:
+					break;
+				case GUI_MOUSE_CURSOR:
+					break;
+				case GUI_RECT:
+					break;
+				default:
+					LOG("Something went wrong when serializing");
+					ret = false;
+					break;
+			}
+		}
+		
+		std::stringstream stream;
+		data.save(stream);
+
+		app->fs->Save("gui/gui.xml", stream.str().c_str(), stream.str().length());
+		LOG("... just saved the gui: gui.xml");
 	}
 
+	//pugi::xml_document data;
+	//pugi::xml_node root = data.append_child("layout");
 
-	
 
 	return ret;
 }
@@ -778,6 +891,22 @@ bool M_GUI::GetUIEditing() const
 void M_GUI::SetUIEditing(bool edit)
 {
 	UIEditing = edit;
+	if (edit)
+	{
+		for (std::list<GUIElement*>::iterator it = guiList.begin(); 
+			 it != guiList.end(); it++)
+		{
+			(*it)->SetDraggable(true);
+		}
+	}
+	else
+	{
+		for (std::list<GUIElement*>::iterator it = guiList.begin();
+			 it != guiList.end(); it++)
+		{
+			(*it)->SetDraggable(false);
+		}
+	}
 }
 //TODO: Dont know if i'll implement it... With a simple SaveLayout() its enough
 bool M_GUI::SaveUINow()

@@ -21,9 +21,6 @@
 			<img type_name="space_ship" have_animations="0">
 				<section type="standBy" x="485" y="829" w="328" h="103" />
 			</img>
-			<img type_name="window" have_animations="0">
-				<section type="standBy" x="0" y="512" w="484" h="512" />
-			</img>
 		</imgs>
 	</elements>
 	<layout>
@@ -44,8 +41,15 @@
 			<size w="100" h="100" />
 		</button>
 		<img type="space_ship">
-			<position x="1187" y="745" />
+			<position x="861" y="360" />
 			<size w="100" h="100" />
+		</img>
+		<label size="1" text="hola">
+			<position x="300" y="600" />
+		</label>
+		<img type="">
+			<position x="100" y="100" />
+			<size w="484" h="512" />
 		</img>
 	</layout>
 </gui>
