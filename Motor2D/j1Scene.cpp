@@ -34,6 +34,16 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+	//Audio
+
+	App->audio->Init();
+	//App->audio->setMusicVolume(80);
+	//bso_scene = App->audio->LoadAudioMusic("Sound/BSO/BSO_Menu.ogg");
+
+	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
+	bso_scene.Play();
+
+
 	if(App->map->Load("0.1Map.tmx") == true)
 	{
 		int w, h;

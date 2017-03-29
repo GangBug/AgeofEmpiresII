@@ -6,9 +6,8 @@
 
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
-//#include "SDL/include/SDL.h"
-//#include "SDL_mixer\include\SDL_mixer.h"
-
+#include "SDL/include/SDL.h"
+#include "SDL_mixer\include\SDL_mixer.h"
 void AudioFX::Play(int loops/*==0*/)
 {//loop -1 == loop 4ever, 0== play one time, 1== play two times...
 
@@ -18,54 +17,11 @@ void AudioFX::Play(int loops/*==0*/)
 }
 bool AudioMusic::Play(int loops/*==-1*/, float fade_time)
 {//loop -1 == loop 4ever, 0== play 0 times, 1== play 1 times, 2== play 2 times...
+	Mix_VolumeMusic(50);
+	Mix_FadeInMusic(mMusic, -1, (fade_time * 1000.0f));
 
-	bool ret = false;
-	if (mMusic != NULL)
-	{
-		if (fade_time > 0.0f)
-		{
-			Mix_FadeOutMusic((int)(fade_time * 1000.0f));
-		}
-		else
-		{
-			Mix_HaltMusic();
-		}
-
-		// this call blocks until fade out is done
-		Mix_FreeMusic(mMusic);
-	}
-
-	mMusic = Mix_LoadMUS(this->path);
-
-	if (mMusic == NULL)
-	{
-		LOG("Cannot load music %s. Mix_GetError(): %s\n", this->path, Mix_GetError());
-		ret = false;
-	}
-
-	else
-	{
-		if (fade_time > 0.0f)
-		{
-			if (Mix_FadeInMusic(mMusic, loops, (int)(fade_time * 1000.0f)) < 0)
-			{
-				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
-			}
-		}
-		else
-		{
-			if (Mix_PlayMusic(mMusic, loops) < 0)
-			{
-				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
-			}
-		}
-	}
-
-
-	LOG("Successfully playing %s", path);
-	return ret;
+	LOG("Successfully playing");
+	return true;
 }
 
 void AudioMusic::Pause()
@@ -84,16 +40,15 @@ void AudioMusic::Resume()
 }
 
 //------------------------------------------ Audio engine
-M_Audio::M_Audio(bool start_enabled) : Module(start_enabled)
+M_Audio::M_Audio()
 {
 }
 
 M_Audio::~M_Audio()
 {
 }
-
 //initialice audio
-bool M_Audio::Awake(pugi::xml_node &)
+bool M_Audio::Init()
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
@@ -124,9 +79,8 @@ bool M_Audio::Awake(pugi::xml_node &)
 	}
 
 	return ret;
+
 }
-
-
 
 //destroy all the elements
 bool M_Audio::CleanUp()
@@ -142,11 +96,12 @@ bool M_Audio::CleanUp()
 
 }
 
-void M_Audio::DrawDebug()
+void M_Audio::setMusicVolume(int vol)
 {
+	Mix_VolumeMusic(vol);
 }
 
-AudioFX* M_Audio::LoadAudioFX(const std::string & filePath)
+AudioFX M_Audio::LoadAudioFX(const std::string & filePath)
 {
 	//look to the cachhe to found the audio
 	auto it = mEffectMap.find(filePath);
@@ -163,20 +118,19 @@ AudioFX* M_Audio::LoadAudioFX(const std::string & filePath)
 
 		ret.mChunk = chunk;
 		mEffectMap[filePath] == chunk;
-		ret.path = filePath.c_str();
 
 	}
 	else {
 		//is on cache
 		ret.mChunk = it->second;
-		ret.path = filePath.c_str();
+
 	}
 
 
-	return &ret;
+	return ret;
 }
 
-AudioMusic* M_Audio::LoadAudioMusic(const std::string & filePath)
+AudioMusic M_Audio::LoadAudioMusic(const std::string & filePath)
 {
 
 	//look to the cachhe to found the audio
@@ -194,14 +148,15 @@ AudioMusic* M_Audio::LoadAudioMusic(const std::string & filePath)
 
 		ret.mMusic = MixMusic;
 		mMusicMap[filePath] == MixMusic;
-		ret.path = filePath.c_str();
+
 	}
 	else {
 		//is on cache
 		ret.mMusic = it->second;
-		ret.path = filePath.c_str();
+
 	}
 
-	return &ret;
+	return ret;
 }
 //------------------------------------------
+

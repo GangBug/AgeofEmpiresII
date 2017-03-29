@@ -25,9 +25,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	input = new j1Input();
 	win = new j1Window();
+	audio = new M_Audio();
 	render = new j1Render();
 	tex = new j1Textures();
-	audio = new j1Audio();
 	fs = new j1FileSystem();
 	pathfinding = new j1PathFinding();
 	entity_manager = new j1EntityManager();
@@ -39,10 +39,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(fs);
-	AddModule(input);
+	AddModule(input);	
 	AddModule(win);
-	AddModule(tex);
 	AddModule(audio);
+	AddModule(tex);
+
 	AddModule(pathfinding);
 	AddModule(map);
 	AddModule(anim);

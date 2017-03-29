@@ -45,14 +45,14 @@ public:
 	virtual ~M_Audio();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node&)override;
-
+	bool Init();
+	void setMusicVolume(int);
 	// Called before quitting
-	bool CleanUp()override;
+	bool CleanUp();
 
 public:
-	AudioFX* LoadAudioFX(const std::string&filePath);
-	AudioMusic* LoadAudioMusic(const std::string&filePath);
+	AudioFX LoadAudioFX(const std::string&filePath);
+	AudioMusic LoadAudioMusic(const std::string&filePath);
 
 private:
 
@@ -78,7 +78,7 @@ audio = new ModuleAudioEngine(this, true);
 AddModule(audio); <- Add before Scene module;
 
 
-///in module scene.h   !!!!!!!!!!!!!!!!!!!!!!!!!!!!! well in this case no, i will work with it !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+///in module scene.h   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 AudioMusic* bso_scene;
 

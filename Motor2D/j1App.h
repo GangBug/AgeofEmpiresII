@@ -13,7 +13,7 @@ class j1Window;
 class j1Input;
 class j1Render;
 class j1Textures;
-class j1Audio;
+class M_Audio;
 class j1FileSystem;
 class j1Scene;
 class j1Map;
@@ -91,7 +91,7 @@ public:
 	j1Input*			input = NULL;
 	j1Render*			render = NULL;
 	j1Textures*			tex = NULL;
-	j1Audio*			audio = NULL;
+	M_Audio*			audio = NULL;
 	j1Scene*			scene = NULL;
 	j1FileSystem*		fs = NULL;
 	j1Map*				map = NULL;
