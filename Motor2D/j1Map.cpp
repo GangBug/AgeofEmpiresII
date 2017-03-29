@@ -24,6 +24,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 	folder = (config.child("folder").child_value());
 
+	debug = false;
+
 	return ret;
 }
 
@@ -82,6 +84,47 @@ void j1Map::Draw()
 		MapLayer* layer = item._Ptr->_Myval;
 
 		if (layer->properties.Get("Nodraw") == true && (layer->properties.Get("Navigation") == true))
+		{
+			item++; //TODO:Uncomment for no printing
+			continue;
+		}
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
+			{
+				int tile_id = layer->Get(x, y);
+				if (tile_id > 0)
+				{
+					TileSet* tileset = GetTilesetFromTileId(tile_id);
+
+					SDL_Rect r = tileset->GetTileRect(tile_id);
+					iPoint pos = MapToWorld(x, y);
+
+					App->render->Blit(tileset->texture, pos.x - 32, pos.y - 32, &r);
+				}
+			}
+		}
+
+		item++;
+	}
+
+	if (debug)
+		DebugDraw();
+}
+
+void j1Map::DebugDraw()
+{
+	if (map_loaded == false)
+		return;
+
+	std::list<MapLayer*>::iterator item = data.layers.begin();
+	std::list<MapLayer*>::iterator end = data.layers.end();
+
+	while (item != end)
+	{
+		MapLayer* layer = item._Ptr->_Myval;
+
+		if (layer->properties.Get("Nodraw") == false)
 		{
 			item++; //TODO:Uncomment for no printing
 			continue;
@@ -475,4 +518,9 @@ bool j1Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	}
 
 	return ret;
+}
+
+void j1Map::SwitchDebug()
+{
+	debug = !debug;
 }

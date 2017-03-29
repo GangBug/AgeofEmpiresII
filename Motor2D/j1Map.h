@@ -111,6 +111,7 @@ public:
 
 	// Called each loop iteration
 	void Draw();
+	void DebugDraw();
 
 	// Called before quitting
 	bool CleanUp();
@@ -121,6 +122,8 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer);
+
+	void SwitchDebug();
 
 private:
 
@@ -143,6 +146,7 @@ private:
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded;
+	bool				debug;
 };
 
 #endif // __j1MAP_H__

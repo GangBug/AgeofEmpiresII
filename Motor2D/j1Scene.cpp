@@ -87,6 +87,9 @@ bool j1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
 			App->render->camera->Zoom(-1);
 
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+			App->map->SwitchDebug();
+
 		App->map->Draw();
 
 
