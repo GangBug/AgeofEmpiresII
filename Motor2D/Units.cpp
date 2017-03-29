@@ -107,7 +107,7 @@ void Unit::Update()
 
 			destin = { destination };
 
-			if (this->GetPath({ destination.x, destination.y }) != -1)
+			if (this->GetPath(destination) != -1)
 			{
 				arrived = false;
 				path_list.pop_front();

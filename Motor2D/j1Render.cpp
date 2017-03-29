@@ -62,6 +62,7 @@ bool j1Render::Start()
 bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
+	camera->UpdateCamera();
 	return true;
 }
 
@@ -147,12 +148,12 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	uint scale = App->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)( App->render->camera->GetPosition().x * speed) + x * scale;
-	rect.y = (int)( App->render->camera->GetPosition().y * speed) + y * scale;
+	rect.x = (int)( camera->GetPosition().x * speed) + x * scale;
+	rect.y = (int)( camera->GetPosition().y * speed) + y * scale;
 
 	iPoint screen_position = App->render->WorldToScreen(x, y);
 
-	if (App->render->camera->InsideRenderTarget(screen_position.x, screen_position.y))
+	if (camera->InsideRenderTarget(screen_position.x, screen_position.y))
 	{
 		if (section != NULL)
 		{
@@ -166,20 +167,20 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 		if (flip == SDL_FLIP_HORIZONTAL)
 		{
-			rect.x -= (rect.w - pivot_x);
-			rect.y -= pivot_y;
+			screen_position.x -= (rect.w - pivot_x);
+			screen_position.y -= pivot_y;
 		}
 
 		else if (flip == SDL_FLIP_VERTICAL)
 		{
-			rect.x -= pivot_x;
-			rect.y -= (rect.h - pivot_y);
+			screen_position.x -= pivot_x;
+			screen_position.y -= (rect.h - pivot_y);
 		}
 
 		else if (flip == SDL_FLIP_NONE)
 		{
-			rect.x -= pivot_x;
-			rect.y -= pivot_y;
+			screen_position.x -= pivot_x;
+			screen_position.y -= pivot_y;
 		}
 
 		rect.w *= scale;
@@ -524,6 +525,6 @@ void Camera::UpdateCamera()
 		frames_to_light--;
 	}
 
-	if (centerCamUnit && follow != nullptr)
-		SetCenter(iPoint(follow->GetX(), follow->GetY()));
+	/*if (centerCamUnit && follow != nullptr)
+		SetCenter(iPoint(follow->GetX(), follow->GetY()));*/
 }
