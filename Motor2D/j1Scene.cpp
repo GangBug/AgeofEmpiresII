@@ -24,13 +24,14 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& node)
 {
 	LOG("Loading Scene");
 	bool ret = true;
 
 	inGame = false;
 
+	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
 
 	return ret;
 }
@@ -169,8 +170,6 @@ void j1Scene::AudioLoader()
 {
 	LOG("Loading Audio");
 
-
-	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
 	bso_scene.Play();
 }
 

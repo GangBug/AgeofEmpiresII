@@ -11,7 +11,7 @@ public:
 	j1SceneStartMenu();
 	virtual ~j1SceneStartMenu();
 
-	bool Awake();
+	bool Awake(pugi::xml_node& node);
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
@@ -23,7 +23,7 @@ public:
 	void SetInMenu();
 private:
 	AudioMusic bso_scene_menu;
-	bool inMenu = true;
+	bool inMenu;
 };
 
 

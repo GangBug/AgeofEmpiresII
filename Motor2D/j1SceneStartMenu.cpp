@@ -16,13 +16,12 @@ j1SceneStartMenu::~j1SceneStartMenu() {
 
 }
 
-bool j1SceneStartMenu::Awake()
+bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 {
 	LOG("Loading Scene Start Menu");
 	inMenu = true;
 
-
-
+	bso_scene_menu = App->audio->LoadAudioMusic("Sounds/BSO/BSO_Menu.ogg");
 
 	return true;
 }
@@ -34,7 +33,6 @@ bool j1SceneStartMenu::Start()
 	App->audio->Init();
 
 	if(inMenu==true){
-		bso_scene_menu = App->audio->LoadAudioMusic("Sounds/BSO/BSO_Menu.ogg");
 		AudioLoader();
 		//App->entity_manager->CreateUnit(ARCHER, fPoint(300, 310));
 	}
@@ -85,9 +83,6 @@ bool j1SceneStartMenu::CleanUp()
 void j1SceneStartMenu::AudioLoader()
 {
 	
-
-	
-
 	bso_scene_menu.Play(-1);
 
 }
@@ -95,6 +90,7 @@ void j1SceneStartMenu::AudioLoader()
 void j1SceneStartMenu::SetInMenu()
 {
 	inMenu = true;
+	Start();
 }
 
 
