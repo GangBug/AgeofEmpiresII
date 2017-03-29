@@ -102,18 +102,20 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (inGame == true) {
+	if (inGame == true) 
+	{
 
-		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) 
+		{
 			inGame = false;
 			CleanUp();
 			App->sceneStart->SetInMenu();	
 		
 		}	
-
-
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
 			ret = false;
+		}
 	}
 
 	return ret;
@@ -122,7 +124,6 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
-
 	App->entity_manager->CleanUp();
 	bso_scene.Stop();
 	App->audio->CleanUp();

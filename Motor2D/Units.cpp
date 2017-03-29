@@ -299,13 +299,11 @@ bool Unit::GetNextTile()
 	float module = (sqrt(move_vector.x*move_vector.x + move_vector.y * move_vector.y));
 	move_vector.x = move_vector.x / module;
 	move_vector.y = move_vector.y / module;
-	float ang_test = (float)RAD_TO_DEG * atan2(-move_vector.y, move_vector.x);
-	LOG("ang_test: %f", ang_test);
 
 	iPoint direction_vec;
 	direction_vec.x = path_objective.x - GetX();
 	direction_vec.y = GetY() - path_objective.y;
-	angle = (float)RAD_TO_DEG * atan2(direction_vec.y, direction_vec.x);
+	angle = (float)57.29577951 * atan2(direction_vec.y, direction_vec.x);
 
 	if (angle < 0)
 		angle += 360;

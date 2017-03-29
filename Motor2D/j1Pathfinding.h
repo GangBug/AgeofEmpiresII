@@ -5,6 +5,8 @@
 #include "p2Point.h"
 #include "p2DynArray.h"
 #include <vector>
+#include <queue>
+#include <list>
 
 #define DEFAULT_PATH_LENGTH 0
 #define INVALID_WALK_CODE 255
@@ -14,6 +16,7 @@
 // Intro: http://www.raywenderlich.com/4946/introduction-to-a-pathfinding
 // Details: http://theory.stanford.edu/~amitp/GameProgramming/
 // --------------------------------------------------
+struct PathNode;
 
 class j1PathFinding : public j1Module
 {
@@ -46,6 +49,8 @@ public:
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
 
+	PathNode* GetPathNode(int x, int y);
+
 private:
 
 	// size of the map
@@ -54,12 +59,11 @@ private:
 	// all map walkability values [0..255]
 	uchar* map;
 
+	PathNode* node_map;
+
 	// we store the created path here
 	std::vector<iPoint> last_path;
 };
-
-// forward declaration
-struct PathList;
 
 // ---------------------------------------------------------------------
 // Pathnode: Helper struct to represent a node in the path creation
@@ -72,12 +76,13 @@ struct PathNode
 	PathNode(const PathNode& node);
 
 	// Fills a list (PathList) of all valid adjacent pathnodes
-	uint FindWalkableAdjacents(PathList& list_to_fill) const;
+	uint FindWalkableAdjacents(std::list<PathNode*>* list_to_fill) const;
 
 	// Calculates this tile score
 	float Score() const;
 	// Calculate the F for a specific destination tile
 	int CalculateF(const iPoint& destination);
+	void SetPosition(iPoint& value);
 
 	// -----------
 	float g;
@@ -90,23 +95,13 @@ struct PathNode
 	const PathNode* parent; // needed to reconstruct the path in the end
 };
 
-// ---------------------------------------------------------------------
-// Helper struct to include a list of path nodes
-// ---------------------------------------------------------------------
-struct PathList
+struct compare
 {
-	// Looks for a node in this list and returns it's list node or NULL
-	std::list<PathNode>::iterator Find(const iPoint& point);
-	iPoint Findp(const iPoint& point);
-
-	// Returns the Pathnode with lowest score in this list or NULL if empty
-	PathNode* GetNodeLowestScore() const;
-
-	// -----------
-	// The list itself
-	std::list<PathNode> list;
+	bool operator()(const PathNode* l, const PathNode* r)
+	{
+		return l->Score() >= r->Score();
+	}
 };
-
 
 
 #endif // __j1PATHFINDING_H__
