@@ -50,8 +50,10 @@ public:
 private:
 	SDL_Texture* debug_tex;
 	bool inGame = false;
+	
 	SDL_Rect select_rect;
 	AudioMusic bso_scene;
+private:
 
 };
 

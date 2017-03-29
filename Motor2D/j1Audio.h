@@ -49,6 +49,7 @@ public:
 	void setMusicVolume(int);
 	// Called before quitting
 	bool CleanUp();
+	void FadeMusic(int ms);
 
 public:
 	AudioFX LoadAudioFX(const std::string&filePath);
@@ -63,49 +64,5 @@ private:
 };
 //------------------------
 
-//how to implemement:
-
-/*
-
-///in Application.h
-
-#include "ModuleAudioEngine.h"
-ModuleAudioEngine* audio;
-
-///in Application.cpp
-
-audio = new ModuleAudioEngine(this, true);
-AddModule(audio); <- Add before Scene module;
-
-
-///in module scene.h   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-AudioMusic* bso_scene;
-
-///in module scene.cpp
-
-(in the start();)
-App->audio->Init();
-bso_scene = App->audio->LoadAudioMusic("Sound/BSO/BSO_SCENE1.ogg");
-
-(then to the efects u can implement it on the monster class or in sscene too)
-
-///.h
-AudioFX grr_fx;
-
-///.cpp
-
-(constructor (or start in module scene))
-grr_fx = App->audio->LoadAudioFX("Sound/FX/grr_fx.wav");
-
-
-
-///// To use:
-grr_fx.play(); default 0
-AudioFX.play(); default -1
-
-
-//dont forget to Clean it!
-*/
 
 #endif // __M_AUDIO_H__

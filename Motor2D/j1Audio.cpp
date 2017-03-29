@@ -8,6 +8,9 @@
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
+
+
+
 void AudioFX::Play(int loops/*==0*/)
 {//loop -1 == loop 4ever, 0== play one time, 1== play two times...
 
@@ -78,6 +81,8 @@ bool M_Audio::Init()
 		mIsInitialized = true;
 	}
 
+
+
 	return ret;
 
 }
@@ -85,16 +90,21 @@ bool M_Audio::Init()
 //destroy all the elements
 bool M_Audio::CleanUp()
 {
+
+
 	if (mIsInitialized) {
 		mIsInitialized = false;
 		Mix_CloseAudio();
+		mMusicMap.clear();
 		Mix_Quit();
+	
 		SDL_QuitSubSystem(SDL_INIT_AUDIO);
 	}
 
 	return true;
 
 }
+
 
 void M_Audio::setMusicVolume(int vol)
 {
@@ -129,6 +139,17 @@ AudioFX M_Audio::LoadAudioFX(const std::string & filePath)
 
 	return ret;
 }
+
+void M_Audio::FadeMusic(int ms)
+{
+	/*if (mMusicMap.begin != nullptr)
+	{
+		Mix_FadeOutMusic((int)(ms * 1000.0f));
+	}*/
+}
+
+
+
 
 AudioMusic M_Audio::LoadAudioMusic(const std::string & filePath)
 {

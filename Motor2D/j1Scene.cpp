@@ -103,9 +103,11 @@ bool j1Scene::PostUpdate()
 
 	if (inGame == true) {
 
-		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
 			inGame = false;
-			App->sceneStart->SetInMenu();
+			CleanUp();
+			App->sceneStart->SetInMenu();	
+		
 		}	
 
 
@@ -119,8 +121,12 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
-	LOG("Freeing scene");
 
+	App->entity_manager->CleanUp();
+	bso_scene.Stop();
+	App->audio->CleanUp();
+
+	LOG("Freeing scene");
 	return true;
 }
 
@@ -162,7 +168,7 @@ void j1Scene::MapLoader()
 void j1Scene::AudioLoader()
 {
 	LOG("Loading Audio");
-	App->audio->Init();
+
 
 	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
 	bso_scene.Play();
@@ -199,9 +205,11 @@ void j1Scene::Selector()
 }
 
 void j1Scene::SetInGame()
-{
+{	
 	inGame = true;
 	Start();
+
+
 }
 
 
