@@ -36,22 +36,21 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//create initial units
+	void UnitFactory();
+
+	//load the map
+	void MapLoader();
+
+	//load The audio
+	void AudioLoader();
+
+	void Selector();
+
 private:
 	SDL_Texture* debug_tex;
-
-	/* TEST UI
-	UIImage* banner;
-	UILabel* text;
-	UICheckbutton* check_test;
-	UISelectOption* select_test;
-
-	bool right_click = false;
-	bool left_click = false;
-	/**/
-
-
+	bool inGame = false;
 	SDL_Rect select_rect;
-
 	AudioMusic bso_scene;
 
 };

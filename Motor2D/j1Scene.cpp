@@ -28,48 +28,22 @@ bool j1Scene::Awake()
 	LOG("Loading Scene");
 	bool ret = true;
 
+	inGame = false;
+
+
 	return ret;
 }
 
 // Called before the first frame
 bool j1Scene::Start()
 {
-	//Audio
 
-	App->audio->Init();
-	//App->audio->setMusicVolume(80);
-	//bso_scene = App->audio->LoadAudioMusic("Sound/BSO/BSO_Menu.ogg");
-
-	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
-	bso_scene.Play();
-
-
-	if(App->map->Load("0.1Map.tmx") == true)
-	{
-		int w, h;
-		uchar* data = NULL;
-		if(App->map->CreateWalkabilityMap(w, h, &data))
-			App->pathfinding->SetMap(w, h, data);
-
-		RELEASE_ARRAY(data);
+	if (inGame == true) {//checks if the player is ingame
+				
+		AudioLoader();
+		MapLoader();
+		UnitFactory();
 	}
-
-	debug_tex = App->tex->Load("maps/path2.png");
-
-	
-	
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 350));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 400));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 450));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 500));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 550));
-
-	App->entity_manager->CreateUnit(ARCHER, fPoint(300, 310));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(300, 360));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(400, 350));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(450, 415));
-	App->entity_manager->CreateUnit(CAVALRYARCHER, fPoint(340, 415));
 
 	return true;
 }
@@ -109,7 +83,78 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 	
-	//SELECTION
+	
+	Selector();//SELECTION
+
+	return true;
+}
+
+// Called each loop iteration
+bool j1Scene::PostUpdate()
+{
+	bool ret = true;
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		inGame = false;
+
+	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
+
+	return ret;
+}
+
+// Called before quitting
+bool j1Scene::CleanUp()
+{
+	LOG("Freeing scene");
+
+	return true;
+}
+
+void j1Scene::UnitFactory()
+{
+
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 350));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 400));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 450));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 500));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 550));
+
+	App->entity_manager->CreateUnit(ARCHER, fPoint(300, 310));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(300, 360));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(400, 350));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(450, 415));
+	App->entity_manager->CreateUnit(CAVALRYARCHER, fPoint(340, 415));
+}
+
+void j1Scene::MapLoader()
+{
+
+	if (App->map->Load("0.1Map.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
+
+	debug_tex = App->tex->Load("maps/path2.png");
+	
+
+}
+
+void j1Scene::AudioLoader()
+{
+	App->audio->Init();
+	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
+	bso_scene.Play();
+}
+
+void j1Scene::Selector()
+{
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
@@ -135,26 +180,7 @@ bool j1Scene::Update(float dt)
 	{
 		App->entity_manager->SelectInQuad(select_rect);
 	}
-	//--
 
-	return true;
 }
 
-// Called each loop iteration
-bool j1Scene::PostUpdate()
-{
-	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
-
-	return ret;
-}
-
-// Called before quitting
-bool j1Scene::CleanUp()
-{
-	LOG("Freeing scene");
-
-	return true;
-}
