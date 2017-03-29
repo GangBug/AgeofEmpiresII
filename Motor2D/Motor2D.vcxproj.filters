@@ -61,6 +61,9 @@
     <ClCompile Include="j1Collision.cpp">
       <Filter>Core\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1SceneStartMenu.cpp">
+      <Filter>Core\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="j1Collision.h">
       <Filter>Core\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1SceneStartMenu.h">
+      <Filter>Core\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

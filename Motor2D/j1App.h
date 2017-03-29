@@ -15,7 +15,9 @@ class j1Render;
 class j1Textures;
 class M_Audio;
 class j1FileSystem;
+class j1SceneStartMenu;
 class j1Scene;
+
 class j1Map;
 class j1PathFinding;
 class j1Fonts;
@@ -87,21 +89,26 @@ private:
 public:
 
 	// Modules
-	j1Window*			win = NULL;
-	j1Input*			input = NULL;
-	j1Render*			render = NULL;
-	j1Textures*			tex = NULL;
-	M_Audio*			audio = NULL;
-	j1Scene*			scene = NULL;
-	j1FileSystem*		fs = NULL;
-	j1Map*				map = NULL;
-	j1PathFinding*		pathfinding = NULL;
-	j1Fonts*			font = NULL;
-	j1Animation*		anim = NULL;
-	j1UIManager*		uimanager = NULL;
-	j1EntityManager*    entity_manager = NULL;
-	j1Collision*		collision = NULL;
+	j1Window*			win = nullptr;
+	j1Input*			input = nullptr;
+	j1Render*			render = nullptr;
+	j1Textures*			tex = nullptr;
+	M_Audio*			audio = nullptr;
+	j1Scene*			scene = nullptr;
+	j1SceneStartMenu*  sceneStart = nullptr;
+	j1FileSystem*		fs = nullptr;
+	j1Map*				map = nullptr;
+	j1PathFinding*		pathfinding = nullptr;
+	j1Fonts*			font = nullptr;
+	j1Animation*		anim = nullptr;
+	j1UIManager*		uimanager = nullptr;
+	j1EntityManager*    entity_manager = nullptr;
+	j1Collision*		collision = nullptr;
 
+
+
+
+	
 private:
 
 	std::list<j1Module*> modules;

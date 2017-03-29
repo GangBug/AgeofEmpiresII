@@ -46,7 +46,7 @@ public:
 	void AudioLoader();
 
 	void Selector();
-
+	void SetInGame();
 private:
 	SDL_Texture* debug_tex;
 	bool inGame = false;

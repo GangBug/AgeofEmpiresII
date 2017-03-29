@@ -87,6 +87,7 @@
     <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Scene.cpp" />
+    <ClCompile Include="j1SceneStartMenu.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="p2Log.cpp" />
@@ -105,6 +106,7 @@
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Scene.h" />
+    <ClInclude Include="j1SceneStartMenu.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="p2DynArray.h" />

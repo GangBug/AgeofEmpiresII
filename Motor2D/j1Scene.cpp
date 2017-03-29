@@ -12,6 +12,7 @@
 #include "j1Animation.h"
 #include "j1EntityManager.h"
 #include "Units.h"
+#include "j1SceneStartMenu.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -38,6 +39,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 
+
 	if (inGame == true) {//checks if the player is ingame
 				
 		AudioLoader();
@@ -57,35 +59,40 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+	if (inGame == true) {
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera->MoveUp(floor(200.0f * dt));
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+			App->LoadGame("save_game.xml");
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera->MoveDown(floor(200.0f * dt));
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			App->SaveGame("save_game.xml");
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera->MoveLeft(floor(200.0f * dt));
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			App->render->camera->MoveUp(floor(200.0f * dt));
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera->MoveRight(floor(200.0f * dt));
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			App->render->camera->MoveDown(floor(200.0f * dt));
 
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-		App->render->camera->Zoom(1);
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			App->render->camera->MoveLeft(floor(200.0f * dt));
 
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
-		App->render->camera->Zoom(-1);
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			App->render->camera->MoveRight(floor(200.0f * dt));
 
-	App->map->Draw();
+		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
+			App->render->camera->Zoom(1);
+
+		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
+			App->render->camera->Zoom(-1);
+
+		App->map->Draw();
+
+
+		Selector();//SELECTION
+
+	}
 	
-	
-	Selector();//SELECTION
-
 	return true;
 }
 
@@ -94,11 +101,17 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		inGame = false;
+	if (inGame == true) {
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+			inGame = false;
+			App->sceneStart->SetInMenu();
+		}	
+
+
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+			ret = false;
+	}
 
 	return ret;
 }
@@ -113,7 +126,7 @@ bool j1Scene::CleanUp()
 
 void j1Scene::UnitFactory()
 {
-
+	LOG("Creating units");
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 350));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 400));
@@ -130,7 +143,7 @@ void j1Scene::UnitFactory()
 
 void j1Scene::MapLoader()
 {
-
+	LOG("Loading Map");
 	if (App->map->Load("0.1Map.tmx") == true)
 	{
 		int w, h;
@@ -148,7 +161,9 @@ void j1Scene::MapLoader()
 
 void j1Scene::AudioLoader()
 {
+	LOG("Loading Audio");
 	App->audio->Init();
+
 	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
 	bso_scene.Play();
 }
@@ -181,6 +196,12 @@ void j1Scene::Selector()
 		App->entity_manager->SelectInQuad(select_rect);
 	}
 
+}
+
+void j1Scene::SetInGame()
+{
+	inGame = true;
+	Start();
 }
 
 

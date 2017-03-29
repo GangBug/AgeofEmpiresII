@@ -17,6 +17,7 @@
 #include "j1App.h"
 #include "j1EntityManager.h"
 #include "j1Collision.h"
+#include "j1SceneStartMenu.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -33,7 +34,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entity_manager = new j1EntityManager();
 	anim = new j1Animation();
 	map = new j1Map();
+	sceneStart = new j1SceneStartMenu();
 	scene = new j1Scene();
+
+
+
 	collision = new j1Collision();
 
 	// Ordered for awake / Start / Update
@@ -50,6 +55,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collision);
 
 	// scene last
+	AddModule(sceneStart);
 	AddModule(scene);
 	AddModule(entity_manager);
 	// render last to swap buffer
