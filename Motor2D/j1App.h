@@ -17,7 +17,7 @@ class M_Audio;
 class j1FileSystem;
 class j1SceneStartMenu;
 class j1Scene;
-
+class j1GUI;
 class j1Map;
 class j1PathFinding;
 class j1Fonts;
@@ -50,6 +50,9 @@ public:
 
 	// Add a new module to handle
 	void AddModule(j1Module* module);
+
+	//find a module
+	j1Module* FindModule(std::string _name);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -86,6 +89,8 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
+
+
 public:
 
 	// Modules
@@ -104,7 +109,7 @@ public:
 	j1UIManager*		uimanager = nullptr;
 	j1EntityManager*    entity_manager = nullptr;
 	j1Collision*		collision = nullptr;
-
+	j1GUI*				gui = nullptr;
 
 
 

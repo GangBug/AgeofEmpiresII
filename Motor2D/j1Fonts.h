@@ -4,13 +4,14 @@
 #include "j1Module.h"
 #include "SDL\include\SDL_pixels.h"
 
-#define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf"
-#define DEFAULT_FONT_SIZE 12
-
+#define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf" //default font from Ric	
+#define DEFAULT_FONT_SIZE 24
+#define MEDIUM_FONT_SIZE 12
+#define SMALL_FONT_SIZE 8
 struct SDL_Texture;
 struct _TTF_Font;
 
-class j1Fonts : public j1Module
+class j1Fonts
 {
 public:
 
@@ -29,14 +30,19 @@ public:
 	_TTF_Font* const Load(const char* path, int size = 12);
 
 	// Create a surface from text
-	SDL_Texture* Print(const char* text, SDL_Color color = {255, 255, 255, 255}, _TTF_Font* font = NULL);
+	SDL_Texture* Print(const char* text, _TTF_Font* font = nullptr, SDL_Color color = { 255, 255, 255, 255 });
 
-	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = NULL) const;
+	bool CalcSize(const char* text, int& width, int& height, _TTF_Font* font = nullptr) const;
+
+	void DrawDebug();
 
 public:
 
 	std::list<_TTF_Font*>	fonts;
-	_TTF_Font*				default;
+	_TTF_Font*			defaultFont;
+	_TTF_Font*			mediumFont;
+	_TTF_Font*			smallFont;
+	_TTF_Font*			WOW;
 };
 
 

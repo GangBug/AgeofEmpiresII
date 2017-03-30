@@ -18,6 +18,7 @@
 #include "j1EntityManager.h"
 #include "j1Collision.h"
 #include "j1SceneStartMenu.h"
+#include "j1Gui.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -36,7 +37,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	sceneStart = new j1SceneStartMenu();
 	scene = new j1Scene();
-
+	gui = new j1GUI();
 
 
 	collision = new j1Collision();
@@ -58,6 +59,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(sceneStart);
 	AddModule(scene);
 	AddModule(entity_manager);
+	AddModule(gui);
+
 	// render last to swap buffer
 	AddModule(render);
 
@@ -468,5 +471,18 @@ bool j1App::SavegameNow() const
 
 	data.reset();
 	want_to_save = false;
+	return ret;
+}
+
+j1Module * j1App::FindModule(std::string _name)
+{
+	j1Module* ret = nullptr;
+	for (std::list<j1Module*>::iterator it = App->modules.begin(); it != App->modules.end(); it++)
+	{
+		if (!strcmp((*it)->name.c_str(), _name.c_str()))
+		{
+			ret = (*it);
+		}
+	}
 	return ret;
 }

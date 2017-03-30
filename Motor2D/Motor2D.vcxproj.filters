@@ -64,6 +64,33 @@
     <ClCompile Include="j1SceneStartMenu.cpp">
       <Filter>Core\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Core\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIElement.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GB_Rectangle.cpp">
+      <Filter>Core\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILabel.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Core\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Bezier.cpp">
+      <Filter>Core\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIImage.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIAutoLabel.cpp">
+      <Filter>Core\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -147,6 +174,33 @@
     <ClInclude Include="j1SceneStartMenu.h">
       <Filter>Core\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="GUILabel.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElement.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Core\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GB_Rectangle.h">
+      <Filter>Core\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Core\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Bezier.h">
+      <Filter>Core\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIImage.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButton.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIAutoLabel.h">
+      <Filter>Core\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="p2">
@@ -169,6 +223,9 @@
     </Filter>
     <Filter Include="Core\Entities">
       <UniqueIdentifier>{d115a52a-3ab8-46bb-98e5-e070caf52475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\UI">
+      <UniqueIdentifier>{b5d7f81d-9b8c-45af-8446-1288f60417f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
