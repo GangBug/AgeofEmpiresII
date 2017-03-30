@@ -8,6 +8,7 @@
 #include <map>
 #include "Bezier.h"
 
+class j1Module;
 
 enum status_flags
 {
@@ -121,6 +122,8 @@ public:
 	void Center();
 	void CenterX();
 	void CenterY();
+	void AddListener(j1Module* moduleToAdd);
+	void RemoveListener(j1Module* moduleToRemove);
 
 	bool Save(pugi::xml_node& node) const;
 	//bool Load(pugi::xml_node& node);
@@ -132,7 +135,7 @@ public:
 
 	GUIElement* operator==(GUIElement* element); //TODO: needed to compare elements
 
-												 //Getters & Setters ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ START ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+												 //Getters & Setters ·········································· START ···················
 	GB_Rectangle<int> GetScreenRect() const;
 	GB_Rectangle<int> GetLocalRect() const;
 	iPoint GetScreenPos() const;
@@ -146,6 +149,7 @@ public:
 	GUIElement* GetParent() const;
 	const std::list<GUIElement*> GetChilds() const;
 	gui_types GetType() const;
+	std::list<j1Module*> GetListeners() const;
 	bool GetMouseInside() const;
 	fPoint GetScale() const;
 	bool GetLClicked() const;
@@ -155,6 +159,7 @@ public:
 	GB_Rectangle<float> GetDrawRect()const;
 	std::string GetPresetType() const;
 	std::string GetName() const;
+	std::list<j1Module*> GetListeners_noconst();
 
 	virtual void SetLocalPos(int x, int y);
 	virtual void SetGlobalPos(int x, int y);
@@ -196,7 +201,7 @@ public:
 	bool HasEventReactionSet(gui_events eventToReact);
 	staticAnim_or_transition GetAnimOrTransitionForEvent(gui_events eventToReact);
 
-	//Getters & Setters ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ END ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Getters & Setters ·········································· END ···················
 
 	virtual void Serialize(pugi::xml_node root) {}
 	virtual void Deserialize(pugi::xml_node root) {}
@@ -245,6 +250,7 @@ private:
 
 	bool mustDisable = false;
 
+	j1Timer transTimer;
 	iPoint transOrigin = iPoint(0, 0);
 	iPoint transDestination = iPoint(0, 0);
 	int currentTransTime = 0;
@@ -258,6 +264,7 @@ private:
 
 
 protected:
+	std::list<j1Module*> listeners;
 	bool haveFocus = false; // TODO implement it on event management
 	int alpha = 255;
 
