@@ -12,6 +12,7 @@
 #include "j1Animation.h"
 #include "j1EntityManager.h"
 #include "Units.h"
+#include "Buildings.h"
 #include "j1SceneStartMenu.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -31,7 +32,7 @@ bool j1Scene::Awake(pugi::xml_node& node)
 
 	inGame = false;
 
-	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
+	//bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
 
 	return ret;
 }
@@ -90,6 +91,9 @@ bool j1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 			App->map->SwitchDebug();
 
+		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+			dynamic_cast<Building*>(archery)->GenerateUnit(1);
+
 		App->map->Draw();
 
 
@@ -145,11 +149,13 @@ void j1Scene::UnitFactory()
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 500));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 550));
 
-	App->entity_manager->CreateUnit(ARCHER, fPoint(300, 310));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(300, 360));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(400, 350));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(450, 415));
+	App->entity_manager->CreateUnit(ARCHER, fPoint(500, 310));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(500, 360));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(600, 350));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(650, 415));
 	App->entity_manager->CreateUnit(CAVALRYARCHER, fPoint(340, 415));
+
+	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(100, 100));
 }
 
 void j1Scene::MapLoader()

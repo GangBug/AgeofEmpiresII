@@ -18,28 +18,31 @@ bool j1Collision::Update(float dt)
 
 	for (std::list<Entity*>::iterator unit1 = App->entity_manager->entity_list.begin(); unit1 != App->entity_manager->entity_list.end(); unit1++)
 	{
-		iPoint pos = App->map->WorldToMap(unit1._Ptr->_Myval->GetX(), unit1._Ptr->_Myval->GetY());
-		Unit* unit_1 = (Unit*)unit1._Ptr->_Myval;
-		//this shouldn't happen, but if any case:
-		if (!App->pathfinding->IsWalkable(pos) && unit_1->state != MOVING && unit_1->state != MOVING_TO_ATTACK)
+		if ((*unit1)->GetEntityType() == UNIT)
 		{
-			iPoint tile = FindClosestWalkable((Unit*)unit1._Ptr->_Myval);
-			unit1._Ptr->_Myval->SetPosition(tile.x, tile.y);
-		}
-		else
-		{
-			//Check colisions between units
-			for (std::list<Entity*>::iterator unit2 = App->entity_manager->entity_list.begin(); unit2 != App->entity_manager->entity_list.end(); unit2++)
+			iPoint pos = App->map->WorldToMap(unit1._Ptr->_Myval->GetX(), unit1._Ptr->_Myval->GetY());
+			Unit* unit_1 = (Unit*)unit1._Ptr->_Myval;
+			//this shouldn't happen, but if any case:
+			if (!App->pathfinding->IsWalkable(pos) && unit_1->state != MOVING && unit_1->state != MOVING_TO_ATTACK)
 			{
-				if (unit1 != unit2)
+				iPoint tile = FindClosestWalkable((Unit*)unit1._Ptr->_Myval);
+				unit1._Ptr->_Myval->SetPosition(tile.x, tile.y);
+			}
+			else
+			{
+				//Check colisions between units
+				for (std::list<Entity*>::iterator unit2 = App->entity_manager->entity_list.begin(); unit2 != App->entity_manager->entity_list.end(); unit2++)
 				{
-					if (DoUnitsIntersect((Unit*)unit1._Ptr->_Myval, (Unit*)unit2._Ptr->_Myval) == true)
+					if (unit1 != unit2)
 					{
-						//Collision detected
-						Unit* unit_2 = (Unit*)unit2._Ptr->_Myval;
-						if (unit_1->id > unit_2->id && unit_1->state != MOVING && unit_1->state != MOVING_TO_ATTACK)
+						if (DoUnitsIntersect((Unit*)unit1._Ptr->_Myval, (Unit*)unit2._Ptr->_Myval) == true)
 						{
-							SplitUnits((Unit*)unit1._Ptr->_Myval, (Unit*)unit2._Ptr->_Myval);
+							//Collision detected
+							Unit* unit_2 = (Unit*)unit2._Ptr->_Myval;
+							if (unit_1->id > unit_2->id && unit_1->state != MOVING && unit_1->state != MOVING_TO_ATTACK)
+							{
+								SplitUnits((Unit*)unit1._Ptr->_Myval, (Unit*)unit2._Ptr->_Myval);
+							}
 						}
 					}
 				}

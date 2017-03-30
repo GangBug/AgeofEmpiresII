@@ -31,8 +31,16 @@ bool j1EntityManager::CleanUp()
 
 Entity * j1EntityManager::CreateUnit(UNIT_TYPE u_type, fPoint pos)
 {
-	id++;
-	Entity* new_entity = (Entity*) new Unit(u_type, pos, id);
+	unitID++;
+	Entity* new_entity = (Entity*) new Unit(u_type, pos, unitID);
+	entity_list.push_back(new_entity);
+	return new_entity;
+}
+
+Entity * j1EntityManager::CreateBuilding(BUILDING_TYPE type, fPoint pos)
+{
+	buildingID++;
+	Entity* new_entity = (Entity*) new Building(type, pos, buildingID);
 	entity_list.push_back(new_entity);
 	return new_entity;
 }
@@ -85,6 +93,7 @@ void j1EntityManager::DeleteUnit(Entity * ptr)
 	entity_list.remove(ptr);
 	delete ptr;
 }
+
 
 //TODO: Delete this
 

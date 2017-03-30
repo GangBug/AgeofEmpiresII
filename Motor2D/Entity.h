@@ -6,7 +6,8 @@
 enum ENTITY_TYPE
 {
 	NO_ENTITY = 0,
-	UNIT
+	UNIT,
+	BUILDING
 };
 enum ENTITY_STATUS
 {
@@ -30,7 +31,6 @@ public:
 
 	virtual void Update() = 0;
 	virtual void PostUpdate() = 0;
-	virtual void DoAI() = 0;
 	virtual void Draw() = 0;
 
 	void Die();//to_delete = true

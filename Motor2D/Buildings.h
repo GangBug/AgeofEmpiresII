@@ -2,29 +2,29 @@
 #define _BUILDINGS
 
 #include "Entity.h"
+#include "j1Timer.h"
 
 enum BUILDING_TYPE
 {
 	NO_BUILDING = 0,
-	TURRET //PER TENIR ALGO
+	ARCHERY
 };
 
-class Building : public Entity 
+class Building : public Entity
 {
-private:
-	enum BUILDING_TYPE building_type;
-
 public:
+	Building(BUILDING_TYPE type, fPoint pos, int id);
+	~Building();
 
-	Building(BUILDING_TYPE b_type, fPoint pos);
+	void Update();
+	void PostUpdate();
+	void Draw();
 
-	void Update(); // defines order
+	void GenerateUnit(int num);
 
-	virtual void AI();
-	virtual void Draw();
-
+	enum BUILDING_TYPE buildingType;
+	int id;
+	int unitsToAdd;
+	j1Timer timer;
 };
-
 #endif
-
-

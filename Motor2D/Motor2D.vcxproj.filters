@@ -91,6 +91,9 @@
     <ClCompile Include="GUIAutoLabel.cpp">
       <Filter>Core\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Buildings.cpp">
+      <Filter>Core\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="GUIAutoLabel.h">
       <Filter>Core\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Buildings.h">
+      <Filter>Core\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

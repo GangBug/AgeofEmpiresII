@@ -50,6 +50,7 @@ public:
 private:
 	SDL_Texture* debug_tex;
 	bool inGame;
+	Entity* archery;
 	
 	SDL_Rect select_rect;
 	AudioMusic bso_scene;
