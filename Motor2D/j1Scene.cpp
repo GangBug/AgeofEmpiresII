@@ -32,7 +32,7 @@ bool j1Scene::Awake(pugi::xml_node& node)
 
 	inGame = false;
 
-	//bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
+	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
 
 	return ret;
 }
@@ -155,7 +155,7 @@ void j1Scene::UnitFactory()
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(650, 415));
 	App->entity_manager->CreateUnit(CAVALRYARCHER, fPoint(340, 415));
 
-	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(100, 100));
+	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
 }
 
 void j1Scene::MapLoader()
