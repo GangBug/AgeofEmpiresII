@@ -5,7 +5,7 @@
 #include <list>
 #include "j1Module.h"
 #include "GB_Rectangle.h"
-
+#include "GUIAutoLabel.h"
 
 class GUIElement;
 class GUIButton;
@@ -13,6 +13,7 @@ class GUILabel;
 class GUIImage;
 class GUIMouse;
 class CBeizier;
+enum label_size;
 
 
 class j1GUI : public j1Module
@@ -93,7 +94,7 @@ private:
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
 	std::map<std::string, GUIElement*> guiPresets; // A map of basic UI elements defined on the xml
-	bool mustSaveScene = false;
+	bool mustSaveScene = false; 
 	bool mustLoadScene = false;
 
 

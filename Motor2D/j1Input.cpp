@@ -145,6 +145,27 @@ bool j1Input::GetWindowEvent(j1EventWindow ev)
 	return windowEvents[ev];
 }
 
+void j1Input::StartTyping()
+{
+	if (!textInput) {
+		textInput = true;
+		SDL_StartTextInput();
+	}
+}
+
+void j1Input::StopTyping()
+{
+	if (textInput) {
+		textInput = false;
+		SDL_StopTextInput();
+	}
+}
+
+const char * j1Input::GetText()
+{
+	return lastText.c_str();
+}
+
 void j1Input::GetMousePosition(int& x, int& y)
 {
 	x = mouse_x;

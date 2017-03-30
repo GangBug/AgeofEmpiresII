@@ -44,6 +44,13 @@ bool j1Render::Awake(pugi::xml_node& config)
 	else
 	{
 		camera = new Camera(SDL_Rect{ 0, 0, App->win->screen_surface->w, App->win->screen_surface->h });
+		
+		cameraw.w = App->win->screen_surface->w;
+		cameraw.h = App->win->screen_surface->h;
+		cameraw.x = 0;
+		cameraw.y = 0;
+	
+	
 	}
 
 	return ret;

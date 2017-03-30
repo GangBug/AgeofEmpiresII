@@ -3,7 +3,8 @@
 
 #include "j1Module.h"
 #include "SDL\include\SDL_pixels.h"
-
+#include <list>
+#include "j1Module.h"
 #define DEFAULT_FONT "fonts/open_sans/OpenSans-Regular.ttf" //default font from Ric	
 #define DEFAULT_FONT_SIZE 24
 #define MEDIUM_FONT_SIZE 12
@@ -11,7 +12,7 @@
 struct SDL_Texture;
 struct _TTF_Font;
 
-class j1Fonts
+class j1Fonts : public j1Module
 {
 public:
 

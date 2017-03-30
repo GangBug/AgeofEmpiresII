@@ -2,9 +2,10 @@
 #define __j1WINDOW_H__
 
 #include "j1Module.h"
-
+#include "p2Point.h"
 struct SDL_Window;
 struct SDL_Surface;
+
 
 class j1Window : public j1Module
 {
@@ -26,7 +27,7 @@ public:
 
 	// Retrive window size
 	void GetWindowSize(uint& width, uint& height) const;
-
+	p2Point<int> GetWindowSize() const;
 	// Retrieve window scale
 	uint GetScale() const;
 

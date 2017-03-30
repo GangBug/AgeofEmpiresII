@@ -112,7 +112,8 @@ public:
 	j1GUI*				gui = nullptr;
 
 
-
+	uint32 last_frame_ms;
+	uint32 frames_on_last_update;
 	
 private:
 

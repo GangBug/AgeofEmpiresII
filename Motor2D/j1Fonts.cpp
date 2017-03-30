@@ -3,6 +3,7 @@
 #include "j1Textures.h"
 #include "j1FileSystem.h"
 #include "j1Fonts.h"
+#include "j1Module.h"
 
 #include "SDL\include\SDL.h"
 #include "SDL_TTF\include\SDL_ttf.h"
@@ -64,7 +65,7 @@ bool j1Fonts::CleanUp()
 // Load new texture from file path
 TTF_Font* const j1Fonts::Load(const char* path, int size)
 {
-	TTF_Font* font = TTF_OpenFontRW(app->fs->Load(path), 1, size);
+	TTF_Font* font = TTF_OpenFontRW(App->fs->Load(path), 1, size);
 
 	if (font == nullptr)
 	{

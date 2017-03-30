@@ -62,8 +62,8 @@ bool j1GUI::Start()
 
 
 	////Debug UI
-	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms, "ms");
-	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update, "fps");
+	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &App->last_frame_ms, "ms");
+	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &App->frames_on_last_update, "fps");
 	debugGuiList.push_back(lastFrameMS);
 	debugGuiList.push_back(fps);
 	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));

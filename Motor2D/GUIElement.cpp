@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1Window.h"
 #include "j1Gui.h"
+#include "p2Defs.h"
 
 GUIElement::GUIElement(std::string name, int flags) : rect(0, 0, 0, 0), drawRect(0.f, 0.f, 0.f, 0.f), name(name)
 {
@@ -58,35 +59,35 @@ bool GUIElement::CheckMouseOver() const
 }
 void GUIElement::Center()
 {
-	int frame_w = (parent) ? parent->GetLocalRect().w / 2 - (GetLocalRect().w / 2) : App->render->camera.w / 2 - (GetLocalRect().w / 2);
-	int frame_h = (parent) ? parent->GetLocalRect().h / 2 - (GetLocalRect().h / 2) : App->render->camera.h / 2 - (GetLocalRect().h / 2);
+	int frame_w = (parent) ? parent->GetLocalRect().w / 2 - (GetLocalRect().w / 2) : App->render->cameraw.w / 2 - (GetLocalRect().w / 2);
+	int frame_h = (parent) ? parent->GetLocalRect().h / 2 - (GetLocalRect().h / 2) : App->render->cameraw.h / 2 - (GetLocalRect().h / 2);
 
 	SetLocalPos(frame_w, frame_h);
 	SetGlobalPos(0, 0);
 }
 void GUIElement::CenterX()
 {
-	int frame_w = (parent) ? parent->GetLocalRect().w : App->render->camera.w;
+	int frame_w = (parent) ? parent->GetLocalRect().w : App->render->cameraw.w;
 
 	SetLocalPos(frame_w / 2 - rect.w / 2, rect.h);
 	SetGlobalPos(frame_w / 2 - rect.w / 2, rect.h);
 }
 void GUIElement::CenterY()
 {
-	int frame_h = (parent) ? parent->GetLocalRect().h : App->render->camera.h;
+	int frame_h = (parent) ? parent->GetLocalRect().h : App->render->cameraw.h;
 
 	SetLocalPos(rect.w, frame_h / 2 - rect.h / 2);
 	SetGlobalPos(rect.w, frame_h / 2 - rect.h / 2);
 }
-void GUIElement::AddListener(Module * moduleToAdd)
+void GUIElement::AddListener(j1Module * moduleToAdd)
 {
-	std::list<Module*>::iterator it = std::find(listeners.begin(), listeners.end(), moduleToAdd);
+	std::list<j1Module*>::iterator it = std::find(listeners.begin(), listeners.end(), moduleToAdd);
 	if (it == listeners.end())
 		listeners.push_back(moduleToAdd);
 }
-void GUIElement::RemoveListener(Module * moduleToRemove)
+void GUIElement::RemoveListener(j1Module * moduleToRemove)
 {
-	std::list<Module*>::iterator it = std::find(listeners.begin(), listeners.end(), moduleToRemove);
+	std::list<j1Module*>::iterator it = std::find(listeners.begin(), listeners.end(), moduleToRemove);
 	if (it != listeners.end())
 	{
 		listeners.erase(it);
@@ -190,7 +191,7 @@ gui_types GUIElement::GetType() const
 {
 	return type;
 }
-std::list<Module*> GUIElement::GetListeners() const
+std::list<j1Module*> GUIElement::GetListeners() const
 {
 	return listeners;
 }
@@ -233,7 +234,7 @@ std::string GUIElement::GetName() const
 	return name;
 }
 
-std::list<Module*> GUIElement::GetListeners_noconst()
+std::list<j1Module*> GUIElement::GetListeners_noconst()
 {
 	return listeners;
 }
@@ -665,7 +666,7 @@ void GUIElement::ShakeSA(float dt)
 	animTime = 500;
 	if (currentAnimTim < animTime)
 	{
-		SetDrawPosition(rect.x - 25 * app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SHAKE), drawRect.y);
+		SetDrawPosition(rect.x - 25 * App->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SHAKE), drawRect.y);
 	}
 	else
 	{
@@ -686,7 +687,7 @@ void GUIElement::PulseSA(float dt)
 
 	animTime = 500;
 	float time = (float)currentAnimTim / animTime;
-	float change_alpha = app->gui->cBeizier->GetActualX(500, currentAnimTim, CB_SLOW_MIDDLE);
+	float change_alpha = App->gui->cBeizier->GetActualX(500, currentAnimTim, CB_SLOW_MIDDLE);
 
 	change_alpha = CLAMP01(change_alpha);
 
@@ -718,7 +719,7 @@ void GUIElement::BounceSA(float dt)
 	animTime = 500;
 	if (currentAnimTim < animTime)
 	{
-		SetDrawPosition(rect.x, rect.y - 25 * app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SHAKE));
+		SetDrawPosition(rect.x, rect.y - 25 * App->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SHAKE));
 	}
 	else
 	{
@@ -822,7 +823,7 @@ void GUIElement::FadeT(float dt)
 	animTime = 1000;
 	if (currentAnimTim < animTime)
 	{
-		float change_alpha = app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SLOW_MIDDLE);
+		float change_alpha = App->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SLOW_MIDDLE);
 		change_alpha = CLAMP01(change_alpha);
 		alpha = 255 * ((mustDisable) ? (1 - change_alpha) : (change_alpha));
 	}
@@ -861,9 +862,9 @@ void GUIElement::DropT(float dt)
 	if (currentTransTime <= 1000)
 	{
 		if (mustDisable)
-			drawRect.h = transOrigin.y + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, CB_SLOW_MIDDLE);
+			drawRect.h = transOrigin.y + App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, CB_SLOW_MIDDLE);
 		else
-			drawRect.h = transOrigin.y - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, CB_SLOW_MIDDLE);
+			drawRect.h = transOrigin.y - App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, CB_SLOW_MIDDLE);
 	}
 	else
 	{
@@ -885,7 +886,7 @@ void GUIElement::FlyT(float dt)
 		if (mustDisable)
 		{
 			transOrigin.create(rect.x, rect.y);
-			int screenRXBorderPos = app->win->GetWindowSize().x;
+			int screenRXBorderPos = App->win->GetWindowSize().x;
 			transDestination.create(screenRXBorderPos, rect.y);
 		}
 		else
@@ -903,9 +904,9 @@ void GUIElement::FlyT(float dt)
 	if (currentTransTime <= 500)
 	{
 		if (mustDisable)
-			SetDrawPosition(transOrigin.x - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 500, currentTransTime, CB_FLY), drawRect.y);
+			SetDrawPosition(transOrigin.x - App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 500, currentTransTime, CB_FLY), drawRect.y);
 		else
-			SetDrawPosition(transOrigin.x + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 500, currentTransTime, CB_FLY), drawRect.y);
+			SetDrawPosition(transOrigin.x + App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 500, currentTransTime, CB_FLY), drawRect.y);
 	}
 	else
 	{
@@ -936,9 +937,9 @@ void GUIElement::SlideT(float dt)
 	{
 		if (mustDisable)
 		{
-			drawRect.h = rect.h - rect.h*app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_LINEAL);
+			drawRect.h = rect.h - rect.h*App->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_LINEAL);
 		}
-		else drawRect.h = rect.x + rect.h*app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_LINEAL);
+		else drawRect.h = rect.x + rect.h*App->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_LINEAL);
 	}
 	else
 	{
@@ -964,7 +965,7 @@ void GUIElement::MoveRightT(float dt)
 		if (mustDisable)
 		{
 			transOrigin.create(rect.x, rect.y);
-			int screenRXBorderPos = app->win->GetWindowSize().x;
+			int screenRXBorderPos = App->win->GetWindowSize().x;
 			transDestination.create(screenRXBorderPos - rect.w, rect.y);
 		}
 		else
@@ -982,9 +983,9 @@ void GUIElement::MoveRightT(float dt)
 	if (currentTransTime <= 1000)
 	{
 		if (mustDisable)
-			SetDrawPosition(transOrigin.x - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
+			SetDrawPosition(transOrigin.x - App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
 		else
-			SetDrawPosition(transOrigin.x + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
+			SetDrawPosition(transOrigin.x + App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
 	}
 	else
 	{
@@ -1022,9 +1023,9 @@ void GUIElement::MoveLeftT(float dt)
 	if (currentTransTime <= 1000)
 	{
 		if (mustDisable)
-			SetDrawPosition(transOrigin.x + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
+			SetDrawPosition(transOrigin.x + App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
 		else
-			SetDrawPosition(transOrigin.x - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
+			SetDrawPosition(transOrigin.x - App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
 	}
 	else
 	{
@@ -1062,9 +1063,9 @@ void GUIElement::MoveUpT(float dt)
 	if (currentTransTime <= 1000)
 	{
 		if (mustDisable)
-			SetDrawPosition(drawRect.x, transOrigin.y + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
+			SetDrawPosition(drawRect.x, transOrigin.y + App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
 		else
-			SetDrawPosition(drawRect.x, transOrigin.y - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
+			SetDrawPosition(drawRect.x, transOrigin.y - App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
 	}
 	else
 	{
@@ -1085,7 +1086,7 @@ void GUIElement::MoveDownT(float dt)
 		if (mustDisable)
 		{
 			transOrigin.create(rect.x, rect.y);
-			int screenBYBorderPos = app->win->GetWindowSize().y;
+			int screenBYBorderPos = App->win->GetWindowSize().y;
 			transDestination.create(rect.x, screenBYBorderPos - rect.h);
 		}
 		else
@@ -1103,9 +1104,9 @@ void GUIElement::MoveDownT(float dt)
 	if (currentTransTime <= 1000)
 	{
 		if (mustDisable)
-			SetDrawPosition(drawRect.x, transOrigin.y - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
+			SetDrawPosition(drawRect.x, transOrigin.y - App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
 		else
-			SetDrawPosition(drawRect.x, transOrigin.y + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
+			SetDrawPosition(drawRect.x, transOrigin.y + App->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
 	}
 	else
 	{

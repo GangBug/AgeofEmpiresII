@@ -61,6 +61,12 @@ public:
 		return mouse_buttons[id - 1];
 	}
 
+	void StartTyping();
+	void StopTyping();
+	const char* GetText();
+
+	void DrawDebug();
+
 	// Check if a certain window event happened
 	bool GetWindowEvent(int code);
 
@@ -76,6 +82,14 @@ private:
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+
+
+	//text
+	bool textInput;
+	std::string lastText;
+	int cursor = 0;
+	int selectionLen = 0;
+
 };
 
 #endif // __j1INPUT_H__

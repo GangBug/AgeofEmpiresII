@@ -2,7 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
-
+#include "p2Point.h"
 #include "SDL/include/SDL.h"
 
 
@@ -106,6 +106,11 @@ void j1Window::GetWindowSize(uint& width, uint& height) const
 {
 	width = this->width;
 	height = this->height;
+}
+
+p2Point<int> j1Window::GetWindowSize() const
+{
+	return p2Point<int>(width, height);
 }
 
 uint j1Window::GetScale() const

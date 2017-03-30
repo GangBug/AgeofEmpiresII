@@ -116,6 +116,7 @@ public:
 
 	SDL_Renderer*	renderer;
 	Camera*			camera;
+	SDL_Rect		cameraw;
 	SDL_Rect		viewport;
 	SDL_Color		background;
 };

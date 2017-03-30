@@ -10,6 +10,9 @@
 
 class j1App;
 
+class GUIElement;
+enum gui_events;
+
 class j1Module
 {
 public:
@@ -69,6 +72,10 @@ public:
 	virtual bool Save(pugi::xml_node&) const
 	{
 		return true;
+	}
+
+	virtual void GuiEvent(GUIElement* element, int64_t event) {
+
 	}
 
 public:
