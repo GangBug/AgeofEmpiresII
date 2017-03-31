@@ -158,7 +158,8 @@ void Unit::Update()
 	}
 
 	DrawDebugRadius();
-	Draw();
+	App->render->SpriteOrdering(this);
+	//Draw();
 
 }
 
@@ -232,7 +233,7 @@ void Unit::DoAI()
 
 void Unit::Draw()
 {
-	SDL_Texture* tex = App->anim->GetTexture(unit_type);
+	/*SDL_Texture* tex = App->anim->GetTexture(unit_type);
 	SDL_Rect rect;
 	iPoint pivot;
 
@@ -244,7 +245,7 @@ void Unit::Draw()
 		App->render->Blit(tex, GetX() - pivot.x, GetY() - pivot.y, &rect);
 
 	if (this->GetEntityStatus() == E_SELECTED)
-		App->render->DrawCircle(this->GetX() +  App->render->camera->GetPosition().x, this->GetY() + App->render->camera->GetPosition().y, this->unit_radius, 255, 255, 255);
+		App->render->DrawCircle(this->GetX() +  App->render->camera->GetPosition().x, this->GetY() + App->render->camera->GetPosition().y, this->unit_radius, 255, 255, 255);*/
 }
 
 const DIRECTION Unit::GetDir() const

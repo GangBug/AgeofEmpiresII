@@ -15,7 +15,8 @@ Building::Building(BUILDING_TYPE type, fPoint pos, int id) : Entity(BUILDING, po
 
 void Building::Update()
 {
-	Draw();
+	App->render->SpriteOrdering(this);
+	//Draw();
 }
 
 void Building::PostUpdate()

@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include "Entity.h"
+#include <deque>
 
 #define FPS 60
 
@@ -119,6 +120,12 @@ public:
 	SDL_Rect		cameraw;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+
+	//Sprite Ordering
+public:
+	void SpriteOrdering(Entity* ent);
+	std::deque<Entity*> spritePrio;
+	void Draw();
 };
 
 #endif // __j1RENDER_H__

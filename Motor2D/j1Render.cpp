@@ -4,8 +4,12 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Map.h"
+#include "j1Textures.h"
+#include "j1Animation.h"
+#include "Units.h"
+#include "Buildings.h"
 
-#define VSYNC true
+#define VSYNC false
 
 j1Render::j1Render() : j1Module()
 {
@@ -75,6 +79,15 @@ bool j1Render::PreUpdate()
 
 bool j1Render::PostUpdate()
 {
+	/*for (int it = 0; it < SpriteQueue.size(); it++)
+	{
+		App->render->Blit(SpriteQueue[it].texture, SpriteQueue[it].pos.x, SpriteQueue[it].pos.y, &SpriteQueue[it].rect);
+	}
+
+	SpriteQueue.clear();*/
+
+	Draw();
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
@@ -534,4 +547,56 @@ void Camera::UpdateCamera()
 
 	/*if (centerCamUnit && follow != nullptr)
 		SetCenter(iPoint(follow->GetX(), follow->GetY()));*/
+}
+
+//Sprite Ordering
+void j1Render::SpriteOrdering(Entity* ent)
+{
+	std::deque<Entity*>::iterator it = spritePrio.begin();
+
+	for (it; it != spritePrio.end(); it++)
+	{
+		if ((*it)->GetY() > ent->GetY())
+		{
+			spritePrio.insert(it+1, ent);
+			return;
+		}
+
+	}
+	spritePrio.push_back(ent);
+}
+
+void j1Render::Draw()
+{
+	std::deque<Entity*>::iterator it = spritePrio.begin();
+	Unit* tempUnit;
+	Building* tempBuilding;
+
+	for (it; it != spritePrio.end(); it++)
+	{
+		if ((*it)->GetEntityType() == UNIT)
+		{
+			tempUnit = (Unit*)(*it);
+			SDL_Texture* tex = App->anim->GetTexture(tempUnit->GetUnitType());
+			SDL_Rect rect;
+			iPoint pivot;
+
+			App->anim->GetAnimationFrame(rect, pivot, tempUnit);
+
+			if (tempUnit->GetDir() == NORTH_EAST || tempUnit->GetDir() == EAST || tempUnit->GetDir() == SOUTH_EAST)
+				App->render->Blit(tex, tempUnit->GetX(), tempUnit->GetY(), &rect, SDL_FLIP_HORIZONTAL, pivot.x, pivot.y);
+			else
+				App->render->Blit(tex, tempUnit->GetX() - pivot.x, tempUnit->GetY() - pivot.y, &rect);
+
+			if (tempUnit->GetEntityStatus() == E_SELECTED)
+				App->render->DrawCircle(tempUnit->GetX() + App->render->camera->GetPosition().x, tempUnit->GetY() + App->render->camera->GetPosition().y, tempUnit->unit_radius, 255, 255, 255);
+		}
+		if ((*it)->GetEntityType() == BUILDING)
+		{
+			tempBuilding = (Building*)(*it);
+			App->render->Blit(App->tex->archeryTex, tempBuilding->GetX(), tempBuilding->GetY());
+		}
+		
+	}
+	spritePrio.clear();
 }

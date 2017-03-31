@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap="">
+  <app framerate_cap="60">
     <title>Pathfinding Test</title>
     <organization>UPC</organization>
   </app>
