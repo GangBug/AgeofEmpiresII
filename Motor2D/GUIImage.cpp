@@ -24,7 +24,7 @@ void GUIImage::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 }
 void GUIImage::Draw() const
 {
-	App->render->Blit(atlas, GetDrawRect().x, GetDrawRect().y, &GetSection().GetSDLrect()/*, alpha*/);
+	App->render->Blit(atlas, &GetDrawRect().GetSDLrect(), &GetSection().GetSDLrect());
 }
 void GUIImage::Serialize(pugi::xml_node root)
 {
@@ -81,4 +81,9 @@ void GUIImage::SetSection(int _sectionX, int _sectionY, int _sectionW, int _sect
 	section.y = _sectionY;
 	section.w = _sectionW;
 	section.h = _sectionH;
+}
+
+void GUIImage::SetAtlas(SDL_Texture * _atlas)
+{
+	atlas = _atlas;
 }

@@ -12,6 +12,7 @@ GUILabel::GUILabel(std::string name, int flags) : GUIElement(name, flags)
 {
 	SetType(GUI_LABEL);
 	texture = nullptr;
+	color = { 255,255,255,255 };
 }
 GUILabel::GUILabel(const char * text, label_size _size, std::string name, int flags) : GUIElement(name, flags)
 {
@@ -35,13 +36,13 @@ void GUILabel::SetText(const char* text, label_size _size)
 	switch (_size)
 	{
 	case DEFAULT:
-		texture = App->font->Print(text, App->font->defaultFont);
+		texture = App->font->Print(text, App->font->defaultFont, color);
 		break;
 	case MEDIUM:
-		texture = App->font->Print(text, App->font->mediumFont);
+		texture = App->font->Print(text, App->font->mediumFont, color);
 		break;
 	case SMALL:
-		texture = App->font->Print(text, App->font->smallFont);
+		texture = App->font->Print(text, App->font->smallFont, color);
 		break;
 	default:
 		break;

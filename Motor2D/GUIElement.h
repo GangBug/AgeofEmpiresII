@@ -112,9 +112,9 @@ public:
 	GUIElement(std::string name, int flags = NO_FLAGS);
 	virtual ~GUIElement();
 
-	void Update(const GUIElement* mouseHover, const GUIElement* focus, float dt); //Do something	// must implement dt
+	void Update(const GUIElement* mouseHover, const GUIElement* focus, float dt = 0); //Do something	// must implement dt
 
-	virtual void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt) {}
+	virtual void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt = 0) {}
 	virtual void Draw() const {}// Print the element
 	virtual void DebugDraw() const {} // Print debug things if the element
 	void CheckInput(const GUIElement* mouseHover, const GUIElement* focus); //Getting the input

@@ -17,6 +17,7 @@ public:
 	GB_Rectangle<int> GetSection() const;
 	void SetSection(GB_Rectangle<int> _section);
 	void SetSection(int _sectionX, int _sectionY, int _sectionW, int _sectionH);
+	void SetAtlas(SDL_Texture* _atlas);
 
 private:
 	GB_Rectangle<int> section;

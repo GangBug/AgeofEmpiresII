@@ -41,25 +41,7 @@ bool j1GUI::Start()
 {
 	bool ret = true;
 	//TODO 1: Load atlas
-	atlas = App->tex->Load("gui/atlas2.png");
-
-	//This goes the first
-	ret = LoadLayout();
-
-
-
-	//GUIImage* img = CreateImage({ 0, 100, 328, 103 }, { 485, 829, 328, 103 });
-	//guiList.push_back(img);
-
-	//GUIImage* img_small = CreateImage({ 500, 100, 328/2, 103/2 }, { 485, 829, 328, 103 });
-	//guiList.push_back(img_small);
-
-	//GUIImage* img_big = CreateImage({ 1000, 100, 328*2, 103*2 }, { 485, 829, 328, 103 });
-	//guiList.push_back(img_big);
-
-
-
-
+	atlas = App->tex->Load("gui/SS_Menu.png");
 
 	////Debug UI
 	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &App->last_frame_ms, "ms");
@@ -75,12 +57,9 @@ bool j1GUI::Start()
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
 
-	GUILabel* label_center = CreateLabel({ 0, 0, 0, 0 }, DEFAULT, "label_center", "label_center");
-	label_center->Center();
-	guiList.push_back(label_center);
 	return ret;
 }
-bool j1GUI::PreUpdate(float dt)
+bool j1GUI::PreUpdate()
 {
 	bool ret = true;
 
@@ -96,23 +75,17 @@ bool j1GUI::PreUpdate(float dt)
 	//IterateList(&guiList, &M_GUI::DoElementUpdate, dt);
 	//IterateList(&debugGuiList, &M_GUI::DoElementUpdate, dt);
 
-	//TMP
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
-	{
-		if (img2) img2->Enable();
-	}
-	//---
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
 		if ((*it)->GetActive())
-			(*it)->Update(mouseHover, focus, dt);
+			(*it)->Update(mouseHover, focus);
 	}
 
 	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
 	{
 		if ((*it)->GetActive())
-			(*it)->Update(mouseHover, focus, dt);
+			(*it)->Update(mouseHover, focus);
 	}
 
 	return ret;
@@ -137,15 +110,36 @@ bool j1GUI::PostUpdate()
 	return true;
 }
 //TODO: LoadLayout needs lots of improvements...
-bool j1GUI::LoadLayout()
+bool j1GUI::LoadLayout(std::string _path)
 {
 	bool ret = true;
+
+	//Cleaning guiList to override it
+	if (guiList.size() > 0)
+	{
+		LOG("Deleting guiList UI");
+		for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+		{
+			RELEASE((*it));
+		}
+		guiList.clear();
+	}
 
 	LOG("Loading UI xml");
 	char* buffer = nullptr;
 	char path[256];
 	//sprintf_s(path, 256, "%sui.xml", app->fs->GetSaveDirectory());
-	uint size = App->fs->Load("gui/gui.xml", &buffer);
+	uint size;
+	if (_path != "")
+	{
+		size = App->fs->Load(_path.c_str(), &buffer);
+		guiLoadedPath = _path;
+	}
+	else
+	{
+		size = App->fs->Load("gui/gui.xml", &buffer);
+	}
+	
 	if (size > 0 && buffer != nullptr)
 	{
 		LOG("Loading UI.");
@@ -363,7 +357,16 @@ bool j1GUI::SaveLayout()
 
 	char* buffer = nullptr;
 	LOG("Loading UI xml to serialize");
-	uint size = App->fs->Load("gui/gui.xml", &buffer);
+	uint size;
+	if (guiLoadedPath != "")
+	{
+		size = App->fs->Load(guiLoadedPath.c_str(), &buffer);
+	}
+	else
+	{
+		size = App->fs->Load("gui/gui.xml", &buffer);
+	}
+
 	LOG("Loading UI before serialize.");
 	pugi::xml_document data;
 	pugi::xml_node root;
@@ -568,6 +571,11 @@ void j1GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 void j1GUI::Draw()
 {
 	//IterateList(&guiList, &M_GUI::DoElementDraw);
+	for (std::list<GUIElement*>::iterator it = background.begin(); it != background.end(); it++)
+	{
+		if ((*it)->GetActive())
+			(*it)->Draw();
+	}
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
 		if ((*it)->GetActive())
@@ -584,16 +592,6 @@ void j1GUI::DrawEditor()
 }
 void j1GUI::DrawDebug()
 {
-	//GB_Rectangle<int> rect;
-	//rect.x = 0;
-	//rect.y = 0;
-	//SDL_QueryTexture(atlas, NULL, NULL, &rect.w, &rect.h);
-	//SDL_Rect sdlrect = rect.GetSDLrect();
-	//sdlrect.x = 0;
-	//sdlrect.y = 110;
-	//sdlrect.w = 231;
-	//sdlrect.h = 71;
-	//app->render->Blit(atlas, 0, 0, &sdlrect);
 	int x;
 	int y;
 	App->input->GetMousePosition(x, y);
@@ -611,17 +609,11 @@ void j1GUI::DrawDebug()
 		}
 	}
 	//IterateList(&debugGuiList, &M_GUI::DoElementDraw);
-
 	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
 	{
 		if ((*it)->GetActive())
 			(*it)->Draw();
 	}
-
-	cBeizier->DrawBezierCurve(CB_EASE_INOUT_BACK, { 800, 200 });
-	cBeizier->DrawBezierCurve(CB_SLOW_MIDDLE, { 800, 200 });
-	cBeizier->DrawBezierCurve(CB_LINEAL, { 800, 200 });
-	cBeizier->DrawBezierCurve(CB_SHAKE, { 800, 200 });
 }
 GUIElement * j1GUI::FindElement(std::list<GUIElement*> list, std::string name)
 {

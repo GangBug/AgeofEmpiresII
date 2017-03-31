@@ -40,8 +40,6 @@ bool j1Scene::Awake(pugi::xml_node& node)
 // Called before the first frame
 bool j1Scene::Start()
 {
-
-
 	if (inGame == true) {//checks if the player is ingame
 				
 		AudioLoader();

@@ -26,6 +26,18 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	PERF_START(ptimer);
 
+	//TODO this is a prototype of how to get command line parameters and do something with them, i'll enhance it when i get some more time.
+	for (int i = 0; i < argc; i++)
+	{
+		std::string str(args[i]);
+		//std::cout << "\narg " << i << ": " << str << "\n";
+		if (str == "-debug")
+		{
+			debug = true;
+		}
+	}
+
+
 	input = new j1Input();
 	win = new j1Window();
 	audio = new M_Audio();
@@ -50,6 +62,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(audio);
 	AddModule(tex);
+	AddModule(gui); //ADD WHEN READY! TOOK OUT FOR 0.1.5
+	AddModule(font);
 
 	AddModule(pathfinding);
 	AddModule(map);
@@ -61,8 +75,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(entity_manager);
 
-	//AddModule(gui); ADD WHEN READY! TOOK OUT FOR 0.1.5
-	AddModule(font);
+	
 	// render last to swap buffer
 	AddModule(render);
 
@@ -158,6 +171,13 @@ bool j1App::Start()
 bool j1App::Update()
 {
 	bool ret = true;
+
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug = !debug;
+	if (input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		gui->SetUIEditing(!gui->GetUIEditing());
+
+
 	PrepareUpdate();
 
 	if (input->GetWindowEvent(WE_QUIT) == true)

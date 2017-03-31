@@ -22,13 +22,13 @@ public:
 	j1GUI();
 	virtual ~j1GUI();
 
-	bool Awake(pugi::xml_node&) ;
-	bool Start() ;
-	bool PreUpdate(float dt) ;
-	bool Update(float dt) ;
-	bool PostUpdate() ;
+	bool Awake(pugi::xml_node&);
+	bool Start();
+	bool PreUpdate();
+	bool Update(float dt);
+	bool PostUpdate();
 
-	bool LoadLayout(); //TODO: LoadLayout needs lots of improvements 
+	bool LoadLayout(std::string _path = ""); //TODO: LoadLayout needs lots of improvements 
 					   //Define wich list it fills and wich gui.xml gets for example 
 					   //FIX: Each element could load and save himself
 	bool SaveLayout(); //TODO: SaveLayout needs lots of improvements 
@@ -82,6 +82,7 @@ public:
 	void SetUIEditing(bool edit);
 
 public:
+	std::list<GUIElement*> background;
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debugGuiList;
 	std::list<GUIElement*> editorGuiList;
@@ -94,6 +95,7 @@ private:
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
 	std::map<std::string, GUIElement*> guiPresets; // A map of basic UI elements defined on the xml
+	std::string guiLoadedPath = "";
 	bool mustSaveScene = false; 
 	bool mustLoadScene = false;
 

@@ -27,6 +27,7 @@
   </window>
 
   <file_system>
+    <path>data</path>
     <path>data.zip</path>
   </file_system>
 

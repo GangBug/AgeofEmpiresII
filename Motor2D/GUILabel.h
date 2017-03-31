@@ -26,4 +26,5 @@ private:
 	SDL_Texture* texture;
 	std::string text;
 	label_size lbSize;
+	SDL_Color color;
 };

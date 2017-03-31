@@ -4,6 +4,7 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Map.h"
+#include "j1Gui.h"
 #include "j1Textures.h"
 #include "j1Animation.h"
 #include "Units.h"
@@ -225,7 +226,39 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	return ret;
 }
+bool j1Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
+{
+	bool ret = true;
+	uint scale = App->win->GetScale();
 
+	SDL_Rect rect;
+	rect.x = (int)(camera->GetPosition().x * speed) + _rect->x * scale;
+	rect.y = (int)(camera->GetPosition().y * speed) + _rect->y * scale;
+
+	rect.w = _rect->w;
+	rect.h = _rect->h;
+
+	rect.w *= scale;
+	rect.h *= scale;
+
+	SDL_Point* p = nullptr;
+	SDL_Point pivot;
+
+	if (pivotX != INT_MAX && pivotY != INT_MAX)
+	{
+		pivot.x = pivotX;
+		pivot.y = pivotY;
+		p = &pivot;
+	}
+
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}
 bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const
 {
 	bool ret = true;
@@ -599,4 +632,11 @@ void j1Render::Draw()
 		
 	}
 	spritePrio.clear();
+
+	App->gui->Draw();
+
+	if (App->debug)
+	{
+		App->gui->DrawDebug();
+	}
 }
