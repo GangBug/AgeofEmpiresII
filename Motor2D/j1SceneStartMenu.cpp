@@ -44,6 +44,12 @@ bool j1SceneStartMenu::Start()
 		bg->SetAtlas(sdl_tex);
 		App->gui->background.push_back(bg);
 
+		bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "shader");
+		sdl_tex = App->tex->Load("gui/UI_Shadder.png");
+		bg->SetAtlas(sdl_tex);
+		App->gui->background.push_back(bg);
+
+
 
 	}
 
