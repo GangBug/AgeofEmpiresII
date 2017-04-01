@@ -74,17 +74,38 @@ bool j1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 			App->SaveGame("save_game.xml");
 
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
 			App->render->camera->MoveUp(floor(200.0f * dt));
+			
+			for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
+				(*it)->MoveNorth();				
+		
+		}
+			
 
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
 			App->render->camera->MoveDown(floor(200.0f * dt));
 
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
+				(*it)->MoveSouth();
+		}
+			
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
 			App->render->camera->MoveLeft(floor(200.0f * dt));
 
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
+				(*it)->MoveWest();
+		}
+		
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 			App->render->camera->MoveRight(floor(200.0f * dt));
+
+			for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
+				(*it)->MoveEast();
+		}
+			
 
 		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
 			App->render->camera->Zoom(1);

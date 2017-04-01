@@ -94,9 +94,9 @@ void GUILabel::Serialize(pugi::xml_node root)
 	position = element.append_child("position");
 	//Create atributes in label/position
 	atr = position.append_attribute("x");
-	atr.set_value(GetLocalRect().x);
+	atr.set_value(GetLocalRect().x*WINDOWSCALEINV);
 	atr = position.append_attribute("y");
-	atr.set_value(GetLocalRect().y);
+	atr.set_value(GetLocalRect().y*WINDOWSCALEINV);
 
 }
 
@@ -106,8 +106,8 @@ void GUILabel::Deserialize(pugi::xml_node layout_element)
 	label_size size = (label_size)layout_element.attribute("size").as_int();
 	SetText(txt.c_str(), size);
 	GB_Rectangle<int> rect;
-	rect.x = layout_element.child("position").attribute("x").as_int();
-	rect.y = layout_element.child("position").attribute("y").as_int();
+	rect.x = layout_element.child("position").attribute("x").as_int()*WINDOWSCALE;
+	rect.y = layout_element.child("position").attribute("y").as_int()*WINDOWSCALE;
 	SetGlobalPos(rect.x, rect.y);
 
 

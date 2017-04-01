@@ -3,7 +3,7 @@
 <config>
   <app framerate_cap="60">
     <title>Pathfinding Test</title>
-    <organization>UPC</organization>
+    <organization>GangBug - UPC</organization>
   </app>
 	
   <renderer>
@@ -19,7 +19,7 @@
   </uimanager>
     
   <window>
-    <resolution width="1024" height="768" scale="1"/>
+    <resolution width="1024" height="576" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>

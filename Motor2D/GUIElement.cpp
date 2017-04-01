@@ -496,23 +496,19 @@ void GUIElement::SetDrawPosition(float x, float y)
 	/*for (std::list<GUIElement*>::iterator it = childs.begin(); it != childs.end(); ++it)
 	if ((*it)) (*it)->SetDrawPosition((*it)->drawRect.x + x, (*it)->drawRect.y + y);*/
 }
-
 void GUIElement::SetPresetType(std::string str)
 {
 	presetName = str;
 }
-
 void GUIElement::SetName(std::string str)
 {
 	name = str;
 }
-
 void GUIElement::SetOnLClickUp(gui_events _event)
 {
 	status.statusChanged = true;
 	status.onLClickUp = _event;
 }
-
 void GUIElement::SetOnLClickDown(gui_events _event)
 {
 	status.statusChanged = true;
@@ -553,6 +549,27 @@ void GUIElement::SetOnMouseLeaves(gui_events _event)
 {
 	status.statusChanged = true;
 	status.onMouseLeaves = _event;
+}
+
+void GUIElement::MoveNorth()
+{
+
+	drawRect.y= drawRect.y - 3;
+}
+
+void GUIElement::MoveSouth()
+{
+	drawRect.y = drawRect.y+3;
+}
+
+void GUIElement::MoveEast()
+{
+	drawRect.x= drawRect.x + 3;
+}
+
+void GUIElement::MoveWest()
+{
+	drawRect.x = drawRect.x - 3;
 }
 
 void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
@@ -653,6 +670,7 @@ void GUIElement::FlashSA(float dt)
 		doingAnimation = false;
 	}
 }
+
 void GUIElement::ShakeSA(float dt)
 {
 	if (!doingTransition)
@@ -675,6 +693,7 @@ void GUIElement::ShakeSA(float dt)
 		doingTransition = false;
 	}
 }
+
 void GUIElement::PulseSA(float dt)
 {
 	if (!doingAnimation)
@@ -706,6 +725,7 @@ void GUIElement::PulseSA(float dt)
 		doingAnimation = false;
 	}
 }
+
 void GUIElement::BounceSA(float dt)
 {
 	if (!doingTransition)

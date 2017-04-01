@@ -7,6 +7,10 @@
 #include "GB_Rectangle.h"
 #include "GUIAutoLabel.h"
 
+#define WINDOWSCALE 0.535
+#define WINDOWSCALEINV 1.8691589
+
+
 class GUIElement;
 class GUIButton;
 class GUILabel;
