@@ -69,6 +69,19 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		state = NONE;
 		break;
 
+	case SAMURAI:
+		SetHp(60);
+		attack = 8;
+		SetArmor(1);
+		speed = 1.0;
+		rate_of_fire = 1;
+		range = 0;
+		unit_class = INFANTRY;
+		unit_radius = 5;
+		AI = false;
+		state = NONE;
+		break;
+
 	
 	case ARCHER:
 		SetHp(40);

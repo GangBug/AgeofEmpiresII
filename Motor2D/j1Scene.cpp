@@ -191,6 +191,8 @@ void j1Scene::UnitFactory()
 
 	
 	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));*/
+
+		App->entity_manager->CreateUnit(SAMURAI, fPoint(350, 400));
 }
 
 void j1Scene::MapLoader()
