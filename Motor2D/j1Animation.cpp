@@ -254,7 +254,7 @@ bool j1Animation::GetAnimationFrame(SDL_Rect& frame, iPoint& pivot, const Unit* 
 
 Animation::Animation(std::string name): name(name)
 {
-	speed = 100.0f;
+	speed = 150.0f;
 }
 
 // Destructor

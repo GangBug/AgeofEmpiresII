@@ -13,7 +13,7 @@
 		</buttons>
 		
 		<imgs>
-			<img type_name="tittle" have_animations="0">
+			<img type_name="title" have_animations="0">
 				<section type="standBy" x="14" y="12" w="643" h="452" />
 			</img>
 		</imgs>
@@ -21,8 +21,12 @@
 
 	<layout>
 		<button type="button" name="start" text="New game">
-			<events />
-			<listeners />
+      <events>
+        <event action="8388608" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="menu"/>
+      </listeners>
 			<position x="100" y="600" />
 			<size w="305" h="43" />
 		</button>
@@ -39,13 +43,17 @@
 			<size w="305" h="43" />
 		</button>
 		<button type="button" name="exit" text="Exit">
-			<events />
-			<listeners />
+      <events>
+        <event action="4194304" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="menu"/>
+      </listeners>
 			<position x="100" y="900" />
 			<size w="305" h="43" />
 		</button>
 
-		<img type="tittle" name="tittle">
+		<img type="title" name="title">
 			<position x="600" y="200" />
 			<size w="640" h="450" />
 		</img>

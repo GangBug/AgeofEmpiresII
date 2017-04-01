@@ -59,6 +59,8 @@ private:
 	SDL_Texture* debug_tex;
 	bool inGame;
 	Entity* archery;
+	Entity* barracks;
+	Entity* stable;
 	SDL_Rect select_rect;
 	AudioMusic bso_scene;
 

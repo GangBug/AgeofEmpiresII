@@ -12,7 +12,7 @@ GUILabel::GUILabel(std::string name, int flags) : GUIElement(name, flags)
 {
 	SetType(GUI_LABEL);
 	texture = nullptr;
-	color = { 255,255,255,255 };
+	color = { 0,0,0,0 }; //TODO: SEND THE COLOR THROUGH THE XML
 }
 GUILabel::GUILabel(const char * text, label_size _size, std::string name, int flags) : GUIElement(name, flags)
 {

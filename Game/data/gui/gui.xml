@@ -153,51 +153,55 @@
 		</img>
 
 
-		<button type="MinusButton" name="MinusButton0" text="">
-			<events />
-			<listeners />
-			<position x="1838" y="160" />
+		<button type="MinusButton" name="MinusButtonSamurai" text="">
+      <events>
+        <event action="131072" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="scene"/>
+      </listeners>
+			<position x="500" y="160" />
 			<size w="17" h="7" />
 		</button>
-		<button type="PlusButton" name="PlusButton0" text="">
-			<events />
-			<listeners />
-			<position x="1812" y="151" />
+		<button type="PlusButton" name="PlusButtonSamurai" text="">
+      <events>
+        <event action="262144" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="scene"/>
+      </listeners>
+			<position x="550" y="151" />
 			<size w="18" h="18" />
 		</button>
 
-		<button type="MinusButton" name="MinusButton1" text="">
-			<events />
-			<listeners />
-			<position x="1838" y="200" />
+		<button type="MinusButton" name="MinusButtonKnight" text="">
+      <events>
+        <event action="524288" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="scene"/>
+      </listeners>
+			<position x="650" y="200" />
 			<size w="17" h="7" />
 		</button>
-		<button type="PlusButton" name="PlusButton1" text="">
-			<events />
-			<listeners />
-			<position x="1812" y="191" />
+		<button type="PlusButton" name="PlusButtonKnight" text="">
+      <events>
+        <event action="1048576" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="scene"/>
+      </listeners>
+			<position x="700" y="191" />
 			<size w="18" h="18" />
 		</button>
-		<button type="MinusButton" name="MinusButton2" text="">
-			<events />
-			<listeners />
-			<position x="1838" y="240" />
-			<size w="17" h="7" />
-		</button>
-		<button type="PlusButton" name="PlusButton2" text="">
-			<events />
-			<listeners />
-			<position x="1812" y="231" />
-			<size w="18" h="18" />
-		</button>
-	<button type="MinusButton" name="MinusButtonArcher" text="">
+	  <button type="MinusButton" name="MinusButtonArcher" text="">
 			<events>
        				 <event action="32768" origin="16"/>
    		</events>	
       <listeners>
         			<listener name="scene"/>
      	</listeners>
-			<position x="1012" y="440" />
+			<position x="800" y="440" />
 			<size w="18" h="18" />
 		</button>
 		<button type="PlusButton" name="PlusButtonArcher" text="">
@@ -207,12 +211,12 @@
 		  <listeners>
         			<listener name="scene"/>
       </listeners>
-			<position x="1038" y="440" />
+			<position x="850" y="440" />
 			<size w="18" h="18" />
 		</button>
     <button type="OptionsButton" name="StartGame" text="Okay">
       <events>
-        <event action="131072" origin="16"/>
+        <event action="2097152" origin="16"/>
       </events>
       <listeners>
         <listener name="scene"/>

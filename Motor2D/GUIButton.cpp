@@ -169,12 +169,10 @@ void GUIButton::Deserialize(pugi::xml_node layout_element)
 		pugi::xml_node next = it_event.next_sibling();
 		if (it_event.attribute("origin").as_int(0) & MOUSE_LCLICK_UP)
 		{
-			//if (it_event.attribute("action").as_int(0) & CLOSE_APP)
 				SetOnLClickUp((gui_events)it_event.attribute("action").as_int(0));
 		}
 		else if (it_event.attribute("origin").as_int(0) & MOUSE_LCLICK_DOWN)
 		{
-			//if (it_event.attribute("action").as_int(0) & CLOSE_APP)
 				SetOnLClickUp((gui_events)it_event.attribute("action").as_int(0));
 		}
 		it_event = next;

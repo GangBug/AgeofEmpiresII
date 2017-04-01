@@ -25,9 +25,14 @@ public:
 	bool 	UILoader();
 
 	void SetInMenu();
+
+	// Gui Event
+	void GuiEvent(GUIElement* element, int64_t event);
+
 private:
 	AudioMusic bso_scene_menu;
 	bool inMenu;
+	bool quit;
 };
 
 

@@ -7,7 +7,9 @@
 enum BUILDING_TYPE
 {
 	NO_BUILDING = 0,
-	ARCHERY
+	ARCHERY,
+	BARRACK,
+	STABLE
 };
 
 class Building : public Entity

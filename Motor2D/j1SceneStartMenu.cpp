@@ -13,7 +13,7 @@
 
 j1SceneStartMenu::j1SceneStartMenu()
 {
-	name.assign("scene");
+	name.assign("menu");
 }
 
 j1SceneStartMenu::~j1SceneStartMenu() {
@@ -24,6 +24,7 @@ bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 {
 	LOG("Loading Scene Start Menu");
 	inMenu = true;
+	quit = false;
 
 	bso_scene_menu = App->audio->LoadAudioMusic("Sounds/BSO/BSO_Menu.ogg");
 
@@ -69,7 +70,7 @@ bool j1SceneStartMenu::PostUpdate()
 {
 	bool ret = true;
 	if (inMenu == true) {
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || quit)
 			ret = false;
 	}
 	return ret;
@@ -120,4 +121,19 @@ void j1SceneStartMenu::SetInMenu()
 	Start();
 }
 
-
+void j1SceneStartMenu::GuiEvent(GUIElement* element, int64_t event)
+{
+	if (event & MOUSE_LCLICK_UP)
+	{
+		if (event & NEW_GAME)
+		{
+			inMenu = false;
+			CleanUp();
+			App->scene->SetInGame();
+		}
+		if (event & CLOSE_APP)
+		{
+			quit = true;
+		}
+	}
+}

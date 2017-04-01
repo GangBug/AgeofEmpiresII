@@ -16,7 +16,6 @@ Building::Building(BUILDING_TYPE type, fPoint pos, int id) : Entity(BUILDING, po
 void Building::Update()
 {
 	App->render->SpriteOrdering(this);
-	//Draw();
 }
 
 void Building::PostUpdate()
@@ -26,6 +25,30 @@ void Building::PostUpdate()
 		switch (buildingType) {
 		case ARCHERY:
 			App->entity_manager->CreateUnit(ARCHER, { 628, 481});
+			unitsToAdd--;
+			if (unitsToAdd > 0)
+			{
+				timer.Start();
+			}
+			else
+			{
+				timer.Stop();
+			}
+			break;
+		case BARRACK:
+			App->entity_manager->CreateUnit(SAMURAI, { 628, 481 });
+			unitsToAdd--;
+			if (unitsToAdd > 0)
+			{
+				timer.Start();
+			}
+			else
+			{
+				timer.Stop();
+			}
+			break;
+		case STABLE:
+			App->entity_manager->CreateUnit(TARKANKNIGHT, { 628, 481 });
 			unitsToAdd--;
 			if (unitsToAdd > 0)
 			{

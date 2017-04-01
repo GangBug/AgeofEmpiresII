@@ -41,6 +41,8 @@ bool j1Scene::Awake(pugi::xml_node& node)
 	spawnSamurai = 0;
 
 	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
+	barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(-610, 210));
+	stable = App->entity_manager->CreateBuilding(STABLE, fPoint(1000, 460));
 
 	return ret;
 }
@@ -175,6 +177,8 @@ void j1Scene::UnitFactory()
 	LOG("Creating units");
 
 	dynamic_cast<Building*>(archery)->GenerateUnit(spawnArcher);
+	dynamic_cast<Building*>(barracks)->GenerateUnit(spawnSamurai);
+	dynamic_cast<Building*>(stable)->GenerateUnit(spawnKnight);
 	/*App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 350));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 400));
@@ -279,6 +283,22 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 		if (event & ERASE_ARCHER)
 		{
 			spawnArcher--;
+		}
+		if (event & ADD_SAMURAI)
+		{
+			spawnSamurai++;
+		}
+		if (event & ERASE_SAMURAI)
+		{
+			spawnSamurai--;
+		}
+		if (event & ADD_KNIGHT)
+		{
+			spawnKnight++;
+		}
+		if (event & ERASE_KNIGHT)
+		{
+			spawnKnight--;
 		}
 		if (event & START_GAME)
 		{

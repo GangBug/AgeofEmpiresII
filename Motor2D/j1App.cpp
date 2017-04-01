@@ -62,7 +62,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(audio);
 	AddModule(tex);
-	AddModule(gui); //ADD WHEN READY! TOOK OUT FOR 0.1.5
+	AddModule(gui);
 	AddModule(font);
 
 	AddModule(pathfinding);

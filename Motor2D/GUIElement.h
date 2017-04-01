@@ -42,10 +42,16 @@ enum gui_events
 	//UI-GAME-EVENTS ---> Put them on a better event system and they wont need to coexist with GUI-EVENTS
 	//					  for now this is okay
 
+
 	ERASE_ARCHER = (1 << 15),
 	ADD_ARCHER = (1 << 16),
-	START_GAME = (1 << 17),
-	CLOSE_APP = (1 << 18)
+	ERASE_SAMURAI = (1 << 17),
+	ADD_SAMURAI = (1 << 18),
+	ERASE_KNIGHT = (1 << 19),
+	ADD_KNIGHT = (1 << 20),
+	START_GAME = (1 << 21),
+	CLOSE_APP = (1 << 22),
+	NEW_GAME = (1 << 23)
 };
 
 struct ElementStatus

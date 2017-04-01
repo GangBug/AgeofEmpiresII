@@ -420,8 +420,8 @@ bool Camera::InsideRenderTarget(int x, int y)
 
 	y = (y - view_port.h / 2.0f) * (1.0f + (zoom / 100.0f)) + view_port.h / 2.0f;
 
-	int zoomed_tile_width = App->map->data.tile_width *(1.0f + zoom / 100.0f);
-	int zoomed_tile_height = App->map->data.tile_height *(1.0f + zoom / 100.0f);
+	int zoomed_tile_width = App->map->data.tile_width *(5.0f + zoom / 100.0f);
+	int zoomed_tile_height = App->map->data.tile_height *(6.0f + zoom / 100.0f);
 
 	if (x < -zoomed_tile_width)
 		return false;

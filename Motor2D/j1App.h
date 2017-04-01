@@ -100,7 +100,7 @@ public:
 	j1Textures*			tex = nullptr;
 	M_Audio*			audio = nullptr;
 	j1Scene*			scene = nullptr;
-	j1SceneStartMenu*  sceneStart = nullptr;
+	j1SceneStartMenu*   sceneStart = nullptr;
 	j1FileSystem*		fs = nullptr;
 	j1Map*				map = nullptr;
 	j1PathFinding*		pathfinding = nullptr;
