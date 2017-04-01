@@ -45,8 +45,7 @@ enum gui_events
 	ERASE_ARCHER = (1 << 15),
 	ADD_ARCHER = (1 << 16),
 	START_GAME = (1 << 17),
-	
-	CLOSE_APP = (1 << 19)
+	CLOSE_APP = (1 << 18)
 };
 
 struct ElementStatus

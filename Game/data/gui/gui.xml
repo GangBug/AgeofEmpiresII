@@ -202,7 +202,7 @@
 		</button>
 		<button type="PlusButton" name="PlusButtonArcher" text="">
 			<events>
-       				<event action="65536" origin="16"/>
+       		<event action="65536" origin="16"/>
    		</events>
 		  <listeners>
         			<listener name="scene"/>

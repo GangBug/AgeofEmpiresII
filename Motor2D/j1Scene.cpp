@@ -40,6 +40,8 @@ bool j1Scene::Awake(pugi::xml_node& node)
 	spawnKnight = 0;
 	spawnSamurai = 0;
 
+	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
+
 	return ret;
 }
 
@@ -266,27 +268,21 @@ void j1Scene::SetInGame()
 
 void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 {
-	if (event == 16)
+	if (event & MOUSE_LCLICK_UP)
 	{
-
-		if (event & MOUSE_LCLICK_UP)
+		if (event & ADD_ARCHER)
 		{
-			if (event & ADD_ARCHER)
-			{
-				spawnArcher++;
-			}
-			if (event & ERASE_ARCHER)
-			{
-				spawnArcher--;
-			}
-			if (event & START_GAME)
-			{
-				preGame = false;
-				UnitFactory();
-			}
+			spawnArcher++;
+		}
+		if (event & ERASE_ARCHER)
+		{
+			spawnArcher--;
+		}
+		if (event & START_GAME)
+		{
+			preGame = false;
+			UnitFactory();
 		}
 	}
-
-
 }
 
