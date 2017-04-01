@@ -56,6 +56,19 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		state = NONE;
 		break;
 
+	case TARKANKNIGHT:
+		SetHp(100);
+		attack = 10;
+		SetArmor(1);
+		speed = 1.35;
+		rate_of_fire = 1;
+		range = 0;
+		unit_class = CAVALRY;
+		unit_radius = 4;
+		AI = false;
+		state = NONE;
+		break;
+
 	
 	case ARCHER:
 		SetHp(40);
@@ -82,6 +95,8 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		state = NONE;
 		break;
 
+
+	
 	default:
 		LOG("Error UNIT TYPE STATS NULL");
 		unit_class = NO_CLASS;

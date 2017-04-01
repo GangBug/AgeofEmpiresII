@@ -22,7 +22,7 @@ bool j1Animation::Start()
 	textures.push_back(Textures(App->tex->Load("animations/SiegeRam.png"), SIEGERAM));
 	textures.push_back(Textures(App->tex->Load("animations/Twohandedswordmanenemy.png"), TWOHANDEDSWORDMANENEMY));
 	textures.push_back(Textures(App->tex->Load("animations/archer.png"), ARCHER));
-	
+	textures.push_back(Textures(App->tex->Load("animations/TarkanSpritesheet.png"), TARKANKNIGHT));
 	return true;
 }
 bool j1Animation::Awake(pugi::xml_node& config)
@@ -335,6 +335,9 @@ void Animation::SetUnit(const pugi::xml_node node)
 
 	else if (strcmp(node.name(), "archer") == 0)
 		unit_type = ARCHER;
+
+	else if (strcmp(node.name(), "tarkannnight") == 0)
+		unit_type = TARKANKNIGHT;
 
 	else
 	{

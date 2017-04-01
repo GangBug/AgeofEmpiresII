@@ -45,7 +45,7 @@ bool j1Scene::Start()
 
 	if (inGame == true) {//checks if the player is ingame
 				
-		AudioLoader();
+	//	AudioLoader();
 	
 		MapLoader();
 		ret = UILoader();
@@ -181,7 +181,9 @@ void j1Scene::UnitFactory()
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(600, 350));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(650, 415));
 	App->entity_manager->CreateUnit(CAVALRYARCHER, fPoint(340, 415));
+	App->entity_manager->CreateUnit(TARKANKNIGHT, fPoint(350, 400));
 
+	
 	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
 }
 

@@ -559,7 +559,7 @@ void GUIElement::MoveNorth()
 
 void GUIElement::MoveSouth()
 {
-	drawRect.y = drawRect.y+3;
+	drawRect.y = drawRect.y + 3;
 }
 
 void GUIElement::MoveEast()
