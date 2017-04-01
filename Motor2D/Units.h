@@ -4,7 +4,6 @@
 #include "Entity.h"
 #include "j1Timer.h"
 
-
 #define XY_TILES_RELATION 2
 #define RAD_TO_DEG 57.29577951
 

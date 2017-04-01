@@ -48,9 +48,10 @@ public:
 	void AudioLoader();
 
 	//load UI
-
 	bool UILoader();
 
+	// Gui Event
+	void GuiEvent(GUIElement* element, int64_t event);
 
 	void Selector();
 	void SetInGame();
@@ -58,11 +59,15 @@ private:
 	SDL_Texture* debug_tex;
 	bool inGame;
 	Entity* archery;
-	
 	SDL_Rect select_rect;
 	AudioMusic bso_scene;
-private:
 
+private:
+	int spawnArcher;
+	int spawnSamurai;
+	int spawnKnight;
+
+	bool preGame;
 };
 
 #endif // __j1SCENE_H__

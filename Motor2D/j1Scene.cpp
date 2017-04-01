@@ -32,8 +32,13 @@ bool j1Scene::Awake(pugi::xml_node& node)
 	bool ret = true;
 
 	inGame = false;
+	preGame = true;
 
 	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
+
+	spawnArcher = 0;
+	spawnKnight = 0;
+	spawnSamurai = 0;
 
 	return ret;
 }
@@ -43,14 +48,13 @@ bool j1Scene::Start()
 {
 	bool ret = true;
 
-	if (inGame == true) {//checks if the player is ingame
-				
+	if (inGame == true)
+	{//checks if the player is ingame			
 	//	AudioLoader();
 	
 		MapLoader();
 		ret = UILoader();
-		UnitFactory();
-
+		//UnitFactory();
 	}
 
 	return ret;
@@ -65,65 +69,63 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (inGame == true)
+	{
+		if (preGame == false) 
+		{
+			if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+				App->LoadGame("save_game.xml");
 
-	if (inGame == true) {
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+				App->SaveGame("save_game.xml");
 
-		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-			App->LoadGame("save_game.xml");
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+				App->render->camera->MoveUp(floor(200.0f * dt));
 
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-			App->SaveGame("save_game.xml");
+				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
+					(*it)->MoveNorth();
 
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
-			App->render->camera->MoveUp(floor(200.0f * dt));
-			
-			for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
-				(*it)->MoveNorth();				
-		
+			}
+
+
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+				App->render->camera->MoveDown(floor(200.0f * dt));
+
+				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
+					(*it)->MoveSouth();
+			}
+
+
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+				App->render->camera->MoveLeft(floor(200.0f * dt));
+
+				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
+					(*it)->MoveWest();
+			}
+
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+				App->render->camera->MoveRight(floor(200.0f * dt));
+
+				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
+					(*it)->MoveEast();
+			}
+
+
+			if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
+				App->render->camera->Zoom(1);
+
+			if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
+				App->render->camera->Zoom(-1);
+
+			if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+				App->map->SwitchDebug();
+
+			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+				dynamic_cast<Building*>(archery)->GenerateUnit(1);
+			Selector();//SELECTION
 		}
-			
-
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
-			App->render->camera->MoveDown(floor(200.0f * dt));
-
-			for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
-				(*it)->MoveSouth();
-		}
-			
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-			App->render->camera->MoveLeft(floor(200.0f * dt));
-
-			for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
-				(*it)->MoveWest();
-		}
-		
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-			App->render->camera->MoveRight(floor(200.0f * dt));
-
-			for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
-				(*it)->MoveEast();
-		}
-			
-
-		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-			App->render->camera->Zoom(1);
-
-		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
-			App->render->camera->Zoom(-1);
-
-		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-			App->map->SwitchDebug();
-
-		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-			dynamic_cast<Building*>(archery)->GenerateUnit(1);
-
 		App->map->Draw();
-
-
-		Selector();//SELECTION
-
 	}
 	
 	return true;
@@ -169,7 +171,9 @@ bool j1Scene::CleanUp()
 void j1Scene::UnitFactory()
 {
 	LOG("Creating units");
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
+
+	dynamic_cast<Building*>(archery)->GenerateUnit(spawnArcher);
+	/*App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 350));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 400));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 450));
@@ -184,7 +188,7 @@ void j1Scene::UnitFactory()
 	App->entity_manager->CreateUnit(TARKANKNIGHT, fPoint(350, 400));
 
 	
-	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
+	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));*/
 }
 
 void j1Scene::MapLoader()
@@ -258,8 +262,31 @@ void j1Scene::SetInGame()
 {	
 	inGame = true;
 	Start();
+}
+
+void j1Scene::GuiEvent(GUIElement* element, int64_t event)
+{
+	if (event == 16)
+	{
+
+		if (event & MOUSE_LCLICK_UP)
+		{
+			if (event & ADD_ARCHER)
+			{
+				spawnArcher++;
+			}
+			if (event & ERASE_ARCHER)
+			{
+				spawnArcher--;
+			}
+			if (event & START_GAME)
+			{
+				preGame = false;
+				UnitFactory();
+			}
+		}
+	}
 
 
 }
-
 

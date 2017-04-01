@@ -234,4 +234,9 @@
       <UniqueIdentifier>{b5d7f81d-9b8c-45af-8446-1288f60417f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Game\data\gui\gui.xml">
+      <Filter>Core\UI</Filter>
+    </Xml>
+  </ItemGroup>
 </Project>

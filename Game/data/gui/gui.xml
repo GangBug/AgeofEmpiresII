@@ -88,11 +88,13 @@
 			<size  w="959" h="179" />
 		</img>
 
+    <!--
 		<img type="MenuWindow" name="MenuWindow">
 			<position x="700" y="200" />
 			<size  w="457" h="577" />
 		</img>
-		<img type="MinimapBar" name="MinimapBar">
+    -->
+    <img type="MinimapBar" name="MinimapBar">
 			<position x="1471" y="726" />
 			<size  w="449" h="354" />
 		</img>
@@ -188,7 +190,36 @@
 			<position x="1812" y="231" />
 			<size w="18" h="18" />
 		</button>
-
+	<button type="MinusButton" name="MinusButtonArcher" text="">
+			<events>
+       				 <event action="32768" origin="16"/>
+   		</events>	
+      <listeners>
+        			<listener name="scene"/>
+     	</listeners>
+			<position x="1012" y="440" />
+			<size w="18" h="18" />
+		</button>
+		<button type="PlusButton" name="PlusButtonArcher" text="">
+			<events>
+       				<event action="65536" origin="16"/>
+   		</events>
+		  <listeners>
+        			<listener name="scene"/>
+      </listeners>
+			<position x="1038" y="440" />
+			<size w="18" h="18" />
+		</button>
+    <button type="OptionsButton" name="StartGame" text="Okay">
+      <events>
+        <event action="131072" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="scene"/>
+      </listeners>
+      <position x="1160" y="440" />
+      <size w="18" h="18" />
+    </button>
 		<button type="OptionsButton" name="OptionsButton" text="">
 			<events />
 			<listeners />
