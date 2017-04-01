@@ -39,11 +39,18 @@ public:
 	//create initial units
 	void UnitFactory();
 
+	/// Loadders----------
+
 	//load the map
 	void MapLoader();
 
 	//load The audio
 	void AudioLoader();
+
+	//load UI
+
+	bool UILoader();
+
 
 	void Selector();
 	void SetInGame();

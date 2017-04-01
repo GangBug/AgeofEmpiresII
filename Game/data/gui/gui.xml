@@ -2,36 +2,111 @@
 <gui>
 	<elements>
 		<buttons>
-			<button type_name="button" have_animations="0">
+
+			<button type_name="MenuButton" have_animations="0">
 				<sections>
-					<section type="standBy" x="14" y="481" w="305" h="43" />
-					<section type="hover" x="14" y="531" w="305" h="43" />
-					<section type="clicked" x="14" y="581" w="305" h="43" />
+				   <section type="standBy" x="294" y="631" w="111" h="82"/>
+                    <section type="hover" x="412" y="631" w="111" h="82"/>
+                    <section type="clicked" x="540" y="631" w="111" h="82"/>
+				</sections>
+			</button>
+			<button type_name="SaveButton" have_animations="0">
+				<sections>
+				   <section type="standBy" x="345" y="480" w="67" h="39"/>
+                    <section type="hover" x="417"  y="481" w="67" h="45"/>
+                    <section type="clicked" x="486"  y="480" w="67" h="39"/>
 				</sections>
 			</button>
 		</buttons>
+		
 		<imgs>
-			<img type_name="tittle" have_animations="0">
-				<section type="standBy" x="14" y="12" w="643" h="452" />
+			<img type_name="MenuWindow" have_animations="0">
+				<section type="standBy" x="669" y="12" w="457" h="577"/>
+			</img>
+			<img type_name="MinimapBar" have_animations="0">
+				<section type="standBy" x="1128" y="12" w="449" h="354"/>
+			</img>
+			<img type_name="ResourceBar" have_animations="0">
+				<section type="standBy" x="14" y="906" w="1312" h="46"/>
+			</img>
+			<img type_name="UseBar" have_animations="0">
+				<section type="standBy" x="13" y="719" w="959" h="179"/>
+			</img>
+			<img type_name="SaveBar" have_animations="0">
+				<section type="standBy" x="680" y="656" w="384" h="45"/>
+			</img>
+			<img type_name="ResourceWindow" have_animations="0">
+				<section type="standBy" x="1249" y="391" w="328" h="391"/>
 			</img>
 		</imgs>
+
+
+
+
 	</elements>
+
 	<layout>
-		<button type="button" name="start" text="Start game">
+		<button type="MenuButton" name="MenuButton" text="">
 			<events />
 			<listeners />
 			<position x="1" y="420" />
 			<size w="305" h="43" />
 		</button>
-		<button type="button" name="options" text="Options">
+		<button type="SaveButton" name="options" text="Options">
 			<events />
 			<listeners />
 			<position x="1" y="470" />
 			<size w="305" h="43" />
 		</button>
-		<img type="tittle" name="tittle">
-			<position x="325" y="52" />
-			<size w="320" h="225" />
+
+		<img type="MenuWindow" name="MenuWindow">
+			<position x="920" y="400" />
+			<size  w="457" h="577" />
 		</img>
-	</layout>
-</gui>
+		<img type="MinimapBar" name="MinimapBar">
+			<position x="1471" y="726" />
+			<size  w="449" h="354" />
+		</img>
+		<img type="ResourceBar" name="ResourceBar">
+			<position x="0" y="0" />
+			<size  w="1312" h="46" />
+		</img>
+		<img type="SaveBar" name="SaveBar">
+			<position x="1536" y="0" />
+			<size  w="384" h="45" />
+		</img>
+		<img type="UseBar" name="UseBar">
+			<position x="0" y="901" />
+			<size  w="959" h="179" />
+		</img>
+
+		<img type="ResourceWindow" name="ResourceWindow">
+			<position x="300" y="300" />
+			<size  w="328" h="391" />
+		</img>
+
+
+		<img type="Wood" name="Wood">
+			<position x="90" y="90" />
+			<size  w="54" h="52" />
+		</img>
+		<img type="Food" name="Food">
+			<position x="70" y="70" />
+			<size  w="56" h="53" />
+		</img>
+
+		<img type="Gold" name="Gold">
+			<position x="60" y="60" />
+			<size  w="55" h="51" />
+		</img>
+		<img type="PopulationLimit" name="PopulationLimit">
+			<position x="50" y="50" />
+			<size  w="54" h="40" />
+		</img>
+
+
+
+
+
+	</layout></gui>
+

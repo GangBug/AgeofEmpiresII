@@ -14,6 +14,7 @@
 #include "Units.h"
 #include "Buildings.h"
 #include "j1SceneStartMenu.h"
+#include "j1Gui.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -40,14 +41,19 @@ bool j1Scene::Awake(pugi::xml_node& node)
 // Called before the first frame
 bool j1Scene::Start()
 {
+	bool ret = true;
+
 	if (inGame == true) {//checks if the player is ingame
 				
 		AudioLoader();
+	
 		MapLoader();
+		ret = UILoader();
 		UnitFactory();
+
 	}
 
-	return true;
+	return ret;
 }
 
 // Called each loop iteration
@@ -133,6 +139,8 @@ bool j1Scene::CleanUp()
 	bso_scene.Stop();
 	App->audio->CleanUp();
 
+
+
 	LOG("Freeing scene");
 	return true;
 }
@@ -181,6 +189,17 @@ void j1Scene::AudioLoader()
 	bso_scene.Play();
 }
 
+bool j1Scene::UILoader()
+{
+	bool ret = true;
+
+	ret = App->gui->LoadLayout("gui/gui.xml");
+
+
+
+	return ret;
+}
+
 void j1Scene::Selector()
 {
 
@@ -208,6 +227,7 @@ void j1Scene::Selector()
 	{
 		App->entity_manager->SelectInQuad(select_rect);
 	}
+
 
 }
 

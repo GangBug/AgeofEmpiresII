@@ -76,7 +76,6 @@ public:
 	GUIImage*	CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset, std::string name); // From a preset
 	GUIMouse*	CreateMouse();
 
-	GUIElement* GuiFactory();
 
 	bool GetUIEditing() const;
 	void SetUIEditing(bool edit);

@@ -124,6 +124,15 @@ bool j1GUI::LoadLayout(std::string _path)
 		}
 		guiList.clear();
 	}
+	if (background.size() > 0)
+	{
+		LOG("Deleting background UI");
+		for (std::list<GUIElement*>::iterator it = background.begin(); it != background.end(); it++)
+		{
+			RELEASE((*it));
+		}
+		background.clear();
+	}
 
 	LOG("Loading UI xml");
 	char* buffer = nullptr;
@@ -766,15 +775,6 @@ GUIImage * j1GUI::CreateImageFromPreset(GB_Rectangle<int> _position, std::string
 	return ret;
 }
 
-GUIElement * j1GUI::GuiFactory()
-{
-
-
-
-
-
-	return nullptr;
-}
 bool j1GUI::GetUIEditing() const
 {
 	return UIEditing;

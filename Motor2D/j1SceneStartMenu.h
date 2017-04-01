@@ -17,8 +17,12 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
-	void AudioLoader();
 
+
+//Loaders
+
+	void AudioLoader();
+	bool 	UILoader();
 
 	void SetInMenu();
 private:

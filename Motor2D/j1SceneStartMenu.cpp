@@ -9,6 +9,8 @@
 #include "j1Render.h"
 #include "j1Scene.h"
 #include "j1EntityManager.h"
+
+
 j1SceneStartMenu::j1SceneStartMenu()
 {
 	name.assign("scene");
@@ -32,25 +34,13 @@ bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 bool j1SceneStartMenu::Start()
 {
 	bool ret = true;
-	App->audio->Init();
+
+
 
 	if(inMenu==true){
+
 		AudioLoader();
-		ret = App->gui->LoadLayout("gui/menu.xml");
-		//App->entity_manager->CreateUnit(ARCHER, fPoint(300, 310));
-
-		GUIImage* bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "background");
-		SDL_Texture* sdl_tex = App->tex->Load("gui/startmenu_background.png");
-		bg->SetAtlas(sdl_tex);
-		App->gui->background.push_back(bg);
-
-		bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "shader");
-		sdl_tex = App->tex->Load("gui/UI_Shadder.png");
-		bg->SetAtlas(sdl_tex);
-		App->gui->background.push_back(bg);
-
-
-
+		ret = UILoader();
 	}
 
 
@@ -66,11 +56,8 @@ bool j1SceneStartMenu::Update(float dt)
 	if(inMenu == true){
 		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 			inMenu = false;
-			App->gui->background.clear(); //TODO: esto es una guarrada, debo mejorarlo, lo he dejado para que la UI de momento no moleste
-			App->gui->guiList.clear();
 			CleanUp();
-			App->scene->SetInGame();
-			
+			App->scene->SetInGame();			
 		}
 
 	}
@@ -100,8 +87,30 @@ bool j1SceneStartMenu::CleanUp()
 
 void j1SceneStartMenu::AudioLoader()
 {
-	
+	App->audio->Init();
 	bso_scene_menu.Play(-1);
+
+}
+
+bool j1SceneStartMenu::UILoader()
+{
+	bool ret = true;
+
+	ret = App->gui->LoadLayout("gui/menu.xml");
+	//App->entity_manager->CreateUnit(ARCHER, fPoint(300, 310));
+
+	GUIImage* bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "background");
+	SDL_Texture* sdl_tex = App->tex->Load("gui/startmenu_background.png");
+	bg->SetAtlas(sdl_tex);
+	App->gui->background.push_back(bg);
+
+	//shadder
+	/*bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "shader");
+	sdl_tex = App->tex->Load("gui/UI_Shadder.png");
+	bg->SetAtlas(sdl_tex);
+	App->gui->background.push_back(bg);*/
+
+	return ret;
 
 }
 
