@@ -46,6 +46,7 @@
                     <section type="clicked" x="540" y="631" w="111" h="82"/>
 				</sections>
 			</button>
+
 			<button type_name="SaveButton" have_animations="0">
 				<sections>
 				   <section type="standBy" x="345" y="480" w="67" h="39"/>
@@ -53,6 +54,7 @@
                     <section type="clicked" x="486"  y="480" w="67" h="39"/>
 				</sections>
 			</button>
+
 			<button type_name="OptionsButton" have_animations="0">
 				<sections>
 				   <section type="standBy" x="336" y="531" w="98" h="83"/>
@@ -60,6 +62,7 @@
                     <section type="clicked" x="553"  y="530" w="98" h="83"/>
 				</sections>
 			</button>
+
 			<button type_name="PlusButton" have_animations="0">
 				<sections>
 				   <section type="standBy" x="629" y="481" w="18" h="18"/>
@@ -68,6 +71,7 @@
                    <!-- <section type="Blocked" x="567"  y="481" w="18" h="18"/>-->
 				</sections>
 			</button>
+
 			<button type_name="MinusButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="629" y="504" w="17" h="7"/>
@@ -76,7 +80,86 @@
                     <!--<section type="Blocked" x="567"  y="504" w="17" h="7"/>-->
 				</sections>
 			</button>
+
+			<button type_name="VillagerCreatorButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="26" y="969" w="40" h="40"/>   
+                    <section type="clicked" x="75"  y="969" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="ArcherCreatorButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="220" y="969" w="40" h="40"/>   
+                    <section type="clicked" x="269"  y="969" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="RepairButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="124" y="969" w="40" h="40"/>   
+                    <section type="clicked" x="173"  y="969" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="StableButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="317" y="969" w="40" h="40"/>   
+                    <section type="clicked" x="366"  y="969" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="GoOutButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="419" y="969" w="40" h="40"/>   
+                    <section type="clicked" x="468"  y="969" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="ChurchButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="516" y="969" w="40" h="40"/>   
+                    <section type="clicked" x="565"  y="969" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="BellButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="26" y="1018" w="40" h="40"/>   
+                    <section type="clicked" x="75"  y="1018" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="TarkanCreatorButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="220" y="1018" w="40" h="40"/>   
+                    <section type="clicked" x="269"  y="1018" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="MonkCreatorButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="317" y="1018" w="40" h="40"/>   
+                    <section type="clicked" x="366"  y="1018" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="BarrackButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="419" y="1018" w="40" h="40"/>   
+                    <section type="clicked" x="468"  y="1018" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="ArcheryButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="516" y="1018" w="40" h="40"/>   
+                    <section type="clicked" x="565"  y="1018" w="40" h="40"/>
+				</sections>
+			</button>
+
 		</buttons>
+
 
 
 	</elements>
@@ -194,6 +277,7 @@
 			<position x="1350" y="117" />
 			<size w="18" h="18" />
 		</button>
+	 
 	  <button type="MinusButton" name="MinusButtonArcher" text="">
 			<events>
        				 <event action="32768" origin="16"/>
@@ -204,16 +288,18 @@
 			<position x="1300" y="155" />
 			<size w="18" h="18" />
 		</button>
+	
 		<button type="PlusButton" name="PlusButtonArcher" text="">
-			<events>
-       		<event action="65536" origin="16"/>
-   		</events>
+				<events>
+       				<event action="65536" origin="16"/>
+   				</events>
 		  <listeners>
         			<listener name="scene"/>
-      </listeners>
+      	   </listeners>
 			<position x="1350" y="147" />
 			<size w="18" h="18" />
 		</button>
+    
     <button type="OptionsButton" name="StartGame" text="Okay">
       <events>
         <event action="2097152" origin="16"/>
@@ -224,6 +310,7 @@
       <position x="1325" y="195" />
       <size w="18" h="18" />
     </button>
+
 		<button type="OptionsButton" name="OptionsButton" text="">
 			<events />
 			<listeners />
@@ -231,8 +318,80 @@
 			<size w="98" h="83" />
 		</button>
 
+	
+		<!--   stable
+		<button type="RepairButton" name="RepairButton" text="">
+			<events />
+			<listeners />
+			<position x="155" y="495" />
+			<size w="40" h="40" />
+		</button/>
+		<button type="TarkanCreatorButton" name="TarkanCreatorButton" text="">
+			<events />
+			<listeners />
+			<position x="5" y="495" />
+			<size w="40" h="40" />
+		</button>
+		-->
 
+		<!--   Archery
+		<button type="RepairButton" name="RepairButton" text="">
+			<events />
+			<listeners />
+			<position x="155" y="495" />
+			<size w="40" h="40" />
+		</button/>
+		<button type="ArcherCreatorButton" name="ArcherCreatorButton" text="">
+			<events />
+			<listeners />
+			<position x="5" y="495" />
+			<size w="40" h="40" />
+		</button>
+		-->
 
+		<!--   Church
+		<button type="MonkCreatorButton" name="VillagerCreatorButton" text="">
+			<events />
+			<listeners />
+			<position x="5" y="495" />
+			<size w="40" h="40" />
+		</button>
+		<button type="RepairButton" name="RepairButton" text="">
+			<events />
+			<listeners />
+			<position x="155" y="495" />
+			<size w="40" h="40" />
+		</button/>
+		-->
+
+		<!--    urban center
+		<button type="VillagerCreatorButton" name="VillagerCreatorButton" text="">
+			<events />
+			<listeners />
+			<position x="5" y="495" />
+			<size w="40" h="40" />
+		</button>
+
+		<button type="RepairButton" name="RepairButton" text="">
+			<events />
+			<listeners />
+			<position x="155" y="495" />
+			<size w="40" h="40" />
+		</button>
+
+		<button type="BellButton" name="BellButton" text="">
+			<events />
+			<listeners />
+			<position x="155" y="595" />
+			<size w="40" h="40" />
+		</button>
+		<button type="GoOutButton" name="GoOutButton" text="">
+			<events />
+			<listeners />
+			<position x="155" y="595" />
+			<size w="40" h="40" />
+		</button>
+		-->
 
 	</layout></gui>
 
