@@ -91,6 +91,7 @@
 			<button type_name="ArcherCreatorButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="220" y="969" w="40" h="40"/>   
+				  	 <section type="hover" x="220" y="969" w="40" h="40"/>   
                     <section type="clicked" x="269"  y="969" w="40" h="40"/>
 				</sections>
 			</button>
@@ -99,6 +100,14 @@
 				<sections>
 				  	 <section type="standBy" x="124" y="969" w="40" h="40"/>   
                     <section type="clicked" x="173"  y="969" w="40" h="40"/>
+				</sections>
+			</button>
+
+			<button type_name="SamuraiCreatorButton" have_animations="0">
+				<sections>
+				  	 <section type="standBy" x="220" y="1018" w="40" h="40"/>   
+				  	 <section type="hover" x="220" y="1018" w="40" h="40"/>   
+                    <section type="clicked" x="269"  y="1018" w="40" h="40"/>
 				</sections>
 			</button>
 
@@ -132,8 +141,9 @@
 
 			<button type_name="TarkanCreatorButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="220" y="1018" w="40" h="40"/>   
-                    <section type="clicked" x="269"  y="1018" w="40" h="40"/>
+				  	 <section type="standBy" x="124" y="1018" w="40" h="40"/>   
+				  	  <section type="hover" x="124" y="1018" w="40" h="40"/>   
+                    <section type="clicked" x="172"  y="1018" w="40" h="40"/>
 				</sections>
 			</button>
 
@@ -236,17 +246,7 @@
 		</img>
 
 
-		<button type="MinusButton" name="MinusButtonSamurai" text="">
-      <events>
-        <event action="131072" origin="16"/>
-      </events>
-      <listeners>
-        <listener name="scene"/>
-      </listeners>
-			<position x="412" y="1020" />
-			<size w="17" h="7" />
-		</button>
-		<button type="PlusButton" name="PlusButtonSamurai" text="">
+    <button type="SamuraiCreatorButton" name="SamuraiCreatorButton" text="">
       <events>
         <event action="262144" origin="16"/>
       </events>
@@ -254,20 +254,11 @@
         <listener name="scene"/>
       </listeners>
 			<position x="440" y="1020" />
-			<size w="18" h="18" />
+			<size w="40" h="40" />
 		</button>
 
-		<button type="MinusButton" name="MinusButtonKnight" text="">
-      <events>
-        <event action="524288" origin="16"/>
-      </events>
-      <listeners>
-        <listener name="scene"/>
-      </listeners>
-			<position x="478" y="1020" />
-			<size w="17" h="7" />
-		</button>
-		<button type="PlusButton" name="PlusButtonKnight" text="">
+
+		<button type="TarkanCreatorButton" name="TarkanCreatorButton" text="">
       <events>
         <event action="1048576" origin="16"/>
       </events>
@@ -275,21 +266,12 @@
         <listener name="scene"/>
       </listeners>
 			<position x="506" y="1020" />
-			<size w="18" h="18" />
+			<size w="40" h="40" />
 		</button>
 	 
-	  <button type="MinusButton" name="MinusButtonArcher" text="">
-			<events>
-       				 <event action="32768" origin="16"/>
-   		</events>	
-      <listeners>
-        			<listener name="scene"/>
-     	</listeners>
-			<position x="544" y="1020" />
-      <size w="17" h="7" />
-		</button>
+
 	
-		<button type="PlusButton" name="PlusButtonArcher" text="">
+		<button type="ArcherCreatorButton" name="ArcherCreatorButton" text="">
 				<events>
        				<event action="65536" origin="16"/>
    				</events>
@@ -297,7 +279,7 @@
         			<listener name="scene"/>
       	   </listeners>
 			<position x="572" y="1020" />
-			<size w="18" h="18" />
+			<size w="40" h="40" />
 		</button>
     
     <button type="OptionsButton" name="StartGame" text="Okay">
@@ -311,20 +293,6 @@
       <size w="120" h="50" />
     </button>
 
-    <button type="OptionsButton" name="SamuraiPortrait" text="S">
-      <position x="462" y="970" />
-      <size w="0" h="0" />
-    </button>
-
-    <button type="OptionsButton" name="KnightPortrait" text="K">
-      <position x="526" y="970" />
-      <size w="0" h="0" />
-    </button>
-
-    <button type="OptionsButton" name="ArcherPortrait" text="A">
-      <position x="594" y="970" />
-      <size w="0" h="0" />
-    </button>
 
 		<button type="OptionsButton" name="OptionsButton" text="">
 			<events />
