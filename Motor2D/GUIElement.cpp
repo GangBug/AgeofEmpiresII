@@ -557,63 +557,6 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 	OnUpdate(mouseHover, focus, dt);
 
 	//Then process the animations and transitions.
-	if (currentStaticAnimation != SAT_NONE)
-	{
-		//Do here the animation according the active one.
-
-		switch (currentStaticAnimation)
-		{
-		case SA_FLASH:
-			FlashSA(dt);
-			break;
-		case SA_SHAKE:
-			ShakeSA(dt);
-			break;
-		case SA_PULSE:
-			PulseSA(dt);
-			break;
-		case SA_BOUNCE:
-			BounceSA(dt);
-			break;
-		}
-
-	}
-
-	if (currentTransition != SAT_NONE)
-	{
-		//DO here the transition logic according the one active.
-
-		switch (currentTransition)
-		{
-		case T_SCALE:
-			ScaleT(dt);
-			break;
-		case T_FADE:
-			FadeT(dt);
-			break;
-		case T_DROP:
-			DropT(dt);
-			break;
-		case T_FLY:
-			FlyT(dt);
-			break;
-		case T_SLIDE:
-			SlideT(dt);
-			break;
-		case T_MOVE_RIGHT:
-			MoveRightT(dt);
-			break;
-		case T_MOVE_LEFT:
-			MoveLeftT(dt);
-			break;
-		case T_MOVE_UP:
-			MoveUpT(dt);
-			break;
-		case T_MOVE_DOWN:
-			MoveDownT(dt);
-			break;
-		}
-	}
 	if (GetDraggable() && GetLClicked())
 	{
 		iPoint p;

@@ -29,7 +29,7 @@ GUILabel::~GUILabel()
 
 void GUILabel::SetText(const char* text, label_size _size)
 {
-	if (texture != nullptr)
+	if (texture != nullptr && strcmp(text, "") != 0)
 		SDL_DestroyTexture(texture);
 
 	this->text = text;
