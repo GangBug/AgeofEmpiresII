@@ -9,6 +9,7 @@
 #include "j1Animation.h"
 #include "Units.h"
 #include "Buildings.h"
+#include "j1EntityManager.h"
 
 #define VSYNC false
 
@@ -648,6 +649,24 @@ void j1Render::Draw()
 			{
 				App->render->DrawCircle(tempBuilding->GetX() + App->render->camera->GetPosition().x + (tempBuilding->buildingWidth / 2), tempBuilding->GetY() + App->render->camera->GetPosition().y + (tempBuilding->buildingHeight / 2) , tempBuilding->buildingRadius, 255, 255, 255);
 				LOG("SELECTED");
+				switch (tempBuilding->buildingType)
+				{
+				case ARCHERY:
+					App->entity_manager->archerySelected = true;
+					App->entity_manager->barracksSelected = false;
+					App->entity_manager->stableSelected = false;
+					break;
+				case BARRACK:
+					App->entity_manager->archerySelected = false;
+					App->entity_manager->barracksSelected = true;
+					App->entity_manager->stableSelected = false;
+					break;
+				case STABLE:
+					App->entity_manager->archerySelected = false;
+					App->entity_manager->barracksSelected = false;
+					App->entity_manager->stableSelected = true;
+					break;
+				}
 			}
 		}
 	}

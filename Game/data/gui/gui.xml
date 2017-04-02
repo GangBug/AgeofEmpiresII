@@ -243,7 +243,7 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-			<position x="1300" y="95" />
+			<position x="412" y="1000" />
 			<size w="17" h="7" />
 		</button>
 		<button type="PlusButton" name="PlusButtonSamurai" text="">
@@ -253,7 +253,7 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-			<position x="1350" y="87" />
+			<position x="440" y="1000" />
 			<size w="18" h="18" />
 		</button>
 
@@ -264,7 +264,7 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-			<position x="1300" y="125" />
+			<position x="478" y="1000" />
 			<size w="17" h="7" />
 		</button>
 		<button type="PlusButton" name="PlusButtonKnight" text="">
@@ -274,7 +274,7 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-			<position x="1350" y="117" />
+			<position x="506" y="1000" />
 			<size w="18" h="18" />
 		</button>
 	 
@@ -285,8 +285,8 @@
       <listeners>
         			<listener name="scene"/>
      	</listeners>
-			<position x="1300" y="155" />
-			<size w="18" h="18" />
+			<position x="544" y="1000" />
+      <size w="17" h="7" />
 		</button>
 	
 		<button type="PlusButton" name="PlusButtonArcher" text="">
@@ -296,7 +296,7 @@
 		  <listeners>
         			<listener name="scene"/>
       	   </listeners>
-			<position x="1350" y="147" />
+			<position x="572" y="1000" />
 			<size w="18" h="18" />
 		</button>
     
@@ -307,8 +307,8 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-      <position x="1325" y="195" />
-      <size w="18" h="18" />
+      <position x="630" y="1000" />
+      <size w="60" h="40" />
     </button>
 
 		<button type="OptionsButton" name="OptionsButton" text="">

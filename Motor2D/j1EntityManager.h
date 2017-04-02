@@ -36,6 +36,10 @@ public:
 	bool IsUnitInTile(const Unit* unit, iPoint tile)const;
 	Unit* GetUnitInTile(iPoint tile) const;
 
+	bool archerySelected = false;
+	bool barracksSelected = false;
+	bool stableSelected = false;
+
 private:
 	int unitID = 0;
 	int buildingID = 0;

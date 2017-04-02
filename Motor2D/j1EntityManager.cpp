@@ -14,6 +14,10 @@ j1EntityManager::~j1EntityManager() {}
 
 bool j1EntityManager::Awake() 
 { 
+	archerySelected = false;
+	barracksSelected = false;
+	stableSelected = false;
+
 	return true; 
 }
 
@@ -89,6 +93,7 @@ void j1EntityManager::SelectInClick(int x, int y)
 
 void j1EntityManager::UnselectEverything()
 {
+
 	for (std::list<Entity*>::iterator it = entity_list.begin(); it != entity_list.end(); it++)
 	{
 		it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);

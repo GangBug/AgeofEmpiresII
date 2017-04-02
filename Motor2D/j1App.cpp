@@ -37,7 +37,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 		}
 	}
 
-
 	input = new j1Input();
 	win = new j1Window();
 	audio = new M_Audio();

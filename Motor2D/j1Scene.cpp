@@ -35,11 +35,11 @@ bool j1Scene::Awake(pugi::xml_node& node)
 	preGame = true;
 	//	AudioLoader();
 	//Creation_Unit
-	
 
+	//Buildings creation
 	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
 	barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
-	stable = App->entity_manager->CreateBuilding(STABLE, fPoint(200, -40));
+	stable = App->entity_manager->CreateBuilding(STABLE, fPoint(100, 0));
 
 	return ret;
 }
@@ -77,59 +77,46 @@ bool j1Scene::Update(float dt)
 {
 	if (inGame == true)
 	{
-		if (preGame == false) 
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+			App->LoadGame("save_game.xml");
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+			App->SaveGame("save_game.xml");
+
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
+			(App->input->GetMousePosition().y < App->render->camera->GetHeight() / 7))
 		{
-			if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-				App->LoadGame("save_game.xml");
-
-			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-				App->SaveGame("save_game.xml");
-
-			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
-				(App->input->GetMousePosition().y < App->render->camera->GetHeight() / 8)) {
-
-				App->render->camera->MoveUp(floor(200.0f * dt));
-
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT ||
-				((App->input->GetMousePosition().y > (App->render->camera->GetHeight() / 8)*6))) {
-
-				App->render->camera->MoveDown(floor(200.0f * dt));
-
-			}
-
-
-			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT ||
-				App->input->GetMousePosition().x < App->render->camera->GetWidth() / 10) {
-
-				App->render->camera->MoveLeft(floor(200.0f * dt));
-
-			}
-
-
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT ||
-				App->input->GetMousePosition().x > ((App->render->camera->GetWidth() / 10)*9)) {
-
-				App->render->camera->MoveRight(floor(200.0f * dt));
-
-			}
-
-			if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
-				App->render->camera->Zoom(1);
-
-			if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
-				App->render->camera->Zoom(-1);
-
-			if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-				App->map->SwitchDebug();
-
-			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-				dynamic_cast<Building*>(archery)->GenerateUnit(1);
+			App->render->camera->MoveUp(floor(200.0f * dt));
 		}
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT ||
+			((App->input->GetMousePosition().y > (App->render->camera->GetHeight() / 6.2f) * 6)))
+		{
+			App->render->camera->MoveDown(floor(200.0f * dt));
+		}
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT ||
+			App->input->GetMousePosition().x < App->render->camera->GetWidth() / 18)
+		{
+			App->render->camera->MoveLeft(floor(200.0f * dt));
+		}
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT ||
+			App->input->GetMousePosition().x > ((App->render->camera->GetWidth() / 9) * 9))
+		{
+			App->render->camera->MoveRight(floor(200.0f * dt));
+		}
+		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
+			App->render->camera->Zoom(1);
+
+		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
+			App->render->camera->Zoom(-1);
+
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+			App->map->SwitchDebug();
+
+		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+			dynamic_cast<Building*>(archery)->GenerateUnit(1);
+
 		App->map->Draw();
 	}
-	
 	return true;
 }
 
@@ -189,6 +176,7 @@ void j1Scene::UnitFactory()
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 450));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 500));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 550));
+
 	/*
 	App->entity_manager->CreateUnit(ARCHER, fPoint(500, 310));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(500, 360));
@@ -196,9 +184,7 @@ void j1Scene::UnitFactory()
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(650, 415));
 	App->entity_manager->CreateUnit(CAVALRYARCHER, fPoint(340, 415));
 	App->entity_manager->CreateUnit(TARKANKNIGHT, fPoint(350, 400));
-
-	
-	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));*/
+	*/
 }
 
 void j1Scene::MapLoader()
@@ -308,32 +294,35 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 	if (event & MOUSE_LCLICK_UP)
 	{
 		menuSelect.Play();
-		if (event & ADD_ARCHER)
+		if (event & ADD_ARCHER && App->entity_manager->archerySelected == true)
 		{
 			spawnArcher++;
 		}
-		if (event & ERASE_ARCHER)
+		if (event & ERASE_ARCHER && App->entity_manager->archerySelected == true)
 		{
 			spawnArcher--;
 		}
-		if (event & ADD_SAMURAI)
+		if (event & ADD_SAMURAI && App->entity_manager->barracksSelected == true)
 		{
 			spawnSamurai++;
 		}
-		if (event & ERASE_SAMURAI)
+		if (event & ERASE_SAMURAI && App->entity_manager->barracksSelected == true)
 		{
 			spawnSamurai--;
 		}
-		if (event & ADD_KNIGHT)
+		if (event & ADD_KNIGHT && App->entity_manager->stableSelected == true)
 		{
 			spawnKnight++;
 		}
-		if (event & ERASE_KNIGHT)
+		if (event & ERASE_KNIGHT && App->entity_manager->stableSelected == true)
 		{
 			spawnKnight--;
 		}
 		if (event & START_GAME)
 		{
+			App->entity_manager->archerySelected = false;
+			App->entity_manager->barracksSelected = false;
+			App->entity_manager->stableSelected = false;
 			preGame = false;
 			UnitFactory();
 		}
