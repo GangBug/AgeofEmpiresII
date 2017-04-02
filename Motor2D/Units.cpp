@@ -444,7 +444,7 @@ bool Unit::CheckSurroundings()
 					if (App->entity_manager->IsUnitInTile(this, neighbors[n]))
 					{
 						Unit* unit2 = App->entity_manager->GetUnitInTile(neighbors[n]);
-						if (unit2->AI != this->AI && state!=FLEEING)//If we find a unit and he's not of your army, clear your lists and set him as your enemy! Now you have to find where' you'll fight him 
+						if (unit2->AI != this->AI && state!=FLEEING && unit2->GetEntityType() == UNIT)//If we find a unit and he's not of your army, clear your lists and set him as your enemy! Now you have to find where' you'll fight him 
 						{
 							frontier.clear();
 							visited.clear();
