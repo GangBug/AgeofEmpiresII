@@ -4,6 +4,8 @@
 *.userosscache
 *.sln.docstates
 
+Game_Release/
+
 # Build results
 [Dd]ebug/
 [Ee]ditorModeDebug/
