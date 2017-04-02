@@ -2,6 +2,7 @@
 #include "j1EntityManager.h"
 #include "Units.h"
 #include "j1Map.h"
+#include "GB_Rectangle.h"
 
 j1EntityManager::j1EntityManager() : j1Module()
 {
@@ -64,6 +65,22 @@ void j1EntityManager::SelectInQuad(const SDL_Rect& select_rect)
 			it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
 		}
 		else if (unit_x < select_rect.x && unit_x > select_rect.w && unit_y > select_rect.y && unit_y < select_rect.h)
+		{
+			it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+		}
+	}
+}
+
+void j1EntityManager::SelectInClick(int x, int y)
+{
+	GB_Rectangle<int> mouseClick = { x-15, y, 30, 55 };
+
+	for (std::list<Entity*>::iterator it = entity_list.begin(); it != entity_list.end(); it++)
+	{
+		int unit_x = it._Ptr->_Myval->GetX();
+		int unit_y = it._Ptr->_Myval->GetY();
+		
+		if (mouseClick.Contains(unit_x, unit_y))
 		{
 			it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
 		}

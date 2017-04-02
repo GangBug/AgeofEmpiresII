@@ -25,6 +25,7 @@ public:
 	Entity* CreateBuilding(BUILDING_TYPE, fPoint pos);
 
 	void SelectInQuad(const SDL_Rect& select_rect);
+	void SelectInClick(int x, int y);
 	void UnselectEverything();
 
 	void DeleteEntity(Entity* ptr); // will call other delete methods

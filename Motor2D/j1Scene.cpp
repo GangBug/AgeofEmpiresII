@@ -85,13 +85,12 @@ bool j1Scene::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 				App->SaveGame("save_game.xml");
 
-			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
+		/*	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
 				(App->input->GetMousePosition().y < App->render->camera->GetHeight() / 8)) {
 
 				App->render->camera->MoveUp(floor(200.0f * dt));
 
 			}
-
 
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT ||
 				((App->input->GetMousePosition().y > (App->render->camera->GetHeight() / 8)*6))) {
@@ -114,9 +113,7 @@ bool j1Scene::Update(float dt)
 
 				App->render->camera->MoveRight(floor(200.0f * dt));
 
-			}
-		
-
+			}*/
 
 			if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
 				App->render->camera->Zoom(1);
@@ -296,9 +293,8 @@ void j1Scene::Selector()
 	if (App->input->GetMouseButtonDown(1) == KEY_UP)
 	{
 		App->entity_manager->SelectInQuad(select_rect);
+		App->entity_manager->SelectInClick(x,y);
 	}
-
-
 }
 
 void j1Scene::SetInGame()
