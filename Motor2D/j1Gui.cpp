@@ -442,6 +442,7 @@ GUIElement * j1GUI::FindMouseHover()
 		if ((*it)->CheckMouseOver())
 		{
 			ret = (*it);
+			break;
 		}
 	}
 	for (it = guiList.rbegin(); it != guiList.rend(); it++)
@@ -449,6 +450,7 @@ GUIElement * j1GUI::FindMouseHover()
 		if ((*it)->CheckMouseOver())
 		{
 			ret = (*it);
+			break;
 		}
 	}
 
@@ -537,7 +539,8 @@ void j1GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 		if (element->GetElementStatus().interactive && element->GetElementStatus().active)
 		{
 			//if (event != MOUSE_ENTERS)
-			SDL_Log("Event: %b", event);
+			SDL_Log("Event: %d ", event);
+			SDL_Log("Element: %s\n", element->GetName().c_str());
 			switch (event)
 			{
 			case MOUSE_ENTERS:
