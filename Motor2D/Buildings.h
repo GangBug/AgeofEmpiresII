@@ -28,6 +28,8 @@ public:
 	int id;
 	int unitsToAdd;
 	int buildingRadius;
+	int buildingWidth;
+	int buildingHeight;
 	j1Timer timer;
 };
 #endif

@@ -12,6 +12,21 @@ Building::Building(BUILDING_TYPE type, fPoint pos, int id) : Entity(BUILDING, po
 {
 	unitsToAdd = 0;
 	buildingRadius = 20;
+	if (type == ARCHERY)
+	{
+		buildingWidth = 325;
+		buildingHeight = 269;
+	}
+	else if (type == BARRACK)
+	{
+		buildingWidth = 310;
+		buildingHeight = 266;
+	}
+	else if (type == STABLE)
+	{
+		buildingWidth = 323;
+		buildingHeight = 226;
+	}
 }
 
 void Building::Update()

@@ -85,7 +85,7 @@ bool j1Scene::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 				App->SaveGame("save_game.xml");
 
-		/*	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
 				(App->input->GetMousePosition().y < App->render->camera->GetHeight() / 8)) {
 
 				App->render->camera->MoveUp(floor(200.0f * dt));
@@ -113,7 +113,7 @@ bool j1Scene::Update(float dt)
 
 				App->render->camera->MoveRight(floor(200.0f * dt));
 
-			}*/
+			}
 
 			if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
 				App->render->camera->Zoom(1);
