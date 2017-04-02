@@ -36,13 +36,9 @@ bool j1Scene::Awake(pugi::xml_node& node)
 
 	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
 
-	spawnArcher = 0;
-	spawnKnight = 0;
-	spawnSamurai = 0;
-
 	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
-	barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(-610, 210));
-	stable = App->entity_manager->CreateBuilding(STABLE, fPoint(1000, 460));
+	barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
+	stable = App->entity_manager->CreateBuilding(STABLE, fPoint(200, -40));
 
 	return ret;
 }
@@ -59,7 +55,12 @@ bool j1Scene::Start()
 		MapLoader();
 		ret = UILoader();
 		//UnitFactory();
+
+		spawnArcher = 0;
+		spawnKnight = 0;
+		spawnSamurai = 0;
 	}
+
 
 	return ret;
 }
@@ -127,7 +128,6 @@ bool j1Scene::Update(float dt)
 
 			if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 				dynamic_cast<Building*>(archery)->GenerateUnit(1);
-			Selector();//SELECTION
 		}
 		App->map->Draw();
 	}
@@ -156,6 +156,8 @@ bool j1Scene::PostUpdate()
 		}
 	}
 
+	Selector();//SELECTION
+
 	return ret;
 }
 
@@ -179,6 +181,10 @@ void j1Scene::UnitFactory()
 	dynamic_cast<Building*>(archery)->GenerateUnit(spawnArcher);
 	dynamic_cast<Building*>(barracks)->GenerateUnit(spawnSamurai);
 	dynamic_cast<Building*>(stable)->GenerateUnit(spawnKnight);
+
+	spawnArcher = 0;
+	spawnKnight = 0;
+	spawnSamurai = 0;
 	/*App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 350));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 400));
@@ -195,8 +201,6 @@ void j1Scene::UnitFactory()
 
 	
 	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));*/
-
-		App->entity_manager->CreateUnit(SAMURAI, fPoint(350, 400));
 }
 
 void j1Scene::MapLoader()
@@ -229,8 +233,6 @@ bool j1Scene::UILoader()
 	bool ret = true;
 
 	ret = App->gui->LoadLayout("gui/gui.xml");
-
-
 
 	return ret;
 }

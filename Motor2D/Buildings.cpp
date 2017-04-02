@@ -6,7 +6,7 @@
 #include "j1Textures.h"
 
 #define ARCHERY_DOOR_X 28
-#define ARCHER_DOOR_Y 261
+#define ARCHER_DOOR_Y 300 //NEEDS POLISHING
 
 Building::Building(BUILDING_TYPE type, fPoint pos, int id) : Entity(BUILDING, pos), buildingType(type), id(id)
 {
@@ -24,7 +24,7 @@ void Building::PostUpdate()
 	{
 		switch (buildingType) {
 		case ARCHERY:
-			App->entity_manager->CreateUnit(ARCHER, { 628, 481});
+			App->entity_manager->CreateUnit(ARCHER, { GetX(), GetY() + ARCHER_DOOR_Y});
 			unitsToAdd--;
 			if (unitsToAdd > 0)
 			{
@@ -36,7 +36,7 @@ void Building::PostUpdate()
 			}
 			break;
 		case BARRACK:
-			App->entity_manager->CreateUnit(SAMURAI, { 628, 481 });
+			App->entity_manager->CreateUnit(SAMURAI, { GetX(), GetY() + ARCHER_DOOR_Y });
 			unitsToAdd--;
 			if (unitsToAdd > 0)
 			{
@@ -48,7 +48,7 @@ void Building::PostUpdate()
 			}
 			break;
 		case STABLE:
-			App->entity_manager->CreateUnit(TARKANKNIGHT, { 628, 481 });
+			App->entity_manager->CreateUnit(TARKANKNIGHT, { GetX(), GetY() + ARCHER_DOOR_Y });
 			unitsToAdd--;
 			if (unitsToAdd > 0)
 			{
