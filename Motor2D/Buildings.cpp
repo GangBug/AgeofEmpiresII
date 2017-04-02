@@ -11,6 +11,7 @@
 Building::Building(BUILDING_TYPE type, fPoint pos, int id) : Entity(BUILDING, pos), buildingType(type), id(id)
 {
 	unitsToAdd = 0;
+	buildingRadius = 20;
 }
 
 void Building::Update()
@@ -22,7 +23,8 @@ void Building::PostUpdate()
 {
 	if (unitsToAdd > 0 && timer.ReadSec() >= 1)
 	{
-		switch (buildingType) {
+		switch (buildingType)
+		{
 		case ARCHERY:
 			App->entity_manager->CreateUnit(ARCHER, { GetX(), GetY() + ARCHER_DOOR_Y});
 			unitsToAdd--;
@@ -67,7 +69,8 @@ void Building::PostUpdate()
 
 void Building::Draw()
 {
-	switch (buildingType) {
+	switch (buildingType)
+	{
 	case ARCHERY:
 		App->render->Blit(App->tex->archeryTex, GetX(), GetY());
 		break;
@@ -84,4 +87,8 @@ void Building::GenerateUnit(int num)
 {
 	unitsToAdd += num;
 	timer.Start();
+}
+
+Building::~Building()
+{
 }

@@ -632,7 +632,13 @@ void j1Render::Draw()
 		if ((*it)->GetEntityType() == BUILDING)
 		{
 			tempBuilding = (Building*)(*it);
-			switch (tempBuilding->buildingType) {
+			if (tempBuilding->GetEntityStatus() == E_SELECTED)
+			{
+				App->render->DrawCircle(tempBuilding->GetX() + App->render->camera->GetPosition().x, tempBuilding->GetY() + App->render->camera->GetPosition().y, tempBuilding->buildingRadius, 255, 255, 255);
+				LOG("SELECTED");
+			}
+			switch (tempBuilding->buildingType)
+			{
 			case ARCHERY:
 				App->render->Blit(App->tex->archeryTex, tempBuilding->GetX(), tempBuilding->GetY());
 				break;
@@ -642,9 +648,8 @@ void j1Render::Draw()
 			case STABLE:
 				App->render->Blit(App->tex->stableTex, tempBuilding->GetX(), tempBuilding->GetY());
 				break;
-			}
+			}	
 		}
-		
 	}
 	spritePrio.clear();
 

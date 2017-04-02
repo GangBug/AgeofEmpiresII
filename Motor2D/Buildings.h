@@ -27,6 +27,7 @@ public:
 	enum BUILDING_TYPE buildingType;
 	int id;
 	int unitsToAdd;
+	int buildingRadius;
 	j1Timer timer;
 };
 #endif
