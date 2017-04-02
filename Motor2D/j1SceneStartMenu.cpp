@@ -89,7 +89,7 @@ bool j1SceneStartMenu::CleanUp()
 void j1SceneStartMenu::AudioLoader()
 {
 	App->audio->Init();
-	bso_scene_menu.Play(-1);
+	//bso_scene_menu.Play(-1);
 
 }
 
@@ -100,16 +100,11 @@ bool j1SceneStartMenu::UILoader()
 	ret = App->gui->LoadLayout("gui/menu.xml");
 	//App->entity_manager->CreateUnit(ARCHER, fPoint(300, 310));
 
-	GUIImage* bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "background");
+	GUIImage* bg = App->gui->CreateImage({ 0,0,1024,575 }, { 0, 0, 1920, 1080 }, "background");
 	SDL_Texture* sdl_tex = App->tex->Load("gui/startmenu_background.png");
 	bg->SetAtlas(sdl_tex);
 	App->gui->background.push_back(bg);
 
-	//shadder
-	/*bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "shader");
-	sdl_tex = App->tex->Load("gui/UI_Shadder.png");
-	bg->SetAtlas(sdl_tex);
-	App->gui->background.push_back(bg);*/
 
 	return ret;
 

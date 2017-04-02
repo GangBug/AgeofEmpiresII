@@ -15,7 +15,7 @@
 #include "Buildings.h"
 #include "j1SceneStartMenu.h"
 #include "j1Gui.h"
-
+#include "GUIImage.h"
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
@@ -84,7 +84,9 @@ bool j1Scene::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 				App->SaveGame("save_game.xml");
 
-			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
+				(App->input->GetMousePosition().y < App->render->camera->GetHeight() / 8)) {
+
 				App->render->camera->MoveUp(floor(200.0f * dt));
 
 				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
@@ -93,7 +95,9 @@ bool j1Scene::Update(float dt)
 			}
 
 
-			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT ||
+				((App->input->GetMousePosition().y > (App->render->camera->GetHeight() / 8)*6))) {
+
 				App->render->camera->MoveDown(floor(200.0f * dt));
 
 				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
@@ -101,7 +105,9 @@ bool j1Scene::Update(float dt)
 			}
 
 
-			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT ||
+				App->input->GetMousePosition().x < App->render->camera->GetWidth() / 10) {
+
 				App->render->camera->MoveLeft(floor(200.0f * dt));
 
 				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
@@ -109,12 +115,15 @@ bool j1Scene::Update(float dt)
 			}
 
 
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT ||
+				App->input->GetMousePosition().x > ((App->render->camera->GetWidth() / 10)*9)) {
+
 				App->render->camera->MoveRight(floor(200.0f * dt));
 
 				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
 					(*it)->MoveEast();
 			}
+		
 
 
 			if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
@@ -185,13 +194,13 @@ void j1Scene::UnitFactory()
 	spawnArcher = 0;
 	spawnKnight = 0;
 	spawnSamurai = 0;
-	/*App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
+	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 350));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 400));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 450));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 500));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 550));
-
+	/*
 	App->entity_manager->CreateUnit(ARCHER, fPoint(500, 310));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(500, 360));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(600, 350));
@@ -225,7 +234,7 @@ void j1Scene::AudioLoader()
 {
 	LOG("Loading Audio");
 
-	bso_scene.Play();
+	//bso_scene.Play();
 }
 
 bool j1Scene::UILoader()
@@ -233,6 +242,10 @@ bool j1Scene::UILoader()
 	bool ret = true;
 
 	ret = App->gui->LoadLayout("gui/gui.xml");
+
+
+	GUIImage* bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "shader");
+	SDL_Texture* sdl_tex = App->tex->Load("gui/UI_Shadder.png");
 
 	return ret;
 }

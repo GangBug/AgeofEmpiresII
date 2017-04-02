@@ -172,8 +172,19 @@ void j1Input::GetMousePosition(int& x, int& y)
 	y = mouse_y;
 }
 
+
+iPoint j1Input::GetMousePosition()
+{
+	iPoint ret;
+	ret.x = mouse_x;
+	ret.y = mouse_y;
+
+	return iPoint(ret);
+}
+
 void j1Input::GetMouseMotion(int& x, int& y)
 {
 	x = mouse_motion_x;
 	y = mouse_motion_y;
 }
+

@@ -6,6 +6,7 @@ GUIImage::GUIImage(std::string name, int flags) : GUIElement(name, flags)
 {
 	SetType(GUI_IMAGE);
 	atlas = App->gui->GetAtlas();
+ 
 	//texture = nullptr;
 }
 GUIImage::GUIImage(const GUIImage & img, std::string name, int flags) : GUIElement(name, flags)

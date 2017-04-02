@@ -553,22 +553,25 @@ void GUIElement::SetOnMouseLeaves(gui_events _event)
 
 void GUIElement::MoveNorth()
 {
-
+	this->localPosition.y--;
 	drawRect.y= drawRect.y - 3;
 }
 
 void GUIElement::MoveSouth()
 {
+	this->localPosition.y++;
 	drawRect.y = drawRect.y + 3;
 }
 
 void GUIElement::MoveEast()
 {
+	this->localPosition.x--;
 	drawRect.x= drawRect.x + 3;
 }
 
 void GUIElement::MoveWest()
 {
+	this->localPosition.x--;
 	drawRect.x = drawRect.x - 3;
 }
 
