@@ -90,9 +90,6 @@ bool j1Scene::Update(float dt)
 
 				App->render->camera->MoveUp(floor(200.0f * dt));
 
-				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
-					(*it)->MoveNorth();
-
 			}
 
 
@@ -101,8 +98,6 @@ bool j1Scene::Update(float dt)
 
 				App->render->camera->MoveDown(floor(200.0f * dt));
 
-				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
-					(*it)->MoveSouth();
 			}
 
 
@@ -111,8 +106,6 @@ bool j1Scene::Update(float dt)
 
 				App->render->camera->MoveLeft(floor(200.0f * dt));
 
-				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
-					(*it)->MoveWest();
 			}
 
 
@@ -121,8 +114,6 @@ bool j1Scene::Update(float dt)
 
 				App->render->camera->MoveRight(floor(200.0f * dt));
 
-				for (std::list<GUIElement*>::iterator it = App->gui->guiList.begin(); it != App->gui->guiList.end(); it++)
-					(*it)->MoveEast();
 			}
 		
 

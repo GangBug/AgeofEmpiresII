@@ -226,17 +226,24 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	return ret;
 }
-bool j1Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
+bool j1Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect* section, bool useCamera, float speed, double angle, int pivotX, int pivotY) const
 {
 	bool ret = true;
 	uint scale = App->win->GetScale();
+	SDL_Rect rect(*_rect);
 
-	SDL_Rect rect;
-	rect.x = (int)(camera->GetPosition().x * speed) + _rect->x * scale;
-	rect.y = (int)(camera->GetPosition().y * speed) + _rect->y * scale;
-
-	rect.w = _rect->w;
-	rect.h = _rect->h;
+	if (useCamera)
+	{
+		rect.x = (int)(App->render->camera->GetPosition().x + rect.x * scale);
+		rect.y = (int)(App->render->camera->GetPosition().y + rect.y * scale);
+		rect.w *= scale;
+		rect.h *= scale;
+	}
+	else
+	{
+		rect.x = (int)(camera->GetPosition().x * speed) + _rect->x * scale;
+		rect.y = (int)(camera->GetPosition().y * speed) + _rect->y * scale;
+	}
 
 	rect.w *= scale;
 	rect.h *= scale;

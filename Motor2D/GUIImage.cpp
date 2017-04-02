@@ -1,6 +1,7 @@
 #include "GUIImage.h"
 #include "j1Render.h"
 #include "j1Gui.h"
+#include "p2Log.h"
 
 GUIImage::GUIImage(std::string name, int flags) : GUIElement(name, flags)
 {
@@ -24,8 +25,11 @@ void GUIImage::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 {
 }
 void GUIImage::Draw() const
-{
-	App->render->Blit(atlas, &GetDrawRect().GetSDLrect(), &GetSection().GetSDLrect());
+{	
+	GB_Rectangle<float> rect = GetDrawRect();
+	rect.x -= App->render->camera->GetPosition().x;
+	rect.y -= App->render->camera->GetPosition().y;
+	App->render->Blit(atlas, &rect.GetSDLrect(), &GetSection().GetSDLrect());
 }
 void GUIImage::Serialize(pugi::xml_node root)
 {

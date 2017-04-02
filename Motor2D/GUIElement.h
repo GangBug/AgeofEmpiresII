@@ -199,12 +199,6 @@ public:
 	void SetOnMouseEnters(gui_events _event);
 	void SetOnMouseLeaves(gui_events _event);
 
-	void MoveNorth();
-	void MoveSouth();
-	void MoveEast();
-	void MoveWest();
-
-
 	void Enable();
 	void Disable();
 
