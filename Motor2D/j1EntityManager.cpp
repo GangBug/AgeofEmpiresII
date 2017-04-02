@@ -56,21 +56,46 @@ void j1EntityManager::SelectInQuad(const SDL_Rect& select_rect)
 	{
 		int unit_x = it._Ptr->_Myval->GetX();
 		int unit_y = it._Ptr->_Myval->GetY();
-		if (unit_x > select_rect.x && unit_x < select_rect.w && unit_y > select_rect.y && unit_y < select_rect.h)
+
+		if (it._Ptr->_Myval->GetEntityType() != BUILDING)
 		{
-			it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			if (unit_x > select_rect.x && unit_x < select_rect.w && unit_y > select_rect.y && unit_y < select_rect.h)
+			{
+				it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			}
+			else if (unit_x < select_rect.x && unit_x > select_rect.w && unit_y < select_rect.y && unit_y > select_rect.h)
+			{
+				it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			}
+			else if (unit_x > select_rect.x && unit_x < select_rect.w && unit_y < select_rect.y && unit_y > select_rect.h)
+			{
+				it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			}
+			else if (unit_x < select_rect.x && unit_x > select_rect.w && unit_y > select_rect.y && unit_y < select_rect.h)
+			{
+				it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			}
 		}
-		else if (unit_x < select_rect.x && unit_x > select_rect.w && unit_y < select_rect.y && unit_y > select_rect.h)
+		if (it._Ptr->_Myval->GetEntityType() == BUILDING)
 		{
-			it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
-		}
-		else if (unit_x > select_rect.x && unit_x < select_rect.w && unit_y < select_rect.y && unit_y > select_rect.h)
-		{
-			it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
-		}
-		else if (unit_x < select_rect.x && unit_x > select_rect.w && unit_y > select_rect.y && unit_y < select_rect.h)
-		{
-			it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			unit_x += 100;
+			unit_y += 100;
+			if (unit_x > select_rect.x && unit_x < select_rect.w && unit_y > select_rect.y && unit_y < select_rect.h)
+			{
+				it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			}
+			else if (unit_x < select_rect.x && unit_x > select_rect.w && unit_y < select_rect.y && unit_y > select_rect.h)
+			{
+				it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			}
+			else if (unit_x > select_rect.x && unit_x < select_rect.w && unit_y < select_rect.y && unit_y > select_rect.h)
+			{
+				it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			}
+			else if (unit_x < select_rect.x && unit_x > select_rect.w && unit_y > select_rect.y && unit_y < select_rect.h)
+			{
+				it._Ptr->_Myval->SetEntityStatus(E_SELECTED);
+			}
 		}
 	}
 }
