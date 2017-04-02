@@ -67,7 +67,17 @@ void Building::PostUpdate()
 
 void Building::Draw()
 {
-	App->render->Blit(App->tex->archeryTex, GetX(), GetY());
+	switch (buildingType) {
+	case ARCHERY:
+		App->render->Blit(App->tex->archeryTex, GetX(), GetY());
+		break;
+	case BARRACK:
+		App->render->Blit(App->tex->barracsTex, GetX(), GetY());
+		break;
+	case STABLE:
+		App->render->Blit(App->tex->stableTex, GetX(), GetY());
+		break;
+	}
 }
 
 void Building::GenerateUnit(int num)

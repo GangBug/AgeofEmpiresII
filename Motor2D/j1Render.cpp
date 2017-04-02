@@ -54,8 +54,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 		cameraw.h = App->win->screen_surface->h;
 		cameraw.x = 0;
 		cameraw.y = 0;
-	
-	
 	}
 
 	return ret;
@@ -634,7 +632,17 @@ void j1Render::Draw()
 		if ((*it)->GetEntityType() == BUILDING)
 		{
 			tempBuilding = (Building*)(*it);
-			App->render->Blit(App->tex->archeryTex, tempBuilding->GetX(), tempBuilding->GetY());
+			switch (tempBuilding->buildingType) {
+			case ARCHERY:
+				App->render->Blit(App->tex->archeryTex, tempBuilding->GetX(), tempBuilding->GetY());
+				break;
+			case BARRACK:
+				App->render->Blit(App->tex->barracsTex, tempBuilding->GetX(), tempBuilding->GetY());
+				break;
+			case STABLE:
+				App->render->Blit(App->tex->stableTex, tempBuilding->GetX(), tempBuilding->GetY());
+				break;
+			}
 		}
 		
 	}

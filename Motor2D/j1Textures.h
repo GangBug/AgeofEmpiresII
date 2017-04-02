@@ -37,6 +37,8 @@ public:
 	std::list<SDL_Texture*>	textures;
 	SDL_Texture* debugTex = nullptr; 
 	SDL_Texture* archeryTex = nullptr;
+	SDL_Texture* barracsTex = nullptr;
+	SDL_Texture* stableTex = nullptr;
 };
 
 
