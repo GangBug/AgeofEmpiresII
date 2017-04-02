@@ -26,6 +26,7 @@ bool j1Animation::Start()
 	textures.push_back(Textures(App->tex->Load("animations/SamuraiSpriteSheet.png"), SAMURAI));
 	return true;
 }
+
 bool j1Animation::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
@@ -93,7 +94,6 @@ bool j1Animation::Awake(pugi::xml_node& config)
 
 	return ret;
 }
-
 
 bool j1Animation::CleanUp()
 {

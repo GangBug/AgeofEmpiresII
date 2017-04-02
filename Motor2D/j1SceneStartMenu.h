@@ -31,6 +31,10 @@ public:
 
 private:
 	AudioMusic bso_scene_menu;
+	AudioFX menuHover;
+	AudioFX menuSelect;
+
+
 	bool inMenu;
 	bool quit;
 };

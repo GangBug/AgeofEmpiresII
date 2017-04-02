@@ -26,7 +26,7 @@ bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 	inMenu = true;
 	quit = false;
 
-	bso_scene_menu = App->audio->LoadAudioMusic("Sounds/BSO/BSO_Menu.ogg");
+	AudioLoader();
 
 	return true;
 }
@@ -34,12 +34,12 @@ bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 
 bool j1SceneStartMenu::Start()
 {
-	bool ret = true;
-
-
-
+	bool ret = true;	
+		menuSelect.Play();
 	if(inMenu==true){
 
+		App->audio->Init();
+		bso_scene_menu.Play(-1);
 		AudioLoader();
 		ret = UILoader();
 	}
@@ -88,9 +88,9 @@ bool j1SceneStartMenu::CleanUp()
 
 void j1SceneStartMenu::AudioLoader()
 {
-	App->audio->Init();
-	//bso_scene_menu.Play(-1);
-
+	bso_scene_menu = App->audio->LoadAudioMusic("Sounds/BSO/BSO_Menu.ogg");
+	menuHover = App->audio->LoadAudioFX("Sounds/FX/UI/Menu_Hover.wav");
+	menuSelect = App->audio->LoadAudioFX("Sounds/FX/UI/Menu_Select.wav");
 }
 
 bool j1SceneStartMenu::UILoader()
@@ -120,14 +120,18 @@ void j1SceneStartMenu::GuiEvent(GUIElement* element, int64_t event)
 {
 	if (event & MOUSE_LCLICK_UP)
 	{
+	
+
 		if (event & NEW_GAME)
 		{
+		
 			inMenu = false;
 			CleanUp();
 			App->scene->SetInGame();
 		}
 		if (event & CLOSE_APP)
 		{
+		
 			quit = true;
 		}
 	}

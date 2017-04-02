@@ -62,7 +62,8 @@ private:
 	Entity* barracks;
 	Entity* stable;
 	SDL_Rect select_rect;
-	AudioMusic bso_scene;
+
+
 
 private:
 	int spawnArcher;
@@ -70,6 +71,44 @@ private:
 	int spawnKnight;
 
 	bool preGame;
+
+public:// Audio
+
+	//FX
+	//Units -- 
+	//dead
+	AudioFX fxUnitDead1;
+	AudioFX fxUnitDead2;
+	AudioFX fxUnitDead3;
+	AudioFX fxUnitDead4;
+	AudioFX fxUnitDead5;
+	AudioFX fxUnitDead6;
+	//attack	
+	AudioFX fxFight1;
+	AudioFX fxFight2;
+	AudioFX fxFight3;
+	AudioFX fxFight4;
+	AudioFX fxFight5;
+	AudioFX fxFight6;
+	AudioFX fxFight7;
+	AudioFX fxFight8;
+	//move
+	AudioFX fxCMove;
+	AudioFX fxSMove;
+	AudioFX fxAMove;
+	//create
+	AudioFX fxUnitCreate;
+	//Buldings --
+	AudioFX fxArchery;
+	AudioFX fxBarrack;
+	AudioFX fxStable;
+	// UI -- 
+	AudioFX menuHover;
+	AudioFX menuSelect;
+	//BSO
+	AudioMusic bso_scene;
+
+
 };
 
 #endif // __j1SCENE_H__

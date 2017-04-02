@@ -33,8 +33,9 @@ bool j1Scene::Awake(pugi::xml_node& node)
 
 	inGame = false;
 	preGame = true;
-
-	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
+	//	AudioLoader();
+	//Creation_Unit
+	
 
 	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
 	barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
@@ -50,8 +51,8 @@ bool j1Scene::Start()
 
 	if (inGame == true)
 	{//checks if the player is ingame			
-	//	AudioLoader();
 	
+		//bso_scene.Play();
 		MapLoader();
 		ret = UILoader();
 		//UnitFactory();
@@ -234,7 +235,35 @@ void j1Scene::AudioLoader()
 {
 	LOG("Loading Audio");
 
-	//bso_scene.Play();
+	//FX UNITS
+	//dead
+	fxUnitDead1 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_1.wav");
+	fxUnitDead2 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_2.wav");
+	fxUnitDead3 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_3.wav");
+	fxUnitDead4 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_4.wav");
+	fxUnitDead5 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_5.wav");
+	fxUnitDead6 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_6.wav");
+	//attack
+	fxFight1 = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_6.wav");
+	fxFight2 = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_7.wav");
+	fxFight3 = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_8.wav");
+	//create
+	fxUnitCreate = App->audio->LoadAudioFX("Sounds/FX/Units/Creation_Unit.wav");
+	//move
+	fxCMove = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_8.wav");
+	fxSMove = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_8.wav");
+	fxAMove = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_8.wav");
+	//FX BULDINGS	
+	fxArchery = App->audio->LoadAudioFX("Sounds/FX/Buildings/Click_Archery.wav");
+	fxBarrack = App->audio->LoadAudioFX("Sounds/FX/Buildings/Click_Barrack.wav");
+	fxStable = App->audio->LoadAudioFX("Sounds/FX/Buildings/Click_stable.wav");
+	//UI
+	menuHover = App->audio->LoadAudioFX("Sounds/FX/UI/Menu_Hover.wav");
+	menuSelect = App->audio->LoadAudioFX("Sounds/FX/UI/Menu_Select.wav");
+	//BSO
+	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
+
+
 }
 
 bool j1Scene::UILoader()
@@ -291,6 +320,7 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 {
 	if (event & MOUSE_LCLICK_UP)
 	{
+		menuSelect.Play();
 		if (event & ADD_ARCHER)
 		{
 			spawnArcher++;

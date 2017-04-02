@@ -129,7 +129,7 @@ public:
 	bool GetFreeAdjacent(iPoint& Adjacent) const;
 	bool GetAdjacentTile(iPoint tile, iPoint& Adjacent) const;
 	void DrawDebugRadius();
-
+	void Die();
 
 	bool arrived = true;
 	iPoint destin;

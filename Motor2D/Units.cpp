@@ -826,3 +826,9 @@ void Unit::DrawDebugRadius()
 		}
 	}
 }
+
+void Unit::Die()
+{
+
+}
+
