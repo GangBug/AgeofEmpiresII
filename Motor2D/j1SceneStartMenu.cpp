@@ -26,7 +26,6 @@ bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 	inMenu = true;
 	quit = false;
 
-	AudioLoader();
 
 	return true;
 }
@@ -35,11 +34,7 @@ bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 bool j1SceneStartMenu::Start()
 {
 	bool ret = true;	
-		menuSelect.Play();
 	if(inMenu==true){
-
-		App->audio->Init();
-		bso_scene_menu.Play(-1);
 		AudioLoader();
 		ret = UILoader();
 	}
@@ -60,6 +55,9 @@ bool j1SceneStartMenu::Update(float dt)
 			CleanUp();
 			App->scene->SetInGame();			
 		}
+		if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
+			App->audio->PlayFx(menuSelect);
+		
 
 	}
 
@@ -80,17 +78,19 @@ bool j1SceneStartMenu::CleanUp()
 {
 	LOG("Free Start Menu");
 
-	bso_scene_menu.Stop();
-	App->audio->CleanUp();
+	//App->audio->CleanUp();
 
 	return true;
 }
 
 void j1SceneStartMenu::AudioLoader()
 {
-	bso_scene_menu = App->audio->LoadAudioMusic("Sounds/BSO/BSO_Menu.ogg");
-	menuHover = App->audio->LoadAudioFX("Sounds/FX/UI/Menu_Hover.wav");
-	menuSelect = App->audio->LoadAudioFX("Sounds/FX/UI/Menu_Select.wav");
+	App->audio->PlayMusic("audio/BSO/BSO_Menu.ogg");
+
+	menuHover = App->audio->LoadFx("audio/fx/Menu_Select.wav.wav");
+	menuSelect = App->audio->LoadFx("audio/fx/Menu_Hover.wav.wav");
+
+
 }
 
 bool j1SceneStartMenu::UILoader()
