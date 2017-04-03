@@ -649,22 +649,50 @@ void j1Render::Draw()
 			{
 				App->render->DrawCircle(tempBuilding->GetX() + App->render->camera->GetPosition().x + (tempBuilding->buildingWidth / 2), tempBuilding->GetY() + App->render->camera->GetPosition().y + (tempBuilding->buildingHeight / 2) , tempBuilding->buildingRadius, 255, 255, 255);
 				LOG("SELECTED");
+
+				GUIElement* tmpElement = nullptr;
+
 				switch (tempBuilding->buildingType)
 				{
 				case ARCHERY:
+
 					App->entity_manager->archerySelected = true;
 					App->entity_manager->barracksSelected = false;
 					App->entity_manager->stableSelected = false;
+
+					tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
+					tmpElement->SetActive(true);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
+					tmpElement->SetActive(false);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
+					tmpElement->SetActive(false);
+
 					break;
 				case BARRACK:
 					App->entity_manager->archerySelected = false;
 					App->entity_manager->barracksSelected = true;
 					App->entity_manager->stableSelected = false;
+
+					tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
+					tmpElement->SetActive(false);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
+					tmpElement->SetActive(true);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
+					tmpElement->SetActive(false);
+
 					break;
 				case STABLE:
 					App->entity_manager->archerySelected = false;
 					App->entity_manager->barracksSelected = false;
 					App->entity_manager->stableSelected = true;
+
+					tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
+					tmpElement->SetActive(false);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
+					tmpElement->SetActive(false);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
+					tmpElement->SetActive(true);
+
 					break;
 				}
 			}

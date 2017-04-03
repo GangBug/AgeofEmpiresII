@@ -273,7 +273,6 @@ bool j1Scene::UILoader()
 
 void j1Scene::Selector()
 {
-
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
