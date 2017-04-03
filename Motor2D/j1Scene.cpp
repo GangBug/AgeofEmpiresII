@@ -33,13 +33,15 @@ bool j1Scene::Awake(pugi::xml_node& node)
 
 	inGame = false;
 	preGame = true;
-	//	AudioLoader();
+	AudioLoader();
 	//Creation_Unit
 
 	//Buildings creation
 	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
 	barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
 	stable = App->entity_manager->CreateBuilding(STABLE, fPoint(100, 0));
+
+	gold = 2000;
 
 	return ret;
 }
@@ -52,7 +54,7 @@ bool j1Scene::Start()
 	if (inGame == true)
 	{//checks if the player is ingame			
 	
-		//bso_scene.Play();
+		bso_scene.Play();
 		MapLoader();
 		ret = UILoader();
 		//UnitFactory();
@@ -201,8 +203,6 @@ void j1Scene::MapLoader()
 	}
 
 	debug_tex = App->tex->Load("maps/path2.png");
-	
-
 }
 
 void j1Scene::AudioLoader()
@@ -294,29 +294,35 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 	if (event & MOUSE_LCLICK_UP)
 	{
 		menuSelect.Play();
-		if (event & ADD_ARCHER && App->entity_manager->archerySelected == true)
+		if (event & ADD_ARCHER && App->entity_manager->archerySelected == true && gold >= 60)
 		{
 			spawnArcher++;
+			gold -= 60;
 		}
-		if (event & ERASE_ARCHER && App->entity_manager->archerySelected == true)
+		if (event & ERASE_ARCHER && App->entity_manager->archerySelected == true && spawnArcher > 0)
 		{
 			spawnArcher--;
+			gold += 60;
 		}
-		if (event & ADD_SAMURAI && App->entity_manager->barracksSelected == true)
+		if (event & ADD_SAMURAI && App->entity_manager->barracksSelected == true && gold >= 70)
 		{
 			spawnSamurai++;
+			gold -= 70;
 		}
-		if (event & ERASE_SAMURAI && App->entity_manager->barracksSelected == true)
+		if (event & ERASE_SAMURAI && App->entity_manager->barracksSelected == true && spawnSamurai > 0)
 		{
 			spawnSamurai--;
+			gold += 70;
 		}
-		if (event & ADD_KNIGHT && App->entity_manager->stableSelected == true)
+		if (event & ADD_KNIGHT && App->entity_manager->stableSelected == true && gold >= 80)
 		{
 			spawnKnight++;
+			gold -= 80;
 		}
-		if (event & ERASE_KNIGHT && App->entity_manager->stableSelected == true)
+		if (event & ERASE_KNIGHT && App->entity_manager->stableSelected == true && spawnKnight > 0)
 		{
 			spawnKnight--;
+			gold += 80;
 		}
 		if (event & START_GAME)
 		{

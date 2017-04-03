@@ -55,6 +55,7 @@ public:
 
 	void Selector();
 	void SetInGame();
+
 private:
 	SDL_Texture* debug_tex;
 	bool inGame;
@@ -63,9 +64,8 @@ private:
 	Entity* stable;
 	SDL_Rect select_rect;
 
-
-
 private:
+	int gold;
 	int spawnArcher;
 	int spawnSamurai;
 	int spawnKnight;
