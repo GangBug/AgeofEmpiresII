@@ -192,7 +192,7 @@ void j1Scene::UnitFactory()
 void j1Scene::MapLoader()
 {
 	LOG("Loading Map");
-	if (App->map->Load("0.1Map.tmx") == true)
+	if (App->map->Load("MAPTILED.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
