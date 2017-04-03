@@ -67,7 +67,7 @@ enum STATE
 
 class Unit : public Entity
 {
-private:
+protected:
 	enum UNIT_TYPE unit_type;
 	enum ACTION_TYPE action_type; 
 	enum DIRECTION direction;

@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bezier.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Buildings.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GB_Rectangle.cpp" />
@@ -114,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bezier.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Buildings.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GB_Rectangle.h" />
