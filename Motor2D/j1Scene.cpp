@@ -62,6 +62,7 @@ bool j1Scene::Start()
 		spawnArcher = 0;
 		spawnKnight = 0;
 		spawnSamurai = 0;
+		App->entity_manager->CreateBoss(fPoint(-550, 550));
 	}
 
 
@@ -172,12 +173,8 @@ void j1Scene::UnitFactory()
 	spawnArcher = 0;
 	spawnKnight = 0;
 	spawnSamurai = 0;
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 300));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 350));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 400));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 450));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 500));
-	App->entity_manager->CreateUnit(TWOHANDEDSWORDMANENEMY, fPoint(-500, 550));
+
+
 
 	/*
 	App->entity_manager->CreateUnit(ARCHER, fPoint(500, 310));
@@ -248,7 +245,6 @@ bool j1Scene::UILoader()
 	bool ret = true;
 
 	ret = App->gui->LoadLayout("gui/gui.xml");
-
 
 	GUIImage* bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "shader");
 	SDL_Texture* sdl_tex = App->tex->Load("gui/UI_Shadder.png");

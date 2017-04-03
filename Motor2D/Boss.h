@@ -16,7 +16,6 @@ public:
 
 	bool AttackUnit();
 	bool CheckSurroundings();
-	bool SetFightingArea();
 };
 
 #endif#pragma once

@@ -154,6 +154,8 @@
     <ClInclude Include="Units.h" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\..\Units_data.xml" />
+    <Xml Include="..\Game\config.xml" />
     <Xml Include="..\Game\data\gui\gui.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

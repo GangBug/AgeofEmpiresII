@@ -24,6 +24,8 @@ bool j1Animation::Start()
 	textures.push_back(Textures(App->tex->Load("animations/archer.png"), ARCHER));
 	textures.push_back(Textures(App->tex->Load("animations/TarkanSpritesheet.png"), TARKANKNIGHT));
 	textures.push_back(Textures(App->tex->Load("animations/SamuraiSpriteSheet.png"), SAMURAI));
+	textures.push_back(Textures(App->tex->Load("animations/Boss.png"), BOSS));
+
 	return true;
 }
 
@@ -343,6 +345,8 @@ void Animation::SetUnit(const pugi::xml_node node)
 	else if (strcmp(node.name(), "samurai") == 0)
 		unit_type = SAMURAI;
 
+	else if (strcmp(node.name(), "boss") == 0)
+		unit_type = BOSS;
 	
 	else
 	{

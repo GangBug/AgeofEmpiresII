@@ -45,7 +45,6 @@ public:
 	const float GetX() const;
 	const float GetY() const;
 
-protected:
 	//Seters
 	void SetArmor(int new_armor);
 	void SetHp(int new_hp);

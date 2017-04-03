@@ -1,6 +1,7 @@
 #include "j1App.h"
 #include "j1EntityManager.h"
 #include "Units.h"
+#include "Boss.h"
 #include "j1Map.h"
 #include "GB_Rectangle.h"
 
@@ -46,6 +47,14 @@ Entity * j1EntityManager::CreateBuilding(BUILDING_TYPE type, fPoint pos)
 {
 	buildingID++;
 	Entity* new_entity = (Entity*) new Building(type, pos, buildingID);
+	entity_list.push_back(new_entity);
+	return new_entity;
+}
+
+Entity * j1EntityManager::CreateBoss(fPoint pos)
+{
+	unitID++;
+	Entity* new_entity = (Entity*) new Boss(BOSS, pos, unitID);
 	entity_list.push_back(new_entity);
 	return new_entity;
 }

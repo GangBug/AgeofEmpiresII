@@ -244,5 +244,11 @@
     <Xml Include="..\Game\data\gui\gui.xml">
       <Filter>Core\UI</Filter>
     </Xml>
+    <Xml Include="..\Game\config.xml">
+      <Filter>Core\Tools\PuguiXML</Filter>
+    </Xml>
+    <Xml Include="..\..\Units_data.xml">
+      <Filter>Core\Tools\PuguiXML</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

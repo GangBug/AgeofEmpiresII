@@ -1,4 +1,3 @@
-
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Render.h"
@@ -42,7 +41,6 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		direction = EAST;
 		break;
 
-
 	case CAVALRYARCHER:
 		SetHp(50);
 		attack = 8;
@@ -82,7 +80,6 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		state = NONE;
 		break;
 
-	
 	case ARCHER:
 		SetHp(40);
 		attack = 10;
@@ -107,8 +104,6 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		AI = false;
 		state = NONE;
 		break;
-
-
 	
 	default:
 		LOG("Error UNIT TYPE STATS NULL");
@@ -832,3 +827,7 @@ void Unit::Die()
 
 }
 
+bool Unit::GetAI() const
+{
+	return AI;
+}

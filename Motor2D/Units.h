@@ -19,7 +19,8 @@ enum UNIT_TYPE
 	ARCHER,
 	SIEGERAM,
 	SAMURAI,
-	TARKANKNIGHT
+	TARKANKNIGHT,
+	BOSS
 };
 
 enum UNIT_CLASS
@@ -130,6 +131,7 @@ public:
 	bool GetAdjacentTile(iPoint tile, iPoint& Adjacent) const;
 	void DrawDebugRadius();
 	void Die();
+	bool GetAI() const;
 
 	bool arrived = true;
 	iPoint destin;

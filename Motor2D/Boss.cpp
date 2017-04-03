@@ -1,27 +1,56 @@
-#include "Boss.h"
 #include "j1App.h"
-#include "j1EntityManager.h"
+#include "j1Input.h"
+#include "j1Render.h"
+#include "j1Animation.h"
+#include "Boss.h"
+#include "p2Log.h"
+#include "j1Pathfinding.h"
 #include "j1Map.h"
+#include "j1EntityManager.h"
 
 #define ATTACK_TIMER 1
 //TODO MARC: CARGA LA ANIMACION, METELO EN EL SPRITEORDER COMO CON LAS UNIDADES. EL XML YA TIENE EL DIABLO. ARREGLA ERRORES.
 
 Boss::Boss(UNIT_TYPE u_type, fPoint pos, int id) : Unit(u_type, pos, id)
 {
+	switch (u_type)
+	{
+		case BOSS:
+			SetHp(600);
+			attack = 12;
+			SetArmor(1);
+			speed = 0.9;
+			rate_of_fire = 2;
+			range = 1;
+			unit_class = INFANTRY;
+			unit_radius = 2;
+			AI = true;
+			state = NONE;
+			action_type = IDLE;
+			break;
 
+		default:
+			LOG("Error UNIT TYPE STATS NULL");
+			unit_class = NO_CLASS;
+			break;
+	}
 }
 
 void Boss::Update()
 {
-	if (state == NONE)
-	{
-
-	}
-
-	else if (state == ATTACKING || enemy != nullptr)
+	if (state == ATTACKING || enemy != nullptr)
 	{
 		AttackUnit();
 	}
+
+	else if (state == NONE)
+	{
+		this->action_type = IDLE;
+	}
+
+	
+
+	App->render->SpriteOrdering(this);
 }
 
 void Boss::PostUpdate()
@@ -31,6 +60,40 @@ void Boss::PostUpdate()
 		state = DEAD;
 		this->action_type = DIE;
 		App->entity_manager->DeleteUnit(this);
+	}
+}
+
+void Boss::Move()
+{
+	this->SetPosition(GetX() + move_vector.x*speed, GetY() + move_vector.y*speed);
+
+	iPoint unit_world;
+	unit_world.x = GetX();
+	unit_world.y = GetY();
+
+	if (destin.x - 35 < unit_world.x && destin.x + 35 > unit_world.x && destin.y - 35 < unit_world.y && destin.y + 35 > unit_world.y && arrived == false)
+	{
+		LOG("TRUE");
+		arrived = true;
+	}
+
+	if (path_objective.DistanceTo(unit_world) < 3)
+	{
+		//center the unit to the tile
+		this->SetPosition(path_objective.x, path_objective.y);
+		if (!GetNextTile())
+		{
+			if (state == MOVING_TO_ATTACK)
+			{
+				state = ATTACKING;
+				this->action_type = IDLE;
+			}
+			else
+			{
+				state = NONE;
+				this->action_type = IDLE;
+			}
+		}
 	}
 }
 
@@ -70,7 +133,7 @@ bool Boss::CheckSurroundings()
 					if (App->entity_manager->IsUnitInTile(this, neighbors[n]))
 					{
 						Unit* unit2 = App->entity_manager->GetUnitInTile(neighbors[n]); //TODO MARC: ARREGLA ESTO
-						if (unit2->GetAI() != this->AI && state != FLEEING)//If we find a unit and he's not of your army, clear your lists and set him as your enemy! Now you have to find where' you'll fight him 
+						if (unit2->GetAI() != this->AI && state != FLEEING && enemy != unit2)//If we find a unit and he's not of your army, clear your lists and set him as your enemy! Now you have to find where' you'll fight him 
 						{
 							frontier.clear();
 							visited.clear();
@@ -113,13 +176,13 @@ bool Boss::CheckSurroundings()
 			}
 		}
 	}
-	return true;
+	return false;
 }
 
 bool Boss::AttackUnit()
 {
 	bool ret = false;
-
+	
 	if (enemy != nullptr && enemy->GetHP() > 0)
 	{
 
@@ -128,9 +191,12 @@ bool Boss::AttackUnit()
 		iPoint enemyPos = App->map->WorldToMap(enemy->GetX(), enemy->GetY());
 		iPoint Pos = App->map->WorldToMap(GetX(), GetY());
 
-		if (Pos.DistanceTo(enemyPos) > unit_radius && unit_class != RANGED)
+		if (Pos.DistanceTo(enemyPos) > unit_radius)
 		{
-			CheckSurroundings();
+			if (!CheckSurroundings())
+			{
+				SetFightingArea();
+			}
 		}
 
 		else
@@ -152,6 +218,6 @@ bool Boss::AttackUnit()
 		state = NONE;
 		action_type = IDLE;
 	}
-
+	
 	return ret;
 }

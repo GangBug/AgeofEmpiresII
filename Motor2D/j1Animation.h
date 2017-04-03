@@ -7,6 +7,7 @@
 #include <list>
 #include "Entity.h"
 #include "Units.h"
+#include "Boss.h"
 #include "j1Timer.h"
 #include "Units.h"
 

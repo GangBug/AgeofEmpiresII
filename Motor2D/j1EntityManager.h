@@ -23,6 +23,7 @@ public:
 
 	Entity* CreateUnit(UNIT_TYPE u_type, fPoint pos);
 	Entity* CreateBuilding(BUILDING_TYPE, fPoint pos);
+	Entity* CreateBoss(fPoint pos);
 
 	void SelectInQuad(const SDL_Rect& select_rect);
 	void SelectInClick(int x, int y);
