@@ -33,7 +33,7 @@ bool j1Scene::Awake(pugi::xml_node& node)
 
 	inGame = false;
 	preGame = true;
-	AudioLoader();
+
 	//Creation_Unit
 
 	//Buildings creation
@@ -54,11 +54,11 @@ bool j1Scene::Start()
 	if (inGame == true)
 	{//checks if the player is ingame			
 	
-		bso_scene.Play();
+
 		MapLoader();
 		ret = UILoader();
 		//UnitFactory();
-
+		AudioLoader();
 		spawnArcher = 0;
 		spawnKnight = 0;
 		spawnSamurai = 0;
@@ -152,7 +152,7 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	App->entity_manager->CleanUp();
-	bso_scene.Stop();
+
 	App->audio->CleanUp();
 
 
@@ -209,33 +209,36 @@ void j1Scene::AudioLoader()
 {
 	LOG("Loading Audio");
 
+
+	App->audio->PlayMusic("audio/BSO/BSO_ThirdMision.ogg");
+
 	//FX UNITS
 	//dead
-	fxUnitDead1 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_1.wav");
-	fxUnitDead2 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_2.wav");
-	fxUnitDead3 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_3.wav");
-	fxUnitDead4 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_4.wav");
-	fxUnitDead5 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_5.wav");
-	fxUnitDead6 = App->audio->LoadAudioFX("Sounds/FX/Units/Dead_6.wav");
+	fxUnitDead1 = App->audio->LoadFx("audio/FX/Units/Dead_1.wav");
+	fxUnitDead2 = App->audio->LoadFx("audio/FX/Units/Dead_2.wav");
+	fxUnitDead3 = App->audio->LoadFx("audio/FX/Units/Dead_3.wav");
+	fxUnitDead4 = App->audio->LoadFx("audio/FX/Units/Dead_4.wav");
+	fxUnitDead5 = App->audio->LoadFx("audio/FX/Units/Dead_5.wav");
+	fxUnitDead6 = App->audio->LoadFx("audio/FX/Units/Dead_6.wav");
 	//attack
-	fxFight1 = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_6.wav");
-	fxFight2 = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_7.wav");
-	fxFight3 = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_8.wav");
+	fxFight1 = App->audio->LoadFx("audio/FX/Units/Attack_6.wav");
+	fxFight2 = App->audio->LoadFx("audio/FX/Units/Attack_7.wav");
+	fxFight3 = App->audio->LoadFx("audio/FX/Units/Attack_8.wav");
 	//create
-	fxUnitCreate = App->audio->LoadAudioFX("Sounds/FX/Units/Creation_Unit.wav");
+	fxUnitCreate = App->audio->LoadFx("audio/FX/Units/Creation_Unit.wav");
 	//move
-	fxCMove = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_8.wav");
-	fxSMove = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_8.wav");
-	fxAMove = App->audio->LoadAudioFX("Sounds/FX/Units/Attack_8.wav");
+	fxCMove = App->audio->LoadFx("audio/FX/Units/Attack_8.wav");
+	fxSMove = App->audio->LoadFx("audio/FX/Units/Attack_8.wav");
+	fxAMove = App->audio->LoadFx("audio/FX/Units/Attack_8.wav");
 	//FX BULDINGS	
-	fxArchery = App->audio->LoadAudioFX("Sounds/FX/Buildings/Click_Archery.wav");
-	fxBarrack = App->audio->LoadAudioFX("Sounds/FX/Buildings/Click_Barrack.wav");
-	fxStable = App->audio->LoadAudioFX("Sounds/FX/Buildings/Click_stable.wav");
+	fxArchery = App->audio->LoadFx("audio/FX/Buildings/Click_Archery.wav");
+	fxBarrack = App->audio->LoadFx("audio/FX/Buildings/Click_Barrack.wav");
+	fxStable = App->audio->LoadFx("audio/FX/Buildings/Click_stable.wav");
 	//UI
-	menuHover = App->audio->LoadAudioFX("Sounds/FX/UI/Menu_Hover.wav");
-	menuSelect = App->audio->LoadAudioFX("Sounds/FX/UI/Menu_Select.wav");
+	menuHover = App->audio->LoadFx("audio/FX/Menu_Hover.wav");
+	menuSelect = App->audio->LoadFx("audio/FX/Menu_Select.wav");
 	//BSO
-	bso_scene = App->audio->LoadAudioMusic("Sounds/BSO/BSO_ThirdMision.ogg");
+
 
 
 }
@@ -293,7 +296,7 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 {
 	if (event & MOUSE_LCLICK_UP)
 	{
-		menuSelect.Play();
+
 		if (event & ADD_ARCHER && App->entity_manager->archerySelected == true && gold >= 60)
 		{
 			spawnArcher++;

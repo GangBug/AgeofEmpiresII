@@ -74,40 +74,38 @@ private:
 
 public:// Audio
 
-	//FX
-	//Units -- 
-	//dead
-	AudioFX fxUnitDead1;
-	AudioFX fxUnitDead2;
-	AudioFX fxUnitDead3;
-	AudioFX fxUnitDead4;
-	AudioFX fxUnitDead5;
-	AudioFX fxUnitDead6;
-	//attack	
-	AudioFX fxFight1;
-	AudioFX fxFight2;
-	AudioFX fxFight3;
-	AudioFX fxFight4;
-	AudioFX fxFight5;
-	AudioFX fxFight6;
-	AudioFX fxFight7;
-	AudioFX fxFight8;
-	//move
-	AudioFX fxCMove;
-	AudioFX fxSMove;
-	AudioFX fxAMove;
-	//create
-	AudioFX fxUnitCreate;
-	//Buldings --
-	AudioFX fxArchery;
-	AudioFX fxBarrack;
-	AudioFX fxStable;
-	// UI -- 
-	AudioFX menuHover;
-	AudioFX menuSelect;
-	//BSO
-	AudioMusic bso_scene;
 
+	   //FX
+	   //Units -- 
+	   //dead
+	uint fxUnitDead1;
+	uint fxUnitDead2;
+	uint fxUnitDead3;
+	uint fxUnitDead4;
+	uint fxUnitDead5;
+	uint fxUnitDead6;
+	//attack	
+	uint fxFight1;
+	uint fxFight2;
+	uint fxFight3;
+	uint fxFight4;
+	uint fxFight5;
+	uint fxFight6;
+	uint fxFight7;
+	uint fxFight8;
+	//move
+	uint fxCMove;
+	uint fxSMove;
+	uint fxAMove;
+	//create
+	uint fxUnitCreate;
+	//Buldings --
+	uint fxArchery;
+	uint fxBarrack;
+	uint fxStable;
+	// UI -- 
+	uint menuHover;
+	uint menuSelect;
 
 };
 

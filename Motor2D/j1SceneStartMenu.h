@@ -19,7 +19,7 @@ public:
 	bool CleanUp();
 
 
-//Loaders
+	//Loaders
 
 	void AudioLoader();
 	bool 	UILoader();
@@ -30,10 +30,12 @@ public:
 	void GuiEvent(GUIElement* element, int64_t event);
 
 private:
-	AudioMusic bso_scene_menu;
-	AudioFX menuHover;
-	AudioFX menuSelect;
 
+
+	uint menuHover;
+	uint menuSelect;
+	uint select;
+	uint select2;
 
 	bool inMenu;
 	bool quit;

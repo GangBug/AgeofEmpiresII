@@ -39,7 +39,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	input = new j1Input();
 	win = new j1Window();
-	audio = new M_Audio();
+	audio = new j1Audio();
 	render = new j1Render();
 	tex = new j1Textures();
 	fs = new j1FileSystem();
