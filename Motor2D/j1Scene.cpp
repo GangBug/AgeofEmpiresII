@@ -91,23 +91,34 @@ bool j1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 			App->SaveGame("save_game.xml");
 
+		int sCreenDivisionsY = 30;
+		int sCreenDivisionsX = 20;
+
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
-			(App->input->GetMousePosition().y < App->render->camera->GetHeight() / 7))
+			(App->input->GetMousePosition().y < (App->render->camera->GetHeight() / sCreenDivisionsY)) &&
+			App->input->GetMousePosition().y > 0)
 		{
 			App->render->camera->MoveUp(floor(200.0f * dt));
 		}
+
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT ||
-			((App->input->GetMousePosition().y > (App->render->camera->GetHeight() / 6.2f) * 6)))
+			((App->input->GetMousePosition().y > (App->render->camera->GetHeight() / sCreenDivisionsY) * (sCreenDivisionsY - 1))) &&
+			App->input->GetMousePosition().y < (App->render->camera->GetHeight() - 3)) //make define border margin 3
 		{
 			App->render->camera->MoveDown(floor(200.0f * dt));
 		}
+
+
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT ||
-			App->input->GetMousePosition().x < App->render->camera->GetWidth() / 18)
+			App->input->GetMousePosition().x < App->render->camera->GetWidth() / sCreenDivisionsX &&
+			App->input->GetMousePosition().x > 0)
 		{
 			App->render->camera->MoveLeft(floor(200.0f * dt));
 		}
+
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT ||
-			App->input->GetMousePosition().x > ((App->render->camera->GetWidth() / 9) * 9))
+			App->input->GetMousePosition().x > ((App->render->camera->GetWidth() / sCreenDivisionsX) * --sCreenDivisionsX) &&
+			App->input->GetMousePosition().x <= (App->render->camera->GetWidth() - 3)) //make define border margin 3
 		{
 			App->render->camera->MoveRight(floor(200.0f * dt));
 		}
