@@ -16,6 +16,11 @@
 #include "j1SceneStartMenu.h"
 #include "j1Gui.h"
 #include "GUIImage.h"
+
+#define ARCHER_COST 60
+#define SAMURAI_COST 70
+#define KNIGHT_COST 80
+
 j1Scene::j1Scene() : j1Module()
 {
 	name.assign("scene");
@@ -249,6 +254,9 @@ bool j1Scene::UILoader()
 	GUIImage* bg = App->gui->CreateImage({ 0,0,1024,768 }, { 0, 0, 1920, 1080 }, "shader");
 	SDL_Texture* sdl_tex = App->tex->Load("gui/UI_Shadder.png");
 
+	GUILabel* currentGold = nullptr;
+	//currentGold = App->gui->CreateLabel({ 0,0,1024,768 }, SMALL, "Gold", "");
+
 	return ret;
 }
 
@@ -293,35 +301,35 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 	if (event & MOUSE_LCLICK_UP)
 	{
 
-		if (event & ADD_ARCHER && App->entity_manager->archerySelected == true && gold >= 60)
+		if (event & ADD_ARCHER && App->entity_manager->archerySelected == true && gold >= ARCHER_COST)
 		{
 			spawnArcher++;
-			gold -= 60;
+			gold -= ARCHER_COST;
 		}
 		if (event & ERASE_ARCHER && App->entity_manager->archerySelected == true && spawnArcher > 0)
 		{
 			spawnArcher--;
-			gold += 60;
+			gold += ARCHER_COST;
 		}
-		if (event & ADD_SAMURAI && App->entity_manager->barracksSelected == true && gold >= 70)
+		if (event & ADD_SAMURAI && App->entity_manager->barracksSelected == true && gold >= SAMURAI_COST)
 		{
 			spawnSamurai++;
-			gold -= 70;
+			gold -= SAMURAI_COST;
 		}
 		if (event & ERASE_SAMURAI && App->entity_manager->barracksSelected == true && spawnSamurai > 0)
 		{
 			spawnSamurai--;
-			gold += 70;
+			gold += SAMURAI_COST;
 		}
-		if (event & ADD_KNIGHT && App->entity_manager->stableSelected == true && gold >= 80)
+		if (event & ADD_KNIGHT && App->entity_manager->stableSelected == true && gold >= KNIGHT_COST)
 		{
 			spawnKnight++;
-			gold -= 80;
+			gold -= KNIGHT_COST;
 		}
 		if (event & ERASE_KNIGHT && App->entity_manager->stableSelected == true && spawnKnight > 0)
 		{
 			spawnKnight--;
-			gold += 80;
+			gold += KNIGHT_COST;
 		}
 		if (event & START_GAME)
 		{

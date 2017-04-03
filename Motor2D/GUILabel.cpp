@@ -14,6 +14,7 @@ GUILabel::GUILabel(std::string name, int flags) : GUIElement(name, flags)
 	texture = nullptr;
 	color = { 0,0,0,0 }; //TODO: SEND THE COLOR THROUGH THE XML
 }
+
 GUILabel::GUILabel(const char * text, label_size _size, std::string name, int flags) : GUIElement(name, flags)
 {
 	SetText(text, _size);
@@ -109,6 +110,4 @@ void GUILabel::Deserialize(pugi::xml_node layout_element)
 	rect.x = layout_element.child("position").attribute("x").as_int()*WINDOWSCALE;
 	rect.y = layout_element.child("position").attribute("y").as_int()*WINDOWSCALE;
 	SetGlobalPos(rect.x, rect.y);
-
-
 }
