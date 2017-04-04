@@ -13,6 +13,7 @@
 #include "j1EntityManager.h"
 #include "Units.h"
 #include "Buildings.h"
+#include "Object.h"
 #include "j1SceneStartMenu.h"
 #include "j1Gui.h"
 #include "GUIImage.h"
@@ -73,6 +74,7 @@ bool j1Scene::Start()
 		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(-1560, 1760));
 		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(-1310, 1940));
 
+		App->entity_manager->CreateObject(BANNERA, fPoint(600, 600));
 		gold = 20000;
 	}
 

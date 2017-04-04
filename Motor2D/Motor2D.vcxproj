@@ -106,6 +106,7 @@
     <ClCompile Include="j1SceneStartMenu.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="j1SceneStartMenu.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1EntityManager.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />

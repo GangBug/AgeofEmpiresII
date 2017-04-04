@@ -45,6 +45,7 @@ bool j1Textures::Start()
 	archeryTex = App->tex->Load("buildings/archery.png");
 	barracsTex = App->tex->Load("buildings/barracks.bmp");
 	stableTex = App->tex->Load("buildings/stable.bmp");
+	objectsTex = App->tex->Load("objects/ObjectsSpritesheet.png");
 
 	return ret;
 }
