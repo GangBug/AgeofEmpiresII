@@ -41,7 +41,8 @@ bool j1Scene::Awake(pugi::xml_node& node)
 	quit = false;
 
 
-	//App->map->Start(); Improve performance but can crash the game somethimes
+	App->map->Start(); //Improve performance but can crash the game somethimes
+	App->audio->Start();
 
 	//Creation_Unit
 
@@ -67,14 +68,10 @@ bool j1Scene::Start()
 	//	App->entity_manager->CreateBoss(fPoint(-550, 550));
 		App->entity_manager->CreateUnit(VILE, fPoint(500, 750));
 
-
 		//Buildings creation
 		archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
 		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
 		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(100, 0));
-
-
-
 
 		gold = 2000;
 	}
@@ -212,9 +209,6 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
-	App->entity_manager->CleanUp();
-	//App->map->CleanUp(); Same as Start(); Should improve performance but crashes the game sometimes
-
 	LOG("Freeing scene");
 	return true;
 }
@@ -385,6 +379,7 @@ void j1Scene::Selector()
 
 void j1Scene::SetInGame()
 {	
+	App->audio->CleanUp();
 	inGame = true;
 	Start();
 }

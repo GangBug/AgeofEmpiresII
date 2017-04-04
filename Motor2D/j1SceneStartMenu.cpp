@@ -9,6 +9,7 @@
 #include "j1Render.h"
 #include "j1Scene.h"
 #include "j1EntityManager.h"
+#include "j1Map.h"
 
 
 j1SceneStartMenu::j1SceneStartMenu()
@@ -16,7 +17,8 @@ j1SceneStartMenu::j1SceneStartMenu()
 	name.assign("menu");
 }
 
-j1SceneStartMenu::~j1SceneStartMenu() {
+j1SceneStartMenu::~j1SceneStartMenu() 
+{
 
 }
 
@@ -26,6 +28,7 @@ bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 	inMenu = true;
 	quit = false;
 
+	App->audio->Start();
 
 	return true;
 }
@@ -58,6 +61,7 @@ bool j1SceneStartMenu::Update(float dt)
 			CleanUp();
 			App->scene->SetInGame();
 		}
+
 		if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
 			App->audio->PlayFx(menuSelect);
 	}
@@ -78,6 +82,8 @@ bool j1SceneStartMenu::PostUpdate()
 bool j1SceneStartMenu::CleanUp()
 {
 	LOG("Free Start Menu");
+
+	active = false;
 
 	return true;
 }
@@ -111,7 +117,11 @@ bool j1SceneStartMenu::UILoader()
 
 void j1SceneStartMenu::SetInMenu()
 {
+	App->entity_manager->CleanUp();
+	App->map->CleanUp();
+	App->audio->CleanUp();
 	inMenu = true;
+	active = true;
 	Start();
 }
 
