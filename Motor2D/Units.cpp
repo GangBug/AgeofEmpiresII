@@ -104,6 +104,19 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		AI = false;
 		state = NONE;
 		break;
+
+	case VILE:
+
+		attack = 2;
+		SetArmor(1);
+		speed = 2.0;
+		rate_of_fire = 1;
+		range = 0;
+		unit_class = INFANTRY;
+		unit_radius = 5;
+		state = NONE;
+		break;
+
 	
 	default:
 		LOG("Error UNIT TYPE STATS NULL");
