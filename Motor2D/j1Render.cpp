@@ -7,6 +7,7 @@
 #include "j1Gui.h"
 #include "j1Textures.h"
 #include "j1Animation.h"
+#include "j1Scene.h"
 #include "Units.h"
 #include "Buildings.h"
 #include "j1EntityManager.h"
@@ -87,6 +88,26 @@ bool j1Render::PostUpdate()
 	SpriteQueue.clear();*/
 
 	Draw();
+
+	if (!App->scene->IsBossNull())
+	{
+		int xbar;
+		int ybar;
+		int wbar;
+		int awbar;
+		int hbar;
+		ybar = App->win->GetWindowSize().y / 4 * 3 - App->render->camera->GetPosition().y;
+		xbar = App->win->GetWindowSize().x / 2 - (((BOSSHP * 100) / 2000 + 10) / 2) - App->render->camera->GetPosition().x;
+		wbar = (BOSSHP * 100) / 2000;
+		awbar = ((App->scene->GetBossLife() * 100) / 2000);
+		hbar = 10;
+		//black
+		App->render->DrawQuad({ xbar - (wbar * 3 / 2) - 1, ybar - 1, wbar * 3 + 2, hbar + 2 }, 0, 0, 0, 255);
+		//red
+		App->render->DrawQuad({ xbar - (wbar * 3 / 2), ybar, wbar * 3, hbar }, 255, 0, 0, 255);
+		//green
+		App->render->DrawQuad({ xbar - (wbar * 3 / 2), ybar, awbar *3, hbar }, 0, 255, 0, 255);
+	}
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);

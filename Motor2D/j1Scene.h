@@ -58,13 +58,16 @@ public:
 	bool IsInGame();
 
 	int GetGold() const;
+	int GetBossLife() const;
+	bool IsBossNull() const;
+	void DrawDebug();
 
 private:
-	SDL_Texture* debug_tex;
+	SDL_Texture* debug_tex = nullptr;
 	bool inGame;
-	Entity* archery;
-	Entity* barracks;
-	Entity* stable;
+	Entity* archery = nullptr;
+	Entity* barracks = nullptr;
+	Entity* stable = nullptr;
 	SDL_Rect select_rect;
 
 private:
@@ -72,6 +75,7 @@ private:
 	int spawnArcher;
 	int spawnSamurai;
 	int spawnKnight;
+	Entity* boss = nullptr;
 
 	bool preGame;
 	bool onMenuInGame=true;

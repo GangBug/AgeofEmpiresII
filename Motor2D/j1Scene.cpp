@@ -11,6 +11,8 @@
 #include "j1Scene.h"
 #include "j1Animation.h"
 #include "j1EntityManager.h"
+#include "Entity.h"
+#include "Boss.h"
 #include "Units.h"
 #include "Buildings.h"
 #include "j1SceneStartMenu.h"
@@ -65,7 +67,7 @@ bool j1Scene::Start()
 		spawnArcher = 0;
 		spawnKnight = 0;
 		spawnSamurai = 0;
-	//	App->entity_manager->CreateBoss(fPoint(-550, 550));
+		boss = App->entity_manager->CreateBoss(fPoint(-550, 550));
 		App->entity_manager->CreateUnit(VILE, fPoint(500, 750));
 
 		//Buildings creation
@@ -176,7 +178,9 @@ bool j1Scene::Update(float dt)
 		}
 
 		App->map->Draw();
+		DrawDebug();
 	}
+	
 	return true;
 }
 
@@ -187,7 +191,6 @@ bool j1Scene::PostUpdate()
 
 	if (inGame == true) 
 	{
-
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) 
 		{
 			inGame = false;
@@ -199,6 +202,14 @@ bool j1Scene::PostUpdate()
 		{
 			ret = false;
 		}
+		//Drawing boss life quads
+		////black
+		//App->render->DrawQuad({ (int)boss->GetX() - (((BOSSHP * 100) / 2000 + 10) / 2)-1, (int)boss->GetY()-1, (BOSSHP * 100) / 2000+2, 12 }, 0, 0, 0, 255);
+		////red
+		//App->render->DrawQuad({ (int)boss->GetX() - ((BOSSHP * 100) / 2000 + 10) / 2, (int)boss->GetY(), (BOSSHP*100)/2000, 10 }, 255, 0, 0, 255);
+		////green
+		//App->render->DrawQuad({ (int)boss->GetX() - ((BOSSHP * 100) / 2000 + 10) / 2, (int)boss->GetY(), (boss->GetHP() * 100) / 2000, 10 }, 0, 255, 0, 255);
+
 	}
 
 	Selector();//SELECTION
@@ -395,6 +406,28 @@ bool j1Scene::IsInGame()
 int j1Scene::GetGold() const
 {
 	return gold;
+}
+
+int j1Scene::GetBossLife() const
+{
+	return boss->GetHP();
+}
+
+bool j1Scene::IsBossNull() const
+{
+	if (boss == nullptr)
+	{
+		return true;
+	}
+	return false;
+}
+
+void j1Scene::DrawDebug()
+{
+	if (App->debug)
+	{
+		App->render->DrawQuad({ (int)boss->GetX() - 5, (int)boss->GetY(), 10, 10 }, 255, 0, 0, 255);
+	}	
 }
 
 void j1Scene::GuiEvent(GUIElement* element, int64_t event)
