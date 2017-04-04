@@ -226,8 +226,6 @@ void j1Scene::UnitFactory()
 	spawnKnight = 0;
 	spawnSamurai = 0;
 
-
-
 	/*
 	App->entity_manager->CreateUnit(ARCHER, fPoint(500, 310));
 	App->entity_manager->CreateUnit(TWOHANDEDSWORDMAN, fPoint(500, 360));

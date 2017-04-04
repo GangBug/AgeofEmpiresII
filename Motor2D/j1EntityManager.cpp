@@ -131,16 +131,71 @@ void j1EntityManager::UnselectEverything()
 {
 	for (std::list<Entity*>::iterator it = entity_list.begin(); it != entity_list.end(); it++)
 	{
-			it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
-	}
+		if ((*it)->GetEntityType() == BUILDING)
+		{
+			GUIElement* tmpElement = nullptr;
+			if (App->entity_manager->archerySelected == true)
+			{
+				tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
+				if (tmpElement->GetMouseInside())
+				{
 
-	if(App->scene->IsInGame())
+				}
+				else
+				{
+					it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
+					tmpElement->SetActive(false);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonArchery");
+					tmpElement->SetActive(false);
+				}
+			}
+			if (App->entity_manager->barracksSelected == true)
+			{
+				tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
+				if (tmpElement->GetMouseInside())
+				{
+
+				}
+				else
+				{
+					it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
+					tmpElement->SetActive(false);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonBarrack");
+					tmpElement->SetActive(false);
+				}
+			}
+			if (App->entity_manager->stableSelected == true)
+			{
+				tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
+				if (tmpElement->GetMouseInside())
+				{
+
+				}
+				else
+				{
+					it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
+					tmpElement->SetActive(false);
+					tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonStable");
+					tmpElement->SetActive(false);
+				}
+			}
+		}
+		else
+		{
+			it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
+		}
+	}
+	/*if(App->scene->IsInGame())
 	{
-		GUIElement* tmpElement = nullptr;
+		
 
 		if (App->entity_manager->archerySelected == true)
 		{
 			tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
+			if (tmpElement->GetMouseInside)
+			{
+
+			}
 			tmpElement->SetActive(false);
 			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonArchery");
 			tmpElement->SetActive(false);
@@ -159,7 +214,7 @@ void j1EntityManager::UnselectEverything()
 			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonStable");
 			tmpElement->SetActive(false);
 		}
-	}
+	}*/
 
 }
 

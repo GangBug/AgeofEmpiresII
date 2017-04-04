@@ -195,7 +195,7 @@ bool Boss::AttackUnit()
 		{
 			if (!CheckSurroundings())
 			{
-				SetFightingArea();
+				//SetFightingArea();
 			}
 		}
 
