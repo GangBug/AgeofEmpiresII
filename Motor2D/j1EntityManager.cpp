@@ -131,17 +131,15 @@ void j1EntityManager::UnselectEverything()
 {
 	for (std::list<Entity*>::iterator it = entity_list.begin(); it != entity_list.end(); it++)
 	{
-		if ((*it)->GetEntityType() == BUILDING)
+		if ((*it)->GetEntityType() == BUILDING && (*it)->GetEntityStatus() == E_SELECTED)
 		{
 			GUIElement* tmpElement = nullptr;
+
 			if (App->entity_manager->archerySelected == true)
 			{
 				tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
-				if (tmpElement->GetMouseInside())
-				{
 
-				}
-				else
+				if (tmpElement->GetMouseInside() == false)
 				{
 					it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
 					tmpElement->SetActive(false);
@@ -152,11 +150,8 @@ void j1EntityManager::UnselectEverything()
 			if (App->entity_manager->barracksSelected == true)
 			{
 				tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
-				if (tmpElement->GetMouseInside())
-				{
 
-				}
-				else
+				if (tmpElement->GetMouseInside() == false)
 				{
 					it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
 					tmpElement->SetActive(false);
@@ -167,11 +162,8 @@ void j1EntityManager::UnselectEverything()
 			if (App->entity_manager->stableSelected == true)
 			{
 				tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
-				if (tmpElement->GetMouseInside())
-				{
 
-				}
-				else
+				if (tmpElement->GetMouseInside() == false)
 				{
 					it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
 					tmpElement->SetActive(false);

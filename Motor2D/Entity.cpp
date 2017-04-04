@@ -60,9 +60,8 @@ void Entity::SetEntityStatus(ENTITY_STATUS status)
 			tmpElement->SetActive(false);
 			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonBarrack");
 			tmpElement->SetActive(false);
-
-
 			break;
+
 		case BARRACK:
 			App->entity_manager->archerySelected = false;
 			App->entity_manager->barracksSelected = true;
@@ -81,9 +80,8 @@ void Entity::SetEntityStatus(ENTITY_STATUS status)
 			tmpElement->SetActive(false);
 			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonBarrack");
 			tmpElement->SetActive(true);
-
-
 			break;
+
 		case STABLE:
 			App->entity_manager->archerySelected = false;
 			App->entity_manager->barracksSelected = false;
@@ -102,8 +100,6 @@ void Entity::SetEntityStatus(ENTITY_STATUS status)
 			tmpElement->SetActive(true);
 			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonBarrack");
 			tmpElement->SetActive(false);
-
-
 			break;
 		}
 	}

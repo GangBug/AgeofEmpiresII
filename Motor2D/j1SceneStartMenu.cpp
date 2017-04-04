@@ -34,7 +34,8 @@ bool j1SceneStartMenu::Awake(pugi::xml_node& node)
 bool j1SceneStartMenu::Start()
 {
 	bool ret = true;
-	if (inMenu == true) {
+	if (inMenu == true) 
+	{
 		AudioLoader();
 		ret = UILoader();
 	}
@@ -49,16 +50,16 @@ bool j1SceneStartMenu::PreUpdate()
 
 bool j1SceneStartMenu::Update(float dt)
 {
-	if (inMenu == true) {
-		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+	if (inMenu == true)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) 
+		{
 			inMenu = false;
 			CleanUp();
 			App->scene->SetInGame();
 		}
 		if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
 			App->audio->PlayFx(menuSelect);
-
-
 	}
 
 	return true;
@@ -77,8 +78,6 @@ bool j1SceneStartMenu::PostUpdate()
 bool j1SceneStartMenu::CleanUp()
 {
 	LOG("Free Start Menu");
-
-
 
 	return true;
 }

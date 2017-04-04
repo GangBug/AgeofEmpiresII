@@ -254,8 +254,7 @@
 
 
 
-    <!--Barraack ________________________________________________      -->
-    
+    <!--Barracks ________________________________________________      -->
     <button type="SamuraiCreatorButton" name="SamuraiCreatorButton" text="">
       <events>
         <event action="262144" origin="16"/>
@@ -263,7 +262,8 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-			<position x="15" y="920" />
+			<position x="115" y="920" />
+      <!--<position x="15" y="920" /> this position doesn't work propperly -->
 			<size w="40" h="40" />
 		</button>
 
@@ -275,7 +275,7 @@
     </button>
 
 
-    <!--stable ________________________________________________      -->
+    <!--Stables ________________________________________________      -->
 		<button type="TarkanCreatorButton" name="TarkanCreatorButton" text="">
       <events>
         <event action="1048576" origin="16"/>
@@ -283,7 +283,8 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-			<position x="15" y="920" />
+			<position x="165" y="920" />
+      <!--<position x="15" y="920" /> this position doesn't work propperly -->
 			<size w="40" h="40" />
 		</button>
 

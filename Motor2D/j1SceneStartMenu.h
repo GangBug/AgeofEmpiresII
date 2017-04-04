@@ -7,7 +7,6 @@ class AudioMusic;
 class j1SceneStartMenu : public j1Module
 {
 public:
-
 	j1SceneStartMenu();
 	virtual ~j1SceneStartMenu();
 
@@ -18,11 +17,9 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-
 	//Loaders
-
 	void AudioLoader();
-	bool 	UILoader();
+	bool UILoader();
 
 	void SetInMenu();
 
@@ -30,8 +27,6 @@ public:
 	void GuiEvent(GUIElement* element, int64_t event);
 
 private:
-
-
 	uint menuHover;
 	uint menuSelect;
 	uint select;

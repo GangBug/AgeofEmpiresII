@@ -40,6 +40,9 @@ bool j1Scene::Awake(pugi::xml_node& node)
 	preGame = true;
 	quit = false;
 
+
+	//App->map->Start(); Improve performance but can crash the game somethimes
+
 	//Creation_Unit
 
 	return ret;
@@ -155,20 +158,20 @@ bool j1Scene::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 			dynamic_cast<Building*>(archery)->GenerateUnit(1);
-		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-			if (onMenuInGame) {
+
+		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		{
+			if (onMenuInGame)
+			{
 				App->gui->menuControl(false);
 				onMenuInGame = false;
 			}
-			
-			else {
+			else 
+			{
 				App->gui->menuControl(true);
 				onMenuInGame = true;
 			}
-	
-
 		}
-
 
 		App->map->Draw();
 	}
@@ -205,10 +208,7 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	App->entity_manager->CleanUp();
-
-	App->audio->CleanUp();
-
-
+	//App->map->CleanUp(); Same as Start(); Should improve performance but crashes the game sometimes
 
 	LOG("Freeing scene");
 	return true;
