@@ -133,6 +133,20 @@ bool j1Scene::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 			dynamic_cast<Building*>(archery)->GenerateUnit(1);
+		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+			if (onMenuInGame) {
+				App->gui->menuControl(false);
+				onMenuInGame = false;
+			}
+			
+			else {
+				App->gui->menuControl(true);
+				onMenuInGame = false;
+			}
+	
+
+		}
+
 
 		App->map->Draw();
 	}
