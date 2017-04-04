@@ -629,8 +629,9 @@ void j1Render::SpriteOrdering(Entity* ent)
 void j1Render::Draw()
 {
 	std::deque<Entity*>::iterator it = spritePrio.begin();
-	Unit* tempUnit;
-	Building* tempBuilding;
+	Unit* tempUnit = nullptr;
+	Building* tempBuilding = nullptr;
+	Object* tempObject = nullptr;
 
 	for (it; it != spritePrio.end(); it++)
 	{
@@ -670,6 +671,11 @@ void j1Render::Draw()
 			{
 				App->render->DrawCircle(tempBuilding->GetX() + App->render->camera->GetPosition().x + (tempBuilding->buildingWidth / 2), tempBuilding->GetY() + App->render->camera->GetPosition().y + (tempBuilding->buildingHeight / 2) , tempBuilding->buildingRadius, 255, 255, 255);
 			}
+		}
+		if ((*it)->GetEntityType() == OBJECT)
+		{
+			tempObject = (Object*)(*it);
+			App->render->Blit(App->tex->objectsTex, tempObject->GetX(), tempObject->GetY(), &App->entity_manager->getObjectRect(tempObject->type));
 		}
 	}
 	spritePrio.clear();
