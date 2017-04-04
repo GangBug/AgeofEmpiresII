@@ -15,41 +15,73 @@ Boss::Boss(UNIT_TYPE u_type, fPoint pos, int id) : Unit(u_type, pos, id)
 {
 	switch (u_type)
 	{
-		case BOSS:
-			SetHp(600);
-			attack = 12;
-			SetArmor(1);
-			speed = 0.9;
-			rate_of_fire = 2;
-			range = 1;
-			unit_class = INFANTRY;
-			unit_radius = 2;
-			AI = true;
-			state = NONE;
-			action_type = IDLE;
-			break;
+	case BOSS:
+		SetHp(BOSSHP);
+		attack = 12;
+		SetArmor(1);
+		speed = 0.9;
+		rate_of_fire = 2;
+		range = 1;
+		unit_class = INFANTRY;
+		unit_radius = 2;
+		AI = true;
+		state = NONE;
+		action_type = IDLE;
+		break;
 
-		default:
-			LOG("Error UNIT TYPE STATS NULL");
-			unit_class = NO_CLASS;
-			break;
+	default:
+		LOG("Error UNIT TYPE STATS NULL");
+		unit_class = NO_CLASS;
+		break;
 	}
 }
 
 void Boss::Update()
 {
-	if (state == ATTACKING || enemy != nullptr)
+	DoAI();
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && this->GetEntityStatus() == E_SELECTED)
 	{
-		AttackUnit();
+		debug = !debug;
+	}
+	switch (wave)
+	{
+	case 1:
+		if (this->GetHP() <= BOSSHP*0.2)
+		{
+			ZergCreate();
+			ZergCreate(2);
+			wave--;
+		}
+		break;
+	case 2:
+		if (this->GetHP() <= BOSSHP*0.4) {
+			ZergCreate();
+			wave--;
+		}
+
+		break;
+	case 3:
+		if (this->GetHP() <= BOSSHP*0.6) {
+			ZergCreate(2);
+			wave--;
+		}
+
+		break;
+	case 4:
+		if (this->GetHP() <= BOSSHP*0.8) {
+			ZergCreate();
+			wave--;
+		}
+
+		break;
+	default:
+		break;
 	}
 
-	else if (state == NONE)
-	{
-		this->action_type = IDLE;
-	}
 
-	
 
+	DrawDebugRadius();
 	App->render->SpriteOrdering(this);
 }
 
@@ -95,6 +127,23 @@ void Boss::Move()
 			}
 		}
 	}
+}
+
+bool Boss::ZergCreate(int i)const
+{
+	bool ret = true;
+
+	App->entity_manager->CreateUnit(VILE, fPoint(this->GetX() + 0, this->GetY() + 150 * i));
+	App->entity_manager->CreateUnit(VILE, fPoint(this->GetX() + 0, this->GetY() - 150 * i));
+	App->entity_manager->CreateUnit(VILE, fPoint(this->GetX() + 150 * i, this->GetY() + 0));
+	App->entity_manager->CreateUnit(VILE, fPoint(this->GetX() - 150 * i, this->GetY() - 0));
+
+	App->entity_manager->CreateUnit(VILE, fPoint(this->GetX() + 100 * i, this->GetY() + 100 * i));
+	App->entity_manager->CreateUnit(VILE, fPoint(this->GetX() - 100 * i, this->GetY() - 100 * i));
+	App->entity_manager->CreateUnit(VILE, fPoint(this->GetX() - 100 * i, this->GetY() + 100 * i));
+	App->entity_manager->CreateUnit(VILE, fPoint(this->GetX() + 100 * i, this->GetY() - 100 * i));
+
+	return true;
 }
 
 bool Boss::CheckSurroundings()
@@ -182,7 +231,7 @@ bool Boss::CheckSurroundings()
 bool Boss::AttackUnit()
 {
 	bool ret = false;
-	
+
 	if (enemy != nullptr && enemy->GetHP() > 0)
 	{
 
@@ -218,6 +267,6 @@ bool Boss::AttackUnit()
 		state = NONE;
 		action_type = IDLE;
 	}
-	
+
 	return ret;
 }
