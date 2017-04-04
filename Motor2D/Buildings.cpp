@@ -4,6 +4,8 @@
 #include "Units.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Gui.h"
+#include "j1Textures.h"
 
 #define ARCHERY_DOOR_X 28
 #define ARCHER_DOOR_Y 300 //NEEDS POLISHING

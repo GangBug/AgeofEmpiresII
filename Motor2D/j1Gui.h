@@ -83,7 +83,7 @@ public:
 
 	bool GetUIEditing() const;
 	void SetUIEditing(bool edit);
-	void menuControl(bool enable);
+
 public:
 	std::list<GUIElement*> background;
 	std::list<GUIElement*> guiList;

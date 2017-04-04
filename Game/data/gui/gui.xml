@@ -38,15 +38,7 @@
 		</imgs>
 
 	<buttons>
-			<button type_name="button" have_animations="0">
-				<sections>
-					<section type="standBy" x="114" y="481" w="205" h="43" />
-					<section type="hover" x="114" y="531" w="205" h="43" />
-					<section type="clicked" x="114" y="581" w="205" h="43" />
-				</sections>
-			</button>
-		
-		
+
 			<button type_name="MenuButton" have_animations="0">
 				<sections>
 				   <section type="standBy" x="294" y="631" w="111" h="82"/>
@@ -189,12 +181,12 @@
 			<size  w="959" h="179" />
 		</img>
 
-    
+    <!--
 		<img type="MenuWindow" name="MenuWindow">
 			<position x="700" y="200" />
 			<size  w="457" h="577" />
 		</img>
-   
+    -->
     <img type="MinimapBar" name="MinimapBar">
 			<position x="1471" y="726" />
 			<size  w="449" h="354" />
@@ -309,43 +301,7 @@
 			<size w="98" h="83" />
 		</button>
 
-		<button type="button" name="MenuButtonInGame_Resume" text="Resume Game">
-			<events />
-			<listeners />
-			<position x="820" y="380" />
-			<size w="260" h="40" />
-		</button>
-		<button type="button" name="MenuButtonInGame_Load" text="Load Game">
-			<events />
-			<listeners />
-			<position x="820" y="430" />
-			<size w="260" h="40" />
-		</button>
-		<button type="button" name="MenuButtonInGame_Save" text="Save Game">
-			<events />
-			<listeners />
-			<position x="820" y="480" />
-			<size w="260" h="40" />
-		</button>
-		<button type="button" name="MenuButtonInGame_Options" text="Options">
-			<events />
-			<listeners />
-			<position x="820" y="530" />
-			<size w="260" h="40" />
-		</button>
-		<button type="button" name="MenuButtonInGame_Start" text="Exit to Start Menu">
-			<events />
-			<listeners />
-			<position x="820" y="580" />
-			<size w="260" h="40" />
-		</button>
-		<button type="button" name="MenuButtonInGame_exit" text="Exit to Desktop">
-			<events />
-			<listeners />
-			<position x="820" y="630" />
-			<size w="260" h="40" />
-		</button>
-
+	
 		<!--   stable
 		<button type="RepairButton" name="RepairButton" text="">
 			<events />

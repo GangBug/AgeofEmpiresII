@@ -95,7 +95,7 @@ bool j1Scene::Update(float dt)
 		int sCreenDivisionsX = 20;
 
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
-			(App->input->GetMousePosition().y < (App->render->camera->GetHeight() / sCreenDivisionsY)) &&
+		   (App->input->GetMousePosition().y < (App->render->camera->GetHeight() / sCreenDivisionsY)) &&
 			App->input->GetMousePosition().y > 0)
 		{
 			App->render->camera->MoveUp(floor(200.0f * dt));
@@ -306,11 +306,15 @@ void j1Scene::SetInGame()
 	Start();
 }
 
+bool j1Scene::IsInGame()
+{
+	return inGame;
+}
+
 void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 {
 	if (event & MOUSE_LCLICK_UP)
 	{
-
 		if (event & ADD_ARCHER && App->entity_manager->archerySelected == true && gold >= ARCHER_COST)
 		{
 			spawnArcher++;
@@ -351,5 +355,4 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 		}
 	}
 }
-
 
