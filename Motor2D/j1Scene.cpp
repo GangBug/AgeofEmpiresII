@@ -69,7 +69,7 @@ bool j1Scene::Start()
 		spawnKnight = 0;
 		spawnSamurai = 0;
 
-		boss = App->entity_manager->CreateBoss(fPoint(-550, 550));
+		boss = App->entity_manager->CreateBoss(fPoint(900, 750));
 		App->entity_manager->CreateUnit(VILE, fPoint(500, 750));
 
 		//Buildings creation

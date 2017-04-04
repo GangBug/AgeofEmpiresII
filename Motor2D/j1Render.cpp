@@ -650,7 +650,7 @@ void j1Render::Draw()
 				App->render->Blit(tex, tempUnit->GetX() - pivot.x, tempUnit->GetY() - pivot.y, &rect);
 
 			if (tempUnit->GetEntityStatus() == E_SELECTED)
-				App->render->DrawCircle(tempUnit->GetX() + App->render->camera->GetPosition().x, tempUnit->GetY() + App->render->camera->GetPosition().y, tempUnit->unit_radius, 255, 255, 255);
+				App->render->DrawCircle(tempUnit->GetX() + App->render->camera->GetPosition().x, tempUnit->GetY() + App->render->camera->GetPosition().y, 8, 255, 255, 255);
 		}
 		if ((*it)->GetEntityType() == BUILDING)
 		{
