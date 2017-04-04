@@ -142,15 +142,21 @@ void j1EntityManager::UnselectEverything()
 		{
 			tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
 			tmpElement->SetActive(false);
+			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonArchery");
+			tmpElement->SetActive(false);
 		}
 		if (App->entity_manager->barracksSelected == true)
 		{
 			tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
 			tmpElement->SetActive(false);
+			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonBarrack");
+			tmpElement->SetActive(false);
 		}
 		if (App->entity_manager->stableSelected == true)
 		{
 			tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
+			tmpElement->SetActive(false);
+			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonStable");
 			tmpElement->SetActive(false);
 		}
 	}

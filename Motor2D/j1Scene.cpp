@@ -282,6 +282,50 @@ bool j1Scene::UILoader()
 	GUILabel* currentGold = nullptr;
 	//currentGold = App->gui->CreateLabel({ 0,0,1024,768 }, SMALL, "Gold", "");
 
+	//desactive all 
+
+
+	GUIElement* tmpElement = nullptr;
+
+
+	//buildings start buttons
+
+	tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
+	tmpElement->SetActive(false);
+
+	tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonArchery");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonStable");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonBarrack");
+	tmpElement->SetActive(false);
+
+	//window menu
+
+	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuWindow");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Resume");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Load");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Save");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Options");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Start");
+	tmpElement->SetActive(false);
+	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_exit");
+	tmpElement->SetActive(false);
+
+	//window resources
+	tmpElement = App->gui->FindElement(App->gui->guiList, "ResourceWindow");
+	tmpElement->SetActive(false);
+
+
 	return ret;
 }
 

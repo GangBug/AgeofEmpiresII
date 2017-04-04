@@ -40,9 +40,9 @@
 	<buttons>
 			<button type_name="button" have_animations="0">
 				<sections>
-					<section type="standBy" x="114" y="481" w="205" h="43" />
-					<section type="hover" x="114" y="531" w="205" h="43" />
-					<section type="clicked" x="114" y="581" w="205" h="43" />
+					<section type="standBy" x="20" y="481" w="205" h="43" />
+					<section type="hover" x="20" y="531" w="205" h="43" />
+					<section type="clicked" x="20" y="581" w="205" h="43" />
 				</sections>
 			</button>
 
@@ -253,6 +253,9 @@
 		</img>
 
 
+
+    <!--Barraack ________________________________________________      -->
+    
     <button type="SamuraiCreatorButton" name="SamuraiCreatorButton" text="">
       <events>
         <event action="262144" origin="16"/>
@@ -260,11 +263,19 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-			<position x="440" y="1020" />
+			<position x="15" y="920" />
 			<size w="40" h="40" />
 		</button>
 
+    <button type="RepairButton" name="RepairButtonBarrack" text="">
+      <events />
+      <listeners />
+      <position x="220" y="920" />
+      <size w="40" h="40" />
+    </button>
 
+
+    <!--stable ________________________________________________      -->
 		<button type="TarkanCreatorButton" name="TarkanCreatorButton" text="">
       <events>
         <event action="1048576" origin="16"/>
@@ -272,12 +283,20 @@
       <listeners>
         <listener name="scene"/>
       </listeners>
-			<position x="506" y="1020" />
+			<position x="15" y="920" />
 			<size w="40" h="40" />
 		</button>
-	 
 
-	
+   
+    <button type="RepairButton" name="RepairButtonStable" text="">
+      <events />
+      <listeners />
+      <position x="220" y="920" />
+      <size w="40" h="40" />
+    </button>
+
+
+    <!--Archery ________________________________________________      -->
 		<button type="ArcherCreatorButton" name="ArcherCreatorButton" text="">
 				<events>
        				<event action="65536" origin="16"/>
@@ -285,10 +304,21 @@
 		  <listeners>
         			<listener name="scene"/>
       	   </listeners>
-			<position x="572" y="1020" />
+			<position x="15" y="920" />
 			<size w="40" h="40" />
 		</button>
     
+
+    <button type="RepairButton" name="RepairButtonArchery" text="">
+      <events />
+      <listeners />
+      <position x="220" y="920" />
+      <size w="40" h="40" />
+    </button>
+
+    <!-- ________________________________________________      -->
+
+
     <button type="OptionsButton" name="StartGame" text="Okay">
       <events>
         <event action="2097152" origin="16"/>
@@ -300,7 +330,7 @@
       <size w="120" h="50" />
     </button>
 
-
+    <!-- Menu ingame ________________________________________________      -->
 		<button type="OptionsButton" name="OptionsButton" text="">
 			<events />
 			<listeners />
@@ -343,36 +373,9 @@
 			<position x="820" y="630" />
 			<size w="260" h="40" />
 		</button>
+    <!-- Menu ingame ________________________________________________      -->
 	
-		<!--   stable
-		<button type="RepairButton" name="RepairButton" text="">
-			<events />
-			<listeners />
-			<position x="155" y="495" />
-			<size w="40" h="40" />
-		</button/>
-		<button type="TarkanCreatorButton" name="TarkanCreatorButton" text="">
-			<events />
-			<listeners />
-			<position x="5" y="495" />
-			<size w="40" h="40" />
-		</button>
-		-->
 
-		<!--   Archery
-		<button type="RepairButton" name="RepairButton" text="">
-			<events />
-			<listeners />
-			<position x="155" y="495" />
-			<size w="40" h="40" />
-		</button/>
-		<button type="ArcherCreatorButton" name="ArcherCreatorButton" text="">
-			<events />
-			<listeners />
-			<position x="5" y="495" />
-			<size w="40" h="40" />
-		</button>
-		-->
 
 		<!--   Church
 		<button type="MonkCreatorButton" name="VillagerCreatorButton" text="">
