@@ -106,7 +106,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		break;
 
 	case VILE:
-
+		SetHp(250);
 		attack = 2;
 		SetArmor(1);
 		speed = 2.0;
@@ -114,6 +114,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		range = 0;
 		unit_class = INFANTRY;
 		unit_radius = 5;
+		AI = true;
 		state = NONE;
 		break;
 
