@@ -65,15 +65,15 @@ bool j1Scene::Start()
 		spawnArcher = 0;
 		spawnKnight = 0;
 		spawnSamurai = 0;
-	//	App->entity_manager->CreateBoss(fPoint(-550, 550));
+		App->entity_manager->CreateBoss(fPoint(-550, 550));
 		App->entity_manager->CreateUnit(VILE, fPoint(500, 750));
 
 		//Buildings creation
-		archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
-		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
-		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(100, 0));
+		archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(-1850, 1570));
+		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(-1560, 1760));
+		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(-1310, 1940));
 
-		gold = 2000;
+		gold = 20000;
 	}
 
 
@@ -405,6 +405,7 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 		{
 			spawnArcher++;
 			gold -= ARCHER_COST;
+			UnitFactory();
 		}
 		if (event & ERASE_ARCHER && App->entity_manager->archerySelected == true && spawnArcher > 0)
 		{
@@ -415,6 +416,7 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 		{
 			spawnSamurai++;
 			gold -= SAMURAI_COST;
+			UnitFactory();
 		}
 		if (event & ERASE_SAMURAI && App->entity_manager->barracksSelected == true && spawnSamurai > 0)
 		{
@@ -425,19 +427,12 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 		{
 			spawnKnight++;
 			gold -= KNIGHT_COST;
+			UnitFactory();
 		}
 		if (event & ERASE_KNIGHT && App->entity_manager->stableSelected == true && spawnKnight > 0)
 		{
 			spawnKnight--;
 			gold += KNIGHT_COST;
-		}
-		if (event & START_GAME)
-		{
-			App->entity_manager->archerySelected = false;
-			App->entity_manager->barracksSelected = false;
-			App->entity_manager->stableSelected = false;
-			preGame = false;
-			UnitFactory();
 		}
 		if (event & OPEN_SCENE_MENU)
 		{
