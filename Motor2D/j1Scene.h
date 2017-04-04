@@ -57,6 +57,8 @@ public:
 	void SetInGame();
 	bool IsInGame();
 
+	int GetGold() const;
+
 private:
 	SDL_Texture* debug_tex;
 	bool inGame;

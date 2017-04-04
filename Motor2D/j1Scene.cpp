@@ -310,7 +310,10 @@ bool j1Scene::UILoader()
 	//buildings start buttons
 
 	tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
-	tmpElement->SetActive(false);
+	if (tmpElement)
+	{
+		tmpElement->SetActive(false);
+	}
 	tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
 	tmpElement->SetActive(false);
 	tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
@@ -387,6 +390,11 @@ void j1Scene::SetInGame()
 bool j1Scene::IsInGame()
 {
 	return inGame;
+}
+
+int j1Scene::GetGold() const
+{
+	return gold;
 }
 
 void j1Scene::GuiEvent(GUIElement* element, int64_t event)

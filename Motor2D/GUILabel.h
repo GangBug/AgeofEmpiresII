@@ -20,6 +20,7 @@ public:
 	void Serialize(pugi::xml_node root)override;
 	void Deserialize(pugi::xml_node root)override;
 	void SetText(const char* text, label_size _size);
+	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt) override;
 	label_size GetLabelSize() const { return lbSize; }
 	std::string GetText() const { return text; }
 private:

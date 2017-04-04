@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <gui>
-	<elements>
-	
-		
+	<elements>		
 		<imgs>
 			<img type_name="MenuWindow" have_animations="0">
 				<section type="standBy" x="669" y="12" w="457" h="577"/>
@@ -34,9 +32,7 @@
 			<img type_name="PopulationLimit" have_animations="0">
 				<section type="standBy" x="929" y="596" w ="54" h ="40"/>
 			</img>
-
 		</imgs>
-
 	<buttons>
 			<button type_name="button" have_animations="0">
 				<sections>
@@ -45,7 +41,6 @@
 					<section type="clicked" x="20" y="581" w="205" h="43" />
 				</sections>
 			</button>
-
 			<button type_name="MenuButton" have_animations="0">
 				<sections>
 				   <section type="standBy" x="294" y="631" w="111" h="82"/>
@@ -53,7 +48,6 @@
                     <section type="clicked" x="540" y="631" w="111" h="82"/>
 				</sections>
 			</button>
-
 			<button type_name="SaveButton" have_animations="0">
 				<sections>
 				   <section type="standBy" x="345" y="480" w="67" h="39"/>
@@ -61,7 +55,6 @@
                     <section type="clicked" x="486"  y="480" w="67" h="39"/>
 				</sections>
 			</button>
-
 			<button type_name="OptionsButton" have_animations="0">
 				<sections>
 				   <section type="standBy" x="336" y="531" w="98" h="83"/>
@@ -69,7 +62,6 @@
                     <section type="clicked" x="553"  y="530" w="98" h="83"/>
 				</sections>
 			</button>
-
 			<button type_name="PlusButton" have_animations="0">
 				<sections>
 				   <section type="standBy" x="629" y="481" w="18" h="18"/>
@@ -78,7 +70,6 @@
                    <!-- <section type="Blocked" x="567"  y="481" w="18" h="18"/>-->
 				</sections>
 			</button>
-
 			<button type_name="MinusButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="629" y="504" w="17" h="7"/>
@@ -87,14 +78,12 @@
                     <!--<section type="Blocked" x="567"  y="504" w="17" h="7"/>-->
 				</sections>
 			</button>
-
 			<button type_name="VillagerCreatorButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="26" y="969" w="40" h="40"/>   
                     <section type="clicked" x="75"  y="969" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="ArcherCreatorButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="220" y="969" w="40" h="40"/>   
@@ -102,14 +91,12 @@
                     <section type="clicked" x="269"  y="969" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="RepairButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="124" y="969" w="40" h="40"/>   
                     <section type="clicked" x="173"  y="969" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="SamuraiCreatorButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="220" y="1018" w="40" h="40"/>   
@@ -117,35 +104,30 @@
                     <section type="clicked" x="269"  y="1018" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="StableButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="317" y="969" w="40" h="40"/>   
                     <section type="clicked" x="366"  y="969" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="GoOutButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="419" y="969" w="40" h="40"/>   
                     <section type="clicked" x="468"  y="969" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="ChurchButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="516" y="969" w="40" h="40"/>   
                     <section type="clicked" x="565"  y="969" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="BellButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="26" y="1018" w="40" h="40"/>   
                     <section type="clicked" x="75"  y="1018" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="TarkanCreatorButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="124" y="1018" w="40" h="40"/>   
@@ -153,32 +135,25 @@
                     <section type="clicked" x="172"  y="1018" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="MonkCreatorButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="317" y="1018" w="40" h="40"/>   
                     <section type="clicked" x="366"  y="1018" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="BarrackButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="419" y="1018" w="40" h="40"/>   
                     <section type="clicked" x="468"  y="1018" w="40" h="40"/>
 				</sections>
 			</button>
-
 			<button type_name="ArcheryButton" have_animations="0">
 				<sections>
 				  	 <section type="standBy" x="516" y="1018" w="40" h="40"/>   
                     <section type="clicked" x="565"  y="1018" w="40" h="40"/>
 				</sections>
 			</button>
-
 		</buttons>
-
-
-
 	</elements>
 
 	<layout>
@@ -247,6 +222,10 @@
 			<position x="600" y="5" />
 			<size  w="55" h="51" />
 		</img>
+		<label size="0" name="label_gold" text="0000">
+			<position x="650" y="5" />
+		</label>
+
 		<img type="PopulationLimit" name="PopulationLimit">
 			<position x="800" y="5" />
 			<size  w="54" h="40" />

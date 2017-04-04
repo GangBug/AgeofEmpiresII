@@ -4,6 +4,7 @@
 #include "j1Fonts.h"
 #include "j1GUI.h"
 #include "j1App.h"
+#include "j1Scene.h"
 
 //TEMP
 #include "j1Render.h"
@@ -55,6 +56,13 @@ void GUILabel::SetText(const char* text, label_size _size)
 	lbSize = _size;
 }
 
+void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)
+{
+	if (strcmp(GetName().c_str(), "label_gold") == 0)
+		SetText(std::to_string(App->scene->GetGold()).c_str(), DEFAULT);
+	
+}
+
 const SDL_Texture * GUILabel::GetTexture() const
 {
 	return texture;
@@ -66,12 +74,12 @@ void GUILabel::Draw() const
 	{
 		GB_Rectangle<float> rect = GetDrawRect();
 		GB_Rectangle<float> sect;
-		sect.x = 0 ;
-		sect.y = 0;
+		rect.x -= App->render->camera->GetPosition().x;
+		rect.y -= App->render->camera->GetPosition().y;
 		sect.w = rect.w;
 		sect.h = rect.h;
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-		App->render->Blit(texture, rect.x - App->render->camera->GetPosition().x - 50 * WINDOWSCALE, rect.y - App->render->camera->GetPosition().y, NULL/*, 0.0f*/);
+		App->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
 		//app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
 	}
 }

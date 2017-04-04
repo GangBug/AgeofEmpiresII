@@ -233,8 +233,8 @@ bool j1Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect*
 
 	if (useCamera)
 	{
-		rect.x = (int)(App->render->camera->GetPosition().x + rect.x * scale);
-		rect.y = (int)(App->render->camera->GetPosition().y + rect.y * scale);
+		rect.x = (int)(camera->GetPosition().x + rect.x * scale);
+		rect.y = (int)(camera->GetPosition().y + rect.y * scale);
 		rect.w *= scale;
 		rect.h *= scale;
 	}
