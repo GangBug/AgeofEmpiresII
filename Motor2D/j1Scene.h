@@ -72,7 +72,7 @@ private:
 	int spawnKnight;
 
 	bool preGame;
-
+	bool onMenuInGame=true;
 public:// Audio
 
 
