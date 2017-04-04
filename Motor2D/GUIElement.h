@@ -51,7 +51,10 @@ enum gui_events
 	ADD_KNIGHT = (1 << 20),
 	START_GAME = (1 << 21),
 	CLOSE_APP = (1 << 22),
-	NEW_GAME = (1 << 23)
+	NEW_GAME = (1 << 23),
+	RESUME_GAME = (1 << 24),
+	RETURN_TO_MENU = (1 << 25),
+	OPEN_SCENE_MENU = (1 << 26)
 };
 
 struct ElementStatus

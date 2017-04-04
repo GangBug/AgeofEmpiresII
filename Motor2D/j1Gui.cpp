@@ -812,6 +812,7 @@ void j1GUI::menuControl(bool enable)
 		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuWindow");
 		tmpElement->SetActive(true);
 		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Resume");
+		tmpElement->SetLClicked(false);
 		tmpElement->SetActive(true);
 		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Load");
 		tmpElement->SetActive(true);

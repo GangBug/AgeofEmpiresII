@@ -38,15 +38,9 @@ bool j1Scene::Awake(pugi::xml_node& node)
 
 	inGame = false;
 	preGame = true;
+	quit = false;
 
 	//Creation_Unit
-
-	//Buildings creation
-	archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
-	barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
-	stable = App->entity_manager->CreateBuilding(STABLE, fPoint(100, 0));
-
-	gold = 2000;
 
 	return ret;
 }
@@ -68,6 +62,13 @@ bool j1Scene::Start()
 		spawnKnight = 0;
 		spawnSamurai = 0;
 		App->entity_manager->CreateBoss(fPoint(-550, 550));
+
+		//Buildings creation
+		archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
+		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
+		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(100, 0));
+
+		gold = 2000;
 	}
 
 
@@ -141,7 +142,7 @@ bool j1Scene::Update(float dt)
 			
 			else {
 				App->gui->menuControl(true);
-				onMenuInGame = false;
+				onMenuInGame = true;
 			}
 	
 
@@ -168,7 +169,7 @@ bool j1Scene::PostUpdate()
 			App->sceneStart->SetInMenu();	
 		
 		}	
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || quit == true)
 		{
 			ret = false;
 		}
@@ -410,6 +411,24 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 			App->entity_manager->stableSelected = false;
 			preGame = false;
 			UnitFactory();
+		}
+		if (event & OPEN_SCENE_MENU)
+		{
+			App->gui->menuControl(true);
+		}
+		if (event & CLOSE_APP)
+		{
+			quit = true;
+		}
+		if (event & RETURN_TO_MENU)
+		{
+			inGame = false;
+			CleanUp();
+			App->sceneStart->SetInMenu();
+		}
+		if (event & RESUME_GAME)
+		{
+			App->gui->menuControl(false);
 		}
 	}
 }

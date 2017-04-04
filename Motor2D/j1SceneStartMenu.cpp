@@ -131,7 +131,6 @@ void j1SceneStartMenu::GuiEvent(GUIElement* element, int64_t event)
 		}
 		if (event & CLOSE_APP)
 		{
-
 			quit = true;
 		}
 	}

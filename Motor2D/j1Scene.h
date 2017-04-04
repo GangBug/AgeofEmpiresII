@@ -73,6 +73,7 @@ private:
 
 	bool preGame;
 	bool onMenuInGame=true;
+	bool quit = true;
 public:// Audio
 
 

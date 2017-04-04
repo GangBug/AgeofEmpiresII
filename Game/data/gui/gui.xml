@@ -332,14 +332,22 @@
 
     <!-- Menu ingame ________________________________________________      -->
 		<button type="OptionsButton" name="OptionsButton" text="">
-			<events />
-			<listeners />
+      <events>
+        <event action="67108864" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="scene"/>
+      </listeners>
 			<position x="0" y="0" />
 			<size w="98" h="83" />
 		</button>
 	<button type="button" name="MenuButtonInGame_Resume" text="Resume Game">
-			<events />
-			<listeners />
+    <events>
+      <event action="16777216" origin="16"/>
+    </events>
+    <listeners>
+      <listener name="scene"/>
+    </listeners>
 			<position x="820" y="380" />
 			<size w="260" h="40" />
 		</button>
@@ -362,14 +370,22 @@
 			<size w="260" h="40" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Start" text="Exit to Start Menu">
-			<events />
-			<listeners />
+      <events>
+        <event action="33554432" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="scene"/>
+      </listeners>
 			<position x="820" y="580" />
 			<size w="260" h="40" />
 		</button>
 		<button type="button" name="MenuButtonInGame_exit" text="Exit to Desktop">
-			<events />
-			<listeners />
+      <events>
+        <event action="4194304" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="scene"/>
+      </listeners>
 			<position x="820" y="630" />
 			<size w="260" h="40" />
 		</button>
