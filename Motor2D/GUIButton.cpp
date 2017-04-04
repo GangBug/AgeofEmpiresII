@@ -28,7 +28,7 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 
 	label = new GUILabel(GetName());
 	label->SetParent(this);
-	//label->SetLocalPos(_position.x, _position.y);
+
 	label->SetInteractive(false);
 	label->SetCanFocus(false);
 
@@ -38,7 +38,9 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 	{
 		label->SetText(text, _size);
 	}
-	label->Center();
+	label->SetLocalPos(_position.x-50, _position.y);
+	//label->Center();
+
 }
 GUIButton::GUIButton(const GUIButton & btn, std::string name, int flags) : GUIElement(name, flags)
 {
@@ -52,8 +54,8 @@ GUIButton::GUIButton(const GUIButton & btn, std::string name, int flags) : GUIEl
 	image->SetRectangle(btn.image->GetLocalRect());
 	label = new GUILabel(*btn.label);
 	label->SetParent(this);
-	//label->SetRectangle(btn.label->GetLocalRect());
-	label->Center();
+	label->SetRectangle(btn.label->GetLocalRect());
+	//label->Center();
 
 }
 GUIButton::~GUIButton()

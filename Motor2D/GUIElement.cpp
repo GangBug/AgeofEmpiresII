@@ -99,6 +99,9 @@ bool GUIElement::Save(pugi::xml_node & node) const
 
 	return false;
 }
+
+
+
 void GUIElement::OnGuiEvent(int64_t eventToReact)
 {
 	//TODO SAT: 3. Search in the map for the event recieved. If found get the animation linked and determine if its a transition or an animation, then set currentStaticAnimation or currentTransition. Also set doingAnimation or doingTransition to false. 
@@ -549,6 +552,17 @@ void GUIElement::SetOnMouseLeaves(gui_events _event)
 {
 	status.statusChanged = true;
 	status.onMouseLeaves = _event;
+}
+
+void GUIElement::SetMenuRect()
+{
+
+	 
+	int frame_w = GetLocalRect().w * 0.5 ;
+	int frame_h = GetLocalRect().y ;
+
+	SetLocalPos(frame_w, frame_h);
+	SetGlobalPos(0, 0);
 }
 
 void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)

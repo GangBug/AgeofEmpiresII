@@ -199,6 +199,9 @@ public:
 	void SetOnMouseEnters(gui_events _event);
 	void SetOnMouseLeaves(gui_events _event);
 
+	void SetMenuRect();
+
+
 	void Enable();
 	void Disable();
 
