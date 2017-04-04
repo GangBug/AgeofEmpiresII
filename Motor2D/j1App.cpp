@@ -341,7 +341,7 @@ bool j1App::CleanUp()
 	PERF_START(ptimer);
 	bool ret = true;
 	std::list<j1Module*>::reverse_iterator item = modules.rbegin();
-
+	
 	while (item != modules.rend() && ret == true)
 	{
 		ret = (*item)->CleanUp();
@@ -349,7 +349,7 @@ bool j1App::CleanUp()
 	}
 
 	PERF_PEEK(ptimer);
-	return ret;
+	return ret; 
 }
 
 // ---------------------------------------

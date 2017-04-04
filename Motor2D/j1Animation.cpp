@@ -83,7 +83,7 @@ bool j1Animation::Awake(pugi::xml_node& config)
 				std::string action = action_node.name();
 				if (!action.compare("disappear"))
 				{
-					new_anim->speed = 100.0f;
+					new_anim->speed = 1000.0f;
 					new_anim->loop = false;
 				}
 				if (!action.compare("die"))

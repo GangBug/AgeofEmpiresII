@@ -60,6 +60,7 @@ bool j1Scene::Start()
 	if (inGame == true)
 	{//checks if the player is ingame			
 	
+		App->render->camera->SetCenter({ -1500, 1500 }); //Camera Initial Pos
 
 		MapLoader();
 		ret = UILoader();
@@ -217,7 +218,7 @@ bool j1Scene::PostUpdate()
 
 	Selector();//SELECTION
 
-	return ret;
+	return ret; 
 }
 
 // Called before quitting

@@ -112,7 +112,6 @@ void j1Map::Draw()
 	{
 		DebugDraw();
 	}
-	ObjectDraw();
 }
 
 void j1Map::DebugDraw()
@@ -128,44 +127,6 @@ void j1Map::DebugDraw()
 		MapLayer* layer = item._Ptr->_Myval;
 
 		if (layer->properties.Get("Navigation") == false)
-		{
-			item++; //TODO:Uncomment for no printing
-			continue;
-		}
-		for (int y = 0; y < data.height; ++y)
-		{
-			for (int x = 0; x < data.width; ++x)
-			{
-				int tile_id = layer->Get(x, y);
-				if (tile_id > 0)
-				{
-					TileSet* tileset = GetTilesetFromTileId(tile_id);
-
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = MapToWorld(x, y);
-
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
-				}
-			}
-		}
-
-		item++;
-	}
-}
-
-void j1Map::ObjectDraw()
-{
-	if (map_loaded == false)
-		return;
-
-	std::list<MapLayer*>::iterator item = data.layers.begin();
-	std::list<MapLayer*>::iterator end = data.layers.end();
-
-	while (item != end)
-	{
-		MapLayer* layer = item._Ptr->_Myval;
-
-		if (layer->properties.Get("Object") == false)
 		{
 			item++; //TODO:Uncomment for no printing
 			continue;

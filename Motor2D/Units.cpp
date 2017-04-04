@@ -19,7 +19,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		SetHp(600);
 		attack = 12;
 		SetArmor(1);
-		speed = 0.9;
+		speed = 0.9f;
 		rate_of_fire = 2;
 		range = 1;
 		unit_class = INFANTRY;
@@ -32,7 +32,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		SetHp(80);
 		attack = 12;
 		SetArmor(1);
-		speed = 0.9;
+		speed = 0.9f;
 		rate_of_fire = 2;
 		range = 1;
 		unit_class = INFANTRY;
@@ -46,7 +46,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		SetHp(50);
 		attack = 8;
 		SetArmor(1);
-		speed = 1.8;
+		speed = 1.8f;
 		rate_of_fire = 2;
 		range = 4;
 		unit_class = RANGED;
@@ -59,7 +59,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		SetHp(100);
 		attack = 10;
 		SetArmor(1);
-		speed = 1.35;
+		speed = 1.35f;
 		rate_of_fire = 1;
 		range = 0;
 		unit_class = CAVALRY;
@@ -85,7 +85,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		SetHp(40);
 		attack = 10;
 		SetArmor(1);
-		speed = 0.9;
+		speed = 0.9f;
 		rate_of_fire = 2;
 		range = 4;
 		unit_class = RANGED;
@@ -98,7 +98,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		SetHp(270);
 		attack = 4;
 		SetArmor(-5);
-		speed = 0.6;
+		speed = 0.6f;
 		rate_of_fire = 5;
 		range = 1;
 		unit_class = SIEGE;
@@ -110,7 +110,7 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		SetHp(250);
 		attack = 2;
 		SetArmor(1);
-		speed = 2.0;
+		speed = 2.0f;
 		rate_of_fire = 1;
 		range = 0;
 		unit_class = INFANTRY;
@@ -220,16 +220,22 @@ void Unit::Update()
 			Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, temp_dir);
 			anim->Reset();
 		
-			/*if (anim->Finished() == true)
-			{
-				App->entity_manager->DeleteUnit(this); CURRENTLY NOT WORKING
-			}*/
 		}
 	}
-	if (this->action_type == DIE && deathTimer.ReadSec() > 1)
+	if (App->anim->GetAnimation(GetUnitType(), action_type, direction)->Finished() == true && action_type == DIE) 
+	{
+		this->action_type = DISAPPEAR; //CURRENTLY NOT WORKING 
+		Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, direction);
+		anim->Reset();
+	}
+	else if (App->anim->GetAnimation(GetUnitType(), action_type, direction)->Finished() == true && action_type == DISAPPEAR)
+	{
+		App->entity_manager->DeleteUnit(this); //CURRENTLY NOT WORKING 
+	}
+	/*if (this->action_type == DIE && deathTimer.ReadSec() > 1)
 	{
 		App->entity_manager->DeleteUnit(this);
-	}
+	}*/
 
 	DrawDebugRadius();
 	App->render->SpriteOrdering(this);

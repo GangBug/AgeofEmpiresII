@@ -118,7 +118,10 @@ bool j1Render::PostUpdate()
 bool j1Render::CleanUp()
 {
 	LOG("Destroying SDL render");
-	SDL_DestroyRenderer(renderer);
+	if (renderer != NULL)
+	{
+		SDL_DestroyRenderer(renderer);
+	}
 	return true;
 }
 

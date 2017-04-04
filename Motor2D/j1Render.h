@@ -11,7 +11,7 @@
 
 class Entity;
 
-class Camera
+class Camera 
 {
 private:
 	SDL_Rect view_port;
