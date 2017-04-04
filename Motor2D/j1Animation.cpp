@@ -25,6 +25,7 @@ bool j1Animation::Start()
 	textures.push_back(Textures(App->tex->Load("animations/TarkanSpritesheet.png"), TARKANKNIGHT));
 	textures.push_back(Textures(App->tex->Load("animations/SamuraiSpriteSheet.png"), SAMURAI));
 	textures.push_back(Textures(App->tex->Load("animations/Boss.png"), BOSS));
+	textures.push_back(Textures(App->tex->Load("animations/VileChild_SpriteSheet.png"), VILE));
 
 	return true;
 }
@@ -256,7 +257,7 @@ bool j1Animation::GetAnimationFrame(SDL_Rect& frame, iPoint& pivot, const Unit* 
 
 Animation::Animation(std::string name): name(name)
 {
-	speed = 150.0f;
+	speed = 75.0f;
 }
 
 // Destructor
@@ -347,6 +348,8 @@ void Animation::SetUnit(const pugi::xml_node node)
 
 	else if (strcmp(node.name(), "boss") == 0)
 		unit_type = BOSS;
+	else if (strcmp(node.name(), "vile") == 0)
+		unit_type = VILE;
 	
 	else
 	{

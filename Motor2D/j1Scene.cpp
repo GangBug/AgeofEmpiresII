@@ -64,12 +64,17 @@ bool j1Scene::Start()
 		spawnArcher = 0;
 		spawnKnight = 0;
 		spawnSamurai = 0;
-		App->entity_manager->CreateBoss(fPoint(-550, 550));
+	//	App->entity_manager->CreateBoss(fPoint(-550, 550));
+		App->entity_manager->CreateUnit(VILE, fPoint(500, 750));
+
 
 		//Buildings creation
 		archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(610, 210));
 		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(380, 90));
 		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(100, 0));
+
+
+
 
 		gold = 2000;
 	}
@@ -107,7 +112,7 @@ bool j1Scene::Update(float dt)
 		the screen the surface is re-scaled, the magic numbers are simply numbers
 		of divisions to establish the surface
 		*/
-
+		
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
 			(App->input->GetMousePosition().y < (App->render->camera->GetHeight() / sCreenDivisionsY) * 2/*Magic Numbers love <3*/) &&
 			(App->input->GetMousePosition().y >(App->render->camera->GetHeight() / sCreenDivisionsY)))
@@ -144,7 +149,7 @@ bool j1Scene::Update(float dt)
 		{
 			App->render->camera->MoveRight(floor(300.0f * dt));
 		}
-
+		
 		// MOVEMENT OF THE CAMERA	------------------------------------
 		
 		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
