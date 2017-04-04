@@ -136,6 +136,8 @@ public:
 
 	bool arrived = true;
 	iPoint destin;
+
+	j1Timer deathTimer;
 };
 
 #endif
