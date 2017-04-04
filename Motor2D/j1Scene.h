@@ -55,7 +55,6 @@ public:
 
 	void Selector();
 	void SetInGame();
-	bool IsInGame();
 
 private:
 	SDL_Texture* debug_tex;

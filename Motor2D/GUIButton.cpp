@@ -38,7 +38,7 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 	{
 		label->SetText(text, _size);
 	}
-	label->Center();
+	//label->Center();
 }
 GUIButton::GUIButton(const GUIButton & btn, std::string name, int flags) : GUIElement(name, flags)
 {

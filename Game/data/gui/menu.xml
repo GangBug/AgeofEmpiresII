@@ -36,12 +36,14 @@
 			<position x="100" y="700" />
 			<size w="305" h="43" />
 		</button>
+		
 		<button type="button" name="options" text="Options">
 			<events />
 			<listeners />
 			<position x="100" y="800" />
 			<size w="305" h="43" />
 		</button>
+
 		<button type="button" name="exit" text="Exit">
       <events>
         <event action="4194304" origin="16"/>

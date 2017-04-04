@@ -4,6 +4,7 @@
 #include "j1FileSystem.h"
 #include "j1Fonts.h"
 #include "j1Module.h"
+#include "j1Gui.h"
 
 #include "SDL\include\SDL.h"
 #include "SDL_TTF\include\SDL_ttf.h"
@@ -33,13 +34,13 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 	{
 		const char* path = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
-		defaultFont = Load(path, size);
+		defaultFont = Load(path, size*WINDOWSCALE);
 		//char* path = conf.child("medium_font").attribute("file").as_string(DEFAULT_FONT);
 		size = conf.child("medium_font").attribute("size").as_int(MEDIUM_FONT_SIZE);
-		mediumFont = Load(path, size);
+		mediumFont = Load(path, size*WINDOWSCALE);
 		//char* path = conf.child("small_font").attribute("file").as_string(DEFAULT_FONT);
 		size = conf.child("small_font").attribute("size").as_int(SMALL_FONT_SIZE);
-		smallFont = Load(path, size);
+		smallFont = Load(path, size*WINDOWSCALE);
 
 	}
 

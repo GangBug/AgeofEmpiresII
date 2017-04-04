@@ -1,12 +1,7 @@
 #include "Entity.h"
-#include "Buildings.h"
-#include "j1App.h"
-#include "j1Gui.h"
-#include "j1EntityManager.h"
 
 Entity::Entity(ENTITY_TYPE entity_type, fPoint pos): to_delete (false), entity_type(entity_type), position(pos)
-{
-}
+{}
 
 Entity::~Entity()
 {
@@ -29,60 +24,13 @@ ENTITY_TYPE Entity::GetEntityType() const
 
 ENTITY_STATUS Entity::GetEntityStatus()
 {
+
 	return entity_status;
 }
 
 void Entity::SetEntityStatus(ENTITY_STATUS status)
 {
 	entity_status = status;
-
-	if (entity_type == BUILDING && status == E_SELECTED)
-	{
-		GUIElement* tmpElement = nullptr;
-
-		switch (dynamic_cast<Building*>(this)->buildingType)
-		{
-		case ARCHERY:
-			App->entity_manager->archerySelected = true;
-			App->entity_manager->barracksSelected = false;
-			App->entity_manager->stableSelected = false;
-
-			tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
-			tmpElement->SetActive(true);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
-			tmpElement->SetActive(false);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
-			tmpElement->SetActive(false);
-
-			break;
-		case BARRACK:
-			App->entity_manager->archerySelected = false;
-			App->entity_manager->barracksSelected = true;
-			App->entity_manager->stableSelected = false;
-
-			tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
-			tmpElement->SetActive(false);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
-			tmpElement->SetActive(true);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
-			tmpElement->SetActive(false);
-
-			break;
-		case STABLE:
-			App->entity_manager->archerySelected = false;
-			App->entity_manager->barracksSelected = false;
-			App->entity_manager->stableSelected = true;
-
-			tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
-			tmpElement->SetActive(false);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
-			tmpElement->SetActive(false);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
-			tmpElement->SetActive(true);
-
-			break;
-		}
-	}
 }
 
 void Entity::SetPosition(float x, float y)

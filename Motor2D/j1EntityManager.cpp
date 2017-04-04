@@ -4,8 +4,6 @@
 #include "Boss.h"
 #include "j1Map.h"
 #include "GB_Rectangle.h"
-#include "j1Gui.h"
-#include "j1Scene.h"
 
 j1EntityManager::j1EntityManager() : j1Module()
 {
@@ -129,32 +127,11 @@ void j1EntityManager::SelectInClick(int x, int y)
 
 void j1EntityManager::UnselectEverything()
 {
+
 	for (std::list<Entity*>::iterator it = entity_list.begin(); it != entity_list.end(); it++)
 	{
-			it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
+		it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
 	}
-
-	if(App->scene->IsInGame())
-	{
-		GUIElement* tmpElement = nullptr;
-
-		if (App->entity_manager->archerySelected == true)
-		{
-			tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
-			tmpElement->SetActive(false);
-		}
-		if (App->entity_manager->barracksSelected == true)
-		{
-			tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
-			tmpElement->SetActive(false);
-		}
-		if (App->entity_manager->stableSelected == true)
-		{
-			tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
-			tmpElement->SetActive(false);
-		}
-	}
-
 }
 
 void j1EntityManager::DeleteEntity(Entity * ptr)

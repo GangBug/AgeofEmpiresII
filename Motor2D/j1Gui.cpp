@@ -802,3 +802,47 @@ void j1GUI::SetUIEditing(bool edit)
 		}
 	}
 }
+
+void j1GUI::menuControl(bool enable)
+{
+	GUIElement* tmpElement = nullptr;
+
+
+	if (enable)
+	{
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuWindow");
+		tmpElement->SetActive(true);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Resume");
+		tmpElement->SetActive(true);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Load");
+		tmpElement->SetActive(true);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Save");
+		tmpElement->SetActive(true);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Options");
+		tmpElement->SetActive(true);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Start");
+		tmpElement->SetActive(true);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_exit");
+		tmpElement->SetActive(true);
+	}
+	if (!enable)
+	{
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuWindow");
+		tmpElement->SetActive(false);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Resume");
+		tmpElement->SetActive(false);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Load");
+		tmpElement->SetActive(false);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Save");
+		tmpElement->SetActive(false);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Options");
+		tmpElement->SetActive(false);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Start");
+		tmpElement->SetActive(false);
+		tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_exit");
+		tmpElement->SetActive(false);
+	}
+
+
+}
+
