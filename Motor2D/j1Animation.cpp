@@ -86,6 +86,10 @@ bool j1Animation::Awake(pugi::xml_node& config)
 					new_anim->speed = 100.0f;
 					new_anim->loop = false;
 				}
+				if (!action.compare("die"))
+				{
+					new_anim->loop = false;
+				}
 				animations.push_back(new_anim);
 
 				direction_node = direction_node.next_sibling();

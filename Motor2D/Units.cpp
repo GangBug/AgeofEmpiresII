@@ -7,6 +7,7 @@
 #include "j1Pathfinding.h"
 #include "j1Map.h"
 #include "j1EntityManager.h"
+#include "j1Timer.h"
 
 Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u_type), direction(WEST), action_type(IDLE), id(id)
 {
@@ -193,6 +194,42 @@ void Unit::Update()
 	{
 		debug = !debug;
 	}
+	
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		if (GetEntityStatus() == E_SELECTED)
+		{
+			deathTimer.Start();
+			this->action_type = DIE;
+			DIRECTION temp_dir = direction;
+
+			switch (temp_dir)
+			{
+			case NORTH_EAST:
+				temp_dir = NORTH_WEST;
+				break;
+
+			case EAST:
+				temp_dir = WEST;
+				break;
+
+			case SOUTH_EAST:
+				temp_dir = SOUTH_WEST;
+				break;
+			}
+			Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, temp_dir);
+			anim->Reset();
+		
+			/*if (anim->Finished() == true)
+			{
+				App->entity_manager->DeleteUnit(this); CURRENTLY NOT WORKING
+			}*/
+		}
+	}
+	if (this->action_type == DIE && deathTimer.ReadSec() > 1)
+	{
+		App->entity_manager->DeleteUnit(this);
+	}
 
 	DrawDebugRadius();
 	App->render->SpriteOrdering(this);
@@ -207,7 +244,8 @@ void Unit::PostUpdate()
 		enemy = nullptr;
 	}
 
-	if (GetHP() <= 0) {
+	if (GetHP() <= 0) 
+	{
 		state = DEAD;
 		this->action_type = DIE;
 		App->entity_manager->DeleteUnit(this);

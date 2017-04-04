@@ -6,6 +6,8 @@
 #include "GB_Rectangle.h"
 #include "j1Gui.h"
 #include "j1Scene.h"
+#include "j1FileSystem.h"
+#include "p2Log.h"
 
 j1EntityManager::j1EntityManager() : j1Module()
 {
@@ -15,11 +17,13 @@ j1EntityManager::j1EntityManager() : j1Module()
 j1EntityManager::~j1EntityManager() {}
 
 
-bool j1EntityManager::Awake() 
+bool j1EntityManager::Awake(pugi::xml_node& node) 
 { 
 	archerySelected = false;
 	barracksSelected = false;
 	stableSelected = false;
+
+	LoadObjects();
 
 	return true; 
 }
@@ -33,6 +37,39 @@ bool j1EntityManager::CleanUp()
 		item++;
 	}
 	entity_list.clear();
+
+	return true;
+}
+
+bool j1EntityManager::LoadObjects()
+{
+	std::string obj_folder = "objects/Objects_data.xml";	//Load Objects data from object folder
+	char* buff = nullptr;
+	int size = App->fs->Load(obj_folder.c_str(), &buff);
+	pugi::xml_document obj_data;
+	pugi::xml_parse_result result = obj_data.load_buffer(buff, size);
+	RELEASE(buff);
+
+	if (result == NULL)
+	{
+		LOG("Error loading objects data: %s", result.description());
+		return false;
+	}
+
+	//Loading Objects
+	pugi::xml_node spriteNode = obj_data.child("TextureAtlas").first_child();
+	while (spriteNode != NULL)
+	{
+		ObjectTexture newObject(OBJECT_NONE, {});
+		newObject.SetType(spriteNode);
+		newObject.SetRect(spriteNode);
+
+		if (newObject.type != OBJECT_NONE)
+		{
+			objectTextures.push_back(newObject);
+		}
+		spriteNode = spriteNode.next_sibling();
+	}
 
 	return true;
 }
@@ -57,6 +94,14 @@ Entity * j1EntityManager::CreateBoss(fPoint pos)
 {
 	unitID++;
 	Entity* new_entity = (Entity*) new Boss(BOSS, pos, unitID);
+	entity_list.push_back(new_entity);
+	return new_entity;
+}
+
+Entity* j1EntityManager::CreateObject(OBJECT_TYPE type, fPoint pos)
+{
+	objectID++;
+	Entity* new_entity = (Entity*) new Object(type, pos);
 	entity_list.push_back(new_entity);
 	return new_entity;
 }
@@ -177,37 +222,6 @@ void j1EntityManager::UnselectEverything()
 			it._Ptr->_Myval->SetEntityStatus(E_NON_SELECTED);
 		}
 	}
-	/*if(App->scene->IsInGame())
-	{
-		
-
-		if (App->entity_manager->archerySelected == true)
-		{
-			tmpElement = App->gui->FindElement(App->gui->guiList, "ArcherCreatorButton");
-			if (tmpElement->GetMouseInside)
-			{
-
-			}
-			tmpElement->SetActive(false);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonArchery");
-			tmpElement->SetActive(false);
-		}
-		if (App->entity_manager->barracksSelected == true)
-		{
-			tmpElement = App->gui->FindElement(App->gui->guiList, "SamuraiCreatorButton");
-			tmpElement->SetActive(false);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonBarrack");
-			tmpElement->SetActive(false);
-		}
-		if (App->entity_manager->stableSelected == true)
-		{
-			tmpElement = App->gui->FindElement(App->gui->guiList, "TarkanCreatorButton");
-			tmpElement->SetActive(false);
-			tmpElement = App->gui->FindElement(App->gui->guiList, "RepairButtonStable");
-			tmpElement->SetActive(false);
-		}
-	}*/
-
 }
 
 void j1EntityManager::DeleteEntity(Entity * ptr)
@@ -278,4 +292,123 @@ bool j1EntityManager::PostUpdate()
 		}
 	}
 	return true;
+}
+
+SDL_Rect j1EntityManager::getObjectRect(OBJECT_TYPE type)
+{
+	for (std::vector<ObjectTexture>::iterator it = objectTextures.begin(); it != objectTextures.end(); it++)
+	{
+		if ((*it).type == type)
+		{
+			return (*it).section;
+		}
+	}
+	return{ 0,0,0,0 };
+}
+
+void ObjectTexture::SetType(pugi::xml_node node)
+{
+	if (strcmp(node.attribute("n").as_string(), "asianWallH") == 0) {
+		type = ASIAN_WALL_H;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallL") == 0) {
+		type = ASIAN_WALL_L;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallR") == 0) {
+		type = ASIAN_WALL_R;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallT") == 0) {
+		type = ASIAN_WALL_T;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallV") == 0) {
+		type = ASIAN_WALL_V;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallRdmg") == 0) {
+		type = ASIAN_WALL_R_DMG;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallLdmg") == 0) {
+		type = ASIAN_WALL_L_DMG;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallTdmg") == 0) {
+		type = ASIAN_WALL_T_DMG;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallVdmg") == 0) {
+		type = ASIAN_WALL_V_DMG;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo1") == 0) {
+		type = BAMBOO1;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo2") == 0) {
+		type = BAMBOO2;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo3") == 0) {
+		type = BAMBOO3;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo4") == 0) {
+		type = BAMBOO4;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "BannerA") == 0) {
+		type = BANNERA;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "BannerB") == 0) {
+		type = BANNERB;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Charriot") == 0) {
+		type = CHARRIOT;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeR") == 0) {
+		type = PALISADE_R;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeL") == 0) {
+		type = PALISADE_L;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeT") == 0) {
+		type = PALISADE_T;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeH") == 0) {
+		type = PALISADE_H;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeV") == 0) {
+		type = PALISADE_V;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "SkeletonsGroup") == 0) {
+		type = SKELETONS_GROUP;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "SkullPile") == 0) {
+		type = SKULL_PILE;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TorchFloorSquare") == 0) {
+		type = TORCH_FLOOR_SQUARE;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TorchFloorTwisted") == 0) {
+		type = TORCH_FLOOR_TWISTED;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TrashLarge") == 0) {
+		type = TRASH_LARGE;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TrashMedium") == 0) {
+		type = TRASH_MEDIUM;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TrashSmall") == 0) {
+		type = TRASH_SMALL;
+	}
+	else
+	{
+		type = OBJECT_NONE;
+		LOG("ERROR: XML Node OBJECT TYPE does not match");
+	}
+}
+
+void ObjectTexture::SetRect(pugi::xml_node node)
+{
+	section.x = node.attribute("x").as_int();
+	section.y = node.attribute("y").as_int();
+	section.w = node.attribute("w").as_int();
+	section.h = node.attribute("h").as_int();
+}
+
+ObjectTexture::ObjectTexture(OBJECT_TYPE type, SDL_Rect rect)
+{
+	this->type = type;
+	section = rect;
 }

@@ -298,18 +298,6 @@
 
     <!-- ________________________________________________      -->
 
-
-    <button type="OptionsButton" name="StartGame" text="Okay">
-      <events>
-        <event action="2097152" origin="16"/>
-      </events>
-      <listeners>
-        <listener name="scene"/>
-      </listeners>
-      <position x="650" y="990" />
-      <size w="120" h="50" />
-    </button>
-
     <!-- Menu ingame ________________________________________________      -->
 		<button type="OptionsButton" name="OptionsButton" text="">
       <events>

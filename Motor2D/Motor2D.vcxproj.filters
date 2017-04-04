@@ -97,6 +97,9 @@
     <ClCompile Include="Boss.cpp">
       <Filter>Core\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Core\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -211,6 +214,9 @@
       <Filter>Core\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
+      <Filter>Core\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
       <Filter>Core\Entities</Filter>
     </ClInclude>
   </ItemGroup>

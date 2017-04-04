@@ -39,6 +39,7 @@ public:
 	SDL_Texture* archeryTex = nullptr;
 	SDL_Texture* barracsTex = nullptr;
 	SDL_Texture* stableTex = nullptr;
+	SDL_Texture* objectsTex = nullptr;
 };
 
 
