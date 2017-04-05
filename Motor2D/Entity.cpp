@@ -3,6 +3,8 @@
 #include "j1App.h"
 #include "j1Gui.h"
 #include "j1EntityManager.h"
+#include "j1Pathfinding.h"
+#include "j1Map.h"
 
 Entity::Entity(ENTITY_TYPE entity_type, fPoint pos): to_delete (false), entity_type(entity_type), position(pos)
 {
@@ -107,8 +109,13 @@ void Entity::SetEntityStatus(ENTITY_STATUS status)
 
 void Entity::SetPosition(float x, float y)
 {
-	position.x = x;
-	position.y = y;
+	iPoint map;
+	map = App->map->WorldToMap(x, y);
+	if (App->pathfinding->IsWalkable(iPoint(map.x, map.y)))
+	{
+		position.x = x;
+		position.y = y;
+	}
 }
 
 int Entity::GetHP() const

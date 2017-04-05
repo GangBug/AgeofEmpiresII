@@ -57,8 +57,12 @@ uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 {
 	if(CheckBoundaries(pos))
 		return map[(pos.y*width) + pos.x];
+	else
+	{
+		return map[0];
+	}
 
-	return INVALID_WALK_CODE;
+	//return INVALID_WALK_CODE;
 }
 
 // To request all tiles involved in the last generated path

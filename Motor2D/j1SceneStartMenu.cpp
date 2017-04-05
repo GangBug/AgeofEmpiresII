@@ -91,8 +91,8 @@ bool j1SceneStartMenu::CleanUp()
 
 void j1SceneStartMenu::AudioLoader()
 {
-	menuHover = App->audio->LoadFx("audio/fx/Menu_Select.wav");
-	menuSelect = App->audio->LoadFx("audio/fx/Menu_Hover.wav");
+	menuHover = App->audio->LoadFx("audio/fx/Menu_Select.wav.wav");
+	menuSelect = App->audio->LoadFx("audio/fx/Menu_Hover.wav.wav");
 }
 
 bool j1SceneStartMenu::UILoader()

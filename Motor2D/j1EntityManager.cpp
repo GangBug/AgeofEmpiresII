@@ -308,7 +308,11 @@ bool j1EntityManager::Update(float dt)
 
 	for (std::list<Entity*>::iterator it = entity_list.begin(); it != entity_list.end(); ++it)
 	{
-		it._Ptr->_Myval->Update();
+		if ((*it)->GetX() > 10000 || (*it)->GetY() > 10000)
+		{
+			(*it)->GetX();
+		}
+		(*it)->Update();
 	}
 
 	return true;

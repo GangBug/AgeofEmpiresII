@@ -18,13 +18,14 @@ bool j1Collision::Update(float dt)
 
 	for (std::list<Entity*>::iterator unit1 = App->entity_manager->entity_list.begin(); unit1 != App->entity_manager->entity_list.end(); unit1++)
 	{
-		iPoint pos = App->map->WorldToMap(unit1._Ptr->_Myval->GetX(), unit1._Ptr->_Myval->GetY());
+		iPoint pos = App->map->WorldToMap((*unit1)->GetX(), (*unit1)->GetY());
 		Unit* unit_1 = (Unit*)unit1._Ptr->_Myval;
 		//this shouldn't happen, but if any case:
 		if (!App->pathfinding->IsWalkable(pos) && unit_1->state != MOVING && unit_1->state != MOVING_TO_ATTACK && unit_1->GetEntityType() == UNIT)
 		{
 			iPoint tile = FindClosestWalkable((Unit*)unit1._Ptr->_Myval);
-			unit1._Ptr->_Myval->SetPosition(tile.x, tile.y);
+			if (App->pathfinding->IsWalkable(iPoint(tile.x, tile.y)))
+				unit1._Ptr->_Myval->SetPosition(tile.x, tile.y);
 		}
 		else
 		{
@@ -65,7 +66,8 @@ iPoint j1Collision::FindClosestWalkable(Unit* unit)
 	iPoint origin = tile;
 
 	int dist = 1;
-
+	if (!App->pathfinding->IsWalkable(tile))
+		return iPoint(0, 0);
 	while (!found)
 	{
 		tile.y += dist;
