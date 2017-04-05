@@ -198,6 +198,17 @@ void j1EntityManager::SelectInClick(int x, int y)
 	}
 }
 
+void j1EntityManager::DispawnEnemies()
+{
+	for (std::list<Entity*>::iterator it = entity_list.begin(); it != entity_list.end(); it++)
+	{
+		if ((*it)->GetEntityType() == UNIT) {
+			if (dynamic_cast<Unit*>(*it)->GetUnitType() == VILE)
+				dynamic_cast<Unit*>(*it)->SetHp(0);
+		}
+	}
+}
+
 void j1EntityManager::UnselectEverything()
 {
 	for (std::list<Entity*>::iterator it = entity_list.begin(); it != entity_list.end(); it++)

@@ -129,100 +129,109 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 
 void Unit::Update()
 {
-	if (!AI)
+	if (GetHP() > 0) 
 	{
-		if (state == NONE) 
+		if (!AI)
 		{
-			CheckSurroundings();
-		}
-
-		if (App->input->GetMouseButtonDown(3) == KEY_DOWN && this->GetEntityStatus() == E_SELECTED)
-		{
-			this->path_list.clear();
-			App->input->GetMousePosition(destination.x, destination.y);
-			destination.x -=  App->render->camera->GetPosition().x;
-			destination.y -=  App->render->camera->GetPosition().y;
-
-			destin = { destination };
-
-			if (this->GetPath(destination) != -1)
+			if (state == NONE)
 			{
-				arrived = false;
-				path_list.pop_front();
-				GetNextTile();
-				this->action_type = WALK;
-				if (state == NONE) 
+				CheckSurroundings();
+			}
+
+			if (App->input->GetMouseButtonDown(3) == KEY_DOWN && this->GetEntityStatus() == E_SELECTED)
+			{
+				this->path_list.clear();
+				App->input->GetMousePosition(destination.x, destination.y);
+				destination.x -= App->render->camera->GetPosition().x;
+				destination.y -= App->render->camera->GetPosition().y;
+
+				destin = { destination };
+
+				if (this->GetPath(destination) != -1)
 				{
-					state = MOVING;
+					arrived = false;
+					path_list.pop_front();
+					GetNextTile();
+					this->action_type = WALK;
+					if (state == NONE)
+					{
+						state = MOVING;
+					}
+					else
+					{
+						state = FLEEING;
+						enemy = nullptr;
+					}
 				}
-				else 
+				else
 				{
-					state = FLEEING;
-					enemy = nullptr;
+					state = NONE;
+					this->action_type = IDLE;
 				}
 			}
-			else
+
+			if (state == MOVING)
 			{
-				state = NONE;
-				this->action_type = IDLE;
+				Move();
+				CheckSurroundings();
+			}
+
+			if (state == MOVING_TO_ATTACK || state == FLEEING)
+			{
+				Move();
+			}
+
+			if (state == ATTACKING)
+			{
+				AttackUnit();
 			}
 		}
 
-		if (state == MOVING)
+		else if (AI)
 		{
-			Move();
-			CheckSurroundings();
+			DoAI();
 		}
 
-		if (state == MOVING_TO_ATTACK || state == FLEEING)
+		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && this->GetEntityStatus() == E_SELECTED)
 		{
-			Move();
+			debug = !debug;
 		}
 
-		if (state == ATTACKING)
+		if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		{
-			AttackUnit();
+			if (GetEntityStatus() == E_SELECTED)
+			{
+				deathTimer.Start();
+				this->action_type = DIE;
+				DIRECTION temp_dir = direction;
+
+				switch (temp_dir)
+				{
+				case NORTH_EAST:
+					temp_dir = NORTH_WEST;
+					break;
+
+				case EAST:
+					temp_dir = WEST;
+					break;
+
+				case SOUTH_EAST:
+					temp_dir = SOUTH_WEST;
+					break;
+				}
+				Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, temp_dir);
+				anim->Reset();
+
+			}
 		}
 	}
 
-	else if (AI)
+	else
 	{
-		DoAI();
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN && this->GetEntityStatus() == E_SELECTED)
-	{
-		debug = !debug;
+		Die();
 	}
 	
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		if (GetEntityStatus() == E_SELECTED)
-		{
-			deathTimer.Start();
-			this->action_type = DIE;
-			DIRECTION temp_dir = direction;
-
-			switch (temp_dir)
-			{
-			case NORTH_EAST:
-				temp_dir = NORTH_WEST;
-				break;
-
-			case EAST:
-				temp_dir = WEST;
-				break;
-
-			case SOUTH_EAST:
-				temp_dir = SOUTH_WEST;
-				break;
-			}
-			Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, temp_dir);
-			anim->Reset();
-		
-		}
-	}
-	if (App->anim->GetAnimation(GetUnitType(), action_type, direction)->Finished() == true && action_type == DIE) 
+	/*if (App->anim->GetAnimation(GetUnitType(), action_type, direction)->Finished() == true && action_type == DIE) 
 	{
 		this->action_type = DISAPPEAR; //CURRENTLY NOT WORKING 
 		Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, direction);
@@ -248,13 +257,6 @@ void Unit::PostUpdate()
 	if (enemy != nullptr && enemy->state == DEAD)
 	{
 		enemy = nullptr;
-	}
-
-	if (GetHP() <= 0) 
-	{
-		state = DEAD;
-		this->action_type = DIE;
-		App->entity_manager->DeleteUnit(this);
 	}
 
 	
@@ -882,7 +884,38 @@ void Unit::DrawDebugRadius()
 
 void Unit::Die()
 {
+	if (action_type != DIE && action_type != DISAPPEAR) {
+		this->action_type = DIE;
+		DIRECTION temp_dir = direction;
 
+		switch (temp_dir)
+		{
+		case NORTH_EAST:
+			temp_dir = NORTH_WEST;
+			break;
+
+		case EAST:
+			temp_dir = WEST;
+			break;
+
+		case SOUTH_EAST:
+			temp_dir = SOUTH_WEST;
+			break;
+		}
+		Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, temp_dir);
+		anim->Reset();
+	}
+
+	if (App->anim->GetAnimation(GetUnitType(), action_type, direction)->Finished() == true && action_type == DIE)
+	{
+		this->action_type = DISAPPEAR; //CURRENTLY NOT WORKING 
+		Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, direction);
+		anim->Reset();
+	}
+	else if (App->anim->GetAnimation(GetUnitType(), action_type, direction)->Finished() == true && action_type == DISAPPEAR)
+	{
+		App->entity_manager->DeleteUnit(this); //CURRENTLY NOT WORKING 
+	}
 }
 
 bool Unit::GetAI() const

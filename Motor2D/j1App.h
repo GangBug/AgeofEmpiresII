@@ -25,6 +25,7 @@ class j1Animation;
 class j1UIManager;
 class j1EntityManager;
 class j1Collision;
+class j1VictoryScene;
 
 class j1App
 {
@@ -89,16 +90,14 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
-
-
 public:
-
 	// Modules
 	j1Window*			win = nullptr;
 	j1Input*			input = nullptr;
 	j1Render*			render = nullptr;
 	j1Textures*			tex = nullptr;
 	j1Audio*			audio = nullptr;
+	j1VictoryScene*		victoryScene = nullptr;
 	j1Scene*			scene = nullptr;
 	j1SceneStartMenu*   sceneStart = nullptr;
 	j1FileSystem*		fs = nullptr;

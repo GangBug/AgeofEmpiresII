@@ -113,6 +113,7 @@
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="Units.cpp" />
+    <ClCompile Include="j1VictoryScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bezier.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="j1SceneStartMenu.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1EntityManager.h" />
+    <ClInclude Include="j1VictoryScene.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />

@@ -100,6 +100,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Core\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="j1VictoryScene.cpp">
+      <Filter>Core\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -218,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Core\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="j1VictoryScene.h">
+      <Filter>Core\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

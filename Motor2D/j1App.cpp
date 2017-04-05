@@ -18,6 +18,7 @@
 #include "j1EntityManager.h"
 #include "j1Collision.h"
 #include "j1SceneStartMenu.h"
+#include "j1VictoryScene.h"
 #include "j1Gui.h"
 #include "j1Fonts.h"
 
@@ -49,6 +50,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	map = new j1Map();
 	sceneStart = new j1SceneStartMenu();
 	scene = new j1Scene();
+	victoryScene = new j1VictoryScene();
 	gui = new j1GUI();
 	font = new j1Fonts();
 
@@ -70,11 +72,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collision);
 
 	// scene last
+	AddModule(victoryScene);
 	AddModule(sceneStart);
 	AddModule(scene);
 	AddModule(entity_manager);
 
-	
 	// render last to swap buffer
 	AddModule(render);
 
@@ -247,22 +249,22 @@ void j1App::FinishUpdate()
 	frames_on_last_update = prev_last_sec_frame_count;
 
 
-	//int x, y;
-	//App->input->GetMousePosition(x, y);
-	//iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera->GetPosition().x, y - App->render->camera->GetPosition().y);
-	//iPoint mouse;
-	//App->input->GetMousePosition(mouse.x, mouse.y);
-	//mouse.x -= App->render->camera->GetPosition().x;
-	//mouse.y -= App->render->camera->GetPosition().y;
-	//static char title[256];
-	//sprintf_s(title, 256, "Mouse: %d, %d    Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d,         Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ", 
-	//	mouse.x, mouse.y,
-	//	App->map->data.width, App->map->data.height,
-	//	App->map->data.tile_width, App->map->data.tile_height,
-	//	App->map->data.tilesets.size(),
-	//	map_coordinates.x, map_coordinates.y,
-	//	avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
-	//App->win->SetTitle(title);
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera->GetPosition().x, y - App->render->camera->GetPosition().y);
+	iPoint mouse;
+	App->input->GetMousePosition(mouse.x, mouse.y);
+	mouse.x -= App->render->camera->GetPosition().x;
+	mouse.y -= App->render->camera->GetPosition().y;
+	static char title[256];
+	sprintf_s(title, 256, "Mouse: %d, %d    Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d,         Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ", 
+		mouse.x, mouse.y,
+		App->map->data.width, App->map->data.height,
+		App->map->data.tile_width, App->map->data.tile_height,
+		App->map->data.tilesets.size(),
+		map_coordinates.x, map_coordinates.y,
+		avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frame_count);
+	App->win->SetTitle(title);
 
 	if (capped_ms > 0 && last_frame_ms < capped_ms)
 	{

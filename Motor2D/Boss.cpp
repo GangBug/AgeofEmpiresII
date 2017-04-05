@@ -79,6 +79,10 @@ void Boss::Update()
 		break;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		this->SetHp(GetHP() - 200);
+	}
 
 
 	DrawDebugRadius();

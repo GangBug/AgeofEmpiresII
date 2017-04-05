@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 class UILabel;
@@ -80,6 +81,8 @@ private:
 	bool preGame;
 	bool onMenuInGame=true;
 	bool quit = true;
+
+	j1Timer victoryTimer;
 public:// Audio
 
 

@@ -17,6 +17,7 @@
 #include "Buildings.h"
 #include "Object.h"
 #include "j1SceneStartMenu.h"
+#include "j1VictoryScene.h"
 #include "j1Gui.h"
 #include "GUIImage.h"
 
@@ -59,7 +60,7 @@ bool j1Scene::Start()
 
 	if (inGame == true)
 	{//checks if the player is ingame			
-	
+		victoryTimer.Stop();
 		App->render->camera->SetCenter({ -1500, 1500 }); //Camera Initial Pos
 
 		App->entity_manager->PlaceObjects();
@@ -104,7 +105,7 @@ bool j1Scene::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 			App->SaveGame("save_game.xml");
 
-	
+
 
 		// MOVEMENT OF THE CAMERA	 ------------------------------------
 
@@ -116,7 +117,7 @@ bool j1Scene::Update(float dt)
 		the screen the surface is re-scaled, the magic numbers are simply numbers
 		of divisions to establish the surface
 		*/
-		
+
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || App->input->GetMousePosition().y < 5)
 		{
 			App->render->camera->MoveUp(floor(300.0f * dt));
@@ -137,9 +138,9 @@ bool j1Scene::Update(float dt)
 		{
 			App->render->camera->MoveRight(floor(300.0f * dt));
 		}
-		
+
 		// MOVEMENT OF THE CAMERA	------------------------------------
-		
+
 		if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
 			App->render->camera->Zoom(1);
 
@@ -159,17 +160,15 @@ bool j1Scene::Update(float dt)
 				App->gui->menuControl(false);
 				onMenuInGame = false;
 			}
-			else 
+			else
 			{
 				App->gui->menuControl(true);
 				onMenuInGame = true;
 			}
 		}
-
 		App->map->Draw();
 		DrawDebug();
 	}
-	
 	return true;
 }
 
@@ -199,9 +198,23 @@ bool j1Scene::PostUpdate()
 		////green
 		//App->render->DrawQuad({ (int)boss->GetX() - ((BOSSHP * 100) / 2000 + 10) / 2, (int)boss->GetY(), (boss->GetHP() * 100) / 2000, 10 }, 0, 255, 0, 255);
 
+		Selector();//SELECTION
+
+		if (boss->GetHP() <= 0 && inGame == true && victoryTimer.IsStopped())
+		{
+			App->entity_manager->DispawnEnemies();
+			victoryTimer.Start();
+		}
+		if (victoryTimer.ReadSec() > 4)
+		{
+			App->victoryScene->SetInMenu();
+			inGame = false;
+			victoryTimer.Stop();
+		}
+
 	}
 
-	Selector();//SELECTION
+	
 
 	return ret; 
 }
@@ -327,7 +340,6 @@ bool j1Scene::UILoader()
 	tmpElement->SetActive(false);
 
 	//window menu
-
 	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuWindow");
 	tmpElement->SetActive(false);
 	tmpElement = App->gui->FindElement(App->gui->guiList, "MenuButtonInGame_Resume");
@@ -346,7 +358,6 @@ bool j1Scene::UILoader()
 	//window resources
 	tmpElement = App->gui->FindElement(App->gui->guiList, "ResourceWindow");
 	tmpElement->SetActive(false);
-
 
 	return ret;
 }

@@ -51,6 +51,8 @@ public:
 	void DeleteUnit(Entity* ptr);
 	void DeleteBuilding(Entity* ptr);
 
+	void DispawnEnemies();
+
 	std::list<Entity*> entity_list;
 	bool IsUnitInTile(const Unit* unit, iPoint tile)const;
 	Unit* GetUnitInTile(iPoint tile) const;
