@@ -13,10 +13,11 @@ public:
 
 	bool Update(float dt);
 
+
 private:
 
 	bool DoUnitsIntersect(Unit* unit1, Unit* unit2);
 	iPoint FindClosestWalkable(Unit* unit);
-	void SplitUnits(Unit* unit1, Unit* unit2);
+	void SplitUnits(Unit* unit1);
 };
 #endif //_j1Collision_

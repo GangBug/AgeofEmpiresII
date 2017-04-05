@@ -89,7 +89,7 @@ bool j1Render::PostUpdate()
 
 	Draw();
 
-	if (!App->scene->IsBossNull())
+	if (App->scene->IsInGame())
 	{
 		int xbar;
 		int ybar;
@@ -632,58 +632,60 @@ void j1Render::SpriteOrdering(Entity* ent)
 
 void j1Render::Draw()
 {
-	std::deque<Entity*>::iterator it = spritePrio.begin();
-	Unit* tempUnit = nullptr;
-	Building* tempBuilding = nullptr;
-	Object* tempObject = nullptr;
-
-	for (it; it != spritePrio.end(); it++)
+	if (App->scene->IsInGame())
 	{
-		if ((*it)->GetEntityType() == UNIT)
+		std::deque<Entity*>::iterator it = spritePrio.begin();
+		Unit* tempUnit = nullptr;
+		Building* tempBuilding = nullptr;
+		Object* tempObject = nullptr;
+
+		for (it; it != spritePrio.end(); it++)
 		{
-			tempUnit = (Unit*)(*it);
-			SDL_Texture* tex = App->anim->GetTexture(tempUnit->GetUnitType());
-			SDL_Rect rect;
-			iPoint pivot;
-
-			App->anim->GetAnimationFrame(rect, pivot, tempUnit);
-
-			if (tempUnit->GetDir() == NORTH_EAST || tempUnit->GetDir() == EAST || tempUnit->GetDir() == SOUTH_EAST)
-				App->render->Blit(tex, tempUnit->GetX(), tempUnit->GetY(), &rect, SDL_FLIP_HORIZONTAL, pivot.x, pivot.y);
-			else
-				App->render->Blit(tex, tempUnit->GetX() - pivot.x, tempUnit->GetY() - pivot.y, &rect);
-
-			if (tempUnit->GetEntityStatus() == E_SELECTED)
-				App->render->DrawCircle(tempUnit->GetX() + App->render->camera->GetPosition().x, tempUnit->GetY() + App->render->camera->GetPosition().y, 8, 255, 255, 255);
-		}
-		if ((*it)->GetEntityType() == BUILDING)
-		{
-			tempBuilding = (Building*)(*it);
-			switch (tempBuilding->buildingType)
+			if ((*it)->GetEntityType() == UNIT)
 			{
-			case ARCHERY:
-				App->render->Blit(App->tex->archeryTex, tempBuilding->GetX(), tempBuilding->GetY());
-				break;
-			case BARRACK:
-				App->render->Blit(App->tex->barracsTex, tempBuilding->GetX(), tempBuilding->GetY());
-				break;
-			case STABLE:
-				App->render->Blit(App->tex->stableTex, tempBuilding->GetX(), tempBuilding->GetY());
-				break;
+				tempUnit = (Unit*)(*it);
+				SDL_Texture* tex = App->anim->GetTexture(tempUnit->GetUnitType());
+				SDL_Rect rect;
+				iPoint pivot;
+
+				App->anim->GetAnimationFrame(rect, pivot, tempUnit);
+
+				if (tempUnit->GetDir() == NORTH_EAST || tempUnit->GetDir() == EAST || tempUnit->GetDir() == SOUTH_EAST)
+					App->render->Blit(tex, tempUnit->GetX(), tempUnit->GetY(), &rect, SDL_FLIP_HORIZONTAL, pivot.x, pivot.y);
+				else
+					App->render->Blit(tex, tempUnit->GetX() - pivot.x, tempUnit->GetY() - pivot.y, &rect);
+
+				if (tempUnit->GetEntityStatus() == E_SELECTED)
+					App->render->DrawCircle(tempUnit->GetX() + App->render->camera->GetPosition().x, tempUnit->GetY() + App->render->camera->GetPosition().y, 8, 255, 255, 255);
 			}
-			if (tempBuilding->GetEntityStatus() == E_SELECTED)
+			if ((*it)->GetEntityType() == BUILDING)
 			{
-				App->render->DrawCircle(tempBuilding->GetX() + App->render->camera->GetPosition().x + (tempBuilding->buildingWidth / 2), tempBuilding->GetY() + App->render->camera->GetPosition().y + (tempBuilding->buildingHeight / 2) , tempBuilding->buildingRadius, 255, 255, 255);
+				tempBuilding = (Building*)(*it);
+				switch (tempBuilding->buildingType)
+				{
+				case ARCHERY:
+					App->render->Blit(App->tex->archeryTex, tempBuilding->GetX(), tempBuilding->GetY());
+					break;
+				case BARRACK:
+					App->render->Blit(App->tex->barracsTex, tempBuilding->GetX(), tempBuilding->GetY());
+					break;
+				case STABLE:
+					App->render->Blit(App->tex->stableTex, tempBuilding->GetX(), tempBuilding->GetY());
+					break;
+				}
+				if (tempBuilding->GetEntityStatus() == E_SELECTED)
+				{
+					App->render->DrawCircle(tempBuilding->GetX() + App->render->camera->GetPosition().x + (tempBuilding->buildingWidth / 2), tempBuilding->GetY() + App->render->camera->GetPosition().y + (tempBuilding->buildingHeight / 2), tempBuilding->buildingRadius, 255, 255, 255);
+				}
+			}
+			if ((*it)->GetEntityType() == OBJECT)
+			{
+				tempObject = (Object*)(*it);
+				App->render->Blit(App->tex->objectsTex, tempObject->GetX(), tempObject->GetY(), &App->entity_manager->getObjectRect(tempObject->type));
 			}
 		}
-		if ((*it)->GetEntityType() == OBJECT)
-		{
-			tempObject = (Object*)(*it);
-			App->render->Blit(App->tex->objectsTex, tempObject->GetX(), tempObject->GetY(), &App->entity_manager->getObjectRect(tempObject->type));
-		}
+		spritePrio.clear();
 	}
-	spritePrio.clear();
-
 	App->gui->Draw();
 
 	if (App->debug)

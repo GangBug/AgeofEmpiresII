@@ -122,6 +122,8 @@ public:
 	void PopFirstPath();
 	void AddPath(iPoint new_goal);
 
+	bool GoTo(iPoint destination);
+
 	//TACTIC
 	bool AttackUnit();
 	bool CheckSurroundings();

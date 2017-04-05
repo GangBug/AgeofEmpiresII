@@ -343,6 +343,22 @@ void Unit::AddPath(iPoint new_goal)
 	path_list.push_back(new_goal);
 }
 
+bool Unit::GoTo(iPoint destination)
+{
+	path_list.clear();
+	if (this->GetPath({ destination.x, destination.y }) != -1)
+	{
+		path_list.pop_front();
+		GetNextTile();
+		this->action_type = WALK;
+		this->state = MOVING;
+		this->destination.x = destination.x;
+		this->destination.y = destination.y;
+		return true;
+	}
+	return false;
+}
+
 bool Unit::GetNextTile()
 {
 	bool ret = true;
