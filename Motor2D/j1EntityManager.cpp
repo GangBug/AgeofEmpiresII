@@ -56,7 +56,7 @@ bool j1EntityManager::LoadObjects()
 		return false;
 	}
 
-	//Loading Objects
+	//Loading Objects Sprites
 	pugi::xml_node spriteNode = obj_data.child("TextureAtlas").first_child();
 	while (spriteNode != NULL)
 	{
@@ -69,6 +69,32 @@ bool j1EntityManager::LoadObjects()
 			objectTextures.push_back(newObject);
 		}
 		spriteNode = spriteNode.next_sibling();
+	}
+
+	return true;
+}
+
+bool j1EntityManager::PlaceObjects()
+{
+	std::string obj_folder = "objects/Objects_creator.xml";	//Load Objects data from object folder
+	char* buff = nullptr;
+	int size = App->fs->Load(obj_folder.c_str(), &buff);
+	pugi::xml_document obj_data;
+	pugi::xml_parse_result result = obj_data.load_buffer(buff, size);
+	RELEASE(buff);
+
+	if (result == NULL)
+	{
+		LOG("Error loading objects data: %s", result.description());
+		return false;
+	}
+
+	//Loading Objects Sprites
+	pugi::xml_node objectNode = obj_data.child("Objects").first_child();
+	while (objectNode != NULL)
+	{
+		CreateObject(OBJECT_TYPE(objectNode.attribute("type").as_int()), { objectNode.attribute("x").as_float(),objectNode.attribute("y").as_float() });
+		objectNode = objectNode.next_sibling();
 	}
 
 	return true;
