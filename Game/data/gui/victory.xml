@@ -10,6 +10,32 @@
 					<section type="clicked" x="14" y="581" w="305" h="43" />
 				</sections>
 			</button>
+    
+    			<button type_name="button" have_animations="0">
+				<sections>
+					<section type="standBy" x="14" y="481" w="305" h="43" />
+					<section type="hover" x="14" y="531" w="305" h="43" />
+					<section type="clicked" x="14" y="581" w="305" h="43" />
+				</sections>
+			</button>
+
+    <button type_name="buttonPlay" have_animations="0">
+      <sections>
+        <section type="standBy" x="1659" y="39" w="435" h="165" />
+        <section type="hover" x="1659" y="210" w="435" h="165" />
+        <section type="clicked" x="1659" y="385" w="435" h="165" />
+      </sections>
+    </button>
+
+      <button type_name="buttonQuit" have_animations="0">
+        <sections>
+          <section type="standBy" x="1667" y="573" w="434" h="144" />
+          <section type="hover" x="1667" y="729" w="434" h="144" />
+          <section type="clicked" x="1667" y="903" w="434" h="144" />
+        </sections>
+      </button>
+    </buttons>
+      
 		</buttons>
 		
 		<imgs>

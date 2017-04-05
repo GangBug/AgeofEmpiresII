@@ -59,7 +59,7 @@ bool j1Scene::Start()
 		App->audio->PlayTheme(App->audio->thirdMission);
 
 		App->render->camera->SetCenter({ -1500, 1500 }); //Camera Initial Pos
-
+		
 		App->entity_manager->PlaceObjects();
 		MapLoader();
 		ret = UILoader();
