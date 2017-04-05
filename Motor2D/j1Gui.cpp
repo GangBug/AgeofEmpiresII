@@ -18,7 +18,7 @@
 #include "GUILabel.h"
 #include "GUIButton.h"
 #include "GUIAutoLabel.h"
-
+#include "j1Window.h"
 
 
 
@@ -798,6 +798,7 @@ GUILabel * j1GUI::CreateLabel(GB_Rectangle<int> _position, label_size _size, std
 	}
 	return ret;
 }
+
 GUIImage * j1GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section, std::string name)
 {
 	GUIImage* image = new GUIImage(name);
@@ -831,10 +832,19 @@ GUIImage * j1GUI::CreateImageFromPreset(GB_Rectangle<int> _position, std::string
 	return ret;
 }
 
+float j1GUI::GetScaleY() const
+{
+}
+
+float j1GUI::GetScaleX() const
+{
+}
+
 bool j1GUI::GetUIEditing() const
 {
 	return UIEditing;
 }
+
 void j1GUI::SetUIEditing(bool edit)
 {
 	UIEditing = edit;

@@ -19,7 +19,7 @@
   </uimanager>
     
   <window>
-    <resolution width="1024" height="576" scale="1"/>
+    <resolution width="1680" height="1050" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>

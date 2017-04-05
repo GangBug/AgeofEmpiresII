@@ -7,9 +7,9 @@
 #include "GB_Rectangle.h"
 #include "GUIAutoLabel.h"
 
-#define WINDOWSCALE 0.535
-#define WINDOWSCALEINV 1.8691589
 
+#define UISIZEX 1920
+#define UISIZEY 1080
 
 class GUIElement;
 class GUIButton;
@@ -80,10 +80,13 @@ public:
 	GUIImage*	CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset, std::string name); // From a preset
 	GUIMouse*	CreateMouse();
 
+	float GetScaleY()const;
+	float  GetScaleX()const;
 
 	bool GetUIEditing() const;
 	void SetUIEditing(bool edit);
 	void menuControl(bool enable);
+
 public:
 	std::list<GUIElement*> background;
 	std::list<GUIElement*> guiList;
@@ -91,6 +94,9 @@ public:
 	std::list<GUIElement*> editorGuiList;
 
 	CBeizier* cBeizier = nullptr;
+
+	int RScaleInv = 0;
+	int RScale = 0;
 
 private:
 

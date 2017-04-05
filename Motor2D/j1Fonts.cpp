@@ -33,13 +33,13 @@ bool j1Fonts::Awake(pugi::xml_node& conf)
 	{
 		const char* path = conf.child("default_font").attribute("file").as_string(DEFAULT_FONT);
 		int size = conf.child("default_font").attribute("size").as_int(DEFAULT_FONT_SIZE);
-		defaultFont = Load(path, size*WINDOWSCALE);
+		defaultFont = Load(path, size*(float)(App->gui->GetScaleX()));
 		//char* path = conf.child("medium_font").attribute("file").as_string(DEFAULT_FONT);
 		size = conf.child("medium_font").attribute("size").as_int(MEDIUM_FONT_SIZE);
-		mediumFont = Load(path, size*WINDOWSCALE);
+		mediumFont = Load(path, size*(float)App->gui->GetScaleX());
 		//char* path = conf.child("small_font").attribute("file").as_string(DEFAULT_FONT);
 		size = conf.child("small_font").attribute("size").as_int(SMALL_FONT_SIZE);
-		smallFont = Load(path, size*WINDOWSCALE);
+		smallFont = Load(path, size*(float)App->gui->GetScaleX());
 
 	}
 
