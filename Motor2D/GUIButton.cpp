@@ -79,10 +79,13 @@ void GUIButton::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus
 			{
 				image->SetSection(standBySection);
 			}
+			label->Center(); //FIX: this should not go here
 		}
 
 		//This goes the last 4ever
 		SetStatusChanged(false);
+
+		
 	}
 }
 void GUIButton::Draw() const

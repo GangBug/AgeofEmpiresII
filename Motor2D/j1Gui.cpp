@@ -657,13 +657,13 @@ void j1GUI::DrawEditor()
 }
 void j1GUI::DrawDebug()
 {
-	int x;
-	int y;
-	App->input->GetMousePosition(x, y);
-	xMouse->SetText(std::to_string(x).c_str(), SMALL);
-	yMouse->SetText(std::to_string(y).c_str(), SMALL);
-	xMouse->SetGlobalPos(x + 10, y);
-	yMouse->SetGlobalPos(x + 40, y);
+	//int x;
+	//int y;
+	//App->input->GetMousePosition(x, y);
+	//xMouse->SetText(std::to_string(x).c_str(), SMALL);
+	//yMouse->SetText(std::to_string(y).c_str(), SMALL);
+	//xMouse->SetGlobalPos(x + 10, y);
+	//yMouse->SetGlobalPos(x + 40, y);
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
@@ -671,6 +671,19 @@ void j1GUI::DrawDebug()
 		{
 			GB_Rectangle<float> rect = (*it)->GetDrawRect();
 			App->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
+			if ((*it)->GetType() == GUI_BUTTON)
+			{
+				GUIButton* btn = (GUIButton*)(*it);
+				GB_Rectangle<int> btn_rect = btn->label->GetLocalRect();
+				App->render->DrawQuad({ btn_rect.x, btn_rect.y, btn_rect.w, btn_rect.h }, 255, 0, 0, 255, false, false);
+				iPoint h_origin = { btn->GetLocalRect().x,  btn->GetLocalRect().y + btn->GetSize().y / 2 };
+				iPoint h_destiny = { btn->GetLocalRect().x + btn->GetSize().x,  btn->GetLocalRect().y + btn->GetSize().y / 2 };
+				App->render->DrawLine(h_origin.x, h_origin.y, h_destiny.x, h_destiny.y, 0, 0, 255, 255);
+				iPoint v_origin = { btn->GetLocalRect().x + btn->GetSize().x / 2,  btn->GetLocalRect().y};
+				iPoint v_destiny = { btn->GetLocalRect().x + btn->GetSize().x/2,  btn->GetLocalRect().y + btn->GetSize().y};
+				App->render->DrawLine(v_origin.x, v_origin.y, v_destiny.x, v_destiny.y, 0, 0, 255, 255);
+
+			}
 		}
 	}
 	//IterateList(&debugGuiList, &M_GUI::DoElementDraw);
