@@ -39,7 +39,7 @@ public:
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
 	_Mix_Music*				menuMusic = NULL;
-
+	_Mix_Music*				thirdMission = nullptr;
 private:
 
 	_Mix_Music*				music = NULL;
