@@ -834,10 +834,12 @@ GUIImage * j1GUI::CreateImageFromPreset(GB_Rectangle<int> _position, std::string
 
 float j1GUI::GetScaleY() const
 {
+	return (float)((float)App->win->GetWindowSize().y/ (float)UISIZEY);
 }
 
 float j1GUI::GetScaleX() const
 {
+	return (float)((float)App->win->GetWindowSize().x / (float)UISIZEX);
 }
 
 bool j1GUI::GetUIEditing() const
