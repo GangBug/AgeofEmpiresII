@@ -48,11 +48,11 @@ bool j1GUI::Start()
 	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &App->frames_on_last_update, "fps");
 	debugGuiList.push_back(lastFrameMS);
 	debugGuiList.push_back(fps);
-	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
-	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
+	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, DEFAULT, "ms"));
+	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, DEFAULT, "fps"));
 
-	xMouse = new GUILabel("", SMALL, "mousex");
-	yMouse = new GUILabel("", SMALL, "mousey");
+	xMouse = new GUILabel("", DEFAULT, "mousex");
+	yMouse = new GUILabel("", DEFAULT, "mousey");
 
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
