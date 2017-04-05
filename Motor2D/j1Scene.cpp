@@ -117,39 +117,23 @@ bool j1Scene::Update(float dt)
 		of divisions to establish the surface
 		*/
 		
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT ||
-			(App->input->GetMousePosition().y < (App->render->camera->GetHeight() / sCreenDivisionsY) * 2/*Magic Numbers love <3*/) &&
-			(App->input->GetMousePosition().y >(App->render->camera->GetHeight() / sCreenDivisionsY)))
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || App->input->GetMousePosition().y < 5)
 		{
 			App->render->camera->MoveUp(floor(300.0f * dt));
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT ||
-			((App->input->GetMousePosition().y > (App->render->camera->GetHeight() / sCreenDivisionsY) * (sCreenDivisionsY - 1))) &&/*Magic Numbers love <3*/
-			App->input->GetMousePosition().y < (App->render->camera->GetHeight() - 3) &&//make define border margin 3
-			App->input->GetMousePosition().x >= (App->render->camera->GetWidth() / sCreenDivisionsX)*(sCreenDivisionsX * 0.5 + 1) ||
-			((App->input->GetMousePosition().y >(App->render->camera->GetHeight() / sCreenDivisionsY) * (sCreenDivisionsY - 6))) &&/*Magic Numbers love <3*/
-			App->input->GetMousePosition().y < (App->render->camera->GetHeight() / sCreenDivisionsY) * (sCreenDivisionsY - 5) &&
-			App->input->GetMousePosition().x <= (App->render->camera->GetWidth() / sCreenDivisionsX)*(sCreenDivisionsX * 0.5 - 1))/*Magic Numbers love <3*/
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || App->input->GetMousePosition().y > App->render->camera->GetHeight() - 5)
 		{
 			App->render->camera->MoveDown(floor(300.0f * dt));
 		}
 
 
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT ||
-			App->input->GetMousePosition().x < App->render->camera->GetWidth() / sCreenDivisionsX &&
-			App->input->GetMousePosition().x > 0 &&
-			(App->input->GetMousePosition().y <(App->render->camera->GetHeight() / sCreenDivisionsY) * (sCreenDivisionsY - 4.75f/*Magic Numbers love <3*/))
-			//(App->input->GetMousePosition().y >(App->render->camera->GetHeight() / sCreenDivisionsY)* (sCreenDivisionsY+1/*Magic Numbers love <3*/)) //TODO move with out the botton up
-			)
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || App->input->GetMousePosition().x < 5)
 		{
 			App->render->camera->MoveLeft(floor(300.0f * dt));
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT ||
-			App->input->GetMousePosition().x >((App->render->camera->GetWidth() / sCreenDivisionsX) * --sCreenDivisionsX) &&
-			App->input->GetMousePosition().x <= (App->render->camera->GetWidth() - 3) &&
-			(App->input->GetMousePosition().y <(App->render->camera->GetHeight() / sCreenDivisionsY) * (sCreenDivisionsY - 3.5f/*Magic Numbers love <3*/)))
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || App->input->GetMousePosition().x > App->render->camera->GetWidth() - 5)
 		{
 			App->render->camera->MoveRight(floor(300.0f * dt));
 		}

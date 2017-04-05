@@ -16,13 +16,13 @@ Boss::Boss(UNIT_TYPE u_type, fPoint pos, int id) : Unit(u_type, pos, id)
 	{
 	case BOSS:
 		SetHp(BOSSHP);
-		attack = 12;
+		attack = 25;
 		SetArmor(1);
-		speed = 0.9;
+		speed = 1.5f;
 		rate_of_fire = 2;
 		range = 6;
 		unit_class = INFANTRY;
-		unit_radius = 2;
+		unit_radius = 7;
 		AI = true;
 		state = NONE;
 		direction = SOUTH_WEST;

@@ -45,6 +45,7 @@ GUIElement::~GUIElement()
 		RELEASE(*it);
 	}
 	childs.clear();
+	listeners.clear();
 }
 
 void GUIElement::CheckInput(const GUIElement * mouseHover, const GUIElement * focus)

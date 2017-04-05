@@ -56,10 +56,10 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		break;
 
 	case TARKANKNIGHT:
-		SetHp(100);
-		attack = 10;
+		SetHp(160);
+		attack = 15;
 		SetArmor(1);
-		speed = 1.35f;
+		speed = 1.6f;
 		rate_of_fire = 1;
 		range = 0;
 		unit_class = CAVALRY;
@@ -69,10 +69,10 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		break;
 
 	case SAMURAI:
-		SetHp(60);
-		attack = 8;
+		SetHp(100);
+		attack = 15;
 		SetArmor(1);
-		speed = 1.0;
+		speed = 1.2f;
 		rate_of_fire = 1;
 		range = 0;
 		unit_class = INFANTRY;
@@ -82,12 +82,12 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		break;
 
 	case ARCHER:
-		SetHp(40);
-		attack = 10;
+		SetHp(30);
+		attack = 15;
 		SetArmor(1);
-		speed = 0.9f;
+		speed = 1.2f;
 		rate_of_fire = 2;
-		range = 4;
+		range = 5;
 		unit_class = RANGED;
 		unit_radius = 8;
 		AI = false;
@@ -107,14 +107,14 @@ Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u
 		break;
 
 	case VILE:
-		SetHp(250);
-		attack = 2;
+		SetHp(20);
+		attack = 5;
 		SetArmor(1);
 		speed = 2.0f;
 		rate_of_fire = 1;
 		range = 0;
 		unit_class = INFANTRY;
-		unit_radius = 5;
+		unit_radius = 7;
 		AI = true;
 		state = NONE;
 		break;
