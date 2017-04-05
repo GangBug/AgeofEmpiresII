@@ -91,8 +91,8 @@ bool j1SceneStartMenu::CleanUp()
 
 void j1SceneStartMenu::AudioLoader()
 {
-	menuHover = App->audio->LoadFx("audio/fx/Menu_Select.wav.wav");
-	menuSelect = App->audio->LoadFx("audio/fx/Menu_Hover.wav.wav");
+	menuHover = App->audio->LoadFx("audio/fx/Menu_Select.wav");
+	menuSelect = App->audio->LoadFx("audio/fx/Menu_Hover.wav");
 }
 
 bool j1SceneStartMenu::UILoader()
@@ -102,7 +102,7 @@ bool j1SceneStartMenu::UILoader()
 	ret = App->gui->LoadLayout("gui/menu.xml");
 	//App->entity_manager->CreateUnit(ARCHER, fPoint(300, 310));
 
-	GUIImage* bg = App->gui->CreateImage({ 0,0,1024,575 }, { 0, 0, 1920, 1080 }, "background");
+	GUIImage* bg = App->gui->CreateImage({ 0,0,(int)(1920*App->gui->GetScaleX()),(int)(1080 * App->gui->GetScaleY()) }, { 0, 0, 1920, 1080 }, "background");
 	SDL_Texture* sdl_tex = App->tex->Load("gui/startmenu_background.png");
 	bg->SetAtlas(sdl_tex);
 	App->gui->background.push_back(bg);
