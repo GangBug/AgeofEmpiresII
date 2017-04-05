@@ -27,6 +27,7 @@ public:
 	// Gui Event
 	void GuiEvent(GUIElement* element, int64_t event);
 
+	bool playerWon;
 private:
 	uint menuHover;
 	uint menuSelect;

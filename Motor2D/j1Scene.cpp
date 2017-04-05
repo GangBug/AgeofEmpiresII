@@ -44,8 +44,6 @@ bool j1Scene::Awake(pugi::xml_node& node)
 	preGame = true;
 	quit = false;
 
-	
-
 	return ret;
 }
 
@@ -55,7 +53,8 @@ bool j1Scene::Start()
 	bool ret = true;
 
 	if (inGame == true)
-	{//checks if the player is ingame			
+	{//checks if the player is ingame	
+
 		victoryTimer.Stop();
 		App->audio->PlayTheme(App->audio->thirdMission);
 
@@ -65,20 +64,22 @@ bool j1Scene::Start()
 		MapLoader();
 		ret = UILoader();
 		//UnitFactory();
+
 		spawnArcher = 0;
 		spawnKnight = 0;
 		spawnSamurai = 0;
+		currentFriendlyUnits = 0;
 
 		boss = App->entity_manager->CreateBoss(fPoint(900, 750));
 		App->entity_manager->CreateUnit(VILE, fPoint(500, 750));
 
 		//Buildings creation
-		archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(-1850, 1570));
-		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(-1560, 1760));
-		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(-1310, 1940));
+		archery = App->entity_manager->CreateBuilding(ARCHERY, fPoint(-1750, 1570));
+		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(-1460, 1760));
+		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(-1210, 1940));
 
 		//App->entity_manager->CreateObject(BANNERA, fPoint(600, 600));
-		gold = 20000;
+		gold = 2000;
 	}
 
 
@@ -174,15 +175,15 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (inGame == true) 
+	if (inGame == true)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) 
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		{
 			inGame = false;
 			CleanUp();
-			App->sceneStart->SetInMenu();	
-		
-		}	
+			App->sceneStart->SetInMenu();
+
+		}
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || quit == true)
 		{
 			ret = false;
@@ -204,16 +205,21 @@ bool j1Scene::PostUpdate()
 		}
 		if (victoryTimer.ReadSec() > 4)
 		{
+			App->victoryScene->playerWon = true;
 			App->victoryScene->SetInMenu();
 			inGame = false;
 			victoryTimer.Stop();
 		}
-
+		if (currentFriendlyUnits <= 0 && gold < ARCHER_COST)
+		{
+			App->victoryScene->playerWon = false;
+			App->victoryScene->SetInMenu();
+			inGame = false;
+			victoryTimer.Stop();
+		}
 	}
 
-	
-
-	return ret; 
+	return ret;
 }
 
 // Called before quitting
@@ -293,6 +299,7 @@ void j1Scene::AudioLoader()
 	menuSelect = App->audio->LoadFx("audio/FX/Menu_Select.wav");
 	//BSO
 }
+
 
 bool j1Scene::UILoader()
 {
@@ -379,12 +386,12 @@ void j1Scene::Selector()
 	if (App->input->GetMouseButtonDown(1) == KEY_UP)
 	{
 		App->entity_manager->SelectInQuad(select_rect);
-		App->entity_manager->SelectInClick(x,y);
+		App->entity_manager->SelectInClick(x, y);
 	}
 }
 
 void j1Scene::SetInGame()
-{	
+{
 	App->audio->CleanData();
 	inGame = true;
 	Start();
@@ -419,7 +426,7 @@ void j1Scene::DrawDebug()
 	if (App->debug)
 	{
 		App->render->DrawQuad({ (int)boss->GetX() - 5, (int)boss->GetY(), 10, 10 }, 255, 0, 0, 255);
-	}	
+	}
 }
 
 void j1Scene::GuiEvent(GUIElement* element, int64_t event)
@@ -431,6 +438,7 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 			spawnArcher++;
 			gold -= ARCHER_COST;
 			UnitFactory();
+			currentFriendlyUnits++;
 		}
 		if (event & ERASE_ARCHER && App->entity_manager->archerySelected == true && spawnArcher > 0)
 		{
@@ -442,6 +450,7 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 			spawnSamurai++;
 			gold -= SAMURAI_COST;
 			UnitFactory();
+			currentFriendlyUnits++;
 		}
 		if (event & ERASE_SAMURAI && App->entity_manager->barracksSelected == true && spawnSamurai > 0)
 		{
@@ -453,6 +462,7 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 			spawnKnight++;
 			gold -= KNIGHT_COST;
 			UnitFactory();
+			currentFriendlyUnits++;
 		}
 		if (event & ERASE_KNIGHT && App->entity_manager->stableSelected == true && spawnKnight > 0)
 		{
@@ -479,4 +489,3 @@ void j1Scene::GuiEvent(GUIElement* element, int64_t event)
 		}
 	}
 }
-

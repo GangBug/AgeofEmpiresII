@@ -63,6 +63,8 @@ public:
 	bool IsBossNull() const;
 	void DrawDebug();
 
+	int currentFriendlyUnits;
+
 private:
 	SDL_Texture* debug_tex = nullptr;
 	bool inGame;
@@ -83,9 +85,8 @@ private:
 	bool quit = true;
 
 	j1Timer victoryTimer;
+
 public:// Audio
-
-
 	   //FX
 	   //Units -- 
 	   //dead

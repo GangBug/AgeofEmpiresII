@@ -8,6 +8,7 @@
 #include "j1Map.h"
 #include "j1EntityManager.h"
 #include "j1Timer.h"
+#include "j1Scene.h"
 
 Unit::Unit(UNIT_TYPE u_type, fPoint pos, int id): Entity(UNIT, pos), unit_type(u_type), direction(WEST), action_type(IDLE), id(id)
 {
@@ -199,33 +200,9 @@ void Unit::Update()
 
 		if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		{
-			if (GetEntityStatus() == E_SELECTED)
-			{
-				deathTimer.Start();
-				this->action_type = DIE;
-				DIRECTION temp_dir = direction;
-
-				switch (temp_dir)
-				{
-				case NORTH_EAST:
-					temp_dir = NORTH_WEST;
-					break;
-
-				case EAST:
-					temp_dir = WEST;
-					break;
-
-				case SOUTH_EAST:
-					temp_dir = SOUTH_WEST;
-					break;
-				}
-				Animation* anim = App->anim->GetAnimation(GetUnitType(), action_type, temp_dir);
-				anim->Reset();
-
-			}
+			SetHp(0);
 		}
 	}
-
 	else
 	{
 		Die();
@@ -258,8 +235,6 @@ void Unit::PostUpdate()
 	{
 		enemy = nullptr;
 	}
-
-	
 }
 
 void Unit::Move()
@@ -296,7 +271,7 @@ void Unit::Move()
 	}
 }
 
-void Unit::DoAI()
+void Unit::DoAI() 
 {
 	if (state == NONE)
 	{
@@ -884,10 +859,11 @@ void Unit::DrawDebugRadius()
 
 void Unit::Die()
 {
-	if (action_type != DIE && action_type != DISAPPEAR) {
+	if (action_type != DIE && action_type != DISAPPEAR) 
+	{
 		this->action_type = DIE;
 		DIRECTION temp_dir = direction;
-
+		
 		switch (temp_dir)
 		{
 		case NORTH_EAST:
@@ -914,7 +890,12 @@ void Unit::Die()
 	}
 	else if (App->anim->GetAnimation(GetUnitType(), action_type, direction)->Finished() == true && action_type == DISAPPEAR)
 	{
+		if (AI == false)
+		{
+			App->scene->currentFriendlyUnits -= 1;
+		}
 		App->entity_manager->DeleteUnit(this); //CURRENTLY NOT WORKING 
+		
 	}
 }
 
