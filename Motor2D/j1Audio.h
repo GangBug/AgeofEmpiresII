@@ -30,11 +30,15 @@ public:
 	// Play a music file
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 
+	bool PlayTheme(_Mix_Music* theme);
+
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
+
+	_Mix_Music*				menuMusic = NULL;
 
 private:
 

@@ -51,6 +51,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	menuMusic = Mix_LoadMUS_RW(App->fs->Load("audio/BSO/BSO_Menu.ogg"), 1);
+	thirdMission = Mix_LoadMUS_RW(App->fs->Load("audio/BSO/BSO_ThirdMision.ogg"),1);
+
 	return ret;
 }
 
@@ -65,6 +68,16 @@ bool j1Audio::CleanUp()
 	if (music != NULL)
 	{
 		Mix_FreeMusic(music); //TODO
+	}
+
+	if (thirdMission != NULL)
+	{
+		Mix_FreeMusic(thirdMission); //TODO
+	}
+
+	if (menuMusic != NULL)
+	{
+		Mix_FreeMusic(menuMusic); //TODO
 	}
 
 	std::list<Mix_Chunk*>::iterator item;
@@ -100,6 +113,7 @@ bool j1Audio::CleanData()
 		
 
 	fx.clear();
+	Mix_HaltMusic();
 
 	return true;
 }
@@ -112,7 +126,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	if (!active)
 		return false;
 
-	if (music != NULL)
+	if (music != nullptr)
 	{
 		if (fade_time > 0.0f)
 		{
@@ -155,6 +169,18 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	}
 
 	LOG("Successfully playing %s", path);
+	return ret;
+}
+
+bool j1Audio::PlayTheme(_Mix_Music* theme)
+{
+	bool ret = true;
+	if (Mix_PlayMusic(theme, -1) < 0)
+	{
+		LOG("Cannot play music Mix_GetError(): %s", Mix_GetError());
+		ret = false;
+	}
+
 	return ret;
 }
 

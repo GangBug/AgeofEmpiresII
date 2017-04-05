@@ -39,6 +39,7 @@ bool j1SceneStartMenu::Start()
 	bool ret = true;
 	if (inMenu == true) 
 	{
+		App->audio->PlayTheme(App->audio->menuMusic);
 		AudioLoader();
 		ret = UILoader();
 	}
@@ -90,12 +91,8 @@ bool j1SceneStartMenu::CleanUp()
 
 void j1SceneStartMenu::AudioLoader()
 {
-	App->audio->PlayMusic("audio/BSO/BSO_Menu.ogg");
-
 	menuHover = App->audio->LoadFx("audio/fx/Menu_Select.wav.wav");
 	menuSelect = App->audio->LoadFx("audio/fx/Menu_Hover.wav.wav");
-
-
 }
 
 bool j1SceneStartMenu::UILoader()
