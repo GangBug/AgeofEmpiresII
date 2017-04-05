@@ -44,11 +44,7 @@ bool j1Scene::Awake(pugi::xml_node& node)
 	preGame = true;
 	quit = false;
 
-
-	App->map->Start(); //Improve performance but can crash the game somethimes
-	App->audio->Start();
-
-	//Creation_Unit
+	
 
 	return ret;
 }
@@ -61,13 +57,14 @@ bool j1Scene::Start()
 	if (inGame == true)
 	{//checks if the player is ingame			
 		victoryTimer.Stop();
+		App->audio->PlayTheme(App->audio->thirdMission);
+
 		App->render->camera->SetCenter({ -1500, 1500 }); //Camera Initial Pos
 
 		App->entity_manager->PlaceObjects();
 		MapLoader();
 		ret = UILoader();
 		//UnitFactory();
-		AudioLoader();
 		spawnArcher = 0;
 		spawnKnight = 0;
 		spawnSamurai = 0;
@@ -269,8 +266,6 @@ void j1Scene::AudioLoader()
 	LOG("Loading Audio");
 
 
-	App->audio->PlayMusic("audio/BSO/BSO_ThirdMision.ogg");
-
 	//FX UNITS
 	//dead
 	fxUnitDead1 = App->audio->LoadFx("audio/FX/Units/Dead_1.wav");
@@ -297,9 +292,6 @@ void j1Scene::AudioLoader()
 	menuHover = App->audio->LoadFx("audio/FX/Menu_Hover.wav");
 	menuSelect = App->audio->LoadFx("audio/FX/Menu_Select.wav");
 	//BSO
-
-
-
 }
 
 bool j1Scene::UILoader()

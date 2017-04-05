@@ -18,7 +18,7 @@
 #include "GUILabel.h"
 #include "GUIButton.h"
 #include "GUIAutoLabel.h"
-
+#include "j1Window.h"
 
 
 
@@ -624,9 +624,9 @@ void j1GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 				break;
 			}
 			//First we get listeners list of previous element hovered
-			std::list<j1Module*> tmpListeners = element->GetListeners();
+			//std::list<j1Module*> tmpListeners = element->GetListeners();
 			//Iterate over listeners list to send them hover is lost
-			for (std::list<j1Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
+			for (std::list<j1Module*>::iterator it = element->listeners.begin(); it != element->listeners.end() && element->listeners.size() > 0; it++)
 			{
 				(*it)->GuiEvent(element, event);//This "it" crashes the game quite a lot.
 			}
@@ -798,6 +798,7 @@ GUILabel * j1GUI::CreateLabel(GB_Rectangle<int> _position, label_size _size, std
 	}
 	return ret;
 }
+
 GUIImage * j1GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section, std::string name)
 {
 	GUIImage* image = new GUIImage(name);
@@ -831,10 +832,21 @@ GUIImage * j1GUI::CreateImageFromPreset(GB_Rectangle<int> _position, std::string
 	return ret;
 }
 
+float j1GUI::GetScaleY() const
+{
+	return (float)((float)App->win->GetWindowSize().y/ (float)UISIZEY);
+}
+
+float j1GUI::GetScaleX() const
+{
+	return (float)((float)App->win->GetWindowSize().x / (float)UISIZEX);
+}
+
 bool j1GUI::GetUIEditing() const
 {
 	return UIEditing;
 }
+
 void j1GUI::SetUIEditing(bool edit)
 {
 	UIEditing = edit;

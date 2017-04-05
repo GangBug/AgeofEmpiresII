@@ -48,26 +48,26 @@ void GUIImage::Serialize(pugi::xml_node root)
 	position = element.append_child("position");
 	//Create atributes in img/position
 	atr = position.append_attribute("x");
-	atr.set_value(GetLocalRect().x*WINDOWSCALEINV);
+	atr.set_value(GetLocalRect().x*App->gui->GetScaleX());
 	atr = position.append_attribute("y");
-	atr.set_value(GetLocalRect().y*WINDOWSCALEINV);
+	atr.set_value(GetLocalRect().y*App->gui->GetScaleY());
 	//Create node img/size
 	size = element.append_child("size");
 	//Create atributes in img/size
 	atr = size.append_attribute("w");
-	atr.set_value(GetLocalRect().w*WINDOWSCALEINV);
+	atr.set_value(GetLocalRect().w*App->gui->GetScaleX());
 	atr = size.append_attribute("h");
-	atr.set_value(GetLocalRect().h*WINDOWSCALEINV);
+	atr.set_value(GetLocalRect().h*App->gui->GetScaleY());
 
 }
 void GUIImage::Deserialize(pugi::xml_node layout_element)
 {
 	std::string name = layout_element.attribute("name").as_string();
 	GB_Rectangle<int> rect;
-	rect.x = layout_element.child("position").attribute("x").as_int()*WINDOWSCALE;
-	rect.y = layout_element.child("position").attribute("y").as_int()*WINDOWSCALE;
-	rect.w = layout_element.child("size").attribute("w").as_int()*WINDOWSCALE;
-	rect.h = layout_element.child("size").attribute("h").as_int()*WINDOWSCALE;
+	rect.x = layout_element.child("position").attribute("x").as_int()*App->gui->GetScaleX();
+	rect.y = layout_element.child("position").attribute("y").as_int()*App->gui->GetScaleY();
+	rect.w = layout_element.child("size").attribute("w").as_int()*App->gui->GetScaleX();
+	rect.h = layout_element.child("size").attribute("h").as_int()*App->gui->GetScaleY();
 	SetRectangle(rect);
 
 
