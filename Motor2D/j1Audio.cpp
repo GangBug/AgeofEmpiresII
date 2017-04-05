@@ -67,17 +67,17 @@ bool j1Audio::CleanUp()
 
 	if (music != NULL)
 	{
-		Mix_FreeMusic(music); //TODO
+		//Mix_FreeMusic(music); //TODO
 	}
 
 	if (thirdMission != NULL)
 	{
-		Mix_FreeMusic(thirdMission); //TODO
+		//Mix_FreeMusic(thirdMission); //TODO
 	}
 
 	if (menuMusic != NULL)
 	{
-		Mix_FreeMusic(menuMusic); //TODO
+		//Mix_FreeMusic(menuMusic); //TODO
 	}
 
 	std::list<Mix_Chunk*>::iterator item;
