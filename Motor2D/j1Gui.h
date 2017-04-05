@@ -31,7 +31,7 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
-
+	bool CleanUp() override;
 	bool LoadLayout(std::string _path = ""); //TODO: LoadLayout needs lots of improvements 
 					   //Define wich list it fills and wich gui.xml gets for example 
 					   //FIX: Each element could load and save himself

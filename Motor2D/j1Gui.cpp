@@ -44,18 +44,18 @@ bool j1GUI::Start()
 	atlas = App->tex->Load("gui/SS_Menu.png");
 
 	////Debug UI
-	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &App->last_frame_ms, "ms");
-	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &App->frames_on_last_update, "fps");
-	debugGuiList.push_back(lastFrameMS);
-	debugGuiList.push_back(fps);
-	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, DEFAULT, "ms"));
-	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, DEFAULT, "fps"));
+	//lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &App->last_frame_ms, "ms");
+	//fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &App->frames_on_last_update, "fps");
+	//debugGuiList.push_back(lastFrameMS);
+	//debugGuiList.push_back(fps);
+	//debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, DEFAULT, "ms"));
+	//debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, DEFAULT, "fps"));
 
-	xMouse = new GUILabel("", DEFAULT, "mousex");
-	yMouse = new GUILabel("", DEFAULT, "mousey");
+	//xMouse = new GUILabel("", DEFAULT, "mousex");
+	//yMouse = new GUILabel("", DEFAULT, "mousey");
 
-	debugGuiList.push_back(xMouse);
-	debugGuiList.push_back(yMouse);
+	//debugGuiList.push_back(xMouse);
+	//debugGuiList.push_back(yMouse);
 
 	return ret;
 }
@@ -108,6 +108,59 @@ bool j1GUI::PostUpdate()
 		}
 	}
 	return true;
+}
+bool j1GUI::CleanUp()
+{
+	SDL_Log("releasing j1GUI");
+	bool ret = true;
+	for each (GUIElement* var in guiList)
+	{
+		RELEASE(var);
+	}
+	for each (GUIElement* var in background)
+	{
+		RELEASE(var);
+	}
+	for each (GUIElement* var in debugGuiList)
+	{
+		RELEASE(var);
+	}
+	for each (GUIElement* var in editorGuiList)
+	{
+		RELEASE(var);
+	}
+
+	guiList.clear();
+	background.clear();
+	debugGuiList.clear();
+	editorGuiList.clear();
+
+	if (guiList.size() != 0)
+	{
+		ret = false;
+	}
+	if (background.size() != 0)
+	{
+		ret = false;
+	}
+	if (debugGuiList.size() != 0)
+	{
+		ret = false;
+	}
+	if (editorGuiList.size() != 0)
+	{
+		ret = false;
+	}
+	if (ret)
+	{
+		SDL_Log("j1GUI released");
+	}
+	else
+	{
+		SDL_Log("Problems releasing j1GUI");
+	}
+	
+	return ret;
 }
 //TODO: LoadLayout needs lots of improvements...
 bool j1GUI::LoadLayout(std::string _path)
