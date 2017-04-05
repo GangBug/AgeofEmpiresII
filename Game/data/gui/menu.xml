@@ -53,8 +53,8 @@
 			<size w="305" h="43" />
 		</button>
 
-		<img type="title" name="title">
+		<!--<img type="title" name="title">
 			<position x="600" y="200" />
 			<size w="640" h="450" />
-		</img>
+		</img>-->
 	</layout></gui>
