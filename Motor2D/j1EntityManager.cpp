@@ -433,6 +433,9 @@ void ObjectTexture::SetType(pugi::xml_node node)
 	else if (strcmp(node.attribute("n").as_string(), "TrashSmall") == 0) {
 		type = TRASH_SMALL;
 	}
+	else if (strcmp(node.attribute("n").as_string(), "Altar") == 0) {
+		type = ALTAR;
+	}
 	else
 	{
 		type = OBJECT_NONE;

@@ -77,7 +77,7 @@ bool j1Scene::Start()
 		barracks = App->entity_manager->CreateBuilding(BARRACK, fPoint(-1560, 1760));
 		stable = App->entity_manager->CreateBuilding(STABLE, fPoint(-1310, 1940));
 
-		App->entity_manager->CreateObject(BANNERA, fPoint(600, 600));
+		//App->entity_manager->CreateObject(BANNERA, fPoint(600, 600));
 		gold = 20000;
 	}
 
@@ -275,15 +275,15 @@ void j1Scene::AudioLoader()
 	fxUnitDead5 = App->audio->LoadFx("audio/FX/Units/Dead_5.wav");
 	fxUnitDead6 = App->audio->LoadFx("audio/FX/Units/Dead_6.wav");
 	//attack
-	fxFight1 = App->audio->LoadFx("audio/FX/Units/Attack_6.wav");
-	fxFight2 = App->audio->LoadFx("audio/FX/Units/Attack_7.wav");
-	fxFight3 = App->audio->LoadFx("audio/FX/Units/Attack_8.wav");
+	fxFight1 = App->audio->LoadFx("audio/FX/Units/Fight_6.wav");
+	fxFight2 = App->audio->LoadFx("audio/FX/Units/Fight_7.wav");
+	fxFight3 = App->audio->LoadFx("audio/FX/Units/Fight_8.wav");
 	//create
 	fxUnitCreate = App->audio->LoadFx("audio/FX/Units/Creation_Unit.wav");
 	//move
-	fxCMove = App->audio->LoadFx("audio/FX/Units/Attack_8.wav");
-	fxSMove = App->audio->LoadFx("audio/FX/Units/Attack_8.wav");
-	fxAMove = App->audio->LoadFx("audio/FX/Units/Attack_8.wav");
+	/*fxCMove = App->audio->LoadFx("audio/FX/Units/Fight_8.wav");
+	fxSMove = App->audio->LoadFx("audio/FX/Units/Fight_8.wav");
+	fxAMove = App->audio->LoadFx("audio/FX/Units/Fight_8.wav");*/
 	//FX BULDINGS	
 	fxArchery = App->audio->LoadFx("audio/FX/Buildings/Click_Archery.wav");
 	fxBarrack = App->audio->LoadFx("audio/FX/Buildings/Click_Barrack.wav");
