@@ -398,7 +398,7 @@ void j1Scene::Selector()
 
 void j1Scene::SetInGame()
 {	
-	App->audio->CleanUp();
+	App->audio->CleanData();
 	inGame = true;
 	Start();
 }

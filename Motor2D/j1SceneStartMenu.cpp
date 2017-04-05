@@ -119,7 +119,7 @@ void j1SceneStartMenu::SetInMenu()
 {
 	App->entity_manager->CleanUp();
 	App->map->CleanUp();
-	App->audio->CleanUp();
+	App->audio->CleanData();
 	inMenu = true;
 	active = true;
 	Start();
@@ -133,7 +133,6 @@ void j1SceneStartMenu::GuiEvent(GUIElement* element, int64_t event)
 
 		if (event & NEW_GAME)
 		{
-
 			inMenu = false;
 			CleanUp();
 			App->scene->SetInGame();

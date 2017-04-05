@@ -24,6 +24,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//Called between scenes
+	bool CleanData();
+
 	// Play a music file
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 

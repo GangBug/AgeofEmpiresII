@@ -80,6 +80,30 @@ bool j1Audio::CleanUp()
 	return true;
 }
 
+bool j1Audio::CleanData()
+{
+	if (!active)
+		return true;
+
+	LOG("Freeing sound FX and music");
+
+	if (music != NULL)
+	{
+		Mix_FreeMusic(music);
+	}
+
+	std::list<Mix_Chunk*>::iterator item;
+	for (item = fx.begin(); item != fx.end(); ++item) 
+	{
+		Mix_FreeChunk(*item);
+	}
+		
+
+	fx.clear();
+
+	return true;
+}
+
 // Play a music file
 bool j1Audio::PlayMusic(const char* path, float fade_time)
 {
