@@ -274,10 +274,10 @@ private:
 	bool doingAnimation = false;
 	int animTime = 500;
 
-
-
-protected:
+public:
 	std::list<j1Module*> listeners;
+protected:
+	
 	bool haveFocus = false; // TODO implement it on event management
 	int alpha = 255;
 

@@ -624,9 +624,9 @@ void j1GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 				break;
 			}
 			//First we get listeners list of previous element hovered
-			std::list<j1Module*> tmpListeners = element->GetListeners();
+			//std::list<j1Module*> tmpListeners = element->GetListeners();
 			//Iterate over listeners list to send them hover is lost
-			for (std::list<j1Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
+			for (std::list<j1Module*>::iterator it = element->listeners.begin(); it != element->listeners.end() && element->listeners.size() > 0; it++)
 			{
 				(*it)->GuiEvent(element, event);//This "it" crashes the game quite a lot.
 			}
