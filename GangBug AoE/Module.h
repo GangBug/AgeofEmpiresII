@@ -80,7 +80,7 @@ public:
 		return true;
 	}
 
-	virtual void GuiEvent(GUIElement* element, gui_events event) {
+	virtual void GuiEvent(GUIElement* element, int64_t event) {
 
 	}
 

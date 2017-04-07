@@ -65,6 +65,7 @@ public:
 	void LoadGame(const char* file);
 	void SaveGame(const char* file) const;
 	void GetSaveGames(std::list<std::string>& listToFill) const;
+	Module* FindModule(std::string name);
 
 private:
 

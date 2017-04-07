@@ -7,7 +7,7 @@
 class GUIMouse :public GUIElement
 {
 public:
-	GUIMouse(iPoint margin, GB_Rectangle<int> _section, int flags);
+	GUIMouse(iPoint margin, GB_Rectangle<int> _section, std::string name, int flags = STANDARD_PRESET);
 	~GUIMouse();
 
 	void Draw() const override;

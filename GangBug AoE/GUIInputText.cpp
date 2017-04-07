@@ -2,21 +2,21 @@
 
 
 
-GUIInputText::GUIInputText(int flags) : GUIElement(flags)
+GUIInputText::GUIInputText(std::string name, int flags) : GUIElement(name, flags)
 {
 	SetType(GUI_INPUT_TEXT);
 	SetRectangle(0, 200, 231, 71);
 	SetInteractive(true);
 	SetCanFocus(true);
 
-	image = new GUIImage();
+	image = new GUIImage(GetName());
 	image->SetParent(this);
 	image->SetRectangle(0, 200, 231, 71);
 	image->SetInteractive(true);
 	image->SetCanFocus(true);
 	image->SetSection(GB_Rectangle<int>(0, 110, 231, 71));
 
-	label = new GUILabel();
+	label = new GUILabel(GetName());
 	label->SetLocalPos(0, 200);
 	label->SetRectangle(GB_Rectangle<int>(0, 200, 231, 71));
 }

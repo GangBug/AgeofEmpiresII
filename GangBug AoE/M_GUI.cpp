@@ -10,14 +10,14 @@
 #include <iostream> 
 #include <sstream> 
 
+#include "Bezier.h"
+
 // GUI includes
 #include "GUIElement.h"
 #include "GUIImage.h"
 #include "GUILabel.h"
 #include "GUIButton.h"
-#include "GUIInputText.h"
 #include "GUIAutoLabel.h"
-#include "GUIMouse.h"
 
 
 
@@ -31,21 +31,22 @@ M_GUI::~M_GUI()
 {
 }
 
-bool M_GUI::Awake(pugi::xml_node &)
+bool M_GUI::Awake(pugi::xml_node & config)
 {
-	
+	cBeizier = new CBeizier();
+	atlasPath = config.child("atlas").attribute("file").as_string("gui/atlas.png");
 	
 	return true;
 }
 bool M_GUI::Start()
 {
 	bool ret = true;
-	//TODO 1: Load atlas
-	atlas = app->tex->Load("gui/atlas2.png");
-
+	//TODO 1: Load atlas	
+	atlas = app->tex->Load(atlasPath.c_str());
+	//This goes the first
 	ret = LoadLayout();
-	
-	
+
+
 
 	//GUIImage* img = CreateImage({ 0, 100, 328, 103 }, { 485, 829, 328, 103 });
 	//guiList.push_back(img);
@@ -57,172 +58,22 @@ bool M_GUI::Start()
 	//guiList.push_back(img_big);
 
 	////Debug UI
-	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms);
-	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update);
+	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms, "ms");
+	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update, "fps");
 	debugGuiList.push_back(lastFrameMS);
 	debugGuiList.push_back(fps);
 	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
 	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
 
-	xMouse = new GUILabel("", SMALL);
-	yMouse = new GUILabel("", SMALL);
+	xMouse = new GUILabel("", SMALL, "mousex");
+	yMouse = new GUILabel("", SMALL, "mousey");
 
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
 
-
-	
-	img2 = CreateImageFromPreset({ 100, 100, 484, 512 }, "window");
-	//img->SetRectangle(100, 500, 231, 71);
-	//img->SetSection(0, 110, 231, 71);
-	//img2->SetRectangle(100, 100, 484, 512);
-	img2->SetSection(0, 513, 484, 512);
-	img2->SetInteractive(true);
-	img2->SetCanFocus(true);
-	img2->SetDraggable(false);
-	guiList.push_back(img2);
-	img2->AddAnimationOrTransition(MOUSE_LCLICK_DOWN, T_SCALE);
-	//img2->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);
-	img2->AddAnimationOrTransition(ENABLE, T_SCALE);
-
-
-#pragma region UI Comented
-	///*GUIImage* img = new GUIImage();
-	////img->SetRectangle(100, 500, 231, 71);
-	////img->SetSection(0, 110, 231, 71);
-	//img->SetRectangle(100, 100, 484, 512);
-	//img->SetSection(0, 513, 484, 512);
-	//img->SetInteractive(true);		   
-	//img->SetCanFocus(true);		
-	//img->SetDraggable(true);
-	//guiList.push_back(img);
-	//img->AddAnimationOrTransition(MOUSE_ENTERS, T_MOVE_TO_RIGHT);//*/
-
-	//GUILabel* label = new GUILabel();
-	//label->SetInteractive(true);
-	//label->SetCanFocus(true);
-	//label->SetText("Hello World!", DEFAULT);
-	//label->CenterX();
-	//label->SetDraggable(true);
-	//guiList.push_back(label);
-
-
-
-	//GUIImage* minimap = CreateImage({ 1471,726,449,354 }, GB_Rectangle<int> {1128, 12, 1, 1});
-	//guiList.push_back(minimap);
-	//
-	//GUIImage* resourceBar = CreateImage({ 0,0,1, 1}, GB_Rectangle<int> {14, 906, 1312, 46});
-	//guiList.push_back(resourceBar);
-	//
-	//GUIImage* useBar = CreateImage({ 1536,0,1, 1}, GB_Rectangle<int> {13, 719, 959, 179});
-	//guiList.push_back(useBar);
-
-	//GUIImage* saveBar = CreateImage({ 0,901,1, 1 }, GB_Rectangle<int> {680, 656, 384, 45});
-	//guiList.push_back(saveBar);
-
-	//GUIImage* wood = CreateImage({ 150,5,1, 1 }, GB_Rectangle<int> {669,595,54, 52 });
-	//guiList.push_back(wood);
-
-	//GUIImage* food = CreateImage({ 300,5,1, 1 }, GB_Rectangle<int> {724, 594, 56, 53});
-	//guiList.push_back(food);
-
-	//GUIImage* gold = CreateImage({ 450,5,1, 1 }, GB_Rectangle<int> {783, 594, 55, 51});
-	//guiList.push_back(gold);
-
-	//GUIImage* rock = CreateImage({ 600,5,1, 1 }, GB_Rectangle<int> {840, 594, 56, 52});
-	//guiList.push_back(rock);
-
-	//GUIImage* populationLimit = CreateImage({ 750,5,1, 1 }, GB_Rectangle<int> { 929, 596, 54, 34});
-	//guiList.push_back(populationLimit);
-
-	//GUIImage* controlBar = CreateImage({ 0,1080 - 180,1, 1 }, GB_Rectangle<int> { 13, 719, 960, 180});
-	//guiList.push_back(controlBar);
-	//
-	//GUIImage* menuWindow = CreateImage({ 960,200 ,1, 1 }, GB_Rectangle<int> { 669, 12, 457, 577});
-	//guiList.push_back(controlBar);
-	///*
-	////start menu
-
-	//GUIImage* startMenuTittle = CreateImage({ 245,920,1, 1 }, GB_Rectangle<int> { 14, 12, 643, 452});
-	//guiList.push_back(startMenuTittle);
-
-	//	GUIButton* startMenuButton1 = new GUIButton(GB_Rectangle<int>(245, 620, 1, 1),
-	//	GB_Rectangle<int>(14, 481, 305, 43),
-	//	GB_Rectangle<int>(14, 531, 305, 43),
-	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	//guiList.push_back(startMenuButton1);
-
-	//GUIButton* startMenuButton2 = new GUIButton(GB_Rectangle<int>(245, 680, 1, 1),
-	//	GB_Rectangle<int>(14, 481, 305, 43),
-	//	GB_Rectangle<int>(14, 531, 305, 43),
-	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	//guiList.push_back(startMenuButton1);
-
-	//GUIButton* startMenuButton3 = new GUIButton(GB_Rectangle<int>(245, 740, 1, 1),
-	//	GB_Rectangle<int>(14, 481, 305, 43),
-	//	GB_Rectangle<int>(14, 531, 305, 43),
-	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	//guiList.push_back(startMenuButton1);
-
-	//GUIButton* startMenuButton4 = new GUIButton(GB_Rectangle<int>(245, 800, 1, 1),
-	//	GB_Rectangle<int>(14, 481, 305, 43),
-	//	GB_Rectangle<int>(14, 531, 305, 43),
-	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	//guiList.push_back(startMenuButton1);
-
-	//GUIButton* startMenuButton5 = new GUIButton(GB_Rectangle<int>(245, 860, 1, 1),
-	//	GB_Rectangle<int>(14, 481, 305, 43),
-	//	GB_Rectangle<int>(14, 531, 305, 43),
-	//	GB_Rectangle<int>(14, 581, 305, 43), STANDARD_PRESET, "");
-	//guiList.push_back(startMenuButton1);
-
-	//	*/ 
-	//	
-	//	//_position, GB_Rectangle<int> _section)
-
-
-	//GUIButton* resourcesMenuButton = new GUIButton(	GB_Rectangle<int>(1920 - 111, 1080 - 82, 111, 82),
-	//												GB_Rectangle<int>(294, 631, 111, 82),
-	//												GB_Rectangle<int>(412, 631, 111, 82),
-	//												GB_Rectangle<int>(540, 631, 111, 82), STANDARD_PRESET, "");
-	//guiList.push_back(resourcesMenuButton);
-
-	//GUIButton* menuButton = new GUIButton(	GB_Rectangle<int>(0, 0, 98, 83),
-	//										GB_Rectangle<int>(336, 531, 98, 83),
-	//										GB_Rectangle<int>(443, 531, 98, 83),
-	//										GB_Rectangle<int>(553, 530, 98, 83), STANDARD_PRESET, "");
-	//guiList.push_back(menuButton);
-
-
-	//
-
-	////GUIInputText * input2 = new GUIInputText();
-	////input2->image->SetRectangle(0, 300, 231, 71);
-	////input2->label->SetLocalPos(0, 300);
-	////input2->SetRectangle(0, 300, 231, 71);
-	////input2->SetActive(true);
-	////guiList.push_back(input2);
-	////guiList.push_back(input2->image);
-	////guiList.push_back(input2->label);
-
-
-	////GUIInputText * input = new GUIInputText();	
-	////input->SetInteractive(false);
-	////guiList.push_back(input);
-	////guiList.push_back(input->image);
-	////guiList.push_back(input->label);
-	////
-	//int flags = ACTIVE;
-	//curs = new GUIMouse({ 0, 0 }, { 994,728, 25, 23 }, flags);
-	////cursor  ------------------------------------------
-	////curs = app->gui->createelement(uicursor, sdl_rect{ 994,728, 25, 23 }, p2point<int>{ 0, 0 },true);
-	////curs->setlistener(this);
-
-
-#pragma endregion
-
-
-
+	GUILabel* label_center = CreateLabel({ 0, 0, 0, 0 }, DEFAULT, "label_center", "label_center");
+	label_center->Center();
+	guiList.push_back(label_center);
 	return ret;
 }
 update_status M_GUI::PreUpdate(float dt)
@@ -230,7 +81,7 @@ update_status M_GUI::PreUpdate(float dt)
 	update_status ret = UPDATE_CONTINUE;
 
 	ManageEvents();
-	
+
 	if (focus != nullptr && focus->GetType() == GUI_INPUT_TEXT)
 		app->input->StartTyping();
 	else
@@ -298,7 +149,7 @@ bool M_GUI::LoadLayout()
 		pugi::xml_document data;
 		pugi::xml_node root;
 
-		pugi::xml_parse_result result = data.load_buffer(buffer, size);
+		pugi::xml_parse_result result = data.load_buffer(buffer, size - 1);
 		RELEASE(buffer);
 
 		if (result != NULL)
@@ -351,8 +202,9 @@ bool M_GUI::LoadLayout()
 							break;
 					}
 				}
-				GUIButton* btn = CreateButton({ 0,0,stb.w,stb.h }, stb, hov, clk);
-				GuiPresets.insert(std::pair<std::string, GUIElement*>(name, btn));
+				GUIButton* btn = CreateButton({ 0,0,stb.w,stb.h }, stb, hov, clk, name);
+				btn->SetPresetType(name);
+				guiPresets.insert(std::pair<std::string, GUIElement*>(name, btn));
 			}
 
 			//Loading image presets
@@ -373,85 +225,109 @@ bool M_GUI::LoadLayout()
 				{
 					ret = false;
 				}
-				GUIImage* img = CreateImage({ 0,0,stb.w,stb.h }, stb);
-				GuiPresets.insert(std::pair<std::string, GUIElement*>(name, img));
+				GUIImage* img = CreateImage({ 0,0,stb.w,stb.h }, stb, name);
+				img->SetPresetType(name);
+				guiPresets.insert(std::pair<std::string, GUIElement*>(name, img));
 			}
 
 			//TODO: Make label presets makes no sense for me, any other new GUI presset goes here, but for the moment
 			//		only 3 Gui items are implemented Label, Image and Button...
 			// bla bla some preset SLIDER
 			// bla bla some preset LIFEBAR
-			// NEWER PRESETS go here
+			// NEWER PRESETS go up this comments
 
-			//TODO 3: Load UI layout
+			//TODO: Load listeners and events
+
+			//Load UI layout
 			root = data.child("gui").child("layout");
-			pugi::xml_object_range<pugi::xml_node_iterator> elements = root.children();
-			for (pugi::xml_node_iterator it_elements = elements.begin();
-				 it_elements != elements.end(); it_elements++)
+			//pugi::xml_object_range<pugi::xml_node_iterator> elements = root.children();
+			//for (pugi::xml_node_iterator it_elements = elements.begin();
+			//	 it_elements != elements.end(); it_elements++)
+			for (pugi::xml_node layout_element = root.first_child(); layout_element; )
 			{
-				if (!strcmp(it_elements->name(), "button"))
+				pugi::xml_node next = layout_element.next_sibling();
+				//BUTTON
+				if (!strcmp(layout_element.name(), "button"))
 				{
-					std::string name = it_elements->attribute("type").as_string();
-					std::map<std::string, GUIElement*>::iterator node = GuiPresets.find(name);
-					if (node != GuiPresets.end())
+					std::string preset = layout_element.attribute("type").as_string();
+					std::map<std::string, GUIElement*>::iterator node = guiPresets.find(preset);
+					std::string name = layout_element.attribute("name").as_string("");
+					GUIElement* tmpElement = FindElement(guiList, name);
+					// If name is "" or another element with same name exists does not load the element, 
+					// same if not preset found in presets list
+					if (node != guiPresets.end() && tmpElement == nullptr && name != "")
 					{
-						GB_Rectangle<int> rect;
-						rect.x = it_elements->child("position").attribute("x").as_int();
-						rect.y = it_elements->child("position").attribute("y").as_int();
-						rect.w = it_elements->child("size").attribute("w").as_int();
-						rect.h = it_elements->child("size").attribute("h").as_int();
-						std::string name = it_elements->attribute("type").as_string();
-						GUIButton* btn = CreateButtonFromPreset(rect, name);
+						GUIButton* btn = CreateButtonFromPreset({ 0,0,0,0 }, preset, name, "hola");
+						btn->Deserialize(layout_element);
 						guiList.push_back(btn);
-						LOG("Item %s created", (*it_elements).name());
+						LOG("Item %s created", layout_element.name());
 					}
-					else
+					else if (tmpElement != nullptr)
 					{
-						LOG("Item %s not created", (*it_elements).name());
+						LOG("Item %s not created, another element exists with same name, (%s)", layout_element.name(), name.c_str());
+					}
+					else if (node == guiPresets.end())
+					{
+						LOG("Item %s not created, no preset found for %s", layout_element.name(), name.c_str());
+					}
+					else if (name == "")
+					{
+						LOG("Item %s not created, name not valid", layout_element.name(), name.c_str());
 					}
 				}
-				else if (!strcmp(it_elements->name(), "img"))
+				//IMAGE
+				else if (!strcmp(layout_element.name(), "img"))
 				{
-					std::string name = it_elements->attribute("type").as_string();
-					std::map<std::string, GUIElement*>::iterator node = GuiPresets.find(name);
-					if (node != GuiPresets.end())
+					std::string preset = layout_element.attribute("type").as_string();
+					std::map<std::string, GUIElement*>::iterator node = guiPresets.find(preset);
+					std::string name = layout_element.attribute("name").as_string("");
+					GUIElement* tmpElement = FindElement(guiList, name);
+					// If name is "" or another element with same name exists does not load the element, 
+					// same if not preset found in presets list
+					if (node != guiPresets.end() && tmpElement == nullptr && name != "")
 					{
-						GB_Rectangle<int> rect;
-						rect.x = it_elements->child("position").attribute("x").as_int();
-						rect.y = it_elements->child("position").attribute("y").as_int();
-						rect.w = it_elements->child("size").attribute("w").as_int();
-						rect.h = it_elements->child("size").attribute("h").as_int();
-						GUIImage* img = CreateImageFromPreset(rect, name);
+						GUIImage* img = CreateImageFromPreset({ 0,0,0,0 }, preset, name);
+						img->Deserialize(layout_element);
 						guiList.push_back(img);
-						LOG("Item %s created", (*it_elements).name());
+						LOG("Item %s created", layout_element.name());
 					}
-					else
+					else if (tmpElement != nullptr)
 					{
-						LOG("Item %s not created", (*it_elements).name());
+						LOG("Item %s not created, another element exists with same name, (%s)", layout_element.name(), name.c_str());
 					}
-					
+					else if (node == guiPresets.end())
+					{
+						LOG("Item %s not created, no preset found for %s", layout_element.name(), name.c_str());
+					}
+					else if (name == "")
+					{
+						LOG("Item %s not created, name not valid", layout_element.name(), name.c_str());
+					}
+
 				}
-				else if (!strcmp(it_elements->name(), "label"))
+				//LABEL
+				else if (!strcmp(layout_element.name(), "label"))
 				{
-					std::string name = it_elements->attribute("type").as_string();
-					std::map<std::string, GUIElement*>::iterator node = GuiPresets.find(name);
-					if (node != GuiPresets.end())
+					std::string name = layout_element.attribute("name").as_string("");
+					GUIElement* tmpElement = FindElement(guiList, name);
+					if (tmpElement == nullptr && name != "")
 					{
-						std::string txt = it_elements->attribute("text").as_string();
-						GB_Rectangle<int> rect;
-						rect.x = it_elements->child("position").attribute("x").as_int();
-						rect.y = it_elements->child("position").attribute("y").as_int();
-						label_size size = (label_size)it_elements->attribute("size").as_int();
-						GUILabel* lb = CreateLabel(rect, size, txt.c_str());
+						GUILabel* lb = CreateLabel({ 0,0,0,0 }, DEFAULT, name, "");
+						lb->Deserialize(layout_element);
 						guiList.push_back(lb);
-						LOG("Item %s created", (*it_elements).name());
+						LOG("Item %s created", layout_element.name());
 					}
-					else
+					else if (tmpElement != nullptr)
 					{
-						LOG("Item %s not created", (*it_elements).name());
+						LOG("Item %s not created, another element exists with same name, (%s)", layout_element.name(), name.c_str());
+					}
+					else if (name == "")
+					{
+						LOG("Item %s not created, name not valid", layout_element.name(), name.c_str());
 					}
 				}
 				//Newer types of GUI elements to load go here
+				layout_element = next;
 			}
 
 			data.reset();
@@ -501,100 +377,19 @@ bool M_GUI::SaveLayout()
 
 			child = next;
 		}
-
+		std::list<std::string> names;
+		std::list<std::string>::iterator name_found;
 		for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 		{
-			GB_Rectangle<int> rect = (*it)->GetLocalRect();
-			pugi::xml_node element;
-			pugi::xml_attribute atr;
-			pugi::xml_node position;
-			pugi::xml_node size;
-			GUILabel* lb = nullptr;
-			if ((*it)->GetType() == GUI_LABEL)
+			name_found = std::find(names.begin(), names.end(), (*it)->GetName());
+			if (name_found == names.end())
 			{
-				lb = (GUILabel*)(*it);
-			}
-			switch ((*it)->GetType())
-			{
-				case GUI_UNKNOWN:
-					break;
-				case GUI_IMAGE:
-					//Create node img
-					element = root.append_child("img");
-					//Create atributes in img
-					atr = element.append_attribute("type");
-					atr.set_value((*it)->GetPresetType().c_str());
-					//Create node img/position
-					position = element.append_child("position");
-					//Create atributes in img/position
-					atr = position.append_attribute("x");
-					atr.set_value(rect.x);
-					atr = position.append_attribute("y");
-					atr.set_value(rect.y);
-					//Create node img/size
-					size = element.append_child("size");
-					//Create atributes in img/size
-					atr = size.append_attribute("w");
-					atr.set_value(rect.w);
-					atr = size.append_attribute("h");
-					atr.set_value(rect.h);
-					break;
-				case GUI_LABEL:
-					//Create node label
-					element = root.append_child("label");
-					//Create atributes in label
-					atr = element.append_attribute("size");
-					atr.set_value(lb->GetLabelSize());
-					atr = element.append_attribute("text");
-					atr.set_value(lb->GetText().c_str());
-					//Create node label/position
-					position = element.append_child("position");
-					//Create atributes in label/position
-					atr = position.append_attribute("x");
-					atr.set_value(rect.x);
-					atr = position.append_attribute("y");
-					atr.set_value(rect.y);
-					break;
-				case GUI_BUTTON:
-					//Create node button
-					element = root.append_child("button");
-					//Create atributes in button
-					atr = element.append_attribute("type");
-					atr.set_value((*it)->GetPresetType().c_str());
-					//Create node button/position
-					position = element.append_child("position");
-					//Create atributes in button/position
-					atr = position.append_attribute("x");
-					atr.set_value(rect.x);
-					atr = position.append_attribute("y");
-					atr.set_value(rect.y);
-					//Create node button/size
-					size = element.append_child("size");
-					//Create atributes in button/size
-					atr = size.append_attribute("w");
-					atr.set_value(rect.w);
-					atr = size.append_attribute("h");
-					atr.set_value(rect.h);
-					break;
-				case GUI_INPUT_TEXT:
-					break;
-				case GUI_LOAD_BAR:
-					break;
-				case GUI_H_SLIDER:
-					break;
-				case GUI_V_SLIDER:
-					break;
-				case GUI_MOUSE_CURSOR:
-					break;
-				case GUI_RECT:
-					break;
-				default:
-					LOG("Something went wrong when serializing");
-					ret = false;
-					break;
+				names.push_back((*it)->GetName());
+
+				(*it)->Serialize(root);
 			}
 		}
-		
+
 		std::stringstream stream;
 		data.save(stream);
 
@@ -639,7 +434,7 @@ GUIElement * M_GUI::FindMouseHover()
 		{
 			ret = (*it);
 		}
-	}	
+	}
 
 	return ret;
 }
@@ -716,22 +511,55 @@ void M_GUI::ManageEvents()
 	}
 }
 //Broadcast an event to all GUIElement listeners
-void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events event)
+void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 {
-	element->OnGuiEvent(event);
-
-	if (element->GetElementStatus().interactive && element->GetElementStatus().active)
+	if (!GetUIEditing())
 	{
-		//if (event != MOUSE_ENTERS)
-		SDL_Log("Event: %d", event);
-		//First we get listeners list of previous element hovered
-		std::list<Module*> tmpListeners = element->GetListeners();
-		//Iterate over listeners list to send them hover is lost
-		for (std::list<Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
+		int64_t event = _event;
+		element->OnGuiEvent(event);
+
+		if (element->GetElementStatus().interactive && element->GetElementStatus().active)
 		{
-			(*it)->GuiEvent(element, event);
+			//if (event != MOUSE_ENTERS)
+			SDL_Log("Event: %b", event);
+			switch (event)
+			{
+				case MOUSE_ENTERS:
+					event |= element->GetElementStatus().onMouseEnters;
+					break;
+				case MOUSE_LEAVES:
+					event |= element->GetElementStatus().onMouseLeaves;
+					break;
+				case MOUSE_LCLICK_DOWN:
+					event |= element->GetElementStatus().onLClickDown;
+					break;
+				case MOUSE_LCLICK_UP:
+					event |= element->GetElementStatus().onLClickUp;
+					break;
+				case MOUSE_RCLICK_DOWN:
+					event |= element->GetElementStatus().onRClickDown;
+					break;
+				case MOUSE_RCLICK_UP:
+					event |= element->GetElementStatus().onRClickUp;
+					break;
+				case GAIN_FOCUS:
+					event |= element->GetElementStatus().onGainFocus;
+					break;
+				case LOST_FOUCS:
+					event |= element->GetElementStatus().onLooseFocus;
+					break;
+				default:
+					break;
+			}
+			//First we get listeners list of previous element hovered
+			std::list<Module*> tmpListeners = element->GetListeners();
+			//Iterate over listeners list to send them hover is lost
+			for (std::list<Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
+			{
+				(*it)->GuiEvent(element, event);
+			}
 		}
-	}	
+	}
 }
 void M_GUI::Draw()
 {
@@ -767,8 +595,8 @@ void M_GUI::DrawDebug()
 	app->input->GetMousePosition(x, y);
 	xMouse->SetText(std::to_string(x).c_str(), SMALL);
 	yMouse->SetText(std::to_string(y).c_str(), SMALL);
-	xMouse->SetLocalPos(x + 10, y);
-	yMouse->SetLocalPos(x + 40, y);
+	xMouse->SetGlobalPos(x + 10, y);
+	yMouse->SetGlobalPos(x + 40, y);
 
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
 	{
@@ -785,6 +613,39 @@ void M_GUI::DrawDebug()
 		if ((*it)->GetActive())
 			(*it)->Draw();
 	}
+
+	cBeizier->DrawBezierCurve(CB_EASE_INOUT_BACK, { 800, 200 });
+	cBeizier->DrawBezierCurve(CB_SLOW_MIDDLE, { 800, 200 });
+	cBeizier->DrawBezierCurve(CB_LINEAL, { 800, 200 });
+	cBeizier->DrawBezierCurve(CB_SHAKE, { 800, 200 });
+}
+GUIElement * M_GUI::FindElement(std::list<GUIElement*> list, std::string name)
+{
+	GUIElement* ret = nullptr;
+
+	for (std::list<GUIElement*>::iterator i = list.begin(); i != list.end(); i++)
+	{
+		if (strcmp((*i)->GetName().c_str(), name.c_str()) == 0)
+		{
+			ret = (*i);
+			break;
+		}
+	}
+	return ret;
+}
+bool M_GUI::FindElement(std::list<GUIElement*> list, GUIElement * element)
+{
+	bool ret = false;
+
+	for (std::list<GUIElement*>::iterator i = list.begin(); i != list.end(); i++)
+	{
+		if ((*i) == element)
+		{
+			ret = true;
+			break;
+		}
+	}
+	return ret;
 }
 SDL_Texture* M_GUI::GetAtlas() const
 {
@@ -797,70 +658,116 @@ void M_GUI::SetAtlas(SDL_Texture * texture)
 //Experimental methods, I just did this because of yes...
 /*void M_GUI::IterateList(std::list<GUIElement*>* list, void (M_GUI::*method)(GUIElement*))
 {
-	for (std::list<GUIElement*>::iterator it = (*list).begin(); it != (*list).end(); it++)
-	{
-		(*this.*method)(*it);
-	}
+for (std::list<GUIElement*>::iterator it = (*list).begin(); it != (*list).end(); it++)
+{
+(*this.*method)(*it);
+}
 }*/
 /*void M_GUI::DoElementUpdate(GUIElement * element, float dt)
 {
-	if (element->GetElementStatus().active)
-		element->Update(mouseHover, focus, dt);
-	
+if (element->GetElementStatus().active)
+element->Update(mouseHover, focus, dt);
+
 }*/
 /*void M_GUI::DoElementDraw(GUIElement * element)
 {
-	if (element->GetElementStatus().active)
-		element->Draw();
+if (element->GetElementStatus().active)
+element->Draw();
 }*/
 //Experimental methods, I just did this because of yes...
-GUIButton * M_GUI::CreateButton(GB_Rectangle<int> _position, 
-								GB_Rectangle<int> _standBySection, 
-								GB_Rectangle<int> _hoverSection, 
-								GB_Rectangle<int> _clickedSection)
+
+GUIButton * M_GUI::CreateButton(GB_Rectangle<int> _position, GB_Rectangle<int> _standBySection,
+								GB_Rectangle<int> _hoverSection, GB_Rectangle<int> _clickedSection,
+								std::string name)
 {
-	GUIButton* button = new GUIButton(_position, _standBySection, _hoverSection, _clickedSection);
+	GUIButton* button = new GUIButton(_position, _standBySection, _hoverSection, _clickedSection, name);
 	return button;
 }
-GUIButton * M_GUI::CreateButtonFromPreset(GB_Rectangle<int> _position, std::string preset)
+GUIButton * M_GUI::CreateButtonFromPreset(GB_Rectangle<int> _position, std::string preset, std::string name, const char* _text)
 {
-	GUIButton* btn_preset = (GUIButton*)GuiPresets.find(preset)->second;
-	GUIButton* btn = new GUIButton(*btn_preset);
-	btn->SetPresetType(preset);
-	btn->SetRectangle(_position);
-	btn->image->SetRectangle(_position);
-	return btn;
-}
-GUILabel * M_GUI::CreateLabel(GB_Rectangle<int> _position, label_size _size, const char* _text)
-{
-	GUILabel* label;
-	if (_text != nullptr)
+	GUIButton* ret;
+
+	GUIElement* el = FindElement(guiList, name);
+	if (el == nullptr)
+		el = FindElement(debugGuiList, name);
+
+	if (el == nullptr)
 	{
-		label = new GUILabel(_text, _size);
+		GUIButton* btn_preset = (GUIButton*)guiPresets.find(preset)->second;
+		GUIButton* btn = new GUIButton(*btn_preset, name);
+		btn->SetPresetType(preset);
+		btn->SetRectangle(_position);
+		btn->image->SetRectangle(_position);
+		//btn->label->SetRectangle(_position);
+		btn->SetText(_text);
+		btn->label->Center();
+		ret = btn;
 	}
 	else
 	{
-		label = new GUILabel();
+		ret = (GUIButton*)el;
 	}
-	label->SetLocalPos(_position.x, _position.y);
-	return label;
+	return ret;
 }
-GUIImage * M_GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section)
+GUILabel * M_GUI::CreateLabel(GB_Rectangle<int> _position, label_size _size, std::string name, const char* _text)
 {
-	GUIImage* image = new GUIImage();
+	GUILabel* ret = nullptr;
+
+	GUIElement* el = FindElement(guiList, name);
+	if (el == nullptr)
+		el = FindElement(debugGuiList, name);
+
+	if (el == nullptr)
+	{
+		if (_text != nullptr)
+		{
+			ret = new GUILabel(_text, _size, name);
+		}
+		else
+		{
+			ret = new GUILabel(name);
+		}
+		ret->SetGlobalPos(_position.x, _position.y);
+	}
+	else
+	{
+		ret = (GUILabel*)el;
+		if (_text != nullptr)
+			ret->SetText(_text, _size);
+	}
+	return ret;
+}
+GUIImage * M_GUI::CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section, std::string name)
+{
+	GUIImage* image = new GUIImage(name);
 	image->SetSection(_section);
 	image->SetRectangle(_position);
 
 	return image;
 }
-GUIImage * M_GUI::CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset)
+GUIImage * M_GUI::CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset, std::string name)
 {
-	GUIImage* img_preset = (GUIImage*)GuiPresets.find(preset)->second;
-	GUIImage* img = new GUIImage(*img_preset);
-	img->SetPresetType(preset);
-	img->SetRectangle(_position);
+	GUIImage* ret;
 
-	return img;
+	GUIElement* el = FindElement(guiList, name);
+	if (el == nullptr)
+		el = FindElement(debugGuiList, name);
+
+	if (el == nullptr)
+	{
+		GUIImage* img_preset = (GUIImage*)guiPresets.find(preset)->second;
+		GUIImage* img = new GUIImage(*img_preset, name);
+		img->SetPresetType(preset);
+		img->SetRectangle(_position);
+		ret = img;
+	}
+	else
+	{
+		ret = (GUIImage*)el;
+	}
+
+
+	return ret;
 }
 
 GUIElement * M_GUI::GuiFactory()
@@ -872,20 +779,6 @@ GUIElement * M_GUI::GuiFactory()
 
 	return nullptr;
 }
-/**
-LoadUI: Mark to load UI state on next frame.
-*/
-void M_GUI::LoadUI()
-{
-	mustLoadScene = true;
-}
-/**
-SaveUI: Mark to save UI state on next frame.
-*/
-void M_GUI::SaveUI()
-{
-	mustSaveScene = true;
-}
 bool M_GUI::GetUIEditing() const
 {
 	return UIEditing;
@@ -895,7 +788,7 @@ void M_GUI::SetUIEditing(bool edit)
 	UIEditing = edit;
 	if (edit)
 	{
-		for (std::list<GUIElement*>::iterator it = guiList.begin(); 
+		for (std::list<GUIElement*>::iterator it = guiList.begin();
 			 it != guiList.end(); it++)
 		{
 			(*it)->SetDraggable(true);
@@ -910,16 +803,5 @@ void M_GUI::SetUIEditing(bool edit)
 		}
 	}
 }
-//TODO: Dont know if i'll implement it... With a simple SaveLayout() its enough
-bool M_GUI::SaveUINow()
-{
-	bool ret = true;
 
-	return ret;
-
-}
-bool M_GUI::LoadUINow()
-{
-	return false;
-}
 

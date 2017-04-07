@@ -3,8 +3,9 @@
 #include "M_Render.h"
 
 #include "M_Window.h"
+#include "M_GUI.h"
 
-GUIElement::GUIElement(int flags) : rect(0,0,0,0), drawRect(0.f, 0.f, 0.f, 0.f)
+GUIElement::GUIElement(std::string name, int flags) : rect(0, 0, 0, 0), drawRect(0.f, 0.f, 0.f, 0.f), name(name)
 {
 	if (flags & DRAGGABLE)
 		SetDraggable(true);
@@ -25,7 +26,8 @@ GUIElement::GUIElement(int flags) : rect(0,0,0,0), drawRect(0.f, 0.f, 0.f, 0.f)
 		SetActive(true);
 	else
 		SetActive(false);
-	
+
+	//FIX this should not be like this...
 	if (flags & STANDARD_PRESET)
 	{
 		SetActive(true);
@@ -51,27 +53,30 @@ bool GUIElement::CheckMouseOver() const
 {
 	iPoint mousePosition;
 	app->input->GetMousePosition(mousePosition.x, mousePosition.y);
-	
+
 	return rect.Contains(mousePosition.x, mousePosition.y);
 }
 void GUIElement::Center()
 {
-	int frame_w = (parent) ? parent->GetLocalRect().w : app->render->camera.w - (GetLocalRect().w / 2);
-	int frame_h = (parent) ? parent->GetLocalRect().h : app->render->camera.h - (GetLocalRect().h / 2);
+	int frame_w = (parent) ? parent->GetLocalRect().w / 2 - (GetLocalRect().w / 2) : app->render->camera.w / 2 - (GetLocalRect().w / 2);
+	int frame_h = (parent) ? parent->GetLocalRect().h / 2 - (GetLocalRect().h / 2) : app->render->camera.h / 2 - (GetLocalRect().h / 2);
 
-	SetLocalPos(frame_w / 2 - rect.w / 2, frame_h / 2 - rect.h / 2);
+	SetLocalPos(frame_w, frame_h);
+	SetGlobalPos(0, 0);
 }
 void GUIElement::CenterX()
 {
 	int frame_w = (parent) ? parent->GetLocalRect().w : app->render->camera.w;
 
 	SetLocalPos(frame_w / 2 - rect.w / 2, rect.h);
+	SetGlobalPos(frame_w / 2 - rect.w / 2, rect.h);
 }
 void GUIElement::CenterY()
 {
 	int frame_h = (parent) ? parent->GetLocalRect().h : app->render->camera.h;
 
 	SetLocalPos(rect.w, frame_h / 2 - rect.h / 2);
+	SetGlobalPos(rect.w, frame_h / 2 - rect.h / 2);
 }
 void GUIElement::AddListener(Module * moduleToAdd)
 {
@@ -85,7 +90,7 @@ void GUIElement::RemoveListener(Module * moduleToRemove)
 	if (it != listeners.end())
 	{
 		listeners.erase(it);
-	}	
+	}
 }
 bool GUIElement::Save(pugi::xml_node & node) const
 {
@@ -93,26 +98,36 @@ bool GUIElement::Save(pugi::xml_node & node) const
 
 	return false;
 }
-void GUIElement::OnGuiEvent(gui_events eventToReact)
+void GUIElement::OnGuiEvent(int64_t eventToReact)
 {
+	//TODO SAT: 3. Search in the map for the event recieved. If found get the animation linked and determine if its a transition or an animation, then set currentStaticAnimation or currentTransition. Also set doingAnimation or doingTransition to false. 
 	if (this->eventsToReact & eventToReact)
 	{
-		std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
+		std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find((gui_events)eventToReact);
 		if (it != transAndAnimations.end())
 		{
 			staticAnim_or_transition tmp = it->second;
 			if (tmp < SAT_SEPARATOR)
 			{
-				currentStaticAnimation = tmp;
+				if (currentStaticAnimation == SAT_NONE)
+				{
+					currentStaticAnimation = tmp;
+					doingAnimation = false;
+				}
 			}
 			else if (tmp > SAT_SEPARATOR)
 			{
-				currentTransition = tmp;
-				//Will asume all transitions enable/disable.
-				if (status.active) mustDisable = true;
+				if (currentTransition == SAT_NONE)
+				{
+					currentTransition = tmp;
+					doingTransition = false;
+					//Will asume all transitions enable/disable.
+					if (status.active) mustDisable = true; //Will have to explain this in some way...
+				}
 			}
 		}
 	}
+	//-------
 }
 
 GB_Rectangle<int> GUIElement::GetScreenRect() const
@@ -136,6 +151,10 @@ iPoint GUIElement::GetScreenPos() const
 		return iPoint(rect.x, rect.y);
 }
 iPoint GUIElement::GetLocalPos() const
+{
+	return localPosition;
+}
+iPoint GUIElement::GetGlobalPos() const
 {
 	return iPoint(rect.x, rect.y);
 }
@@ -209,27 +228,58 @@ std::string GUIElement::GetPresetType() const
 	return presetName;
 }
 
+std::string GUIElement::GetName() const
+{
+	return name;
+}
+
+std::list<Module*> GUIElement::GetListeners_noconst()
+{
+	return listeners;
+}
+
 void GUIElement::SetLocalPos(int x, int y)
+{
+	localPosition.create(x, y);
+	//Changes this item position and its childs.
+	//if (parent)
+	//{
+	//	rect.x = x + parent->GetLocalPos().x;
+	//	rect.y = y + parent->GetLocalPos().y;
+	//}
+	//else
+	//{
+	//	rect.x = x;
+	//	rect.y = y;
+	//}
+	//drawRect.x = rect.x;
+	//drawRect.y = rect.y;
+
+	//for (std::list<GUIElement*>::iterator it = childs.begin(); it != childs.end(); ++it)
+	//	if ((*it)) (*it)->SetLocalPos((*it)->GetLocalPos().x + x, (*it)->GetLocalPos().y + y);
+
+}
+void GUIElement::SetGlobalPos(int x, int y)
 {
 	//Changes this item position and its childs.
 	if (parent)
 	{
-		rect.x = x + parent->GetLocalPos().x;
-		rect.y = y + parent->GetLocalPos().y;
+		rect.x = parent->GetGlobalPos().x + localPosition.x;
+		rect.y = parent->GetGlobalPos().y + localPosition.y;
 	}
 	else
 	{
-		rect.x = x;
-		rect.y = y;
+		rect.x = x + localPosition.x;
+		rect.y = y + localPosition.y;
 	}
 	drawRect.x = rect.x;
 	drawRect.y = rect.y;
-	
+
 	for (std::list<GUIElement*>::iterator it = childs.begin(); it != childs.end(); ++it)
-		if ((*it)) (*it)->SetLocalPos((*it)->GetLocalPos().x + x, (*it)->GetLocalPos().y + y);
-			
+		if ((*it)) (*it)->SetGlobalPos(x, y);
+
 }
-void GUIElement::SetDraggable(bool _draggable) 
+void GUIElement::SetDraggable(bool _draggable)
 {
 	status.draggable = _draggable;
 	status.statusChanged = true;
@@ -244,16 +294,26 @@ void GUIElement::SetCanFocus(bool _focus)
 	status.canFocus = _focus;
 	status.statusChanged = true;
 }
-void GUIElement::SetActive(bool _active) 
+void GUIElement::SetActive(bool _active)
 {
 	if (_active)
 		Enable();
 	else
 		Disable();
 }
-void GUIElement::SetParent(GUIElement * _parent) 
+void GUIElement::SetParent(GUIElement * _parent)
 {
-	parent = _parent;
+	if (this->parent == nullptr)
+	{
+		_parent->childs.push_back(this);
+		parent = _parent;
+	}
+	else if (this->parent != _parent)
+	{
+		this->parent->childs.remove(this);
+		_parent->childs.push_back(this);
+		parent = _parent;
+	}
 	status.statusChanged = true;
 }
 void GUIElement::SetType(gui_types _type)
@@ -331,8 +391,9 @@ void GUIElement::Enable()
 		{
 			drawRect.Set(rect.x, rect.y, rect.w, rect.h);
 		}
-		status.active = true; 
+		status.active = true;
 		status.statusChanged = true;
+		alpha = 255;
 	}
 }
 void GUIElement::Disable()
@@ -356,6 +417,7 @@ void GUIElement::Disable()
 }
 void GUIElement::AddAnimationOrTransition(gui_events eventToReact, staticAnim_or_transition animOrTransition)
 {
+	//TODO SAT: 1. Insert in the map the pair of event and animation you recieve. Remeber before inserting checking if that event has been already added, if it has replace the animatio set before for the new one.
 	std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
 	if (it != transAndAnimations.end())
 	{
@@ -368,9 +430,11 @@ void GUIElement::AddAnimationOrTransition(gui_events eventToReact, staticAnim_or
 		transAndAnimations.insert(std::pair<gui_events, staticAnim_or_transition>(eventToReact, animOrTransition));
 		this->eventsToReact = (gui_events)(this->eventsToReact | eventToReact);
 	}
+	//----
 }
 void GUIElement::RemoveAnimationOrTransitionReaction(gui_events eventToReact)
 {
+	//TODO SAT: 2. Search in the map for that event, if its found remove that pair from the map.
 	if (this->eventsToReact & eventToReact)
 	{
 		std::map<gui_events, staticAnim_or_transition>::iterator it = transAndAnimations.find(eventToReact);
@@ -380,6 +444,7 @@ void GUIElement::RemoveAnimationOrTransitionReaction(gui_events eventToReact)
 			this->eventsToReact = (gui_events)(this->eventsToReact & ~eventToReact);
 		}
 	}
+	//-----
 }
 void GUIElement::GetAllAnimationAndTransitions(std::vector<std::pair<gui_events, staticAnim_or_transition>>& animsAndTrans)
 {
@@ -427,13 +492,66 @@ void GUIElement::SetDrawPosition(float x, float y)
 {
 	drawRect.Move(x, y);
 
-	for (std::list<GUIElement*>::iterator it = childs.begin(); it != childs.end(); ++it)
-		if ((*it)) (*it)->SetDrawPosition((*it)->drawRect.x + x, (*it)->drawRect.y + y);
+	/*for (std::list<GUIElement*>::iterator it = childs.begin(); it != childs.end(); ++it)
+	if ((*it)) (*it)->SetDrawPosition((*it)->drawRect.x + x, (*it)->drawRect.y + y);*/
 }
 
 void GUIElement::SetPresetType(std::string str)
 {
 	presetName = str;
+}
+
+void GUIElement::SetName(std::string str)
+{
+	name = str;
+}
+
+void GUIElement::SetOnLClickUp(gui_events _event)
+{
+	status.statusChanged = true;
+	status.onLClickUp = _event;
+}
+
+void GUIElement::SetOnLClickDown(gui_events _event)
+{
+	status.statusChanged = true;
+	status.onLClickDown = _event;
+}
+
+void GUIElement::SetOnRClickUp(gui_events _event)
+{
+	status.statusChanged = true;
+	status.onRClickUp = _event;
+}
+
+void GUIElement::SetOnRClickDown(gui_events _event)
+{
+	status.statusChanged = true;
+	status.onRClickDown = _event;
+}
+
+void GUIElement::SetOnGainFocus(gui_events _event)
+{
+	status.statusChanged = true;
+	status.onGainFocus = _event;
+}
+
+void GUIElement::SetOnLooseFocus(gui_events _event)
+{
+	status.statusChanged = true;
+	status.onLooseFocus = _event;
+}
+
+void GUIElement::SetOnMouseEnters(gui_events _event)
+{
+	status.statusChanged = true;
+	status.onMouseEnters = _event;
+}
+
+void GUIElement::SetOnMouseLeaves(gui_events _event)
+{
+	status.statusChanged = true;
+	status.onMouseLeaves = _event;
 }
 
 void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
@@ -448,20 +566,20 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 
 		switch (currentStaticAnimation)
 		{
-		case SA_FLASH:
-			FlashSA(dt);
-			break;
-		case SA_SHAKE:
-			ShakeSA(dt);
-			break;
-		case SA_PULSE:
-			PulseSA(dt);
-			break;
-		case SA_BOUNCE:
-			BounceSA(dt);
-			break;
+			case SA_FLASH:
+				FlashSA(dt);
+				break;
+			case SA_SHAKE:
+				ShakeSA(dt);
+				break;
+			case SA_PULSE:
+				PulseSA(dt);
+				break;
+			case SA_BOUNCE:
+				BounceSA(dt);
+				break;
 		}
-		
+
 	}
 
 	if (currentTransition != SAT_NONE)
@@ -470,157 +588,534 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 
 		switch (currentTransition)
 		{
-		case T_SCALE:
-			ScaleT(dt);
-			break;
-		case T_FADE:
-			FadeT(dt);
-			break;
-		case T_DROP:
-			DropT(dt);
-			break;
-		case T_FLY:
-			FlyT(dt);
-			break;
-		case T_SLIDE:
-			SlideT(dt);
-			break;
-		case T_MOVE_TO_RIGHT:
-			MoveToRightT(dt);
-			break;
+			case T_SCALE:
+				ScaleT(dt);
+				break;
+			case T_FADE:
+				FadeT(dt);
+				break;
+			case T_DROP:
+				DropT(dt);
+				break;
+			case T_FLY:
+				FlyT(dt);
+				break;
+			case T_SLIDE:
+				SlideT(dt);
+				break;
+			case T_MOVE_RIGHT:
+				MoveRightT(dt);
+				break;
+			case T_MOVE_LEFT:
+				MoveLeftT(dt);
+				break;
+			case T_MOVE_UP:
+				MoveUpT(dt);
+				break;
+			case T_MOVE_DOWN:
+				MoveDownT(dt);
+				break;
 		}
-
 	}
+	if (GetDraggable() && GetLClicked())
+	{
+		iPoint p;
+		app->input->GetMousePosition(p.x, p.y);
+		SetGlobalPos(p.x, p.y);
+	}
+
 }
 
 void GUIElement::FlashSA(float dt)
 {
-	currentStaticAnimation = SAT_NONE;
+	if (!doingAnimation)
+	{
+		transTimer.Start();
+		currentAnimTim = 0;
+		doingAnimation = true;
+	}
+	currentAnimTim = transTimer.Read();
+
+	animTime = 500;
+	float change_alpha = app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SHAKE);
+
+	change_alpha = CLAMP01(change_alpha);
+
+	if (currentAnimTim < animTime)
+	{
+		alpha = 255 * (1 - change_alpha);
+	}
+	else
+	{
+		alpha = 255;
+		currentStaticAnimation = SAT_NONE;
+		doingAnimation = false;
+	}
 }
 void GUIElement::ShakeSA(float dt)
 {
-	currentStaticAnimation = SAT_NONE;
+	if (!doingTransition)
+	{
+		transTimer.Start();
+		currentAnimTim = 0;
+		doingTransition = true;
+	}
+	currentAnimTim = transTimer.Read();
+
+	animTime = 500;
+	if (currentAnimTim < animTime)
+	{
+		SetDrawPosition(rect.x - 25 * app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SHAKE), drawRect.y);
+	}
+	else
+	{
+		SetDrawPosition(rect.x, rect.y);
+		currentStaticAnimation = SAT_NONE;
+		doingTransition = false;
+	}
 }
 void GUIElement::PulseSA(float dt)
 {
-	currentStaticAnimation = SAT_NONE;
+	if (!doingAnimation)
+	{
+		transTimer.Start();
+		currentAnimTim = 0;
+		doingAnimation = true;
+	}
+	currentAnimTim = transTimer.Read();
+
+	animTime = 500;
+	float time = (float)currentAnimTim / animTime;
+	float change_alpha = app->gui->cBeizier->GetActualX(500, currentAnimTim, CB_SLOW_MIDDLE);
+
+	change_alpha = CLAMP01(change_alpha);
+
+	if (currentAnimTim <= animTime / 2)
+	{
+		alpha = 255 * (1 - change_alpha);
+	}
+	else if (time < animTime / 2)
+	{
+		alpha = 255 * (change_alpha);
+	}
+	else
+	{
+		alpha = 255;
+		currentStaticAnimation = SAT_NONE;
+		doingAnimation = false;
+	}
 }
 void GUIElement::BounceSA(float dt)
 {
-	currentStaticAnimation = SAT_NONE;
+	if (!doingTransition)
+	{
+		transTimer.Start();
+		currentAnimTim = 0;
+		doingTransition = true;
+	}
+	currentAnimTim = transTimer.Read();
+
+	animTime = 500;
+	if (currentAnimTim < animTime)
+	{
+		SetDrawPosition(rect.x, rect.y - 25 * app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SHAKE));
+	}
+	else
+	{
+		SetDrawPosition(rect.x, rect.y);
+		currentStaticAnimation = SAT_NONE;
+		doingTransition = false;
+	}
 }
 
 void GUIElement::ScaleT(float dt)
 {
-	float speed;
-
+	/*static iPoint originScale;
+	static iPoint destinationScale;
+	if (!doingAnimation)
+	{
 	if (mustDisable)
 	{
-		if (drawRect.w <= rect.w * 0.2 || drawRect.h <= rect.h * 0.2)
-		{
-			currentTransition = SAT_NONE;
-			status.active = false;
-			mustDisable = false;
-			return;
-		}
-		speed = 500 * dt;
+	transOrigin.create(rect.x, rect.h);
+	transDestination.create(rect.x + rect.w/2, rect.y + rect.h / 2);
+	originScale.create(rect.w, rect.h);
+	destinationScale.create(rect.w / 2, rect.h / 2);
 	}
 	else
 	{
-		if (/*drawRect.x <= rect.x || drawRect.y <= rect.y ||*/ drawRect.w >= rect.w || drawRect.h >= rect.h)
-		{
-			currentTransition = SAT_NONE;
-			drawRect.Set(rect.x, rect.y, rect.w, rect.h);
-			return;
-		}
-		speed = -500 * dt;
+	transOrigin.create(drawRect.x, drawRect.y);
+	transDestination.create(rect.x, rect.y);
+	originScale.create(drawRect.w, drawRect.h);
+	destinationScale.create(rect.w, rect.h);
+	}
+	transTimer.Start();
+	currentTransTime = 0;
+	doingTransition = true;
+	}
+
+	currentTransTime = transTimer.Read();
+	if (currentTransTime <= 1000)
+	{
+	if (mustDisable)
+	{
+	drawRect.x = transOrigin.x - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, CB_SLOW_MIDDLE);
+	drawRect.y = transOrigin.y - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, CB_SLOW_MIDDLE);
+	drawRect.w = originScale.x + app->gui->cBeizier->GetActualPoint(originScale, destinationScale, 1000, currentTransTime, CB_SLOW_MIDDLE);
+	drawRect.y = originScale.y + app->gui->cBeizier->GetActualPoint(originScale, destinationScale, 1000, currentTransTime, CB_SLOW_MIDDLE);
+	}
+	else
+	{
+	;
+	}
+	}
+	else
+	{
+	currentTransTime = 0;
+	currentTransition = SAT_NONE;
+	if (mustDisable)
+	{
+	status.active = false;
+	mustDisable = false;
+	}
+	return;
+	}*/
+
+	/*float speed;
+
+	if (mustDisable)
+	{
+	if (drawRect.w <= rect.w * 0.2 || drawRect.h <= rect.h * 0.2)
+	{
+	currentTransition = SAT_NONE;
+	status.active = false;
+	mustDisable = false;
+	return;
+	}
+	speed = 500 * dt;
+	}
+	else
+	{
+	if (drawRect.w >= rect.w || drawRect.h >= rect.h)
+	{
+	currentTransition = SAT_NONE;
+	drawRect.Set(rect.x, rect.y, rect.w, rect.h);
+	return;
+	}
+	speed = -500 * dt;
 	}
 
 	drawRect.x += speed/2;
 	drawRect.y += speed/2;
 	drawRect.w -= speed;
-	drawRect.h -= speed;	
+	drawRect.h -= speed;	*/
 }
 void GUIElement::FadeT(float dt)
 {
-	currentTransition = SAT_NONE;
+	if (!doingTransition)
+	{
+		transTimer.Start();
+		currentTransTime = 0;
+		doingTransition = true;
+		if (!mustDisable) alpha = 0;
+	}
+	currentAnimTim = transTimer.Read();
+	animTime = 1000;
+	if (currentAnimTim < animTime)
+	{
+		float change_alpha = app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_SLOW_MIDDLE);
+		change_alpha = CLAMP01(change_alpha);
+		alpha = 255 * ((mustDisable) ? (1 - change_alpha) : (change_alpha));
+	}
+	else
+	{
+		currentTransTime = 0;
+		currentTransition = SAT_NONE;
+		if (mustDisable)
+		{
+			status.active = false;
+			mustDisable = false;
+		}
+		return;
+	}
 }
 void GUIElement::DropT(float dt)
 {
-	float speed = 0.f;
-
-	if (mustDisable)
+	if (!doingTransition)
 	{
-		//Lets reduce its size
-		if (drawRect.w <= rect.w*0.2f || drawRect.h <= rect.h*0.2f)
+		if (mustDisable)
 		{
-			currentTransition = SAT_NONE;
-			status.active = false;
-			mustDisable = false;
-			return;
-		}
-
-		speed = -700 * dt;
-	}
-	else
-	{
-		//Lets increase the size
-		if (drawRect.w < rect.w && drawRect.h < rect.h)
-		{
-			speed = 700 * dt;
+			transOrigin.create(rect.w, rect.h);
+			transDestination.create(rect.w * 0.2, rect.h * 0.2);
 		}
 		else
 		{
-			currentTransition = SAT_NONE;
-			drawRect.Set(rect.x, rect.y, rect.w, rect.h);
-			return;
+			transOrigin.create(drawRect.w, drawRect.h);
+			transDestination.create(rect.w, rect.h);
 		}
+		transTimer.Start();
+		currentTransTime = 0;
+		doingTransition = true;
 	}
 
-	drawRect.w += speed;
-	drawRect.h += speed;
-}
-void GUIElement::FlyT(float dt)
-{
-	currentTransition = SAT_NONE;
-}
-void GUIElement::SlideT(float dt)
-{
-	currentTransition = SAT_NONE;
-}
-void GUIElement::MoveToRightT(float dt)
-{
-	static int screenRXBorderPos = app->win->GetWindowSize().x;
-
-	float speed;
-
-	if (mustDisable)
+	currentTransTime = transTimer.Read();
+	if (currentTransTime <= 1000)
 	{
-		int dif = screenRXBorderPos - (drawRect.x + rect.w);
-
-		if (dif <= 0)
-		{
-			currentTransition = SAT_NONE;
-			status.active = false;
-			mustDisable = false;
-			return;
-		}
-
-		speed = 600 * dt;
+		if (mustDisable)
+			drawRect.h = transOrigin.y + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, CB_SLOW_MIDDLE);
+		else
+			drawRect.h = transOrigin.y - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, CB_SLOW_MIDDLE);
 	}
 	else
 	{
-		int dif = rect.x - drawRect.x;
-
-		if (dif >= 0)
+		currentTransTime = 0;
+		currentTransition = SAT_NONE;
+		if (mustDisable)
 		{
-			currentTransition = SAT_NONE;
-			drawRect.Set(rect.x, rect.y, rect.w, rect.h);
-			return;
+			status.active = false;
+			mustDisable = false;
+		}
+		return;
+	}
+
+}
+void GUIElement::FlyT(float dt)
+{
+	if (!doingTransition)
+	{
+		if (mustDisable)
+		{
+			transOrigin.create(rect.x, rect.y);
+			int screenRXBorderPos = app->win->GetWindowSize().x;
+			transDestination.create(screenRXBorderPos, rect.y);
+		}
+		else
+		{
+			transOrigin.create(drawRect.x, drawRect.y);
+			transDestination.create(rect.x, rect.y);
 		}
 
-		speed = -600 * dt;
+		transTimer.Start();
+		currentTransTime = 0;
+		doingTransition = true;
 	}
-		
-	SetDrawPosition(drawRect.x += speed, drawRect.y);
+
+	currentTransTime = transTimer.Read();
+	if (currentTransTime <= 500)
+	{
+		if (mustDisable)
+			SetDrawPosition(transOrigin.x - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 500, currentTransTime, CB_FLY), drawRect.y);
+		else
+			SetDrawPosition(transOrigin.x + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 500, currentTransTime, CB_FLY), drawRect.y);
+	}
+	else
+	{
+		currentTransTime = 0;
+		currentTransition = SAT_NONE;
+		if (mustDisable)
+		{
+			status.active = false;
+			mustDisable = false;
+		}
+		return;
+	}
+}
+void GUIElement::SlideT(float dt)
+{
+	if (!doingTransition)
+	{
+		transTimer.Start();
+		currentAnimTim = 0;
+		doingTransition = true;
+	}
+	currentAnimTim = transTimer.Read();
+
+	animTime = 500;
+	float time = (float)currentAnimTim / animTime;
+
+	if (currentAnimTim < animTime)
+	{
+		if (mustDisable)
+		{
+			drawRect.h = rect.h - rect.h*app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_LINEAL);
+		}
+		else drawRect.h = rect.x + rect.h*app->gui->cBeizier->GetActualX(animTime, currentAnimTim, CB_LINEAL);
+	}
+	else
+	{
+		currentTransTime = 0;
+		currentTransition = SAT_NONE;
+		doingTransition = false;
+
+		if (mustDisable)
+		{
+			drawRect.h = 0;
+			status.active = false;
+			mustDisable = false;
+		}
+		else drawRect.h = rect.h;
+		return;
+	}
+
+}
+void GUIElement::MoveRightT(float dt)
+{
+	if (!doingTransition)
+	{
+		if (mustDisable)
+		{
+			transOrigin.create(rect.x, rect.y);
+			int screenRXBorderPos = app->win->GetWindowSize().x;
+			transDestination.create(screenRXBorderPos - rect.w, rect.y);
+		}
+		else
+		{
+			transOrigin.create(drawRect.x, drawRect.y);
+			transDestination.create(rect.x, rect.y);
+		}
+
+		transTimer.Start();
+		currentTransTime = 0;
+		doingTransition = true;
+	}
+
+	currentTransTime = transTimer.Read();
+	if (currentTransTime <= 1000)
+	{
+		if (mustDisable)
+			SetDrawPosition(transOrigin.x - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
+		else
+			SetDrawPosition(transOrigin.x + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
+	}
+	else
+	{
+		currentTransTime = 0;
+		currentTransition = SAT_NONE;
+		if (mustDisable)
+		{
+			status.active = false;
+			mustDisable = false;
+		}
+		return;
+	}
+}
+void GUIElement::MoveLeftT(float dt)
+{
+	if (!doingTransition)
+	{
+		if (mustDisable)
+		{
+			transOrigin.create(rect.x, rect.y);
+			transDestination.create(0, rect.y);
+		}
+		else
+		{
+			transOrigin.create(drawRect.x, drawRect.y);
+			transDestination.create(rect.x, rect.y);
+		}
+
+		transTimer.Start();
+		currentTransTime = 0;
+		doingTransition = true;
+	}
+
+	currentTransTime = transTimer.Read();
+	if (currentTransTime <= 1000)
+	{
+		if (mustDisable)
+			SetDrawPosition(transOrigin.x + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
+		else
+			SetDrawPosition(transOrigin.x - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType), drawRect.y);
+	}
+	else
+	{
+		currentTransTime = 0;
+		currentTransition = SAT_NONE;
+		if (mustDisable)
+		{
+			status.active = false;
+			mustDisable = false;
+		}
+		return;
+	}
+}
+void GUIElement::MoveUpT(float dt)
+{
+	if (!doingTransition)
+	{
+		if (mustDisable)
+		{
+			transOrigin.create(rect.x, rect.y);
+			transDestination.create(rect.x, 0);
+		}
+		else
+		{
+			transOrigin.create(drawRect.x, drawRect.y);
+			transDestination.create(rect.x, rect.y);
+		}
+
+		transTimer.Start();
+		currentTransTime = 0;
+		doingTransition = true;
+	}
+
+	currentTransTime = transTimer.Read();
+	if (currentTransTime <= 1000)
+	{
+		if (mustDisable)
+			SetDrawPosition(drawRect.x, transOrigin.y + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
+		else
+			SetDrawPosition(drawRect.x, transOrigin.y - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
+	}
+	else
+	{
+		currentTransTime = 0;
+		currentTransition = SAT_NONE;
+		if (mustDisable)
+		{
+			status.active = false;
+			mustDisable = false;
+		}
+		return;
+	}
+}
+void GUIElement::MoveDownT(float dt)
+{
+	if (!doingTransition)
+	{
+		if (mustDisable)
+		{
+			transOrigin.create(rect.x, rect.y);
+			int screenBYBorderPos = app->win->GetWindowSize().y;
+			transDestination.create(rect.x, screenBYBorderPos - rect.h);
+		}
+		else
+		{
+			transOrigin.create(drawRect.x, drawRect.y);
+			transDestination.create(rect.x, rect.y);
+		}
+
+		transTimer.Start();
+		currentTransTime = 0;
+		doingTransition = true;
+	}
+
+	currentTransTime = transTimer.Read();
+	if (currentTransTime <= 1000)
+	{
+		if (mustDisable)
+			SetDrawPosition(drawRect.x, transOrigin.y - app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
+		else
+			SetDrawPosition(drawRect.x, transOrigin.y + app->gui->cBeizier->GetActualPoint(transOrigin, transDestination, 1000, currentTransTime, curveType));
+	}
+	else
+	{
+		currentTransTime = 0;
+		currentTransition = SAT_NONE;
+		if (mustDisable)
+		{
+			status.active = false;
+			mustDisable = false;
+		}
+		return;
+	}
 }

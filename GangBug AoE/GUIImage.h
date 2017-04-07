@@ -5,12 +5,14 @@ class GUIImage :
 	public GUIElement
 {
 public:
-	GUIImage(int flags = STANDARD_PRESET);
-	GUIImage(const GUIImage &img, int flags = STANDARD_PRESET);
+	GUIImage(std::string name, int flags = STANDARD_PRESET);
+	GUIImage(const GUIImage &img, std::string name, int flags = STANDARD_PRESET);
 	virtual ~GUIImage();
 
 	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt) override;
 	void Draw() const;
+	void Serialize(pugi::xml_node root)override;
+	void Deserialize(pugi::xml_node root)override;
 
 	GB_Rectangle<int> GetSection() const;
 	void SetSection(GB_Rectangle<int> _section);

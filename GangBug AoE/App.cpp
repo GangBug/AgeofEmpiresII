@@ -470,3 +470,15 @@ bool App::SavegameNow() const
 	wantToSave = false;
 	return ret;
 }
+Module* App::FindModule(std::string _name)
+{
+	Module* ret = nullptr;
+	for (std::list<Module*>::iterator it = app->modules.begin(); it != app->modules.end(); it++)
+	{
+		if (!strcmp((*it)->name.c_str(), _name.c_str()))
+		{
+			ret = (*it);
+		}
+	}
+	return ret;
+}

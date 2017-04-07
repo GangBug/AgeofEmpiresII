@@ -17,16 +17,16 @@
   </fonts>
 
   <gui>
-    <atlas file="gui/atlas_lol.png"/>
+    <atlas file="gui/atlas.png"/>
   </gui>
     
   <window>
-    <resolution width="1920" height="1080" scale="1"/>
+    <resolution width="800" height="600" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
-    <start_maximized value="true"/>
+    <start_maximized value="false"/>
   </window>
 
   <file_system>

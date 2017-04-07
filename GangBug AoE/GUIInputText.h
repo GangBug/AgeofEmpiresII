@@ -9,7 +9,7 @@ class GUIInputText :
 	public GUIElement
 {
 public:
-	GUIInputText(int flags = STANDARD_PRESET);
+	GUIInputText(std::string name, int flags = STANDARD_PRESET);
 	virtual ~GUIInputText();
 
 	void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt) override;

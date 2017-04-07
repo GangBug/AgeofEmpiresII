@@ -11,6 +11,7 @@ class GUIButton;
 class GUILabel;
 class GUIImage;
 class GUIMouse;
+class CBeizier;
 
 class M_GUI : public Module
 {
@@ -18,16 +19,20 @@ public:
 	M_GUI(bool startEnabled = true);
 	virtual ~M_GUI();
 
-	bool Awake(pugi::xml_node&) override;
+	bool Awake(pugi::xml_node& config) override;
 	bool Start() override;
 	update_status PreUpdate(float dt) override;
 	update_status Update(float dt) override;
 	update_status PostUpdate(float dt) override;
 
-	bool LoadLayout();
-	bool SaveLayout();
+	bool LoadLayout(); //TODO: LoadLayout needs lots of improvements 
+					   //Define wich list it fills and wich gui.xml gets for example 
+					   //FIX: Each element could load and save himself
+	bool SaveLayout(); //TODO: SaveLayout needs lots of improvements 
+					   //Define wich list it saves and wich gui.xml creates for example
+					   //FIX: Each element could load and save himself
 
-	//Not implemented
+					   //Not implemented
 	bool UpdateGuiList();
 	//Not implemented
 	bool UpdateDebugGuiList();
@@ -41,7 +46,10 @@ public:
 	void Draw();
 	void DrawEditor();
 	void DrawDebug() override;
-	
+
+	GUIElement* FindElement(std::list<GUIElement*> list, std::string name);
+	bool FindElement(std::list<GUIElement*> list, GUIElement* element);
+
 	//Getters & Setters
 	SDL_Texture* GetAtlas() const;
 	void SetAtlas(SDL_Texture* texture);
@@ -55,39 +63,35 @@ public:
 	// Any create adds the GUIElement into lists, this job
 	// is for who is using this methods
 	// This section is unfinished, so for now use this with caution
-	GUIButton*	CreateButton(GB_Rectangle<int> _position, 
-							 GB_Rectangle<int> _standBySection, 
-							 GB_Rectangle<int> _hoverSection, 
-							 GB_Rectangle<int> _clickedSection); // From nothing
-	GUIButton*	CreateButtonFromPreset(GB_Rectangle<int> _position, std::string preset); // From a preset
-	GUILabel*	CreateLabel(GB_Rectangle<int> _position, label_size _size, const char* _text = nullptr);
-	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section); // From nothing
-	GUIImage*	CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset); // From a preset
+	GUIButton*	CreateButton(GB_Rectangle<int> _position,
+							 GB_Rectangle<int> _standBySection,
+							 GB_Rectangle<int> _hoverSection,
+							 GB_Rectangle<int> _clickedSection, std::string name); // From nothing
+	GUIButton*	CreateButtonFromPreset(GB_Rectangle<int> _position, std::string preset, std::string name, const char* _text = nullptr); // From a preset
+	GUILabel*	CreateLabel(GB_Rectangle<int> _position, label_size _size, std::string name, const char* _text = nullptr);
+	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section, std::string name); // From nothing
+	GUIImage*	CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset, std::string name); // From a preset
 	GUIMouse*	CreateMouse();
 
 	GUIElement* GuiFactory();
 
-	void LoadUI();
-	void SaveUI();
-
 	bool GetUIEditing() const;
 	void SetUIEditing(bool edit);
-
-private:
-	bool SaveUINow();
-	bool LoadUINow();
 
 public:
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debugGuiList;
 	std::list<GUIElement*> editorGuiList;
 
+	CBeizier* cBeizier = nullptr;
+
 private:
 
 	SDL_Texture* atlas;
+	std::string atlasPath;
 	GUIElement* mouseHover = nullptr;
 	GUIElement* focus = nullptr;
-	std::map<std::string, GUIElement*> GuiPresets; // A map of basic UI elements defined on the xml
+	std::map<std::string, GUIElement*> guiPresets; // A map of basic UI elements defined on the xml
 	bool mustSaveScene = false;
 	bool mustLoadScene = false;
 

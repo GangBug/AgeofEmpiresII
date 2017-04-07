@@ -130,6 +130,9 @@
     <ClCompile Include="EntityMap.cpp">
       <Filter>Entity System\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Bezier.cpp">
+      <Filter>Modules\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -236,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="EntityMap.h">
       <Filter>Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Bezier.h">
+      <Filter>Modules\Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
