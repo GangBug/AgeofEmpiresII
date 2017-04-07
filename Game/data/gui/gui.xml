@@ -1,39 +1,39 @@
 <?xml version="1.0"?>
 <gui>
-	<elements>		
+	<elements>
 		<imgs>
 			<img type_name="MenuWindow" have_animations="0">
-				<section type="standBy" x="669" y="12" w="457" h="577"/>
+				<section type="standBy" x="669" y="12" w="457" h="577" />
 			</img>
 			<img type_name="MinimapBar" have_animations="0">
-				<section type="standBy" x="1128" y="12" w="449" h="354"/>
+				<section type="standBy" x="1128" y="12" w="449" h="354" />
 			</img>
 			<img type_name="ResourceBar" have_animations="0">
-				<section type="standBy" x="14" y="906" w="1312" h="46"/>
+				<section type="standBy" x="14" y="906" w="1312" h="46" />
 			</img>
 			<img type_name="UseBar" have_animations="0">
-				<section type="standBy" x="13" y="719" w="959" h="179"/>
+				<section type="standBy" x="13" y="719" w="959" h="179" />
 			</img>
 			<img type_name="SaveBar" have_animations="0">
-				<section type="standBy" x="680" y="656" w="384" h="45"/>
+				<section type="standBy" x="680" y="656" w="384" h="45" />
 			</img>
 			<img type_name="ResourceWindow" have_animations="0">
-				<section type="standBy" x="1249" y="391" w="328" h="448"/>
+				<section type="standBy" x="1249" y="391" w="328" h="448" />
 			</img>
 			<img type_name="Wood" have_animations="0">
-				<section type="standBy" x="669" y="595" w="54" h="52"/>
+				<section type="standBy" x="669" y="595" w="54" h="52" />
 			</img>
 			<img type_name="Food" have_animations="0">
-				<section type="standBy" x="724" y="594" w="56" h="53"/>
+				<section type="standBy" x="724" y="594" w="56" h="53" />
 			</img>
 			<img type_name="Gold" have_animations="0">
-				<section type="standBy" x="783" y="594" w="55" h="51"/>
+				<section type="standBy" x="783" y="594" w="55" h="51" />
 			</img>
 			<img type_name="PopulationLimit" have_animations="0">
-				<section type="standBy" x="929" y="596" w ="54" h ="40"/>
+				<section type="standBy" x="929" y="596" w="54" h="40" />
 			</img>
 		</imgs>
-	<buttons>
+		<buttons>
 			<button type_name="button" have_animations="0">
 				<sections>
 					<section type="standBy" x="20" y="481" w="205" h="43" />
@@ -43,367 +43,255 @@
 			</button>
 			<button type_name="MenuButton" have_animations="0">
 				<sections>
-				   <section type="standBy" x="294" y="631" w="111" h="82"/>
-                    <section type="hover" x="412" y="631" w="111" h="82"/>
-                    <section type="clicked" x="540" y="631" w="111" h="82"/>
+					<section type="standBy" x="294" y="631" w="111" h="82" />
+					<section type="hover" x="412" y="631" w="111" h="82" />
+					<section type="clicked" x="540" y="631" w="111" h="82" />
 				</sections>
 			</button>
 			<button type_name="SaveButton" have_animations="0">
 				<sections>
-				   <section type="standBy" x="345" y="480" w="67" h="39"/>
-                    <section type="hover" x="417"  y="481" w="67" h="45"/>
-                    <section type="clicked" x="486"  y="480" w="67" h="39"/>
+					<section type="standBy" x="345" y="480" w="67" h="39" />
+					<section type="hover" x="417" y="481" w="67" h="45" />
+					<section type="clicked" x="486" y="480" w="67" h="39" />
 				</sections>
 			</button>
 			<button type_name="OptionsButton" have_animations="0">
 				<sections>
-				   <section type="standBy" x="336" y="531" w="98" h="83"/>
-                    <section type="hover" x="443"  y="531" w="98" h="83"/>
-                    <section type="clicked" x="553"  y="530" w="98" h="83"/>
+					<section type="standBy" x="336" y="531" w="98" h="83" />
+					<section type="hover" x="443" y="531" w="98" h="83" />
+					<section type="clicked" x="553" y="530" w="98" h="83" />
 				</sections>
 			</button>
 			<button type_name="PlusButton" have_animations="0">
 				<sections>
-				   <section type="standBy" x="629" y="481" w="18" h="18"/>
-                    <section type="hover" x="608"  y="481" w="18" h="18"/>
-                    <section type="clicked" x="587"  y="481" w="18" h="18"/>
-                   <!-- <section type="Blocked" x="567"  y="481" w="18" h="18"/>-->
+					<section type="standBy" x="629" y="481" w="18" h="18" />
+					<section type="hover" x="608" y="481" w="18" h="18" />
+					<section type="clicked" x="587" y="481" w="18" h="18" />
 				</sections>
 			</button>
 			<button type_name="MinusButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="629" y="504" w="17" h="7"/>
-                    <section type="hover" x="609"  y="504" w="17" h="7"/>
-                    <section type="clicked" x="588"  y="504" w="17" h="7"/>
-                    <!--<section type="Blocked" x="567"  y="504" w="17" h="7"/>-->
+					<section type="standBy" x="629" y="504" w="17" h="7" />
+					<section type="hover" x="609" y="504" w="17" h="7" />
+					<section type="clicked" x="588" y="504" w="17" h="7" />
 				</sections>
 			</button>
 			<button type_name="VillagerCreatorButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="26" y="969" w="40" h="40"/>   
-                    <section type="clicked" x="75"  y="969" w="40" h="40"/>
+					<section type="standBy" x="26" y="969" w="40" h="40" />
+					<section type="clicked" x="75" y="969" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="ArcherCreatorButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="220" y="969" w="40" h="40"/>   
-				  	 <section type="hover" x="220" y="969" w="40" h="40"/>   
-                    <section type="clicked" x="269"  y="969" w="40" h="40"/>
+					<section type="standBy" x="220" y="969" w="40" h="40" />
+					<section type="hover" x="220" y="969" w="40" h="40" />
+					<section type="clicked" x="269" y="969" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="RepairButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="124" y="969" w="40" h="40"/>   
-                    <section type="clicked" x="173"  y="969" w="40" h="40"/>
+					<section type="standBy" x="124" y="969" w="40" h="40" />
+					<section type="clicked" x="173" y="969" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="SamuraiCreatorButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="220" y="1018" w="40" h="40"/>   
-				  	 <section type="hover" x="220" y="1018" w="40" h="40"/>   
-                    <section type="clicked" x="269"  y="1018" w="40" h="40"/>
+					<section type="standBy" x="220" y="1018" w="40" h="40" />
+					<section type="hover" x="220" y="1018" w="40" h="40" />
+					<section type="clicked" x="269" y="1018" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="StableButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="317" y="969" w="40" h="40"/>   
-                    <section type="clicked" x="366"  y="969" w="40" h="40"/>
+					<section type="standBy" x="317" y="969" w="40" h="40" />
+					<section type="clicked" x="366" y="969" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="GoOutButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="419" y="969" w="40" h="40"/>   
-                    <section type="clicked" x="468"  y="969" w="40" h="40"/>
+					<section type="standBy" x="419" y="969" w="40" h="40" />
+					<section type="clicked" x="468" y="969" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="ChurchButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="516" y="969" w="40" h="40"/>   
-                    <section type="clicked" x="565"  y="969" w="40" h="40"/>
+					<section type="standBy" x="516" y="969" w="40" h="40" />
+					<section type="clicked" x="565" y="969" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="BellButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="26" y="1018" w="40" h="40"/>   
-                    <section type="clicked" x="75"  y="1018" w="40" h="40"/>
+					<section type="standBy" x="26" y="1018" w="40" h="40" />
+					<section type="clicked" x="75" y="1018" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="TarkanCreatorButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="124" y="1018" w="40" h="40"/>   
-				  	  <section type="hover" x="124" y="1018" w="40" h="40"/>   
-                    <section type="clicked" x="172"  y="1018" w="40" h="40"/>
+					<section type="standBy" x="124" y="1018" w="40" h="40" />
+					<section type="hover" x="124" y="1018" w="40" h="40" />
+					<section type="clicked" x="172" y="1018" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="MonkCreatorButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="317" y="1018" w="40" h="40"/>   
-                    <section type="clicked" x="366"  y="1018" w="40" h="40"/>
+					<section type="standBy" x="317" y="1018" w="40" h="40" />
+					<section type="clicked" x="366" y="1018" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="BarrackButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="419" y="1018" w="40" h="40"/>   
-                    <section type="clicked" x="468"  y="1018" w="40" h="40"/>
+					<section type="standBy" x="419" y="1018" w="40" h="40" />
+					<section type="clicked" x="468" y="1018" w="40" h="40" />
 				</sections>
 			</button>
 			<button type_name="ArcheryButton" have_animations="0">
 				<sections>
-				  	 <section type="standBy" x="516" y="1018" w="40" h="40"/>   
-                    <section type="clicked" x="565"  y="1018" w="40" h="40"/>
+					<section type="standBy" x="516" y="1018" w="40" h="40" />
+					<section type="clicked" x="565" y="1018" w="40" h="40" />
 				</sections>
 			</button>
 		</buttons>
 	</elements>
-
 	<layout>
-
 		<img type="UseBar" name="UseBar">
-			<position x="0" y="901" />
-			<size  w="959" h="179" />
+			<position x="0" y="900" />
+			<size w="957" h="176" />
 		</img>
-
-   
-	<img type="MenuWindow" name="MenuWindow">
-		<position x="700" y="200" />
-		<size  w="457" h="577" />
-	</img>
-    
-    <img type="MinimapBar" name="MinimapBar">
-			<position x="1471" y="726" />
-			<size  w="449" h="354" />
+		<img type="MenuWindow" name="MenuWindow">
+			<position x="698" y="198" />
+			<size w="456" h="576" />
 		</img>
-		
+		<img type="MinimapBar" name="MinimapBar">
+			<position x="1468" y="723" />
+			<size w="446" h="352" />
+		</img>
 		<img type="SaveBar" name="SaveBar">
 			<position x="1536" y="0" />
-			<size  w="384" h="45" />
+			<size w="384" h="43" />
 		</img>
 		<img type="ResourceBar" name="ResourceBar">
 			<position x="0" y="0" />
-			<size  w="1312" h="46" />
+			<size w="1310" h="45" />
 		</img>
-		
 		<img type="ResourceWindow" name="ResourceWindow">
-			<position x="1585" y="80" />
-			<size  w="328" h="448" />
+			<position x="1584" y="77" />
+			<size w="324" h="446" />
 		</img>
-
 		<button type="MenuButton" name="MenuButton" text="">
 			<events />
 			<listeners />
-			<position x="1809" y="0" />
-			<size w="111" h="82" />
+			<position x="1807" y="0" />
+			<size w="108" h="81" />
 		</button>
-
 		<button type="SaveButton" name="SaveButton" text="">
 			<events />
 			<listeners />
-			<position x="1752" y="3" />
-			<size w="60" h="39" />
+			<position x="1749" y="1" />
+			<size w="57" h="37" />
 		</button>
 		<button type="SaveButton" name="LoadButton" text="">
 			<events />
 			<listeners />
-			<position x="1682" y="3" />
-			<size w="60" h="39" />
+			<position x="1680" y="1" />
+			<size w="57" h="37" />
 		</button>
-	
-
 		<img type="Wood" name="Wood">
-			<position x="200" y="5" />
-			<size  w="54" h="52" />
+			<position x="196" y="3" />
+			<size w="52" h="50" />
 		</img>
 		<img type="Food" name="Food">
-			<position x="400" y="5" />
-			<size  w="56" h="53" />
+			<position x="398" y="3" />
+			<size w="52" h="50" />
 		</img>
-
 		<img type="Gold" name="Gold">
-			<position x="600" y="5" />
-			<size  w="55" h="51" />
+			<position x="597" y="3" />
+			<size w="52" h="48" />
 		</img>
 		<label size="0" name="label_gold" text="0000">
-			<position x="650" y="5" />
+			<position x="648" y="3" />
 		</label>
-
 		<img type="PopulationLimit" name="PopulationLimit">
-			<position x="800" y="5" />
-			<size  w="54" h="40" />
+			<position x="796" y="3" />
+			<size w="52" h="37" />
 		</img>
-
-
-
-    <!--Barracks ________________________________________________      -->
-    <button type="SamuraiCreatorButton" name="SamuraiCreatorButton" text="">
-      <events>
-        <event action="262144" origin="16"/>
-      </events>
-      <listeners>
-        <listener name="scene"/>
-      </listeners>
-			<position x="115" y="920" />
-      <!--<position x="15" y="920" /> this position doesn't work propperly -->
-			<size w="40" h="40" />
+		<button type="SamuraiCreatorButton" name="SamuraiCreatorButton" text="">
+			<events />
+			<listeners />
+			<position x="112" y="918" />
+			<size w="36" h="37" />
 		</button>
-
-    <button type="RepairButton" name="RepairButtonBarrack" text="">
-      <events />
-      <listeners />
-      <position x="220" y="920" />
-      <size w="40" h="40" />
-    </button>
-
-
-    <!--Stables ________________________________________________      -->
+		<button type="RepairButton" name="RepairButtonBarrack" text="">
+			<events />
+			<listeners />
+			<position x="216" y="918" />
+			<size w="36" h="37" />
+		</button>
 		<button type="TarkanCreatorButton" name="TarkanCreatorButton" text="">
-      <events>
-        <event action="1048576" origin="16"/>
-      </events>
-      <listeners>
-        <listener name="scene"/>
-      </listeners>
-			<position x="165" y="920" />
-      <!--<position x="15" y="920" /> this position doesn't work propperly -->
-			<size w="40" h="40" />
+			<events />
+			<listeners />
+			<position x="160" y="918" />
+			<size w="36" h="37" />
 		</button>
-
-   
-    <button type="RepairButton" name="RepairButtonStable" text="">
-      <events />
-      <listeners />
-      <position x="220" y="920" />
-      <size w="40" h="40" />
-    </button>
-
-
-    <!--Archery ________________________________________________      -->
+		<button type="RepairButton" name="RepairButtonStable" text="">
+			<events />
+			<listeners />
+			<position x="216" y="918" />
+			<size w="36" h="37" />
+		</button>
 		<button type="ArcherCreatorButton" name="ArcherCreatorButton" text="">
-				<events>
-       				<event action="65536" origin="16"/>
-   				</events>
-		  <listeners>
-        			<listener name="scene"/>
-      	   </listeners>
-			<position x="15" y="920" />
-			<size w="40" h="40" />
+			<events />
+			<listeners />
+			<position x="12" y="918" />
+			<size w="36" h="37" />
 		</button>
-    
-
-    <button type="RepairButton" name="RepairButtonArchery" text="">
-      <events />
-      <listeners />
-      <position x="220" y="920" />
-      <size w="40" h="40" />
-    </button>
-
-    <!-- ________________________________________________      -->
-
-    <!-- Menu ingame ________________________________________________      -->
+		<button type="RepairButton" name="RepairButtonArchery" text="">
+			<events />
+			<listeners />
+			<position x="216" y="918" />
+			<size w="36" h="37" />
+		</button>
 		<button type="OptionsButton" name="OptionsButton" text="">
-      <events>
-        <event action="67108864" origin="16"/>
-      </events>
-      <listeners>
-        <listener name="scene"/>
-      </listeners>
+			<events />
+			<listeners />
 			<position x="0" y="0" />
-			<size w="98" h="83" />
+			<size w="96" h="81" />
 		</button>
-	<button type="button" name="MenuButtonInGame_Resume" text="Resume Game">
-    <events>
-      <event action="16777216" origin="16"/>
-    </events>
-    <listeners>
-      <listener name="scene"/>
-    </listeners>
-			<position x="820" y="380" />
-			<size w="260" h="40" />
+		<button type="button" name="MenuButtonInGame_Resume" text="Resume Game">
+			<events />
+			<listeners />
+			<position x="818" y="378" />
+			<size w="256" h="37" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Load" text="Load Game">
 			<events />
 			<listeners />
-			<position x="820" y="430" />
-			<size w="260" h="40" />
+			<position x="818" y="428" />
+			<size w="256" h="37" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Save" text="Save Game">
 			<events />
 			<listeners />
-			<position x="820" y="480" />
-			<size w="260" h="40" />
+			<position x="818" y="478" />
+			<size w="256" h="37" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Options" text="Options">
 			<events />
 			<listeners />
-			<position x="820" y="530" />
-			<size w="260" h="40" />
+			<position x="818" y="527" />
+			<size w="256" h="37" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Start" text="Exit to Start Menu">
-      <events>
-        <event action="33554432" origin="16"/>
-      </events>
-      <listeners>
-        <listener name="scene"/>
-      </listeners>
-			<position x="820" y="580" />
-			<size w="260" h="40" />
+			<events />
+			<listeners />
+			<position x="818" y="577" />
+			<size w="256" h="37" />
 		</button>
 		<button type="button" name="MenuButtonInGame_exit" text="Exit to Desktop">
-      <events>
-        <event action="4194304" origin="16"/>
-      </events>
-      <listeners>
-        <listener name="scene"/>
-      </listeners>
-			<position x="820" y="630" />
-			<size w="260" h="40" />
-		</button>
-    <!-- Menu ingame ________________________________________________      -->
-	
-
-
-		<!--   Church
-		<button type="MonkCreatorButton" name="VillagerCreatorButton" text="">
 			<events />
 			<listeners />
-			<position x="5" y="495" />
-			<size w="40" h="40" />
+			<position x="818" y="628" />
+			<size w="256" h="37" />
 		</button>
-		<button type="RepairButton" name="RepairButton" text="">
-			<events />
-			<listeners />
-			<position x="155" y="495" />
-			<size w="40" h="40" />
-		</button/>
-		-->
-
-		<!--    urban center
-		<button type="VillagerCreatorButton" name="VillagerCreatorButton" text="">
-			<events />
-			<listeners />
-			<position x="5" y="495" />
-			<size w="40" h="40" />
-		</button>
-
-		<button type="RepairButton" name="RepairButton" text="">
-			<events />
-			<listeners />
-			<position x="155" y="495" />
-			<size w="40" h="40" />
-		</button>
-
-		<button type="BellButton" name="BellButton" text="">
-			<events />
-			<listeners />
-			<position x="155" y="595" />
-			<size w="40" h="40" />
-		</button>
-		<button type="GoOutButton" name="GoOutButton" text="">
-			<events />
-			<listeners />
-			<position x="155" y="595" />
-			<size w="40" h="40" />
-		</button>
-		-->
-
-	</layout></gui>
-
+	</layout>
+</gui>

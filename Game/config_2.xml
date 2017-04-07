@@ -1,9 +1,9 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap="60">
-    <title>Jigoku Do</title>
-    <organization>GangBug - UPC</organization>
+  <app framerate_cap="">
+    <title>Age of Empires - Gangbug Project</title>
+    <organization>UPC</organization>
   </app>
 	
   <renderer>
@@ -12,13 +12,13 @@
 
   <fonts>
     <default_font file="fonts/open_sans/OpenSans-Regular.ttf" size="24"/>
-    <medium_font file="fonts/open_sans/OpenSans-Regular.ttf" size="18"/>
-    <small_font file="fonts/open_sans/OpenSans-Regular.ttf" size="12"/>  
+	<medium_font file="fonts/open_sans/OpenSans-Regular.ttf" size="18"/>
+	<small_font file="fonts/open_sans/OpenSans-Regular.ttf" size="12"/>
   </fonts>
 
   <gui>
     <atlas file="gui/atlas.png"/>
-    <loadResolution x="1920" y="1080"/>
+    <loadResolution x="800" y="600"/>
   </gui>
     
   <window>
@@ -26,13 +26,13 @@
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
-    <fullscreen_window value="false"/>    
+    <fullscreen_window value="false"/>
     <start_maximized value="false"/>
   </window>
 
   <file_system>
     <path>data</path>
-    <path>data.zip</path>
+    <path>data.zip</path>    
   </file_system>
 
   <map>

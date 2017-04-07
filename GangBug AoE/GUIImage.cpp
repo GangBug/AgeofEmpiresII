@@ -33,6 +33,8 @@ void GUIImage::Serialize(pugi::xml_node root)
 	pugi::xml_node size;
 	pugi::xml_node element;
 
+	GB_Rectangle<float> xmlRect = app->gui->ScreenToXml(GetLocalRect());
+
 	element = root.append_child("img");
 	//Create atributes in img
 	atr = element.append_attribute("type");
@@ -43,26 +45,30 @@ void GUIImage::Serialize(pugi::xml_node root)
 	position = element.append_child("position");
 	//Create atributes in img/position
 	atr = position.append_attribute("x");
-	atr.set_value(GetLocalRect().x);
+	atr.set_value(xmlRect.x);
 	atr = position.append_attribute("y");
-	atr.set_value(GetLocalRect().y);
+	atr.set_value(xmlRect.y);
 	//Create node img/size
 	size = element.append_child("size");
 	//Create atributes in img/size
 	atr = size.append_attribute("w");
-	atr.set_value(GetLocalRect().w);
+	atr.set_value(xmlRect.w);
 	atr = size.append_attribute("h");
-	atr.set_value(GetLocalRect().h);
+	atr.set_value(xmlRect.h);
 
 }
 void GUIImage::Deserialize(pugi::xml_node layout_element)
 {
 	std::string name = layout_element.attribute("name").as_string();
-	GB_Rectangle<int> rect;
-	rect.x = layout_element.child("position").attribute("x").as_int();
-	rect.y = layout_element.child("position").attribute("y").as_int();
-	rect.w = layout_element.child("size").attribute("w").as_int();
-	rect.h = layout_element.child("size").attribute("h").as_int();
+
+	GB_Rectangle<float> xmlRect;
+	GB_Rectangle<int>	rect;
+	xmlRect.x = layout_element.child("position").attribute("x").as_float();
+	xmlRect.y = layout_element.child("position").attribute("y").as_float();
+	xmlRect.w = layout_element.child("size").attribute("w").as_float();
+	xmlRect.h = layout_element.child("size").attribute("h").as_float();
+
+	rect = app->gui->XmlToScreen(xmlRect);
 	SetRectangle(rect);
 
 

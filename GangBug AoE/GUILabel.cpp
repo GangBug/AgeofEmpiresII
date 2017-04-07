@@ -81,6 +81,8 @@ void GUILabel::Serialize(pugi::xml_node root)
 	pugi::xml_node size;
 	pugi::xml_node element;
 
+	GB_Rectangle<float> xmlRect = app->gui->ScreenToXml(GetLocalRect());
+
 	element = root.append_child("label");
 	//Create atributes in label
 	atr = element.append_attribute("size");
@@ -93,9 +95,9 @@ void GUILabel::Serialize(pugi::xml_node root)
 	position = element.append_child("position");
 	//Create atributes in label/position
 	atr = position.append_attribute("x");
-	atr.set_value(GetLocalRect().x);
+	atr.set_value(xmlRect.x);
 	atr = position.append_attribute("y");
-	atr.set_value(GetLocalRect().y);
+	atr.set_value(xmlRect.y);
 
 }
 
@@ -104,9 +106,12 @@ void GUILabel::Deserialize(pugi::xml_node layout_element)
 	std::string txt = layout_element.attribute("text").as_string();
 	label_size size = (label_size)layout_element.attribute("size").as_int();
 	SetText(txt.c_str(), size);
-	GB_Rectangle<int> rect;
-	rect.x = layout_element.child("position").attribute("x").as_int();
-	rect.y = layout_element.child("position").attribute("y").as_int();
+	GB_Rectangle<float> xmlRect;
+	GB_Rectangle<int>	rect;
+	xmlRect.x = layout_element.child("position").attribute("x").as_float();
+	xmlRect.y = layout_element.child("position").attribute("y").as_float();
+	rect = app->gui->XmlToScreen(xmlRect);
+
 	SetGlobalPos(rect.x, rect.y);
 
 

@@ -78,6 +78,9 @@ public:
 	bool GetUIEditing() const;
 	void SetUIEditing(bool edit);
 
+	GB_Rectangle<int> XmlToScreen(GB_Rectangle<float> _rect);
+	GB_Rectangle<float> ScreenToXml(GB_Rectangle<int> _rect);
+
 public:
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debugGuiList;
@@ -105,6 +108,8 @@ private:
 	bool UIEditing = false;
 
 	GUIImage* img2 = nullptr; //TMP
+
+	iPoint loadResolution;
 
 };
 

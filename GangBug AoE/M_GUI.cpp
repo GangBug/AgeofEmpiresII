@@ -4,6 +4,7 @@
 #include "M_Render.h"
 #include "M_Textures.h"
 #include "M_FileSystem.h"
+#include "M_Window.h"
 #include "GB_Rectangle.h"
 #include "Log.h"
 
@@ -24,7 +25,7 @@
 
 M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 {
-	name.assign("GUI");
+	name.assign("gui");
 	active = true;
 }
 M_GUI::~M_GUI()
@@ -35,7 +36,8 @@ bool M_GUI::Awake(pugi::xml_node & config)
 {
 	cBeizier = new CBeizier();
 	atlasPath = config.child("atlas").attribute("file").as_string("gui/atlas.png");
-	
+	loadResolution.x = config.child("loadResolution").attribute("x").as_int(800);
+	loadResolution.y = config.child("loadResolution").attribute("y").as_int(600);
 	return true;
 }
 bool M_GUI::Start()
@@ -71,9 +73,6 @@ bool M_GUI::Start()
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
 
-	GUILabel* label_center = CreateLabel({ 0, 0, 0, 0 }, DEFAULT, "label_center", "label_center");
-	label_center->Center();
-	guiList.push_back(label_center);
 	return ret;
 }
 update_status M_GUI::PreUpdate(float dt)
@@ -614,10 +613,10 @@ void M_GUI::DrawDebug()
 			(*it)->Draw();
 	}
 
-	cBeizier->DrawBezierCurve(CB_EASE_INOUT_BACK, { 800, 200 });
-	cBeizier->DrawBezierCurve(CB_SLOW_MIDDLE, { 800, 200 });
-	cBeizier->DrawBezierCurve(CB_LINEAL, { 800, 200 });
-	cBeizier->DrawBezierCurve(CB_SHAKE, { 800, 200 });
+	//cBeizier->DrawBezierCurve(CB_EASE_INOUT_BACK, { 800, 200 });
+	//cBeizier->DrawBezierCurve(CB_SLOW_MIDDLE, { 800, 200 });
+	//cBeizier->DrawBezierCurve(CB_LINEAL, { 800, 200 });
+	//cBeizier->DrawBezierCurve(CB_SHAKE, { 800, 200 });
 }
 GUIElement * M_GUI::FindElement(std::list<GUIElement*> list, std::string name)
 {
@@ -802,6 +801,33 @@ void M_GUI::SetUIEditing(bool edit)
 			(*it)->SetDraggable(false);
 		}
 	}
+}
+
+GB_Rectangle<int> M_GUI::XmlToScreen(GB_Rectangle<float> xmlRect)
+{
+	GB_Rectangle<int> screenRect;
+	iPoint resolution = app->win->GetWindowSize();
+	screenRect.x = ((float)xmlRect.x * (float)resolution.x) / (float)loadResolution.x;
+	screenRect.y = ((float)xmlRect.y * (float)resolution.y) / (float)loadResolution.y;
+
+	screenRect.w = (float)xmlRect.w * ((float)resolution.x / (float)loadResolution.x);
+	screenRect.h = (float)xmlRect.h * ((float)resolution.y / (float)loadResolution.y);
+
+	return screenRect;
+}
+
+GB_Rectangle<float> M_GUI::ScreenToXml(GB_Rectangle<int> screenRect)
+{
+	GB_Rectangle<float> xmlRect;
+	iPoint resolution = app->win->GetWindowSize();
+
+	xmlRect.x = ((float)screenRect.x * (float)loadResolution.x) / (float)resolution.x;
+	xmlRect.y = ((float)screenRect.y * (float)loadResolution.y) / (float)resolution.y;
+
+	xmlRect.w = (float)screenRect.w * ((float)loadResolution.x / (float)resolution.x);
+	xmlRect.h = (float)screenRect.h * ((float)loadResolution.y / (float)resolution.y);
+
+	return xmlRect;
 }
 
 
