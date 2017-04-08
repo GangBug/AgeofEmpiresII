@@ -36,8 +36,8 @@ bool M_GUI::Awake(pugi::xml_node & config)
 {
 	cBeizier = new CBeizier();
 	atlasPath = config.child("atlas").attribute("file").as_string("gui/atlas.png");
-	loadResolution.x = config.child("loadResolution").attribute("x").as_int(800);
-	loadResolution.y = config.child("loadResolution").attribute("y").as_int(600);
+	loadResolution.x = config.child("loadResolution").attribute("x").as_int(1920);
+	loadResolution.y = config.child("loadResolution").attribute("y").as_int(1080);
 	return true;
 }
 bool M_GUI::Start()
@@ -131,6 +131,61 @@ update_status M_GUI::PostUpdate(float dt)
 	}
 	return UPDATE_CONTINUE;
 }
+bool M_GUI::CleanUp()
+{
+	SDL_Log("releasing j1GUI");
+	bool ret = true;
+	for each (GUIElement* var in guiList)
+	{
+		RELEASE(var);
+	}
+	for each (GUIElement* var in background)
+	{
+		RELEASE(var);
+	}
+	for each (GUIElement* var in debugGuiList)
+	{
+		RELEASE(var);
+	}
+	for each (GUIElement* var in editorGuiList)
+	{
+		RELEASE(var);
+	}
+
+	guiList.clear();
+	background.clear();
+	debugGuiList.clear();
+	editorGuiList.clear();
+
+	if (guiList.size() != 0)
+	{
+		ret = false;
+	}
+	if (background.size() != 0)
+	{
+		ret = false;
+	}
+	if (debugGuiList.size() != 0)
+	{
+		ret = false;
+	}
+	if (editorGuiList.size() != 0)
+	{
+		ret = false;
+	}
+	if (ret)
+	{
+		SDL_Log("j1GUI released");
+	}
+	else
+	{
+		SDL_Log("Problems releasing j1GUI");
+	}
+
+	return ret;
+
+}
+
 //TODO: LoadLayout needs lots of improvements...
 bool M_GUI::LoadLayout()
 {
@@ -402,6 +457,7 @@ bool M_GUI::SaveLayout()
 
 	return ret;
 }
+
 bool M_GUI::UpdateGuiList()
 {
 	return true;
@@ -425,6 +481,7 @@ GUIElement * M_GUI::FindMouseHover()
 		if ((*it)->CheckMouseOver())
 		{
 			ret = (*it);
+			break;
 		}
 	}
 	for (it = guiList.rbegin(); it != guiList.rend(); it++)
@@ -432,6 +489,7 @@ GUIElement * M_GUI::FindMouseHover()
 		if ((*it)->CheckMouseOver())
 		{
 			ret = (*it);
+			break;
 		}
 	}
 
@@ -520,7 +578,9 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 		if (element->GetElementStatus().interactive && element->GetElementStatus().active)
 		{
 			//if (event != MOUSE_ENTERS)
-			SDL_Log("Event: %b", event);
+			SDL_Log("Event: %d ", event);
+			SDL_Log("Element: %s\n", element->GetName().c_str());
+
 			switch (event)
 			{
 				case MOUSE_ENTERS:
@@ -829,5 +889,6 @@ GB_Rectangle<float> M_GUI::ScreenToXml(GB_Rectangle<int> screenRect)
 
 	return xmlRect;
 }
+
 
 

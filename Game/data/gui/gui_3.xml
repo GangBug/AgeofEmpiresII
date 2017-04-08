@@ -154,171 +154,98 @@
 		</buttons>
 	</elements>
 	<layout>
-		<img type="UseBar" name="UseBar" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="0" y="900" />
-			<size w="958" h="178" />
-		</img>
-		<img type="MenuWindow" name="MenuWindow" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="699" y="199" />
-			<size w="455" h="576" />
-		</img>
-		<img type="MinimapBar" name="MinimapBar" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="1470" y="726" />
-			<size w="448" h="354" />
-		</img>
-		<img type="SaveBar" name="SaveBar" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="1535" y="0" />
-			<size w="382" h="45" />
-		</img>
-		<img type="ResourceBar" name="ResourceBar" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="0" y="0" />
-			<size w="1310" h="45" />
-		</img>
-		<img type="ResourceWindow" name="ResourceWindow" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="1584" y="79" />
-			<size w="326" h="447" />
-		</img>
-		<button type="MenuButton" name="MenuButton" text="" interactive="true" canFocus="true" active="true" visible="true">
-			<events />
-			<listeners />
-			<scenes />
-			<position x="1807" y="0" />
-			<size w="110" h="81" />
-		</button>
-		<button type="SaveButton" name="SaveButton" text="" interactive="true" canFocus="true" active="true" visible="true">
-			<events />
-			<listeners />
-			<scenes />
-			<position x="1751" y="3" />
-			<size w="60" h="39" />
-		</button>
-		<button type="SaveButton" name="LoadButton" text="" interactive="true" canFocus="true" active="true" visible="true">
-			<events />
-			<listeners />
-			<scenes />
-			<position x="1681" y="3" />
-			<size w="60" h="39" />
-		</button>
-		<img type="Wood" name="Wood" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="198" y="4" />
-			<size w="52" h="51" />
-		</img>
-		<img type="Food" name="Food" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="399" y="4" />
-			<size w="54" h="52" />
-		</img>
-		<img type="Gold" name="Gold" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="600" y="4" />
-			<size w="54" h="51" />
-		</img>
-		<label size="0" name="label_gold" text="0000" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="648" y="4" />
-		</label>
-		<img type="PopulationLimit" name="PopulationLimit" draggable="true" interactive="true" canFocus="true" active="true" visible="true">
-			<scenes />
-			<position x="798" y="4" />
-			<size w="52" h="39" />
-		</img>
 		<button type="SamuraiCreatorButton" name="SamuraiCreatorButton" text="" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
-			<scenes />
-			<position x="114" y="919" />
-			<size w="39" h="39" />
+      <scenes>
+        <scene name="menu"></scene>
+      </scenes>
+			<position x="105" y="918" />
+			<size w="30" h="36" />
 		</button>
 		<button type="RepairButton" name="RepairButtonBarrack" text="" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="219" y="919" />
-			<size w="39" h="39" />
+			<position x="210" y="918" />
+			<size w="30" h="36" />
 		</button>
 		<button type="TarkanCreatorButton" name="TarkanCreatorButton" text="" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="165" y="919" />
-			<size w="39" h="39" />
+			<position x="153" y="918" />
+			<size w="30" h="36" />
 		</button>
 		<button type="RepairButton" name="RepairButtonStable" text="" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="219" y="919" />
-			<size w="39" h="39" />
+			<position x="210" y="918" />
+			<size w="30" h="36" />
 		</button>
 		<button type="ArcherCreatorButton" name="ArcherCreatorButton" text="" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="15" y="919" />
-			<size w="39" h="39" />
+			<position x="5" y="918" />
+			<size w="30" h="36" />
 		</button>
 		<button type="RepairButton" name="RepairButtonArchery" text="" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="219" y="919" />
-			<size w="39" h="39" />
+			<position x="210" y="918" />
+			<size w="30" h="36" />
 		</button>
 		<button type="OptionsButton" name="OptionsButton" text="" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
 			<position x="0" y="0" />
-			<size w="97" h="82" />
+			<size w="90" h="81" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Resume" text="Resume Game" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="819" y="379" />
-			<size w="258" h="39" />
+			<position x="811" y="378" />
+			<size w="255" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Load" text="Load Game" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="819" y="429" />
-			<size w="258" h="39" />
+			<position x="811" y="426" />
+			<size w="255" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Save" text="Save Game" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="819" y="480" />
-			<size w="258" h="39" />
+			<position x="811" y="477" />
+			<size w="255" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Options" text="Options" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="819" y="529" />
-			<size w="258" h="39" />
+			<position x="811" y="525" />
+			<size w="255" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Start" text="Exit to Start Menu" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="819" y="579" />
-			<size w="258" h="39" />
+			<position x="811" y="576" />
+			<size w="255" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_exit" text="Exit to Desktop" interactive="true" canFocus="true" active="true" visible="true">
 			<events />
 			<listeners />
 			<scenes />
-			<position x="819" y="630" />
-			<size w="258" h="39" />
+			<position x="811" y="627" />
+			<size w="255" h="36" />
 		</button>
 	</layout>
 </gui>

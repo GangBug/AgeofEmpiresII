@@ -92,8 +92,8 @@ void GUILabel::Serialize(pugi::xml_node root)
 	atr.set_value(GetName().c_str());
 	atr = element.append_attribute("text");
 	atr.set_value(GetText().c_str());
-	atr = element.append_attribute("draggable");
-	atr.set_value(GetDraggable());
+	//atr = element.append_attribute("draggable");
+	//atr.set_value(GetDraggable());
 	atr = element.append_attribute("interactive");
 	atr.set_value(GetInteractive());
 	atr = element.append_attribute("canFocus");

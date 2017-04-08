@@ -24,6 +24,7 @@ public:
 	update_status PreUpdate(float dt) override;
 	update_status Update(float dt) override;
 	update_status PostUpdate(float dt) override;
+	bool CleanUp() override;
 
 	bool LoadLayout(); //TODO: LoadLayout needs lots of improvements 
 					   //Define wich list it fills and wich gui.xml gets for example 
@@ -82,6 +83,7 @@ public:
 	GB_Rectangle<float> ScreenToXml(GB_Rectangle<int> _rect);
 
 public:
+	std::list<GUIElement*> background;
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debugGuiList;
 	std::list<GUIElement*> editorGuiList;
