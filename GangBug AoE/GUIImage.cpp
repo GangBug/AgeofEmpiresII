@@ -24,7 +24,8 @@ void GUIImage::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 }
 void GUIImage::Draw() const
 {
-	app->render->Blit(atlas, &GetDrawRect().GetSDLrect(), &GetSection().GetSDLrect(), alpha);
+	if(GetVisible())
+		app->render->Blit(atlas, &GetDrawRect().GetSDLrect(), &GetSection().GetSDLrect(), alpha);
 }
 void GUIImage::Serialize(pugi::xml_node root)
 {
@@ -41,6 +42,17 @@ void GUIImage::Serialize(pugi::xml_node root)
 	atr.set_value(GetPresetType().c_str());
 	atr = element.append_attribute("name");
 	atr.set_value(GetName().c_str());
+	atr = element.append_attribute("draggable");
+	atr.set_value(GetDraggable());
+	atr = element.append_attribute("interactive");
+	atr.set_value(GetInteractive());
+	atr = element.append_attribute("canFocus");
+	atr.set_value(GetCanFocus());
+	atr = element.append_attribute("active");
+	atr.set_value(GetActive());
+	atr = element.append_attribute("visible");
+	atr.set_value(GetVisible());
+
 	//Create node img/position
 	position = element.append_child("position");
 	//Create atributes in img/position
@@ -60,6 +72,12 @@ void GUIImage::Serialize(pugi::xml_node root)
 void GUIImage::Deserialize(pugi::xml_node layout_element)
 {
 	std::string name = layout_element.attribute("name").as_string();
+	SetActive(layout_element.attribute("active").as_bool(false));
+	//SetDraggable(layout_element.attribute("draggable").as_bool(false));
+	SetInteractive(layout_element.attribute("interactive").as_bool(false));
+	SetCanFocus(layout_element.attribute("canFocus").as_bool(false));
+	SetVisible(layout_element.attribute("visible").as_bool(false));
+
 
 	GB_Rectangle<float> xmlRect;
 	GB_Rectangle<int>	rect;

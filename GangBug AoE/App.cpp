@@ -16,6 +16,9 @@
 #include "M_GUI.h"
 #include "M_Animation.h"
 
+#include "S_InGame.h"
+#include "S_Menu.h"
+
 #include "App.h"
 
 // Constructor
@@ -50,6 +53,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new M_EntityManager();
 	gui = new M_GUI();
 	animation = new M_Animation();
+	menu = new S_Menu(false);
+	inGame = new S_InGame(false);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -63,6 +68,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(font);
 	AddModule(entityManager);
 	AddModule(animation);
+
+	AddModule(menu);
+	AddModule(inGame);
 
 	AddModule(gui);
 	// render last to swap buffer

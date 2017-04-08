@@ -207,6 +207,8 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="S_InGame.cpp" />
+    <ClCompile Include="S_Menu.cpp" />
     <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -245,10 +247,17 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="GB_Rectangle.h" />
+    <ClInclude Include="S_InGame.h" />
+    <ClInclude Include="S_Menu.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\Game\config.xml" />
+    <Xml Include="..\Game\config.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+    <Xml Include="..\Game\data\gui\gui.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

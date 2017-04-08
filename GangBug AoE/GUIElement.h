@@ -17,7 +17,8 @@ enum status_flags
 	INTERACTIVE = (1 << 1),
 	CAN_FOCUS = (1 << 2),
 	ACTIVE = (1 << 3),
-	STANDARD_PRESET = (1 << 4)
+	STANDARD_PRESET = (1 << 4),
+	VISIBLE = (1 << 5)
 };
 enum gui_events
 {
@@ -50,6 +51,7 @@ struct ElementStatus
 {
 	bool draggable = false;	// Can be moved?
 	bool interactive = false;	// Is interactable?
+	bool visible = false;
 								//bool cut_childs	= false;	// I dont know a shit about this...
 	bool canFocus = false;	// Can get the focus? --- For now this is not used...
 	bool active = true;		// Is active? if not dont do uptade
@@ -124,6 +126,8 @@ public:
 	void CenterY();
 	void AddListener(Module* moduleToAdd);
 	void RemoveListener(Module* moduleToRemove);
+	void AddScene(Module* scene);
+	void RemoveScene(Module* scene);
 
 	bool Save(pugi::xml_node& node) const;
 	//bool Load(pugi::xml_node& node);
@@ -160,6 +164,7 @@ public:
 	std::string GetPresetType() const;
 	std::string GetName() const;
 	std::list<Module*> GetListeners_noconst();
+	bool GetVisible() const;
 
 	virtual void SetLocalPos(int x, int y);
 	virtual void SetGlobalPos(int x, int y);
@@ -181,6 +186,7 @@ public:
 	void SetDrawPosition(float x, float y);
 	void SetPresetType(std::string str);
 	void SetName(std::string str);
+	void SetVisible(bool visible);
 
 	void SetOnLClickUp(gui_events _event);
 	void SetOnLClickDown(gui_events _event);
@@ -265,6 +271,8 @@ private:
 
 protected:
 	std::list<Module*> listeners;
+	std::map<std::string, Module*> scenes;
+
 	bool haveFocus = false; // TODO implement it on event management
 	int alpha = 255;
 

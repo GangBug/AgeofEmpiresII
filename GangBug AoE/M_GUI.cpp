@@ -256,7 +256,7 @@ bool M_GUI::LoadLayout()
 					// same if not preset found in presets list
 					if (node != guiPresets.end() && tmpElement == nullptr && name != "")
 					{
-						GUIButton* btn = CreateButtonFromPreset({ 0,0,0,0 }, preset, name, "hola");
+						GUIButton* btn = CreateButtonFromPreset({ 0,0,0,0 }, preset, name, "Text_Missing");
 						btn->Deserialize(layout_element);
 						guiList.push_back(btn);
 						LOG("Item %s created", layout_element.name());

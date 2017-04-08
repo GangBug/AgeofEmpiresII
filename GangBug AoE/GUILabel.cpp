@@ -60,18 +60,19 @@ const SDL_Texture * GUILabel::GetTexture() const
 
 void GUILabel::Draw() const
 {
-	if (texture != nullptr)
-	{
-		GB_Rectangle<float> rect = GetDrawRect();
-		GB_Rectangle<float> sect;
-		sect.x = 0;
-		sect.y = 0;
-		sect.w = rect.w;
-		sect.h = rect.h;
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-		app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
-		//app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
-	}
+	if(GetVisible())
+		if (texture != nullptr)
+		{
+			GB_Rectangle<float> rect = GetDrawRect();
+			GB_Rectangle<float> sect;
+			sect.x = 0;
+			sect.y = 0;
+			sect.w = rect.w;
+			sect.h = rect.h;
+			SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+			app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
+			//app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
+		}
 }
 
 void GUILabel::Serialize(pugi::xml_node root)
@@ -91,6 +92,17 @@ void GUILabel::Serialize(pugi::xml_node root)
 	atr.set_value(GetName().c_str());
 	atr = element.append_attribute("text");
 	atr.set_value(GetText().c_str());
+	atr = element.append_attribute("draggable");
+	atr.set_value(GetDraggable());
+	atr = element.append_attribute("interactive");
+	atr.set_value(GetInteractive());
+	atr = element.append_attribute("canFocus");
+	atr.set_value(GetCanFocus());
+	atr = element.append_attribute("active");
+	atr.set_value(GetActive());
+	atr = element.append_attribute("visible");
+	atr.set_value(GetVisible());
+
 	//Create node label/position
 	position = element.append_child("position");
 	//Create atributes in label/position
@@ -105,6 +117,12 @@ void GUILabel::Deserialize(pugi::xml_node layout_element)
 {
 	std::string txt = layout_element.attribute("text").as_string();
 	label_size size = (label_size)layout_element.attribute("size").as_int();
+	SetActive(layout_element.attribute("active").as_bool(false));
+	//SetDraggable(layout_element.attribute("draggable").as_bool(false));
+	SetInteractive(layout_element.attribute("interactive").as_bool(false));
+	SetCanFocus(layout_element.attribute("canFocus").as_bool(false));
+	SetVisible(layout_element.attribute("visible").as_bool(false));
+
 	SetText(txt.c_str(), size);
 	GB_Rectangle<float> xmlRect;
 	GB_Rectangle<int>	rect;

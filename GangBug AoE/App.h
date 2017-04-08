@@ -25,7 +25,8 @@ class M_Fonts;
 class M_EntityManager;
 class M_GUI;
 class M_Animation;
-
+class S_Menu;
+class S_InGame;
 
 class App
 {
@@ -106,6 +107,8 @@ public:
 	M_EntityManager*	entityManager = nullptr;
 	M_GUI*				gui = nullptr;
 	M_Animation*		animation = nullptr;
+	S_Menu*				menu = nullptr;
+	S_InGame*			inGame = nullptr;
 
 	bool debug = false;
 	bool editor = false;

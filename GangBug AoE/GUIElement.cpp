@@ -46,6 +46,78 @@ GUIElement::~GUIElement()
 	childs.clear();
 }
 
+void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
+{
+	//When updateing first do the element particular update overrided in each subtype.
+	OnUpdate(mouseHover, focus, dt);
+
+	//Then process the animations and transitions.
+	if (currentStaticAnimation != SAT_NONE)
+	{
+		//Do here the animation according the active one.
+
+		switch (currentStaticAnimation)
+		{
+			case SA_FLASH:
+				FlashSA(dt);
+				break;
+			case SA_SHAKE:
+				ShakeSA(dt);
+				break;
+			case SA_PULSE:
+				PulseSA(dt);
+				break;
+			case SA_BOUNCE:
+				BounceSA(dt);
+				break;
+		}
+
+	}
+
+	if (currentTransition != SAT_NONE)
+	{
+		//DO here the transition logic according the one active.
+
+		switch (currentTransition)
+		{
+			case T_SCALE:
+				ScaleT(dt);
+				break;
+			case T_FADE:
+				FadeT(dt);
+				break;
+			case T_DROP:
+				DropT(dt);
+				break;
+			case T_FLY:
+				FlyT(dt);
+				break;
+			case T_SLIDE:
+				SlideT(dt);
+				break;
+			case T_MOVE_RIGHT:
+				MoveRightT(dt);
+				break;
+			case T_MOVE_LEFT:
+				MoveLeftT(dt);
+				break;
+			case T_MOVE_UP:
+				MoveUpT(dt);
+				break;
+			case T_MOVE_DOWN:
+				MoveDownT(dt);
+				break;
+		}
+	}
+	if (GetDraggable() && GetLClicked())
+	{
+		iPoint p;
+		app->input->GetMousePosition(p.x, p.y);
+		SetGlobalPos(p.x, p.y);
+	}
+
+}
+
 void GUIElement::CheckInput(const GUIElement * mouseHover, const GUIElement * focus)
 {
 }
@@ -91,6 +163,19 @@ void GUIElement::RemoveListener(Module * moduleToRemove)
 	{
 		listeners.erase(it);
 	}
+}
+void GUIElement::AddScene(Module * scene)
+{
+	std::map<std::string, Module*>::iterator it = scenes.find(scene->name);
+	if (it == scenes.end())
+		scenes.insert(std::pair<std::string, Module*>(scene->name, scene));
+}
+void GUIElement::RemoveScene(Module * scene)
+{
+	std::map<std::string, Module*>::iterator it = scenes.find(scene->name);
+	if (it == scenes.end())
+		scenes.erase(it);
+
 }
 bool GUIElement::Save(pugi::xml_node & node) const
 {
@@ -236,6 +321,11 @@ std::string GUIElement::GetName() const
 std::list<Module*> GUIElement::GetListeners_noconst()
 {
 	return listeners;
+}
+
+bool GUIElement::GetVisible() const
+{
+	return status.visible;
 }
 
 void GUIElement::SetLocalPos(int x, int y)
@@ -506,6 +596,11 @@ void GUIElement::SetName(std::string str)
 	name = str;
 }
 
+void GUIElement::SetVisible(bool visible)
+{
+	status.visible = visible;
+}
+
 void GUIElement::SetOnLClickUp(gui_events _event)
 {
 	status.statusChanged = true;
@@ -552,78 +647,6 @@ void GUIElement::SetOnMouseLeaves(gui_events _event)
 {
 	status.statusChanged = true;
 	status.onMouseLeaves = _event;
-}
-
-void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, float dt)
-{
-	//When updateing first do the element particular update overrided in each subtype.
-	OnUpdate(mouseHover, focus, dt);
-
-	//Then process the animations and transitions.
-	if (currentStaticAnimation != SAT_NONE)
-	{
-		//Do here the animation according the active one.
-
-		switch (currentStaticAnimation)
-		{
-			case SA_FLASH:
-				FlashSA(dt);
-				break;
-			case SA_SHAKE:
-				ShakeSA(dt);
-				break;
-			case SA_PULSE:
-				PulseSA(dt);
-				break;
-			case SA_BOUNCE:
-				BounceSA(dt);
-				break;
-		}
-
-	}
-
-	if (currentTransition != SAT_NONE)
-	{
-		//DO here the transition logic according the one active.
-
-		switch (currentTransition)
-		{
-			case T_SCALE:
-				ScaleT(dt);
-				break;
-			case T_FADE:
-				FadeT(dt);
-				break;
-			case T_DROP:
-				DropT(dt);
-				break;
-			case T_FLY:
-				FlyT(dt);
-				break;
-			case T_SLIDE:
-				SlideT(dt);
-				break;
-			case T_MOVE_RIGHT:
-				MoveRightT(dt);
-				break;
-			case T_MOVE_LEFT:
-				MoveLeftT(dt);
-				break;
-			case T_MOVE_UP:
-				MoveUpT(dt);
-				break;
-			case T_MOVE_DOWN:
-				MoveDownT(dt);
-				break;
-		}
-	}
-	if (GetDraggable() && GetLClicked())
-	{
-		iPoint p;
-		app->input->GetMousePosition(p.x, p.y);
-		SetGlobalPos(p.x, p.y);
-	}
-
 }
 
 void GUIElement::FlashSA(float dt)

@@ -24,6 +24,7 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 	image->SetRectangle(_position);
 	image->SetInteractive(false);
 	image->SetCanFocus(false);
+	image->SetVisible(true);
 	image->SetSection(standBySection);
 
 	label = new GUILabel(GetName());
@@ -31,6 +32,7 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 	//label->SetLocalPos(_position.x, _position.y);
 	label->SetInteractive(false);
 	label->SetCanFocus(false);
+	label->SetVisible(true);
 
 	SetGlobalPos(_position.x, _position.y);
 
@@ -61,6 +63,7 @@ GUIButton::~GUIButton()
 }
 void GUIButton::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)
 {
+	std::string name = scenes.begin()->first.c_str();
 	if (GetElementStatus().active)
 	{
 		if (GetElementStatus().statusChanged)
@@ -85,8 +88,12 @@ void GUIButton::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus
 }
 void GUIButton::Draw() const
 {
-	image->Draw();
-	label->Draw();
+	if(GetVisible())
+	{
+		image->Draw();
+		label->Draw();
+	}
+	
 }
 
 void GUIButton::Serialize(pugi::xml_node root)
@@ -110,6 +117,16 @@ void GUIButton::Serialize(pugi::xml_node root)
 	atr.set_value(GetName().c_str());
 	atr = element.append_attribute("text");
 	atr.set_value(label->GetText().c_str());
+	//atr = element.append_attribute("draggable");
+	//atr.set_value(GetDraggable());
+	atr = element.append_attribute("interactive");
+	atr.set_value(GetInteractive());
+	atr = element.append_attribute("canFocus");
+	atr.set_value(GetCanFocus());
+	atr = element.append_attribute("active");
+	atr.set_value(GetActive());
+	atr = element.append_attribute("visible");
+	atr.set_value(GetVisible());
 	//Create node events
 	n_events = element.append_child("events");
 	if (GetElementStatus().onLClickUp & ~EVENT_NONE)
@@ -136,6 +153,15 @@ void GUIButton::Serialize(pugi::xml_node root)
 		atr = n_listener.append_attribute("name");
 		atr.set_value((*it)->name.c_str());
 	}
+	//Create Node Scenes
+	n_listeners = element.append_child("scenes");
+	for (std::map<std::string, Module*>::iterator it = scenes.begin(); it != scenes.end(); it++)
+	{
+		n_listener = n_listeners.append_child("scene");
+		atr = n_listener.append_attribute("name");
+		atr.set_value((it->first.c_str()));
+	}
+
 	//Create node button/position
 	position = element.append_child("position");
 	//Create atributes in button/position
@@ -155,6 +181,11 @@ void GUIButton::Serialize(pugi::xml_node root)
 void GUIButton::Deserialize(pugi::xml_node layout_element)
 {
 	std::string text = layout_element.attribute("text").as_string("");
+	SetActive(layout_element.attribute("active").as_bool(false));
+	//SetDraggable(layout_element.attribute("draggable").as_bool(false));
+	SetInteractive(layout_element.attribute("interactive").as_bool(false));
+	SetCanFocus(layout_element.attribute("canFocus").as_bool(false));
+	SetVisible(layout_element.attribute("visible").as_bool(false));
 	GB_Rectangle<float> xmlRect;
 	GB_Rectangle<int>	rect;
 	xmlRect.x = layout_element.child("position").attribute("x").as_float();
@@ -195,6 +226,16 @@ void GUIButton::Deserialize(pugi::xml_node layout_element)
 			AddListener(module);
 		}
 		it_listener = next;
+	}
+
+	for (pugi::xml_node it = layout_element.child("scenes").first_child(); it; )
+	{
+		pugi::xml_node next = it.next_sibling();
+		if (Module* module = app->FindModule(it.attribute("name").as_string("")))
+		{
+			AddScene(module);
+		}
+		it = next;
 	}
 
 
