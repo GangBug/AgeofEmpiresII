@@ -65,12 +65,13 @@ void GUILabel::Draw() const
 		{
 			GB_Rectangle<float> rect = GetDrawRect();
 			GB_Rectangle<float> sect;
-			sect.x = 0;
-			sect.y = 0;
+			rect.x -= app->render->camera.x;
+			rect.y -= app->render->camera.y;
 			sect.w = rect.w;
 			sect.h = rect.h;
 			SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-			app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
+			//app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
+			app->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
 			//app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
 		}
 }
@@ -122,7 +123,6 @@ void GUILabel::Serialize(pugi::xml_node root)
 	atr.set_value(xmlRect.y);
 
 }
-
 void GUILabel::Deserialize(pugi::xml_node layout_element)
 {
 	std::string txt = layout_element.attribute("text").as_string();

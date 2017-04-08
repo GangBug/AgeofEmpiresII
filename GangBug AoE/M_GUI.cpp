@@ -48,28 +48,25 @@ bool M_GUI::Start()
 	//This goes the first
 	ret = LoadLayout();
 
-
-
-	//GUIImage* img = CreateImage({ 0, 100, 328, 103 }, { 485, 829, 328, 103 });
-	//guiList.push_back(img);
-
-	//GUIImage* img_small = CreateImage({ 500, 100, 328/2, 103/2 }, { 485, 829, 328, 103 });
-	//guiList.push_back(img_small);
-
-	//GUIImage* img_big = CreateImage({ 1000, 100, 328*2, 103*2 }, { 485, 829, 328, 103 });
-	//guiList.push_back(img_big);
-
 	////Debug UI
+	GUILabel* l_ms = CreateLabel({ 30,0,30,30 }, MEDIUM, "ms");
+	GUILabel* l_fps = CreateLabel({ 30,0,30,30 }, MEDIUM, "fps");
+	l_ms->SetVisible(true);
+	l_fps->SetVisible(true);
+	debugGuiList.push_back(l_ms);
+	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
+
 	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms, "ms");
 	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update, "fps");
+	lastFrameMS->SetVisible(true);
+	fps->SetVisible(true);
 	debugGuiList.push_back(lastFrameMS);
 	debugGuiList.push_back(fps);
-	debugGuiList.push_back(CreateLabel({ 30,0,30,30 }, MEDIUM, "ms"));
-	debugGuiList.push_back(CreateLabel({ 30,30,30,30 }, MEDIUM, "fps"));
 
 	xMouse = new GUILabel("", SMALL, "mousex");
 	yMouse = new GUILabel("", SMALL, "mousey");
-
+	xMouse->SetVisible(true);
+	yMouse->SetVisible(true);
 	debugGuiList.push_back(xMouse);
 	debugGuiList.push_back(yMouse);
 
@@ -145,7 +142,7 @@ bool M_GUI::CleanUp()
 	}
 	for each (GUIElement* var in debugGuiList)
 	{
-		RELEASE(var);
+		RELEASE(var);	
 	}
 	for each (GUIElement* var in editorGuiList)
 	{
@@ -613,7 +610,7 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 			//First we get listeners list of previous element hovered
 			std::list<Module*> tmpListeners = element->GetListeners();
 			//Iterate over listeners list to send them hover is lost
-			for (std::list<Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); it++)
+			for (std::list<Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); ++it)
 			{
 				(*it)->GuiEvent(element, event);
 			}
@@ -623,7 +620,7 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 void M_GUI::Draw()
 {
 	//IterateList(&guiList, &M_GUI::DoElementDraw);
-	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); ++it)
 	{
 		if ((*it)->GetActive())
 			(*it)->Draw();
@@ -631,7 +628,7 @@ void M_GUI::Draw()
 }
 void M_GUI::DrawEditor()
 {
-	for (std::list<GUIElement*>::iterator it = editorGuiList.begin(); it != editorGuiList.end(); it++)
+	for (std::list<GUIElement*>::iterator it = editorGuiList.begin(); it != editorGuiList.end(); ++it)
 	{
 		if ((*it)->GetElementStatus().active) // Do update only if element is active
 			(*it)->Draw();
@@ -657,7 +654,7 @@ void M_GUI::DrawDebug()
 	xMouse->SetGlobalPos(x + 10, y);
 	yMouse->SetGlobalPos(x + 40, y);
 
-	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); ++it)
 	{
 		if ((*it)->GetActive())
 		{
@@ -667,10 +664,15 @@ void M_GUI::DrawDebug()
 	}
 	//IterateList(&debugGuiList, &M_GUI::DoElementDraw);
 
-	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
+	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); ++it)
 	{
 		if ((*it)->GetActive())
+		{
 			(*it)->Draw();
+			GB_Rectangle<float> rect = (*it)->GetDrawRect();
+			app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
+		}
+			
 	}
 
 	//cBeizier->DrawBezierCurve(CB_EASE_INOUT_BACK, { 800, 200 });

@@ -5,8 +5,7 @@
 
 //WARNING Use this label with caution
 template <class t>
-class GUIAutoLabel :
-	public GUILabel
+class GUIAutoLabel : public GUILabel
 {
 public:
 	GUIAutoLabel(GB_Rectangle<int> position, t * _watcher, std::string name, int flags = STANDARD_PRESET) : GUILabel(name)
@@ -18,7 +17,7 @@ public:
 	{
 	}
 
-	void OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)override
+	void OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt) override
 	{
 		std::string str = std::to_string(*watchingVar);
 		SetText(str.c_str(), MEDIUM);

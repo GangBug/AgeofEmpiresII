@@ -25,7 +25,12 @@ void GUIImage::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 void GUIImage::Draw() const
 {
 	if(GetVisible())
+	{
+		GB_Rectangle<float> rect = GetDrawRect();
+		rect.x -= app->render->camera.x;
+		rect.y -= app->render->camera.y;
 		app->render->Blit(atlas, &GetDrawRect().GetSDLrect(), &GetSection().GetSDLrect(), alpha);
+	}
 }
 void GUIImage::Serialize(pugi::xml_node root)
 {

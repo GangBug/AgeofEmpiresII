@@ -34,7 +34,7 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 	label->SetCanFocus(false);
 	label->SetVisible(true);
 
-	SetGlobalPos(_position.x, _position.y);
+	GUIElement::SetGlobalPos(_position.x, _position.y);
 
 	if (text != nullptr)
 	{
