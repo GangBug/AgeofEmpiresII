@@ -63,7 +63,6 @@ GUIButton::~GUIButton()
 }
 void GUIButton::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)
 {
-	std::string name = scenes.begin()->first.c_str();
 	if (GetElementStatus().active)
 	{
 		if (GetElementStatus().statusChanged)

@@ -144,13 +144,12 @@ bool App::Start()
 {
 	PERF_START(ptimer);
 	bool ret = true;
-	std::list<Module*>::iterator item;
-	item = modules.begin();
+	std::list<Module*>::iterator item = modules.begin();
 
 	while(item != modules.end() && ret == true)
 	{
 		ret = (*item)->Start();
-		item++;
+		++item;
 	}
 	startupTime.Start();
 
