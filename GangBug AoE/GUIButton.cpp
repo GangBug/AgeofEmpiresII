@@ -160,7 +160,7 @@ void GUIButton::Serialize(pugi::xml_node root)
 		atr = n_listener.append_attribute("name");
 		atr.set_value((it->first.c_str()));
 	}
-
+	
 	//Create node button/position
 	position = element.append_child("position");
 	//Create atributes in button/position
@@ -226,7 +226,7 @@ void GUIButton::Deserialize(pugi::xml_node layout_element)
 		}
 		it_listener = next;
 	}
-
+	//Load scenes
 	for (pugi::xml_node it = layout_element.child("scenes").first_child(); it; )
 	{
 		pugi::xml_node next = it.next_sibling();
@@ -236,8 +236,7 @@ void GUIButton::Deserialize(pugi::xml_node layout_element)
 		}
 		it = next;
 	}
-
-
+	
 }
 
 void GUIButton::SetText(std::string txt, label_size size)

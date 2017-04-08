@@ -33,6 +33,8 @@ void GUIImage::Serialize(pugi::xml_node root)
 	pugi::xml_node position;
 	pugi::xml_node size;
 	pugi::xml_node element;
+	pugi::xml_node n_scenes;
+	pugi::xml_node n_scene;
 
 	GB_Rectangle<float> xmlRect = app->gui->ScreenToXml(GetLocalRect());
 
@@ -53,6 +55,14 @@ void GUIImage::Serialize(pugi::xml_node root)
 	atr = element.append_attribute("visible");
 	atr.set_value(GetVisible());
 
+	//Create Node Scenes
+	n_scenes = element.append_child("scenes");
+	for (std::map<std::string, Module*>::iterator it = scenes.begin(); it != scenes.end(); it++)
+	{
+		n_scene = n_scenes.append_child("scene");
+		atr = n_scene.append_attribute("name");
+		atr.set_value((it->first.c_str()));
+	}
 	//Create node img/position
 	position = element.append_child("position");
 	//Create atributes in img/position
@@ -78,6 +88,16 @@ void GUIImage::Deserialize(pugi::xml_node layout_element)
 	SetCanFocus(layout_element.attribute("canFocus").as_bool(false));
 	SetVisible(layout_element.attribute("visible").as_bool(false));
 
+	//Load scenes
+	for (pugi::xml_node it = layout_element.child("scenes").first_child(); it; )
+	{
+		pugi::xml_node next = it.next_sibling();
+		if (Module* module = app->FindModule(it.attribute("name").as_string("")))
+		{
+			AddScene(module);
+		}
+		it = next;
+	}
 
 	GB_Rectangle<float> xmlRect;
 	GB_Rectangle<int>	rect;

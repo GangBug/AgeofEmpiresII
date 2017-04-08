@@ -103,6 +103,16 @@ void GUILabel::Serialize(pugi::xml_node root)
 	atr = element.append_attribute("visible");
 	atr.set_value(GetVisible());
 
+	//Create Node Scenes
+	pugi::xml_node n_listeners = element.append_child("scenes");
+	pugi::xml_node n_listener;
+	for (std::map<std::string, Module*>::iterator it = scenes.begin(); it != scenes.end(); ++it)
+	{
+		n_listener = n_listeners.append_child("scene");
+		atr = n_listener.append_attribute("name");
+		atr.set_value((it->first.c_str()));
+	}
+
 	//Create node label/position
 	position = element.append_child("position");
 	//Create atributes in label/position
@@ -122,6 +132,17 @@ void GUILabel::Deserialize(pugi::xml_node layout_element)
 	SetInteractive(layout_element.attribute("interactive").as_bool(false));
 	SetCanFocus(layout_element.attribute("canFocus").as_bool(false));
 	SetVisible(layout_element.attribute("visible").as_bool(false));
+	
+	//Load scenes
+	for (pugi::xml_node it = layout_element.child("scenes").first_child(); it; )
+	{
+		pugi::xml_node next = it.next_sibling();
+		if (Module* module = app->FindModule(it.attribute("name").as_string("")))
+		{
+			AddScene(module);
+		}
+		it = next;
+	}
 
 	SetText(txt.c_str(), size);
 	GB_Rectangle<float> xmlRect;
