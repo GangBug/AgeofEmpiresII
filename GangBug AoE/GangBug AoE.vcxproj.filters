@@ -29,6 +29,9 @@
     <Filter Include="Entity System\Entities">
       <UniqueIdentifier>{524a239b-e188-4d29-865e-3a1782faa42a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{da748d98-7f1a-4005-ac55-5462e9613351}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PugiXml\src\pugixml.cpp">
@@ -243,5 +246,10 @@
     <ClInclude Include="Bezier.h">
       <Filter>Modules\Tools</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Game\config.xml">
+      <Filter>Resources</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
