@@ -6,7 +6,8 @@
 enum unit_type
 {
 	DEFAULT_UNIT,
-	CAVALRY_ARCHER
+	CAVALRY_ARCHER,
+	ARCHER
 };
 
 enum action_type

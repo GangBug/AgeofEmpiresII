@@ -239,10 +239,10 @@ void App::FinishUpdate()
 	last_frame_ms = frameTime.Read();
 	frames_on_last_update = prevLastSecFrameCount;
 
-	//static char title[256];
-	//sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
-	//		  avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frameCount);
-	//win->SetTitle(title);
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %lu ",
+			  avg_fps, last_frame_ms, frames_on_last_update, dt, seconds_since_startup, frameCount);
+	win->SetTitle(title);
 
 	if(cappedMs > 0 && last_frame_ms < cappedMs)
 	{

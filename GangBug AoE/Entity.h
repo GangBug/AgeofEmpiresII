@@ -14,12 +14,13 @@ class GB_QuadTreeNode;
 
 enum entity_type
 {
-	ENTITY_UNKNOWN = -1,
-	ENTITY_BASE,
-	ENTITY_UNIT,
-	ENTITY_UI,
-	ENTITY_MAP,
-	ENTITY_PLAYER_MAN
+	ENTITY_UNKNOWN = 0,
+	ENTITY_BASE = (1 << 0),
+	ENTITY_UNIT = (1 << 2),
+	ENTITY_BUILDING = (1 << 3),
+	ENTITY_UI = ( 1 << 4),
+	ENTITY_MAP = (1 << 5),
+	ENTITY_PLAYER_MAN = (1 << 6)
 };
 
 class Entity

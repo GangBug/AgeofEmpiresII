@@ -6,6 +6,8 @@
 
 #include "M_Render.h"
 
+#include "Building.h"
+
 
 PlayerManager::PlayerManager(Entity* parent) : Entity(ENTITY_PLAYER_MAN, parent)
 {
@@ -82,8 +84,17 @@ void PlayerManager::OnUpdate(float dt)
 		}
 		else if (buttonLeftStat == KEY_UP)
 		{
-			app->entityManager->GetEntitiesOnRect(ENTITY_BASE, selectedEntities, selectionRect);
-			app->entityManager->GetEntitiesOnRect(ENTITY_UNIT, selectedEntities, selectionRect);
+			app->entityManager->GetEntitiesOnRect(ENTITY_BASE | ENTITY_UNIT, selectedEntities, selectionRect);
+			std::vector<Entity*> builds;
+			app->entityManager->GetEntitiesOnRect(ENTITY_BUILDING, builds, selectionRect);
+			if (!builds.empty())
+			{
+				Building* tmp = (Building*)builds[0];
+				if (tmp)
+					tmp->selected = true;
+			}
+			
+
 			onSelection = false;
 		}
 
@@ -96,10 +107,13 @@ void PlayerManager::OnUpdate(float dt)
 		{
 			for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
 			{
-				Unit* tmp = (Unit*)(*it);
-				if (tmp != nullptr)
+				if ((*it)->type == ENTITY_UNIT)
 				{
-					tmp->SetDestination(mPos);
+					Unit* tmp = (Unit*)(*it);
+					if (tmp != nullptr)
+					{
+						tmp->SetDestination(mPos);
+					}
 				}
 			}
 		}

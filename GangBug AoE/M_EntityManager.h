@@ -7,6 +7,7 @@
 
 class Entity;
 class SDL_Texture;
+enum building_type;
 
 class GB_QuadTree;
 
@@ -28,10 +29,12 @@ public:
 	Entity* CreateEntity(Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 	Entity* CreateUnit(unit_type type = DEFAULT_UNIT, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 
+	Entity* CreateBuilding(building_type buldType, Entity* parent, uint posx, uint posy);
+
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
 
-	void GetEntitiesOnRect(entity_type type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle);
+	void GetEntitiesOnRect(uint type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle);
 
 	void Draw(std::vector<Entity*>& entitiesToDraw, GB_Rectangle<int> camToTest);
 	void DrawDebug()override;

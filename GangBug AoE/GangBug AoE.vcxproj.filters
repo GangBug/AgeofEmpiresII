@@ -61,9 +61,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Entity System</Filter>
     </ClCompile>
-    <ClCompile Include="M_EntityManager.cpp">
-      <Filter>Entity System</Filter>
-    </ClCompile>
     <ClCompile Include="M_Audio.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
@@ -145,6 +142,12 @@
     <ClCompile Include="S_InGame.cpp">
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="M_EntityManager.cpp">
+      <Filter>Entity System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -175,9 +178,6 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Entity System</Filter>
-    </ClInclude>
-    <ClInclude Include="M_EntityManager.h">
       <Filter>Entity System</Filter>
     </ClInclude>
     <ClInclude Include="M_Audio.h">
@@ -260,6 +260,12 @@
     </ClInclude>
     <ClInclude Include="S_InGame.h">
       <Filter>Modules\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="M_EntityManager.h">
+      <Filter>Entity System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

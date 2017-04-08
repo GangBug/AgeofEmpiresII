@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<root_entity>
+	<entity_name value="root_entity" />
+	<entity_self_active value="true" />
+	<entity_type value="0" />
+	<global_position x="0" y="0" />
+	<local_position x="0" y="0" />
+	<enclosing_box x="0" y="0" w="1" h="1" />
+	<draw_quad x="0" y="0" w="0" h="0" />
+	<scale x="1" y="1" />
+	<entity_texture has_texture="false" />
+	<childs>
+		<player_manager>
+			<entity_name value="player_manager" />
+			<entity_self_active value="true" />
+			<entity_type value="4" />
+			<global_position x="0" y="0" />
+			<local_position x="0" y="0" />
+			<enclosing_box x="0" y="0" w="1" h="1" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</player_manager>
+		<entity_map>
+			<entity_name value="entity_map" />
+			<entity_self_active value="true" />
+			<entity_type value="3" />
+			<global_position x="0" y="0" />
+			<local_position x="0" y="0" />
+			<enclosing_box x="0" y="0" w="1" h="1" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity_map>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="198" y="303" />
+			<local_position x="198" y="303" />
+			<enclosing_box x="198" y="303" w="38" h="35" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="409" y="109" />
+			<local_position x="409" y="109" />
+			<enclosing_box x="409" y="109" w="31" h="37" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="613" y="73" />
+			<local_position x="613" y="73" />
+			<enclosing_box x="613" y="73" w="33" h="31" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="782" y="269" />
+			<local_position x="782" y="269" />
+			<enclosing_box x="782" y="269" w="34" h="35" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="765" y="576" />
+			<local_position x="765" y="576" />
+			<enclosing_box x="765" y="576" w="31" h="36" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="386" y="664" />
+			<local_position x="386" y="664" />
+			<enclosing_box x="386" y="664" w="32" h="31" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="247" y="629" />
+			<local_position x="247" y="629" />
+			<enclosing_box x="247" y="629" w="33" h="36" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="297" y="662" />
+			<local_position x="297" y="662" />
+			<enclosing_box x="297" y="662" w="30" h="39" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+		<entity>
+			<entity_name value="entity" />
+			<entity_self_active value="true" />
+			<entity_type value="0" />
+			<global_position x="875" y="342" />
+			<local_position x="875" y="342" />
+			<enclosing_box x="875" y="342" w="36" h="31" />
+			<draw_quad x="0" y="0" w="0" h="0" />
+			<scale x="1" y="1" />
+			<entity_texture has_texture="false" />
+			<childs />
+		</entity>
+	</childs>
+</root_entity>

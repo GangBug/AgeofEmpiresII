@@ -11,6 +11,7 @@
 #include "EntityUi.h"
 #include "PlayerManager.h"
 #include "EntityMap.h"
+#include "Building.h"
 //
 
 
@@ -110,15 +111,15 @@ bool M_EntityManager::Start()
 	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
 
 
-	/*if (app->map->Load("0.1Map.tmx") == true)
-	{
+	//if (app->map->Load("0.1Map.tmx") == true)
+	//{
 		//int w, h;
 		//uchar* data = NULL;
 		//if (app->map->CreateWalkabilityMap(w, h, &data))
 		//	app->pathfinding->SetMap(w, h, data);
 
 		//RELEASE_ARRAY(data);
-	}*/
+	//}
 
 	//root->Start();
 
@@ -207,6 +208,13 @@ update_status M_EntityManager::PreUpdate(float dt)
 		Entity* et = CreateRandomTestEntity();
 		fPoint pos(x, y);
 		et->SetGlobalPosition(pos);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		int x, y;
+		app->input->GetMousePosition(x, y);
+		CreateBuilding(building_type::BUILD_STABLES, nullptr, (float)x, (float)y);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
@@ -421,6 +429,23 @@ Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, in
 	return ret;
 }
 
+Entity* M_EntityManager::CreateBuilding(building_type buildType, Entity* parent, uint posx, uint posy)
+{
+	Entity* ret = nullptr;
+
+	if (!parent)
+		parent = root;
+
+	ret = (Entity*)new Building(buildType, parent);
+	if (ret)
+	{
+		parent->AddChild(ret);
+		ret->SetGlobalPosition(posx, posy);
+	}
+
+	return ret;
+}
+
 /**
 	GetSceneRoot: Return the root entity of the scene.
 
@@ -440,7 +465,7 @@ Entity* M_EntityManager::FindEntity()
 	return nullptr; //TODO
 }
 
-void M_EntityManager::GetEntitiesOnRect(entity_type type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle)
+void M_EntityManager::GetEntitiesOnRect(uint type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle)
 {
 	//TODO: Would be cool to be able to ask for several types just like layers (using bit operators | )
 	if (type != ENTITY_UNKNOWN && sceneTree != nullptr)
@@ -449,7 +474,7 @@ void M_EntityManager::GetEntitiesOnRect(entity_type type, std::vector<Entity*>& 
 		std::vector<Entity*> vec2;
 		sceneTree->CollectCandidates(vec2, rectangle);
 		for (std::vector<Entity*>::iterator it = vec2.begin(); it != vec2.end(); ++it)
-			if ((*it)->type == type)
+			if (type & (*it)->type)
 				vec.push_back((*it));
 	}
 }

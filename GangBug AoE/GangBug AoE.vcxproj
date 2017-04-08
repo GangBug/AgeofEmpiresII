@@ -175,6 +175,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bezier.cpp" />
+    <ClCompile Include="Building.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityMap.cpp" />
@@ -213,6 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bezier.h" />
+    <ClInclude Include="Building.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityMap.h" />
     <ClInclude Include="EntityUi.h" />
