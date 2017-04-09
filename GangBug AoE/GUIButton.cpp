@@ -168,6 +168,19 @@ void GUIButton::Serialize(pugi::xml_node root)
 	atr.set_value(xmlRect.x);
 	atr = position.append_attribute("y");
 	atr.set_value(xmlRect.y);
+
+	//Create node button/textColor
+	position = element.append_child("textColor");
+	//Create atributes in button/textColor
+	atr = position.append_attribute("r");
+	atr.set_value(label->GetColor().r);
+	atr = position.append_attribute("g");
+	atr.set_value(label->GetColor().g);
+	atr = position.append_attribute("b");
+	atr.set_value(label->GetColor().b);
+	atr = position.append_attribute("a");
+	atr.set_value(label->GetColor().a);
+
 	//Create node button/size
 	size = element.append_child("size");
 	//Create atributes in button/size
@@ -191,6 +204,14 @@ void GUIButton::Deserialize(pugi::xml_node layout_element)
 	xmlRect.y = layout_element.child("position").attribute("y").as_float();
 	xmlRect.w = layout_element.child("size").attribute("w").as_float();
 	xmlRect.h = layout_element.child("size").attribute("h").as_float();
+
+	SDL_Color color;
+	color.r = layout_element.child("textColor").attribute("r").as_int();
+	color.g = layout_element.child("textColor").attribute("g").as_int();
+	color.b = layout_element.child("textColor").attribute("b").as_int();
+	color.a = layout_element.child("textColor").attribute("a").as_int();
+	label->SetColor(color);
+
 
 	rect = app->gui->XmlToScreen(xmlRect);
 	
