@@ -177,6 +177,15 @@ void GUIElement::RemoveScene(Module * scene)
 		scenes.erase(it);
 
 }
+bool GUIElement::ContainsScene(std::string scene)
+{
+	for each (auto var in scenes)
+	{
+		if (!scene.compare(var.first))
+			return true;
+	}
+	return false;
+}
 bool GUIElement::Save(pugi::xml_node & node) const
 {
 	bool ret = true;

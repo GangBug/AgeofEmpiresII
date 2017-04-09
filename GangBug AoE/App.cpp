@@ -53,8 +53,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new M_EntityManager();
 	gui = new M_GUI();
 	animation = new M_Animation();
-	menu = new S_Menu(false);
-	inGame = new S_InGame(false);
+	menu = new S_Menu(true);
+	inGame = new S_InGame(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -68,11 +68,11 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(font);
 	AddModule(entityManager);
 	AddModule(animation);
+	AddModule(gui);
 
 	AddModule(menu);
 	AddModule(inGame);
 
-	AddModule(gui);
 	// render last to swap buffer
 	AddModule(render);
 

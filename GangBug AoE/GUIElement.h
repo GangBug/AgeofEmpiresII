@@ -128,6 +128,7 @@ public:
 	void RemoveListener(Module* moduleToRemove);
 	void AddScene(Module* scene);
 	void RemoveScene(Module* scene);
+	bool ContainsScene(std::string scene);
 
 	bool Save(pugi::xml_node& node) const;
 	//bool Load(pugi::xml_node& node);

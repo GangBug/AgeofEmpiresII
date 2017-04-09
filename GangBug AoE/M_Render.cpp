@@ -8,6 +8,7 @@
 #include "M_Map.h"
 #include "M_GUI.h"
 #include "M_Animation.h"
+#include "S_InGame.h"
 
 //TEMP
 #include "M_Textures.h"
@@ -122,6 +123,7 @@ update_status M_Render::PostUpdate(float dt)
 	//LOG("Drawing entities lasted: %f ms.", tmp2 - tmp);
 	//LOG("Total process lasted: %f ms.", tmp2);
 
+	app->inGame->Draw();
 
 	app->gui->Draw();
 

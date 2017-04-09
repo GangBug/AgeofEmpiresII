@@ -32,6 +32,7 @@ public:
 	bool SaveLayout(); //TODO: SaveLayout needs lots of improvements 
 					   //Define wich list it saves and wich gui.xml creates for example
 					   //FIX: Each element could load and save himself
+	void SetActiveScene(std::string scene);
 
 					   //Not implemented
 	bool UpdateGuiList();

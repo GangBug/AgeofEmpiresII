@@ -457,6 +457,17 @@ bool M_GUI::SaveLayout()
 	return ret;
 }
 
+void M_GUI::SetActiveScene(std::string scene)
+{
+	for each (auto var in guiList)
+	{
+		if (var->ContainsScene(scene))
+			var->SetActive(true);
+		else
+			var->SetActive(false);
+	}
+}
+
 bool M_GUI::UpdateGuiList()
 {
 	return true;
