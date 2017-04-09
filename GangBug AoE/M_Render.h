@@ -6,7 +6,57 @@
 #include "Module.h"
 #include <vector>
 
+enum camera_direction
+{
+	NONE = 0,
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
 class Entity;
+
+class Camera
+{
+private:
+	SDL_Rect viewport;
+	iPoint destination;
+	fPoint movement;
+
+	int speed;
+
+	bool centerCamUnit;
+	bool moving;
+
+	Entity* follow;
+
+public:
+	Camera(SDL_Rect& rect);
+
+	void SetPosition(iPoint pos);
+	void SetSize(iPoint size);
+
+	const iPoint GetPosition() const;
+	const iPoint GetSize() const;
+	const iPoint GetCenter() const;
+
+	const SDL_Rect GetVP() const;
+	const float GetOpacity() const;
+
+	bool InsideRenderTarget(iPoint pos);
+
+	void Move(iPoint destination, int speed);
+	void Move(float amount, camera_direction direction);
+
+	SDL_Rect GetRect() const;
+
+	void CenterCamUnit(Entity* entity);
+	void UnCenterCamUnit();
+	void SetCenter(iPoint pos);
+
+	void UpdateCamera();
+};
 
 class M_Render : public Module
 {
@@ -38,10 +88,11 @@ public:
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
 	iPoint ScreenToWorld(int x, int y) const;
+	iPoint WorldToScreen(int x, int y) const;
 
 	// Draw & Blit
-	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = nullptr, float speed = 1.0f, double angle = 0, int pivotX = INT_MAX, int pivotY = INT_MAX) const;
-	bool Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect* section = nullptr, float speed = 1.0f, double angle = 0, int pivotX = INT_MAX, int pivotY = INT_MAX) const;
+	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, SDL_RendererFlip flip, int pivot_x, int pivot_y, float speed, double angle) const;
+	bool Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect* section = nullptr, bool useCamera = false, float speed = 1.0f, double angle = 0, int pivotX = INT_MAX, int pivotY = INT_MAX) const;
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool useCamera = true, bool useGameViewPort = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool useCamera = true, bool useGameViewPort = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool useCamera = true, bool useGameViewPort = true) const;
@@ -58,7 +109,7 @@ private:
 public:
 
 	SDL_Renderer*	renderer;
-	SDL_Rect		camera;
+	Camera*			camera;
 	//SDL_Rect		viewport;
 	SDL_Color		background;
 

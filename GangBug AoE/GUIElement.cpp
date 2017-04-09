@@ -130,22 +130,22 @@ bool GUIElement::CheckMouseOver() const
 }
 void GUIElement::Center()
 {
-	int frame_w = (parent) ? parent->GetLocalRect().w / 2 - (GetLocalRect().w / 2) : app->render->camera.w / 2 - (GetLocalRect().w / 2);
-	int frame_h = (parent) ? parent->GetLocalRect().h / 2 - (GetLocalRect().h / 2) : app->render->camera.h / 2 - (GetLocalRect().h / 2);
+	int frame_w = (parent) ? parent->GetLocalRect().w / 2 - (GetLocalRect().w / 2) : app->render->camera->GetRect().w / 2 - (GetLocalRect().w / 2);
+	int frame_h = (parent) ? parent->GetLocalRect().h / 2 - (GetLocalRect().h / 2) : app->render->camera->GetRect().h / 2 - (GetLocalRect().h / 2);
 
 	SetLocalPos(frame_w, frame_h);
 	SetGlobalPos(0, 0);
 }
 void GUIElement::CenterX()
 {
-	int frame_w = (parent) ? parent->GetLocalRect().w : app->render->camera.w;
+	int frame_w = (parent) ? parent->GetLocalRect().w : app->render->camera->GetRect().w;
 
 	SetLocalPos(frame_w / 2 - rect.w / 2, rect.h);
 	SetGlobalPos(frame_w / 2 - rect.w / 2, rect.h);
 }
 void GUIElement::CenterY()
 {
-	int frame_h = (parent) ? parent->GetLocalRect().h : app->render->camera.h;
+	int frame_h = (parent) ? parent->GetLocalRect().h : app->render->camera->GetRect().h;
 
 	SetLocalPos(rect.w, frame_h / 2 - rect.h / 2);
 	SetGlobalPos(rect.w, frame_h / 2 - rect.h / 2);

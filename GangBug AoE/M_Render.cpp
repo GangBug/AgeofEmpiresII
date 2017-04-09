@@ -52,10 +52,7 @@ bool M_Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = app->win->screenSurface->w;
-		camera.h = app->win->screenSurface->h;
-		camera.x = 0;
-		camera.y = 0;
+		camera = new Camera(SDL_Rect{ 0, 0, app->win->screenSurface->w, app->win->screenSurface->h });
 	}
 
 	return ret;
@@ -115,7 +112,7 @@ update_status M_Render::PostUpdate(float dt)
 
 	PerfTimer timer;
 	std::vector<Entity*> entitiesVect;
-	app->entityManager->Draw(entitiesVect, camera);
+	app->entityManager->Draw(entitiesVect, camera->GetRect());
 	double tmp = timer.ReadMs();
 	//LOG("Collecting entities lasted %f ms.", tmp);
 	DrawEntities(entitiesVect);
@@ -148,8 +145,7 @@ bool M_Render::CleanUp()
 // Load Game State
 bool M_Render::Load(pugi::xml_node& data)
 {
-	camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
+	camera->SetPosition(iPoint(data.child("camera").attribute("x").as_int(), data.child("camera").attribute("y").as_int()));
 
 	return true;
 }
@@ -159,8 +155,8 @@ bool M_Render::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node cam = data.append_child("camera");
 
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
+	cam.append_attribute("x") = camera->GetPosition().x;
+	cam.append_attribute("y") = camera->GetPosition().y;
 
 	return true;
 }
@@ -189,66 +185,106 @@ iPoint M_Render::ScreenToWorld(int x, int y) const
 	iPoint ret;
 	int scale = app->win->GetScale();
 
-	ret.x = (x - camera.x / scale);
-	ret.y = (y - camera.y / scale);
+	ret.x = (x - camera->GetPosition().x / scale);
+	ret.y = (y - camera->GetPosition().y / scale);
 
 	return ret;
 }
 
+iPoint M_Render::WorldToScreen(int x, int y) const
+{
+	iPoint ret;
+	int scale = app->win->GetScale();
+
+	ret.x = (x + camera->GetPosition().x / scale);
+	ret.y = (y + camera->GetPosition().y / scale);
+
+	return ret;
+}
 // Blit to screen
-bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
+bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, SDL_RendererFlip flip, int pivot_x, int pivot_y, float speed, double angle) const
 {
 	bool ret = true;
 	uint scale = app->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	rect.x = (int)(camera->GetPosition().x * speed) + x * scale;
+	rect.y = (int)(camera->GetPosition().y * speed) + y * scale;
 
-	if(section != nullptr)
+	iPoint screen_position = app->render->WorldToScreen(x, y);
+
+	if (camera->InsideRenderTarget(screen_position))
 	{
-		rect.w = section->w;
-		rect.h = section->h;
+		if (section != NULL)
+		{
+			rect.w = section->w;
+			rect.h = section->h;
+		}
+		else
+		{
+			SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+		}
+
+		if (flip == SDL_FLIP_HORIZONTAL)
+		{
+			screen_position.x -= (rect.w - pivot_x);
+			screen_position.y -= pivot_y;
+		}
+
+		else if (flip == SDL_FLIP_VERTICAL)
+		{
+			screen_position.x -= pivot_x;
+			screen_position.y -= (rect.h - pivot_y);
+		}
+
+		else if (flip == SDL_FLIP_NONE)
+		{
+			screen_position.x -= pivot_x;
+			screen_position.y -= pivot_y;
+		}
+
+		rect.w *= scale;
+		rect.h *= scale;
+
+		SDL_Point* p = NULL;
+		SDL_Point pivot;
+
+		if (pivot_x != INT_MAX && pivot_y != INT_MAX)
+		{
+			pivot.x = pivot_x;
+			pivot.y = pivot_y;
+			p = &pivot;
+		}
+		rect = app->render->camera->GetRect();
+		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, (SDL_RendererFlip)flip) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			ret = false;
+		}
+	}
+
+	return ret;
+}
+
+// Blit to screen
+bool M_Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect* section, bool useCamera, float speed, double angle, int pivotX, int pivotY) const
+{
+	bool ret = true;
+	uint scale = app->win->GetScale();
+	SDL_Rect rect(*_rect);
+
+	if (useCamera)
+	{
+		rect.x = (int)(camera->GetRect().x + rect.x * scale);
+		rect.y = (int)(camera->GetRect().y + rect.y * scale);
+		rect.w *= scale;
+		rect.h *= scale;
 	}
 	else
 	{
-		SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
+		rect.x = (int)(camera->GetRect().x * speed) + _rect->x * scale;
+		rect.y = (int)(camera->GetRect().y * speed) + _rect->y * scale;
 	}
-
-	rect.w *= scale;
-	rect.h *= scale;
-
-	SDL_Point* p = nullptr;
-	SDL_Point pivot;
-
-	if(pivotX != INT_MAX && pivotY != INT_MAX)
-	{
-		pivot.x = pivotX;
-		pivot.y = pivotY;
-		p = &pivot;
-	}
-
-	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		ret = false;
-	}
-
-	return ret;
-}
-
-// Blit to screen
-bool M_Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
-{
-	bool ret = true;
-	uint scale = app->win->GetScale();
-
-	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + _rect->x * scale;
-	rect.y = (int)(camera.y * speed) + _rect->y * scale;
-
-	rect.w = _rect->w;
-	rect.h = _rect->h;
 
 	rect.w *= scale;
 	rect.h *= scale;
@@ -283,8 +319,8 @@ bool M_Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 	SDL_Rect rec(rect);
 	if(useCamera)
 	{
-		rec.x = (int)(camera.x + rect.x - (useGameViewPort == true ? gameViewPort.x : 0)  * scale);
-		rec.y = (int)(camera.y + rect.y * scale);
+		rec.x = (int)(camera->GetRect().x + rect.x - (useGameViewPort == true ? gameViewPort.x : 0) * scale);
+		rec.y = (int)(camera->GetRect().y + rect.y * scale);
 		rec.w *= scale;
 		rec.h *= scale;
 	}
@@ -313,7 +349,7 @@ bool M_Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 	int realPosX2 = x2 - (useGameViewPort == true ? gameViewPort.x : 0);
 
 	if(useCamera)
-		result = SDL_RenderDrawLine(renderer, camera.x + realPosX1 * scale, camera.y + y1 * scale, camera.x + realPosX2 * scale, camera.y + y2 * scale);
+		result = SDL_RenderDrawLine(renderer, camera->GetRect().x + realPosX1 * scale, camera->GetRect().y + y1 * scale, camera->GetRect().x + realPosX2 * scale, camera->GetRect().y + y2 * scale);
 	else
 		result = SDL_RenderDrawLine(renderer, realPosX1 * scale, y1 * scale, realPosX2 * scale, y2 * scale);
 
@@ -378,8 +414,8 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 				fPoint pos = tmp->GetGlobalPosition();
 				SDL_Rect finalRect;
 
-				finalRect.x = (int)(camera.x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
-				finalRect.y = (int)(camera.y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
+				finalRect.x = (int)(camera->GetRect().x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
+				finalRect.y = (int)(camera->GetRect().y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
 
 				finalRect.w = section.w * scale * tmp->scale.x; //TODO: Viewport ratio
 				finalRect.h = section.h * scale * tmp->scale.y; //TODO: Viewport ratio
@@ -398,6 +434,163 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 					LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
 				}
 			}
+		}
+	}
+}
+
+Camera::Camera(SDL_Rect & rect) : moving(false), destination(0,0), speed(0), movement(0,0), follow(nullptr)
+{
+	viewport.x = rect.x;
+	viewport.y = rect.y;
+	viewport.w = rect.w;
+	viewport.h = rect.h;
+}
+
+SDL_Rect Camera::GetRect() const
+{
+	return viewport;
+}
+
+//TODO: Fix this function. Math operations are wrong.
+bool Camera::InsideRenderTarget(iPoint pos)
+{
+	pos.x = (pos.x - viewport.w / 2.0f) + viewport.w / 2.0f;
+
+	pos.y = (pos.x - viewport.h / 2.0f) + viewport.h / 2.0f;
+
+	int tileWidth = app->map->data.tileWidth;
+	int tileHeight = app->map->data.tileHeight;
+
+	if (pos.x < tileWidth)
+		return false;
+
+	if (pos.x > viewport.w)
+		return false;
+
+	if (pos.y < tileHeight)
+		return false;
+
+	return true;
+}
+
+void Camera::SetPosition(iPoint pos)
+{
+	viewport.x = pos.x;
+	viewport.y = pos.y;
+}
+
+void Camera::SetSize(iPoint size)
+{
+	viewport.w = size.x;
+	viewport.h = size.y;
+}
+
+const iPoint Camera::GetPosition() const
+{
+	return iPoint(viewport.x, viewport.y);
+}
+
+const iPoint Camera::GetSize() const
+{
+	return iPoint(viewport.w, viewport.h);
+}
+
+void Camera::Move(iPoint destination, int speed) //Automatic camera
+{
+	moving = true;
+
+	this->destination = destination;
+	this->speed = speed;
+
+	movement.y = abs(destination.y - viewport.y);
+	movement.x = abs(destination.x - viewport.x);
+}
+
+void Camera::Move(float amount, camera_direction direction) //Manual camera
+{
+	switch (direction)
+	{
+	case UP:
+		viewport.y += floor(amount);
+		break;
+
+	case DOWN:
+		viewport.y -= floor(amount);
+		break;
+
+	case LEFT:
+		viewport.x += floor(amount);
+		break;
+
+	case RIGHT:
+		viewport.x -= floor(amount);
+		break;
+	}
+}
+
+void Camera::CenterCamUnit(Entity * entity) //Follow Unit
+{
+	follow = entity;
+	centerCamUnit = true;
+}
+
+void Camera::UnCenterCamUnit() //Unfollow Unit
+{
+	centerCamUnit = false;
+}
+
+void Camera::SetCenter(iPoint pos)
+{
+	viewport.x = -(pos.x - viewport.w / 2);
+	viewport.y = -(pos.y - viewport.h / 2);
+}
+
+void Camera::UpdateCamera()
+{
+	if (moving)
+	{
+		float total_movement = movement.x + movement.y;
+
+		if (destination.x > viewport.x)
+		{
+			if ((speed * (float(movement.x) / float(total_movement))) > (destination.x - viewport.x))
+			{
+				viewport.x = destination.x;
+				moving = false;
+			}
+			else
+				viewport.x += speed * (float(movement.x) / float(total_movement));
+		}
+		else
+		{
+			if ((speed * (float(movement.x) / float(total_movement))) > abs(destination.x - viewport.x))
+			{
+				viewport.x = destination.x;
+				moving = false;
+			}
+			else
+				viewport.x -= speed * (float(movement.x) / float(total_movement));
+		}
+
+		if (destination.y > viewport.y)
+		{
+			if ((speed * (float(movement.y) / float(total_movement))) > (destination.y - viewport.y))
+			{
+				viewport.y = destination.y;
+				moving = false;
+			}
+			else
+				viewport.y += speed * (float(movement.y) / float(total_movement));
+		}
+		else
+		{
+			if ((speed * (float(movement.y) / float(total_movement))) > abs(destination.y - viewport.y))
+			{
+				viewport.y = destination.y;
+				moving = false;
+			}
+			else
+				viewport.y -= speed * (float(movement.x) / float(total_movement));
 		}
 	}
 }

@@ -27,8 +27,8 @@ void GUIImage::Draw() const
 	if(GetVisible())
 	{
 		GB_Rectangle<float> rect = GetDrawRect();
-		rect.x -= app->render->camera.x;
-		rect.y -= app->render->camera.y;
+		rect.x -= app->render->camera->GetRect().x;
+		rect.y -= app->render->camera->GetRect().y;
 		app->render->Blit(atlas, &GetDrawRect().GetSDLrect(), &GetSection().GetSDLrect(), alpha);
 	}
 }
