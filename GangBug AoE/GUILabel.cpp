@@ -66,8 +66,8 @@ void GUILabel::Draw() const
 		{
 			GB_Rectangle<float> rect = GetDrawRect();
 			GB_Rectangle<float> sect;
-			rect.x -= app->render->camera.x;
-			rect.y -= app->render->camera.y;
+			rect.x -= app->render->camera->GetRect().x;
+			rect.y -= app->render->camera->GetRect().y;
 			sect.w = rect.w;
 			sect.h = rect.h;
 			SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
