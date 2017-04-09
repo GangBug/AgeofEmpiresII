@@ -70,7 +70,7 @@ void GUILabel::Draw() const
 			rect.y -= app->render->camera.y;
 			sect.w = rect.w;
 			sect.h = rect.h;
-			SDL_QueryTexture(texture, nullptr, nul, &rect.w, &rect.h);
+			SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
 			//app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
 			app->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
 			//app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
