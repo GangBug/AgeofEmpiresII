@@ -47,7 +47,7 @@ bool M_GUI::Start()
 	atlas = app->tex->Load(atlasPath.c_str());
 	//This goes the first
 	ret = LoadLayout();
-
+	
 	////Debug UI
 	GUILabel* l_ms = CreateLabel({ 30,0,30,30 }, MEDIUM, "ms");
 	GUILabel* l_fps = CreateLabel({ 30,0,30,30 }, MEDIUM, "fps");
@@ -95,13 +95,13 @@ update_status M_GUI::PreUpdate(float dt)
 	}
 	//---
 
-	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); ++it)
 	{
 		if ((*it)->GetActive())
 			(*it)->Update(mouseHover, focus, dt);
 	}
 
-	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); it++)
+	for (std::list<GUIElement*>::iterator it = debugGuiList.begin(); it != debugGuiList.end(); ++it)
 	{
 		if ((*it)->GetActive())
 			(*it)->Update(mouseHover, focus, dt);
@@ -148,7 +148,7 @@ bool M_GUI::CleanUp()
 	{
 		RELEASE(var);
 	}
-
+	
 	guiList.clear();
 	background.clear();
 	debugGuiList.clear();
