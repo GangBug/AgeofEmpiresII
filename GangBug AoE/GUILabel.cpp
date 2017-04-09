@@ -82,7 +82,7 @@ void GUILabel::Serialize(pugi::xml_node root)
 	pugi::xml_attribute atr;
 	pugi::xml_node position;
 	pugi::xml_node n_color;
-	pugi::xml_node size;
+	//pugi::xml_node size;
 	pugi::xml_node element;
 
 	GB_Rectangle<float> xmlRect = app->gui->ScreenToXml(GetLocalRect());
