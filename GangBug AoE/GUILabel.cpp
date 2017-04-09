@@ -13,11 +13,12 @@ GUILabel::GUILabel(std::string name, int flags) : GUIElement(name, flags)
 	SetType(GUI_LABEL);
 	texture = nullptr;
 }
-GUILabel::GUILabel(const char * text, label_size _size, std::string name, int flags) : GUIElement(name, flags)
+GUILabel::GUILabel(const char * text, label_size _size, std::string name, int flags, SDL_Color color) : GUIElement(name, flags)
 {
 	SetText(text, _size);
 	SetType(gui_types::GUI_LABEL);
 	lbSize = _size;
+	SetColor(color);
 }
 
 GUILabel::~GUILabel()
@@ -35,13 +36,13 @@ void GUILabel::SetText(const char* text, label_size _size)
 	switch (_size)
 	{
 		case DEFAULT:
-			texture = app->font->Print(text, app->font->defaultFont);
+			texture = app->font->Print(text, app->font->defaultFont, color);
 			break;
 		case MEDIUM:
-			texture = app->font->Print(text, app->font->mediumFont);
+			texture = app->font->Print(text, app->font->mediumFont, color);
 			break;
 		case SMALL:
-			texture = app->font->Print(text, app->font->smallFont);
+			texture = app->font->Print(text, app->font->smallFont, color);
 			break;
 		default:
 			break;
@@ -80,6 +81,7 @@ void GUILabel::Serialize(pugi::xml_node root)
 {
 	pugi::xml_attribute atr;
 	pugi::xml_node position;
+	pugi::xml_node n_color;
 	pugi::xml_node size;
 	pugi::xml_node element;
 
@@ -113,6 +115,18 @@ void GUILabel::Serialize(pugi::xml_node root)
 		atr = n_listener.append_attribute("name");
 		atr.set_value((it->first.c_str()));
 	}
+	//Create Node Color
+	n_color = element.append_child("color");
+	//Create atributes in label/color
+	atr = n_color.append_attribute("r");
+	atr.set_value(color.r);
+	atr = n_color.append_attribute("g");
+	atr.set_value(color.g);
+	atr = n_color.append_attribute("b");
+	atr.set_value(color.b);
+	atr = n_color.append_attribute("a");
+	atr.set_value(color.a);
+
 
 	//Create node label/position
 	position = element.append_child("position");
@@ -152,6 +166,11 @@ void GUILabel::Deserialize(pugi::xml_node layout_element)
 	rect = app->gui->XmlToScreen(xmlRect);
 
 	SetGlobalPos(rect.x, rect.y);
+	color.r = layout_element.child("color").attribute("r").as_int(255);
+	color.g = layout_element.child("color").attribute("g").as_int(255);
+	color.b = layout_element.child("color").attribute("b").as_int(255);
+	color.a = layout_element.child("color").attribute("a").as_int(255);
+	SetColor(color);
 
 
 }

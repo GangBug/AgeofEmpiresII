@@ -30,6 +30,8 @@ M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 }
 M_GUI::~M_GUI()
 {
+	SDL_Log("Module Gui delete");
+	CleanUp();
 }
 
 bool M_GUI::Awake(pugi::xml_node & config)
@@ -610,7 +612,7 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 			//First we get listeners list of previous element hovered
 			std::list<Module*> tmpListeners = element->GetListeners();
 			//Iterate over listeners list to send them hover is lost
-			for (std::list<Module*>::iterator it = tmpListeners.begin(); it != tmpListeners.end(); ++it)
+			for (auto it = tmpListeners.begin(); it != tmpListeners.end(); ++it)
 			{
 				(*it)->GuiEvent(element, event);
 			}
@@ -620,7 +622,7 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 void M_GUI::Draw()
 {
 	//IterateList(&guiList, &M_GUI::DoElementDraw);
-	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); ++it)
+	for (auto it = guiList.begin(); it != guiList.end(); ++it)
 	{
 		if ((*it)->GetActive())
 			(*it)->Draw();
@@ -628,7 +630,7 @@ void M_GUI::Draw()
 }
 void M_GUI::DrawEditor()
 {
-	for (std::list<GUIElement*>::iterator it = editorGuiList.begin(); it != editorGuiList.end(); ++it)
+	for (auto it = editorGuiList.begin(); it != editorGuiList.end(); ++it)
 	{
 		if ((*it)->GetElementStatus().active) // Do update only if element is active
 			(*it)->Draw();

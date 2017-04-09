@@ -13,7 +13,7 @@ class GUILabel :
 {
 public:
 	GUILabel(std::string name, int flags = STANDARD_PRESET);
-	GUILabel(const char* text, label_size _size, std::string name, int flags = STANDARD_PRESET);
+	GUILabel(const char* text, label_size _size, std::string name, int flags = STANDARD_PRESET, SDL_Color color = {255,255,255,255});
 	virtual ~GUILabel();
 	const SDL_Texture* GetTexture() const;
 	void Draw() const;
@@ -22,9 +22,12 @@ public:
 	void SetText(const char* text, label_size _size);
 	label_size GetLabelSize() const { return lbSize; }
 	std::string GetText() const { return text; }
+	SDL_Color GetColor() const { return color; }
+	void SetColor(SDL_Color _color) { color = _color; SetText(text.c_str(), lbSize); }
 private:
 	SDL_Texture* texture;
 	std::string text;
 	label_size lbSize;
+	SDL_Color color;
 };
 
