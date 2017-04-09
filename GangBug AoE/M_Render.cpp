@@ -451,7 +451,7 @@ SDL_Rect Camera::GetRect() const
 	return viewport;
 }
 
-//TODO: Fix this function. Math operations are wrong.
+//TODO: Fix this function. Math operations are wrong and maybe lacks from some returns.
 bool Camera::InsideRenderTarget(iPoint pos)
 {
 	pos.x = (pos.x - viewport.w / 2.0f) + viewport.w / 2.0f;

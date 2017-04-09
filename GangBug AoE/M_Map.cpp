@@ -52,6 +52,7 @@ void M_Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
+					//TODO: This function differs from our previous version, i'm not sure it has to be this way. Need some revision.
 					app->render->Blit(tileset->texture, pos.x, pos.y, &r, SDL_FLIP_NONE, app->render->camera->GetRect().x, app->render->camera->GetRect().y, 0, 0);
 				}
 			}
