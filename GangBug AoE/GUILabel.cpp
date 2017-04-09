@@ -70,7 +70,7 @@ void GUILabel::Draw() const
 			rect.y -= app->render->camera.y;
 			sect.w = rect.w;
 			sect.h = rect.h;
-			SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+			SDL_QueryTexture(texture, nullptr, nul, &rect.w, &rect.h);
 			//app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
 			app->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
 			//app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
@@ -80,9 +80,7 @@ void GUILabel::Draw() const
 void GUILabel::Serialize(pugi::xml_node root)
 {
 	pugi::xml_attribute atr;
-	pugi::xml_node position;
-	pugi::xml_node n_color;
-	//pugi::xml_node size;
+	pugi::xml_node node;
 	pugi::xml_node element;
 
 	GB_Rectangle<float> xmlRect = app->gui->ScreenToXml(GetLocalRect());
@@ -108,32 +106,31 @@ void GUILabel::Serialize(pugi::xml_node root)
 
 	//Create Node Scenes
 	pugi::xml_node n_listeners = element.append_child("scenes");
-	pugi::xml_node n_listener;
 	for (std::map<std::string, Module*>::iterator it = scenes.begin(); it != scenes.end(); ++it)
 	{
-		n_listener = n_listeners.append_child("scene");
-		atr = n_listener.append_attribute("name");
+		node = n_listeners.append_child("scene");
+		atr = node.append_attribute("name");
 		atr.set_value((it->first.c_str()));
 	}
 	//Create Node Color
-	n_color = element.append_child("color");
+	node = element.append_child("color");
 	//Create atributes in label/color
-	atr = n_color.append_attribute("r");
+	atr = node.append_attribute("r");
 	atr.set_value(color.r);
-	atr = n_color.append_attribute("g");
+	atr = node.append_attribute("g");
 	atr.set_value(color.g);
-	atr = n_color.append_attribute("b");
+	atr = node.append_attribute("b");
 	atr.set_value(color.b);
-	atr = n_color.append_attribute("a");
+	atr = node.append_attribute("a");
 	atr.set_value(color.a);
 
 
 	//Create node label/position
-	position = element.append_child("position");
+	node = element.append_child("position");
 	//Create atributes in label/position
-	atr = position.append_attribute("x");
+	atr = node.append_attribute("x");
 	atr.set_value(xmlRect.x);
-	atr = position.append_attribute("y");
+	atr = node.append_attribute("y");
 	atr.set_value(xmlRect.y);
 
 }
