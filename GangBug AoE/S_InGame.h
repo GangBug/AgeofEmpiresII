@@ -14,8 +14,8 @@ public:
 	bool Awake(pugi::xml_node& config) override;
 	// Called before the first frame
 	bool Start() override;
-	//// Called each loop iteration
-	//update_status PreUpdate(float dt) override;
+	// Called each loop iteration
+	update_status PreUpdate(float dt) override;
 	//// Called each loop iteration
 	//update_status Update(float dt) override;
 	//// Called each loop iteration

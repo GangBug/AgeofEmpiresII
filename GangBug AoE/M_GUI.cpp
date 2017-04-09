@@ -62,6 +62,8 @@ bool M_GUI::Start()
 	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update, "fps");
 	lastFrameMS->SetVisible(true);
 	fps->SetVisible(true);
+	lastFrameMS->SetColor({ 255,255,0,255 });
+	fps->SetColor({ 255,255,0,255 });
 	debugGuiList.push_back(lastFrameMS);
 	debugGuiList.push_back(fps);
 

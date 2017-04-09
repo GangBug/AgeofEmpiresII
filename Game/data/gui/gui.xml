@@ -2,6 +2,9 @@
 <gui>
 	<elements>
 		<imgs>
+			<img type_name="title" have_animations="0">
+				<section type="standBy" x="14" y="12" w="643" h="452" />
+			</img>
 			<img type_name="MenuWindow" have_animations="0">
 				<section type="standBy" x="669" y="12" w="457" h="577" />
 			</img>
@@ -34,6 +37,27 @@
 			</img>
 		</imgs>
 		<buttons>
+			<button type_name="button1" have_animations="0">
+				<sections>
+					<section type="standBy" x="14" y="481" w="305" h="43" />
+					<section type="hover" x="14" y="531" w="305" h="43" />
+					<section type="clicked" x="14" y="581" w="305" h="43" />
+				</sections>
+			</button>
+			<button type_name="buttonPlay" have_animations="0">
+				<sections>
+					<section type="standBy" x="1659" y="39" w="435" h="165" />
+					<section type="hover" x="1659" y="210" w="435" h="165" />
+					<section type="clicked" x="1659" y="385" w="435" h="165" />
+				</sections>
+			</button>
+			<button type_name="buttonQuit" have_animations="0">
+				<sections>
+					<section type="standBy" x="1667" y="573" w="434" h="144" />
+					<section type="hover" x="1667" y="729" w="434" h="144" />
+					<section type="clicked" x="1667" y="903" w="434" h="144" />
+				</sections>
+			</button>
 			<button type_name="button" have_animations="0">
 				<sections>
 					<section type="standBy" x="20" y="481" w="205" h="43" />
@@ -154,19 +178,43 @@
 		</buttons>
 	</elements>
 	<layout>
+		<button type="buttonPlay" name="start" text="" interactive="true" canFocus="true" active="false" visible="true">
+			<events />
+			<listeners>
+				<event name="menu" />
+			</listeners>
+			<scenes>
+				<scene name="menu" />
+			</scenes>
+			<position x="98" y="599" />
+			<textColor r="0" g="0" b="0" a="0" />
+			<size w="420" h="126" />
+		</button>
+		<button type="buttonQuit" name="exit" text="" interactive="true" canFocus="true" active="false" visible="true">
+			<events />
+			<listeners>
+				<event name="menu" />
+			</listeners>
+			<scenes>
+				<scene name="menu" />
+			</scenes>
+			<position x="98" y="900" />
+			<textColor r="0" g="0" b="0" a="0" />
+			<size w="436" h="127" />
+		</button>
 		<img type="UseBar" name="UseBar" interactive="true" canFocus="true" active="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
 			<position x="0" y="900" />
-			<size w="950" h="171" />
+			<size w="948" h="171" />
 		</img>
 		<img type="MenuWindow" name="MenuWindow" interactive="true" canFocus="true" active="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
 			<position x="696" y="198" />
-			<size w="446" h="576" />
+			<size w="444" h="576" />
 		</img>
 		<img type="MinimapBar" name="MinimapBar" interactive="true" canFocus="true" active="true" visible="true">
 			<scenes>
@@ -179,8 +227,8 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="1526" y="0" />
-			<size w="374" h="45" />
+			<position x="1524" y="0" />
+			<size w="372" h="45" />
 		</img>
 		<img type="ResourceBar" name="ResourceBar" interactive="true" canFocus="true" active="true" visible="true">
 			<scenes>
@@ -212,7 +260,7 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="1742" y="0" />
+			<position x="1740" y="0" />
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="60" h="36" />
 		</button>

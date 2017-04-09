@@ -24,6 +24,19 @@ bool S_InGame::Start()
 	return true;
 }
 
+update_status S_InGame::PreUpdate(float dt)
+{
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		app->gui->SetActiveScene(name);
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		app->gui->SetActiveScene("menu");
+
+
+		
+
+	return UPDATE_CONTINUE;
+}
+
 void S_InGame::Draw()
 {
 
