@@ -112,6 +112,24 @@ bool M_Animation::CleanUp()
 
 Animation* M_Animation::GetAnimation(unit_type unit, action_type action, direction unitDirection)const
 {
+	switch (unitDirection)
+	{
+	case NORTH_EAST:
+		unitDirection = NORTH_WEST;
+		break;
+
+	case EAST:
+		unitDirection = WEST;
+		break;
+
+	case SOUTH_EAST:
+		unitDirection = SOUTH_WEST;
+		break;
+
+	default:
+		break;
+	}
+
 	for (std::list<Animation*>::const_iterator it = animations.begin(); it != animations.end(); it++)
 	{
 		if ((*it)->unitType == unit && (*it)->unitAction == action && (*it)->unitDirection == unitDirection)
