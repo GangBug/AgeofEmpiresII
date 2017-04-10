@@ -6,7 +6,7 @@
 EntityMap::EntityMap(Entity* parent) : Entity(ENTITY_MAP, parent)
 {
 	name.assign("entity_map");
-	if (app->map->Load("0.1Map.tmx") == true)
+	//if (app->map->Load("0.1Map.tmx") == true)
 	{
 		//int w, h;
 		//uchar* data = NULL;
@@ -24,15 +24,15 @@ EntityMap::~EntityMap()
 
 void EntityMap::OnStart()
 {
-	//if (app->map->Load("0.1Map.tmx") == true)
-	//{
-	//	int w, h;
-	//	uchar* data = NULL;
-	//	if (app->map->CreateWalkabilityMap(w, h, &data))
-	//		app->pathfinding->SetMap(w, h, data);
+	if (app->map->Load("0.1Map.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+		if (app->map->CreateWalkabilityMap(w, h, &data))
+			app->pathfinding->SetMap(w, h, data);
 
-	//	RELEASE_ARRAY(data);
-	//}
+		RELEASE_ARRAY(data);
+	}
 }
 
 void EntityMap::OnFinish()
