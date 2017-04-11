@@ -19,7 +19,7 @@ bool S_InGame::Awake(pugi::xml_node & config)
 
 bool S_InGame::Start()
 {
-	app->gui->SetActiveScene(name);
+	//app->gui->SetActiveScene(name);
 
 	return true;
 }
@@ -30,6 +30,9 @@ update_status S_InGame::PreUpdate(float dt)
 		app->gui->SetActiveScene(name);
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		app->gui->SetActiveScene("menu");
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+		app->gui->SetActiveScene("\0");
+
 
 
 		
