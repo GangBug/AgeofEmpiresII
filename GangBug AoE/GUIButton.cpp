@@ -122,8 +122,6 @@ void GUIButton::Serialize(pugi::xml_node root)
 	atr.set_value(GetInteractive());
 	atr = element.append_attribute("canFocus");
 	atr.set_value(GetCanFocus());
-	atr = element.append_attribute("active");
-	atr.set_value(GetActive());
 	atr = element.append_attribute("visible");
 	atr.set_value(GetVisible());
 	//Create node events
@@ -193,7 +191,8 @@ void GUIButton::Serialize(pugi::xml_node root)
 void GUIButton::Deserialize(pugi::xml_node layout_element)
 {
 	std::string text = layout_element.attribute("text").as_string("");
-	SetActive(layout_element.attribute("active").as_bool(false));
+	//SetActive(layout_element.attribute("active").as_bool(false));
+	SetActive(false);
 	//SetDraggable(layout_element.attribute("draggable").as_bool(false));
 	SetInteractive(layout_element.attribute("interactive").as_bool(false));
 	SetCanFocus(layout_element.attribute("canFocus").as_bool(false));
