@@ -33,7 +33,7 @@ void M_Map::Draw()
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
 
-	for(; item != data.layers.end(); item++)
+	for(; item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = (*item);
 

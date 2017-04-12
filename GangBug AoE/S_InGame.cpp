@@ -1,10 +1,14 @@
 #include "S_InGame.h"
+#include "App.h"
+#include "M_Map.h"
+#include "M_Pathfinding.h"
 
 
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("inGame");
+
 }
 
 
@@ -20,6 +24,16 @@ bool S_InGame::Awake(pugi::xml_node & config)
 bool S_InGame::Start()
 {
 	//app->gui->SetActiveScene(name);
+	if (app->map->Load("0.1Map.tmx") == true)
+	//if (app->map->Load("testingMap.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+		if (app->map->CreateWalkabilityMap(w, h, &data))
+			app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
 
 	return true;
 }
