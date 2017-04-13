@@ -58,11 +58,15 @@ update_status S_InGame::PreUpdate(float dt)
 
 	GB_Rectangle<int> rect;
 	app->input->GetMousePosition(rect.x, rect.y);
+	
 	rect.w = 10;
 	rect.h = 10;
 
 	if(app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
 	{
+		rect.x = app->render->ScreenToWorld(rect.x, rect.y).x;
+		rect.y = app->render->ScreenToWorld(rect.x, rect.y).y;
+
 		app->render->camera->InsideRenderTarget(rect);
 	}
 	

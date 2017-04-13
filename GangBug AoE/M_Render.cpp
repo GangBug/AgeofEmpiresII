@@ -466,23 +466,37 @@ SDL_Rect Camera::GetRect() const
 }
 
 //TODO: Fix this function. Math operations are wrong and maybe lacks from some returns.
-bool Camera::InsideRenderTarget(GB_Rectangle<int> pos)
+bool Camera::InsideRenderTarget(GB_Rectangle<int> rect)
 {
-	pos.x = (pos.x - viewport.w / 2.0f) + viewport.w / 2.0f;
+	//int tileWidth = app->map->data.tileWidth;
+	//int tileHeight = app->map->data.tileHeight;
 
-	pos.y = (pos.x - viewport.h / 2.0f) + viewport.h / 2.0f;
-
-	int tileWidth = app->map->data.tileWidth;
-	int tileHeight = app->map->data.tileHeight;
-
-	if (pos.x < tileWidth)
+	if (rect.x > viewport.w)
+	{
 		return false;
-
-	if (pos.x > viewport.w)
+	}
+	if (rect.y > viewport.h)
+	{
 		return false;
-
-	if (pos.y < tileHeight)
+	}
+	if (rect.y+rect.h < 0)
+	{
 		return false;
+	}
+	if (rect.x + rect.w < 0)
+	{
+		return false;
+	}
+
+
+	//if (pos.x < tileWidth)
+	//	return false;
+
+	//if (pos.x > viewport.w)
+	//	return false;
+
+	//if (pos.y < tileHeight)
+	//	return false;
 
 	return true;
 }

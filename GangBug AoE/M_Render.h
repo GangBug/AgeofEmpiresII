@@ -5,6 +5,7 @@
 #include "p2Point.h"
 #include "Module.h"
 #include <vector>
+#include "GB_Rectangle.h"
 
 enum camera_direction
 {
