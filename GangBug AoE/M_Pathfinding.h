@@ -28,8 +28,8 @@ public:
 	int CreatePath(const iPoint& origin, const iPoint& destination);
 
 	// To request all tiles involved in the last generated path
-	const std::vector<iPoint>* GetLastPath() const;
-
+	//const std::vector<iPoint>* GetLastPath() const;
+	const std::vector<iPoint> GetLastPath() const;
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const iPoint& pos) const;
 

@@ -60,13 +60,14 @@ uchar M_PathFinding::GetTileAt(const iPoint& pos) const
 
 void M_PathFinding::DrawDebug()
 {
+
 }
 
 //TODO change 
 // To request all tiles involved in the last generated path
-const std::vector<iPoint>* M_PathFinding::GetLastPath() const
+const std::vector<iPoint> M_PathFinding::GetLastPath() const
 {
-	return &lastPath;
+	return lastPath;
 }
 
 // PathList ------------------------------------------------------------------------

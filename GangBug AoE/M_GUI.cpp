@@ -51,18 +51,43 @@ bool M_GUI::Start()
 	ret = LoadLayout();
 	
 	////Debug UI
+#pragma region ViewPort Debug UI
 
-	GUILabel* viewport_x = CreateLabel({ 180,0,30,30 }, MEDIUM, "x", "x");
-	GUILabel* viewport_y = CreateLabel({ 250,0,30,30 }, MEDIUM, "y", "y");
-	GUILabel* viewport_w = CreateLabel({ 180,30,30,30 }, MEDIUM, "w", "w");
-	GUILabel* viewport_h = CreateLabel({ 250,30,30,30 }, MEDIUM, "h", "h");
+	//GUILabel* viewport_x = CreateLabel({ 180,0,30,30 }, MEDIUM, "x", "x");
+	//GUILabel* viewport_y = CreateLabel({ 250,0,30,30 }, MEDIUM, "y", "y");
+	//GUILabel* viewport_w = CreateLabel({ 180,30,30,30 }, MEDIUM, "w", "w");
+	//GUILabel* viewport_h = CreateLabel({ 250,30,30,30 }, MEDIUM, "h", "h");
+	//a_viewport_x = CreateLabel({ 120,0,30,30 }, MEDIUM, "x", "x");
+	//a_viewport_y = CreateLabel({ 200,0,30,30 }, MEDIUM, "y", "y");
+	//a_viewport_w = CreateLabel({ 120,30,30,30 }, MEDIUM, "w", "w");
+	//a_viewport_h = CreateLabel({ 200,30,30,30 }, MEDIUM, "h", "h");
+	//debugGuiList.push_back(viewport_x);
+	//debugGuiList.push_back(viewport_w);
+	//debugGuiList.push_back(viewport_y);
+	//debugGuiList.push_back(viewport_h);
+	//debugGuiList.push_back(a_viewport_x);
+	//debugGuiList.push_back(a_viewport_w);
+	//debugGuiList.push_back(a_viewport_y);
+	//debugGuiList.push_back(a_viewport_h);
+	//viewport_x->SetColor({ 255,255,0,255 });
+	//viewport_w->SetColor({ 255,255,0,255 });
+	//viewport_y->SetColor({ 255,255,0,255 });
+	//viewport_h->SetColor({ 255,255,0,255 });
+	//viewport_x->SetVisible(true);
+	//viewport_w->SetVisible(true);
+	//viewport_y->SetVisible(true);
+	//viewport_h->SetVisible(true);
+	//a_viewport_x->SetColor({ 255,0,255,255 });
+	//a_viewport_w->SetColor({ 255,0,255,255 });
+	//a_viewport_y->SetColor({ 255,0,255,255 });
+	//a_viewport_h->SetColor({ 255,0,255,255 });
+	//a_viewport_x->SetVisible(true);
+	//a_viewport_w->SetVisible(true);
+	//a_viewport_y->SetVisible(true);
+	//a_viewport_h->SetVisible(true);
 
-	a_viewport_x = CreateLabel({ 120,0,30,30 }, MEDIUM, "x", "x");
-	a_viewport_y = CreateLabel({ 200,0,30,30 }, MEDIUM, "y", "y");
-	a_viewport_w = CreateLabel({ 120,30,30,30 }, MEDIUM, "w", "w");
-	a_viewport_h = CreateLabel({ 200,30,30,30 }, MEDIUM, "h", "h");
-
-
+#pragma endregion
+	
 	GUILabel* l_ms = CreateLabel({ 30,0,30,30 }, MEDIUM, "ms", "ms");
 	GUILabel* l_fps = CreateLabel({ 30,30,30,30 }, MEDIUM, "fps", "fps");
 	l_ms->SetVisible(true);
@@ -71,31 +96,6 @@ bool M_GUI::Start()
 	l_fps->SetColor({ 255,255,0,255 });
 	debugGuiList.push_back(l_ms);
 	debugGuiList.push_back(l_fps);
-	debugGuiList.push_back(viewport_x);
-	debugGuiList.push_back(viewport_w);
-	debugGuiList.push_back(viewport_y);
-	debugGuiList.push_back(viewport_h);
-	debugGuiList.push_back(a_viewport_x);
-	debugGuiList.push_back(a_viewport_w);
-	debugGuiList.push_back(a_viewport_y);
-	debugGuiList.push_back(a_viewport_h);
-	viewport_x->SetColor({ 255,255,0,255 });
-	viewport_w->SetColor({ 255,255,0,255 });
-	viewport_y->SetColor({ 255,255,0,255 });
-	viewport_h->SetColor({ 255,255,0,255 });
-	viewport_x->SetVisible(true);
-	viewport_w->SetVisible(true);
-	viewport_y->SetVisible(true);
-	viewport_h->SetVisible(true);
-	a_viewport_x->SetColor({ 255,0,255,255 });
-	a_viewport_w->SetColor({ 255,0,255,255 });
-	a_viewport_y->SetColor({ 255,0,255,255 });
-	a_viewport_h->SetColor({ 255,0,255,255 });
-	a_viewport_x->SetVisible(true);
-	a_viewport_w->SetVisible(true);
-	a_viewport_y->SetVisible(true);
-	a_viewport_h->SetVisible(true);
-
 
 	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms, "ms");
 	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update, "fps");
@@ -709,10 +709,10 @@ void M_GUI::DrawDebug()
 	xMouse->SetGlobalPos(x + 10, y);
 	yMouse->SetGlobalPos(x + 40, y);
 
-	a_viewport_x->SetText(std::to_string(app->render->camera->GetRect().x).c_str(), MEDIUM);
-	a_viewport_y->SetText(std::to_string(app->render->camera->GetRect().y).c_str(), MEDIUM);
-	a_viewport_w->SetText(std::to_string(app->render->camera->GetRect().w).c_str(), MEDIUM);
-	a_viewport_h->SetText(std::to_string(app->render->camera->GetRect().h).c_str(), MEDIUM);
+	//a_viewport_x->SetText(std::to_string(app->render->camera->GetRect().x).c_str(), MEDIUM);
+	//a_viewport_y->SetText(std::to_string(app->render->camera->GetRect().y).c_str(), MEDIUM);
+	//a_viewport_w->SetText(std::to_string(app->render->camera->GetRect().w).c_str(), MEDIUM);
+	//a_viewport_h->SetText(std::to_string(app->render->camera->GetRect().h).c_str(), MEDIUM);
 
 	GB_Rectangle<int> rect;
 	app->input->GetMousePosition(rect.x, rect.y);

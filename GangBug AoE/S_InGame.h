@@ -30,5 +30,12 @@ public:
 	//void GuiEvent(GUIElement* element, int64_t event) override;
 	void DrawDebug() override;
 
+
+
+public:
+	std::vector<iPoint> path;
+	iPoint origin;
+	iPoint destiny;
+
 };
 
