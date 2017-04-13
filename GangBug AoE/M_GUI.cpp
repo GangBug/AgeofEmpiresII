@@ -52,10 +52,10 @@ bool M_GUI::Start()
 	
 	////Debug UI
 
-	GUILabel* viewport_x = CreateLabel({ 140,0,30,30 }, MEDIUM, "x", "x");
-	GUILabel* viewport_y = CreateLabel({ 220,0,30,30 }, MEDIUM, "y", "y");
-	GUILabel* viewport_w = CreateLabel({ 140,30,30,30 }, MEDIUM, "w", "w");
-	GUILabel* viewport_h = CreateLabel({ 220,30,30,30 }, MEDIUM, "h", "h");
+	GUILabel* viewport_x = CreateLabel({ 180,0,30,30 }, MEDIUM, "x", "x");
+	GUILabel* viewport_y = CreateLabel({ 250,0,30,30 }, MEDIUM, "y", "y");
+	GUILabel* viewport_w = CreateLabel({ 180,30,30,30 }, MEDIUM, "w", "w");
+	GUILabel* viewport_h = CreateLabel({ 250,30,30,30 }, MEDIUM, "h", "h");
 
 	a_viewport_x = CreateLabel({ 120,0,30,30 }, MEDIUM, "x", "x");
 	a_viewport_y = CreateLabel({ 200,0,30,30 }, MEDIUM, "y", "y");
