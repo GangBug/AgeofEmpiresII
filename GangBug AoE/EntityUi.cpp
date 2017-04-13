@@ -8,8 +8,8 @@ EntityUi::EntityUi(Entity* parent) : Entity(ENTITY_UI, parent)
 {
 	name.assign("entity_ui");
 	//TMP
-	GUIElement* e1 = app->gui->CreateLabel({ 50, 50, 100, 100 }, SMALL, "Hi im a test.");
-	app->gui->guiList.push_back(e1);
+	//GUIElement* e1 = app->gui->CreateLabel({ 50, 50, 100, 100 }, SMALL, "Hi im a test.");
+	//app->gui->guiList.push_back(e1);
 }
 
 

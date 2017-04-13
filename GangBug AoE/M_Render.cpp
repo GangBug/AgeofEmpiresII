@@ -211,7 +211,11 @@ bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	rect.x = (int)(camera->GetPosition().x * speed) + x * scale;
 	rect.y = (int)(camera->GetPosition().y * speed) + y * scale;
 
-	iPoint screen_position = app->render->WorldToScreen(x, y);
+	GB_Rectangle<int> screen_position;
+	screen_position.x = app->render->WorldToScreen(x, y).x;
+	screen_position.y = app->render->WorldToScreen(x, y).y;
+	screen_position.w = section->w;
+	screen_position.h = section->h;
 
 	if (camera->InsideRenderTarget(screen_position))
 	{
@@ -255,7 +259,7 @@ bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 			pivot.y = pivot_y;
 			p = &pivot;
 		}
-		rect = app->render->camera->GetRect();
+		//rect = app->render->camera->GetRect();
 		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, (SDL_RendererFlip)flip) != 0)
 		{
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
@@ -462,7 +466,7 @@ SDL_Rect Camera::GetRect() const
 }
 
 //TODO: Fix this function. Math operations are wrong and maybe lacks from some returns.
-bool Camera::InsideRenderTarget(iPoint pos)
+bool Camera::InsideRenderTarget(GB_Rectangle<int> pos)
 {
 	pos.x = (pos.x - viewport.w / 2.0f) + viewport.w / 2.0f;
 

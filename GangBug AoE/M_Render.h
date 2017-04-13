@@ -44,7 +44,7 @@ public:
 	const SDL_Rect GetVP() const;
 	const float GetOpacity() const;
 
-	bool InsideRenderTarget(iPoint pos);
+	bool InsideRenderTarget(GB_Rectangle<int> rect);
 
 	void Move(iPoint destination, int speed);
 	void Move(float amount, camera_direction direction);
