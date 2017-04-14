@@ -7,6 +7,7 @@
 #include "M_Window.h"
 #include "GB_Rectangle.h"
 #include "Log.h"
+#include "Brofiler/Brofiler.h"
 
 #include <iostream> 
 #include <sstream> 
@@ -674,6 +675,7 @@ void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 }
 void M_GUI::Draw()
 {
+	BROFILER_CATEGORY("UI Draw", Profiler::Color::Orchid);
 	//IterateList(&guiList, &M_GUI::DoElementDraw);
 	for (auto it = guiList.begin(); it != guiList.end(); ++it)
 	{

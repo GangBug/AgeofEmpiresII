@@ -5,6 +5,7 @@
 #include "M_Textures.h"
 #include "M_Map.h"
 #include <math.h>
+#include "Brofiler/Brofiler.h"
 
 M_Map::M_Map(bool startEnabled) : Module(startEnabled), mapLoaded(false)
 {
@@ -28,6 +29,7 @@ bool M_Map::Awake(pugi::xml_node& config)
 
 void M_Map::Draw()
 {
+	BROFILER_CATEGORY("MAP Draw", Profiler::Color::Green);
 	if(mapLoaded == false)
 		return;
 
