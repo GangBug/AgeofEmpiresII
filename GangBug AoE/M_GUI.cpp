@@ -37,6 +37,7 @@ M_GUI::~M_GUI()
 
 bool M_GUI::Awake(pugi::xml_node & config)
 {
+	BROFILER_CATEGORY("UI Awake", Profiler::Color::Green);
 	cBeizier = new CBeizier();
 	atlasPath = config.child("atlas").attribute("file").as_string("gui/atlas.png");
 	loadResolution.x = config.child("loadResolution").attribute("x").as_int(1920);
@@ -45,6 +46,7 @@ bool M_GUI::Awake(pugi::xml_node & config)
 }
 bool M_GUI::Start()
 {
+	BROFILER_CATEGORY("UI Start", Profiler::Color::Green);
 	bool ret = true;
 	//TODO 1: Load atlas	
 	atlas = app->tex->Load(atlasPath.c_str());
@@ -119,6 +121,7 @@ bool M_GUI::Start()
 }
 update_status M_GUI::PreUpdate(float dt)
 {
+	BROFILER_CATEGORY("UI PreUpdate", Profiler::Color::Green);
 	update_status ret = UPDATE_CONTINUE;
 
 	ManageEvents();
@@ -156,12 +159,14 @@ update_status M_GUI::PreUpdate(float dt)
 }
 update_status M_GUI::Update(float dt)
 {
+	BROFILER_CATEGORY("UI Update", Profiler::Color::Green);
 	update_status ret = UPDATE_CONTINUE;
 
 	return ret;
 }
 update_status M_GUI::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("UI PostUpdate", Profiler::Color::Green);
 	if (UIEditing && app->input->GetKey(SDL_SCANCODE_2) == key_state::KEY_UP)
 	{
 		bool ret = SaveLayout();
@@ -175,6 +180,7 @@ update_status M_GUI::PostUpdate(float dt)
 }
 bool M_GUI::CleanUp()
 {
+	BROFILER_CATEGORY("UI CleanUp", Profiler::Color::Green);
 	SDL_Log("releasing j1GUI");
 	bool ret = true;
 	for each (GUIElement* var in guiList)
@@ -231,6 +237,7 @@ bool M_GUI::CleanUp()
 //TODO: LoadLayout needs lots of improvements...
 bool M_GUI::LoadLayout()
 {
+	BROFILER_CATEGORY("UI LoadLayout", Profiler::Color::Green);
 	bool ret = true;
 
 	LOG("Loading UI xml");
@@ -451,6 +458,7 @@ bool M_GUI::LoadLayout()
 //TODO: SaveLayout needs lots of improvements...
 bool M_GUI::SaveLayout()
 {
+	BROFILER_CATEGORY("UI SaveLayout", Profiler::Color::Green);
 	bool ret = true;
 
 	char* buffer = nullptr;
@@ -526,6 +534,7 @@ bool M_GUI::UpdateEditorGuiList()
 //Checks if cursor is inside an element | returns null if nothing found
 GUIElement * M_GUI::FindMouseHover()
 {
+	BROFILER_CATEGORY("UI FindMouseHover", Profiler::Color::Green);
 	GUIElement* ret = nullptr;
 	std::list<GUIElement*>::reverse_iterator it;
 
@@ -551,6 +560,7 @@ GUIElement * M_GUI::FindMouseHover()
 //Manages the events on hover and focus
 void M_GUI::ManageEvents()
 {
+	BROFILER_CATEGORY("UI ManageEvents", Profiler::Color::Green);
 	GUIElement* newMouseHover = nullptr;
 
 	//Find the element that is hovered actually
@@ -623,6 +633,7 @@ void M_GUI::ManageEvents()
 //Broadcast an event to all GUIElement listeners
 void M_GUI::BroadcastEventToListeners(GUIElement * element, gui_events _event)
 {
+	BROFILER_CATEGORY("UI BroadCastEventToListeners", Profiler::Color::Green);
 	if (!GetUIEditing())
 	{
 		int64_t event = _event;
@@ -693,6 +704,7 @@ void M_GUI::DrawEditor()
 }
 void M_GUI::DrawDebug()
 {
+	BROFILER_CATEGORY("UI DebugDraw", Profiler::Color::Green);
 	//GB_Rectangle<int> rect;
 	//rect.x = 0;
 	//rect.y = 0;
@@ -750,6 +762,7 @@ void M_GUI::DrawDebug()
 }
 GUIElement * M_GUI::FindElement(std::list<GUIElement*> list, std::string name)
 {
+	BROFILER_CATEGORY("UI FindElement(list, name)", Profiler::Color::Green);
 	GUIElement* ret = nullptr;
 
 	for (std::list<GUIElement*>::iterator i = list.begin(); i != list.end(); i++)
@@ -764,6 +777,7 @@ GUIElement * M_GUI::FindElement(std::list<GUIElement*> list, std::string name)
 }
 bool M_GUI::FindElement(std::list<GUIElement*> list, GUIElement * element)
 {
+	BROFILER_CATEGORY("UI FindElement(list, elemeny)", Profiler::Color::Green);
 	bool ret = false;
 
 	for (std::list<GUIElement*>::iterator i = list.begin(); i != list.end(); i++)

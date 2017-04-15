@@ -24,8 +24,8 @@ bool S_InGame::Awake(pugi::xml_node & config)
 bool S_InGame::Start()
 {
 	//app->gui->SetActiveScene(name);
-	//if (app->map->Load("0.1Map.tmx") == true)
-	if (app->map->Load("testingMap.tmx") == true)
+	if (app->map->Load("0.1Map.tmx") == true)
+	//if (app->map->Load("testingMap.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;

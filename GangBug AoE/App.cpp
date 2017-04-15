@@ -20,6 +20,7 @@
 #include "S_Menu.h"
 
 #include "App.h"
+#include "Brofiler/Brofiler.h"
 
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
@@ -161,6 +162,7 @@ bool App::Start()
 // Called each loop iteration
 update_status App::Update()
 {
+	BROFILER_CATEGORY("App Update", Profiler::Color::Blue);
 	update_status ret = UPDATE_CONTINUE;
 
 	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
