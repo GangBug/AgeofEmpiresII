@@ -14,7 +14,7 @@ class M_Audio : public Module
 {
 public:
 
-	M_Audio(bool);
+	M_Audio(bool startEnabled = true);
 
 	// Destructor
 	virtual ~M_Audio();
@@ -39,11 +39,13 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
-	_Mix_Music*				menuMusic = NULL;
+	void DrawDebug()override;
+
+	_Mix_Music*				menuMusic = nullptr;
 	_Mix_Music*				thirdMission = nullptr;
 private:
 
-	_Mix_Music*				music = NULL;
+	_Mix_Music*				music = nullptr;
 	std::list<Mix_Chunk*>	fx;
 
 };

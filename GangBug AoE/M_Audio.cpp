@@ -223,3 +223,7 @@ bool M_Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+void M_Audio::DrawDebug()
+{
+}
