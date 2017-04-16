@@ -39,7 +39,7 @@ void M_Map::Draw()
 	{
 		MapLayer* layer = (*item);
 
-		if((layer->properties.Get("Nodraw") != 0 || layer->properties.Get("Navigation") == 1) && app->debug == false)
+		if((layer->properties.Get("Nodraw") != 0 || layer->properties.Get("Navigation") == 1) && app->debug == true)
 			continue;
 
 		for(int y = 0; y < data.height; ++y)
@@ -85,7 +85,7 @@ TileSet* M_Map::GetTilesetFromTileId(int id) const
 	{
 		if(id < (*item)->firstgid)
 		{
-			set = (*item-1);
+			set = (item._Ptr->_Prev->_Myval);//-1 wasn't working
 			break;
 		}
 		set = (*item);
