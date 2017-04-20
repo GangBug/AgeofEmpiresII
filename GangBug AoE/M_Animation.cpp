@@ -90,7 +90,11 @@ bool M_Animation::Start()
 	bool ret = true;
 
 	//IMPORTANT: NEW UNITS PNGS GO HERE
-	textures.push_back(Texture(app->tex->Load("animation/CavalryArcher.png"), CAVALRY_ARCHER));
+	textures.push_back(Texture(app->tex->Load("animations/archer.png"), ARCHER));
+	textures.push_back(Texture(app->tex->Load("animations/TarkanSpritesheet.png"), TARKAN_KNIGHT));
+	textures.push_back(Texture(app->tex->Load("animations/SamuraiSpriteSheet.png"), SAMURAI));
+	textures.push_back(Texture(app->tex->Load("animations/Boss.png"), BOSS));
+	textures.push_back(Texture(app->tex->Load("animations/VileChild_SpriteSheet.png"), VILE));
 
 	return ret;
 }
@@ -217,31 +221,49 @@ void Animation::Reset()
 void Animation::SetUnit(const pugi::xml_node node)
 {
 	//IMPORTANT: NEW UNITS NEED TO GO HERE TOO
-	if (strcmp(node.name(), "cavalryarcher") == 0) {
-		unitType = CAVALRY_ARCHER;
-	}
+	if (strcmp(node.name(), "archer") == 0)
+		unitType = ARCHER;
+
+	else if (strcmp(node.name(), "tarkannnight") == 0)
+		unitType = TARKAN_KNIGHT;
+
+	else if (strcmp(node.name(), "samurai") == 0)
+		unitType = SAMURAI;
+
+	else if (strcmp(node.name(), "boss") == 0)
+		unitType = BOSS;
+
+	else if (strcmp(node.name(), "vile") == 0)
+		unitType = VILE;
+
 	else
 	{
 		unitType = DEFAULT_UNIT;
-		LOG("XML node couldn't find a suitable unit.");
+		LOG("ERROR: XML Node UNIT TYPE does not match");
 	}
 }
 
 void Animation::SetAction(const pugi::xml_node node)
 {
 	if (strcmp(node.name(), "attack") == 0)
-	{
 		unitAction = ATTACK;
-	}
+
+	else if (strcmp(node.name(), "die") == 0)
+		unitAction = DIE;
+
+	else if (strcmp(node.name(), "disappear") == 0)	//
+		unitAction = DISAPPEAR;
 
 	else if (strcmp(node.name(), "idle") == 0)
-	{
 		unitAction = IDLE;
-	}
 
 	else if (strcmp(node.name(), "walk") == 0)
-	{
 		unitAction = WALK;
+
+	else
+	{
+		unitAction = NO_ACTION;
+		LOG("ERROR: XML Node ACTION TYPE does not match");
 	}
 }
 

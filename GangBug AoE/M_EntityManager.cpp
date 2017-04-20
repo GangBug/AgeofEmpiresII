@@ -305,7 +305,7 @@ Entity* M_EntityManager::CreateEntity(entity_type type, Entity* parent)
 		break;
 
 	case ENTITY_UNIT:
-		ret = new Unit(CAVALRY_ARCHER, nullptr);
+		ret = new Unit(ARCHER, nullptr);
 		break;
 
 	case ENTITY_UI:

@@ -6,15 +6,21 @@
 enum unit_type
 {
 	DEFAULT_UNIT,
-	CAVALRY_ARCHER,
-	ARCHER
+	ARCHER,
+	TARKAN_KNIGHT,
+	SAMURAI,
+	BOSS,
+	VILE
 };
 
 enum action_type
 {
 	ATTACK,
 	IDLE,
-	WALK
+	WALK,
+	DIE,
+	DISAPPEAR,
+	NO_ACTION
 };
 
 enum direction

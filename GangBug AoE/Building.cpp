@@ -17,7 +17,7 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		unitCost = 60;
 		break;
 	case BUILD_STABLES:
-		unitType = unit_type::CAVALRY_ARCHER;
+		unitType = unit_type::TARKAN_KNIGHT;
 		unitCost = 70;
 		break;
 	case BUILD_BARRACK:
