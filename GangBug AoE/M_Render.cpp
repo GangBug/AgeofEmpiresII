@@ -214,8 +214,11 @@ bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	GB_Rectangle<int> screen_position;
 	screen_position.x = app->render->WorldToScreen(x, y).x;
 	screen_position.y = app->render->WorldToScreen(x, y).y;
-	screen_position.w = section->w;
-	screen_position.h = section->h;
+	if (section != NULL)
+	{
+		screen_position.w = section->w;
+		screen_position.h = section->h;
+	}
 
 	if (camera->InsideRenderTarget(screen_position))
 	{
@@ -413,39 +416,43 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 
 			if (texture != nullptr)
 			{
-				uint scale = app->win->GetScale();
-				GB_Rectangle<int> section = tmp->GetDrawQuad();
-				fPoint pos = tmp->GetGlobalPosition();
-				SDL_Rect finalRect;
-
-				finalRect.x = (int)(camera->GetRect().x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
-				finalRect.y = (int)(camera->GetRect().y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
-
-				finalRect.w = section.w * scale * tmp->scale.x; //TODO: Viewport ratio
-				finalRect.h = section.h * scale * tmp->scale.y; //TODO: Viewport ratio
-
-				SDL_Point piv;
-				iPoint p = tmp->GetPivot();
-				piv.x = p.x;
-				piv.y = p.y;
-
-				finalRect.x -= p.x;
-				finalRect.y -= p.y;
-
-				//Check if we should flip
-				SDL_RendererFlip flip = SDL_FLIP_NONE;
 				if (tmp->type == ENTITY_UNIT)
 				{
+					uint scale = app->win->GetScale();
+					GB_Rectangle<int> section = tmp->GetDrawQuad();
+					fPoint pos = tmp->GetGlobalPosition();
+					SDL_Rect finalRect;
+
+					finalRect.x = (int)(camera->GetRect().x /* * speed */) + pos.x - gameViewPort.x  * scale; //TODO: Take into account viewport position and viewport ratio
+					finalRect.y = (int)(camera->GetRect().y /* * speed */) + pos.y * scale; //TODO: Take into account viewport position and viewport ratio
+
+					finalRect.w = section.w * scale * tmp->scale.x; //TODO: Viewport ratio
+					finalRect.h = section.h * scale * tmp->scale.y; //TODO: Viewport ratio
+
+					SDL_Point piv;
+					iPoint p = tmp->GetPivot();
+					piv.x = p.x;
+					piv.y = p.y;
+
+					finalRect.x -= p.x;
+					finalRect.y -= p.y;
+
+					//Check if we should flip
+					SDL_RendererFlip flip = SDL_FLIP_NONE;
 					Unit* tmpUnit = dynamic_cast<Unit*>(*it);
-					if(tmpUnit->GetDirection() == NORTH_EAST || tmpUnit->GetDirection() == EAST || tmpUnit->GetDirection() == SOUTH_EAST)
+					if (tmpUnit->GetDirection() == NORTH_EAST || tmpUnit->GetDirection() == EAST || tmpUnit->GetDirection() == SOUTH_EAST)
 					{
 						flip = SDL_FLIP_HORIZONTAL;
 					}
-				}
 
-				if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, nullptr, flip) != 0)
+					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, nullptr, flip) != 0)
+					{
+						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
+					}
+				}
+				else if (tmp->type == ENTITY_BUILDING)
 				{
-					LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
+					Blit(tmp->GetTexture(), tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
 				}
 			}
 		}

@@ -2,6 +2,7 @@
 #include "M_EntityManager.h"
 #include "App.h"
 #include "M_Input.h"
+#include "M_Textures.h"
 
 
 
@@ -15,12 +16,18 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 	case BUILD_ARCHERY:
 		unitType = unit_type::ARCHER;
 		unitCost = 60;
+		entityTexture = app->tex->archeryTexture;
+		SetEnclosingBoxSize(320, 293);
 		break;
 	case BUILD_STABLES:
 		unitType = unit_type::TARKAN_KNIGHT;
 		unitCost = 70;
+		entityTexture = app->tex->stableTexture;
+		SetEnclosingBoxSize(323, 226);
 		break;
 	case BUILD_BARRACK:
+		entityTexture = app->tex->barracksTexture;
+		SetEnclosingBoxSize(310, 266);
 		break;
 	}
 }

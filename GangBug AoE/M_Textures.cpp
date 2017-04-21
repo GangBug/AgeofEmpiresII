@@ -39,6 +39,11 @@ bool M_Textures::Start()
 {
 	LOG("start textures");
 	bool ret = true;
+
+	archeryTexture = Load("buildings/archery.png");
+	stableTexture = Load("buildings/stable.bmp");
+	barracksTexture = Load("buildings/barracks.bmp");
+
 	return ret;
 }
 
