@@ -7,13 +7,11 @@ M_PathFinding::M_PathFinding(bool startEnabled) : Module(startEnabled), map(null
 {
 	name.assign("pathfinding");
 }
-
 // Destructor
 M_PathFinding::~M_PathFinding()
 {
 	RELEASE_ARRAY(map);
 }
-
 // Called before quitting
 bool M_PathFinding::CleanUp()
 {
@@ -23,7 +21,6 @@ bool M_PathFinding::CleanUp()
 	RELEASE_ARRAY(map);
 	return true;
 }
-
 // Sets up the walkability map
 void M_PathFinding::SetMap(uint width, uint height, uchar* data)
 {
@@ -34,21 +31,18 @@ void M_PathFinding::SetMap(uint width, uint height, uchar* data)
 	map = new uchar[width*height];
 	memcpy(map, data, width*height);
 }
-
 // Utility: return true if pos is inside the map boundaries
 bool M_PathFinding::CheckBoundaries(const iPoint& pos) const
 {
 	return (pos.x >= 0 && pos.x <= (int)width &&
 			pos.y >= 0 && pos.y <= (int)height);
 }
-
 // Utility: returns true is the tile is walkable
 bool M_PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
 	return t != INVALID_WALK_CODE && t > 0;
 }
-
 // Utility: return the walkability value of a tile
 uchar M_PathFinding::GetTileAt(const iPoint& pos) const
 {
@@ -57,19 +51,16 @@ uchar M_PathFinding::GetTileAt(const iPoint& pos) const
 
 	return INVALID_WALK_CODE;
 }
-
 void M_PathFinding::DrawDebug()
 {
 
 }
-
 //TODO change 
 // To request all tiles involved in the last generated path
 const std::vector<iPoint> M_PathFinding::GetLastPath() const
 {
 	return lastPath;
 }
-
 // PathList ------------------------------------------------------------------------
 // Looks for a node in this list and returns it's list node or NULL
 // ---------------------------------------------------------------------------------
@@ -84,7 +75,6 @@ std::list<PathNode>::iterator* PathList::Find(const iPoint& point)
 	}
 	return nullptr;
 }
-
 // PathList ------------------------------------------------------------------------
 // Returns the Pathnode with lowest score in this list or NULL if empty
 // ---------------------------------------------------------------------------------
@@ -103,19 +93,15 @@ std::list<PathNode>::iterator* PathList::GetNodeLowestScore()
 	}
 	return ret;
 }
-
 // PathNode -------------------------------------------------------------------------
 // Convenient constructors
 // ----------------------------------------------------------------------------------
 PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(nullptr)
 {}
-
 PathNode::PathNode(int g, int h, const iPoint& pos, const PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
 {}
-
 PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), parent(node.parent)
 {}
-
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
@@ -146,7 +132,6 @@ uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
 
 	return listToFill.list.size();
 }
-
 // PathNode -------------------------------------------------------------------------
 // Calculates this tile score
 // ----------------------------------------------------------------------------------
@@ -154,7 +139,6 @@ int PathNode::Score() const
 {
 	return g + h;
 }
-
 // PathNode -------------------------------------------------------------------------
 // Calculate the F for a specific destination tile
 // ----------------------------------------------------------------------------------
@@ -165,7 +149,6 @@ int PathNode::CalculateF(const iPoint& destination)
 
 	return g + h;
 }
-
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
