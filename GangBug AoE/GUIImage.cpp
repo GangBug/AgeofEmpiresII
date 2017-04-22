@@ -29,7 +29,7 @@ void GUIImage::Draw() const
 		GB_Rectangle<float> rect = GetDrawRect();
 		rect.x -= app->render->camera->GetRect().x;
 		rect.y -= app->render->camera->GetRect().y;
-		app->render->Blit(atlas, &GetDrawRect().GetSDLrect(), &GetSection().GetSDLrect(), alpha);
+		app->render->Blit(atlas, &rect.GetSDLrect(), &GetSection().GetSDLrect(), alpha);
 	}
 }
 void GUIImage::Serialize(pugi::xml_node root)
