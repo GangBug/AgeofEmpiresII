@@ -150,7 +150,8 @@ int PathNode::CalculateF(const iPoint& destination)
 	return g + h;
 }
 // ----------------------------------------------------------------------------------
-// Actual A* algorithm: return number of steps in the creation of the path or -1 ----
+// Actual A* algorithm: return number of steps in the creation of the path or -1
+// Fills lastPath property with path nodes										 
 // ----------------------------------------------------------------------------------
 int M_PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
