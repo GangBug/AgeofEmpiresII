@@ -39,7 +39,7 @@ void M_Map::Draw()
 	{
 		MapLayer* layer = (*item);
 
-		if((layer->properties.Get("Nodraw") != 0 || layer->properties.Get("Navigation") == 1) && app->debug == true)
+		if((layer->properties.Get("Nodraw") != 0 || layer->properties.Get("Navigation") == 1) && app->debug != true)
 			continue;
 
 		for(int y = 0; y < data.height; ++y)
