@@ -108,7 +108,5 @@ direction Unit::GetDirectionFromVelocity(fPoint vel)
 	else if (angle >= -67.5 && angle <= -22.5)
 		ret = SOUTH_WEST;//
 
-	//NOTE: SOUTH_EAST, EAST, NORTH_EAST & NORTH_WEST are missing
-
 	return ret;
 }

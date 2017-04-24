@@ -276,7 +276,7 @@ void Animation::SetDirection(const pugi::xml_node node)
 
 	else if (strcmp(node.name(), "north_west") == 0)
 	{
-		unitDirection = SOUTH;
+		unitDirection = NORTH_WEST;
 	}
 
 	else if (strcmp(node.name(), "north_east") == 0)
