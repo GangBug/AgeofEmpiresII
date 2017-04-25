@@ -34,6 +34,10 @@ public:
 	uint GetCurrentWood();
 	uint GetCurrentFood();
 
+	void AddFood(int amount);
+	void AddWood(int amount);
+	void AddGold(int amount);
+
 	void SetCurrentFood(int amount);
 	void SetCurrentWood(int amount);
 	void SetCurrentGold(int amount);

@@ -25,36 +25,47 @@ bool M_Resources::Start()
 	return ret;
 }
 
+//Get current amount of each resource
 uint M_Resources::GetCurrentFood()
 {
 	return food;
 }
-
 uint M_Resources::GetCurrentWood()
 {
 	return wood;
 }
-
 uint M_Resources::GetCurrentGold()
 {
 	return gold;
 }
 
-void M_Resources::SetCurrentFood(int amount)
+//Add certain amount to existent resources
+void M_Resources::AddFood(int amount)
 {
 	food += amount;
 }
-
-void M_Resources::SetCurrentWood(int amount)
+void M_Resources::AddWood(int amount)
 {
 	wood += amount;
 }
-
-void M_Resources::SetCurrentGold(int amount)
+void M_Resources::AddGold(int amount)
 {
 	gold += amount;
 }
 
+//Set existent resources to a certain amount
+void M_Resources::SetCurrentFood(int amount)
+{
+	food = amount;
+}
+void M_Resources::SetCurrentWood(int amount)
+{
+	wood = amount;
+}
+void M_Resources::SetCurrentGold(int amount)
+{
+	gold = amount;
+}
 void M_Resources::SetCurrentResources(int amount)
 {
 	food += amount;
@@ -74,15 +85,15 @@ update_status M_Resources::Update(float dt)
 	{
 		if (GetCurrentFood() < MAX_RESOURCES)
 		{
-			SetCurrentFood(FOOD_AMOUNT);
+			AddFood(FOOD_AMOUNT);
 		}
 		if (GetCurrentWood() < MAX_RESOURCES)
 		{
-			SetCurrentWood(WOOD_AMOUNT);
+			AddWood(WOOD_AMOUNT);
 		}
 		if (GetCurrentGold() < MAX_RESOURCES)
 		{
-			SetCurrentGold(GOLD_AMOUNT);
+			AddGold(GOLD_AMOUNT);
 		}
 		updateResources.Stop();
 	}
