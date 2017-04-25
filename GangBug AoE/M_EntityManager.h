@@ -4,12 +4,29 @@
 #include "Module.h"
 #include <vector>
 #include "Unit.h"
+#include "Object.h"
 
 class Entity;
 class SDL_Texture;
 enum building_type;
 
 class GB_QuadTree;
+
+
+
+struct ObjectTexture
+{
+	ObjectTexture(object_type b, SDL_Rect rect);
+	~ObjectTexture() {}
+
+	object_type type;
+	SDL_Rect section;
+
+	void SetType(pugi::xml_node node);
+	void SetRect(pugi::xml_node node);
+};
+
+
 
 class M_EntityManager : public Module
 {
@@ -27,9 +44,11 @@ public:
 
 	Entity* CreateEntity(entity_type type, Entity* parent);
 	Entity* CreateEntity(Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
+	
 	Entity* CreateUnit(unit_type type = DEFAULT_UNIT, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
-
 	Entity* CreateBuilding(building_type buldType, Entity* parent, int posx, int posy);
+	Entity* CreateObject(object_type type = OBJECT_NONE, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
+
 
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
@@ -47,6 +66,11 @@ public:
 
 	//-------------------------------
 	Entity* CreateRandomTestEntity();
+
+public: // ------------------------------- Objects
+	SDL_Rect getObjectRect(object_type bType);
+	bool PlaceObjects();
+
 
 private:
 	void RemoveFlagged();
@@ -67,11 +91,16 @@ private:
 	bool mustSaveScene = false;
 	bool mustLoadScene = false;
 
+	// Objects
+	std::vector<ObjectTexture> objectTextures;
+
 	//TMP
 	Entity* et = nullptr;
 	Entity* et2 = nullptr;
 	Entity* archer = nullptr;
 	SDL_Texture* textTexture = nullptr;
+
+
 };
 
 #endif // !__M_ENTITY_MANAGER_H__

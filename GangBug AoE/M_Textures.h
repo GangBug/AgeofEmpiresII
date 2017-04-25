@@ -38,6 +38,8 @@ public:
 	SDL_Texture* archeryTexture = nullptr;
 	SDL_Texture* stableTexture = nullptr;
 	SDL_Texture* barracksTexture = nullptr; // If we see they end up being too many we'll do a struct with the building type and the texture
+	SDL_Texture* objectTexture = nullptr;
+
 };
 
 

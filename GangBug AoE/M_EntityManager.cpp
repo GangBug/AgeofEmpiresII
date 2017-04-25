@@ -319,7 +319,9 @@ Entity* M_EntityManager::CreateEntity(entity_type type, Entity* parent)
 	case ENTITY_MAP:
 		ret = new EntityMap(nullptr);
 		break;
-
+	case ENTITY_OBJECT:
+		ret = new EntityMap(nullptr);
+		break;
 		//TODO: More entities cases
 
 	default:
@@ -746,4 +748,177 @@ bool M_EntityManager::SaveSceneNow()
 	data.reset();
 
 	return ret;
+}
+
+//---------------------- objects
+
+SDL_Rect M_EntityManager::getObjectRect(object_type type)
+{
+	for (std::vector<ObjectTexture>::iterator it = objectTextures.begin(); it != objectTextures.end(); it++)
+	{
+		if ((*it).type == type)
+		{
+			return (*it).section;
+		}
+	}
+	return{ 0,0,0,0 };
+}
+
+{
+
+	Entity* ret = (Entity*) new Object(type, parent);
+
+	if (parent)
+		parent->AddChild(ret);
+	else
+		root->AddChild(ret);
+
+	if (ret)
+	{
+		ret->SetLocalPosition(posX, posY);
+	}
+	else
+	{
+		LOG("ERROR: Could not create a new unit.");
+	}
+
+	return ret;
+}
+
+bool M_EntityManager::PlaceObjects()
+{
+	std::string obj_folder = "objects/Objects_creator.xml";	//Load Objects data from object folder
+	char* buff = nullptr;
+	int size = app->fs->Load(obj_folder.c_str(), &buff);
+	pugi::xml_document obj_data;
+	pugi::xml_parse_result result = obj_data.load_buffer(buff, size);
+	RELEASE(buff);
+
+	if (result == NULL)
+	{
+		LOG("Error loading objects data: %s", result.description());
+		return false;
+	}
+
+	//Loading Objects Sprites
+	pugi::xml_node objectNode = obj_data.child("Objects").first_child();
+	while (objectNode != NULL)
+	{
+		objectNode = objectNode.next_sibling();
+	}
+
+	return true;
+}
+
+
+
+
+ObjectTexture::ObjectTexture(object_type type, SDL_Rect rect)
+{
+	this->type = type;
+	section = rect;
+}
+
+void ObjectTexture::SetRect(pugi::xml_node node)
+{
+	section.x = node.attribute("x").as_int();
+	section.y = node.attribute("y").as_int();
+	section.w = node.attribute("w").as_int();
+	section.h = node.attribute("h").as_int();
+}
+
+void ObjectTexture::SetType(pugi::xml_node node)
+{
+	if (strcmp(node.attribute("n").as_string(), "asianWallH") == 0) {
+		type = ASIAN_WALL_H;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallL") == 0) {
+		type = ASIAN_WALL_L;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallR") == 0) {
+		type = ASIAN_WALL_R;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallT") == 0) {
+		type = ASIAN_WALL_T;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallV") == 0) {
+		type = ASIAN_WALL_V;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallRdmg") == 0) {
+		type = ASIAN_WALL_R_DMG;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallLdmg") == 0) {
+		type = ASIAN_WALL_L_DMG;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallTdmg") == 0) {
+		type = ASIAN_WALL_T_DMG;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "asianWallVdmg") == 0) {
+		type = ASIAN_WALL_V_DMG;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo1") == 0) {
+		type = BAMBOO1;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo2") == 0) {
+		type = BAMBOO2;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo3") == 0) {
+		type = BAMBOO3;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo4") == 0) {
+		type = BAMBOO4;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "BannerA") == 0) {
+		type = BANNERA;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "BannerB") == 0) {
+		type = BANNERB;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Charriot") == 0) {
+		type = CHARRIOT;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeR") == 0) {
+		type = PALISADE_R;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeL") == 0) {
+		type = PALISADE_L;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeT") == 0) {
+		type = PALISADE_T;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeH") == 0) {
+		type = PALISADE_H;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "PalisadeV") == 0) {
+		type = PALISADE_V;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "SkeletonsGroup") == 0) {
+		type = SKELETONS_GROUP;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "SkullPile") == 0) {
+		type = SKULL_PILE;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TorchFloorSquare") == 0) {
+		type = TORCH_FLOOR_SQUARE;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TorchFloorTwisted") == 0) {
+		type = TORCH_FLOOR_TWISTED;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TrashLarge") == 0) {
+		type = TRASH_LARGE;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TrashMedium") == 0) {
+		type = TRASH_MEDIUM;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "TrashSmall") == 0) {
+		type = TRASH_SMALL;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Altar") == 0) {
+		type = ALTAR;
+	}
+	else
+	{
+		type = OBJECT_NONE;
+		LOG("ERROR: XML Node OBJECT TYPE does not match");
+	}
 }
