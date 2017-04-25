@@ -89,9 +89,9 @@ public:
 
 	bool Collides(GB_Rectangle rect)
 	{
-		return (x < rect.x + rect.w &&
-			x + w > rect.x &&
-			y < rect.y + rect.h &&
+		return (x < rect.x + rect.w ||
+			x + w > rect.x ||
+			y < rect.y + rect.h ||
 			h + y > rect.y);
 	}
 
