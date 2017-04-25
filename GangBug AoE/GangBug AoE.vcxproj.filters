@@ -148,6 +148,9 @@
     <ClCompile Include="M_EntityManager.cpp">
       <Filter>Entity System</Filter>
     </ClCompile>
+    <ClCompile Include="M_Resources.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -266,6 +269,9 @@
     </ClInclude>
     <ClInclude Include="M_EntityManager.h">
       <Filter>Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Resources.h">
+      <Filter>Modules\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

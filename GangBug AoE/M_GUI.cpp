@@ -21,9 +21,6 @@
 #include "GUIButton.h"
 #include "GUIAutoLabel.h"
 
-
-
-
 M_GUI::M_GUI(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("gui");

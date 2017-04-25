@@ -486,7 +486,7 @@ bool Camera::InsideRenderTarget(GB_Rectangle<int> rect)
 	{
 		return false;
 	}
-	if (rect.y+rect.h < 0)
+	if (rect.y + rect.h < 0)
 	{
 		return false;
 	}

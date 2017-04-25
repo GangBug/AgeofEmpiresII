@@ -209,6 +209,7 @@
     <ClCompile Include="M_Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="M_Render.cpp" />
+    <ClCompile Include="M_Resources.cpp" />
     <ClCompile Include="M_Textures.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="M_Window.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="M_Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="M_Render.h" />
+    <ClInclude Include="M_Resources.h" />
     <ClInclude Include="M_Textures.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="M_Window.h" />
