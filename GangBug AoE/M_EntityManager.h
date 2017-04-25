@@ -29,7 +29,7 @@ public:
 	Entity* CreateEntity(Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 	Entity* CreateUnit(unit_type type = DEFAULT_UNIT, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 
-	Entity* CreateBuilding(building_type buldType, Entity* parent, uint posx, uint posy);
+	Entity* CreateBuilding(building_type buldType, Entity* parent, int posx, int posy);
 
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use

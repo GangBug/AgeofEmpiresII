@@ -214,7 +214,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	{
 		int x, y;
 		app->input->GetMousePosition(x, y);
-		CreateBuilding(building_type::BUILD_STABLES, nullptr, (float)x, (float)y);
+		CreateBuilding(building_type::BUILD_STABLES, nullptr, x, y);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
@@ -429,7 +429,7 @@ Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, in
 	return ret;
 }
 
-Entity* M_EntityManager::CreateBuilding(building_type buildType, Entity* parent, uint posx, uint posy)
+Entity* M_EntityManager::CreateBuilding(building_type buildType, Entity* parent, int posx, int posy)
 {
 	Entity* ret = nullptr;
 

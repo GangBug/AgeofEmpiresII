@@ -2,6 +2,7 @@
 #include "App.h"
 #include "M_Input.h"
 #include "M_Window.h"
+#include "M_Render.h"
 #include "SDL/include/SDL.h"
 
 #define MAX_KEYS 300
@@ -287,8 +288,8 @@ bool M_Input::GetWindowEvent(event_window ev)
 
 void M_Input::GetMousePosition(int& x, int& y)
 {
-	x = mouseX;
-	y = mouseY;
+	x = mouseX - app->render->camera->GetPosition().x;
+	y = mouseY - app->render->camera->GetPosition().y;
 }
 
 void M_Input::GetMouseMotion(int& x, int& y)
