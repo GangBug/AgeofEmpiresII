@@ -148,6 +148,7 @@
     <ClCompile Include="M_EntityManager.cpp">
       <Filter>Entity System</Filter>
     </ClCompile>
+    <ClCompile Include="M_Resources.cpp" />
     <ClCompile Include="Object.cpp">
       <Filter>Entity System\Entities</Filter>
     </ClCompile>
@@ -270,6 +271,7 @@
     <ClInclude Include="M_EntityManager.h">
       <Filter>Entity System</Filter>
     </ClInclude>
+    <ClInclude Include="M_Resources.h" />
     <ClInclude Include="Object.h">
       <Filter>Entity System\Entities</Filter>
     </ClInclude>

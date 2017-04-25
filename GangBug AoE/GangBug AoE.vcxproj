@@ -215,6 +215,7 @@
     <ClCompile Include="M_Window.cpp" />
     <ClCompile Include="M_EntityManager.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="S_InGame.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="M_EntityManager.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />

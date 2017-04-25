@@ -18,5 +18,5 @@ Object::~Object()
 
 void Object::OnUpdate(float dt)
 {
-  app->render->Blit(app->tex->objectTexture, GetGlobalPosition().x, GetGlobalPosition().y, &app->entityManager->getObjectRect(this->objectType));
+//  app->render->Blit(app->tex->objectTexture, GetGlobalPosition().x, GetGlobalPosition().y, &app->entityManager->getObjectRect(this->objectType));
 }
