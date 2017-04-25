@@ -121,4 +121,4 @@ public:
 	SDL_Texture*	editor_tex_background;
 };
 
-#endif // __j1RENDER_H__
+#endif // __M_RENDER_H__

@@ -15,6 +15,7 @@
 #include "M_EntityManager.h"
 #include "M_GUI.h"
 #include "M_Animation.h"
+#include "M_Resources.h"
 
 #include "S_InGame.h"
 #include "S_Menu.h"
@@ -54,6 +55,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new M_EntityManager();
 	gui = new M_GUI();
 	animation = new M_Animation();
+	resources = new M_Resources();
 	menu = new S_Menu(true);
 	inGame = new S_InGame(true);
 
@@ -68,6 +70,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pathfinding);
 	AddModule(font);
 	AddModule(entityManager);
+	AddModule(resources);
 	AddModule(animation);
 	AddModule(gui);
 

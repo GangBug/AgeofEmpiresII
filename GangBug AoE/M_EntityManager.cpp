@@ -764,6 +764,7 @@ SDL_Rect M_EntityManager::getObjectRect(object_type type)
 	return{ 0,0,0,0 };
 }
 
+Entity* M_EntityManager::CreateObject(object_type type, Entity* parent, int posX, int posY, int rectX, int rectY)
 {
 
 	Entity* ret = (Entity*) new Object(type, parent);
@@ -776,6 +777,7 @@ SDL_Rect M_EntityManager::getObjectRect(object_type type)
 	if (ret)
 	{
 		ret->SetLocalPosition(posX, posY);
+		ret->SetEnclosingBox(posX, posY, rectX, rectY);
 	}
 	else
 	{
@@ -804,6 +806,7 @@ bool M_EntityManager::PlaceObjects()
 	pugi::xml_node objectNode = obj_data.child("Objects").first_child();
 	while (objectNode != NULL)
 	{
+		CreateObject(object_type(objectNode.attribute("type").as_int()),nullptr, objectNode.attribute("x").as_int(),objectNode.attribute("y").as_int(), getObjectRect(object_type(objectNode.attribute("type").as_int())).w, getObjectRect(object_type(objectNode.attribute("type").as_int())).h);
 		objectNode = objectNode.next_sibling();
 	}
 

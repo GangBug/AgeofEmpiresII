@@ -731,7 +731,7 @@ GB_Rectangle<int> Entity::GetDrawQuad()const
 /** GetEnclosingBox: Returns the box that enclose the entity. */
 GB_Rectangle<int> Entity::GetEnclosingBox()const
 {
-	return enclosingRect;
+	return GB_Rectangle<int>{(int)globalPosition.x, (int)globalPosition.y, enclosingRect.w, enclosingRect.h};
 }
 
 ///------------------------------------------------

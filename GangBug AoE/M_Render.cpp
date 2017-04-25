@@ -112,6 +112,7 @@ update_status M_Render::PostUpdate(float dt)
 
 	PerfTimer timer;
 	std::vector<Entity*> entitiesVect;
+	//app->entityManager->GetEntitiesOnRect(ENTITY_BUILDING | ENTITY_UNIT, entitiesVect, camera->GetRect());
 	app->entityManager->Draw(entitiesVect, camera->GetRect());
 	double tmp = timer.ReadMs();
 	//LOG("Collecting entities lasted %f ms.", tmp);
@@ -486,7 +487,7 @@ bool Camera::InsideRenderTarget(GB_Rectangle<int> rect)
 	{
 		return false;
 	}
-	if (rect.y+rect.h < 0)
+	if (rect.y + rect.h < 0)
 	{
 		return false;
 	}
