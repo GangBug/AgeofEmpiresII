@@ -7,11 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GangBug AoE", "GangBug AoE\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebugBrofiler|x86 = DebugBrofiler|x86
 		DebugNoEditor|x86 = DebugNoEditor|x86
 		EditorModeDebug|x86 = EditorModeDebug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A141D165-B33E-482A-8E58-3C6E33C56A4B}.DebugBrofiler|x86.ActiveCfg = DebugBrofiler|Win32
+		{A141D165-B33E-482A-8E58-3C6E33C56A4B}.DebugBrofiler|x86.Build.0 = DebugBrofiler|Win32
 		{A141D165-B33E-482A-8E58-3C6E33C56A4B}.DebugNoEditor|x86.ActiveCfg = Debug|Win32
 		{A141D165-B33E-482A-8E58-3C6E33C56A4B}.DebugNoEditor|x86.Build.0 = Debug|Win32
 		{A141D165-B33E-482A-8E58-3C6E33C56A4B}.EditorModeDebug|x86.ActiveCfg = EditorModeDebug|Win32

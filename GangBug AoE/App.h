@@ -115,6 +115,7 @@ public:
 	bool debug = false;
 	bool editor = false;
 	bool quit = false;
+	bool brofiler = false;
 
 	uint32 last_frame_ms;
 	uint32 frames_on_last_update;

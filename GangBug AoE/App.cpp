@@ -41,8 +41,18 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 		{
 			editor = true;
 		}
+		if (str == "-brofiler")
+		{
+			brofiler = true;
+		}
 	}
 	
+	if (brofiler)
+	{
+		std::cout << "Press any character to start profiling";
+		getchar();
+	}
+
 	input = new M_Input();
 	win = new M_Window();
 	render = new M_Render();
