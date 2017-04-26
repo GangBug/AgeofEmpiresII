@@ -63,17 +63,13 @@ update_status S_InGame::PreUpdate(float dt)
 	{
 		if(app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
 		{		
-			app->input->GetMousePosition(origin.x, origin.y);
-			origin.x = app->render->ScreenToWorld(origin.x, origin.y).x;
-			origin.y = app->render->ScreenToWorld(origin.x, origin.y).y;
+			app->input->GetMouseScreenPosition(origin.x, origin.y);
 			origin.x = app->map->WorldToMap(origin.x, origin.y).x;
 			origin.y = app->map->WorldToMap(origin.x, origin.y).y;
 		}	
 		if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
 		{
-			app->input->GetMousePosition(destiny.x, destiny.y);
-			destiny.x = app->render->ScreenToWorld(destiny.x, destiny.y).x;
-			destiny.y = app->render->ScreenToWorld(destiny.x, destiny.y).y;
+			app->input->GetMouseScreenPosition(destiny.x, destiny.y);
 			destiny.x = app->map->WorldToMap(destiny.x, destiny.y).x;
 			destiny.y = app->map->WorldToMap(destiny.x, destiny.y).y;
 

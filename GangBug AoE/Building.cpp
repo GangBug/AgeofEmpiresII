@@ -40,7 +40,7 @@ Building::~Building()
 void Building::OnUpdate(float dt)
 {
 	iPoint mPos;
-	app->input->GetMousePosition(mPos.x, mPos.y);
+	app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
 	if (selected && GetEnclosingBox().Contains(mPos.x, mPos.y) && app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{

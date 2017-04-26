@@ -714,7 +714,7 @@ void M_GUI::DrawDebug()
 	//app->render->Blit(atlas, 0, 0, &sdlrect);
 	int x;
 	int y;
-	app->input->GetMousePosition(x, y);
+	app->input->GetMouseScreenPosition(x, y);
 	xMouse->SetText(std::to_string(x).c_str(), SMALL);
 	yMouse->SetText(std::to_string(y).c_str(), SMALL);
 	xMouse->SetGlobalPos(x + 10, y);
@@ -726,7 +726,7 @@ void M_GUI::DrawDebug()
 	//a_viewport_h->SetText(std::to_string(app->render->camera->GetRect().h).c_str(), MEDIUM);
 
 	GB_Rectangle<int> rect;
-	app->input->GetMousePosition(rect.x, rect.y);
+	app->input->GetMouseScreenPosition(rect.x, rect.y);
 	rect.w = 10;
 	rect.h = 10;
 	app->render->DrawQuad(rect.GetSDLrect(), 255, 0, 255, 255, true, false);

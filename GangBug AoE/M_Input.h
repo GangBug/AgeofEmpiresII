@@ -72,7 +72,8 @@ public:
 	bool GetWindowEvent(int code);
 
 	// Get mouse / axis position
-	void GetMousePosition(int &x, int &y);
+	void GetMouseMapPosition(int &x, int &y);
+	void GetMouseScreenPosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
 	void DrawDebug();

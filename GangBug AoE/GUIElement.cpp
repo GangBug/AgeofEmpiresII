@@ -112,7 +112,7 @@ void GUIElement::Update(const GUIElement* mouseHover, const GUIElement* focus, f
 	if (GetDraggable() && GetLClicked())
 	{
 		iPoint p;
-		app->input->GetMousePosition(p.x, p.y);
+		app->input->GetMouseScreenPosition(p.x, p.y);
 		SetGlobalPos(p.x, p.y);
 	}
 
@@ -124,7 +124,7 @@ void GUIElement::CheckInput(const GUIElement * mouseHover, const GUIElement * fo
 bool GUIElement::CheckMouseOver() const
 {
 	iPoint mousePosition;
-	app->input->GetMousePosition(mousePosition.x, mousePosition.y);
+	app->input->GetMouseScreenPosition(mousePosition.x, mousePosition.y);
 
 	return rect.Contains(mousePosition.x, mousePosition.y);
 }

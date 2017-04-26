@@ -172,7 +172,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
 		int x, y;
-		app->input->GetMousePosition(x, y);
+		app->input->GetMouseScreenPosition(x, y);
 		fPoint pos(x, y);
 		et->SetLocalPosition(pos);
 	}
@@ -180,7 +180,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
 	{
 		int x, y;
-		app->input->GetMousePosition(x, y);
+		app->input->GetMouseScreenPosition(x, y);
 		//et2->SetLocalPosition(pos);
 		fPoint pos(x, y);
 		et2->SetGlobalPosition(pos);
@@ -189,7 +189,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
 	{
 		iPoint mP;
-		app->input->GetMousePosition(mP.x, mP.y);
+		app->input->GetMouseScreenPosition(mP.x, mP.y);
 		CreateRandomTestEntity()->SetGlobalPosition(mP.x, mP.y);
 	}
 
@@ -197,14 +197,14 @@ update_status M_EntityManager::PreUpdate(float dt)
 	{
 		Entity* t = CreateEntity(ENTITY_UNIT, nullptr);
 		iPoint mP;
-		app->input->GetMousePosition(mP.x, mP.y);
+		app->input->GetMouseScreenPosition(mP.x, mP.y);
 		t->SetGlobalPosition(mP.x, mP.y);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
 	{
 		int x, y;
-		app->input->GetMousePosition(x, y);
+		app->input->GetMouseScreenPosition(x, y);
 		Entity* et = CreateRandomTestEntity();
 		fPoint pos(x, y);
 		et->SetGlobalPosition(pos);
@@ -213,7 +213,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		int x, y;
-		app->input->GetMousePosition(x, y);
+		app->input->GetMouseScreenPosition(x, y);
 		CreateBuilding(building_type::BUILD_STABLES, nullptr, x, y);
 	}
 

@@ -39,7 +39,7 @@ void PlayerManager::OnUpdate(float dt)
 {
 	static iPoint clickPosition;
 	iPoint mPos;
-	app->input->GetMousePosition(mPos.x, mPos.y);
+	app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
 	key_state buttonLeftStat = app->input->GetMouseButtonDown(SDL_BUTTON_LEFT);
 

@@ -42,7 +42,7 @@ void GUIMouse::Draw() const
 void GUIMouse::OnUpdate(const GUIElement* mouse_hover, const GUIElement* focus, float dt)
 {
 	SDL_ShowCursor(SDL_DISABLE);
-	app->input->GetMousePosition(position.x, position.y);
+	app->input->GetMouseScreenPosition(position.x, position.y);
 	curs->SetLocalPos(position.x, position.y);
 	//if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	//	app->gui->ManageEvents();
