@@ -23,6 +23,7 @@ bool S_InGame::Awake(pugi::xml_node & config)
 
 bool S_InGame::Start()
 {
+	app->entityManager->LoadObjects();
 	app->entityManager->PlaceObjects();
 
 	//app->gui->SetActiveScene(name);

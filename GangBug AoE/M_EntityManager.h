@@ -69,6 +69,7 @@ public:
 
 public: // ------------------------------- Objects
 	SDL_Rect getObjectRect(object_type bType);
+	bool LoadObjects();
 	bool PlaceObjects();
 
 

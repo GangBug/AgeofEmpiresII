@@ -455,6 +455,10 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 				{
 					Blit(tmp->GetTexture(), tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
 				}
+				else if (tmp->type == ENTITY_OBJECT)
+				{
+					Blit(app->tex->objectTexture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y, &app->entityManager->getObjectRect(dynamic_cast<Object*>(tmp)->objectType));
+				}
 			}
 		}
 	}

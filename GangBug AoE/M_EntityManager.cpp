@@ -787,6 +787,39 @@ Entity* M_EntityManager::CreateObject(object_type type, Entity* parent, int posX
 	return ret;
 }
 
+bool M_EntityManager::LoadObjects()
+{
+	std::string obj_folder = "objects/Objects_data.xml";	//Load Objects data from object folder
+	char* buff = nullptr;
+	int size = app->fs->Load(obj_folder.c_str(), &buff);
+	pugi::xml_document obj_data;
+	pugi::xml_parse_result result = obj_data.load_buffer(buff, size);
+	RELEASE(buff);
+
+	if (result == NULL)
+	{
+		LOG("Error loading objects data: %s", result.description());
+		return false;
+	}
+
+	//Loading Objects Sprites
+	pugi::xml_node spriteNode = obj_data.child("TextureAtlas").first_child();
+	while (spriteNode != NULL)
+	{
+		ObjectTexture newObject(OBJECT_NONE, {});
+		newObject.SetType(spriteNode);
+		newObject.SetRect(spriteNode);
+
+		if (newObject.type != OBJECT_NONE)
+		{
+			objectTextures.push_back(newObject);
+		}
+		spriteNode = spriteNode.next_sibling();
+	}
+
+	return true;
+}
+
 bool M_EntityManager::PlaceObjects()
 {
 	std::string obj_folder = "objects/Objects_creator.xml";	//Load Objects data from object folder

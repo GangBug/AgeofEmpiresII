@@ -43,6 +43,7 @@ bool M_Textures::Start()
 	archeryTexture = Load("buildings/archery.png");
 	stableTexture = Load("buildings/stable.bmp");
 	barracksTexture = Load("buildings/barracks.bmp");
+	objectTexture = Load("objects/ObjectsSpritesheet.png");
 
 	return ret;
 }
