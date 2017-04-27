@@ -35,6 +35,25 @@ enum direction
 	SOUTH_WEST
 };
 
+enum unit_class
+{
+	NO_CLASS = 0,
+	INFANTRY,
+	RANGED,
+	CAVALRY,
+};
+
+enum state
+{
+	NO_STATE,
+	ATTACKING,
+	MOVING_TO_ATTACK,
+	VIGILANT,
+	MOVING,
+	FLEEING,
+	DEAD
+};
+
 class Unit :public Entity
 {
 public:
@@ -42,31 +61,54 @@ public:
 
 	void OnUpdate(float dt)override;
 
+	void SetHp(int newHP);
+
 	unit_type GetType() const;
 	action_type GetAction() const;
-	direction GetDirection() const;
 
-	void SetDestination(int x, int y);
-	void SetDestination(iPoint dst);
+	direction GetDir() const;
+	unit_type GetUnitType() const;
+	unit_class GetUnitClass() const;
+	int GetUnitRadius() const;
+	bool GetPath(iPoint dest);
+	int GetAttack() const;
+	int GetRange() const;
+	bool IsMoving() const;
+	bool Move();
 
-protected:
-	direction GetDirectionFromVelocity(fPoint vel);
+	int GetPriority() const;
+	void SetAction(action_type action);
 
-public:
-	iPoint destination;
+	//TODO:this should be private?
+	bool GetNextTile();
+
+
+	void LookAt(iPoint pos);
+	bool GoTo(iPoint destination);
+	bool ChangeDirection(iPoint destination);
 
 private:
 	unit_type unitType;
 	action_type action;
+	unit_class unitClass;
 	direction unitDirection;
+	state unitState;
 
-	fPoint velocity = {0.f, 0.f};
-	float speed = 100.f;
-	int arriveRadius = 5; //This radius is a distance to detect the arriving because an exact point is almost impossible to check
+	int attack;
+	int hp;
+	int range;
+	int unitRadius;
+	float speed;
+	float rate_of_fire;
+	iPoint destination;
+	iPoint pathObjective;
+	fPoint moveVector;
+	float angle;
+	std::vector<iPoint> pathVec;
 
 	bool haveADestination = false;
 
-	//STATS?
+	int priority;
 };
 
 #endif //__UNIT_H__

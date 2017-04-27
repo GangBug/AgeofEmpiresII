@@ -147,6 +147,8 @@ public:
 
 	entity_type type = ENTITY_UNKNOWN;
 
+	bool selected = false;
+
 
 	GB_QuadTreeNode* currentQuadTreeNode = nullptr;
 };

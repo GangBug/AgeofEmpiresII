@@ -20,7 +20,7 @@ class M_Textures;
 class M_Audio;
 class M_FileSystem;
 class M_Map;
-class M_PathFinding;
+class M_Pathfinding;
 class M_Fonts;
 class M_EntityManager;
 class M_GUI;
@@ -103,7 +103,7 @@ public:
 	M_Audio*			audio = nullptr;
 	M_FileSystem*		fs = nullptr;
 	M_Map*				map = nullptr;
-	M_PathFinding*		pathfinding = nullptr;
+	M_Pathfinding*		pathfinding = nullptr;
 	M_Fonts*			font = nullptr;
 	M_EntityManager*	entityManager = nullptr;
 	M_GUI*				gui = nullptr;

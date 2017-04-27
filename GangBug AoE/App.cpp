@@ -60,7 +60,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new M_Audio();
 	fs = new M_FileSystem();
 	map = new M_Map();
-	pathfinding = new M_PathFinding();
+	pathfinding = new M_Pathfinding();
 	font = new M_Fonts();
 	entityManager = new M_EntityManager();
 	gui = new M_GUI();

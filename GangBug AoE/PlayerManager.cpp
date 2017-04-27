@@ -51,6 +51,10 @@ void PlayerManager::OnUpdate(float dt)
 		selectionRect.w = 0;
 		selectionRect.h = 0;
 		onSelection = true;
+		for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
+		{
+			(*it)->selected = false;
+		}
 		selectedEntities.clear();
 	}
 
@@ -85,6 +89,10 @@ void PlayerManager::OnUpdate(float dt)
 		else if (buttonLeftStat == KEY_UP)
 		{
 			app->entityManager->GetEntitiesOnRect(ENTITY_BASE | ENTITY_UNIT, selectedEntities, selectionRect);
+			for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
+			{
+				(*it)->selected = true;
+			}
 			std::vector<Entity*> builds;
 			app->entityManager->GetEntitiesOnRect(ENTITY_BUILDING, builds, selectionRect);
 			if (!builds.empty())
@@ -101,7 +109,7 @@ void PlayerManager::OnUpdate(float dt)
 		//Draw the selection quad. TODO: Might change this in the future as is using debug quad
 		app->render->DrawQuad(selectionRect.GetSDLrect(), 255, 255, 255, 255, false);
 	}
-	else
+	/*else
 	{
 		if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 		{
@@ -117,7 +125,7 @@ void PlayerManager::OnUpdate(float dt)
 				}
 			}
 		}
-	}
+	}*/
 }
 
 bool PlayerManager::OnSave(pugi::xml_node& node) const

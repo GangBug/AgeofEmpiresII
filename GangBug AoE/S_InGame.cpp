@@ -23,6 +23,7 @@ bool S_InGame::Awake(pugi::xml_node & config)
 
 bool S_InGame::Start()
 {
+	app->pathfinding->Enable();
 	app->entityManager->LoadObjects();
 	app->entityManager->PlaceObjects();
 
@@ -60,6 +61,8 @@ update_status S_InGame::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera->Move(10.0, RIGHT);
 
+
+	//What is this: ?
 	if (app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 	{
 		if(app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
@@ -74,8 +77,8 @@ update_status S_InGame::PreUpdate(float dt)
 			destiny.x = app->map->WorldToMap(destiny.x, destiny.y).x;
 			destiny.y = app->map->WorldToMap(destiny.x, destiny.y).y;
 
-			app->pathfinding->CreatePath(origin, destiny);
-			path = app->pathfinding->GetLastPath();
+			//app->pathfinding->CreatePath(origin, destiny);
+			//path = app->pathfinding->GetLastPath();
 
 		}
 

@@ -2,10 +2,12 @@
 #include "App.h"
 #include "M_Animation.h"
 #include "M_Render.h"
-
+#include "M_Map.h"
+#include "M_Pathfinding.h"
 //TMP
 #include "M_Input.h"
 #include "App.h"
+#include "Log.h"
 
 Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT, parent)
 {
@@ -14,46 +16,94 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 	unitDirection = SOUTH;
 	entityTexture = app->animation->GetTexture(unitType);
 
-	iPoint p;
-	app->animation->GetFrame(drawQuad, p, this);
-	SetEnclosingBoxSize(drawQuad.w, drawQuad.h);
-	SetPivot(p);
+
+	switch (type)
+	{
+		//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
+	case TARKAN_KNIGHT:
+		SetHp(160);
+		attack = 15;
+		speed = 1.6f;
+		rate_of_fire = 1;
+		range = 0;
+		unitClass = CAVALRY;
+		unitRadius = 4;
+		unitState = NO_STATE;
+		break;
+
+	case SAMURAI:
+		SetHp(100);
+		attack = 15;
+		speed = 1.2f;
+		rate_of_fire = 1;
+		range = 0;
+		unitClass = INFANTRY;
+		unitRadius = 5;
+		//AI = false;
+		unitState = NO_STATE;
+		break;
+
+	case ARCHER:
+		SetHp(30);
+		attack = 15;
+		speed = 1.2f;
+		rate_of_fire = 2;
+		range = 5;
+		unitClass = RANGED;
+		unitRadius = 8;
+		//AI = false;
+		unitState = NO_STATE;
+		break;
+
+	case VILE:
+		SetHp(20);
+		attack = 5;
+		speed = 2.0f;
+		rate_of_fire = 1;
+		range = 0;
+		unitClass = INFANTRY;
+		unitRadius = 7;
+		//AI = true;
+		unitState = NO_STATE;
+		break;
+
+	default:
+		LOG("ERROR: NOT A CORRECT UNIT TYPE");
+		unitClass = NO_CLASS;
+		break;
+	}
 }
 
 void Unit::OnUpdate(float dt)
 {
-	if (haveADestination == true)
+	switch (unitState)
 	{
-		fPoint gPos = GetGlobalPosition();
-		fPoint desPos(destination.x, destination.y);
-
-		if (gPos.DistanceNoSqrt(desPos) > arriveRadius * arriveRadius) //TODO: Maybe check in a circle or area instead of a point
+	case NO_STATE:
+		if (app->input->GetMouseButtonDown(3) == KEY_DOWN && selected == true)
 		{
-			velocity = desPos - gPos;
-			velocity.Normalize();
-			velocity *= (speed * dt);
-
-			direction dir = GetDirectionFromVelocity(velocity);
-			if (dir != unitDirection)
-				unitDirection = dir;
-
-			iPoint p;
-			app->animation->GetFrame(drawQuad, p, this);
-			SetEnclosingBoxSize(drawQuad.w, drawQuad.h);
-			SetPivot(p);
-
-			fPoint p2 = { (float)p.x, (float)p.y };
-			SetGlobalPosition(gPos + velocity);
+			iPoint objective;
+			app->input->GetMouseMapPosition(objective.x, objective.y);
+			GoTo(objective);
 		}
-		else
+		break;
+	case MOVING:
+		if (app->input->GetMouseButtonDown(3) == KEY_DOWN && selected == true)
 		{
-			//Has arrived
-			haveADestination = false;
+			iPoint objective;
+			app->input->GetMouseMapPosition(objective.x, objective.y);
+			GoTo(objective);
+		}
+		else if (Move() == false)
+		{
+			unitState = NO_STATE;
 			action = IDLE;
 		}
+		break;
 	}
 
-	
+	iPoint p;
+	app->animation->GetFrame(drawQuad, p, this);
+	SetPivot(p);
 }
 
 unit_type Unit::GetType() const
@@ -66,47 +116,187 @@ action_type Unit::GetAction() const
 	return action;
 }
 
-direction Unit::GetDirection() const
+direction Unit::GetDir() const
 {
 	return unitDirection;
 }
 
-void Unit::SetDestination(int x, int y)
+unit_type Unit::GetUnitType() const
 {
-	destination.create(x, y);
-	haveADestination = true;
-	action = WALK;
+	return unitType;
 }
 
-void Unit::SetDestination(iPoint dst)
+unit_class Unit::GetUnitClass() const
 {
-	destination = dst;
-	haveADestination = true;
-	action = WALK;
+	return unitClass;
 }
 
-direction Unit::GetDirectionFromVelocity(fPoint vel)
+int Unit::GetUnitRadius() const
 {
-	direction ret = NORTH;
+	return unitRadius;
+}
 
-	float angle = vel.GetAngleDeg();
+bool Unit::GetPath(iPoint dest) 
+{
+	float posX, posY;
+	GetGlobalPosition(posX, posY);
+	iPoint ori = app->map->WorldToMap(posX, posY);
+	iPoint destinat = app->map->WorldToMap(dest.x, dest.y);
+	if (app->pathfinding->CalculatePath(ori, destinat, pathVec) == false)
+		return false;
+	return true;
+}
 
-	if (angle < 22.5 && angle > -22.5)
-		ret = SOUTH;//
-	else if (angle >= 22.5 && angle <= 67.5)
-		ret = SOUTH_EAST;
-	else if (angle > 67.5 && angle < 112.5)
-		ret = EAST;
-	else if (angle >= 112.5 && angle <= 157.5)
-		ret = NORTH_EAST;
-	else if (angle > 157.5 || angle < -157.5)
-		ret = NORTH;//
-	else if (angle >= -157.5 && angle <= -112.5)
-		ret = NORTH_WEST;
-	else if (angle > -112.5 && angle < -67.5)
-		ret = WEST;//
-	else if (angle >= -67.5 && angle <= -22.5)
-		ret = SOUTH_WEST;//
+int Unit::GetAttack() const
+{
+	return attack;
+}
+
+int Unit::GetRange() const
+{
+	return range;
+}
+
+bool Unit::IsMoving() const
+{
+	return action == WALK;
+}
+
+bool Unit::Move()
+{
+	float posX, posY;
+	GetGlobalPosition(posX, posY);
+
+	this->SetGlobalPosition(posX + moveVector.x*speed, posY + moveVector.y*speed);
+
+	if (pathObjective.DistanceTo(iPoint(posX, posY)) < 3)
+	{
+		//center the unit to the tile
+		if (!GetNextTile())
+			return false;
+	}
+
+	return true;
+}
+
+int Unit::GetPriority() const
+{
+	return priority;
+}
+
+void Unit::SetAction(action_type action)
+{
+	this->action = action;
+}
+
+bool Unit::GetNextTile()
+{
+	bool ret = true;
+
+	if (pathVec.size() <= 0)
+		return false;
+
+	pathObjective = app->map->MapToWorld(pathVec.back().x, pathVec.back().y);
+	pathVec.pop_back();
+
+	float posX, posY;
+	GetGlobalPosition(posX, posY);
+
+	moveVector.x = (float)pathObjective.x - posX;
+	moveVector.y = (float)pathObjective.y - posY;
+
+	float modul = (sqrt(moveVector.x*moveVector.x + moveVector.y * moveVector.y));
+
+	moveVector.x = moveVector.x / modul;
+	moveVector.y = moveVector.y / modul;
+
+	LookAt(pathObjective);
 
 	return ret;
+}
+
+void Unit::LookAt(iPoint pos)
+{
+
+	float posX, posY;
+	GetGlobalPosition(posX, posY);
+	iPoint directionVec;
+	directionVec.x = pos.x - posX;
+	directionVec.y = posY - pos.y;
+	angle = (float)57.29577951 * atan2(directionVec.y, directionVec.x);
+
+	if (angle < 0)
+		angle += 360;
+
+
+	if ((0 <= angle &&  angle <= 22.5) || (337.5 <= angle&& angle <= 360))
+	{
+		this->unitDirection = EAST;
+	}
+
+	else if (22.5 <= angle &&  angle <= 67.5)
+	{
+		this->unitDirection = NORTH_EAST;
+	}
+
+	else if (67.5 <= angle &&  angle <= 112.5)
+	{
+		this->unitDirection = NORTH;
+	}
+
+	else if (112.5 <= angle &&  angle <= 157.5)
+	{
+		this->unitDirection = NORTH_WEST;
+	}
+
+	else if (157.5 <= angle &&  angle <= 202.5)
+	{
+		this->unitDirection = WEST;
+	}
+
+	else if (202.5 <= angle &&  angle <= 247.5)
+	{
+		this->unitDirection = SOUTH_WEST;
+	}
+
+	else if (247.5 <= angle &&  angle <= 292.5)
+	{
+		this->unitDirection = SOUTH;
+	}
+
+	else if (292.5 <= angle &&  angle <= 337.5)
+	{
+		this->unitDirection = SOUTH_EAST;
+	}
+}
+
+bool Unit::GoTo(iPoint destination)
+{
+	if (this->GetPath({ destination.x, destination.y }) != false)
+	{
+		GetNextTile();
+		this->action = WALK;
+		this->unitState = MOVING;
+		this->destination.x = destination.x;
+		this->destination.y = destination.y;
+		return true;
+	}
+	return false;
+}
+
+bool Unit::ChangeDirection(iPoint destination)
+{
+	if (this->GetPath(destination) != true)
+	{
+		GetNextTile();
+		this->destination.x = destination.x;
+		this->destination.y = destination.y;
+		return true;
+	}
+	return false;
+}
+
+void Unit::SetHp(int newHP)
+{
+	hp = newHP;
 }

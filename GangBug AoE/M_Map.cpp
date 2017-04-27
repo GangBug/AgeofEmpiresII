@@ -120,7 +120,7 @@ iPoint M_Map::MapToWorld(int x, int y) const
 
 iPoint M_Map::WorldToMap(int x, int y) const
 {
-	iPoint ret(0,0);
+	iPoint ret(x + data.tileWidth * 0.5f, y);
 
 	if(data.type == MAPTYPE_ORTHOGONAL)
 	{
@@ -129,11 +129,19 @@ iPoint M_Map::WorldToMap(int x, int y) const
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
-		
-		float half_width = data.tileWidth * 0.5f;
-		float half_height = data.tileHeight * 0.5f;
-		ret.x = int( (x / half_width + y / half_height) / 2) - 1;
-		ret.y = int( (y / half_height - (x / half_width)) / 2);
+		float halfWidth = data.tileWidth * 0.5f;
+		float halfHeight = (data.tileHeight + 1) * 0.5f;
+
+		float pX = (((ret.x / halfWidth) + (ret.y / halfHeight)) * 0.5f);
+		float pY = (((ret.y / halfHeight) - (ret.x / halfWidth)) * 0.5f);
+
+		ret.x = (pX > (floor(pX) + 0.5f)) ? ceil(pX) : floor(pX);
+		ret.y = (pY > (floor(pY) + 0.5f)) ? ceil(pY) : floor(pY);
+
+		if (ret.x <= 0)ret.x = 0;
+		else if (ret.x >= 120)ret.x = 120;
+		if (ret.y <= 0)ret.y = 0;
+		else if (ret.y >= 120)ret.y = 120;
 	}
 	else
 	{

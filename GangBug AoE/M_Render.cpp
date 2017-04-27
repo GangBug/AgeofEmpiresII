@@ -441,7 +441,7 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 					//Check if we should flip
 					SDL_RendererFlip flip = SDL_FLIP_NONE;
 					Unit* tmpUnit = dynamic_cast<Unit*>(*it);
-					if (tmpUnit->GetDirection() == NORTH_EAST || tmpUnit->GetDirection() == EAST || tmpUnit->GetDirection() == SOUTH_EAST)
+					if (tmpUnit->GetDir() == NORTH_EAST || tmpUnit->GetDir() == EAST || tmpUnit->GetDir() == SOUTH_EAST)
 					{
 						flip = SDL_FLIP_HORIZONTAL;
 					}

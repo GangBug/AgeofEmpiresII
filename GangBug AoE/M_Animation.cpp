@@ -160,7 +160,7 @@ SDL_Texture* M_Animation::GetTexture(unit_type type) const{
 
 void M_Animation::GetFrame(GB_Rectangle<int>& rect, iPoint& pivot, const Unit* unit)
 {
-	Animation* tmp = GetAnimation(unit->GetType(), unit->GetAction(), unit->GetDirection());
+	Animation* tmp = GetAnimation(unit->GetType(), unit->GetAction(), unit->GetDir());
 
 	if (tmp == nullptr) 
 	{
