@@ -16,6 +16,7 @@
 #include "M_GUI.h"
 #include "M_Animation.h"
 #include "M_Resources.h"
+#include "M_Collision.h"
 
 #include "S_InGame.h"
 #include "S_Menu.h"
@@ -66,6 +67,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	gui = new M_GUI();
 	animation = new M_Animation();
 	resources = new M_Resources();
+	collision = new M_Collision();
 	menu = new S_Menu(true);
 	inGame = new S_InGame(true);
 
@@ -81,6 +83,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(font);
 	AddModule(entityManager);
 	AddModule(resources);
+	AddModule(collision);
 	AddModule(animation);
 	AddModule(gui);
 

@@ -197,7 +197,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	{
 		Entity* t = CreateEntity(ENTITY_UNIT, nullptr);
 		iPoint mP;
-		app->input->GetMouseScreenPosition(mP.x, mP.y);
+		app->input->GetMouseMapPosition(mP.x, mP.y);
 		t->SetGlobalPosition(mP.x, mP.y);
 	}
 
@@ -213,7 +213,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		int x, y;
-		app->input->GetMouseScreenPosition(x, y);
+		app->input->GetMouseMapPosition(x, y);
 		CreateBuilding(building_type::BUILD_STABLES, nullptr, x, y);
 	}
 
@@ -306,6 +306,7 @@ Entity* M_EntityManager::CreateEntity(entity_type type, Entity* parent)
 
 	case ENTITY_UNIT:
 		ret = new Unit(ARCHER, nullptr);
+		unitVector.push_back(ret);
 		break;
 
 	case ENTITY_UI:
@@ -394,6 +395,25 @@ Entity* M_EntityManager::CreateRandomTestEntity()
 	return ret;
 }
 
+bool M_EntityManager::IsUnitInTile(const Unit* unit, iPoint tile)const
+{
+	for (int i = 0; i < unitVector.size(); i++)
+	{
+		{
+			if (unitVector[i] != unit)
+			{
+				fPoint pos = unitVector[i]->GetGlobalPosition();
+				if (tile == app->map->WorldToMap(pos.x, pos.y))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+}
+
 //--------------------------
 
 /**
@@ -422,6 +442,7 @@ Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, in
 	{
 		ret->SetLocalPosition(posX, posY);
 		ret->SetEnclosingBox(posX, posY, rectX, rectY);
+		unitVector.push_back(ret);
 	}
 	else
 	{
@@ -465,6 +486,11 @@ Entity* M_EntityManager::GetSceneRoot()const
 Entity* M_EntityManager::FindEntity()
 {
 	return nullptr; //TODO
+}
+
+std::vector<Entity*> M_EntityManager::GetUnitVector()
+{
+	return unitVector;
 }
 
 void M_EntityManager::GetEntitiesOnRect(uint type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle)

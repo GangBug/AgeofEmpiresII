@@ -106,8 +106,8 @@ iPoint M_Map::MapToWorld(int x, int y) const
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
-		ret.x = (x - y) * (data.tileWidth * 0.5f);
-		ret.y = (x + y) * (data.tileHeight * 0.5f);
+		ret.x = (x - y) * (int)(data.tileWidth * 0.5f) - data.tileWidth * 0.5f;
+		ret.y = (x + y) * (int)(data.tileHeight * 0.5f) + (x + y);
 	}
 	else
 	{

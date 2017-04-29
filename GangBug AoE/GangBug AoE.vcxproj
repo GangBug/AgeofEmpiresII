@@ -255,6 +255,7 @@
     <ClCompile Include="GUIMouse.cpp" />
     <ClCompile Include="M_Animation.cpp" />
     <ClCompile Include="M_Audio.cpp" />
+    <ClCompile Include="M_Collision.cpp" />
     <ClCompile Include="M_FileSystem.cpp" />
     <ClCompile Include="M_Fonts.cpp" />
     <ClCompile Include="M_GUI.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="GUIMouse.h" />
     <ClInclude Include="M_Animation.h" />
     <ClInclude Include="M_Audio.h" />
+    <ClInclude Include="M_Collision.h" />
     <ClInclude Include="M_FileSystem.h" />
     <ClInclude Include="M_Fonts.h" />
     <ClInclude Include="M_GUI.h" />

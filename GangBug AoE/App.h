@@ -26,6 +26,7 @@ class M_EntityManager;
 class M_GUI;
 class M_Animation;
 class M_Resources;
+class M_Collision;
 class S_Menu;
 class S_InGame;
 
@@ -109,6 +110,7 @@ public:
 	M_GUI*				gui = nullptr;
 	M_Animation*		animation = nullptr;
 	M_Resources*		resources = nullptr;
+	M_Collision*		collision = nullptr;
 	S_Menu*				menu = nullptr;
 	S_InGame*			inGame = nullptr;
 

@@ -52,6 +52,7 @@ public:
 
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
+	std::vector<Entity*> GetUnitVector();
 
 	void GetEntitiesOnRect(uint type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle);
 
@@ -66,6 +67,9 @@ public:
 
 	//-------------------------------
 	Entity* CreateRandomTestEntity();
+
+	//
+	bool IsUnitInTile(const Unit* unit, iPoint tile)const;
 
 public: // ------------------------------- Objects
 	SDL_Rect getObjectRect(object_type bType);
@@ -94,6 +98,7 @@ private:
 
 	// Objects
 	std::vector<ObjectTexture> objectTextures;
+	std::vector<Entity*> unitVector;
 
 	//TMP
 	Entity* et = nullptr;
