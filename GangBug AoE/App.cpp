@@ -69,6 +69,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	animation = new M_Animation();
 	resources = new M_Resources();
 	collision = new M_Collision();
+	//fogOfWar = new M_FogOfWar();
 	menu = new S_Menu(true);
 	inGame = new S_InGame(true);
 
@@ -85,6 +86,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(resources);
 	AddModule(collision);
+	//AddModule(fogOfWar);
 	AddModule(animation);
 	AddModule(gui);
 

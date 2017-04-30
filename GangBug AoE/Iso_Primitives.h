@@ -1,3 +1,5 @@
+#ifndef __ISO_PRIMITVES_H__
+#define __ISO_PRIMITVES_H__
 
 #include"Defs.h"
 #include "p2Point.h"

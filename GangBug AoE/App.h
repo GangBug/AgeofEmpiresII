@@ -112,6 +112,7 @@ public:
 	M_Animation*		animation = nullptr;
 	M_Resources*		resources = nullptr;
 	M_Collision*		collision = nullptr;
+	//M_FogOfWar*			fogOfWar = nullptr;
 	S_Menu*				menu = nullptr;
 	S_InGame*			inGame = nullptr;
 
