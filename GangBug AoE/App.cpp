@@ -17,6 +17,7 @@
 #include "M_Animation.h"
 #include "M_Resources.h"
 #include "M_Collision.h"
+#include "M_FogOfWar.h"
 
 #include "S_InGame.h"
 #include "S_Menu.h"

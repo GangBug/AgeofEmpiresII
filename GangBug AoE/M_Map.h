@@ -1,11 +1,16 @@
 #ifndef __M_MAP_H__
 #define __M_MAP_H__
 
+#define MARGIN 1
+
 #include "PugiXml/src/pugixml.hpp"
 #include "p2Point.h"
 #include "Module.h"
+#include "Fog_Quadtree.h"
 #include <list>
 #include "SDL\include\SDL.h"
+
+
 
 // ----------------------------------------------------
 struct Properties
@@ -122,6 +127,7 @@ public:
 
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
+	iPoint MapToWorldCenter(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 	void DrawDebug()override;
@@ -139,6 +145,8 @@ private:
 public:
 
 	MapData data;
+
+	QuadTree<iPoint> mapQuadtree;
 
 private:
 

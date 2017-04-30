@@ -2,6 +2,7 @@
 #define __UNIT_H__
 
 #include "Entity.h"
+#include "Iso_Primitives.h"
 
 enum unit_type
 {
@@ -73,6 +74,7 @@ public:
 	bool GetPath(iPoint dest);
 	int GetAttack() const;
 	int GetRange() const;
+	Circle GetVisionArea()const;
 	bool IsMoving() const;
 	bool Move();
 
@@ -105,6 +107,9 @@ private:
 	fPoint moveVector;
 	float angle;
 	std::vector<iPoint> pathVec;
+
+	Circle visionArea;
+	Circle renderArea;
 
 	bool haveADestination = false;
 

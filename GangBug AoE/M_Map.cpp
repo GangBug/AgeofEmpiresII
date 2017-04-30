@@ -4,6 +4,7 @@
 #include "M_FileSystem.h"
 #include "M_Textures.h"
 #include "M_Map.h"
+#include "M_FogOfWar.h"
 #include <math.h>
 #include "Brofiler/Brofiler.h"
 
@@ -49,11 +50,16 @@ void M_Map::Draw()
 				int tile_id = layer->Get(x, y);
 				if(tile_id > 0)
 				{
+					/*if (app->fogOfWar->GetFogID(x, y) == DARK_FOG)
+					{
+						continue;
+					}*/
+
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
-
+					
 					//TODO: This function differs from our previous version, i'm not sure it has to be this way. Need some revision.
 					app->render->Blit(tileset->texture, pos.x, pos.y, &r);
 				}
@@ -148,6 +154,16 @@ iPoint M_Map::WorldToMap(int x, int y) const
 		LOG("Unknown map type");
 		ret.x = x; ret.y = y;
 	}
+
+	return ret;
+}
+
+iPoint M_Map::MapToWorldCenter(int x, int y) const
+{
+	iPoint ret = MapToWorld(x, y);
+
+	ret.x += data.tileWidth * 0.5f;
+	ret.y += data.tileHeight * 0.5f - MARGIN;
 
 	return ret;
 }
@@ -277,6 +293,30 @@ bool M_Map::Load(const char* path)
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer._Ptr = item_layer._Ptr->_Next;
 		}
+
+		//Define map area 
+		SDL_Rect mapArea;
+		mapArea.x = ((data.width) * data.tileWidth) * -0.5;
+		mapArea.y = -app->render->camera->GetPosition().y;
+		mapArea.w = data.width * data.tileWidth;
+		mapArea.h = data.height * data.tileHeight + data.height;
+
+		// Define map quadtree area
+		mapQuadtree.SetBoundaries(mapArea);
+		mapQuadtree.SetMaxObjects(10);
+
+		//Fill the draw quad tree with all the tiles coordinates
+		uint fails = 0;
+		for (uint y = 0; y < data.height; y++)
+		{
+			for (uint x = 0; x < data.width; x++)
+			{
+				iPoint loc = MapToWorldCenter(x, y);
+				if (!mapQuadtree.Insert(iPoint(x, y), &loc)) fails++;
+			}
+		}
+
+		LOG("Map QuadTree generated with: %i errors", fails);
 	}
 
 	mapLoaded = ret;

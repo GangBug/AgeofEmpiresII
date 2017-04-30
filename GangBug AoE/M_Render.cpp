@@ -9,6 +9,7 @@
 #include "M_GUI.h"
 #include "M_Animation.h"
 #include "S_InGame.h"
+#include "M_FogOfWar.h"
 
 //TEMP
 #include "M_Textures.h"
@@ -402,6 +403,20 @@ bool M_Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 
+bool M_Render::FogBlit(iPoint & position, uint cell_size, Uint8 alpha)
+{
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, alpha);
+
+	SDL_Rect alpha_rect;
+	alpha_rect.x = position.x + camera->GetPosition().x;
+	alpha_rect.y = position.y + camera->GetPosition().y;
+	alpha_rect.w = alpha_rect.h = cell_size;
+
+	SDL_RenderFillRect(renderer, &alpha_rect);
+
+	return false;
+}
+
 void M_Render::DrawEntities(std::vector<Entity*> entities)
 {
 	//TODO: This comparison must be check with final units and objects to check which would be the best way to order the vector.
@@ -417,6 +432,13 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 
 			if (texture != nullptr)
 			{
+				//Check if they're not in the fog. This should be changed in the future depending on the entity type.
+				iPoint mapPos = app->map->WorldToMap(tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
+				/*if (app->fogOfWar->GetFogID(mapPos.x, mapPos.y) == DARK_FOG)
+				{
+					continue;
+				}*/
+
 				if (tmp->type == ENTITY_UNIT)
 				{
 					uint scale = app->win->GetScale();
@@ -451,10 +473,12 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
 					}
 				}
+
 				else if (tmp->type == ENTITY_BUILDING)
 				{
 					Blit(tmp->GetTexture(), tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
 				}
+
 				else if (tmp->type == ENTITY_OBJECT)
 				{
 					Blit(app->tex->objectTexture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y, &app->entityManager->getObjectRect(dynamic_cast<Object*>(tmp)->objectType));

@@ -1,9 +1,8 @@
 #include "Unit.h"
-#include "App.h"
 #include "M_Animation.h"
-#include "M_Render.h"
 #include "M_Map.h"
 #include "M_Pathfinding.h"
+#include "M_FogOfWar.h"
 //TMP
 #include "M_Input.h"
 #include "App.h"
@@ -72,6 +71,9 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		unitClass = NO_CLASS;
 		break;
 	}
+
+	visionArea.SetRad(300);
+	renderArea.SetRad(300 + RENDER_MARGIN);
 }
 
 void Unit::OnUpdate(float dt)
@@ -104,6 +106,16 @@ void Unit::OnUpdate(float dt)
 	iPoint p;
 	app->animation->GetFrame(drawQuad, p, this);
 	SetPivot(p);
+
+	//FOG OF WAR
+	float x, y;
+	GetGlobalPosition(x, y);
+	visionArea.SetPosition(iPoint(x, y));
+	renderArea.SetPosition(iPoint(x, y));
+
+	//app->fogOfWar->ClearAlphaLayer(visionArea, 200, true);
+	//app->fogOfWar->ClearAlphaLayer(visionArea, MID_ALPHA);
+	//app->fogOfWar->ClearFogLayer(renderArea, GRAY_FOG);
 }
 
 unit_type Unit::GetType() const
@@ -157,6 +169,11 @@ int Unit::GetRange() const
 	return range;
 }
 
+Circle Unit::GetVisionArea() const
+{
+	return visionArea;
+}
+
 bool Unit::IsMoving() const
 {
 	return action == WALK;
@@ -175,6 +192,9 @@ bool Unit::Move()
 		if (!GetNextTile())
 			return false;
 	}
+
+	//app->fogOfWar->ClearFogLayer(renderArea, NO_FOG);
+	//app->fogOfWar->ClearFogLayer(visionArea, GRAY_FOG);
 
 	return true;
 }

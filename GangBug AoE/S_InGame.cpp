@@ -3,6 +3,7 @@
 #include "M_Map.h"
 #include "M_Pathfinding.h"
 #include "M_EntityManager.h"
+#include "M_FogOfWar.h"
 
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
@@ -38,7 +39,10 @@ bool S_InGame::Start()
 			app->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
+
+		//app->fogOfWar->GenerateFogOfWar();
 	}
+
 
 	return true;
 }

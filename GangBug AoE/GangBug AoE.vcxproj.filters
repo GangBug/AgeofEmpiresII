@@ -148,11 +148,19 @@
     <ClCompile Include="M_EntityManager.cpp">
       <Filter>Entity System</Filter>
     </ClCompile>
-    <ClCompile Include="M_Resources.cpp" />
     <ClCompile Include="Object.cpp">
       <Filter>Entity System\Entities</Filter>
     </ClCompile>
     <ClCompile Include="M_Collision.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="M_Resources.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Iso_Primitives.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="M_FogOfWar.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -274,12 +282,23 @@
     <ClInclude Include="M_EntityManager.h">
       <Filter>Entity System</Filter>
     </ClInclude>
-    <ClInclude Include="M_Resources.h" />
     <ClInclude Include="Object.h">
       <Filter>Entity System\Entities</Filter>
     </ClInclude>
     <ClInclude Include="M_Collision.h">
       <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="M_FogOfWar.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Resources.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Iso_Primitives.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Fog_Quadtree.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

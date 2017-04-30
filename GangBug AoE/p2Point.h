@@ -162,6 +162,13 @@ public:
 		}
 	}
 
+	void Norm()
+	{
+		float len = sqrt(x*x + y*y);
+		x /= len;
+		y /= len;
+	}
+
 	const p2Point Normalized()const
 	{
 		p2Point p(x, y);

@@ -27,6 +27,7 @@ class M_GUI;
 class M_Animation;
 class M_Resources;
 class M_Collision;
+class M_FogOfWar;
 class S_Menu;
 class S_InGame;
 
