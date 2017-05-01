@@ -327,16 +327,16 @@ void Unit::PlayDeathSound() const// ADD FX
 		switch (rand_num)
 		{
 		case 0:
-			app->audio->PlayFx(app->entityManager->fxDie001);
+			app->audio->PlayFx(app->entityManager->fxDieSoldier001);
 			break;
 		case 1:
-			app->audio->PlayFx(app->entityManager->fxDie002);
+			app->audio->PlayFx(app->entityManager->fxDieSoldier002);
 			break;
 		case 2:
-			app->audio->PlayFx(app->entityManager->fxDie003);
+			app->audio->PlayFx(app->entityManager->fxDieSoldier003);
 			break;
 		case 3:
-			app->audio->PlayFx(app->entityManager->fxDie004);
+			app->audio->PlayFx(app->entityManager->fxDieSoldier004);
 			break;
 		}
 

@@ -81,6 +81,7 @@ public:
 
 	void LoadFXs();// ADD FX
 
+	//fight  
 
 	uint fxFight001;
 	uint fxFight002;
@@ -90,18 +91,58 @@ public:
 	uint fxFight006;
 	uint fxFight007;
 	uint fxFight008;
+	uint fxArrow001;
+	uint fxArrow002;
+	uint fxArrow003;
+	uint fxArrow004;
+	uint fxArrow005;
+	uint fxArrow006;
+	uint fxArrow007;
 
-	uint fxDie001;
-	uint fxDie002;
-	uint fxDie003;
-	uint fxDie004;
+	//die
+	uint fxDieSoldier001;
+	uint fxDieSoldier002;
+	uint fxDieSoldier003;
+	uint fxDieSoldier004;
+	uint fxDieSoldier005;
+	uint fxDieSoldier006;
+	uint fxDieHorse001;
+	uint fxDieHorse002;
+	uint fxDieHorse003;
 
+	//select
+	uint fxHorseSelect001;
+	uint fxHorseSelect002;
+	uint fxHorseSelect003;
+	uint fxUnitSelect001;
+	uint fxUnitSelect002;
+	uint fxUnitSelect003;
+	uint fxUnitSelect004;
+
+	//create
+	uint fxCreateUnit;
+	
+	//buldings
 	uint fxStableSelection;
 	uint fxBarrackSelection;
 	uint fxArcherySelection;
+	uint fxTownCenterSelection;
 
-	uint fxCreateUnit;
+	//ambient
 
+	uint fxBirds001;
+	uint fxBirds002;
+	uint fxBirds003;
+	uint fxBirds004;
+	uint fxBirds005;
+	uint fxBirds006;
+	uint fxBirds007;
+	uint fxBirds008;
+	uint fxBirds009;
+
+	//alert
+	uint fxAlert01;
+	uint fxAlert02;
 
 private:
 	void RemoveFlagged();

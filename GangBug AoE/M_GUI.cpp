@@ -1,18 +1,20 @@
 #include "App.h"
+
+#include "GB_Rectangle.h"
+#include "Log.h"
+
+#include <iostream> 
+#include <sstream> 
+#include "Bezier.h"
+#include "Brofiler/Brofiler.h"
+// Modules
+#include "M_Audio.h"
 #include "M_GUI.h"
 #include "M_Input.h"
 #include "M_Render.h"
 #include "M_Textures.h"
 #include "M_FileSystem.h"
 #include "M_Window.h"
-#include "GB_Rectangle.h"
-#include "Log.h"
-#include "Brofiler/Brofiler.h"
-
-#include <iostream> 
-#include <sstream> 
-
-#include "Bezier.h"
 
 // GUI includes
 #include "GUIElement.h"
@@ -969,6 +971,15 @@ GB_Rectangle<float> M_GUI::ScreenToXml(GB_Rectangle<int> screenRect)
 	xmlRect.h = (float)screenRect.h * ((float)loadResolution.y / (float)resolution.y);
 
 	return xmlRect;
+}
+
+void M_GUI::LoadUIFx()
+{
+
+	fxHover = app->audio->LoadFx("audio/fx/Menu_Hover.wav");
+	fxHover = app->audio->LoadFx("audio/fx/Menu_Select.wav");
+	fxHover = app->audio->LoadFx("audio/fx/Select_1.wav");
+	fxHover = app->audio->LoadFx("audio/fx/Select_2.wav");
 }
 
 

@@ -101,7 +101,7 @@ bool M_EntityManager::Start()
 	bool ret = true;
 	
 	
-
+	LoadFXs();
 
 	//TMP
 	textTexture = app->tex->Load("textures/test.png");
@@ -930,28 +930,68 @@ void M_EntityManager::Setforest(pugi::xml_node objectNode, int radious)
 
 void M_EntityManager::LoadFXs()// ADD FX
 {
-	fxFight001 = app->audio->LoadFx("audio/fx/Units/Fight_1");
-	fxFight002 = app->audio->LoadFx("audio/fx/Units/Fight_2");
-	fxFight003 = app->audio->LoadFx("audio/fx/Units/Fight_3");
-	fxFight004 = app->audio->LoadFx("audio/fx/Units/Fight_4");
-	fxFight005 = app->audio->LoadFx("audio/fx/Units/Fight_5");
-	fxFight006 = app->audio->LoadFx("audio/fx/Units/Fight_6");
-	fxFight007 = app->audio->LoadFx("audio/fx/Units/Fight_7");
-	fxFight008 = app->audio->LoadFx("audio/fx/Units/Fight_8");
+	//fight
 
-	uint fxDie001;
-	uint fxDie002;
-	uint fxDie003;
-	uint fxDie004;
-
-	uint fxStableSelection;
-	uint fxBarrackSelection;
-	uint fxArcherySelection;
-
-	uint fxCreateUnit;
-
-
+	fxFight001 = app->audio->LoadFx("audio/fx/Units/Fight_1.wav");
+	fxFight002 = app->audio->LoadFx("audio/fx/Units/Fight_2.wav");
+	fxFight003 = app->audio->LoadFx("audio/fx/Units/Fight_3.wav");
+	fxFight004 = app->audio->LoadFx("audio/fx/Units/Fight_4.wav");
+	fxFight005 = app->audio->LoadFx("audio/fx/Units/Fight_5.wav");
+	fxFight006 = app->audio->LoadFx("audio/fx/Units/Fight_6.wav");
+	fxFight007 = app->audio->LoadFx("audio/fx/Units/Fight_7.wav");
+	fxFight008 = app->audio->LoadFx("audio/fx/Units/Fight_8.wav");
+	fxArrow001 = app->audio->LoadFx("audio/fx/Other/Arrow_1.wav");
+	fxArrow002 = app->audio->LoadFx("audio/fx/Other/Arrow_2.wav");
+	fxArrow003 = app->audio->LoadFx("audio/fx/Other/Arrow_3.wav");
+	fxArrow004 = app->audio->LoadFx("audio/fx/Other/Arrow_4.wav");
+	fxArrow005 = app->audio->LoadFx("audio/fx/Other/Arrow_5.wav");
+	fxArrow006 = app->audio->LoadFx("audio/fx/Other/Arrow_6.wav");
+	fxArrow007 = app->audio->LoadFx("audio/fx/Other/Arrow_7.wav");
 	
+	//die
+	fxDieSoldier001 = app->audio->LoadFx("audio/fx/Units/Dead_1.wav");
+	fxDieSoldier002 = app->audio->LoadFx("audio/fx/Units/Dead_2.wav");
+	fxDieSoldier003 = app->audio->LoadFx("audio/fx/Units/Dead_3.wav");
+	fxDieSoldier004 = app->audio->LoadFx("audio/fx/Units/Dead_4.wav");
+	fxDieSoldier005 = app->audio->LoadFx("audio/fx/Units/Dead_5.wav");
+	fxDieSoldier006 = app->audio->LoadFx("audio/fx/Units/Dead_6.wav");
+	fxDieHorse001 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_1.wav");
+	fxDieHorse002 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_2.wav");
+	fxDieHorse003 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_3.wav");
+
+	//select
+	fxHorseSelect001 = app->audio->LoadFx("audio/fx/Units/Horse_Select_1.wav");
+	fxHorseSelect002 = app->audio->LoadFx("audio/fx/Units/Horse_Select_2.wav");
+	fxHorseSelect003 = app->audio->LoadFx("audio/fx/Units/Horse_Select_3.wav");
+	fxUnitSelect001 = app->audio->LoadFx("audio/fx/Units/Select_Unit_1.wav");
+	fxUnitSelect002 = app->audio->LoadFx("audio/fx/Units/Select_Unit_2.wav");
+	fxUnitSelect003 = app->audio->LoadFx("audio/fx/Units/Select_Unit_3.wav");
+	fxUnitSelect004 = app->audio->LoadFx("audio/fx/Units/Select_Unit_4.wav");
+
+	//create
+	fxCreateUnit = app->audio->LoadFx("audio/fx/Units/Creation_Unit.wav");
+
+	//buldings
+	fxStableSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Archery.wav");
+	fxBarrackSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Barrack.wav");
+	fxArcherySelection = app->audio->LoadFx("audio/fx/Buildings/Click_Ball.wav");
+	fxArcherySelection = app->audio->LoadFx("audio/fx/Buildings/Town_Center.wav");
+
+	//ambient
+	fxBirds001 = app->audio->LoadFx("audio/fx/Other/tf1.wav");
+	fxBirds002 = app->audio->LoadFx("audio/fx/Other/tf2.wav");
+	fxBirds003 = app->audio->LoadFx("audio/fx/Other/tf3.wav");
+	fxBirds004 = app->audio->LoadFx("audio/fx/Other/tf4.wav");
+	fxBirds005 = app->audio->LoadFx("audio/fx/Other/tf5.wav");
+	fxBirds006 = app->audio->LoadFx("audio/fx/Other/tf6.wav");
+	fxBirds007 = app->audio->LoadFx("audio/fx/Other/tf7.wav");
+	fxBirds008 = app->audio->LoadFx("audio/fx/Other/tf8.wav");
+	fxBirds009 = app->audio->LoadFx("audio/fx/Other/Bird.wav");
+
+	//alert
+	fxAlert01 = app->audio->LoadFx("audio/fx/Other/Warning_Attack_1.wav");
+	fxAlert02 = app->audio->LoadFx("audio/fx/Other/Warning_Attack_2.wav");
+
 }
 
 

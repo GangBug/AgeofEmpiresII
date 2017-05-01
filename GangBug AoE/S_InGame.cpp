@@ -60,6 +60,8 @@ update_status S_InGame::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 		app->gui->SetActiveScene("\0");
 
+	
+
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera->Move(10.0, UP);
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
@@ -96,18 +98,21 @@ update_status S_InGame::PreUpdate(float dt)
 		int x, y;
 		app->input->GetMouseMapPosition(x, y);
 		app->entityManager->CreateUnit(SAMURAI, nullptr, x, y);
+		app->audio->PlayFx(app->entityManager->fxCreateUnit);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 	{
 		int x, y;
 		app->input->GetMouseMapPosition(x, y);
 		app->entityManager->CreateUnit(TARKAN_KNIGHT, nullptr, x, y);
+		app->audio->PlayFx(app->entityManager->fxCreateUnit);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
 	{
 		int x, y;
 		app->input->GetMouseMapPosition(x, y);
 		app->entityManager->CreateUnit(VILE, nullptr, x, y);
+		app->audio->PlayFx(app->entityManager->fxCreateUnit);
 	}
 
 	return UPDATE_CONTINUE;

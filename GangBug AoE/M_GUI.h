@@ -73,7 +73,7 @@ public:
 	GUILabel*	CreateLabel(GB_Rectangle<int> _position, label_size _size, std::string name, const char* _text = nullptr);
 	GUIImage*	CreateImage(GB_Rectangle<int> _position, GB_Rectangle<int> _section, std::string name); // From nothing
 	GUIImage*	CreateImageFromPreset(GB_Rectangle<int> _position, std::string preset, std::string name); // From a preset
-	GUIMouse*	CreateMouse();
+
 
 	GUIElement* GuiFactory();
 
@@ -119,6 +119,15 @@ private:
 	GUILabel* a_viewport_w;
 	GUILabel* a_viewport_h;
 
+
+public:
+	void LoadUIFx();
+
+
+	uint fxHover;
+	uint fxSelect;
+	uint fxSelect01;
+	uint fxSelect02;
 };	
 
 #endif // !__M_GUI_H__
