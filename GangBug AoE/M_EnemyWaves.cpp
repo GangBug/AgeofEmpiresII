@@ -37,9 +37,11 @@ update_status M_EnemyWaves::Update(float dt)
 		SpawnWave(5, 2);
 
 		firstWave = true;
+
+		waveTimer.Stop();
 	}
 
-	//TODO: Not working
+	//Working now
 	if (firstWave == true)
 	{
 		for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
@@ -49,6 +51,7 @@ update_status M_EnemyWaves::Update(float dt)
 				dynamic_cast<Unit*>(*it)->GoTo(iPoint(200, 250));
 			}
 		}
+		firstWave = false;
 	}
 
 	return ret;
@@ -70,7 +73,7 @@ void M_EnemyWaves::SpawnWave(int vileAmount, int diabloAmount)
 {
 	for (int i = 0; i < vileAmount; i++)
 	{
-		app->entityManager->CreateUnit(VILE, nullptr, 300, 200);
+		waveEntities.push_back(app->entityManager->CreateUnit(VILE, nullptr, 300, 200));
 	}
 }
 
