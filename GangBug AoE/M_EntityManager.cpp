@@ -445,7 +445,7 @@ Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, in
 
 	if (ret)
 	{
-		ret->SetLocalPosition(posX, posY);
+		ret->SetGlobalPosition(posX, posY);
 		ret->SetEnclosingBox(posX, posY, rectX, rectY);
 		unitVector.push_back(ret);
 	}
