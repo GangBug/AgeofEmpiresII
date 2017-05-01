@@ -26,7 +26,7 @@ bool S_InGame::Start()
 {
 	app->pathfinding->Enable();
 	app->entityManager->LoadObjects();
-	app->entityManager->PlaceObjects();
+
 
 	//app->gui->SetActiveScene(name);
 	if (app->map->Load("0.1Map.tmx") == true)
@@ -42,7 +42,7 @@ bool S_InGame::Start()
 
 		//app->fogOfWar->GenerateFogOfWar();
 	}
-
+	app->entityManager->PlaceObjects();
 
 	return true;
 }

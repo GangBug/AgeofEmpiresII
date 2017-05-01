@@ -865,11 +865,62 @@ bool M_EntityManager::PlaceObjects()
 	pugi::xml_node objectNode = obj_data.child("Objects").first_child();
 	while (objectNode != NULL)
 	{
+		if (objectNode.attribute("type").as_int() == 30)
+			Setforest(objectNode, objectNode.attribute("r").as_int());
+		else
 		CreateObject(object_type(objectNode.attribute("type").as_int()),nullptr, objectNode.attribute("x").as_int(),objectNode.attribute("y").as_int(), getObjectRect(object_type(objectNode.attribute("type").as_int())).w, getObjectRect(object_type(objectNode.attribute("type").as_int())).h);
 		objectNode = objectNode.next_sibling();
 	}
 
 	return true;
+}
+
+
+
+void M_EntityManager::CreateForest(pugi::xml_node  &objectNode, int x, int y) {
+
+
+	int iSecret = 0;
+	iSecret = rand() % 4 + 1;
+
+	switch (iSecret)
+	{
+	case 1:
+		CreateObject(BAMBOO1, nullptr, (objectNode.attribute("x").as_int() + (x*(app->map->data.tileWidth / 2))), objectNode.attribute("y").as_int() + y*(app->map->data.tileHeight / 2), getObjectRect(object_type(objectNode.attribute("type").as_int())).w, getObjectRect(object_type(objectNode.attribute("type").as_int())).h);
+		break;
+
+	case 2:
+		CreateObject(BAMBOO2, nullptr, (objectNode.attribute("x").as_int() + (x*(app->map->data.tileWidth / 2))), objectNode.attribute("y").as_int() + y*(app->map->data.tileHeight / 2), getObjectRect(object_type(objectNode.attribute("type").as_int())).w, getObjectRect(object_type(objectNode.attribute("type").as_int())).h);
+		break;
+
+	case 3:
+		CreateObject(BAMBOO3, nullptr, (objectNode.attribute("x").as_int() + (x*(app->map->data.tileWidth / 2))), objectNode.attribute("y").as_int() + y*(app->map->data.tileHeight / 2), getObjectRect(object_type(objectNode.attribute("type").as_int())).w, getObjectRect(object_type(objectNode.attribute("type").as_int())).h);
+		break;
+
+	default:
+		CreateObject(BAMBOO4, nullptr, (objectNode.attribute("x").as_int() + (x*(app->map->data.tileWidth / 2))), objectNode.attribute("y").as_int() + y*(app->map->data.tileHeight / 2), getObjectRect(object_type(objectNode.attribute("type").as_int())).w, getObjectRect(object_type(objectNode.attribute("type").as_int())).h);
+		break;
+	}
+}
+
+void M_EntityManager::Setforest(pugi::xml_node objectNode, int radious)
+{
+	srand(time(NULL));
+
+	int k = app->map->data.tileWidth;
+	int k2 = app->map->data.tileHeight;
+
+	for (int counterh = 0, counter; counterh <= radious; counterh++) {
+		for (int i = 1; i <= radious; i++) {
+			for (int j = 1; j < i * 2; j++)
+				CreateForest(objectNode, j, j + ((counterh - 1) * 3));
+		}
+		/*	for (int i = 1; i <= radious; i++) {
+		for (int j = 1; j < i * 2; j++)
+		CreateForest(objectNode, j, j - ((counterh - 1) * 3));
+		}*/
+		radious--;
+	}
 }
 
 
@@ -959,6 +1010,9 @@ void ObjectTexture::SetType(pugi::xml_node node)
 	}
 	else if (strcmp(node.attribute("n").as_string(), "SkullPile") == 0) {
 		type = SKULL_PILE;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "Bamboo") == 0) {
+		type = BAMBOO;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "TorchFloorSquare") == 0) {
 		type = TORCH_FLOOR_SQUARE;

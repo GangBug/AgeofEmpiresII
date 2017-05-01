@@ -75,7 +75,8 @@ public: // ------------------------------- Objects
 	SDL_Rect getObjectRect(object_type bType);
 	bool LoadObjects();
 	bool PlaceObjects();
-
+	void CreateForest(pugi::xml_node &, int x, int y);
+	void Setforest(pugi::xml_node node, int radious = 0);
 
 private:
 	void RemoveFlagged();
