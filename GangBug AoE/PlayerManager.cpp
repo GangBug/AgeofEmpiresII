@@ -50,12 +50,13 @@ void PlayerManager::OnUpdate(float dt)
 		selectionRect.y = mPos.y;
 		selectionRect.w = 0;
 		selectionRect.h = 0;
-		onSelection = true;
+
 		for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
 		{
 			(*it)->selected = false;
 		}
 		selectedEntities.clear();
+		onSelection = true;
 	}
 
 	if (onSelection == true)
@@ -91,6 +92,7 @@ void PlayerManager::OnUpdate(float dt)
 			app->entityManager->GetEntitiesOnRect(ENTITY_BASE | ENTITY_UNIT, selectedEntities, selectionRect);
 			for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
 			{
+				if (selectionRect.Contains((*it)->GetGlobalPosition().x, (*it)->GetGlobalPosition().y))
 				(*it)->selected = true;
 			}
 			std::vector<Entity*> builds;
@@ -101,8 +103,6 @@ void PlayerManager::OnUpdate(float dt)
 				if (tmp)
 					tmp->selected = true;
 			}
-			
-
 			onSelection = false;
 		}
 
