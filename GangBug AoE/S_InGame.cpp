@@ -5,6 +5,7 @@
 #include "M_EntityManager.h"
 #include "M_FogOfWar.h"
 #include "M_Audio.h"
+#include "M_EnemyWaves.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -94,11 +95,16 @@ update_status S_InGame::PreUpdate(float dt)
 	}   
 	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 	{
+		app->enemyWaves->SpawnEnemies(5, 0, 300, 200);
+	}
+
+	/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+	{
 		int x, y;
 		app->input->GetMouseMapPosition(x, y);
 		app->entityManager->CreateUnit(SAMURAI, nullptr, x, y);
 		app->audio->PlayFx(app->entityManager->fxCreateUnit);
-	}
+	}*/
 	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 	{
 		int x, y;

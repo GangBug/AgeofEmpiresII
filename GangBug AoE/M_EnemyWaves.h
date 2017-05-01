@@ -5,11 +5,12 @@
 
 #include "j1Timer.h"
 #include "Entity.h"
+#include "Unit.h"
 
 #include <vector>
 
 //Maybe we could use one wave timer and then multiply it for the wave we need it
-#define FIRSTWAVETIMER 10
+#define waveSpawnTIMER 10
 
 class Entity;
 
@@ -28,14 +29,23 @@ public:
 
 private:
 	Timer waveTimer;
+	Timer spawnTimer;
 
-	bool firstWave;
+	bool waveSpawn;
+	bool secondWave;
+	bool spawnTimerStarted;
+
+	iPoint spawnPosition;
 
 public:
+	int vilesSpawn, vilesSpawned;
+	int diablosSpawn, diablosSpawned;
+
 	uint GetCurrentWaveTimer();
 	void ResetWaveTimer();
 
-	void SpawnWave(int vileAmount, int diabloAmount);
+	void SpawnWave(unit_type type, int posX, int posY, Entity* entityParent);
+	void SpawnEnemies(int vileSpawn, int diabloSpawn, int posX, int posY);
 
 	std::vector<Entity*> waveEntities;
 };

@@ -2,7 +2,6 @@
 
 #include "M_EnemyWaves.h"
 #include "M_EntityManager.h"
-#include "Unit.h"
 
 #include "Log.h"
 
@@ -23,7 +22,14 @@ bool M_EnemyWaves::Start()
 
 	waveTimer.Start();
 
-	firstWave = false;
+	vilesSpawn, vilesSpawned = 0;
+	diablosSpawn, diablosSpawned = 0;
+
+	spawnPosition = { 0, 0 };
+
+	waveSpawn = false;
+	secondWave = false;
+	spawnTimerStarted = false;
 
 	return ret;
 }
@@ -32,27 +38,62 @@ update_status M_EnemyWaves::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	if (waveTimer.ReadSec() > FIRSTWAVETIMER && firstWave == false)
+	//TODO: Use IsStopped instead of spawnTimerStarted
+	if (vilesSpawn > 0)
 	{
-		SpawnWave(5, 2);
+		if (spawnTimerStarted == false)
+		{
+			spawnTimer.Start();
+			spawnTimerStarted = true;
+		}
+		if (spawnTimer.ReadSec() > 1)
+		{
+			SpawnWave(VILE, spawnPosition.x, spawnPosition.y, nullptr);
+			vilesSpawned++;
+			spawnTimer.Stop();
+			spawnTimerStarted = false;
+		}
+		if (vilesSpawned == vilesSpawn)
+		{
+			vilesSpawn = 0;
+			waveSpawn = true;
+		}
+	}
 
-		firstWave = true;
-
-		waveTimer.Stop();
+	if (diablosSpawn > 0)
+	{
+		if (spawnTimerStarted == false)
+		{
+			spawnTimer.Start();
+			spawnTimerStarted = true;
+		}
+		if (spawnTimer.ReadSec() > 1)
+		{
+			SpawnWave(DIABLO, spawnPosition.x, spawnPosition.y, nullptr);
+			diablosSpawned++;
+			spawnTimer.Stop();
+			spawnTimerStarted = false;
+		}
+		if (diablosSpawned == diablosSpawn)
+		{
+			diablosSpawn = 0;
+			waveSpawn = true;
+		}
 	}
 
 	//Working now
-	if (firstWave == true)
+	if (waveSpawn == true)
 	{
 		for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
 		{
 			if (dynamic_cast<Unit*>(*it)->GetType() == VILE)
 			{
-				dynamic_cast<Unit*>(*it)->GoTo(iPoint(200, 250));
+				dynamic_cast<Unit*>(*it)->GoTo(iPoint(200, 350));
 			}
 		}
-		firstWave = false;
+		waveSpawn = false;
 	}
+
 
 	return ret;
 }
@@ -68,13 +109,18 @@ void M_EnemyWaves::ResetWaveTimer()
 	waveTimer.Start();
 }
 
-
-void M_EnemyWaves::SpawnWave(int vileAmount, int diabloAmount)
+void M_EnemyWaves::SpawnWave(unit_type type, int posX, int posY, Entity* entityParent)
 {
-	for (int i = 0; i < vileAmount; i++)
-	{
-		waveEntities.push_back(app->entityManager->CreateUnit(VILE, nullptr, 300, 200));
-	}
+	waveEntities.push_back(app->entityManager->CreateUnit(type, entityParent, posX, posY));
+}
+
+void M_EnemyWaves::SpawnEnemies(int vileSpawn, int diabloSpawn, int pos1X, int pos1Y)
+{
+	vilesSpawn = vileSpawn;
+	diablosSpawn = diabloSpawn;
+
+	spawnPosition.x = pos1X;
+	spawnPosition.y = pos1Y;
 }
 
 void M_EnemyWaves::DrawDebug()
