@@ -520,7 +520,7 @@ bool Camera::InsideRenderTarget(GB_Rectangle<int> rect)
 	{
 		return false;
 	}
-	if (rect.x + rect.w + 200 < 0)
+	if (rect.x + rect.w + 310 < 0)
 	{
 		return false;
 	}

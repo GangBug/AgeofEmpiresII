@@ -85,9 +85,26 @@ update_status S_InGame::PreUpdate(float dt)
 			//path = app->pathfinding->GetLastPath();
 
 		}
-
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+	{
+		int x, y;
+		app->input->GetMouseMapPosition(x, y);
+		app->entityManager->CreateUnit(SAMURAI, nullptr, x, y);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+	{
+		int x, y;
+		app->input->GetMouseMapPosition(x, y);
+		app->entityManager->CreateUnit(TARKAN_KNIGHT, nullptr, x, y);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+	{
+		int x, y;
+		app->input->GetMouseMapPosition(x, y);
+		app->entityManager->CreateUnit(VILE, nullptr, x, y);
+	}
 
 	return UPDATE_CONTINUE;
 }
