@@ -163,6 +163,9 @@
     <ClCompile Include="M_FogOfWar.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="M_EnemyWaves.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -299,6 +302,9 @@
     </ClInclude>
     <ClInclude Include="Fog_Quadtree.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="M_EnemyWaves.h">
+      <Filter>Modules\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,7 @@ class M_Input;
 class M_Render;
 class M_Textures;
 class M_Audio;
+class M_EnemyWaves;
 class M_FileSystem;
 class M_Map;
 class M_Pathfinding;
@@ -103,6 +104,7 @@ public:
 	M_Render*			render = nullptr;
 	M_Textures*			tex = nullptr;
 	M_Audio*			audio = nullptr;
+	M_EnemyWaves*		enemyWaves = nullptr;
 	M_FileSystem*		fs = nullptr;
 	M_Map*				map = nullptr;
 	M_Pathfinding*		pathfinding = nullptr;

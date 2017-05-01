@@ -240,6 +240,7 @@
     <ClCompile Include="Bezier.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Defs.cpp" />
+    <ClCompile Include="M_EnemyWaves.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityMap.cpp" />
     <ClCompile Include="EntityUi.cpp" />
@@ -283,6 +284,7 @@
   <ItemGroup>
     <ClInclude Include="Bezier.h" />
     <ClInclude Include="Building.h" />
+    <ClInclude Include="M_EnemyWaves.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityMap.h" />
     <ClInclude Include="EntityUi.h" />

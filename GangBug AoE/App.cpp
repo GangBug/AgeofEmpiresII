@@ -8,6 +8,7 @@
 #include "M_Render.h"
 #include "M_Textures.h"
 #include "M_Audio.h"
+#include "M_EnemyWaves.h"
 #include "M_FileSystem.h"
 #include "M_Map.h"
 #include "M_Pathfinding.h"
@@ -60,6 +61,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new M_Render();
 	tex = new M_Textures();
 	audio = new M_Audio();
+	enemyWaves = new M_EnemyWaves();
 	fs = new M_FileSystem();
 	map = new M_Map();
 	pathfinding = new M_Pathfinding();
@@ -80,6 +82,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(enemyWaves);
 	AddModule(map);
 	AddModule(pathfinding);
 	AddModule(font);
