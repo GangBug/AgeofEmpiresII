@@ -515,11 +515,12 @@ bool Camera::InsideRenderTarget(GB_Rectangle<int> rect)
 	{
 		return false;
 	}
-	if (rect.y + rect.h < 0)
+	//These 200 are offsets to make InsideRenderTarget work properly
+	if (rect.y + rect.h + 200 < 0)
 	{
 		return false;
 	}
-	if (rect.x + rect.w < 0)
+	if (rect.x + rect.w + 200 < 0)
 	{
 		return false;
 	}
