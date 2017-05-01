@@ -3,7 +3,7 @@
 #include "App.h"
 #include "M_Input.h"
 #include "M_Textures.h"
-
+#include "M_Audio.h"
 
 
 Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUILDING, parent), buildType(buildType)
@@ -67,4 +67,29 @@ void Building::BuyUnit()
 	fPoint pos = GetGlobalPosition();
 
 	app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
+}
+
+void Building::PlaySelectFx()
+{
+	switch (this->buildType)
+	{
+	case BUILD_ARCHERY:
+		app->audio->PlayFx(app->entityManager->fxArcherySelection);
+		break;
+	case BUILD_STABLES:
+		app->audio->PlayFx(app->entityManager->fxStableSelection);
+		break;
+	case BUILD_BARRACK:
+		app->audio->PlayFx(app->entityManager->fxBarrackSelection);
+		break;
+	case BUILD_TOWNCENTER:
+		app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
+		break;
+
+	default:
+		break;
+	}
+
+
+
 }

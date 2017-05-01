@@ -7,7 +7,8 @@ enum building_type
 {
 	BUILD_ARCHERY,
 	BUILD_STABLES,
-	BUILD_BARRACK
+	BUILD_BARRACK,
+	BUILD_TOWNCENTER
 };
 
 class Building :
@@ -24,7 +25,7 @@ public:
 
 	void BuyUnit();
 
-
+	void PlaySelectFx();
 public:
 	Timer buyTimer;
 

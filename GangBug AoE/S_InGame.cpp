@@ -91,8 +91,7 @@ update_status S_InGame::PreUpdate(float dt)
 			//path = app->pathfinding->GetLastPath();
 
 		}
-	}
-
+	}   
 	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 	{
 		int x, y;
