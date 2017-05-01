@@ -4,7 +4,7 @@
 #include "M_Pathfinding.h"
 #include "M_EntityManager.h"
 #include "M_FogOfWar.h"
-
+#include "M_Audio.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -26,6 +26,10 @@ bool S_InGame::Start()
 {
 	app->pathfinding->Enable();
 	app->entityManager->LoadObjects();
+
+
+	//audio
+	//app->audio->PlayTheme(app->audio->thirdMission);
 
 
 	//app->gui->SetActiveScene(name);

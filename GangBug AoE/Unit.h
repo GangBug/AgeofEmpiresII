@@ -89,6 +89,10 @@ public:
 	bool GoTo(iPoint destination);
 	bool ChangeDirection(iPoint destination);
 
+public:// ADD FX
+	void PlayDeathSound() const; //called when the unit dies
+	void PlayAttackSound() const;//callet when the unit attack
+
 private:
 	unit_type unitType;
 	action_type action;

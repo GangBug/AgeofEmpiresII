@@ -118,6 +118,7 @@ private:
 	GUILabel* a_viewport_y;
 	GUILabel* a_viewport_w;
 	GUILabel* a_viewport_h;
+
 };	
 
 #endif // !__M_GUI_H__

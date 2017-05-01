@@ -3,6 +3,8 @@
 #include "M_Map.h"
 #include "M_Pathfinding.h"
 #include "M_FogOfWar.h"
+#include "M_Audio.h"
+#include "M_EntityManager.h"
 //TMP
 #include "M_Input.h"
 #include "App.h"
@@ -314,6 +316,67 @@ bool Unit::ChangeDirection(iPoint destination)
 		return true;
 	}
 	return false;
+}
+
+void Unit::PlayDeathSound() const// ADD FX
+{
+
+	int rand_num = rand() % 5;
+	if (this->type == SAMURAI) {
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxDie001);
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxDie002);
+			break;
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxDie003);
+			break;
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxDie004);
+			break;
+		}
+
+	}
+}
+
+void Unit::PlayAttackSound() const
+{
+	int rand_num = rand() % 3;
+
+	switch (rand_num)
+	{
+	case 0:
+		app->audio->PlayFx(app->entityManager->fxFight001);
+		break;
+	case 1:
+		app->audio->PlayFx(app->entityManager->fxFight002);
+		break;
+	case 2:
+		app->audio->PlayFx(app->entityManager->fxFight003);
+		break;
+	case 3:
+		app->audio->PlayFx(app->entityManager->fxFight004);
+		break;
+	case 4:
+		app->audio->PlayFx(app->entityManager->fxFight005);
+		break;
+	case 5:
+		app->audio->PlayFx(app->entityManager->fxFight006);
+		break;
+	case 6:
+		app->audio->PlayFx(app->entityManager->fxFight007);
+		break;
+	case 7:
+		app->audio->PlayFx(app->entityManager->fxFight008);
+		break;
+	}
+
+
+
 }
 
 void Unit::SetHp(int newHP)

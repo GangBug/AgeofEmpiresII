@@ -77,6 +77,31 @@ public: // ------------------------------- Objects
 	bool PlaceObjects();
 	void CreateForest(pugi::xml_node &, int x, int y);
 	void Setforest(pugi::xml_node node, int radious = 0);
+public:
+
+	void LoadFXs();// ADD FX
+
+
+	uint fxFight001;
+	uint fxFight002;
+	uint fxFight003;
+	uint fxFight004;
+	uint fxFight005;
+	uint fxFight006;
+	uint fxFight007;
+	uint fxFight008;
+
+	uint fxDie001;
+	uint fxDie002;
+	uint fxDie003;
+	uint fxDie004;
+
+	uint fxStableSelection;
+	uint fxBarrackSelection;
+	uint fxArcherySelection;
+
+	uint fxCreateUnit;
+
 
 private:
 	void RemoveFlagged();

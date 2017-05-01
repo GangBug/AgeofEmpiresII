@@ -14,6 +14,11 @@
 #include "Building.h"
 //
 
+// Modules
+#include "M_Audio.h"
+
+
+//
 
 // -------------- to delete after serialize
 #include "M_Map.h"
@@ -921,6 +926,32 @@ void M_EntityManager::Setforest(pugi::xml_node objectNode, int radious)
 		}*/
 		radious--;
 	}
+}
+
+void M_EntityManager::LoadFXs()// ADD FX
+{
+	fxFight001 = app->audio->LoadFx("audio/fx/Units/Fight_1");
+	fxFight002 = app->audio->LoadFx("audio/fx/Units/Fight_2");
+	fxFight003 = app->audio->LoadFx("audio/fx/Units/Fight_3");
+	fxFight004 = app->audio->LoadFx("audio/fx/Units/Fight_4");
+	fxFight005 = app->audio->LoadFx("audio/fx/Units/Fight_5");
+	fxFight006 = app->audio->LoadFx("audio/fx/Units/Fight_6");
+	fxFight007 = app->audio->LoadFx("audio/fx/Units/Fight_7");
+	fxFight008 = app->audio->LoadFx("audio/fx/Units/Fight_8");
+
+	uint fxDie001;
+	uint fxDie002;
+	uint fxDie003;
+	uint fxDie004;
+
+	uint fxStableSelection;
+	uint fxBarrackSelection;
+	uint fxArcherySelection;
+
+	uint fxCreateUnit;
+
+
+	
 }
 
 
