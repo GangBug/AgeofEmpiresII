@@ -93,7 +93,7 @@ bool M_Animation::Start()
 	textures.push_back(Texture(app->tex->Load("animations/archer.png"), ARCHER));
 	textures.push_back(Texture(app->tex->Load("animations/TarkanSpritesheet.png"), TARKAN_KNIGHT));
 	textures.push_back(Texture(app->tex->Load("animations/SamuraiSpriteSheet.png"), SAMURAI));
-	textures.push_back(Texture(app->tex->Load("animations/Boss.png"), BOSS));
+	textures.push_back(Texture(app->tex->Load("animations/Boss.png"), DIABLO));
 	textures.push_back(Texture(app->tex->Load("animations/VileChild_SpriteSheet.png"), VILE));
 
 	return ret;
@@ -231,7 +231,7 @@ void Animation::SetUnit(const pugi::xml_node node)
 		unitType = SAMURAI;
 
 	else if (strcmp(node.name(), "boss") == 0)
-		unitType = BOSS;
+		unitType = DIABLO;
 
 	else if (strcmp(node.name(), "vile") == 0)
 		unitType = VILE;

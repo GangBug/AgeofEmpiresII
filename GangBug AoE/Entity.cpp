@@ -611,6 +611,11 @@ void Entity::DrawDebug()
 	}
 }
 
+int Entity::GetHP() const
+{
+	return 0;
+}
+
 /** 
 	Remove: Mark the entity to delete it in a save moment.
 */

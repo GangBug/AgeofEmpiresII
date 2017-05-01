@@ -30,6 +30,8 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		SetEnclosingBoxSize(310, 266);
 		break;
 	}
+
+	HP = 100;
 }
 
 
@@ -67,6 +69,11 @@ void Building::BuyUnit()
 	fPoint pos = GetGlobalPosition();
 
 	app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
+}
+
+int Building::GetHP() const
+{
+	return HP;
 }
 
 void Building::PlaySelectFx()

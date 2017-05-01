@@ -10,8 +10,8 @@ enum unit_type
 	ARCHER,
 	TARKAN_KNIGHT,
 	SAMURAI,
-	BOSS,
-	VILE
+	VILE,
+	DIABLO
 };
 
 enum action_type
@@ -77,6 +77,7 @@ public:
 	Circle GetVisionArea()const;
 	bool IsMoving() const;
 	bool Move();
+	int GetHP() const;
 
 	int GetPriority() const;
 	void SetAction(action_type action);
@@ -84,10 +85,17 @@ public:
 	//TODO:this should be private?
 	bool GetNextTile();
 
+	Entity* CheckSurroundings();
+
+	bool SetFightingArea();
 
 	void LookAt(iPoint pos);
 	bool GoTo(iPoint destination);
 	bool ChangeDirection(iPoint destination);
+	bool AttackUnit();
+
+	bool GetFreeAdjacent(iPoint& adjacent) const;
+	bool GetAdjacentTile(iPoint tile, iPoint & adjacent) const;
 
 public:// ADD FX
 	void PlayDeathSound() const; //called when the unit dies
@@ -112,12 +120,15 @@ private:
 	float angle;
 	std::vector<iPoint> pathVec;
 
+	Entity* target;
+
 	Circle visionArea;
 	Circle renderArea;
 
 	bool haveADestination = false;
 
 	int priority;
+	bool horde;
 };
 
 #endif //__UNIT_H__

@@ -100,6 +100,7 @@ public:
 	bool Load(pugi::xml_node* node);
 
 	virtual void DrawDebug();
+	virtual int GetHP() const;
 
 	//---------------------------------------------------------------
 

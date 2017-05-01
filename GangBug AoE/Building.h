@@ -25,6 +25,8 @@ public:
 
 	void BuyUnit();
 
+	int GetHP() const;
+
 	void PlaySelectFx();
 public:
 	Timer buyTimer;
@@ -34,5 +36,6 @@ public:
 	bool selected = false;
 
 	int unitCost;
+	int HP;
 };
 
