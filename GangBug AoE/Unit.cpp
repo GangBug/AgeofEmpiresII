@@ -771,11 +771,57 @@ void Unit::PlayAttackSound() const
 
 void Unit::PlaySelectSound() const
 {
+	int rand_num = rand() % 4;
+
+	if (this->unitType == ARCHER || this->unitType == SAMURAI) {
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxUnitSelect001);
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxUnitSelect002);
+			break;
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxUnitSelect003);
+			break;
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxUnitSelect004);
+			break;
+		}
+	}
+
+	rand_num = rand() % 3;
+
+	if (this->unitType == ARCHER || this->unitType == SAMURAI) {
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxHorseSelect001);
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxHorseSelect002);
+			break;
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxHorseSelect003);
+			break;
+		}
+	}
 
 
 }
 
+void Unit::PlayMoveSound() const
+{
 
+	if (this->unitType == ARCHER || this->unitType == SAMURAI)
+		app->audio->PlayFx(app->entityManager->fxUnitSelect001);
+
+	if (this->unitType == ARCHER || this->unitType == SAMURAI)
+		app->audio->PlayFx(app->entityManager->fxUnitSelect001);
+
+}
 
 
 void Unit::SetHp(int newHP)
