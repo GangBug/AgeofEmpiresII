@@ -101,6 +101,7 @@ public:
 
 	virtual void DrawDebug();
 	virtual int GetHP() const;
+	virtual void DoDamage(int dmg);
 
 	//---------------------------------------------------------------
 

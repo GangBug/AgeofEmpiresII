@@ -76,6 +76,11 @@ int Building::GetHP() const
 	return HP;
 }
 
+void Building::DoDamage(int dmg)
+{
+	HP -= dmg;
+}
+
 void Building::PlaySelectFx()
 {
 	switch (this->buildType)

@@ -70,17 +70,17 @@ update_status S_InGame::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera->Move(10.0, RIGHT);
 
-	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+	/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 	{
 		app->enemyWaves->SpawnEnemies(5, 0, 300, 200);
-	}
-	/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+	}*/
+	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 	{
 		int x, y;
 		app->input->GetMouseMapPosition(x, y);
-		app->entityManager->CreateUnit(SAMURAI, nullptr, x, y);
+		app->entityManager->CreateUnit(ARCHER, nullptr, x, y);
 		app->audio->PlayFx(app->entityManager->fxCreateUnit);
-	}*/
+	}
 	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 	{
 		int x, y;

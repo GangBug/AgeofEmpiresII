@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Iso_Primitives.h"
+#include "j1Timer.h"
 
 enum unit_type
 {
@@ -78,6 +79,8 @@ public:
 	bool IsMoving() const;
 	bool Move();
 	int GetHP() const;
+	void DoDamage(int dmg);
+	void Die();
 
 	int GetPriority() const;
 	void SetAction(action_type action);
@@ -122,6 +125,7 @@ private:
 	std::vector<iPoint> pathVec;
 
 	Entity* target;
+	Timer attackTimer;
 
 	Circle visionArea;
 	Circle renderArea;

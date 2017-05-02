@@ -42,7 +42,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		range = 0;
 		unitClass = INFANTRY;
 		unitRadius = 5;
-		horde = false;
+		horde = true;
 		unitState = NO_STATE;
 		break;
 
@@ -59,7 +59,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		break;
 
 	case VILE:
-		SetHp(20);
+		SetHp(50);
 		attack = 5;
 		speed = 2.0f;
 		rate_of_fire = 1;
@@ -82,37 +82,69 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 void Unit::OnUpdate(float dt)
 {
-
-	switch (unitState)
-	{
-	case NO_STATE:
-		if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+	if (GetHP() > 0) {
+		switch (unitState)
 		{
-			iPoint objective;
-			app->input->GetMouseMapPosition(objective.x, objective.y);
-			GoTo(objective);
+		case NO_STATE:
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			{
+				iPoint objective;
+				app->input->GetMouseMapPosition(objective.x, objective.y);
+				GoTo(objective);
+			}
+			if (target != nullptr && target->GetHP() > 0)
+			{
+				SetFightingArea();
+			}
+			break;
+		case MOVING:
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			{
+				iPoint objective;
+				app->input->GetMouseMapPosition(objective.x, objective.y);
+				GoTo(objective);
+			}
+			else if (Move() == false)
+			{
+				unitState = NO_STATE;
+				action = IDLE;
+			}
+			break;
+		case MOVING_TO_ATTACK:
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			{
+				iPoint objective;
+				app->input->GetMouseMapPosition(objective.x, objective.y);
+				GoTo(objective);
+			}
+			else if (Move() == false)
+			{
+				unitState = ATTACKING;
+				action = ATTACK;
+			}
+			break;
+		case ATTACKING:
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			{
+				iPoint objective;
+				app->input->GetMouseMapPosition(objective.x, objective.y);
+				GoTo(objective);
+			}
+			if (!AttackUnit())
+			{
+				target = nullptr;
+				unitState = NO_STATE;
+				action = IDLE;
+			}
+			break;
 		}
-		break;
-	case MOVING:
-		if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-		{
-			iPoint objective;
-			app->input->GetMouseMapPosition(objective.x, objective.y);
-			GoTo(objective);
-		}
-		else if (Move() == false)
-		{
-			unitState = NO_STATE;
-			action = IDLE;
-		}
-		break;
-	case ATTACKING:
-		AttackUnit();
-		break;
+		CheckSurroundings();
 	}
-
-	target = CheckSurroundings();
-
+	
+	else
+	{
+		Die();
+	}
 	iPoint p;
 	app->animation->GetFrame(drawQuad, p, this);
 	SetPivot(p);
@@ -164,6 +196,10 @@ bool Unit::GetPath(iPoint dest)
 	GetGlobalPosition(posX, posY);
 	iPoint ori = app->map->WorldToMap(posX, posY);
 	iPoint destinat = app->map->WorldToMap(dest.x, dest.y);
+	if (ori == destinat) 
+	{
+		return true;
+	}
 	if (app->pathfinding->CalculatePath(ori, destinat, pathVec) == false)
 		return false;
 	return true;
@@ -212,6 +248,33 @@ bool Unit::Move()
 int Unit::GetHP() const
 {
 	return hp;
+}
+
+void Unit::DoDamage(int dmg)
+{
+	hp -= dmg;
+}
+
+void Unit::Die()
+{
+	if (action != DIE && action != DISAPPEAR)
+	{
+		action = DIE;
+		Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
+		anim->Reset();
+	}
+
+	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DIE)
+	{
+		this->action = DISAPPEAR; //CURRENTLY NOT WORKING 
+		Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
+		anim->Reset();
+	}
+	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DISAPPEAR)
+	{
+		app->entityManager->DeleteUnit(this);
+		Remove();
+	}
 }
 
 int Unit::GetPriority() const
@@ -264,7 +327,7 @@ Entity* Unit::CheckSurroundings()
 		if ((*it) != this)
 		{
 			iPoint itPos = app->map->WorldToMap((*it)->GetGlobalPosition().x, (*it)->GetGlobalPosition().y);
-			if (itPos.x <= unitPos.x + unitRadius && itPos.x >= unitPos.x - unitRadius && itPos.y <= unitPos.y + unitRadius && itPos.y >= unitPos.y - unitRadius)
+			if (itPos.x <= unitPos.x + unitRadius && itPos.x >= unitPos.x - unitRadius && itPos.y <= unitPos.y + unitRadius && itPos.y >= unitPos.y - unitRadius && (*it)->GetHP() > 0)
 			{
 				Unit* challenger = dynamic_cast<Unit*>(*it);
 				if (challenger->horde != this->horde)
@@ -279,8 +342,6 @@ Entity* Unit::CheckSurroundings()
 			}
 		}
 	}
-
-	SetFightingArea();
 	return ret;
 }
 
@@ -364,7 +425,6 @@ bool Unit::SetFightingArea()
 			else if (unitClass != RANGED && enemy->unitClass != RANGED) //If both units are melee, the first one will set a tile in between them and the other one will go to and adjacent one
 			{
 				//YOUR PATH
-
 				iPoint newPos;
 				newPos.x = Pos.x - distance.x*0.5;
 				newPos.y = Pos.y - distance.y*0.5;
@@ -380,7 +440,6 @@ bool Unit::SetFightingArea()
 				}
 
 				//ENEMY PATH
-
 				iPoint newEnemyPos;
 				enemy->GetAdjacentTile(newPos, newEnemyPos);
 				enemy->pathVec.clear();
@@ -501,7 +560,6 @@ void Unit::LookAt(iPoint pos)
 	if (angle < 0)
 		angle += 360;
 
-
 	if ((0 <= angle &&  angle <= 22.5) || (337.5 <= angle&& angle <= 360))
 	{
 		this->unitDirection = EAST;
@@ -549,7 +607,10 @@ bool Unit::GoTo(iPoint destination)
 	{
 		GetNextTile();
 		this->action = WALK;
-		this->unitState = MOVING;
+		if (unitState != MOVING_TO_ATTACK)
+		{
+			this->unitState = MOVING;
+		}
 		this->destination.x = destination.x;
 		this->destination.y = destination.y;
 		return true;
@@ -575,42 +636,43 @@ bool Unit::AttackUnit()
 
 	if (target != nullptr && target->GetHP() > 0)
 	{
-		action = ATTACK;
-		unitState = ATTACKING;
+		if (attackTimer.ReadSec() > 1)
+		{
+			LookAt(iPoint(target->GetGlobalPosition().x, target->GetGlobalPosition().y));
+			action = ATTACK;
+			unitState = ATTACKING;
+			target->DoDamage(attack);
+			attackTimer.Start();
+		}
+		ret = true;
 	}
 
 	return ret;
 }
 
 bool Unit::GetFreeAdjacent(iPoint& Adjacent) const
-
 {
-
 	iPoint ret = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
 
 	if ((!app->entityManager->IsUnitInTile(this, { ret.x + 1, ret.y })) && app->pathfinding->IsWalkable({ ret.x + 1, ret.y }))
-
 	{
 		Adjacent = { ret.x + 1, ret.y };
 		return true;
 	}
 
 	else if ((!app->entityManager->IsUnitInTile(this, { ret.x - 1, ret.y })) && app->pathfinding->IsWalkable({ ret.x - 1, ret.y }))
-
 	{
 		Adjacent = { ret.x - 1, ret.y };
 		return true;
 	}
 
 	else if ((!app->entityManager->IsUnitInTile(this, { ret.x, ret.y + 1 })) && app->pathfinding->IsWalkable({ ret.x, ret.y + 1 }))
-
 	{
 		Adjacent = { ret.x, ret.y + 1 };
 		return true;
 	}
 
 	else if ((!app->entityManager->IsUnitInTile(this, { ret.x, ret.y - 1 })) && app->pathfinding->IsWalkable({ ret.x, ret.y - 1 }))
-
 	{
 		Adjacent = { ret.x, ret.y - 1 };
 		return true;
@@ -620,7 +682,6 @@ bool Unit::GetFreeAdjacent(iPoint& Adjacent) const
 	{
 		return false;
 	}
-
 }
 
 bool Unit::GetAdjacentTile(iPoint tile, iPoint& Adjacent) const
@@ -657,7 +718,6 @@ bool Unit::GetAdjacentTile(iPoint tile, iPoint& Adjacent) const
 
 void Unit::PlayDeathSound() const// ADD FX
 {
-
 	int rand_num = rand() % 6;
 
 	if (this->unitType == SAMURAI||this->unitType == ARCHER) {
@@ -814,7 +874,6 @@ void Unit::PlaySelectSound() const
 
 void Unit::PlayMoveSound() const
 {
-
 	if (this->unitType == ARCHER || this->unitType == SAMURAI)
 		app->audio->PlayFx(app->entityManager->fxUnitSelect001);
 
