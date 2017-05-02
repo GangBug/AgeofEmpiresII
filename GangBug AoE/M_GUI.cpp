@@ -754,6 +754,18 @@ void M_GUI::DrawDebug()
 			
 	}
 
+	//for (std::list<GUIElement*>::iterator it = mapDebugList.begin(); it != mapDebugList.end(); ++it)
+	//{
+	//	if ((*it)->GetActive())
+	//	{
+	//		(*it)->Draw();
+	//		GB_Rectangle<float> rect = (*it)->GetDrawRect();
+	//		app->render->DrawQuad({ rect.x, rect.y, rect.w, rect.h }, 0, 255, 0, 255, false, false);
+	//	}
+
+	//}
+
+
 	//cBeizier->DrawBezierCurve(CB_EASE_INOUT_BACK, { 800, 200 });
 	//cBeizier->DrawBezierCurve(CB_SLOW_MIDDLE, { 800, 200 });
 	//cBeizier->DrawBezierCurve(CB_LINEAL, { 800, 200 });
@@ -981,6 +993,7 @@ void M_GUI::LoadUIFx()
 	fxHover = app->audio->LoadFx("audio/fx/Select_1.wav");
 	fxHover = app->audio->LoadFx("audio/fx/Select_2.wav");
 }
+
 
 
 

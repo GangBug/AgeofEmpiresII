@@ -72,8 +72,10 @@ void GUILabel::Draw() const
 			sect.h = rect.h;
 			SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
 			//app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
-			app->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
-			//app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
+			if(followScreen)
+				app->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
+			else
+				app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
 		}
 }
 

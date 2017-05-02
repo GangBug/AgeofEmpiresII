@@ -86,7 +86,7 @@ void Unit::OnUpdate(float dt)
 	switch (unitState)
 	{
 	case NO_STATE:
-		if (app->input->GetMouseButtonDown(3) == KEY_DOWN && selected == true)
+		if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
 		{
 			iPoint objective;
 			app->input->GetMouseMapPosition(objective.x, objective.y);
@@ -94,7 +94,7 @@ void Unit::OnUpdate(float dt)
 		}
 		break;
 	case MOVING:
-		if (app->input->GetMouseButtonDown(3) == KEY_DOWN && selected == true)
+		if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
 		{
 			iPoint objective;
 			app->input->GetMouseMapPosition(objective.x, objective.y);

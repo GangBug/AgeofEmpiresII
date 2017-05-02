@@ -88,6 +88,7 @@ public:
 	std::list<GUIElement*> guiList;
 	std::list<GUIElement*> debugGuiList;
 	std::list<GUIElement*> editorGuiList;
+	std::list<GUIElement*> mapDebugList;
 
 	CBeizier* cBeizier = nullptr;
 

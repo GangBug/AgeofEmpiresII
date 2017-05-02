@@ -59,9 +59,7 @@ update_status S_InGame::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		app->gui->SetActiveScene("menu");
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
-		app->gui->SetActiveScene("\0");
-
-	
+		app->gui->SetActiveScene("\0");	
 
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera->Move(10.0, UP);
@@ -72,32 +70,10 @@ update_status S_InGame::PreUpdate(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera->Move(10.0, RIGHT);
 
-
-	//What is this: ?
-	if (app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
-	{
-		if(app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
-		{		
-			app->input->GetMouseScreenPosition(origin.x, origin.y);
-			origin.x = app->map->WorldToMap(origin.x, origin.y).x;
-			origin.y = app->map->WorldToMap(origin.x, origin.y).y;
-		}	
-		if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
-		{
-			app->input->GetMouseScreenPosition(destiny.x, destiny.y);
-			destiny.x = app->map->WorldToMap(destiny.x, destiny.y).x;
-			destiny.y = app->map->WorldToMap(destiny.x, destiny.y).y;
-
-			//app->pathfinding->CreatePath(origin, destiny);
-			//path = app->pathfinding->GetLastPath();
-
-		}
-	}   
 	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 	{
 		app->enemyWaves->SpawnEnemies(5, 0, 300, 200);
 	}
-
 	/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 	{
 		int x, y;
@@ -120,6 +96,37 @@ update_status S_InGame::PreUpdate(float dt)
 		app->audio->PlayFx(app->entityManager->fxCreateUnit);
 	}
 
+
+
+	//What is this: A tool to debug pathfinding
+	if (app->debug)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
+		{
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
+			{
+				iPoint point;
+				app->input->GetMouseMapPosition(point.x, point.y);
+				origin.x = app->map->WorldToMap(point.x, point.y).x;
+				origin.y = app->map->WorldToMap(point.x, point.y).y;
+			}
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
+			{
+				iPoint point;
+				app->input->GetMouseMapPosition(point.x, point.y);
+				destiny.x = app->map->WorldToMap(point.x, point.y).x;
+				destiny.y = app->map->WorldToMap(point.x, point.y).y;
+
+				app->pathfinding->CalculatePath(origin, destiny, path);
+ 				SDL_Log("-------------\nOrigin: (%d, %d)\nDestiniy: (%d,%d)\n-------------",
+						origin.x,
+						origin.y,
+						destiny.x,
+						destiny.y);
+			}
+		}
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -132,6 +139,14 @@ void S_InGame::DrawDebug()
 {
 	for (std::vector<iPoint>::iterator node = path.begin(); node != path.end(); ++node)
 	{
-		app->render->DrawLine((*node).x, (*node).y, (*(node + 1)).x, (*(node + 1)).y, 255, 0, 0, 255, false);
+		if(node+1 != path.end())
+		{
+			iPoint origin;
+			iPoint dest;
+			origin = app->map->MapToWorld((*node).x, (*node).y);
+			dest = app->map->MapToWorld((*(node + 1)).x, (*(node + 1)).y);
+			app->render->DrawLine(origin.x, origin.y, dest.x, dest.y, 255, 0, 0, 255, false);
+
+		}
 	}
 }

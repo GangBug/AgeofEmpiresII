@@ -24,10 +24,12 @@ public:
 	std::string GetText() const { return text; }
 	SDL_Color GetColor() const { return color; }
 	void SetColor(SDL_Color _color) { color = _color; SetText(text.c_str(), lbSize); }
+	void FollowScreen(bool _followScreen) { _followScreen ? followScreen = true : followScreen = false; }
 private:
 	SDL_Texture* texture;
 	std::string text;
 	label_size lbSize;
 	SDL_Color color;
+	bool followScreen = true;
 };
 

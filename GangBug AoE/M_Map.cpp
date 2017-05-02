@@ -5,8 +5,11 @@
 #include "M_Textures.h"
 #include "M_Map.h"
 #include "M_FogOfWar.h"
+#include "M_GUI.h"
+#include "GUILabel.h"
 #include <math.h>
 #include "Brofiler/Brofiler.h"
+#include <string.h>
 
 M_Map::M_Map(bool startEnabled) : Module(startEnabled), mapLoaded(false)
 {
@@ -61,7 +64,9 @@ void M_Map::Draw()
 					iPoint pos = MapToWorld(x, y);
 					
 					//TODO: This function differs from our previous version, i'm not sure it has to be this way. Need some revision.
-					app->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					//app->render->Blit(tileset->texture, pos.x/* - data.tileWidth / 2*/, pos.y/* - data.tileHeight / 2*/, &r); //This is the correct blit, but if the map does not come to you, you go to the map....
+					app->render->Blit(tileset->texture, pos.x - data.tileWidth / 2, pos.y - data.tileHeight / 2, &r);
+
 				}
 			}
 		}
@@ -319,6 +324,41 @@ bool M_Map::Load(const char* path)
 		LOG("Map QuadTree generated with: %i errors", fails);
 	}
 
+
+	for (auto element : data.layers)
+	{
+		if (strcmp(element->name.c_str(), "Capa de Patrones 1") == 0)
+		{
+			for (int x = 0; x < element->height; ++x)
+			{
+				for (int y = 0; y < element->width; ++y)
+				{
+					iPoint worldPoint = MapToWorld(x, y);
+					std::string str_x = std::to_string(x);
+					std::string str_y = std::to_string(y);
+					std::string str_c = "(";
+					str_c.append(str_x);
+					str_c.append(", ");
+					str_c.append(str_y);
+					str_c.append(")");
+
+					GUILabel* label = new GUILabel(std::string(str_c), STANDARD_PRESET);
+					label->SetColor({ 170,0,255,255 });
+					label->SetInteractive(false);
+					label->SetText(str_c.c_str(), SMALL);
+					label->SetCanFocus(false);
+					//label->SetRectangle(10, 10, 10, 10);
+					label->SetGlobalPos(worldPoint.x-(label->GetLocalRect().w/2), worldPoint.y - (label->GetLocalRect().h / 2));
+					label->FollowScreen(false);
+					label->SetVisible(true);
+					//label->SetDrawPosition(worldPoint.x, worldPoint.y);
+					app->gui->mapDebugList.push_back(label);
+				}
+			}
+		}
+	}
+
+
 	mapLoaded = ret;
 
 	return ret;
@@ -386,6 +426,7 @@ bool M_Map::LoadMap()
 			data.type = MAPTYPE_UNKNOWN;
 		}
 	}
+
 
 	return ret;
 }
@@ -513,7 +554,7 @@ bool M_Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	std::list<MapLayer*>::const_iterator item;
 	item = data.layers.begin();
 
-	for(item = data.layers.begin(); item != data.layers.end(); item++)
+	for(item = data.layers.begin(); item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = (*item);
 

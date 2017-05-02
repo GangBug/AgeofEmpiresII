@@ -111,6 +111,14 @@ update_status M_Render::PostUpdate(float dt)
 	//TODO: Might have a better organitzation to draw map or change map system
 	app->map->Draw();
 
+	if(app->debug)
+		for (auto element : app->gui->mapDebugList)
+		{
+			if (element->GetActive())
+				element->Draw();
+		}
+
+
 	PerfTimer timer;
 	std::vector<Entity*> entitiesVect;
 	//app->entityManager->GetEntitiesOnRect(ENTITY_BUILDING | ENTITY_UNIT, entitiesVect, camera->GetRect());
@@ -130,6 +138,8 @@ update_status M_Render::PostUpdate(float dt)
 	{
 		app->DrawDebug();
 	}
+
+
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
