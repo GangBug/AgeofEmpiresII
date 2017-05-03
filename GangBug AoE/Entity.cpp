@@ -616,6 +616,10 @@ int Entity::GetHP() const
 	return 0;
 }
 
+void Entity::DoDamage(int dmg)
+{
+}
+
 /** 
 	Remove: Mark the entity to delete it in a save moment.
 */
@@ -632,17 +636,20 @@ void Entity::Update(float dt)
 	if (selfActive == true)
 	{
 		OnUpdate(dt);
-
-		for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+		
+		//this is because units (who'll never have childs anyways...) get deleted when they die.
+		if (childs.size() > 0)
 		{
-			Entity* tmp = (*it);
-
-			if (tmp != nullptr && tmp->IsActive())
+			for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
 			{
-				tmp->Update(dt);
+				Entity* tmp = (*it);
+
+				if (tmp != nullptr && tmp->IsActive())
+				{
+					tmp->Update(dt);
+				}
 			}
 		}
-
 	}
 	
 	//No longer done like this but keep until I understand dynamic_cast

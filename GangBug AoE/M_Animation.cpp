@@ -68,9 +68,9 @@ bool M_Animation::Awake(pugi::xml_node& none)
 				newAnim->SetDirection(directionNode);//TODO
 
 				std::string action = actionNode.name();
-				if (!action.compare("disappear"))
+				if (!action.compare("disappear") || !action.compare("die"))
 				{
-					newAnim->speed = 1000.0f;
+					newAnim->speed = 200.0f;
 					newAnim->loop = false;
 				}
 				animations.push_back(newAnim);
@@ -167,9 +167,10 @@ void M_Animation::GetFrame(GB_Rectangle<int>& rect, iPoint& pivot, const Unit* u
 		LOG("No unit found");
 		return;
 	}
+	
+	rect = tmp->GetCurrentFrame();
 	if (tmp->Finished() == false)
 	{
-		rect = tmp->GetCurrentFrame();
 		pivot = tmp->GetCurrentPivot();
 	}
 }
@@ -322,7 +323,7 @@ GB_Rectangle<int>& Animation::GetCurrentFrame()
 
 	if (currentFrame >= frames.size())
 	{
-		if (loop = true)
+		if (loop == true)
 		{
 			animationTimer.Start();
 			currentFrame = 0;
@@ -331,7 +332,7 @@ GB_Rectangle<int>& Animation::GetCurrentFrame()
 		else
 		{
 			currentFrame = -1;
-			loops = 0;
+			loops = 1;
 			return GB_Rectangle<int>{0, 0, 0, 0};
 		}
 	}

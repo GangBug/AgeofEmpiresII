@@ -49,6 +49,8 @@ public:
 	Entity* CreateBuilding(building_type buldType, Entity* parent, int posx, int posy);
 	Entity* CreateObject(object_type type = OBJECT_NONE, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 
+	bool DeleteUnit(Entity* toDelete);
+
 
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
@@ -166,7 +168,6 @@ private:
 	// Objects
 	std::vector<ObjectTexture> objectTextures;
 	std::vector<Entity*> unitVector;
-
 	//TMP
 	Entity* et = nullptr;
 	Entity* et2 = nullptr;

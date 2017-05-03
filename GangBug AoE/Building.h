@@ -26,6 +26,7 @@ public:
 	void BuyUnit();
 
 	int GetHP() const;
+	void DoDamage(int dmg);
 
 	void PlaySelectFx();
 public:

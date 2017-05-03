@@ -818,6 +818,19 @@ Entity* M_EntityManager::CreateObject(object_type type, Entity* parent, int posX
 	return ret;
 }
 
+bool M_EntityManager::DeleteUnit(Entity* toDelete)
+{
+	for (int i = 0; i < unitVector.size(); i++)
+	{
+		if (unitVector[i] == toDelete)
+		{
+			unitVector.erase(unitVector.begin() + i);
+			return true;
+		}
+	}
+	return false;
+}
+
 bool M_EntityManager::LoadObjects()
 {
 	std::string obj_folder = "objects/Objects_data.xml";	//Load Objects data from object folder

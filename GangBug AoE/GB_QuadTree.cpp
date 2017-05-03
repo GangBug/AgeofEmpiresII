@@ -46,13 +46,13 @@ void GB_QuadTreeNode::Erase(Entity* et)
 		entities.erase(tmp);
 	}
 
-	if (childs[0] != nullptr)
+	/*if (childs[0] != nullptr)
 	{
 		for (unsigned int i = 0; i < 4; ++i)
 		{
 			childs[i]->Erase(et);
 		}
-	}
+	}*/
 }
 
 void GB_QuadTreeNode::CollectCandidates(std::vector<Entity*>& vec, const GB_Rectangle<int> test)
