@@ -137,16 +137,10 @@ void S_InGame::Draw()
 
 void S_InGame::DrawDebug()
 {
-	for (std::vector<iPoint>::iterator node = path.begin(); node != path.end(); ++node)
+	for (auto node : path)
 	{
-		if(node+1 != path.end())
-		{
-			iPoint origin;
-			iPoint dest;
-			origin = app->map->MapToWorld((*node).x, (*node).y);
-			dest = app->map->MapToWorld((*(node + 1)).x, (*(node + 1)).y);
-			app->render->DrawLine(origin.x, origin.y, dest.x, dest.y, 255, 0, 0, 255, false);
-
-		}
+		iPoint point;
+		point = app->map->MapToWorld(node.x, node.y);
+		app->render->DrawQuad({ point.x-5, point.y-5, 10, 10}, 255, 255, 0, 255);
 	}
 }
