@@ -17,9 +17,9 @@ public:
 	// Called each loop iteration
 	update_status PreUpdate(float dt) override;
 	//// Called each loop iteration
-	//update_status Update(float dt) override;
+	update_status Update(float dt) override;
 	//// Called each loop iteration
-	//update_status PostUpdate(float dt) override;
+	update_status PostUpdate(float dt) override;
 	//// Called before quitting
 	//bool CleanUp() override;
 

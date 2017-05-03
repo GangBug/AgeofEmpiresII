@@ -125,7 +125,8 @@ public:
 
 	uint32 last_frame_ms;
 	uint32 frames_on_last_update;
-
+	//This should not be like this but...
+	bool				menuOrIngame = false;
 private:
 
 	std::list<Module*>	modules;
@@ -149,6 +150,8 @@ private:
 	uint32				prevLastSecFrameCount = 0;
 	float				dt = 0.0f;
 	int					cappedMs = -1;
+
+	
 };
 
 extern App* app;
