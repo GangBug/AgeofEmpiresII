@@ -64,12 +64,7 @@ update_status S_Menu::PostUpdate(float dt)
 	if (active)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-			GoToIngame();
-
-		if (app->menuOrIngame)
-		{			
-			app->gui->SetActiveScene(app->inGame->name);
-		}
+			GoToIngame();			
 	}
 	return ret;
 }
@@ -98,5 +93,5 @@ void S_Menu::GoToIngame()
 {
 	this->active = false;
 	app->inGame->active = true;
-	app->gui->SetActiveScene("inGame");
+	app->gui->SetActiveScene(app->inGame->name);
 }

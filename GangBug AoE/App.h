@@ -125,8 +125,6 @@ public:
 
 	uint32 last_frame_ms;
 	uint32 frames_on_last_update;
-	//This should not be like this but...
-	bool				menuOrIngame = false;
 private:
 
 	std::list<Module*>	modules;

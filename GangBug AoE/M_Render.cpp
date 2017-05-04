@@ -109,8 +109,11 @@ update_status M_Render::PostUpdate(float dt)
 	SetViewPort(gameViewPort);
 	SDL_RenderCopy(renderer, game_tex_background, NULL, NULL);
 	//TODO: Might have a better organitzation to draw map or change map system
-
-	if(app->debug)
+	if (app->inGame->active)
+	{
+		app->map->Draw();
+	}
+	if(app->debug && app->inGame->active)
 		for (auto element : app->gui->mapDebugList)
 		{
 			if (element->GetActive())
@@ -119,7 +122,6 @@ update_status M_Render::PostUpdate(float dt)
 
 	if (app->inGame->active == true)
 	{
-		app->map->Draw();
 		PerfTimer timer;
 		std::vector<Entity*> entitiesVect;
 		app->entityManager->Draw(entitiesVect, camera->GetRect());
