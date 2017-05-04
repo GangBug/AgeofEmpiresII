@@ -6,11 +6,12 @@
 #include "M_FogOfWar.h"
 #include "M_Audio.h"
 #include "M_EnemyWaves.h"
+#include "S_Menu.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("inGame");
-
+	active = false;
 }
 
 
@@ -54,12 +55,12 @@ bool S_InGame::Start()
 
 update_status S_InGame::PreUpdate(float dt)
 {
-	if (app->menuOrIngame)
+	if (active)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 			app->gui->SetActiveScene(name);
 		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-			app->gui->SetActiveScene("menu");
+			GoToMenu();
 		if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 			app->gui->SetActiveScene("\0");
 
@@ -136,7 +137,7 @@ update_status S_InGame::PreUpdate(float dt)
 
 update_status S_InGame::Update(float dt)
 {
-	if (app->menuOrIngame)
+	if (active)
 	{
 
 	}
@@ -145,7 +146,7 @@ update_status S_InGame::Update(float dt)
 
 update_status S_InGame::PostUpdate(float dt)
 {
-	if (app->menuOrIngame)
+	if (active)
 	{
 
 	}
@@ -154,7 +155,7 @@ update_status S_InGame::PostUpdate(float dt)
 
 void S_InGame::Draw()
 {
-	if (app->menuOrIngame)
+	if (active)
 	{
 		
 	}
@@ -162,7 +163,7 @@ void S_InGame::Draw()
 
 void S_InGame::DrawDebug()
 {
-	if (app->menuOrIngame)
+	if (active)
 	{
 		for (auto node : path)
 		{
@@ -172,4 +173,11 @@ void S_InGame::DrawDebug()
 		}
 
 	}
+}
+
+void S_InGame::GoToMenu()
+{
+	active = false;
+	app->menu->active = true;
+	app->gui->SetActiveScene("menu");
 }

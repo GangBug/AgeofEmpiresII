@@ -7,6 +7,7 @@
 S_Menu::S_Menu(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("menu");
+	active = true;
 }
 
 
@@ -24,7 +25,7 @@ bool S_Menu::Start()
 	bool ret = true;
 	//audio
 	//app->audio->PlayTheme(app->audio->thirdMission);
-	if (!app->menuOrIngame)
+	if (active)
 	{
 		app->gui->SetActiveScene(name);
 	}
@@ -36,7 +37,7 @@ update_status S_Menu::PreUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	if (!app->menuOrIngame)
+	if (active)
 	{
 		
 	}
@@ -48,7 +49,7 @@ update_status S_Menu::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	if (!app->menuOrIngame)
+	if (active)
 	{
 
 	}
@@ -60,9 +61,8 @@ update_status S_Menu::PostUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	if (!app->menuOrIngame)
+	if (active)
 	{
-
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 			GoToIngame();
 
@@ -78,7 +78,7 @@ bool S_Menu::CleanUp()
 {
 	bool ret = true;
 
-	if (!app->menuOrIngame)
+	if (active)
 	{
 
 	}
@@ -88,7 +88,7 @@ bool S_Menu::CleanUp()
 
 void S_Menu::DrawDebug()
 {
-	if (!app->menuOrIngame)
+	if (active)
 	{
 
 	}
@@ -96,5 +96,7 @@ void S_Menu::DrawDebug()
 
 void S_Menu::GoToIngame()
 {
-	app->menuOrIngame = true;
+	this->active = false;
+	app->inGame->active = true;
+	app->gui->SetActiveScene("inGame");
 }

@@ -109,7 +109,6 @@ update_status M_Render::PostUpdate(float dt)
 	SetViewPort(gameViewPort);
 	SDL_RenderCopy(renderer, game_tex_background, NULL, NULL);
 	//TODO: Might have a better organitzation to draw map or change map system
-	app->map->Draw();
 
 	if(app->debug)
 		for (auto element : app->gui->mapDebugList)
@@ -118,19 +117,21 @@ update_status M_Render::PostUpdate(float dt)
 				element->Draw();
 		}
 
+	if (app->inGame->active == true)
+	{
+		app->map->Draw();
+		PerfTimer timer;
+		std::vector<Entity*> entitiesVect;
+		app->entityManager->Draw(entitiesVect, camera->GetRect());
+		double tmp = timer.ReadMs();
+		//LOG("Collecting entities lasted %f ms.", tmp);
+		DrawEntities(entitiesVect);
+		double tmp2 = timer.ReadMs();
+		//LOG("Drawing entities lasted: %f ms.", tmp2 - tmp);
+		//LOG("Total process lasted: %f ms.", tmp2);
 
-	PerfTimer timer;
-	std::vector<Entity*> entitiesVect;
-	//app->entityManager->GetEntitiesOnRect(ENTITY_BUILDING | ENTITY_UNIT, entitiesVect, camera->GetRect());
-	app->entityManager->Draw(entitiesVect, camera->GetRect());
-	double tmp = timer.ReadMs();
-	//LOG("Collecting entities lasted %f ms.", tmp);
-	DrawEntities(entitiesVect);
-	double tmp2 = timer.ReadMs();
-	//LOG("Drawing entities lasted: %f ms.", tmp2 - tmp);
-	//LOG("Total process lasted: %f ms.", tmp2);
-
-	app->inGame->Draw();
+		app->inGame->Draw();
+	}
 
 	app->gui->Draw();
 
