@@ -29,6 +29,35 @@ bool S_InGame::Start()
 	app->pathfinding->Enable();
 	app->entityManager->LoadObjects();
 
+	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Load")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Save")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Options")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Start")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "RepairButtonBarrack")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "RepairButtonStable")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "RepairButtonArchery")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "ArcherCreatorButton")->SetVisible(false);
+
+	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Load")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Save")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Options")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Start")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "RepairButtonBarrack")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "RepairButtonStable")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "RepairButtonArchery")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "ArcherCreatorButton")->SetInteractive(false);
 
 	//audio
 	//app->audio->PlayTheme(app->audio->thirdMission);

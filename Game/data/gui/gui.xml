@@ -429,7 +429,7 @@
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="252" h="36" />
 		</button>
-		<button type="button" name="MenuButtonInGame_exit" text="Exit to Desktop" interactive="true" canFocus="true" visible="true">
+		<button type="button" name="MenuButtonInGame_Exit" text="Exit to Desktop" interactive="true" canFocus="true" visible="true">
 			<events />
 			<listeners />
 			<scenes>
