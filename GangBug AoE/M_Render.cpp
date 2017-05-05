@@ -489,7 +489,7 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 
 				else if (tmp->type == ENTITY_BUILDING)
 				{
-					Blit(tmp->GetTexture(), tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
+					Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
 				}
 
 				else if (tmp->type == ENTITY_OBJECT)

@@ -40,8 +40,8 @@ bool S_InGame::Start()
 
 
 	//app->gui->SetActiveScene(name);
-	if (app->map->Load("0.1Map.tmx") == true)
-	//if (app->map->Load("testingMap.tmx") == true)
+
+	if (app->map->Load("Map.tmx") == true)
 	{
 		
 		int w, h;
@@ -104,6 +104,10 @@ update_status S_InGame::PreUpdate(float dt)
 			app->audio->PlayFx(app->entityManager->fxCreateUnit);
 		}
 
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+		{
+			return UPDATE_STOP;
+		}
 
 
 		//What is this: A tool to debug pathfinding

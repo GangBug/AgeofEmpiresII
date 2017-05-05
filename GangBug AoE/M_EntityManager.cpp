@@ -104,7 +104,7 @@ bool M_EntityManager::Start()
 	LoadFXs();
 
 	//TMP
-	textTexture = app->tex->Load("textures/test.png");
+	//textTexture = app->tex->Load("textures/test.png");
 
 	CreateEntity(ENTITY_PLAYER_MAN, nullptr);
 
@@ -114,17 +114,6 @@ bool M_EntityManager::Start()
 	//et2 = CreateEntity(et, 50, 50);
 	//et2->SetTexture(textTexture, GB_Rectangle<int>(0, 0, 100, 100));
 	//archer = CreateUnit(CAVALRY_ARCHER, nullptr, 1000, 300);
-
-
-	//if (app->map->Load("0.1Map.tmx") == true)
-	//{
-		//int w, h;
-		//uchar* data = NULL;
-		//if (app->map->CreateWalkabilityMap(w, h, &data))
-		//	app->pathfinding->SetMap(w, h, data);
-
-		//RELEASE_ARRAY(data);
-	//}
 
 	//root->Start();
 

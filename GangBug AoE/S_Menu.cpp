@@ -54,6 +54,11 @@ update_status S_Menu::Update(float dt)
 
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+	{
+		return UPDATE_STOP;
+	}
+
 	return ret;
 }
 

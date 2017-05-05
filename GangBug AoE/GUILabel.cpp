@@ -29,12 +29,15 @@ GUILabel::~GUILabel()
 
 void GUILabel::SetText(const char* text, label_size _size)
 {
-	if (texture != nullptr)
-		SDL_DestroyTexture(texture);
-
-	this->text = text;
-	switch (_size)
+	//This may be the cause that crashes the game whenever you close it.
+	if (text != this->text)
 	{
+		if (texture != nullptr)
+			SDL_DestroyTexture(texture);
+
+		this->text = text;
+		switch (_size)
+		{
 		case DEFAULT:
 			texture = app->font->Print(text, app->font->defaultFont, color);
 			break;
@@ -46,12 +49,13 @@ void GUILabel::SetText(const char* text, label_size _size)
 			break;
 		default:
 			break;
-	}
+		}
 
-	int w, h;
-	app->tex->GetSize(texture, (uint&)w, (uint&)h);
-	SetSize(w, h);
-	lbSize = _size;
+		int w, h;
+		app->tex->GetSize(texture, (uint&)w, (uint&)h);
+		SetSize(w, h);
+		lbSize = _size;
+	}
 }
 
 const SDL_Texture * GUILabel::GetTexture() const
