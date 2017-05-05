@@ -1026,95 +1026,90 @@ void ObjectTexture::SetRect(pugi::xml_node node)
 
 void ObjectTexture::SetType(pugi::xml_node node)
 {
-	if (strcmp(node.attribute("n").as_string(), "asianWallH") == 0) {
-		type = ASIAN_WALL_H;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "asianWallL") == 0) {
-		type = ASIAN_WALL_L;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "asianWallR") == 0) {
-		type = ASIAN_WALL_R;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "asianWallT") == 0) {
-		type = ASIAN_WALL_T;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "asianWallV") == 0) {
-		type = ASIAN_WALL_V;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "asianWallRdmg") == 0) {
-		type = ASIAN_WALL_R_DMG;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "asianWallLdmg") == 0) {
-		type = ASIAN_WALL_L_DMG;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "asianWallTdmg") == 0) {
-		type = ASIAN_WALL_T_DMG;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "asianWallVdmg") == 0) {
-		type = ASIAN_WALL_V_DMG;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "Bamboo1") == 0) {
+	if (strcmp(node.attribute("n").as_string(), "bamboo1") == 0) {
 		type = BAMBOO1;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "Bamboo2") == 0) {
+	else if (strcmp(node.attribute("n").as_string(), "bamboo2") == 0) {
 		type = BAMBOO2;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "Bamboo3") == 0) {
+	else if (strcmp(node.attribute("n").as_string(), "bamboo3") == 0) {
 		type = BAMBOO3;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "Bamboo4") == 0) {
+	else if (strcmp(node.attribute("n").as_string(), "bamboo4") == 0) {
 		type = BAMBOO4;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "BannerA") == 0) {
+
+	else if (strcmp(node.attribute("n").as_string(), "bannerA") == 0) {
 		type = BANNERA;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "BannerB") == 0) {
+	else if (strcmp(node.attribute("n").as_string(), "bannerB") == 0) {
 		type = BANNERB;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "Charriot") == 0) {
+	else if (strcmp(node.attribute("n").as_string(), "house") == 0) {
+		type = HOUSE;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "townhall") == 0) {
+		type = TOWNHALL;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "house2") == 0) {
+		type = HOUSE2;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "charriot") == 0) {
 		type = CHARRIOT;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "PalisadeR") == 0) {
-		type = PALISADE_R;
+	else if (strcmp(node.attribute("n").as_string(), "skeletons") == 0) {
+		type = SKELETONS;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "PalisadeL") == 0) {
-		type = PALISADE_L;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "PalisadeT") == 0) {
-		type = PALISADE_T;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "PalisadeH") == 0) {
-		type = PALISADE_H;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "PalisadeV") == 0) {
-		type = PALISADE_V;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "SkeletonsGroup") == 0) {
-		type = SKELETONS_GROUP;
-	}
-	else if (strcmp(node.attribute("n").as_string(), "SkullPile") == 0) {
+	else if (strcmp(node.attribute("n").as_string(), "skullpile") == 0) {
 		type = SKULL_PILE;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "Bamboo") == 0) {
-		type = BAMBOO;
+	else if (strcmp(node.attribute("n").as_string(), "stones1") == 0) {
+		type = STONES1;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "TorchFloorSquare") == 0) {
-		type = TORCH_FLOOR_SQUARE;
+	else if (strcmp(node.attribute("n").as_string(), "stones2") == 0) {
+		type = STONES2;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "TorchFloorTwisted") == 0) {
-		type = TORCH_FLOOR_TWISTED;
+	else if (strcmp(node.attribute("n").as_string(), "stones3") == 0) {
+		type = STONES3;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "TrashLarge") == 0) {
-		type = TRASH_LARGE;
+	else if (strcmp(node.attribute("n").as_string(), "stones4") == 0) {
+		type = STONES4;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "TrashMedium") == 0) {
-		type = TRASH_MEDIUM;
+	else if (strcmp(node.attribute("n").as_string(), "stones5") == 0) {
+		type = STONES5;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "TrashSmall") == 0) {
-		type = TRASH_SMALL;
+	else if (strcmp(node.attribute("n").as_string(), "stones6") == 0) {
+		type = STONES6;
 	}
-	else if (strcmp(node.attribute("n").as_string(), "Altar") == 0) {
-		type = ALTAR;
+	else if (strcmp(node.attribute("n").as_string(), "trash1") == 0) {
+		type = TRASH1;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trash2") == 0) {
+		type = TRASH2;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trees1") == 0) {
+		type = TREES1;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trees2") == 0) {
+		type = TREES2;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trees3") == 0) {
+		type = TREES3;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trees4") == 0) {
+		type = TREES4;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trees5") == 0) {
+		type = TREES5;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trees6") == 0) {
+		type = TREES6;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trees7") == 0) {
+		type = TREES7;
+	}
+	else if (strcmp(node.attribute("n").as_string(), "trees8") == 0) {
+		type = TREES8;
 	}
 	else
 	{

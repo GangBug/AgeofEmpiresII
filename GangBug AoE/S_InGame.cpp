@@ -41,7 +41,7 @@ bool S_InGame::Start()
 	app->gui->FindElement(app->gui->guiList, "RepairButtonStable")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "RepairButtonArchery")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton")->SetVisible(false);
-	app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton")->SetVisible(true);
 	app->gui->FindElement(app->gui->guiList, "ArcherCreatorButton")->SetVisible(false);
 
 	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetInteractive(false);
@@ -64,7 +64,7 @@ bool S_InGame::Start()
 
 
 	//app->gui->SetActiveScene(name);
-	if (app->map->Load("0.1Map.tmx") == true)
+	if (app->map->Load("Map.tmx") == true)
 	//if (app->map->Load("testingMap.tmx") == true)
 	{
 		

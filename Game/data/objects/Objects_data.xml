@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:c391590da95520c904e69547fd824073:6acca5b1a631a4a9541f12c21fc32aad:0e22a22b6708b5cde367dbdb7a9df342$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+pX => x pos of the pivot point (relative to sprite width)
+pY => y pos of the pivot point (relative to sprite height)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+with polygon mode enabled:
+vertices   => points in sprite coordinate system (x0,y0,x1,y1,x2,y2, ...)
+verticesUV => points in sheet coordinate system (x0,y0,x1,y1,x2,y2, ...)
+triangles  => sprite triangulation, 3 vertex indices per triangle
+-->
+<TextureAtlas imagePath="ObjectsSpritesheet.png" width="797" height="797">
+    <sprite n="bamboo1" x="725" y="312" w="71" h="91" pX="0.492958" pY="0.769231"/>
+    <sprite n="bamboo2" x="700" y="557" w="58" h="72" pX="0.517241" pY="0.75"/>
+    <sprite n="bamboo3" x="700" y="631" w="69" h="69" pX="0.521739" pY="0.73913"/>
+    <sprite n="bamboo4" x="668" y="312" w="53" h="72" pX="0.528302" pY="0.763889"/>
+    <sprite n="bannerA.png" x="725" y="405" w="37" h="126" pX="0.486486" pY="0.920635"/>
+    <sprite n="bannerB.png" x="659" y="557" w="39" h="131" pX="0.512821" pY="0.938931"/>
+    <sprite n="house" x="1" y="402" w="280" h="262" pX="0.00714286" pY="0.729008"/>
+    <sprite n="townhall" x="1" y="1" w="382" h="399" pX="0.0628272" pY="0.781955"/>
+    <sprite n="house2" x="385" y="1" w="389" h="309" pX="0.0796915" pY="0.686084"/>
+    <sprite n="charriot" x="540" y="312" w="126" h="76" pX="0.5" pY="0.5"/>
+    <sprite n="skeletons" x="1" y="666" w="204" h="128" pX="0.5" pY="0.5" oX="21" oY="22" oW="227" oH="170"/>
+    <sprite n="skullpile" x="515" y="765" w="48" h="24" pX="0.5" pY="0.5"/>
+    <sprite n="stones1" x="631" y="758" w="58" h="37" pX="0.517241" pY="0.675676"/>
+    <sprite n="stones2" x="319" y="756" w="75" h="36" pX="0.52" pY="0.75"/>
+    <sprite n="stones3" x="708" y="746" w="67" h="33" pX="0.507463" pY="0.636364"/>
+    <sprite n="stones4" x="631" y="712" w="75" h="44" pX="0.493333" pY="0.5"/>
+    <sprite n="stones5" x="428" y="744" w="85" h="46" pX="0.505882" pY="0.73913"/>
+    <sprite n="stones6" x="708" y="702" w="78" h="42" pX="0.512821" pY="0.571429"/>
+    <sprite n="trash1" x="385" y="312" w="153" h="79" pX="0.5" pY="0.5"/>
+    <sprite n="trash2" x="538" y="712" w="91" h="51" pX="0.5" pY="0.5"/>
+    <sprite n="trees1" x="538" y="567" w="119" h="143" pX="0.487395" pY="0.958042"/>
+    <sprite n="trees2" x="319" y="592" w="107" h="162" pX="0.457944" pY="0.962963"/>
+    <sprite n="trees3" x="410" y="393" w="93" h="186" pX="0.55914" pY="0.951613"/>
+    <sprite n="trees4" x="613" y="390" w="110" h="165" pX="0.545455" pY="0.957576"/>
+    <sprite n="trees5" x="505" y="393" w="106" h="172" pX="0.5" pY="0.953488"/>
+    <sprite n="trees6" x="207" y="666" w="110" h="129" pX="0.536364" pY="0.937984"/>
+    <sprite n="trees7" x="283" y="402" w="125" h="188" pX="0.496" pY="0.957447"/>
+    <sprite n="trees8" x="428" y="581" w="108" h="161" pX="0.490741" pY="0.950311"/>
+</TextureAtlas>
