@@ -93,15 +93,7 @@ void PlayerManager::OnUpdate(float dt)
 			for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
 			{
 				if (selectionRect.Contains((*it)->GetGlobalPosition().x, (*it)->GetGlobalPosition().y))
-				(*it)->selected = true;
-			}
-			std::vector<Entity*> builds;
-			app->entityManager->GetEntitiesOnRect(ENTITY_BUILDING, builds, selectionRect);
-			if (!builds.empty())
-			{
-				Building* tmp = (Building*)builds[0];
-				if (tmp)
-					tmp->selected = true;
+					(*it)->selected = true;
 			}
 			onSelection = false;
 		}

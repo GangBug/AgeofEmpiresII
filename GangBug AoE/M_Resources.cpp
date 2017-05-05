@@ -53,6 +53,20 @@ void M_Resources::AddGold(int amount)
 	gold += amount;
 }
 
+//Substracts certain amount to existent resources
+void M_Resources::SubstractFood(int amount)
+{
+	food -= amount;
+}
+void M_Resources::SubstractWood(int amount)
+{
+	wood -= amount;
+}
+void M_Resources::SubstractGold(int amount)
+{
+	gold -= amount;
+}
+
 //Set existent resources to a certain amount
 void M_Resources::SetCurrentFood(int amount)
 {
@@ -78,7 +92,7 @@ update_status M_Resources::Update(float dt)
 	update_status ret = UPDATE_CONTINUE;
 
 	//Maybe we could use dt instead of this timer
-	updateResources.Start();
+
 
 	//Resources update
 	if (updateResources.ReadSec() > UPDATE_TIMER)
@@ -95,7 +109,7 @@ update_status M_Resources::Update(float dt)
 		{
 			AddGold(GOLD_AMOUNT);
 		}
-		updateResources.Stop();
+		updateResources.Start();
 	}
 
 	return ret;

@@ -32,6 +32,7 @@ public:
 
 	void GoToMenu();
 
+	void SetGUI();
 
 public:
 	std::vector<iPoint> path;

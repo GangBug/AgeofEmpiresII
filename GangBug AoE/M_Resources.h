@@ -38,6 +38,10 @@ public:
 	void AddWood(int amount);
 	void AddGold(int amount);
 
+	void SubstractFood(int amount);
+	void SubstractWood(int amount);
+	void SubstractGold(int amount);
+
 	void SetCurrentFood(int amount);
 	void SetCurrentWood(int amount);
 	void SetCurrentGold(int amount);

@@ -393,19 +393,19 @@ bool M_Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
 	int result = -1;
-	SDL_Point points[360];
+	SDL_Point points[120];
 
-	float factor = (float)M_PI / 180.0f;
+	float factor = ((float)M_PI / 180.0f) * 3;
 
 	int realPosX = x - (useGameViewPort == true ? gameViewPort.x : 0);
 
-	for(uint i = 0; i < 360; ++i)
+	for(uint i = 0; i < 120; ++i)
 	{
 		points[i].x = (int)(realPosX + radius * cos(i * factor));
 		points[i].y = (int)(y + radius * sin(i * factor));
 	}
 
-	result = SDL_RenderDrawPoints(renderer, points, 360);
+	result = SDL_RenderDrawPoints(renderer, points, 120);
 
 	if(result != 0)
 	{

@@ -3,6 +3,8 @@
 #include "Unit.h"
 #include "j1Timer.h"
 
+class GUIElement;
+
 enum building_type
 {
 	BUILD_ARCHERY,
@@ -34,9 +36,11 @@ public:
 
 	enum building_type buildType;
 	enum unit_type unitType;
-	bool selected = false;
 
 	int unitCost;
 	int HP;
+	
+private:
+	GUIElement* creatorButton;
 };
 
