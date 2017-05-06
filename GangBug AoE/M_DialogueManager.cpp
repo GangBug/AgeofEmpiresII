@@ -61,6 +61,8 @@ update_status M_DialogueManager::Update(float dt)
 		if ((*it).active && !(*it).done)
 		{
 			(*it).textLines.begin()._Ptr->_Myval->SetVisible(true);
+			(*it).textLines.begin()._Ptr->_Myval->SetActive(true);
+			(*it).textLines.begin()._Ptr->_Myval->Draw();
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_UP)
 			{
 				(*it).textLines.pop_front();
