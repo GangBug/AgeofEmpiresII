@@ -35,6 +35,12 @@
     <Filter Include="Modules\Scenes">
       <UniqueIdentifier>{895f6536-4a50-4b82-8e6a-06538656a534}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity System\Entities\IA">
+      <UniqueIdentifier>{4d29bbf3-c01e-48a1-875d-cf364e4ebff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity System\Entities\IA\Steering">
+      <UniqueIdentifier>{3b987e28-cd51-4747-aa49-4cfe6baad8ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PugiXml\src\pugixml.cpp">
@@ -168,6 +174,26 @@
     </ClCompile>
     <ClCompile Include="M_DialogueManager.cpp">
       <Filter>Modules\Modules</Filter>
+    <ClCompile Include="IA_Unit.cpp">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="IA_FormationManager.cpp">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="IA_SquareFormation.cpp">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="IA_Steering.cpp">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering.cpp">
+      <Filter>Entity System\Entities\IA\Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="Steer_Arrive.cpp">
+      <Filter>Entity System\Entities\IA\Steering</Filter>
+    </ClCompile>
+    <ClCompile Include="Steer_Separation.cpp">
+      <Filter>Entity System\Entities\IA\Steering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +337,26 @@
     </ClInclude>
     <ClInclude Include="M_DialogueManager.h">
       <Filter>Modules\Modules</Filter>
+    <ClInclude Include="IA_Unit.h">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="IA_FormationManager.h">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="IA_SquareFormation.h">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="IA_Steering.h">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering.h">
+      <Filter>Entity System\Entities\IA\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Steer_Arrive.h">
+      <Filter>Entity System\Entities\IA\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Steer_Separation.h">
+      <Filter>Entity System\Entities\IA\Steering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

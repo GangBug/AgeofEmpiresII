@@ -117,7 +117,13 @@ update_status M_Render::PostUpdate(float dt)
 		for (auto element : app->gui->mapDebugList)
 		{
 			if (element->GetActive())
-				element->Draw();
+			{
+				SDL_Point p;
+				p.x = element->GetDrawPosition().x;
+				p.y = element->GetDrawPosition().y;
+				if (SDL_PointInRect(&p, &camera->GetRect()))
+					element->Draw();
+			}				
 		}
 
 	if (app->inGame->active == true)

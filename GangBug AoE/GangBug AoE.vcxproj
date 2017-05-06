@@ -130,7 +130,6 @@
     <ExecutablePath>SDL_ttf\include;SDL_mixer\include;SDL_image\include;SDL\include;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)Game2/</OutDir>
     <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
@@ -214,7 +213,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\anara\Documents\GitHub\AgeofEmpiresII\GangBug AoE\Brofiler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -241,6 +241,10 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="M_DialogueManager.cpp" />
+    <ClCompile Include="IA_FormationManager.cpp" />
+    <ClCompile Include="IA_SquareFormation.cpp" />
+    <ClCompile Include="IA_Steering.cpp" />
+    <ClCompile Include="IA_Unit.cpp" />
     <ClCompile Include="M_EnemyWaves.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityMap.cpp" />
@@ -278,6 +282,9 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="Steering.cpp" />
+    <ClCompile Include="Steer_Arrive.cpp" />
+    <ClCompile Include="Steer_Separation.cpp" />
     <ClCompile Include="S_InGame.cpp" />
     <ClCompile Include="S_Menu.cpp" />
     <ClCompile Include="Unit.cpp" />
@@ -286,6 +293,10 @@
     <ClInclude Include="Bezier.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="M_DialogueManager.h" />
+    <ClInclude Include="IA_FormationManager.h" />
+    <ClInclude Include="IA_SquareFormation.h" />
+    <ClInclude Include="IA_Steering.h" />
+    <ClInclude Include="IA_Unit.h" />
     <ClInclude Include="M_EnemyWaves.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityMap.h" />
@@ -327,6 +338,9 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="GB_Rectangle.h" />
+    <ClInclude Include="Steering.h" />
+    <ClInclude Include="Steer_Arrive.h" />
+    <ClInclude Include="Steer_Separation.h" />
     <ClInclude Include="S_InGame.h" />
     <ClInclude Include="S_Menu.h" />
     <ClInclude Include="Unit.h" />
