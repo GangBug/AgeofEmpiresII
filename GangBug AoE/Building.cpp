@@ -53,10 +53,22 @@ void Building::OnUpdate(float dt)
 	iPoint mPos;
 	app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) && GetEnclosingBox().Contains(mPos.x, mPos.y))
+	if (selected == false && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) && GetEnclosingBox().Contains(mPos.x, mPos.y))
 	{
 		selected = true;
 		creatorButton->SetVisible(true);
+		if (buildType == BUILD_ARCHERY)
+		{
+			app->audio->PlayFx(app->entityManager->fxArcherySelection);
+		}
+		else if (buildType == BUILD_BARRACK)
+		{
+			app->audio->PlayFx(app->entityManager->fxBarrackSelection);
+		}
+		else if (buildType == BUILD_STABLES)
+		{
+			app->audio->PlayFx(app->entityManager->fxStableSelection);
+		}
 	}
 
 	else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && !GetEnclosingBox().Contains(mPos.x, mPos.y))
@@ -92,6 +104,8 @@ void Building::BuyUnit()
 		fPoint pos = GetGlobalPosition();
 
 		app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
+
+		app->audio->PlayFx(app->entityManager->fxCreateUnit);
 
 		app->resources->SubstractGold(unitCost);
 
