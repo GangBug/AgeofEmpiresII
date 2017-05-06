@@ -63,7 +63,7 @@ update_status M_DialogueManager::Update(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_UP)
 			{
 				(*it).textLines.pop_front();
-				if (!(*it).textLines.empty())
+				if ((*it).textLines.empty())
 				{
 					(*it).active = false;
 					(*it).done = true;
