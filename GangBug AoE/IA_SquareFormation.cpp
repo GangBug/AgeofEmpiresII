@@ -52,5 +52,4 @@ bool IA_SquareFormation::OnLoad(pugi::xml_node* node)
 
 void IA_SquareFormation::DrawDebug()
 {
-	app->render->DrawQuad({ 0, 0, 10, 10 }, 255, 0, 0, 255);
 }
