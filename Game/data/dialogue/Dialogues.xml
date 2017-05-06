@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<dialogues>
+  <dialogue event ="firstEncounter" character="samurai">
+    <text value ="Hi! The demons are attacking the city. Please help us!"/>
+    <text value ="This is just a text hi"/>
+  </dialogue>
+</dialogues>

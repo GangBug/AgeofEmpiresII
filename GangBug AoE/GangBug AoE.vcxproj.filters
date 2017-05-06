@@ -166,6 +166,9 @@
     <ClCompile Include="M_EnemyWaves.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="M_DialogueManager.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -306,6 +309,9 @@
     <ClInclude Include="M_EnemyWaves.h">
       <Filter>Modules\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="M_DialogueManager.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml">
@@ -313,6 +319,9 @@
     </Xml>
     <Xml Include="..\Game\data\gui\gui.xml">
       <Filter>Resources</Filter>
+    </Xml>
+    <Xml Include="Dialogues.xml">
+      <Filter>Utility</Filter>
     </Xml>
   </ItemGroup>
 </Project>
