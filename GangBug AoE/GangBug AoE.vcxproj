@@ -220,7 +220,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ProfilerCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -241,6 +241,8 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="IA_FormationManager.cpp" />
+    <ClCompile Include="IA_SquareFormation.cpp" />
+    <ClCompile Include="IA_Steering.cpp" />
     <ClCompile Include="IA_Unit.cpp" />
     <ClCompile Include="M_EnemyWaves.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -279,6 +281,9 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="Steering.cpp" />
+    <ClCompile Include="Steer_Arrive.cpp" />
+    <ClCompile Include="Steer_Separation.cpp" />
     <ClCompile Include="S_InGame.cpp" />
     <ClCompile Include="S_Menu.cpp" />
     <ClCompile Include="Unit.cpp" />
@@ -287,6 +292,8 @@
     <ClInclude Include="Bezier.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="IA_FormationManager.h" />
+    <ClInclude Include="IA_SquareFormation.h" />
+    <ClInclude Include="IA_Steering.h" />
     <ClInclude Include="IA_Unit.h" />
     <ClInclude Include="M_EnemyWaves.h" />
     <ClInclude Include="Entity.h" />
@@ -329,6 +336,9 @@
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
     <ClInclude Include="GB_Rectangle.h" />
+    <ClInclude Include="Steering.h" />
+    <ClInclude Include="Steer_Arrive.h" />
+    <ClInclude Include="Steer_Separation.h" />
     <ClInclude Include="S_InGame.h" />
     <ClInclude Include="S_Menu.h" />
     <ClInclude Include="Unit.h" />
