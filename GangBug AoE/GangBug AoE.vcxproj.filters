@@ -35,6 +35,9 @@
     <Filter Include="Modules\Scenes">
       <UniqueIdentifier>{895f6536-4a50-4b82-8e6a-06538656a534}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity System\Entities\IA">
+      <UniqueIdentifier>{4d29bbf3-c01e-48a1-875d-cf364e4ebff4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PugiXml\src\pugixml.cpp">
@@ -165,6 +168,12 @@
     </ClCompile>
     <ClCompile Include="M_EnemyWaves.cpp">
       <Filter>Modules\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="IA_Unit.cpp">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClCompile>
+    <ClCompile Include="IA_FormationManager.cpp">
+      <Filter>Entity System\Entities\IA</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +314,12 @@
     </ClInclude>
     <ClInclude Include="M_EnemyWaves.h">
       <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="IA_Unit.h">
+      <Filter>Entity System\Entities\IA</Filter>
+    </ClInclude>
+    <ClInclude Include="IA_FormationManager.h">
+      <Filter>Entity System\Entities\IA</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
