@@ -15,10 +15,10 @@ GUILabel::GUILabel(std::string name, int flags) : GUIElement(name, flags)
 }
 GUILabel::GUILabel(const char * text, label_size _size, std::string name, int flags, SDL_Color color) : GUIElement(name, flags)
 {
+	SetColor(color);
 	SetText(text, _size);
 	SetType(gui_types::GUI_LABEL);
-	lbSize = _size;
-	SetColor(color);
+	lbSize = _size;	
 }
 
 GUILabel::~GUILabel()

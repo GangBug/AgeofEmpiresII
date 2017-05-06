@@ -60,9 +60,6 @@ update_status M_DialogueManager::Update(float dt)
 	{
 		if ((*it).active && !(*it).done)
 		{
-			(*it).textLines.begin()._Ptr->_Myval->SetVisible(true);
-			(*it).textLines.begin()._Ptr->_Myval->SetActive(true);
-			(*it).textLines.begin()._Ptr->_Myval->Draw();
 			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_UP)
 			{
 				(*it).textLines.pop_front();
@@ -76,7 +73,10 @@ update_status M_DialogueManager::Update(float dt)
 	}
 	return UPDATE_CONTINUE;
 }
-
+update_status M_DialogueManager::PostUpdate(float dt)
+{
+	return UPDATE_CONTINUE;
+}
 void M_DialogueManager::DrawDebug()
 {
 }
@@ -116,9 +116,14 @@ void Dialogue::SetText(pugi::xml_node node)
 {
 	while (node != NULL)
 	{
-		GUILabel* tmp = new GUILabel(node.attribute("value").as_string(), SMALL, "Dialogue", STANDARD_PRESET);
-		tmp->SetGlobalPos(0, 0);
-		tmp->FollowScreen(false);
+		//GUILabel* tmp = new GUILabel("Dialogue", STANDARD_PRESET);
+		GUILabel* tmp = new GUILabel(node.attribute("value").as_string(), SMALL, "Dialogue", STANDARD_PRESET, {0, 255, 0, 255});
+		std::string str = node.attribute("value").as_string();
+		//tmp->SetColor({ 255,255,255,255 });
+		//tmp->SetText(str.c_str(), DEFAULT);
+		tmp->SetGlobalPos(0, 50);
+		tmp->FollowScreen(true); // Amb això a fals es quedara al mapa, si vols que segueixi la camara s'ha de posar a true
+		
 		textLines.push_back(tmp);
 		node = node.next_sibling();
 	}

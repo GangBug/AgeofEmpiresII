@@ -10,7 +10,7 @@
 #include "M_Animation.h"
 #include "S_InGame.h"
 #include "M_FogOfWar.h"
-
+#include "M_DialogueManager.h"
 //TEMP
 #include "M_Textures.h"
 #include <algorithm>
@@ -139,6 +139,18 @@ update_status M_Render::PostUpdate(float dt)
 		//LOG("Total process lasted: %f ms.", tmp2);
 
 		app->inGame->Draw();
+	}
+
+	for (std::list<Dialogue>::iterator it = app->dialogueManager->dialogues.begin(); it != app->dialogueManager->dialogues.end(); it++)
+	{
+		if ((*it).active && !(*it).done)
+		{
+			GUILabel* diag = *(*it).textLines.begin();
+			diag->SetVisible(true);
+			diag->SetActive(true);
+			//app->render->DrawQuad(diag->GetLocalRect().GetSDLrect(), 255, 0, 0, 255);
+			diag->Draw();
+		}
 	}
 
 	app->gui->Draw();
