@@ -65,6 +65,7 @@ void M_Map::Draw()
 					
 					//TODO: This function differs from our previous version, i'm not sure it has to be this way. Need some revision.
 					//app->render->Blit(tileset->texture, pos.x/* - data.tileWidth / 2*/, pos.y/* - data.tileHeight / 2*/, &r); //This is the correct blit, but if the map does not come to you, you go to the map....
+					
 					app->render->Blit(tileset->texture, pos.x - data.tileWidth / 2, pos.y - data.tileHeight / 2, &r);
 
 				}
@@ -327,7 +328,7 @@ bool M_Map::Load(const char* path)
 
 	for (auto element : data.layers)
 	{
-		if (strcmp(element->name.c_str(), "Capa de Patrones 1") == 0)
+		if (strcmp(element->name.c_str(), "terrain") == 0)
 		{
 			for (int x = 0; x < element->height; ++x)
 			{
