@@ -7,6 +7,10 @@ IA_FormationManager::IA_FormationManager(entity_type type, Entity* parent) : Ent
 
 }
 
+IA_FormationManager::~IA_FormationManager()
+{
+}
+
 void IA_FormationManager::OnStart()
 {
 }
