@@ -43,7 +43,7 @@ bool M_Textures::Start()
 	archeryTexture = Load("buildings/archery.png");
 	stableTexture = Load("buildings/stable.bmp");
 	barracksTexture = Load("buildings/barracks.bmp");
-	townCenterTexture = Load("objects/ObjectsSpritesheet.png");
+	townCenterTexture = Load("buildings/town.png");
 	objectTexture = Load("objects/ObjectsSpritesheet.png");
 	samuraiTexture = Load("dialogue/ryoma2.png");
 	dialogueBoxTexture = Load("dialogue/dialogueBox.png");

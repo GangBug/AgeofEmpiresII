@@ -44,9 +44,9 @@ bool S_InGame::Start()
 	app->entityManager->CreateBuilding(BUILD_STABLES, nullptr, -2115, 1850);
 	app->entityManager->CreateBuilding(BUILD_ARCHERY, nullptr, -1385, 2170);
 	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, -2370, 1925);
-	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, 1000, 1000);
+	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, -2800, 2300);
 
-	app->render->camera->SetCenter({ -2300, 2200 });
+	app->render->camera->SetCenter({ -2500, 2200 });
 
 	if (app->map->Load("Map.tmx") == true)
 	{	

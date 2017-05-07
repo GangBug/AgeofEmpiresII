@@ -953,10 +953,10 @@ void M_EntityManager::LoadFXs()// ADD FX
 	fxCreateVillager = app->audio->LoadFx("audio/fx/Units/Creation_Villager.wav");
 	fxLimitVillager = app->audio->LoadFx("audio/fx/Other/Population_Limit.wav");
 	
-	//buldings
-	fxStableSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Archery.wav");
+	//buldings 
+	fxStableSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Ball.wav");
 	fxBarrackSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Barrack.wav");
-	fxArcherySelection = app->audio->LoadFx("audio/fx/Buildings/Click_Ball.wav");
+	fxArcherySelection = app->audio->LoadFx("audio/fx/Buildings/Click_Archery.wav");
 	fxTownCenterSelection = app->audio->LoadFx("audio/fx/Buildings/Town_Center.wav");
 
 	//ambient
