@@ -78,6 +78,10 @@ public:
 	void RemoveMiners();
 	void RemoveLumberjacks();
 	void RemoveFarmers();
+
+
+	void GuiEvent(GUIElement* element, int64_t event);
+
 };
 
 #endif // __M_RESOURCES_H__

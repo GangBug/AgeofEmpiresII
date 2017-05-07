@@ -230,3 +230,46 @@ void M_Resources::RemoveFarmers()
 		unemployedVillagers++;
 	}
 }
+
+void M_Resources::GuiEvent(GUIElement * element, int64_t event)
+{
+
+	if (event & MOUSE_LCLICK_UP)
+	{
+		if (event & ADD_MINER)
+		{
+			AddMiners();
+		}
+		if (event & ADD_CONSTRUCTOR)
+		{
+			AddConstructors();
+		}
+		if (event & ADD_LUMBERJACK)
+		{
+			AddLumberjack();
+		}
+		if (event & ADD_FARMER)
+		{
+			AddFarmers();
+		}
+
+		if (event & REMOVE_MINER)
+		{
+			RemoveMiners();
+		}
+		if (event & REMOVE_CONSTRUCTOR)
+		{
+			RemoveConstructors();
+		}
+		if (event & REMOVE_LUMBERJACK)
+		{
+			RemoveLumberjacks();
+		}
+		if (event & REMOVE_FARMER)
+		{
+			RemoveFarmers();
+		}
+	
+	}
+
+}
