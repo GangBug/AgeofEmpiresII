@@ -58,6 +58,21 @@ public:
 
 		return(r);
 	}
+	p2Point operator *(const TYPE& f)
+	{
+		p2Point r;
+		r.x = x * f;
+		r.y = y * f;
+		return (r);
+	}
+
+	p2Point operator /(const TYPE& f) //Care with 0 divisons.
+	{
+		p2Point r;
+		r.x = x / f;
+		r.y = y / f;
+		return (r);
+	}
 
 	const p2Point& operator -=(const p2Point &v)
 	{

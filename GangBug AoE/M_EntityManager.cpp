@@ -12,6 +12,7 @@
 #include "PlayerManager.h"
 #include "EntityMap.h"
 #include "Building.h"
+#include "IA_Steering.h"
 //
 
 // Modules
@@ -34,6 +35,7 @@
 #include "M_Textures.h"
 #include "M_Render.h"
 #include <time.h>
+
 
 /**
 	Contructor: Creates the module that manages all entities.
@@ -289,6 +291,9 @@ Entity* M_EntityManager::CreateEntity(entity_type type, Entity* parent)
 		break;
 	case ENTITY_OBJECT:
 		ret = new EntityMap(nullptr);
+		break;
+	case ENTITY_STEERING:
+		ret = new IA_Steering(nullptr);
 		break;
 		//TODO: More entities cases
 

@@ -1,11 +1,12 @@
 ﻿#pragma once
 
 #include "Entity.h"
+#include "Steering.h"
 
-class IA_Steering : Entity
+class IA_Steering : public Entity
 {
 public:
-	IA_Steering(entity_type type, Entity* parent);
+	IA_Steering(Entity* parent);
 	~IA_Steering();
 	
 	void OnStart() override;
@@ -21,5 +22,6 @@ public:
 
 	void DrawDebug() override;
 
+	std::vector<Steering*> steeringList;
 
 };

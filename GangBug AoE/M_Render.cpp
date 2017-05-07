@@ -120,11 +120,7 @@ update_status M_Render::PostUpdate(float dt)
 		{
 			if (element->GetActive())
 			{
-				SDL_Point p;
-				p.x = element->GetDrawPosition().x;
-				p.y = element->GetDrawPosition().y;
-				if (SDL_PointInRect(&p, &camera->GetRect()))
-					element->Draw();
+				element->Draw();
 			}				
 		}
 	//--------------

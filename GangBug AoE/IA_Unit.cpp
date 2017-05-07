@@ -1,6 +1,7 @@
 #include "IA_Unit.h"
 #include "App.h"
-#include  "M_Render.h"
+#include "M_Render.h"
+#include "M_EntityManager.h"
 
 
 IA_Unit::IA_Unit(entity_type type, Entity* parent) : Entity(type, parent)
@@ -14,6 +15,7 @@ IA_Unit::~IA_Unit()
 
 void IA_Unit::OnStart()
 {
+	/*steering = */(IA_Steering*)app->entityManager->CreateEntity(ENTITY_STEERING, this);
 }
 
 void IA_Unit::OnFinish()

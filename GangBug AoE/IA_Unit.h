@@ -23,6 +23,6 @@ public:
 	void DrawDebug() override;
 
 private:
-	IA_Steering* steering;
+	//IA_Steering* steering;
 };
 

@@ -21,7 +21,8 @@ enum entity_type
 	ENTITY_UI = ( 1 << 4),
 	ENTITY_MAP = (1 << 5),
 	ENTITY_PLAYER_MAN = (1 << 6),
-	ENTITY_OBJECT = (1 << 7)
+	ENTITY_OBJECT = (1 << 7),
+	ENTITY_STEERING = (1 << 8)
 };
 
 class Entity
