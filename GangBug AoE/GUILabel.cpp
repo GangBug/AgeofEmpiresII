@@ -24,13 +24,26 @@ GUILabel::GUILabel(const char * text, label_size _size, std::string name, int fl
 void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)
 {
 	if (strcmp(GetName().c_str(), "label_gold") == 0)
-		SetText(std::to_string(app->resources->GetCurrentGold()).c_str(), DEFAULT);
+		SetText(std::to_string(app->resources->GetCurrentGold()).c_str(), SMALL);
 	if (strcmp(GetName().c_str(), "label_food") == 0)
-		SetText(std::to_string(app->resources->GetCurrentFood()).c_str(), DEFAULT);
+		SetText(std::to_string(app->resources->GetCurrentFood()).c_str(), SMALL);
 	if (strcmp(GetName().c_str(), "label_wood") == 0)
-		SetText(std::to_string(app->resources->GetCurrentWood()).c_str(), DEFAULT);
+		SetText(std::to_string(app->resources->GetCurrentWood()).c_str(), SMALL);
 	if (strcmp(GetName().c_str(), "label_MaxVillager") == 0)
-		SetText(std::to_string(app->resources->GetVillagers()).c_str(), DEFAULT);
+		SetText(std::to_string(app->resources->GetTotalVillagers()).c_str(), SMALL);
+
+	if (strcmp(GetName().c_str(), "label_ResourceWindow_TotalVillager_n") == 0)
+		SetText(std::to_string(app->resources->GetTotalVillagers()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "label_ResourceWindow_UnployedVillager_n") == 0)
+		SetText(std::to_string(app->resources->GetVillagers()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "label_ResourceWindow_Miners_n") == 0)
+		SetText(std::to_string(app->resources->GetMiners()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "label_ResourceWindow_Farmers_n") == 0)
+		SetText(std::to_string(app->resources->GetFarmers()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "label_ResourceWindow_Lumberjacks_n") == 0)
+		SetText(std::to_string(app->resources->GetLumberjacks()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "label_ResourceWindow_Repairmen_n") == 0)
+		SetText(std::to_string(app->resources->GetConstructors()).c_str(), SMALL);
 
 }
 

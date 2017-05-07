@@ -150,7 +150,7 @@ void Building::BuyUnit()
 		}
 		else
 		{					
-			if (app->resources->GetTotalVillagers() <= MAX_VILLAGERS) {
+			if (app->resources->GetTotalVillagers() < MAX_VILLAGERS) {
 				app->resources->AddVillager();
 				app->audio->PlayFx(app->entityManager->fxCreateVillager);
 			}

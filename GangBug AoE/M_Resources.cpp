@@ -18,15 +18,15 @@ bool M_Resources::Start()
 	LOG("Resources: Start.");
 	bool ret = true;
 
-	food = 2000;
-	wood = 2000;
-	gold = 2000;
+	food = 1000;
+	wood = 1000;
+	gold = 1000;
 
-	miners = 1;
-	lumberjacks = 0;
-	farmers = 0;
-
-	totalVillagers = 1;
+	miners = 5;
+	lumberjacks = 3;
+	farmers = 4;
+	constructors = 0;
+	totalVillagers = 12;
 	unemployedVillagers = 0;
 
 
@@ -128,6 +128,11 @@ void M_Resources::DrawDebug()
 {
 }
 
+uint M_Resources::GetConstructors()
+{
+	return uint(constructors);
+}
+
 uint M_Resources::GetVillagers()
 {
 	return uint(unemployedVillagers);
@@ -151,6 +156,14 @@ uint M_Resources::GetLumberjacks()
 uint M_Resources::GetFarmers()
 {
 	return uint(farmers);
+}
+
+void M_Resources::AddConstructors()
+{
+	if (unemployedVillagers > 0) {
+		unemployedVillagers--;
+		constructors++;
+	}
 }
 
 void M_Resources::AddVillager()
@@ -182,6 +195,14 @@ void M_Resources::AddFarmers()
 	if (unemployedVillagers > 0) {
 		unemployedVillagers--;
 		farmers++;
+	}
+}
+
+void M_Resources::RemoveConstructors()
+{
+	if (constructors > 0) {
+		constructors--;
+		unemployedVillagers++;
 	}
 }
 

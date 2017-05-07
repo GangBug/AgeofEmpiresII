@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define UPDATE_TIMER 20
+#define UPDATE_TIMER 5
 #define MAX_RESOURCES 2000
 
 #define FOOD_AMOUNT 10
@@ -55,22 +55,26 @@ private:
 	uint lumberjacks;
 	uint farmers;
 
+	uint constructors;
+
 	uint totalVillagers;
 	uint unemployedVillagers;
 
 public:
+	uint GetConstructors();
 	uint GetVillagers();
 	uint GetTotalVillagers();
 	uint GetMiners();
 	uint GetLumberjacks();
 	uint GetFarmers();
 
-
+	void AddConstructors();
 	void AddVillager();
 	void AddMiners();
 	void AddLumberjack();
 	void AddFarmers();
 
+	void RemoveConstructors();
 	void RemoveMiners();
 	void RemoveLumberjacks();
 	void RemoveFarmers();

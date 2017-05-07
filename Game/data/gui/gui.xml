@@ -238,13 +238,7 @@
 			<position x="0" y="0" />
 			<size w="1308" h="45" />
 		</img>
-		<img type="ResourceWindow" name="ResourceWindow" interactive="true" canFocus="true" visible="true">
-			<scenes>
-				<scene name="inGame" />
-			</scenes>
-			<position x="1584" y="72" />
-			<size w="324" h="441" />
-		</img>
+
 		<button type="MenuButton" name="MenuButton" text="" interactive="true" canFocus="true" visible="true">
 			<events />
 			<listeners />
@@ -296,9 +290,9 @@
 			<position x="600" y="0" />
 			<size w="48" h="45" />
 		</img>
-    
-    
-		<label size="0" name="label_gold" text="0000" interactive="true" canFocus="true" visible="true">
+    <!--  ........................................Resources numbers......................................  -->
+    <!--  ............................................................................................  -->
+		<label size="2" name="label_gold" text="0000" interactive="true" canFocus="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
@@ -306,7 +300,7 @@
 			<position x="648" y="0" />
 		</label>
     
-    <label size="0" name="label_food" text="0000" interactive="true" canFocus="true" visible="true">
+    <label size="2" name="label_food" text="0000" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -314,7 +308,7 @@
       <position x="440" y="0" />
     </label>
     
-    <label size="0" name="label_wood" text="0000" interactive="true" canFocus="true" visible="true">
+    <label size="2" name="label_wood" text="0000" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -322,15 +316,221 @@
       <position x="250" y="0" />
     </label>
 
-    <label size="0" name="label_MaxVillager" text="00" interactive="true" canFocus="true" visible="true">
+    <label size="2" name="label_MaxVillager" text="00" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
       <color r="0" g="0" b="255" a="255" />
       <position x="850" y="0" />
     </label>
-    
-		<img type="PopulationLimit" name="PopulationLimit" interactive="true" canFocus="true" visible="true">
+    <!--  ............................................................................................  -->
+    <!--  .....................................Resources window...................................  -->
+    <img type="ResourceWindow" name="ResourceWindow" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1584" y="72" />
+      <size w="324" h="441" />
+    </img>
+    <!---->
+    <label size="2" name="label_ResourceWindow_TotalVillager" text="Total Villagers:      /20" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1600" y="150" />
+    </label>
+
+    <label size="2" name="label_ResourceWindow_TotalVillager_n" text="0" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1775" y="150" />
+    </label>
+    <!---->
+    <label size="2" name="label_ResourceWindow_UnployedVillager" text="Unployed Villagers:" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1600" y="200" />
+    </label>
+
+    <label size="2" name="label_ResourceWindow_UnployedVillager_n" text="0" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1825" y="200" />
+    </label>
+
+    <!-- Miners -->
+    <label size="2" name="label_ResourceWindow_Miners" text="Miners:" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1600" y="250" />
+    </label>
+
+    <label size="2" name="label_ResourceWindow_Miners_n" text="0" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1815" y="250" />
+    </label>
+
+    <button type="PlusButton" name="label_ResourceWindow_Miners_plus" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1850" y="250" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="36" />
+    </button>
+    <button type="MinusButton" name="label_ResourceWindow_Miners_minus" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1760" y="260" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="14" />
+    </button>
+    <!-- Miners -->
+    <!-- Farmers -->
+    <label size="2" name="label_ResourceWindow_Farmers" text="Farmers:" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1600" y="300" />
+    </label>
+
+    <label size="2" name="label_ResourceWindow_Farmers_n" text="0" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1815" y="300" />
+    </label>
+
+    <button type="PlusButton" name="label_ResourceWindow_Farmers_plus" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1850" y="300" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="36" />
+    </button>
+    <button type="MinusButton" name="label_ResourceWindow_Farmers_minus" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1760" y="310" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="14" />
+    </button>
+    <!-- Farmers -->
+    <!-- Lumberjacks -->
+    <label size="2" name="label_ResourceWindow_Lumberjacks" text="Lumberjacks:" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1600" y="350" />
+    </label>
+
+    <label size="2" name="label_ResourceWindow_Lumberjacks_n" text="0" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1815" y="350" />
+    </label>
+
+    <button type="PlusButton" name="label_ResourceWindow_Lumberjacks_plus" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1850" y="350" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="36" />
+    </button>
+    <button type="MinusButton" name="label_ResourceWindow_Lumberjacks_minus" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1760" y="360" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="14" />
+    </button>
+    <!-- Lumberjacks -->
+    <!-- Repairmen -->
+    <label size="2" name="label_ResourceWindow_Repairmen" text="Repairmen:" interactive="false" canFocus="true" visible="true">
+      <scenes>                                                  
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1600" y="400" />
+    </label>
+
+    <label size="2" name="label_ResourceWindow_Repairmen_n" text="0" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="1815" y="400" />
+    </label>
+
+    <button type="PlusButton" name="label_ResourceWindow_Repairmen_plus" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1850" y="400" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="36" />
+    </button>
+    <button type="MinusButton" name="label_ResourceWindow_Repairmen_minus" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="1760" y="410" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="14" />
+    </button>
+    <!-- Repairmen -->
+
+
+    <!--  ............................................................................................  -->
+    <!--  ............................................................................................  -->
+
+
+
+
+
+
+
+
+
+    <img type="PopulationLimit" name="PopulationLimit" interactive="true" canFocus="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
