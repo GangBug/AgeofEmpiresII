@@ -193,6 +193,18 @@ void S_InGame::DrawDebug()
 	}
 }
 
+void S_InGame::GuiEvent(GUIElement* element, int64_t event)
+{
+	if (event & MOUSE_LCLICK_UP)
+		if (event & OPEN_MENU)
+		{
+			OpenMenu(!menuOpen);
+			menuOpen = !menuOpen;
+		}
+			
+
+}
+
 void S_InGame::GoToMenu()
 {
 	active = false;
@@ -201,6 +213,28 @@ void S_InGame::GoToMenu()
 	app->dialogueManager->Disable();
 	app->gui->SetActiveScene("menu");
 }
+
+void S_InGame::OpenMenu(bool visible)
+{
+	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetVisible(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetVisible(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Load")->SetVisible(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Save")->SetVisible(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Options")->SetVisible(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Start")->SetVisible(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetVisible(visible);
+
+	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetInteractive(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetInteractive(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Load")->SetInteractive(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Save")->SetInteractive(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Options")->SetInteractive(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Start")->SetInteractive(visible);
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetInteractive(visible);
+
+
+}
+
 
 void S_InGame::SetGUI()
 {

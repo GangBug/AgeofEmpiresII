@@ -30,8 +30,11 @@ public:
 	//void GuiEvent(GUIElement* element, int64_t event) override;
 	void DrawDebug() override;
 
+	void GuiEvent(GUIElement* element, int64_t event) override;
+
 	void GoToMenu();
 
+	void OpenMenu(bool visible);
 	void SetGUI();
 
 public:
@@ -39,5 +42,6 @@ public:
 	iPoint origin;
 	iPoint destiny;
 
+	bool menuOpen = false;
 };
 

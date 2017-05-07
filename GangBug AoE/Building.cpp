@@ -89,6 +89,7 @@ void Building::OnUpdate(float dt)
 		{
 			selected = true;
 			creatorButton->SetVisible(true);
+			creatorButton->SetInteractive(true);
 
 			if (buildType == BUILD_ARCHERY)
 			{
@@ -107,8 +108,9 @@ void Building::OnUpdate(float dt)
 				app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
 			}	
 		}
-
-		else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && !GetEnclosingBox().Contains(mPos.x, mPos.y))
+		else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP 
+				 && !GetEnclosingBox().Contains(mPos.x, mPos.y) 
+				 && creatorButton->GetInteractive())
 		{
 			app->input->GetMouseScreenPosition(mPos.x, mPos.y);
 			if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
@@ -120,6 +122,7 @@ void Building::OnUpdate(float dt)
 			{
 				selected = false;
 				creatorButton->SetVisible(false);
+				creatorButton->SetInteractive(false);
 			}
 		}
 	}

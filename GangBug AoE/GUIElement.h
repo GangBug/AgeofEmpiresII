@@ -44,7 +44,8 @@ enum gui_events
 	//					  for now this is okay
 
 	CLOSE_APP = (1 << 15),
-	START_GAME = (1 << 16)
+	START_GAME = (1 << 16),
+	OPEN_MENU = (1 << 17)
 
 };
 

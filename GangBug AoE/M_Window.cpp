@@ -3,6 +3,7 @@
 #include "M_Window.h"
 
 #include "SDL/include/SDL.h"
+#include "GUIElement.h"
 
 
 M_Window::M_Window(bool startEnabled) : Module(startEnabled)
@@ -124,4 +125,11 @@ uint M_Window::GetScale() const
 
 void M_Window::DrawDebug()
 {
+}
+
+void M_Window::GuiEvent(GUIElement* element, int64_t event)
+{
+	if (event & MOUSE_LCLICK_UP)
+		if (event & CLOSE_APP)
+			app->quit = true;
 }
