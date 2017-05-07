@@ -21,9 +21,10 @@ public:
 	//// Called before quitting
 	bool CleanUp() override;
 	//bool Load(pugi::xml_node&) override;
-//	bool Save(pugi::xml_node&) const override;
+	//bool Save(pugi::xml_node&) const override;
 
-//	void GuiEvent(GUIElement* element, int64_t event) override;
+	//void GuiEvent(GUIElement* element, int64_t event) override;
+
 	void DrawDebug() override;
 
 	void GoToIngame();

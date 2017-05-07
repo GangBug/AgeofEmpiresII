@@ -3,7 +3,8 @@
 #include "M_DialogueManager.h"
 #include "j1Timer.h"
 #include "Log.h"
-
+#include "M_Audio.h"
+#include "M_GUI.h"
 M_Resources::M_Resources(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("resources");
@@ -238,35 +239,43 @@ void M_Resources::GuiEvent(GUIElement * element, int64_t event)
 	{
 		if (event & ADD_MINER)
 		{
+			app->audio->PlayFx(app->gui->fxSelect);
 			AddMiners();
 		}
 		if (event & ADD_CONSTRUCTOR)
 		{
+			app->audio->PlayFx(app->gui->fxSelect);
 			AddConstructors();
 		}
 		if (event & ADD_LUMBERJACK)
 		{
+			app->audio->PlayFx(app->gui->fxSelect);
 			AddLumberjack();
 		}
 		if (event & ADD_FARMER)
 		{
+			app->audio->PlayFx(app->gui->fxSelect);
 			AddFarmers();
 		}
 
 		if (event & REMOVE_MINER)
 		{
+			app->audio->PlayFx(app->gui->fxSelect);
 			RemoveMiners();
 		}
 		if (event & REMOVE_CONSTRUCTOR)
 		{
+			app->audio->PlayFx(app->gui->fxSelect);
 			RemoveConstructors();
 		}
 		if (event & REMOVE_LUMBERJACK)
 		{
+			app->audio->PlayFx(app->gui->fxSelect);
 			RemoveLumberjacks();
 		}
 		if (event & REMOVE_FARMER)
 		{
+			app->audio->PlayFx(app->gui->fxSelect);
 			RemoveFarmers();
 		}
 	

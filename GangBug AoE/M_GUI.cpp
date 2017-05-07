@@ -51,7 +51,7 @@ bool M_GUI::Start()
 	atlas = app->tex->Load(atlasPath.c_str());
 	//This goes the first
 	ret = LoadLayout();
-	
+	LoadUIFx();
 	////Debug UI
 #pragma region ViewPort Debug UI
 
@@ -987,11 +987,10 @@ GB_Rectangle<float> M_GUI::ScreenToXml(GB_Rectangle<int> screenRect)
 
 void M_GUI::LoadUIFx()
 {
-
 	fxHover = app->audio->LoadFx("audio/fx/Menu_Hover.wav");
-	fxHover = app->audio->LoadFx("audio/fx/Menu_Select.wav");
-	fxHover = app->audio->LoadFx("audio/fx/Select_1.wav");
-	fxHover = app->audio->LoadFx("audio/fx/Select_2.wav");
+	fxSelect = app->audio->LoadFx("audio/fx/Menu_Select.wav");
+	fxSelect01 = app->audio->LoadFx("audio/fx/Select_1.wav");
+	fxSelect02 = app->audio->LoadFx("audio/fx/Select_2.wav");
 }
 
 
