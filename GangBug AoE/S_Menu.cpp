@@ -7,7 +7,7 @@
 S_Menu::S_Menu(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("menu");
-	active = false;
+	active = true;
 }
 
 

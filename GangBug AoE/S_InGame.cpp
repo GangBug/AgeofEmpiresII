@@ -13,7 +13,7 @@
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("inGame");
-	active = true;
+	active = false;
 }
 
 
