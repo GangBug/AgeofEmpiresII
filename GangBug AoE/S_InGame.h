@@ -35,6 +35,7 @@ public:
 	void GoToMenu();
 
 	void OpenMenu(bool visible);
+	void OpenResources(bool visible);
 	void SetGUI();
 
 public:
