@@ -48,7 +48,19 @@ Secret's QA departament:
 
 #CONTROLS
 
-All controls will be pushed up on the first version.
+* Directional arrows to move map camera.
+* Hold click and drag to select units.
+* Right click to move.
+* Click the buldings to create units
+* Click the corners top buttons to open/close the menus
+* Click plus or minus in resources window to asigns the villagers to the diferent tasks
+
+Debug:
+
+* Press F9 to move to the game scene.
+* Press F10 to return to the intro scene.
+* Press 3 to create a new archer unit.
+
 
 ## VERSION UPDATES
 
@@ -56,8 +68,9 @@ V0.4 - Monday 8th of May, 2017
 
 Adds:
 * Resources Food & wood
+* The resources increases with the villagers assigned
 * New Map
-* Map improvement
+* New objects
 * UI Ingame improved
 * Big bugs fixes
 * masive stabilization 
@@ -104,7 +117,7 @@ V0.0 Production Docs & Pitch Presentation - [Monday 9-March-2017]
 
 ## MAIN VERSIONS INCOMING
 
-* Vertical Slide V-0.3 - wednesday 5-April-2017] 
+* Vertical Slide V-0.3 - [wednesday 5-April-2017] 
 * Pre-Alpha V-0.4 - [Monday 24-April-2017] 
 * Alpha.V-0.5 - [Sunday 14-May-2017] 
 * Beta.V-0.7 - [Friday 19-May-2017] 
