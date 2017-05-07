@@ -28,8 +28,8 @@ bool S_InGame::Awake(pugi::xml_node & config)
 
 bool S_InGame::Start()
 {
-
-	if (active) {
+	if (active) 
+	{
 
 	app->pathfinding->Enable();
 	app->entityManager->LoadObjects();
@@ -38,20 +38,18 @@ bool S_InGame::Start()
 	app->dialogueManager->Enable();
 	app->dialogueManager->Start();
 	
-
-
 	//audio
 	//app->audio->PlayTheme(app->audio->thirdMission);
 
-	app->entityManager->CreateBuilding(BUILD_STABLES, nullptr, 500, 500);
-	app->entityManager->CreateBuilding(BUILD_ARCHERY, nullptr, 700, 700);
-	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, 300, 300);
+	app->entityManager->CreateBuilding(BUILD_STABLES, nullptr, -2115, 1850);
+	app->entityManager->CreateBuilding(BUILD_ARCHERY, nullptr, -1385, 2170);
+	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, -2370, 1925);
 	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, 1000, 1000);
 
+	app->render->camera->SetCenter({ -2300, 2200 });
 
 	if (app->map->Load("Map.tmx") == true)
-	{
-		
+	{	
 		int w, h;
 		uchar* data = NULL;
 		if (app->map->CreateWalkabilityMap(w, h, &data))
@@ -95,8 +93,8 @@ update_status S_InGame::PreUpdate(float dt)
 		{
 			int x, y;
 			app->input->GetMouseMapPosition(x, y);
-			app->entityManager->CreateUnit(ARCHER, nullptr, x, y);
-			app->audio->PlayFx(app->entityManager->fxCreateUnit);
+			iPoint campos = { x, y };
+			app->render->camera->SetCenter(campos);
 		}
 		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 		{
@@ -117,6 +115,7 @@ update_status S_InGame::PreUpdate(float dt)
 		{
 			return UPDATE_STOP;
 		}
+
 
 
 		//What is this: A tool to debug pathfinding

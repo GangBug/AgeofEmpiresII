@@ -55,7 +55,7 @@ GUILabel::~GUILabel()
 
 void GUILabel::SetText(const char* text, label_size _size)
 {
-	//This may be the cause that crashes the game whenever you close it.
+	//FIX: This may be the cause that crashes the game whenever you close it.
 	if (text != this->text)
 	{
 		if (texture != nullptr)

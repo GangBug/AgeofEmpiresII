@@ -149,15 +149,16 @@ void Building::BuyUnit()
 			fPoint pos = GetGlobalPosition();
 			app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
 			app->audio->PlayFx(app->entityManager->fxCreateUnit);
-				
 		}
 		else
 		{					
-			if (app->resources->GetTotalVillagers() < MAX_VILLAGERS) {
+			if (app->resources->GetTotalVillagers() < MAX_VILLAGERS)
+			{
 				app->resources->AddVillager();
 				app->audio->PlayFx(app->entityManager->fxCreateVillager);
 			}
-			else {
+			else
+			{
 				app->audio->PlayFx(app->entityManager->fxLimitVillager);
 
 			}
@@ -165,9 +166,7 @@ void Building::BuyUnit()
 		app->resources->SubstractGold(unitGoldCost);
 		app->resources->SubstractFood(unitFoodCost);
 		app->resources->SubstractWood(unitWoodCost);
-
 	}
-
 }
 
 int Building::GetHP() const

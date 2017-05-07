@@ -7,7 +7,7 @@
   <image source="MapStructures.png" width="1800" height="618"/>
  </tileset>
  <tileset firstgid="297" name="meta" tilewidth="96" tileheight="48" tilecount="2" columns="2">
-  <image source="meta.png" width="192" height="48"/>
+  <image source="meta2.png" width="192" height="48"/>
  </tileset>
  <layer name="terrain" width="90" height="90">
   <properties>
@@ -21558,14 +21558,10 @@
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>
@@ -21577,6 +21573,10 @@
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="298"/>
@@ -21648,14 +21648,10 @@
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>
@@ -21667,6 +21663,10 @@
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="298"/>
@@ -21737,15 +21737,11 @@
    <tile gid="297"/>
    <tile gid="298"/>
    <tile gid="298"/>
-   <tile gid="297"/>
    <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>
@@ -21757,6 +21753,10 @@
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="298"/>
@@ -22007,10 +22007,10 @@
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="298"/>
-   <tile gid="297"/>
    <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>
@@ -22097,10 +22097,10 @@
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="298"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
    <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>
@@ -22187,10 +22187,10 @@
    <tile gid="298"/>
    <tile gid="298"/>
    <tile gid="298"/>
-   <tile gid="297"/>
    <tile gid="297"/>
-   <tile gid="297"/>
-   <tile gid="297"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
+   <tile gid="298"/>
    <tile gid="297"/>
    <tile gid="297"/>
    <tile gid="297"/>

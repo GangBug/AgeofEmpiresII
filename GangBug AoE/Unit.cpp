@@ -267,8 +267,8 @@ void Unit::Die()
 		Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
 		anim->Reset();
 	}
-
-	else if (this->GetType() == ENTITY_UNIT && app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DIE)
+	//FIX: This deletes the building associated with the dying unit
+	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DIE)
 	{
 		this->action = DISAPPEAR; //CURRENTLY NOT WORKING 
 		Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);

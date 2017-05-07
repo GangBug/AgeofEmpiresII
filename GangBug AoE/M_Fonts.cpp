@@ -92,7 +92,7 @@ SDL_Texture* M_Fonts::Print(const char* text, _TTF_Font* font, SDL_Color color)
 	}
 	else
 	{
-		//This crashes the game whenever you close it. It's constantly loading new textures even when the text doesn't change.
+		//FIX: This crashes the game whenever you close it. It's constantly loading new textures even when the text doesn't change.
 		ret = app->tex->LoadSurface(surface);
 		SDL_FreeSurface(surface);
 	}
