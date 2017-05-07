@@ -45,8 +45,17 @@ enum gui_events
 
 	CLOSE_APP = (1 << 15),
 	START_GAME = (1 << 16),
-	OPEN_MENU = (1 << 17)
-
+	ADD_MINER = (1 << 17),
+	ADD_CONSTRUCTOR = (1 << 18),
+	ADD_LUMBERJACK = (1 << 19),
+	ADD_FARMER = (1 << 20),
+	REMOVE_MINER = (1 << 21),
+	REMOVE_CONSTRUCTOR = (1 << 22),
+	REMOVE_LUMBERJACK = (1 << 23),
+	REMOVE_FARMER = (1 << 24),
+	OPEN_MENU = (1 << 25)
+	
+	//TODO
 };
 
 struct ElementStatus

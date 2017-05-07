@@ -181,13 +181,13 @@
 	<layout>
 		<button type="buttonPlay" name="start" text="" interactive="true" canFocus="true" visible="true">
       <events>
-        <event action="65536" origin="16"/>
+        <event action="65536" origin="16"/> <!--modulo-->
       </events>
 			<listeners>
-				<listener name="menu" />
-			</listeners>
+				<listener name="menu" /><!--modulo-->
+      </listeners>
 			<scenes>
-				<scene name="menu" />
+				<scene name="menu" /> 
 			</scenes>
 			<position x="96" y="597" />
 			<textColor r="0" g="0" b="0" a="0" />
@@ -245,7 +245,7 @@
 
 		<button type="MenuButton" name="MenuButton" text="" interactive="true" canFocus="true" visible="true">
 		  <events>
-		    <event action="131072" origin="16" />
+		    <event action="33554432" origin="16" />
 		  </events>
 		  <listeners>
 		    <event name="inGame" />
@@ -298,9 +298,11 @@
 			<position x="600" y="0" />
 			<size w="48" h="45" />
 		</img>
+    
     <!--  ........................................Resources numbers......................................  -->
     <!--  ............................................................................................  -->
-		<label size="2" name="label_gold" text="0000" interactive="true" canFocus="true" visible="true">
+		
+    <label size="2" name="label_gold" text="0000" interactive="true" canFocus="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
@@ -391,8 +393,12 @@
     </label>
 
     <button type="PlusButton" name="label_ResourceWindow_Miners_plus" text="" interactive="true" canFocus="true" visible="true">
-      <events />
-      <listeners />
+      <events>
+        <event action="131072" origin="16"/>
+       </events>
+      <listeners>
+        <listener name="resources" />
+      </listeners>
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -401,8 +407,12 @@
       <size w="36" h="36" />
     </button>
     <button type="MinusButton" name="label_ResourceWindow_Miners_minus" text="" interactive="true" canFocus="true" visible="true">
-      <events />
-      <listeners />
+      <events>
+        <event action="2097152" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="resources" />
+      </listeners>
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -429,8 +439,12 @@
     </label>
 
     <button type="PlusButton" name="label_ResourceWindow_Farmers_plus" text="" interactive="true" canFocus="true" visible="true">
-      <events />
-      <listeners />
+      <events>
+        <event action="1048576" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="resources" />
+      </listeners>
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -439,8 +453,12 @@
       <size w="36" h="36" />
     </button>
     <button type="MinusButton" name="label_ResourceWindow_Farmers_minus" text="" interactive="true" canFocus="true" visible="true">
-      <events />
-      <listeners />
+      <events>
+        <event action="16777216" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="resources" />
+      </listeners>
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -467,8 +485,12 @@
     </label>
 
     <button type="PlusButton" name="label_ResourceWindow_Lumberjacks_plus" text="" interactive="true" canFocus="true" visible="true">
-      <events />
-      <listeners />
+      <events>
+        <event action="524288" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="resources" />
+      </listeners>
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -477,8 +499,12 @@
       <size w="36" h="36" />
     </button>
     <button type="MinusButton" name="label_ResourceWindow_Lumberjacks_minus" text="" interactive="true" canFocus="true" visible="true">
-      <events />
-      <listeners />
+      <events>
+        <event action="8388608" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="resources" />
+      </listeners>
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -505,8 +531,12 @@
     </label>
 
     <button type="PlusButton" name="label_ResourceWindow_Repairmen_plus" text="" interactive="true" canFocus="true" visible="true">
-      <events />
-      <listeners />
+      <events>
+        <event action="262144" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="resources" />
+      </listeners>
       <scenes>
         <scene name="inGame" />
       </scenes>
@@ -515,8 +545,12 @@
       <size w="36" h="36" />
     </button>
     <button type="MinusButton" name="label_ResourceWindow_Repairmen_minus" text="" interactive="true" canFocus="true" visible="true">
-      <events />
-      <listeners />
+      <events>
+        <event action="4194304" origin="16"/>
+      </events>
+      <listeners>
+        <listener name="resources" />
+      </listeners>
       <scenes>
         <scene name="inGame" />
       </scenes>

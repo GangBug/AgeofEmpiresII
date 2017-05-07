@@ -1015,10 +1015,10 @@ void ObjectTexture::SetType(pugi::xml_node node)
 		type = BANNERB;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "house") == 0) {
-		type = HOUSE;
+		type = HOUSE1;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "townhall") == 0) {
-		type = TOWNHALL;
+		type = HALL;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "house2") == 0) {
 		type = HOUSE2;
@@ -1027,34 +1027,34 @@ void ObjectTexture::SetType(pugi::xml_node node)
 		type = CHARRIOT;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "skeletons") == 0) {
-		type = SKELETONS;
+		type = SKELETONS1;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "skullpile") == 0) {
-		type = SKULL_PILE;
+		type = SKULLPILE;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "stones1") == 0) {
-		type = STONES1;
+		type = STONE1;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "stones2") == 0) {
-		type = STONES2;
+		type = STONE2;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "stones3") == 0) {
-		type = STONES3;
+		type = STONE3;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "stones4") == 0) {
-		type = STONES4;
+		type = STONE4;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "stones5") == 0) {
-		type = STONES5;
+		type = STONE5;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "stones6") == 0) {
-		type = STONES6;
+		type = STONE6;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "trash1") == 0) {
-		type = TRASH1;
+		type = TRASHLARGUE1;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "trash2") == 0) {
-		type = TRASH2;
+		type = TRASHLARGUE2;
 	}
 	else if (strcmp(node.attribute("n").as_string(), "trees1") == 0) {
 		type = TREES1;

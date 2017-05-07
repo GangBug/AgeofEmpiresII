@@ -268,7 +268,7 @@ void Unit::Die()
 		anim->Reset();
 	}
 
-	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DIE)
+	else if (this->GetType() == ENTITY_UNIT && app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DIE)
 	{
 		this->action = DISAPPEAR; //CURRENTLY NOT WORKING 
 		Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
