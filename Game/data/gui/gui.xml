@@ -245,7 +245,7 @@
 
 		<button type="MenuButton" name="MenuButton" text="" interactive="true" canFocus="true" visible="true">
 		  <events>
-		    <event action="33554432" origin="16" />
+		    <event action="67108864" origin="16" />
 		  </events>
 		  <listeners>
 		    <event name="inGame" />
@@ -650,8 +650,12 @@
 			<size w="36" h="36" />
 		</button>
 		<button type="OptionsButton" name="OptionsButton" text="" interactive="true" canFocus="true" visible="true">
-			<events />
-			<listeners />
+		  <events>
+		    <event action="33554432" origin="16" />
+		  </events>
+		  <listeners>
+		    <event name="inGame" />
+		  </listeners>
 			<scenes>
 				<scene name="inGame" />
 			</scenes>

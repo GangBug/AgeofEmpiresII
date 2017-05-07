@@ -192,12 +192,20 @@ void S_InGame::DrawDebug()
 void S_InGame::GuiEvent(GUIElement* element, int64_t event)
 {
 	if (event & MOUSE_LCLICK_UP)
+	{
 		if (event & OPEN_MENU)
 		{
 			OpenMenu(!menuOpen);
 			menuOpen = !menuOpen;
+			app->audio->PlayFx(app->gui->fxSelect);
 		}
-			
+		if (event & OPEN_RESOURCE_MANAGER)
+		{
+			OpenResources(!resourceManager);
+			resourceManager = !resourceManager;
+			app->audio->PlayFx(app->gui->fxSelect);
+		}
+	}
 
 }
 
@@ -303,27 +311,27 @@ void S_InGame::SetGUI()
 
 	//----resource window
 	
-	//app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager_n")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_UnployedVillager")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_UnployedVillager_n")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_n")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_plus")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_minus")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_n")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_plus")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_minus")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_n")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_plus")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_minus")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetVisible(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager_n")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_UnployedVillager")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_UnployedVillager_n")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_n")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_plus")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_minus")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_n")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_plus")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_minus")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_n")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_plus")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_minus")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetVisible(false);
 
 	//----
 	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetInteractive(false);
@@ -343,27 +351,27 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton")->SetInteractive(false);
 
 	//----resource window
-	//app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager_n")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_UnployedVillager")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_UnployedVillager_n")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_n")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_plus")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_minus")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_n")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_plus")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_minus")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_n")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_plus")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_minus")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetInteractive(false);
-	//app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager_n")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_UnployedVillager")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_UnployedVillager_n")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_n")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_plus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Miners_minus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_n")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_plus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_minus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_n")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_plus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_minus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(false);
 
 	// RepairButton - PlusButton - MinusButton
 	

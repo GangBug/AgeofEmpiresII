@@ -53,7 +53,8 @@ enum gui_events
 	REMOVE_CONSTRUCTOR = (1 << 22),
 	REMOVE_LUMBERJACK = (1 << 23),
 	REMOVE_FARMER = (1 << 24),
-	OPEN_MENU = (1 << 25)
+	OPEN_MENU = (1 << 25),
+	OPEN_RESOURCE_MANAGER = (1 << 26)
 	
 	//TODO
 };

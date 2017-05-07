@@ -90,24 +90,24 @@ bool M_GUI::Start()
 
 #pragma endregion
 	
-	GUILabel* l_ms = CreateLabel({ 30,0,30,30 }, MEDIUM, "ms", "ms");
-	GUILabel* l_fps = CreateLabel({ 30,30,30,30 }, MEDIUM, "fps", "fps");
-	l_ms->SetVisible(true);
-	l_ms->SetColor({ 255,255,0,255 });
-	l_fps->SetVisible(true);
-	l_fps->SetColor({ 255,255,0,255 });
-	debugGuiList.push_back(l_ms);
-	debugGuiList.push_back(l_fps);
+	//GUILabel* l_ms = CreateLabel({ 30,0,30,30 }, MEDIUM, "ms", "ms");
+	//GUILabel* l_fps = CreateLabel({ 30,30,30,30 }, MEDIUM, "fps", "fps");
+	//l_ms->SetVisible(true);
+	//l_ms->SetColor({ 255,255,0,255 });
+	//l_fps->SetVisible(true);
+	//l_fps->SetColor({ 255,255,0,255 });
+	//debugGuiList.push_back(l_ms);
+	//debugGuiList.push_back(l_fps);
 
-	lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms, "ms");
-	fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update, "fps");
+	//lastFrameMS = new GUIAutoLabel<uint32>({ 0,0,30,30 }, &app->last_frame_ms, "ms");
+	//fps = new GUIAutoLabel<uint32>({ 0,30,30,30 }, &app->frames_on_last_update, "fps");
 
-	lastFrameMS->SetVisible(true);
-	fps->SetVisible(true);
-	lastFrameMS->SetColor({ 255,255,0,255 });
-	fps->SetColor({ 255,255,0,255 });
-	debugGuiList.push_back(lastFrameMS);
-	debugGuiList.push_back(fps);
+	//lastFrameMS->SetVisible(true);
+	//fps->SetVisible(true);
+	//lastFrameMS->SetColor({ 255,255,0,255 });
+	//fps->SetColor({ 255,255,0,255 });
+	//debugGuiList.push_back(lastFrameMS);
+	//debugGuiList.push_back(fps);
 
 	xMouse = new GUILabel("", SMALL, "mousex");
 	yMouse = new GUILabel("", SMALL, "mousey");

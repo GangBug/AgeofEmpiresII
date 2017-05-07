@@ -45,5 +45,6 @@ public:
 	iPoint enemyDestination;
 
 	bool menuOpen = false;
+	bool resourceManager = false;
 };
 

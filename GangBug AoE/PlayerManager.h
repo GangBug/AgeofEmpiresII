@@ -23,6 +23,8 @@ public:
 
 	void DrawDebug()override;
 
+	bool GetOnSelection() const { return onSelection; }
+
 private:
 
 
