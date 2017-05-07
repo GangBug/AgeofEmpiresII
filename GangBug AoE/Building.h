@@ -37,7 +37,9 @@ public:
 	enum building_type buildType;
 	enum unit_type unitType;
 
-	int unitCost;
+	int unitGoldCost;
+	int unitWoodCost;
+	int unitFoodCost;
 	int HP;
 	
 private:

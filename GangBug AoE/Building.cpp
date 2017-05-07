@@ -20,21 +20,34 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 	{
 	case BUILD_ARCHERY:
 		unitType = unit_type::ARCHER;
-		unitCost = 60;
+
+		unitGoldCost = 45;
+		unitWoodCost = 25;
+		unitFoodCost = 0;
+		
 		entityTexture = app->tex->archeryTexture;
 		SetEnclosingBoxSize(320, 293);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "ArcherCreatorButton");
 		break;
 	case BUILD_STABLES:
 		unitType = unit_type::TARKAN_KNIGHT;
-		unitCost = 70;
+		
+		unitGoldCost = 75;
+		unitWoodCost = 0;
+		unitFoodCost = 60;
+	
 		entityTexture = app->tex->stableTexture;
 		SetEnclosingBoxSize(323, 226);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton");
 		break;
+
 	case BUILD_BARRACK:
 		unitType = SAMURAI;
-		unitCost = 50;
+				
+		unitGoldCost = 30;
+		unitWoodCost = 0;
+		unitFoodCost = 60;
+		
 		entityTexture = app->tex->barracksTexture;
 		SetEnclosingBoxSize(310, 266);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton");
@@ -42,7 +55,11 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 
 	case 	BUILD_TOWNCENTER:
 		unitType = VILLAGER;
-		unitCost = 90;
+
+		unitGoldCost = 0;
+		unitWoodCost = 0;
+		unitFoodCost = 50;
+
 		entityTexture = app->tex->townCenterTexture;
 		SetEnclosingBoxSize(382, 399);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton");
@@ -117,18 +134,21 @@ bool Building::OnLoad(pugi::xml_node * node)
 
 void Building::BuyUnit()
 {
+
 	//If theres money create a unit
-	if (app->resources->GetCurrentGold() > unitCost)
+	if(app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost)
 	{
+
 		fPoint pos = GetGlobalPosition();
-
 		app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
-
 		app->audio->PlayFx(app->entityManager->fxCreateUnit);
 
-		app->resources->SubstractGold(unitCost);
+		app->resources->SubstractGold(unitGoldCost);
+		app->resources->SubstractFood(unitFoodCost);
+		app->resources->SubstractWood(unitWoodCost);
 
 	}
+
 }
 
 int Building::GetHP() const
