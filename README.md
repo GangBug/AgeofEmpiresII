@@ -1,42 +1,47 @@
-# Age of Empires II: JIGOKU DO 
-
-[[https://github.com/GangBug/AgeofEmpiresII/blob/Wiki/I_wall.png]]
+﻿# Age of Empires II: JIGOKU DO 
 
 ## GANGBUG 
 
 Gangbug develops a new and exciting campaign for the nostalgic of the age of empires, in it you
 will be able to face demons by retracing the old Japanese empire from your pc.
-
 		
 Do You want to follow us in our development? Follow us on:		
 		
-* [**Public Trello**](https://github.com/GangBug)  		
-* [**Github GangBug Organization**](https://github.com/GangBug)        		
-* [**Github GangBug Age of Empires II repository**](https://github.com/GangBug/AgeofEmpiresII) 		
-* [**Github GangBug Releases**](https://github.com/GangBug/AgeofEmpiresII/releases)  		
+* Public Trello (https://github.com/GangBug)  	
+	
+* Github GangBug Organization (https://github.com/GangBug)        	
+	
+* Github GangBug Age of Empires II repository (https://github.com/GangBug/AgeofEmpiresII) 
+		
+* Github GangBug Releases (https://github.com/GangBug/AgeofEmpiresII/releases)  
+
+* Github GangBug Wiki (https://github.com/GangBug/AgeofEmpiresII/wiki)		
 		
 Social media:		
-* [**Twitter**](https://twitter.com/GangBug_Games)  		
-* [**Facebook Page**](https://www.facebook.com/GangBug-1894673044100910/?fref=ts)  		
-* [**Youtube Channel**](https://www.youtube.com/channel/UCVvhq5AMl1nNhEfPfvPxkTg)  		
+* Twitter (https://twitter.com/GangBug_Games)  	
+	
+* Facebook Page (https://www.facebook.com/GangBug-1894673044100910/?fref=ts)  	
+	
+* Youtube Channel (https://www.youtube.com/channel/UCVvhq5AMl1nNhEfPfvPxkTg)
+
+* Instagram (https://www.instagram.com/gangbuggames/)  		
 		
 Do You want to help us in our development? Now you can help us making issues for the Victorious
 Secret's QA departament: 		
 		
-* [**Github GangBug Issues**](https://github.com/GangBug/AgeofEmpiresII/issues) 		
-		
-https://github.com/GangBug
-https://github.com/GangBug/AgeofEmpiresII/wiki
+* Github GangBug Issues (https://github.com/GangBug/AgeofEmpiresII/issues) 		
+
+
 
 ## THE TEAM
 
 | Role        | Name           | Other Fields |
 |:-----------:|:--------------:|:--------------:|
 | Team Leader | Esteban marín  |Design, Art, QA| 
-| Producer  | Carlos Peralta   |Social Media, Code, QA|
-| Code        | Adrian Castillo|QA|
+| Producer  | Carlos Peralta   |Social Media, Code, QA,UI|
+| Code        | Adrian Castillo|QA,UI|
 | Design      | Marc Lopez     |Code, QA|
-| Art/Audio   | Dani Triviño   |Design,Code, QA|
+| Art/Audio   | Dani Triviño   |Design, QA|
 | UI          | Aleix Cardona  |Code, QA|
 | QA          | Josep Casanovas|Code| 
 
@@ -47,13 +52,60 @@ All controls will be pushed up on the first version.
 
 ## VERSION UPDATES
 
+V0.4 - Monday 8th of May, 2017
+
+Adds:
+* Resources Food & wood
+* New Map
+* Map improvement
+* UI Ingame improved
+* Big bugs fixes
+* masive stabilization 
+
+V0.3 - Wednesday 5th of April, 2017
+
+Adds:
+* Boss
+* Boss special hability
+* Resources (gold)
+* Victory & condition
+* Map improvement
+* New music implemented
+
+V0.2 - Sunday 5nd of April, 2017
+
+Adds:
+* Intro & Scene UI
+* Buttons events
+* 3 diferent buldings where units are created
+* To create units the buldings must be selected
+* Added Samurais, Tarkan
+* Archer Animation improved
+* Move the camera with the mouse
+* Bugs Fixes
+
+V0.1.5 - Thursday 31st of March, 2017
+
+Adds:
+* Intro and main scene.
+* Audio engine, with some themes for the intro and the third level.
+* Camera culling and zoom in and out.
+* Our first building, the archery, where you can create new archers.
+
+V0.1 Pre-Vertical Slide - Thursday 23d of March, 2017
+
+Adds:
+* New troops: archer, cavalry archer, two-handed swordman.
+* Group movement.
+* First provisional map.
+* Basic AI, you can attack enemies when they get inside your range.
+
 V0.0 Production Docs & Pitch Presentation - [Monday 9-March-2017]
 
-## VERSIONS IN COMMING
+## MAIN VERSIONS INCOMING
 
-* Vertical Slide V-0.2 - [Friday 7-April-2017] 
-* Pre-Alpha V-0.3 - [Monday 24-April-2017] 
-* Alpha.V-0.5 - [Monday 8-May-2017] 
+* Vertical Slide V-0.3 - wednesday 5-April-2017] 
+* Pre-Alpha V-0.4 - [Monday 24-April-2017] 
+* Alpha.V-0.5 - [Sunday 14-May-2017] 
 * Beta.V-0.7 - [Friday 19-May-2017] 
 * Gold V-1.0 -[Monday 29-May-2017]
-
