@@ -11,6 +11,7 @@
 #include "S_InGame.h"
 #include "M_FogOfWar.h"
 #include "M_DialogueManager.h"
+#include "PlayerManager.h"
 //TEMP
 #include "M_Textures.h"
 #include <algorithm>
@@ -476,7 +477,11 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 		if (tmp != nullptr)
 		{
 			SDL_Texture* texture = tmp->GetTexture();
-
+			if (tmp->type == ENTITY_PLAYER_MAN)
+			{
+				PlayerManager* tmpPlayer = dynamic_cast<PlayerManager*>(tmp);
+				DrawQuad(tmpPlayer->selectionRect.GetSDLrect(), 255, 255, 255, 255, false);
+			}
 			if (texture != nullptr)
 			{
 				//Check if they're not in the fog. This should be changed in the future depending on the entity type.

@@ -97,9 +97,6 @@ void PlayerManager::OnUpdate(float dt)
 			}
 			onSelection = false;
 		}
-
-		//Draw the selection quad. TODO: Might change this in the future as is using debug quad
-		app->render->DrawQuad(selectionRect.GetSDLrect(), 255, 255, 255, 255, false);
 	}
 	/*else
 	{
