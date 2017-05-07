@@ -7,6 +7,7 @@
 #include "M_Audio.h"
 #include "M_EnemyWaves.h"
 #include "Building.h"
+#include "M_DialogueManager.h"
 #include "S_Menu.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
@@ -28,11 +29,14 @@ bool S_InGame::Awake(pugi::xml_node & config)
 bool S_InGame::Start()
 {
 
-	if (this->active == true) {
+	if (active) {
 
 	app->pathfinding->Enable();
 	app->entityManager->LoadObjects();
 	SetGUI();
+
+	app->dialogueManager->Enable();
+	app->dialogueManager->Start();
 	
 
 
@@ -193,6 +197,8 @@ void S_InGame::GoToMenu()
 {
 	active = false;
 	app->menu->active = true;
+	app->dialogueManager->CleanUp();
+	app->dialogueManager->Disable();
 	app->gui->SetActiveScene("menu");
 }
 

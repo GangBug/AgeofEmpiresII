@@ -513,13 +513,13 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 
 					//Check if we should flip
 					SDL_RendererFlip flip = SDL_FLIP_NONE;
-					Unit* tmpUnit = dynamic_cast<Unit*>(*it);
+					Unit* tmpUnit = dynamic_cast<Unit*>(tmp);
 					if (tmpUnit->GetDir() == NORTH_EAST || tmpUnit->GetDir() == EAST || tmpUnit->GetDir() == SOUTH_EAST)
 					{
 						flip = SDL_FLIP_HORIZONTAL;
 					}
 
-					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, nullptr, flip) != 0)
+					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, &piv, flip) != 0)
 					{
 						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
 					}
@@ -613,7 +613,7 @@ const iPoint Camera::GetSize() const
 
 const iPoint Camera::GetCenter() const
 {
-	return iPoint(viewport.x + viewport.w/2, viewport.y + viewport.h/2);
+	return iPoint(-viewport.x + viewport.w/2, -viewport.y + viewport.h/2);
 }
 
 void Camera::Move(iPoint destination, int speed) //Automatic camera

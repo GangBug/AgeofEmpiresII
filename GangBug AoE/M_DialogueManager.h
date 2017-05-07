@@ -41,10 +41,12 @@ public:
 class M_DialogueManager : public Module
 {
 public:
-	M_DialogueManager(bool startEnabled = true);
+	M_DialogueManager(bool startEnabled = false);
 	virtual ~M_DialogueManager();
 
 	bool Start();
+
+	bool CleanUp();
 
 	update_status Update(float dt)override;
 	update_status PostUpdate(float dt)override;

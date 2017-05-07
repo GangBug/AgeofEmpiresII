@@ -19,34 +19,51 @@ M_DialogueManager::~M_DialogueManager()
 
 bool M_DialogueManager::Start()
 {
-	std::string dialogue_folder = "dialogue/dialogues.xml";	//Load dialogues data from dialogue folder
-	char* buff = nullptr;
-	int size = app->fs->Load(dialogue_folder.c_str(), &buff);
-	pugi::xml_document dialogue_data;
-	pugi::xml_parse_result result = dialogue_data.load_buffer(buff, size);
-	RELEASE(buff);
-
-	if (result == NULL)
+	if (active)
 	{
-		LOG("Error loading dialogues data: %s", result.description());
-		return false;
-	}
+		std::string dialogue_folder = "dialogue/dialogues.xml";	//Load dialogues data from dialogue folder
+		char* buff = nullptr;
+		int size = app->fs->Load(dialogue_folder.c_str(), &buff);
+		pugi::xml_document dialogue_data;
+		pugi::xml_parse_result result = dialogue_data.load_buffer(buff, size);
+		RELEASE(buff);
 
-	//Loading Objects Sprites
-	pugi::xml_node dialogueNode = dialogue_data.child("dialogues").first_child();
-	while (dialogueNode != NULL)
-	{
-		Dialogue newDialogue;
-		newDialogue.SetCharacter(dialogueNode);
-		newDialogue.SetEvent(dialogueNode);
-		newDialogue.SetText(dialogueNode.child("text"));
-
-		if (newDialogue.event != D_EVENT_NONE)
+		if (result == NULL)
 		{
-			dialogues.push_back(newDialogue);
+			LOG("Error loading dialogues data: %s", result.description());
+			return false;
 		}
-		dialogueNode = dialogueNode.next_sibling();
+
+		//Loading Objects Sprites
+		pugi::xml_node dialogueNode = dialogue_data.child("dialogues").first_child();
+		while (dialogueNode != NULL)
+		{
+			Dialogue newDialogue;
+			newDialogue.SetCharacter(dialogueNode);
+			newDialogue.SetEvent(dialogueNode);
+			newDialogue.SetText(dialogueNode.child("text"));
+
+			if (newDialogue.event != D_EVENT_NONE)
+			{
+				dialogues.push_back(newDialogue);
+			}
+			dialogueNode = dialogueNode.next_sibling();
+		}
 	}
+	return true;
+}
+
+bool M_DialogueManager::CleanUp()
+{
+	for (std::list<Dialogue>::iterator it = dialogues.begin(); it != dialogues.end(); it++)
+	{
+		for (std::list<GUILabel*>::iterator item = (*it).textLines.begin(); item != (*it).textLines.end(); item++)
+		{
+			RELEASE(*item);
+		}
+		(*it).textLines.clear();
+	}
+	dialogues.clear();
 
 	return true;
 }
@@ -81,14 +98,13 @@ void M_DialogueManager::DrawDebug()
 
 bool M_DialogueManager::PlayDialogue(DIALOGUE_EVENT event)
 {
-
-	app->audio->PlayFx(app->entityManager->fxAlert01);	//FX
 	
 	for (std::list<Dialogue>::iterator it = dialogues.begin(); it != dialogues.end(); it++)
 	{
 		if (!(*it).active && !(*it).done && (*it).event == event)
 		{
 			(*it).active = true;
+			app->audio->PlayFx(app->entityManager->fxAlert01);	//FX
 			onDialogue = true;
 			return true;
 		}
@@ -137,7 +153,7 @@ void Dialogue::SetText(pugi::xml_node node)
 		//tmp->SetColor({ 255,255,255,255 });
 		//tmp->SetText(str.c_str(), DEFAULT);
 		tmp->SetGlobalPos(0, 50);
-		tmp->FollowScreen(true); // Amb això a fals es quedara al mapa, si vols que segueixi la camara s'ha de posar a true
+		tmp->FollowScreen(false); // Amb això a fals es quedara al mapa, si vols que segueixi la camara s'ha de posar a true
 		
 		textLines.push_back(tmp);
 		node = node.next_sibling();
