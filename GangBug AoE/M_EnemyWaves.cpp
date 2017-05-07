@@ -2,7 +2,7 @@
 
 #include "M_EnemyWaves.h"
 #include "M_EntityManager.h"
-
+#include "M_Audio.h"
 #include "Log.h"
 
 
@@ -43,6 +43,8 @@ update_status M_EnemyWaves::Update(float dt)
 	{
 		if (spawnTimerStarted == false)
 		{
+			
+
 			spawnTimer.Start();
 			spawnTimerStarted = true;
 		}
@@ -84,6 +86,9 @@ update_status M_EnemyWaves::Update(float dt)
 	//Working now
 	if (waveSpawn == true)
 	{
+		app->audio->PlayFx(app->entityManager->fxAlert01);
+	
+
 		for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
 		{
 			if (dynamic_cast<Unit*>(*it)->GetType() == VILE)

@@ -123,7 +123,8 @@ public:
 
 	//create
 	uint fxCreateUnit;
-	
+	uint fxCreateVillager;
+
 	//buldings
 	uint fxStableSelection;
 	uint fxBarrackSelection;

@@ -60,7 +60,10 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		unitWoodCost = 0;
 		unitFoodCost = 50;
 
+		
+
 		entityTexture = app->tex->townCenterTexture;
+		SetLocalPosition(10, 10);
 		SetEnclosingBoxSize(382, 399);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton");
 		break;
@@ -99,10 +102,10 @@ void Building::OnUpdate(float dt)
 			{
 				app->audio->PlayFx(app->entityManager->fxStableSelection);
 			}
-	/*		else if (buildType == BUILD_TOWNCENTER)
+			else if (buildType == BUILD_TOWNCENTER)
 			{
 				app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
-			}*/
+			}	
 		}
 
 		else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && !GetEnclosingBox().Contains(mPos.x, mPos.y))
@@ -138,10 +141,20 @@ void Building::BuyUnit()
 	//If theres money create a unit
 	if(app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost)
 	{
-
-		fPoint pos = GetGlobalPosition();
-		app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
-		app->audio->PlayFx(app->entityManager->fxCreateUnit);
+		if (unitType != VILLAGER) 
+		{
+			fPoint pos = GetGlobalPosition();
+			app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
+			app->audio->PlayFx(app->entityManager->fxCreateUnit);
+		}
+		else
+		{
+			/*
+			app->resources->AddVillager();
+			*/
+			app->audio->PlayFx(app->entityManager->fxCreateVillager);		
+		
+		}
 
 		app->resources->SubstractGold(unitGoldCost);
 		app->resources->SubstractFood(unitFoodCost);

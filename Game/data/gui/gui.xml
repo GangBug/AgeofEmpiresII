@@ -103,6 +103,7 @@
 			<button type_name="VillagerCreatorButton" have_animations="0">
 				<sections>
 					<section type="standBy" x="26" y="969" w="40" h="40" />
+          <section type="hover" x="26" y="969" w="40" h="40" />
 					<section type="clicked" x="75" y="969" w="40" h="40" />
 				</sections>
 			</button>
@@ -373,6 +374,16 @@
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="36" h="36" />
 		</button>
+    <button type="VillagerCreatorButton" name="VillagerCreatorButton" text="" interactive="true" canFocus="true" visible="true">
+      <events />
+      <listeners />
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="12" y="968" />
+      <textColor r="0" g="0" b="0" a="0" />
+      <size w="36" h="36" />
+    </button>
 		<button type="RepairButton" name="RepairButtonArchery" text="" interactive="true" canFocus="true" visible="true">
 			<events />
 			<listeners />

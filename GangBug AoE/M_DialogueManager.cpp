@@ -1,6 +1,8 @@
 #include "M_DialogueManager.h"
 #include "App.h"
 #include "M_FileSystem.h"
+#include "M_Audio.h"
+#include "M_EntityManager.h"
 #include "M_Render.h"
 #include "M_Textures.h"
 #include "M_Input.h"
@@ -79,6 +81,9 @@ void M_DialogueManager::DrawDebug()
 
 bool M_DialogueManager::PlayDialogue(DIALOGUE_EVENT event)
 {
+
+	app->audio->PlayFx(app->entityManager->fxAlert01);	//FX
+	
 	for (std::list<Dialogue>::iterator it = dialogues.begin(); it != dialogues.end(); it++)
 	{
 		if (!(*it).active && !(*it).done && (*it).event == event)

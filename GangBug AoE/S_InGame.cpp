@@ -27,9 +27,14 @@ bool S_InGame::Awake(pugi::xml_node & config)
 
 bool S_InGame::Start()
 {
+
+	if (this->active == true) {
+
 	app->pathfinding->Enable();
 	app->entityManager->LoadObjects();
 	SetGUI();
+	
+
 
 	//audio
 	//app->audio->PlayTheme(app->audio->thirdMission);
@@ -37,9 +42,8 @@ bool S_InGame::Start()
 	app->entityManager->CreateBuilding(BUILD_STABLES, nullptr, 500, 500);
 	app->entityManager->CreateBuilding(BUILD_ARCHERY, nullptr, 700, 700);
 	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, 300, 300);
-	//app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, 1000, 1000);
+	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, 1000, 1000);
 
-	//app->gui->SetActiveScene(name);
 
 	if (app->map->Load("Map.tmx") == true)
 	{
@@ -55,6 +59,7 @@ bool S_InGame::Start()
 	}
 	app->entityManager->PlaceObjects();
 
+	}
 	return true;
 }
 
@@ -207,6 +212,7 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "ArcherCreatorButton")->SetVisible(false);
+	app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton")->SetVisible(false);
 
 	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetInteractive(false);
@@ -222,4 +228,5 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "ArcherCreatorButton")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton")->SetInteractive(false);
 }

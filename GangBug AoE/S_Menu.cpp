@@ -98,5 +98,7 @@ void S_Menu::GoToIngame()
 {
 	this->active = false;
 	app->inGame->active = true;
+	
 	app->gui->SetActiveScene(app->inGame->name);
+	app->inGame->Start();
 }

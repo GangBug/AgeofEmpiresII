@@ -945,7 +945,7 @@ void M_EntityManager::LoadFXs()// ADD FX
 
 	//create
 	fxCreateUnit = app->audio->LoadFx("audio/fx/Units/Creation_Unit.wav");
-
+	fxCreateVillager = app->audio->LoadFx("audio/fx/Units/Creation_Villager.wav");
 	//buldings
 	fxStableSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Archery.wav");
 	fxBarrackSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Barrack.wav");
