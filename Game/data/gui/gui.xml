@@ -180,9 +180,11 @@
 	</elements>
 	<layout>
 		<button type="buttonPlay" name="start" text="" interactive="true" canFocus="true" visible="true">
-			<events />
+      <events>
+        <event action="65536" origin="16"/>
+      </events>
 			<listeners>
-				<event name="menu" />
+				<listener name="menu" />
 			</listeners>
 			<scenes>
 				<scene name="menu" />

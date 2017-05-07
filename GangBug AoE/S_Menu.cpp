@@ -102,3 +102,14 @@ void S_Menu::GoToIngame()
 	app->gui->SetActiveScene(app->inGame->name);
 	app->inGame->Start();
 }
+
+void S_Menu::GuiEvent(GUIElement* element, int64_t event)
+{
+	if (event & MOUSE_LCLICK_UP)
+	{
+		if (event & START_GAME)
+		{
+			GoToIngame();
+		}
+	}
+}

@@ -28,5 +28,7 @@ public:
 
 	void GoToIngame();
 
+	void GuiEvent(GUIElement* element, int64_t event);
+
 };
 
