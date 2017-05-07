@@ -120,3 +120,79 @@ void M_Resources::DrawDebug()
 {
 }
 
+uint M_Resources::GetVillagers()
+{
+	return uint(unemployedVillagers);
+}
+
+uint M_Resources::GetMiners()
+{
+	return uint(miners);
+}
+
+uint M_Resources::GetLumberjacks()
+{
+	return uint(lumberjacks);
+}
+
+uint M_Resources::GetFarmers()
+{
+	return uint(farmers);
+}
+
+void M_Resources::AddVillager()
+{
+	if (MAX_VILLAGERS < totalVillagers) {
+		totalVillagers++;
+		unemployedVillagers++;
+	}
+}
+
+void M_Resources::AddMiners()
+{
+	if (unemployedVillagers > 0) {
+		unemployedVillagers--;
+		miners++;
+	}
+}
+
+void M_Resources::AddLumberjack()
+{
+	if (unemployedVillagers > 0) {
+		unemployedVillagers--;
+		lumberjacks++;
+	}
+}
+
+void M_Resources::AddFarmers()
+{
+	if (unemployedVillagers > 0) {
+		unemployedVillagers--;
+		farmers++;
+	}
+}
+
+void M_Resources::RemoveMiners()
+{
+	if (miners > 0) {
+		miners--;
+		unemployedVillagers++;
+	}
+
+}
+
+void M_Resources::RemoveLumberjacks()
+{
+	if (lumberjacks > 0) {
+		lumberjacks--;
+		unemployedVillagers++;
+	}
+}
+
+void M_Resources::RemoveFarmers()
+{
+	if (farmers > 0) {
+		farmers--;
+		unemployedVillagers++;
+	}
+}

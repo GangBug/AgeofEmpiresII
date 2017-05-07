@@ -9,6 +9,7 @@
 #define FOOD_AMOUNT 10
 #define WOOD_AMOUNT 10
 #define GOLD_AMOUNT 10
+#define MAX_VILLAGERS 20
 
 class M_Resources : public Module
 {
@@ -48,6 +49,31 @@ public:
 
 	void SetCurrentResources(int amount);
 
+
+private:
+	uint miners;
+	uint lumberjacks;
+	uint farmers;
+
+	uint totalVillagers;
+	uint unemployedVillagers;
+
+public:
+	uint GetVillagers();
+	uint GetTotalVillagers;
+	uint GetMiners();
+	uint GetLumberjacks();
+	uint GetFarmers();
+
+
+	void AddVillager();
+	void AddMiners();
+	void AddLumberjack();
+	void AddFarmers();
+
+	void RemoveMiners();
+	void RemoveLumberjacks();
+	void RemoveFarmers();
 };
 
 #endif // __M_RESOURCES_H__
