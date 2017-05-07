@@ -194,15 +194,17 @@
 			<size w="420" h="126" />
 		</button>
 		<button type="buttonQuit" name="exit" text="" interactive="true" canFocus="true" visible="true">
-			<events />
-			<listeners>
-				<event name="menu" />
-			</listeners>
+		  <events>
+		    <event action="32768" origin="16" />
+		  </events>
+		  <listeners>
+        <listener name="window" />
+		  </listeners>
 			<scenes>
 				<scene name="menu" />
 			</scenes>
 			<position x="96" y="900" />
-			<textColor r="0" g="0" b="0" a="0" />
+			<textColor r="255" g="255" b="255" a="255" />
 			<size w="434" h="126" />
 		</button>
 		<img type="UseBar" name="UseBar" interactive="true" canFocus="true" visible="true">
@@ -242,8 +244,12 @@
 		</img>
 
 		<button type="MenuButton" name="MenuButton" text="" interactive="true" canFocus="true" visible="true">
-			<events />
-			<listeners />
+		  <events>
+		    <event action="131072" origin="16" />
+		  </events>
+		  <listeners>
+		    <event name="inGame" />
+		  </listeners>
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
@@ -660,8 +666,10 @@
 			<size w="252" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Start" text="Exit to Start Menu" interactive="true" canFocus="true" visible="true">
-			<events />
-			<listeners />
+		  <events>
+		  </events>
+		  <listeners>
+		  </listeners>
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
@@ -670,8 +678,12 @@
 			<size w="252" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Exit" text="Exit to Desktop" interactive="true" canFocus="true" visible="true">
-			<events />
-			<listeners />
+		  <events>
+		    <event action="32768" origin="16" />
+		  </events>
+		  <listeners>
+		    <listener name="window" />
+		  </listeners>
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
