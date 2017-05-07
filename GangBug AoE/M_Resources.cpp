@@ -18,9 +18,17 @@ bool M_Resources::Start()
 	LOG("Resources: Start.");
 	bool ret = true;
 
-	food = 0;
-	wood = 0;
-	gold = 0;
+	food = 2000;
+	wood = 2000;
+	gold = 2000;
+
+	miners = 1;
+	lumberjacks = 0;
+	farmers = 0;
+
+	totalVillagers = 1;
+	unemployedVillagers = 0;
+
 
 	return ret;
 }
@@ -100,15 +108,15 @@ update_status M_Resources::Update(float dt)
 		{
 			if (GetCurrentFood() < MAX_RESOURCES)
 			{
-				AddFood(FOOD_AMOUNT);
+				AddFood(FOOD_AMOUNT*farmers);
 			}
 			if (GetCurrentWood() < MAX_RESOURCES)
 			{
-				AddWood(WOOD_AMOUNT);
+				AddWood(WOOD_AMOUNT*lumberjacks);
 			}
 			if (GetCurrentGold() < MAX_RESOURCES)
 			{
-				AddGold(GOLD_AMOUNT);
+				AddGold(GOLD_AMOUNT*miners);
 			}
 			updateResources.Start();
 		}
@@ -123,6 +131,11 @@ void M_Resources::DrawDebug()
 uint M_Resources::GetVillagers()
 {
 	return uint(unemployedVillagers);
+}
+
+uint M_Resources::GetTotalVillagers()
+{
+	return uint(totalVillagers);
 }
 
 uint M_Resources::GetMiners()
@@ -142,7 +155,7 @@ uint M_Resources::GetFarmers()
 
 void M_Resources::AddVillager()
 {
-	if (MAX_VILLAGERS < totalVillagers) {
+	if (MAX_VILLAGERS >= totalVillagers) {
 		totalVillagers++;
 		unemployedVillagers++;
 	}

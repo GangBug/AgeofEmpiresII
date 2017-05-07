@@ -4,7 +4,7 @@
 #include "M_Fonts.h"
 #include "M_GUI.h"
 #include "App.h"
-
+#include "M_Resources.h"
 //TEMP
 #include "M_Render.h"
 
@@ -19,6 +19,19 @@ GUILabel::GUILabel(const char * text, label_size _size, std::string name, int fl
 	SetText(text, _size);
 	SetType(gui_types::GUI_LABEL);
 	lbSize = _size;	
+}
+
+void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)
+{
+	if (strcmp(GetName().c_str(), "label_gold") == 0)
+		SetText(std::to_string(app->resources->GetCurrentGold()).c_str(), DEFAULT);
+	if (strcmp(GetName().c_str(), "label_food") == 0)
+		SetText(std::to_string(app->resources->GetCurrentFood()).c_str(), DEFAULT);
+	if (strcmp(GetName().c_str(), "label_wood") == 0)
+		SetText(std::to_string(app->resources->GetCurrentWood()).c_str(), DEFAULT);
+	if (strcmp(GetName().c_str(), "label_MaxVillager") == 0)
+		SetText(std::to_string(app->resources->GetVillagers()).c_str(), DEFAULT);
+
 }
 
 GUILabel::~GUILabel()

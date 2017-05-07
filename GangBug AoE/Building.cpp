@@ -113,7 +113,7 @@ void Building::OnUpdate(float dt)
 			app->input->GetMouseScreenPosition(mPos.x, mPos.y);
 			if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
 			{
-				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_ENCOUNTER);
+				//app->dialogueManager->PlayDialogue(D_EVENT_FIRST_ENCOUNTER);
 				BuyUnit();
 			}
 			else
@@ -146,16 +146,19 @@ void Building::BuyUnit()
 			fPoint pos = GetGlobalPosition();
 			app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
 			app->audio->PlayFx(app->entityManager->fxCreateUnit);
+				
 		}
 		else
-		{
-			/*
-			app->resources->AddVillager();
-			*/
-			app->audio->PlayFx(app->entityManager->fxCreateVillager);		
-		
-		}
+		{					
+			if (app->resources->GetTotalVillagers() <= MAX_VILLAGERS) {
+				app->resources->AddVillager();
+				app->audio->PlayFx(app->entityManager->fxCreateVillager);
+			}
+			else {
+				app->audio->PlayFx(app->entityManager->fxLimitVillager);
 
+			}
+		}
 		app->resources->SubstractGold(unitGoldCost);
 		app->resources->SubstractFood(unitFoodCost);
 		app->resources->SubstractWood(unitWoodCost);

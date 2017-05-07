@@ -124,6 +124,7 @@ public:
 	//create
 	uint fxCreateUnit;
 	uint fxCreateVillager;
+	uint fxLimitVillager;
 
 	//buldings
 	uint fxStableSelection;

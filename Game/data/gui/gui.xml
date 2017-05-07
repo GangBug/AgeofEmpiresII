@@ -296,6 +296,8 @@
 			<position x="600" y="0" />
 			<size w="48" h="45" />
 		</img>
+    
+    
 		<label size="0" name="label_gold" text="0000" interactive="true" canFocus="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
@@ -303,6 +305,7 @@
 			<color r="0" g="0" b="255" a="255" />
 			<position x="648" y="0" />
 		</label>
+    
     <label size="0" name="label_food" text="0000" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
@@ -310,6 +313,7 @@
       <color r="0" g="0" b="255" a="255" />
       <position x="440" y="0" />
     </label>
+    
     <label size="0" name="label_wood" text="0000" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
@@ -317,6 +321,15 @@
       <color r="0" g="0" b="255" a="255" />
       <position x="250" y="0" />
     </label>
+
+    <label size="0" name="label_MaxVillager" text="00" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="850" y="0" />
+    </label>
+    
 		<img type="PopulationLimit" name="PopulationLimit" interactive="true" canFocus="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
