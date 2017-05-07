@@ -42,6 +42,7 @@ public:
 	std::vector<iPoint> path;
 	iPoint origin;
 	iPoint destiny;
+	iPoint enemyDestination;
 
 	bool menuOpen = false;
 };

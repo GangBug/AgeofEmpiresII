@@ -85,16 +85,18 @@ update_status S_InGame::PreUpdate(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 			app->render->camera->Move(10.0, RIGHT);
 
-		/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+
+		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 		{
-			app->enemyWaves->SpawnEnemies(5, 0, 300, 200);
-		}*/
+			int x, y;
+			app->input->GetMouseMapPosition(x, y);
+			app->enemyWaves->SpawnEnemies(5, 0, x, y);
+		}
 		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 		{
 			int x, y;
 			app->input->GetMouseMapPosition(x, y);
-			iPoint campos = { x, y };
-			app->render->camera->SetCenter(campos);
+			enemyDestination = { x, y };
 		}
 		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 		{
@@ -110,13 +112,10 @@ update_status S_InGame::PreUpdate(float dt)
 			app->entityManager->CreateUnit(VILE, nullptr, x, y);
 			app->audio->PlayFx(app->entityManager->fxCreateUnit);
 		}
-
 		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 		{
 			return UPDATE_STOP;
 		}
-
-
 
 		//What is this: A tool to debug pathfinding
 		if (app->debug)
@@ -146,8 +145,6 @@ update_status S_InGame::PreUpdate(float dt)
 				}
 			}
 		}
-
-
 	}	
 	return UPDATE_CONTINUE;
 }
