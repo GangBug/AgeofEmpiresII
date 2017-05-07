@@ -109,6 +109,8 @@ update_status M_Render::PostUpdate(float dt)
 	SetViewPort(gameViewPort);
 	SDL_RenderCopy(renderer, game_tex_background, NULL, NULL);
 	//TODO: Might have a better organitzation to draw map or change map system
+
+	//RENDER MAP
 	if (app->inGame->active)
 	{
 		app->map->Draw();
@@ -125,7 +127,9 @@ update_status M_Render::PostUpdate(float dt)
 					element->Draw();
 			}				
 		}
+	//--------------
 
+	//RENDER ENTITIES
 	if (app->inGame->active == true)
 	{
 		PerfTimer timer;
@@ -140,6 +144,19 @@ update_status M_Render::PostUpdate(float dt)
 
 		app->inGame->Draw();
 	}
+	//--------------
+
+	//RENDER UI
+
+	app->gui->Draw();
+
+	if (app->debug)
+	{
+		app->DrawDebug();
+	}
+	//---------
+
+	//RENDER DIALOGUES
 
 	for (std::list<Dialogue>::iterator it = app->dialogueManager->dialogues.begin(); it != app->dialogueManager->dialogues.end(); it++)
 	{
@@ -148,17 +165,20 @@ update_status M_Render::PostUpdate(float dt)
 			GUILabel* diag = *(*it).textLines.begin();
 			diag->SetVisible(true);
 			diag->SetActive(true);
+			if ((*it).character == D_CHARACTER_SAMURAI)
+			{
+				SDL_Rect charRect{ 0,0,615,662 };//TODO: Change magic numbers
+				SDL_Rect boxRect{ 0,0, 508, 107 };//TODO: Change magic numbers
+				iPoint charPos(camera->GetCenter().x - (charRect.w / 2), camera->GetCenter().y - (charRect.h / 2));
+				Blit(app->tex->samuraiTexture, charPos.x, charPos.y, &charRect);
+				Blit(app->tex->dialogueBoxTexture, charPos.x, charPos.y + D_BOX_OFFSET_Y, &boxRect);
+				diag->SetGlobalPos(charPos.x + TEXT_OFFSET_X, charPos.y + TEXT_OFFSET_Y);
+			}
 			//app->render->DrawQuad(diag->GetLocalRect().GetSDLrect(), 255, 0, 0, 255);
 			diag->Draw();
 		}
 	}
-
-	app->gui->Draw();
-
-	if (app->debug)
-	{
-		app->DrawDebug();
-	}
+	//---------
 
 
 
@@ -589,6 +609,11 @@ const iPoint Camera::GetPosition() const
 const iPoint Camera::GetSize() const
 {
 	return iPoint(viewport.w, viewport.h);
+}
+
+const iPoint Camera::GetCenter() const
+{
+	return iPoint(viewport.x + viewport.w/2, viewport.y + viewport.h/2);
 }
 
 void Camera::Move(iPoint destination, int speed) //Automatic camera

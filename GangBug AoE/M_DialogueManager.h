@@ -6,6 +6,10 @@
 #include <vector>
 #include <string>
 
+#define TEXT_OFFSET_X 50
+#define TEXT_OFFSET_Y 550
+#define D_BOX_OFFSET_Y 500
+
 enum DIALOGUE_CHARACTER
 {
 	D_CHARACTER_SAMURAI,
@@ -47,8 +51,13 @@ public:
 
 	void DrawDebug()override;
 
-	std::list<Dialogue> dialogues;
+	bool PlayDialogue(DIALOGUE_EVENT event);
 
+	
+
+public:
+	bool onDialogue = false;
+	std::list<Dialogue> dialogues;
 };
 
 #endif

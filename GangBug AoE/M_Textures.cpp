@@ -44,6 +44,8 @@ bool M_Textures::Start()
 	stableTexture = Load("buildings/stable.bmp");
 	barracksTexture = Load("buildings/barracks.bmp");
 	objectTexture = Load("objects/ObjectsSpritesheet.png");
+	samuraiTexture = Load("dialogue/ryoma2.png");
+	dialogueBoxTexture = Load("dialogue/dialogueBox.png");
 
 	return ret;
 }

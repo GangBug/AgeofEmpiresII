@@ -6,6 +6,7 @@
 #include "M_Audio.h"
 #include "M_GUI.h"
 #include "M_Resources.h"
+#include "M_DialogueManager.h"
 #include "Log.h"
 
 
@@ -50,38 +51,42 @@ Building::~Building()
 
 void Building::OnUpdate(float dt)
 {
-	iPoint mPos;
-	app->input->GetMouseMapPosition(mPos.x, mPos.y);
-
-	if (selected == false && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) && GetEnclosingBox().Contains(mPos.x, mPos.y))
+	if (!app->dialogueManager->onDialogue)
 	{
-		selected = true;
-		creatorButton->SetVisible(true);
-		if (buildType == BUILD_ARCHERY)
-		{
-			app->audio->PlayFx(app->entityManager->fxArcherySelection);
-		}
-		else if (buildType == BUILD_BARRACK)
-		{
-			app->audio->PlayFx(app->entityManager->fxBarrackSelection);
-		}
-		else if (buildType == BUILD_STABLES)
-		{
-			app->audio->PlayFx(app->entityManager->fxStableSelection);
-		}
-	}
+		iPoint mPos;
+		app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
-	else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && !GetEnclosingBox().Contains(mPos.x, mPos.y))
-	{
-		app->input->GetMouseScreenPosition(mPos.x, mPos.y);
-		if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
+		if (selected == false && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) && GetEnclosingBox().Contains(mPos.x, mPos.y))
 		{
-			BuyUnit();
+			selected = true;
+			creatorButton->SetVisible(true);
+			if (buildType == BUILD_ARCHERY)
+			{
+				app->audio->PlayFx(app->entityManager->fxArcherySelection);
+			}
+			else if (buildType == BUILD_BARRACK)
+			{
+				app->audio->PlayFx(app->entityManager->fxBarrackSelection);
+			}
+			else if (buildType == BUILD_STABLES)
+			{
+				app->audio->PlayFx(app->entityManager->fxStableSelection);
+			}
 		}
-		else
+
+		else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && !GetEnclosingBox().Contains(mPos.x, mPos.y))
 		{
-			selected = false;
-			creatorButton->SetVisible(false);
+			app->input->GetMouseScreenPosition(mPos.x, mPos.y);
+			if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_ENCOUNTER);
+				BuyUnit();
+			}
+			else
+			{
+				selected = false;
+				creatorButton->SetVisible(false);
+			}
 		}
 	}
 }

@@ -51,22 +51,18 @@ bool M_DialogueManager::Start()
 
 update_status M_DialogueManager::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_V) == KEY_UP)
-	{
-		dialogues.begin()._Ptr->_Myval.active = true;
-	}
-
 	for (std::list<Dialogue>::iterator it = dialogues.begin(); it != dialogues.end(); it++)
 	{
 		if ((*it).active && !(*it).done)
 		{
-			if (app->input->GetKey(SDL_SCANCODE_P) == KEY_UP)
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 			{
 				(*it).textLines.pop_front();
 				if ((*it).textLines.empty())
 				{
 					(*it).active = false;
 					(*it).done = true;
+					onDialogue = false;
 				}
 			}
 		}
@@ -79,6 +75,20 @@ update_status M_DialogueManager::PostUpdate(float dt)
 }
 void M_DialogueManager::DrawDebug()
 {
+}
+
+bool M_DialogueManager::PlayDialogue(DIALOGUE_EVENT event)
+{
+	for (std::list<Dialogue>::iterator it = dialogues.begin(); it != dialogues.end(); it++)
+	{
+		if (!(*it).active && !(*it).done && (*it).event == event)
+		{
+			(*it).active = true;
+			onDialogue = true;
+			return true;
+		}
+	}
+		return false;
 }
 
 //-------------------

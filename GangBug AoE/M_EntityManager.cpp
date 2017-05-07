@@ -160,33 +160,6 @@ update_status M_EntityManager::PreUpdate(float dt)
 	}
 
 
-
-
-	//TMP
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
-	{
-		int x, y;
-		app->input->GetMouseScreenPosition(x, y);
-		fPoint pos(x, y);
-		et->SetLocalPosition(pos);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT)
-	{
-		int x, y;
-		app->input->GetMouseScreenPosition(x, y);
-		//et2->SetLocalPosition(pos);
-		fPoint pos(x, y);
-		et2->SetGlobalPosition(pos);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-	{
-		iPoint mP;
-		app->input->GetMouseScreenPosition(mP.x, mP.y);
-		CreateRandomTestEntity()->SetGlobalPosition(mP.x, mP.y);
-	}
-
 	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
 	{
 		Entity* t = CreateEntity(ENTITY_UNIT, nullptr);

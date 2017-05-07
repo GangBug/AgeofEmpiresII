@@ -1,6 +1,6 @@
 #include "App.h"
 #include "M_Resources.h"
-
+#include "M_DialogueManager.h"
 #include "j1Timer.h"
 #include "Log.h"
 
@@ -89,29 +89,30 @@ void M_Resources::SetCurrentResources(int amount)
 
 update_status M_Resources::Update(float dt)
 {
+
 	update_status ret = UPDATE_CONTINUE;
 
 	//Maybe we could use dt instead of this timer
-
-
-	//Resources update
-	if (updateResources.ReadSec() > UPDATE_TIMER)
+	if (!app->dialogueManager->onDialogue)
 	{
-		if (GetCurrentFood() < MAX_RESOURCES)
+		//Resources update
+		if (updateResources.ReadSec() > UPDATE_TIMER)
 		{
-			AddFood(FOOD_AMOUNT);
+			if (GetCurrentFood() < MAX_RESOURCES)
+			{
+				AddFood(FOOD_AMOUNT);
+			}
+			if (GetCurrentWood() < MAX_RESOURCES)
+			{
+				AddWood(WOOD_AMOUNT);
+			}
+			if (GetCurrentGold() < MAX_RESOURCES)
+			{
+				AddGold(GOLD_AMOUNT);
+			}
+			updateResources.Start();
 		}
-		if (GetCurrentWood() < MAX_RESOURCES)
-		{
-			AddWood(WOOD_AMOUNT);
-		}
-		if (GetCurrentGold() < MAX_RESOURCES)
-		{
-			AddGold(GOLD_AMOUNT);
-		}
-		updateResources.Start();
 	}
-
 	return ret;
 }
 

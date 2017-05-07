@@ -5,6 +5,7 @@
 #include "M_FogOfWar.h"
 #include "M_Audio.h"
 #include "M_EntityManager.h"
+#include "M_DialogueManager.h"
 //TMP
 #include "M_Input.h"
 #include "App.h"
@@ -82,82 +83,85 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 void Unit::OnUpdate(float dt)
 {
-	if (GetHP() > 0) {
-		switch (unitState)
-		{
-		case NO_STATE:
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-			{
-				iPoint objective;
-				app->input->GetMouseMapPosition(objective.x, objective.y);
-				GoTo(objective);
-			}
-			if (target != nullptr && target->GetHP() > 0)
-			{
-				SetFightingArea();
-			}
-			break;
-		case MOVING:
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-			{
-				iPoint objective;
-				app->input->GetMouseMapPosition(objective.x, objective.y);
-				GoTo(objective);
-			}
-			else if (Move() == false)
-			{
-				unitState = NO_STATE;
-				action = IDLE;
-			}
-			break;
-		case MOVING_TO_ATTACK:
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-			{
-				iPoint objective;
-				app->input->GetMouseMapPosition(objective.x, objective.y);
-				GoTo(objective);
-			}
-			else if (Move() == false)
-			{
-				unitState = ATTACKING;
-				action = ATTACK;
-			}
-			break;
-		case ATTACKING:
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-			{
-				iPoint objective;
-				app->input->GetMouseMapPosition(objective.x, objective.y);
-				GoTo(objective);
-			}
-			if (!AttackUnit())
-			{
-				target = nullptr;
-				unitState = NO_STATE;
-				action = IDLE;
-			}
-			break;
-		}
-		CheckSurroundings();
-	}
-	
-	else
+	if (!app->dialogueManager->onDialogue)
 	{
-		Die();
+		if (GetHP() > 0) {
+			switch (unitState)
+			{
+			case NO_STATE:
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				{
+					iPoint objective;
+					app->input->GetMouseMapPosition(objective.x, objective.y);
+					GoTo(objective);
+				}
+				if (target != nullptr && target->GetHP() > 0)
+				{
+					SetFightingArea();
+				}
+				break;
+			case MOVING:
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				{
+					iPoint objective;
+					app->input->GetMouseMapPosition(objective.x, objective.y);
+					GoTo(objective);
+				}
+				else if (Move() == false)
+				{
+					unitState = NO_STATE;
+					action = IDLE;
+				}
+				break;
+			case MOVING_TO_ATTACK:
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				{
+					iPoint objective;
+					app->input->GetMouseMapPosition(objective.x, objective.y);
+					GoTo(objective);
+				}
+				else if (Move() == false)
+				{
+					unitState = ATTACKING;
+					action = ATTACK;
+				}
+				break;
+			case ATTACKING:
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				{
+					iPoint objective;
+					app->input->GetMouseMapPosition(objective.x, objective.y);
+					GoTo(objective);
+				}
+				if (!AttackUnit())
+				{
+					target = nullptr;
+					unitState = NO_STATE;
+					action = IDLE;
+				}
+				break;
+			}
+			CheckSurroundings();
+		}
+
+		else
+		{
+			Die();
+		}
+		iPoint p;
+		app->animation->GetFrame(drawQuad, p, this);
+		SetPivot(p);
+
+		//FOG OF WAR
+		float x, y;
+		GetGlobalPosition(x, y);
+		visionArea.SetPosition(iPoint(x, y));
+		renderArea.SetPosition(iPoint(x, y));
+
+		//app->fogOfWar->ClearAlphaLayer(visionArea, 200, true);
+		//app->fogOfWar->ClearAlphaLayer(visionArea, MID_ALPHA);
+		//app->fogOfWar->ClearFogLayer(renderArea, GRAY_FOG);
 	}
-	iPoint p;
-	app->animation->GetFrame(drawQuad, p, this);
-	SetPivot(p);
-
-	//FOG OF WAR
-	float x, y;
-	GetGlobalPosition(x, y);
-	visionArea.SetPosition(iPoint(x, y));
-	renderArea.SetPosition(iPoint(x, y));
-
-	//app->fogOfWar->ClearAlphaLayer(visionArea, 200, true);
-	//app->fogOfWar->ClearAlphaLayer(visionArea, MID_ALPHA);
-	//app->fogOfWar->ClearFogLayer(renderArea, GRAY_FOG);
 }
 
 unit_type Unit::GetType() const
