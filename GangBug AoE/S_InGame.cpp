@@ -37,7 +37,7 @@ bool S_InGame::Start()
 	app->entityManager->CreateBuilding(BUILD_STABLES, nullptr, 500, 500);
 	app->entityManager->CreateBuilding(BUILD_ARCHERY, nullptr, 700, 700);
 	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, 300, 300);
-
+	//app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, 1000, 1000);
 
 	//app->gui->SetActiveScene(name);
 

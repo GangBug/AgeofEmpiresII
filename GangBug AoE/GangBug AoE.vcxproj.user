@@ -19,7 +19,7 @@
     <LocalDebuggerCommandArguments>-debug -editor</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LocalDebuggerWorkingDirectory>$(SolutionDir)Game_Release\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>..\Game</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

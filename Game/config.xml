@@ -22,7 +22,7 @@
   </gui>
     
   <window>
-    <resolution width="800" height="600" scale="1"/>
+    <resolution width="960" height="540" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>

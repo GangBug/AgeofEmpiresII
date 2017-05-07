@@ -39,6 +39,15 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		SetEnclosingBoxSize(310, 266);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton");
 		break;
+
+	case 	BUILD_TOWNCENTER:
+		unitType = VILLAGER;
+		unitCost = 90;
+		entityTexture = app->tex->townCenterTexture;
+		SetEnclosingBoxSize(382, 399);
+		creatorButton = app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton");
+		break;
+
 	}
 
 	HP = 100;
@@ -60,6 +69,7 @@ void Building::OnUpdate(float dt)
 		{
 			selected = true;
 			creatorButton->SetVisible(true);
+
 			if (buildType == BUILD_ARCHERY)
 			{
 				app->audio->PlayFx(app->entityManager->fxArcherySelection);
@@ -72,6 +82,10 @@ void Building::OnUpdate(float dt)
 			{
 				app->audio->PlayFx(app->entityManager->fxStableSelection);
 			}
+	/*		else if (buildType == BUILD_TOWNCENTER)
+			{
+				app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
+			}*/
 		}
 
 		else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && !GetEnclosingBox().Contains(mPos.x, mPos.y))

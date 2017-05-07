@@ -12,6 +12,7 @@ enum unit_type
 	TARKAN_KNIGHT,
 	SAMURAI,
 	VILE,
+	VILLAGER,
 	DIABLO
 };
 
