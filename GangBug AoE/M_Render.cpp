@@ -510,10 +510,14 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 					//Check if we should flip
 					SDL_RendererFlip flip = SDL_FLIP_NONE;
 					Unit* tmpUnit = dynamic_cast<Unit*>(tmp);
-					if (tmpUnit->GetDir() == NORTH_EAST || tmpUnit->GetDir() == EAST || tmpUnit->GetDir() == SOUTH_EAST)
+					if (tmpUnit)
 					{
-						flip = SDL_FLIP_HORIZONTAL;
+						if (tmpUnit->GetDir() == NORTH_EAST || tmpUnit->GetDir() == EAST || tmpUnit->GetDir() == SOUTH_EAST)
+						{
+							flip = SDL_FLIP_HORIZONTAL;
+						}
 					}
+					
 
 					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, &piv, flip) != 0)
 					{
