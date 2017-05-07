@@ -480,7 +480,10 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 			if (tmp->type == ENTITY_PLAYER_MAN)
 			{
 				PlayerManager* tmpPlayer = dynamic_cast<PlayerManager*>(tmp);
-				DrawQuad(tmpPlayer->selectionRect.GetSDLrect(), 255, 255, 255, 255, false);
+				if (tmpPlayer->onSelection)
+				{
+					DrawQuad(tmpPlayer->selectionRect.GetSDLrect(), 255, 255, 255, 255, false);
+				}
 			}
 			if (texture != nullptr)
 			{
@@ -560,38 +563,24 @@ SDL_Rect Camera::GetRect() const
 //TODO: Fix this function. Math operations are wrong and maybe lacks from some returns.
 bool Camera::InsideRenderTarget(GB_Rectangle<int> rect)
 {
+	bool ret = false;
+
 	//int tileWidth = app->map->data.tileWidth;
 	//int tileHeight = app->map->data.tileHeight;
 
-	if (rect.x > viewport.w)
+	GB_Rectangle<int> cameraRect = GetRect();
+
+	if (cameraRect.Collides(rect))
 	{
-		return false;
+		ret = true;
 	}
-	if (rect.y > viewport.h)
+	else
 	{
-		return false;
-	}
-	//These 200 are offsets to make InsideRenderTarget work properly
-	if (rect.y + rect.h + 200 < 0)
-	{
-		return false;
-	}
-	if (rect.x + rect.w + 310 < 0)
-	{
-		return false;
+		ret = false;
 	}
 
 
-	//if (pos.x < tileWidth)
-	//	return false;
-
-	//if (pos.x > viewport.w)
-	//	return false;
-
-	//if (pos.y < tileHeight)
-	//	return false;
-
-	return true;
+	return ret;
 }
 
 void Camera::SetPosition(iPoint pos)

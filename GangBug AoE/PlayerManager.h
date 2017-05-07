@@ -31,9 +31,9 @@ private:
 public:
 	GB_Rectangle<int> selectionRect = ZeroRectangle;
 	std::vector<Entity*> selectedEntities;
-
-private:
 	bool onSelection = false;
+private:
+	
 
 };
 
