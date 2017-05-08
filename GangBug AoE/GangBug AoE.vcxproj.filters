@@ -199,6 +199,9 @@
     <ClCompile Include="Boss.cpp">
       <Filter>Entity System\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="M_MisionManager.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -365,6 +368,9 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="M_MisionManager.h">
+      <Filter>Modules\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

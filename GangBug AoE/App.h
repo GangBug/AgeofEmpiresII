@@ -32,7 +32,7 @@ class M_DialogueManager;
 class M_FogOfWar;
 class S_Menu;
 class S_InGame;
-
+class M_MisionManager;
 
 class App
 {
@@ -118,6 +118,7 @@ public:
 	M_Collision*		collision = nullptr;
 	M_DialogueManager*	dialogueManager = nullptr;
 	//M_FogOfWar*			fogOfWar = nullptr;
+	M_MisionManager*		misionManager = nullptr;
 	S_Menu*				menu = nullptr;
 	S_InGame*			inGame = nullptr;
 

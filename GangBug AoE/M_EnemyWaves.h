@@ -47,6 +47,7 @@ public:
 	void SpawnWave(unit_type type, int posX, int posY, Entity* entityParent);
 	void SpawnEnemies(int vileSpawn, int diabloSpawn, int posX, int posY);
 
+
 	std::vector<Entity*> waveEntities;
 };
 

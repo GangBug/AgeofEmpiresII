@@ -272,6 +272,7 @@
     <ClCompile Include="M_Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="M_Map.cpp" />
+    <ClCompile Include="M_MisionManager.cpp" />
     <ClCompile Include="M_Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="M_Render.cpp" />
@@ -325,6 +326,7 @@
     <ClInclude Include="M_Input.h" />
     <ClInclude Include="M_Map.h" />
     <ClInclude Include="Module.h" />
+    <ClInclude Include="M_MisionManager.h" />
     <ClInclude Include="M_Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="M_Render.h" />

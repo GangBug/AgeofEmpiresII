@@ -5,7 +5,7 @@
 #include "S_InGame.h"
 #include "M_Audio.h"
 #include "Log.h"
-
+#include "M_MisionManager.h"
 
 M_EnemyWaves::M_EnemyWaves(bool startEnabled) : Module(startEnabled)
 {
@@ -91,7 +91,7 @@ update_status M_EnemyWaves::Update(float dt)
 		{
 			if (dynamic_cast<Unit*>(*it)->GetType() == VILE)
 			{
-				dynamic_cast<Unit*>(*it)->GoTo(app->inGame->enemyDestination);
+				dynamic_cast<Unit*>(*it)->GoTo({ ENEMYOBJECTIVE_X, ENEMYOBJECTIVE_Y });
 			}
 		}
 		waveSpawn = false;

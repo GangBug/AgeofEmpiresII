@@ -1,6 +1,7 @@
 #include "M_MisionManager.h"
 #include "Log.h"
-
+#include "M_EnemyWaves.h"
+#include "App.h"
 M_MisionManager::M_MisionManager(bool startEnabled) : Module(startEnabled)
 {
 
@@ -41,7 +42,8 @@ update_status M_MisionManager::Update(float dt)
 			misionTimer.Start();
 			State = M_TOWNATTACK;
 		}
-
+		//TODO
+		State = M_WAVE1;
 		break;
 
 	case M_TOWNATTACK:
@@ -60,6 +62,7 @@ update_status M_MisionManager::Update(float dt)
 		{
 			State = M_WAVE1;
 			misionTimer.Start();
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);	
 		}
 
 		break;
@@ -70,11 +73,14 @@ update_status M_MisionManager::Update(float dt)
 		{
 			State = M_WAVE2;
 			misionTimer.Start();
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
 		}
+
 		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE1 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
 		{
 			State = M_WAVE2;
 			misionTimer.Start();
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
 		}
 
 		break;
@@ -85,41 +91,54 @@ update_status M_MisionManager::Update(float dt)
 		{
 			State = M_WAVE3;
 			misionTimer.Start();
-
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
 		}
+
 		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE2 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
 		{
 			State = M_WAVE3;
 			misionTimer.Start();
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
 		}
 
 		break;
 
 	case M_WAVE3:
 
-		if (misionTimer.ReadSec() > WAVES_W8_TIME) {
+		if (misionTimer.ReadSec() > WAVES_W8_TIME) 
+		{
 			State = M_WAVE4;
 			misionTimer.Start();
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
 		}
+
 		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE3 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
 		{
 			State = M_WAVE4;
 			misionTimer.Start();
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
 		}
 
 		break;
 
 	case M_WAVE4:
 
-		if (misionTimer.ReadSec() > WAVES_W8_TIME) {
+		if (misionTimer.ReadSec() > WAVES_W8_TIME) 
+		{
+			// ----------- // ---------- //  //TODO add spawn boss
 			State = M_BOSSWAVE;
 			misionTimer.Start();
 		}
+
 		if (GetEnemyUnits() <= aliveTroopWave + M_WAVE4 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS)
 		{
+			// ----------- // ---------- //  //TODO add spawn boss
 			State = M_BOSSWAVE;
 			misionTimer.Start();
 		}
+		
 
 		break;
 
@@ -129,6 +148,7 @@ update_status M_MisionManager::Update(float dt)
 		{
 			State = M_VICTORY;
 		}
+
 		if (townCenterIsAlive == false) {
 			State = M_DEFEAT;
 		}
