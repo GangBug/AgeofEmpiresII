@@ -7,6 +7,7 @@
 #include "M_Pathfinding.h"
 #include "M_Map.h"
 #include "M_EntityManager.h"
+#include "M_MisionManager.h"
 
 #define ATTACK_TIMER 1
 
@@ -25,17 +26,26 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 		action = IDLE;
 }
 
-void Boss::Update()
+void Boss::OnUpdate(float dt)
 {
+	app->misionManager->SetBossState(true);
 	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
 		this->SetHp(GetHP() - 200);
 	}
+
 	CheckSurroundings();
+
 	if (GetHP() <= 0)
 	{
+		app->misionManager->SetBossState(false);
 		unitState = DEAD;
 		action = DIE;
 		app->entityManager->DeleteUnit(this);
 	}
+
+
+	iPoint p;
+	app->animation->GetFrame(drawQuad, p, this);
+	SetPivot(p);
 }

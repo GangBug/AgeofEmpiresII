@@ -63,7 +63,8 @@ public:
 	std::string GetStateName()const;
 	Timer GetMisionTime()const;
 	void AddStartUnit();
-	void TheBossIsDead();
+	bool GetBossState();
+	void SetBossState(bool state);
 	void TheTownCenterIsDead();
 
 private:

@@ -42,6 +42,7 @@ public:
 	SDL_Texture* objectTexture = nullptr;
 	SDL_Texture* samuraiTexture = nullptr;
 	SDL_Texture* dialogueBoxTexture = nullptr;
+	SDL_Texture* bossLifeBar = nullptr;
 
 };
 

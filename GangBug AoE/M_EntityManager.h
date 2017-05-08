@@ -9,6 +9,7 @@
 class Entity;
 class SDL_Texture;
 enum building_type;
+class Boss;
 
 class GB_QuadTree;
 
@@ -79,6 +80,9 @@ public: // ------------------------------- Objects
 	bool PlaceObjects();
 	void CreateForest(pugi::xml_node &, int x, int y);
 	void Setforest(pugi::xml_node node, int radious = 0);
+
+	//----Adri
+	Unit* GetBoss();
 public:
 
 	void LoadFXs();// ADD FX

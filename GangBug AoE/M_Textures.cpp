@@ -47,6 +47,7 @@ bool M_Textures::Start()
 	objectTexture = Load("objects/ObjectsSpritesheet.png");
 	samuraiTexture = Load("dialogue/ryoma2.png");
 	dialogueBoxTexture = Load("dialogue/dialogueBox.png");
+	bossLifeBar = Load("textures/BossLifeBar.png");
 
 	return ret;
 }

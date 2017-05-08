@@ -12,7 +12,7 @@ class Boss : public Unit
 public:
 	Boss(fPoint pos, Entity* parent = nullptr);
 
-	void Update();
+	void OnUpdate(float dt);
 
 };
 

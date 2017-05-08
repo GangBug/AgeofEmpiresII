@@ -9,7 +9,7 @@ M_MisionManager::M_MisionManager(bool startEnabled) : Module(startEnabled)
 	enemyStartTroops = 0;
 	enemyTroopCounter = 0;
 	aliveTroopWave = 0;
-	bossIsAlive = true;
+	bossIsAlive = false;
 	townCenterIsAlive = true;
 	stateName.assign("Intro");
 }
@@ -200,9 +200,14 @@ void M_MisionManager::AddStartUnit()
 	enemyStartTroops++;
 }
 
-void M_MisionManager::TheBossIsDead()
+bool M_MisionManager::GetBossState()
 {
-	bossIsAlive = false;
+	return bossIsAlive;
+}
+
+void M_MisionManager::SetBossState(bool state)
+{
+	bossIsAlive = state;
 }
 
 void M_MisionManager::TheTownCenterIsDead()

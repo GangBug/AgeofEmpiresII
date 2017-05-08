@@ -936,6 +936,17 @@ void M_EntityManager::Setforest(pugi::xml_node objectNode, int radious)
 	}
 }
 
+Unit* M_EntityManager::GetBoss()
+{
+	for (int i = 0; i < unitVector.size(); i++)
+	{
+		if (dynamic_cast<Unit*>(unitVector[i])->GetUnitType() == DIABLO)
+		{
+			return dynamic_cast<Unit*>(unitVector[i]);
+		}
+	}
+}
+
 void M_EntityManager::LoadFXs()// ADD FX
 {
 	//fight

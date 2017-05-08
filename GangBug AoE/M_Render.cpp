@@ -12,11 +12,14 @@
 #include "M_FogOfWar.h"
 #include "M_DialogueManager.h"
 #include "PlayerManager.h"
+#include "M_MisionManager.h"
+#include "Boss.h"
 //TEMP
 #include "M_Textures.h"
 #include <algorithm>
 
 #define VSYNC true
+#define BOSS_LIFE_BAR_Y 100
 
 M_Render::M_Render(bool startEnabled) : Module(startEnabled)
 {
@@ -152,6 +155,25 @@ update_status M_Render::PostUpdate(float dt)
 		app->DrawDebug();
 	}
 	//---------
+
+	//BOSS LIFE BAR
+
+	if (app->misionManager->GetBossState() == true)
+	{
+			SDL_Rect lifeBarRect{ 0,0,771,52 };
+			iPoint center = camera->GetCenter();
+			iPoint lifeBarPos(center.x - lifeBarRect.w * 0.5, center.y + BOSS_LIFE_BAR_Y);
+
+			int gwbar;
+			gwbar = ((app->entityManager->GetBoss()->GetHP() * 100) / 2000);
+			gwbar = (gwbar * lifeBarRect.w) / 100;
+			//red
+			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 35, lifeBarRect.w, 10 }, 255, 0, 0, 255);
+			//green
+			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 35, gwbar, 10 }, 0, 255, 0, 255);
+
+			Blit(app->tex->bossLifeBar, lifeBarPos.x, lifeBarPos.y, &lifeBarRect);
+	}
 
 	//RENDER DIALOGUES
 
@@ -332,8 +354,8 @@ bool M_Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect*
 
 	if (useCamera)
 	{
-		rect.x = (int)(camera->GetRect().x + rect.x * scale);
-		rect.y = (int)(camera->GetRect().y + rect.y * scale);
+		rect.x = (int)((camera->GetPosition().x + rect.x) * scale);
+		rect.y = (int)((camera->GetPosition().y + rect.y) * scale);
 		rect.w *= scale;
 		rect.h *= scale;
 	}
