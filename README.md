@@ -46,7 +46,7 @@ Secret's QA departament:
 | QA          | Josep Casanovas|Code| 
 
 
-#CONTROLS
+# CONTROLS
 
 * Directional arrows to move map camera.
 * Hold click and drag to select units.
@@ -64,7 +64,18 @@ Debug:
 
 ## VERSION UPDATES
 
-V0.4 - Monday 8th of May, 2017
+V0.40 Pre-Alpha - tuesday 9th of May, 2017
+
+Adds:
+* Mision system, now there are 4 waves of enemies and 1 boss wave
+* Added Boss
+* Added Boss Life bar
+* Crashes fixes
+* Bug Fixes
+* Performance improved
+
+
+V0.35 - Monday 8th of May, 2017
 
 Adds:
 * Resources Food & wood
