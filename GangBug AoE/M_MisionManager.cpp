@@ -12,6 +12,7 @@ M_MisionManager::M_MisionManager(bool startEnabled) : Module(startEnabled)
 	bossIsAlive = false;
 	townCenterIsAlive = true;
 	stateName.assign("Intro");
+	enemyDeadUnits = 0; 
 }
 
 M_MisionManager::~M_MisionManager()
@@ -44,13 +45,11 @@ update_status M_MisionManager::Update(float dt)
 			State = M_TOWNATTACK;
 			stateName.assign("Attack the town");
 		}
-		//WAARNING
-		State = M_WAVE1;
-		break;
+	break;
 
 	case M_TOWNATTACK:
 
-		if (GetEnemyUnits() <= enemyStartTroops + TROOPS_ONTOWN) 
+		if (enemyDeadUnits >=  TROOPS_ONTOWN) 
 		{
 			State = M_TOWNREPAIR;
 			misionTimer.Start();
@@ -65,8 +64,9 @@ update_status M_MisionManager::Update(float dt)
 		{
 			State = M_WAVE1;
 			misionTimer.Start();
-			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);	
 			stateName.assign("Defend the town! Wave 1");
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);	
+
 		}
 
 		break;
@@ -77,16 +77,17 @@ update_status M_MisionManager::Update(float dt)
 		{
 			State = M_WAVE2;
 			misionTimer.Start();
-			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
 			stateName.assign("Defend the town! Wave 2");
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
+			
 		}
 
-		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE1 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
+		if (enemyDeadUnits >= TROOPS_ONTOWN + TROOPS_WAVE1 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS)
 		{
 			State = M_WAVE2;
 			misionTimer.Start();
-			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
 			stateName.assign("Defend the town! Wave 2");
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);		
 		}
 
 		break;
@@ -97,16 +98,17 @@ update_status M_MisionManager::Update(float dt)
 		{
 			State = M_WAVE3;
 			misionTimer.Start();
-			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
 			stateName.assign("Defend the town! Wave 3");
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
+
 		}
 
-		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE2 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
+		if (enemyDeadUnits >= TROOPS_ONTOWN + TROOPS_WAVE1 + TROOPS_WAVE2 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS)
 		{
 			State = M_WAVE3;
 			misionTimer.Start();
-			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
 			stateName.assign("Defend the town! Wave 3");
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);			
 		}
 
 		break;
@@ -122,7 +124,7 @@ update_status M_MisionManager::Update(float dt)
 			stateName.assign("Defend the town! Wave 4");
 		}
 
-		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE3 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
+		if (enemyDeadUnits >= TROOPS_ONTOWN + TROOPS_WAVE1 + TROOPS_WAVE2 + TROOPS_WAVE3 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS)
 		{
 			State = M_WAVE4;
 			misionTimer.Start();
@@ -138,20 +140,31 @@ update_status M_MisionManager::Update(float dt)
 		if (misionTimer.ReadSec() > WAVES_W8_TIME) 
 		{
 			// ----------- // ---------- //  //TODO add spawn boss
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_4_X, SPAWNPOINT_4_Y);
+
+			app->enemyWaves->SpawnEnemies(0, 1, SPAWNPOINT_4_X, SPAWNPOINT_4_Y);
+
 			State = M_BOSSWAVE;
 			misionTimer.Start();
 			stateName.assign("Defend the town! The diablo is comming!");
 		}
 
-		if (GetEnemyUnits() <= aliveTroopWave + M_WAVE4 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS)
+		if (enemyDeadUnits >= TROOPS_ONTOWN + TROOPS_WAVE1 + TROOPS_WAVE2 + TROOPS_WAVE3 + TROOPS_WAVE4 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS)
 		{
 			// ----------- // ---------- //  //TODO add spawn boss
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
+			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_4_X, SPAWNPOINT_4_Y);
+
+			app->enemyWaves->SpawnEnemies(0, 1, SPAWNPOINT_4_X, SPAWNPOINT_4_Y);
 			State = M_BOSSWAVE;
 			misionTimer.Start();
 			stateName.assign("Defend the town! The diablo is comming!");
 		}
-		
-
 		break;
 
 	case M_BOSSWAVE:
@@ -163,7 +176,7 @@ update_status M_MisionManager::Update(float dt)
 		}
 
 		if (townCenterIsAlive == false) {
-			stateName.assign("NEXT TIME WILL BE BETTER");
+			stateName.assign("NEXT TIME WILL BE B ETTER");
 			State = M_DEFEAT;
 		}
 
@@ -178,6 +191,21 @@ update_status M_MisionManager::Update(float dt)
 		break;
 	}
 	return update_status(ret);
+}
+
+bool M_MisionManager::CleanUp()
+{
+	bool ret = true;
+
+	enemyStartTroops = 0;
+	enemyTroopCounter = 0;
+	aliveTroopWave = 0;
+	bossIsAlive = false;
+	townCenterIsAlive = true;
+	stateName.assign("Intro");
+	enemyDeadUnits = 0;
+
+	return ret;
 }
 
 uint M_MisionManager::GetEnemyUnits()const
@@ -195,14 +223,29 @@ Timer M_MisionManager::GetMisionTime() const
 	return Timer(misionTimer);
 }
 
+float M_MisionManager::GetMisionTimeleftf() const
+{
+	return float(misionTimer.ReadSec());
+}
+
 void M_MisionManager::AddStartUnit()
 {
 	enemyStartTroops++;
 }
 
-bool M_MisionManager::GetBossState()
+void M_MisionManager::AddEnemyDeadUnit()
+{
+	enemyDeadUnits++;
+}
+
+bool M_MisionManager::GetBossState()const
 {
 	return bossIsAlive;
+}
+
+uint M_MisionManager::GetEnemyDeadUnits() const
+{
+	return uint(enemyDeadUnits);
 }
 
 void M_MisionManager::SetBossState(bool state)

@@ -50,7 +50,7 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 	if (strcmp(GetName().c_str(), "label_Wave_stat_n") == 0)
 		SetText(app->misionManager->GetStateName().c_str(), SMALL);
 	if (strcmp(GetName().c_str(), "label_Wave_time_n") == 0)
-		SetText(std::to_string(app->misionManager->GetMisionTime().ReadSec()).c_str(), SMALL);
+		SetText(std::to_string(app->misionManager->GetMisionTimeleftf()).c_str(), SMALL);
 
 }
 

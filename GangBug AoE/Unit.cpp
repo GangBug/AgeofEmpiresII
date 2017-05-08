@@ -6,6 +6,7 @@
 #include "M_Audio.h"
 #include "M_EntityManager.h"
 #include "M_DialogueManager.h"
+#include "M_MisionManager.h"
 //TMP
 #include "M_Input.h"
 #include "App.h"
@@ -276,6 +277,10 @@ void Unit::Die()
 	}
 	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DISAPPEAR)
 	{
+		if (this->horde == true) {
+			app->misionManager->AddEnemyDeadUnit();
+		}
+
 		app->entityManager->DeleteUnit(this);
 	}
 }

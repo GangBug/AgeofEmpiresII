@@ -564,7 +564,7 @@
     <!--  ............................................................................................  -->
     <!--  ............................................................................................  -->
 
-    <label size="1" name="label_Wave_status" text="MISION STATUS" interactive="false" canFocus="true" visible="true">
+    <label size="1" name="label_Wave_status" text="MISSION STATUS" interactive="false" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>

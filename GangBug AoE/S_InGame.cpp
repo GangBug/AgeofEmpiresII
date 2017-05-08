@@ -9,6 +9,7 @@
 #include "Building.h"
 #include "M_DialogueManager.h"
 #include "S_Menu.h"
+#include "M_MisionManager.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -218,7 +219,7 @@ void S_InGame::GoToMenu()
 	app->gui->SetActiveScene("menu");
 	app->entityManager->CleanUp();
 	app->audio->CleanData();
-
+	app->misionManager->CleanUp();
 	pugi::xml_node		nullnode;
 
 	app->entityManager->Awake(nullnode);
