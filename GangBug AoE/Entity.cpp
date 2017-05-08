@@ -258,7 +258,7 @@ bool Entity::RecRemoveFlagged()
 			app->entityManager->EraseEntityFromTree(this);
 			RELEASE(tmp);
 			it = childs.erase(it);
-			ret = true;
+			return true;
 		}
 		else
 		{
@@ -640,7 +640,7 @@ void Entity::Update(float dt)
 	if (selfActive == true)
 	{
 		OnUpdate(dt);
-		
+
 		//this is because units (who'll never have childs anyways...) get deleted when they die.
 		if (childs.size() > 0)
 		{
@@ -655,22 +655,6 @@ void Entity::Update(float dt)
 			}
 		}
 	}
-	
-	//No longer done like this but keep until I understand dynamic_cast
-	/*for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
-	{
-		if((*it)->IsActive())
-		{ 
-			if (strcmp((*it)->name.c_str(), "unit") == 0)
-			{
-				dynamic_cast<Unit*>(*it)->Update(dt);
-			}
-			else
-			{
-				(*it)->Update(dt);
-			}
-		}
-	}*/
 }
 
 void Entity::Start()

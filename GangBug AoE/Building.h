@@ -1,4 +1,3 @@
-#pragma once
 #include "Entity.h"
 #include "Unit.h"
 #include "j1Timer.h"
@@ -10,7 +9,8 @@ enum building_type
 	BUILD_ARCHERY,
 	BUILD_STABLES,
 	BUILD_BARRACK,
-	BUILD_TOWNCENTER
+	BUILD_TOWNCENTER,
+	BUILD_NOBUILDING
 };
 
 class Building :
@@ -24,15 +24,16 @@ public:
 
 	bool OnSave(pugi::xml_node& node)const override;
 	bool OnLoad(pugi::xml_node* node)override;
-
 	void BuyUnit();
 
 	int GetHP() const;
 	void DoDamage(int dmg);
-
+	void GenerateUnit(int num);
 	void PlaySelectFx();
 public:
+
 	Timer buyTimer;
+	uint unitsToAdd;
 
 	enum building_type buildType;
 	enum unit_type unitType;
@@ -41,8 +42,8 @@ public:
 	int unitWoodCost;
 	int unitFoodCost;
 	int HP;
-	
+
 private:
+
 	GUIElement* creatorButton;
 };
-

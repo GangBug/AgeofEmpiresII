@@ -13,8 +13,9 @@
 
 Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUILDING, parent), buildType(buildType)
 {
-	
+
 	SetEnclosingBoxSize(100, 100);
+	unitsToAdd = 0;
 
 	switch (buildType)
 	{
@@ -24,33 +25,38 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		unitGoldCost = 45;
 		unitWoodCost = 25;
 		unitFoodCost = 0;
-		
+
 		entityTexture = app->tex->archeryTexture;
 		SetEnclosingBoxSize(320, 293);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "ArcherCreatorButton");
+
 		break;
+
 	case BUILD_STABLES:
 		unitType = unit_type::TARKAN_KNIGHT;
-		
+
 		unitGoldCost = 75;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
-	
+
 		entityTexture = app->tex->stableTexture;
 		SetEnclosingBoxSize(323, 226);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton");
+
 		break;
 
 	case BUILD_BARRACK:
+
 		unitType = SAMURAI;
-				
+
 		unitGoldCost = 30;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
-		
+
 		entityTexture = app->tex->barracksTexture;
 		SetEnclosingBoxSize(310, 266);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton");
+
 		break;
 
 	case 	BUILD_TOWNCENTER:
@@ -60,7 +66,7 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		unitWoodCost = 0;
 		unitFoodCost = 50;
 
-		
+
 
 		entityTexture = app->tex->townCenterTexture;
 		SetLocalPosition(10, 10);
@@ -82,6 +88,7 @@ void Building::OnUpdate(float dt)
 {
 	if (!app->dialogueManager->onDialogue)
 	{
+
 		iPoint mPos;
 		app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
@@ -106,11 +113,11 @@ void Building::OnUpdate(float dt)
 			else if (buildType == BUILD_TOWNCENTER)
 			{
 				app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
-			}	
+			}
 		}
-		else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP 
-				 && !GetEnclosingBox().Contains(mPos.x, mPos.y) 
-				 && creatorButton->GetInteractive())
+		else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP
+			&& !GetEnclosingBox().Contains(mPos.x, mPos.y)
+			&& creatorButton->GetInteractive())
 		{
 			app->input->GetMouseScreenPosition(mPos.x, mPos.y);
 			if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
@@ -124,6 +131,46 @@ void Building::OnUpdate(float dt)
 				creatorButton->SetVisible(false);
 				creatorButton->SetInteractive(false);
 			}
+		}
+
+		//UNIT CREATION
+		if (unitsToAdd > 0 && buyTimer.ReadSec() >= 2)
+		{
+			fPoint pos = GetGlobalPosition();
+
+			if (unitType != VILLAGER)
+			{
+				app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
+				app->audio->PlayFx(app->entityManager->fxCreateUnit);
+
+				unitsToAdd--;
+				if (unitsToAdd > 0)
+				{
+					buyTimer.Start();
+				}
+				else
+				{
+					buyTimer.Stop();
+				}
+			}
+			else
+			{
+				app->resources->AddVillager();
+				app->audio->PlayFx(app->entityManager->fxCreateVillager);
+				unitsToAdd--;
+				if (unitsToAdd > 0)
+				{
+					buyTimer.Start();
+				}
+				else
+				{
+					buyTimer.Stop();
+				}
+			}
+
+			app->resources->SubstractGold(unitGoldCost);
+			app->resources->SubstractFood(unitFoodCost);
+			app->resources->SubstractWood(unitWoodCost);
 		}
 	}
 }
@@ -140,31 +187,12 @@ bool Building::OnLoad(pugi::xml_node * node)
 
 void Building::BuyUnit()
 {
-
 	//If theres money create a unit
-	if(app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost)
+	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost)
 	{
-		if (unitType != VILLAGER) 
-		{
-			fPoint pos = GetGlobalPosition();
-			app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
-			app->audio->PlayFx(app->entityManager->fxCreateUnit);
-		}
-		else
-		{					
-			if (app->resources->GetTotalVillagers() < MAX_VILLAGERS)
-			{
-				app->resources->AddVillager();
-				app->audio->PlayFx(app->entityManager->fxCreateVillager);
-			}
-			else
-			{
-				app->audio->PlayFx(app->entityManager->fxLimitVillager);
-			}
-		}
-		app->resources->SubstractGold(unitGoldCost);
-		app->resources->SubstractFood(unitFoodCost);
-		app->resources->SubstractWood(unitWoodCost);
+		unitsToAdd++;
+		buyTimer.Start();
+
 	}
 }
 

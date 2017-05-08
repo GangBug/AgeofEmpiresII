@@ -415,7 +415,6 @@ Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, in
 	{
 		ret->SetGlobalPosition(posX, posY);
 		ret->SetEnclosingBox(posX, posY, rectX, rectY);
-		ret->selfActive = false;
 		unitVector.push_back(ret);
 	}
 	else
