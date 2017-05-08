@@ -13,6 +13,7 @@
 #include "EntityMap.h"
 #include "Building.h"
 #include "IA_Steering.h"
+#include "Boss.h"
 //
 
 // Modules
@@ -109,8 +110,6 @@ bool M_EntityManager::Start()
 	//textTexture = app->tex->Load("textures/test.png");
 
 	CreateEntity(ENTITY_PLAYER_MAN, nullptr);
-
-	CreateEntity(ENTITY_MAP, nullptr);
 	//et = CreateEntity(nullptr, 300, 100);
 	//et->SetTexture(textTexture);
 	//et2 = CreateEntity(et, 50, 50);
@@ -164,7 +163,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
 	{
-		Entity* t = CreateEntity(ENTITY_UNIT, nullptr);
+		Entity* t = CreateUnit(DIABLO, nullptr);
 		iPoint mP;
 		app->input->GetMouseMapPosition(mP.x, mP.y);
 		t->SetGlobalPosition(mP.x, mP.y);
@@ -404,25 +403,51 @@ bool M_EntityManager::IsUnitInTile(const Unit* unit, iPoint tile)const
 */
 Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, int posY, int rectX, int rectY)
 {
-	Entity* ret = (Entity*) new Unit(type, parent);
-
-	if (parent)
-		parent->AddChild(ret);
-	else
-		root->AddChild(ret);
-
-	if (ret)
+	if (type != DIABLO)
 	{
-		ret->SetGlobalPosition(posX, posY);
-		ret->SetEnclosingBox(posX, posY, rectX, rectY);
-		unitVector.push_back(ret);
+
+		Entity* ret = (Entity*) new Unit(type, parent);
+
+		if (parent)
+			parent->AddChild(ret);
+		else
+			root->AddChild(ret);
+
+		if (ret)
+		{
+			ret->SetGlobalPosition(posX, posY);
+			ret->SetEnclosingBox(posX, posY, rectX, rectY);
+			unitVector.push_back(ret);
+		}
+		else
+		{
+			LOG("ERROR: Could not create a new unit.");
+		}
+		return ret;
 	}
 	else
 	{
-		LOG("ERROR: Could not create a new unit.");
+		Entity* ret = (Entity*) new Boss(fPoint(posX, posY), parent);
+
+		if (parent)
+			parent->AddChild(ret);
+		else
+			root->AddChild(ret);
+
+		if (ret)
+		{
+			ret->SetGlobalPosition(posX, posY);
+			ret->SetEnclosingBox(posX, posY, rectX, rectY);
+			unitVector.push_back(ret);
+		}
+		else
+		{
+			LOG("ERROR: Could not create a new unit.");
+		}
+		return ret;
 	}
 
-	return ret;
+	return nullptr;
 }
 
 Entity* M_EntityManager::CreateBuilding(building_type buildType, Entity* parent, int posx, int posy)
@@ -792,6 +817,8 @@ bool M_EntityManager::DeleteUnit(Entity* toDelete)
 	{
 		if (unitVector[i] == toDelete)
 		{
+			unitVector[i]->selfActive = false;
+			unitVector[i]->Remove();
 			unitVector.erase(unitVector.begin() + i);
 			return true;
 		}

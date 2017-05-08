@@ -106,7 +106,7 @@ public:// ADD FX
 	void PlayAttackSound() const; //called when the unit attack
 	void PlaySelectSound()const; // called when the unit is selected
 	void PlayMoveSound() const; //called when the unit is selected 
-private:
+protected:
 	unit_type unitType;
 	action_type action;
 	unit_class unitClass;

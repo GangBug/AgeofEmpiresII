@@ -141,8 +141,8 @@ iPoint M_Map::WorldToMap(int x, int y) const
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
-		float halfWidth = data.tileWidth * 0.5f;
-		float halfHeight = (data.tileHeight + 1) * 0.5f;
+		float halfWidth = (data.tileWidth + 1) * 0.5f;//MAGIC NUMBERS
+		float halfHeight = (data.tileHeight + 2) * 0.5f;//MAGIC NUMBERS
 
 		float pX = (((ret.x / halfWidth) + (ret.y / halfHeight)) * 0.5f);
 		float pY = (((ret.y / halfHeight) - (ret.x / halfWidth)) * 0.5f);

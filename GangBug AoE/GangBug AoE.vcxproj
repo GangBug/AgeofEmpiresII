@@ -239,6 +239,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bezier.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="M_DialogueManager.cpp" />
@@ -292,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bezier.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="M_DialogueManager.h" />
     <ClInclude Include="IA_FormationManager.h" />

@@ -196,6 +196,9 @@
     <ClCompile Include="Steer_Separation.cpp">
       <Filter>Entity System\Entities\IA\Steering</Filter>
     </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Entity System\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -338,7 +341,7 @@
     </ClInclude>
     <ClInclude Include="M_DialogueManager.h">
       <Filter>Modules\Modules</Filter>
-     </ClInclude>
+    </ClInclude>
     <ClInclude Include="IA_Unit.h">
       <Filter>Entity System\Entities\IA</Filter>
     </ClInclude>
@@ -359,6 +362,9 @@
     </ClInclude>
     <ClInclude Include="Steer_Separation.h">
       <Filter>Entity System\Entities\IA\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

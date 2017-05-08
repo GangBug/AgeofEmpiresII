@@ -216,6 +216,13 @@ void S_InGame::GoToMenu()
 	app->dialogueManager->CleanUp();
 	app->dialogueManager->Disable();
 	app->gui->SetActiveScene("menu");
+	app->entityManager->CleanUp();
+	app->audio->CleanData();
+
+	pugi::xml_node		nullnode;
+
+	app->entityManager->Awake(nullnode);
+	app->entityManager->Start();
 }
 
 void S_InGame::OpenMenu(bool visible)

@@ -276,9 +276,7 @@ void Unit::Die()
 	}
 	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DISAPPEAR)
 	{
-		selfActive = false;
 		app->entityManager->DeleteUnit(this);
-		Remove();
 	}
 }
 
