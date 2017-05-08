@@ -147,7 +147,7 @@ void Building::BuyUnit()
 		if (unitType != VILLAGER) 
 		{
 			fPoint pos = GetGlobalPosition();
-			app->entityManager->CreateUnit(unitType, this, pos.x, pos.y + 10.0f);
+			app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
 			app->audio->PlayFx(app->entityManager->fxCreateUnit);
 		}
 		else
@@ -160,7 +160,6 @@ void Building::BuyUnit()
 			else
 			{
 				app->audio->PlayFx(app->entityManager->fxLimitVillager);
-
 			}
 		}
 		app->resources->SubstractGold(unitGoldCost);
