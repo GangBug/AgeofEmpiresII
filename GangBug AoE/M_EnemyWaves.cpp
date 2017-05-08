@@ -42,7 +42,7 @@ update_status M_EnemyWaves::Update(float dt)
 	//TODO: Use IsStopped instead of spawnTimerStarted
 	if (vilesSpawn > 0)
 	{
-		if (spawnTimerStarted == false)
+		if (spawnTimerStarted == false && vilesSpawned != vilesSpawn)
 		{
 			spawnTimer.Start();
 			spawnTimerStarted = true;
@@ -56,6 +56,7 @@ update_status M_EnemyWaves::Update(float dt)
 		}
 		if (vilesSpawned == vilesSpawn)
 		{
+			vilesSpawned = 0;
 			vilesSpawn = 0;
 			waveSpawn = true;
 		}
@@ -117,7 +118,7 @@ void M_EnemyWaves::SpawnWave(unit_type type, int posX, int posY, Entity* entityP
 
 void M_EnemyWaves::SpawnEnemies(int vileSpawn, int diabloSpawn, int pos1X, int pos1Y)
 {
-	vilesSpawn = vileSpawn;
+	vilesSpawn += vileSpawn;
 	diablosSpawn = diabloSpawn;
 
 	spawnPosition.x = pos1X;
