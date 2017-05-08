@@ -11,6 +11,7 @@
 
 class SDL_Texture;
 class GB_QuadTreeNode;
+enum direction;
 
 enum entity_type
 {
@@ -103,6 +104,7 @@ public:
 	virtual void DrawDebug();
 	virtual int GetHP() const;
 	virtual void DoDamage(int dmg);
+	virtual direction GetDir() const;
 
 	//---------------------------------------------------------------
 
@@ -115,7 +117,6 @@ public:
 
 protected:
 	Entity* parent = nullptr;
-	bool selfActive = true;
 	std::string name;
 	/** Is a rectangle the enclose the entity and will be used to collide with the quadtree and might be and aproximation to simulate simple physics collisions. */
 	GB_Rectangle<int> enclosingRect;
@@ -142,6 +143,7 @@ private:  //Set position to private because I want to modify position with metho
 public:
 	std::vector<Entity*> childs;
 	bool removeFlag = false;
+	bool selfActive = true;
 
 	/** Scale of entity on each axis. */
 	fPoint scale;

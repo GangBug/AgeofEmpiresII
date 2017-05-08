@@ -474,7 +474,7 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 	{
 		Entity* tmp = (*it);
 
-		if (tmp != nullptr)
+		if (tmp != nullptr && tmp->selfActive == true)
 		{
 			SDL_Texture* texture = tmp->GetTexture();
 			if (tmp->type == ENTITY_PLAYER_MAN)
@@ -517,22 +517,17 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 
 					//Check if we should flip
 					SDL_RendererFlip flip = SDL_FLIP_NONE;
-					Unit* tmpUnit = dynamic_cast<Unit*>(tmp);
-					if (tmpUnit)
 					{
-						if (tmpUnit->GetDir() == NORTH_EAST || tmpUnit->GetDir() == EAST || tmpUnit->GetDir() == SOUTH_EAST)
+						if (tmp->GetDir() == NORTH_EAST || tmp->GetDir() == EAST || tmp->GetDir() == SOUTH_EAST)
 						{
 							flip = SDL_FLIP_HORIZONTAL;
 						}
 					}
-					
-
 					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, &piv, flip) != 0)
 					{
 						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
 					}
 				}
-
 				else if (tmp->type == ENTITY_BUILDING)
 				{
 					Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);

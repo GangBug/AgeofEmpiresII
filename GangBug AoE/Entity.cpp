@@ -620,6 +620,10 @@ void Entity::DoDamage(int dmg)
 {
 }
 
+direction Entity::GetDir()const
+{
+	return NORTH;
+}
 /** 
 	Remove: Mark the entity to delete it in a save moment.
 */
