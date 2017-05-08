@@ -255,7 +255,7 @@ bool Entity::RecRemoveFlagged()
 		if (tmp && tmp->removeFlag)
 		{
 			tmp->OnFinish();
-			app->entityManager->EraseEntityFromTree(this);
+			app->entityManager->EraseEntityFromTree(tmp);
 			RELEASE(tmp);
 			it = childs.erase(it);
 			return true;
