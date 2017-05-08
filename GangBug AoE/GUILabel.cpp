@@ -5,6 +5,7 @@
 #include "M_GUI.h"
 #include "App.h"
 #include "M_Resources.h"
+#include "M_MisionManager.h"
 //TEMP
 #include "M_Render.h"
 
@@ -44,6 +45,12 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 		SetText(std::to_string(app->resources->GetLumberjacks()).c_str(), SMALL);
 	if (strcmp(GetName().c_str(), "label_ResourceWindow_Repairmen_n") == 0)
 		SetText(std::to_string(app->resources->GetConstructors()).c_str(), SMALL);
+	
+
+	if (strcmp(GetName().c_str(), "label_Wave_stat_n") == 0)
+		SetText(app->misionManager->GetStateName().c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "label_Wave_time_n") == 0)
+		SetText(std::to_string(app->misionManager->GetMisionTime().ReadSec()).c_str(), SMALL);
 
 }
 

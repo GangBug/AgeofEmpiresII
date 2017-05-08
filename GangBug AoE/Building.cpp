@@ -66,12 +66,11 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		unitWoodCost = 0;
 		unitFoodCost = 50;
 
-
-
 		entityTexture = app->tex->townCenterTexture;
 		SetLocalPosition(10, 10);
 		SetEnclosingBoxSize(382, 399);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton");
+
 		break;
 
 	}

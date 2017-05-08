@@ -19,15 +19,15 @@ bool M_Resources::Start()
 	LOG("Resources: Start.");
 	bool ret = true;
 
-	food = 1000;
-	wood = 1000;
-	gold = 1000;
+	food = 50;
+	wood = 50;
+	gold = 50;
 
-	miners = 5;
-	lumberjacks = 3;
-	farmers = 4;
+	miners = 0;
+	lumberjacks = 0;
+	farmers = 1;
 	constructors = 0;
-	totalVillagers = 12;
+	totalVillagers = 1;
 	unemployedVillagers = 0;
 
 

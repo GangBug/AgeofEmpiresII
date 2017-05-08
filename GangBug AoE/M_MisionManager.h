@@ -21,17 +21,17 @@ enum Mision_State {
 #define MISION_TIME 1
 
 
-#define WAVES_W8_TIME 200
-#define WAVES_W8_TIME_DEADUNITS 50
+#define WAVES_W8_TIME 100
+#define WAVES_W8_TIME_DEADUNITS 30
 
 #define TOWNREPAIR_TIME 100
 
 #define TROOPS_ONTOWN 25
 
-#define TROOPS_WAVE1 15
-#define TROOPS_WAVE2 20
-#define TROOPS_WAVE3 30
-#define TROOPS_WAVE4 40
+#define TROOPS_WAVE1 5
+#define TROOPS_WAVE2 10
+#define TROOPS_WAVE3 5
+#define TROOPS_WAVE4 10
 
 #define SPAWNPOINT_1_X  -2650
 #define SPAWNPOINT_1_Y  1200
@@ -59,10 +59,13 @@ public:
 	update_status Update(float dt)override;
 	void DrawDebug()override{}
 
-	uint GetEnemyUnits();
+	uint GetEnemyUnits()const;
+	std::string GetStateName()const;
+	Timer GetMisionTime()const;
 	void AddStartUnit();
 	void TheBossIsDead();
 	void TheTownCenterIsDead();
+
 private:
 	Timer misionTimer;
 	Mision_State State;
@@ -74,6 +77,7 @@ private://troops states
 	uint aliveTroopWave;
 	bool bossIsAlive;
 	bool townCenterIsAlive;
+	std::string stateName;
 };
 
 

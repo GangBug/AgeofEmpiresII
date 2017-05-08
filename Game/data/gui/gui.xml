@@ -564,11 +564,45 @@
     <!--  ............................................................................................  -->
     <!--  ............................................................................................  -->
 
+    <label size="1" name="label_Wave_status" text="MISION STATUS" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="20" y="150" />
+    </label>
+    <label size="1" name="label_Wave_time" text="Time: " interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="20" y="200" />
+    </label>
+    <label size="2" name="label_Wave_time_n" text="00" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="150" y="210" />
+    </label>
+    <label size="1" name="label_Wave_stat" text="Status:" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="20" y="250" />
+    </label>
+    <label size="2" name="label_Wave_stat_n" text="Aaaaaa" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="150" y="260" />
+    </label>
 
 
-
-
-
+    <!--  ............................................................................................  -->
+    <!--  ............................................................................................  -->
 
 
 

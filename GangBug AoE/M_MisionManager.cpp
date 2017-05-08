@@ -11,6 +11,7 @@ M_MisionManager::M_MisionManager(bool startEnabled) : Module(startEnabled)
 	aliveTroopWave = 0;
 	bossIsAlive = true;
 	townCenterIsAlive = true;
+	stateName.assign("Intro");
 }
 
 M_MisionManager::~M_MisionManager()
@@ -41,8 +42,9 @@ update_status M_MisionManager::Update(float dt)
 		{
 			misionTimer.Start();
 			State = M_TOWNATTACK;
+			stateName.assign("Attack the town");
 		}
-		//TODO
+		//WAARNING
 		State = M_WAVE1;
 		break;
 
@@ -52,6 +54,7 @@ update_status M_MisionManager::Update(float dt)
 		{
 			State = M_TOWNREPAIR;
 			misionTimer.Start();
+			stateName.assign("Repair the town");
 		}
 
 		break;
@@ -63,6 +66,7 @@ update_status M_MisionManager::Update(float dt)
 			State = M_WAVE1;
 			misionTimer.Start();
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);	
+			stateName.assign("Defend the town! Wave 1");
 		}
 
 		break;
@@ -74,6 +78,7 @@ update_status M_MisionManager::Update(float dt)
 			State = M_WAVE2;
 			misionTimer.Start();
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
+			stateName.assign("Defend the town! Wave 2");
 		}
 
 		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE1 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
@@ -81,6 +86,7 @@ update_status M_MisionManager::Update(float dt)
 			State = M_WAVE2;
 			misionTimer.Start();
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
+			stateName.assign("Defend the town! Wave 2");
 		}
 
 		break;
@@ -92,6 +98,7 @@ update_status M_MisionManager::Update(float dt)
 			State = M_WAVE3;
 			misionTimer.Start();
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
+			stateName.assign("Defend the town! Wave 3");
 		}
 
 		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE2 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
@@ -99,6 +106,7 @@ update_status M_MisionManager::Update(float dt)
 			State = M_WAVE3;
 			misionTimer.Start();
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_3_X, SPAWNPOINT_3_Y);
+			stateName.assign("Defend the town! Wave 3");
 		}
 
 		break;
@@ -111,6 +119,7 @@ update_status M_MisionManager::Update(float dt)
 			misionTimer.Start();
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
+			stateName.assign("Defend the town! Wave 4");
 		}
 
 		if (GetEnemyUnits() <= aliveTroopWave + TROOPS_WAVE3 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS) 
@@ -119,6 +128,7 @@ update_status M_MisionManager::Update(float dt)
 			misionTimer.Start();
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_1_X, SPAWNPOINT_1_Y);
 			app->enemyWaves->SpawnEnemies(5, 0, SPAWNPOINT_2_X, SPAWNPOINT_2_Y);
+			stateName.assign("Defend the town! Wave 4");
 		}
 
 		break;
@@ -130,6 +140,7 @@ update_status M_MisionManager::Update(float dt)
 			// ----------- // ---------- //  //TODO add spawn boss
 			State = M_BOSSWAVE;
 			misionTimer.Start();
+			stateName.assign("Defend the town! The diablo is comming!");
 		}
 
 		if (GetEnemyUnits() <= aliveTroopWave + M_WAVE4 && misionTimer.ReadSec() > WAVES_W8_TIME_DEADUNITS)
@@ -137,6 +148,7 @@ update_status M_MisionManager::Update(float dt)
 			// ----------- // ---------- //  //TODO add spawn boss
 			State = M_BOSSWAVE;
 			misionTimer.Start();
+			stateName.assign("Defend the town! The diablo is comming!");
 		}
 		
 
@@ -146,10 +158,12 @@ update_status M_MisionManager::Update(float dt)
 
 		if (bossIsAlive == false)
 		{
+			stateName.assign("CONGRATS!  YOU WIN!");
 			State = M_VICTORY;
 		}
 
 		if (townCenterIsAlive == false) {
+			stateName.assign("NEXT TIME WILL BE BETTER");
 			State = M_DEFEAT;
 		}
 
@@ -166,9 +180,19 @@ update_status M_MisionManager::Update(float dt)
 	return update_status(ret);
 }
 
-uint M_MisionManager::GetEnemyUnits()
+uint M_MisionManager::GetEnemyUnits()const
 {
 	return enemyTroopCounter;
+}
+
+std::string M_MisionManager::GetStateName() const
+{
+	return std::string(stateName);
+}
+
+Timer M_MisionManager::GetMisionTime() const
+{
+	return Timer(misionTimer);
 }
 
 void M_MisionManager::AddStartUnit()
