@@ -74,6 +74,7 @@ Adds:
 * UI Ingame improved
 * Big bugs fixes
 * masive stabilization 
+* Enemy waves
 
 V0.3 - Wednesday 5th of April, 2017
 
