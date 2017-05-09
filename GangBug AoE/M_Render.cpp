@@ -534,6 +534,7 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 					{
 						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
 					}
+					dynamic_cast<Unit*>(tmp)->PrintLife();
 				}
 				else if (tmp->type == ENTITY_BUILDING)
 				{

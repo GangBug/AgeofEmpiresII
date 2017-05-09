@@ -82,6 +82,7 @@ public:
 	int GetHP() const;
 	void DoDamage(int dmg);
 	void Die();
+	void PrintLife();
 
 	int GetPriority() const;
 	void SetAction(action_type action);
@@ -115,6 +116,7 @@ protected:
 
 	int attack;
 	int hp;
+	int totalhp;
 	int range;
 	int unitRadius;
 	float speed;

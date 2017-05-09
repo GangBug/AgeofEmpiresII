@@ -13,6 +13,9 @@
 #include "App.h"
 #include "Log.h"
 
+#define U_LIFE_BAR_WIDTH 30
+#define U_LIFE_BAR_Y_OFFSET 45
+
 Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT, parent)
 {
 	name.assign("unit_");
@@ -298,6 +301,28 @@ void Unit::Die()
 	}
 }
 
+void Unit::PrintLife()
+{
+	if (selected == true && horde == false)
+	{
+		if (GetHP() < 0)
+		{
+			hp = 0;
+		}
+
+		fPoint pos = GetGlobalPosition();
+		int halfWidth = GetEnclosingBox().w * 0.5;
+		iPoint progressPos(pos.x + halfWidth - (U_LIFE_BAR_WIDTH * 0.5), pos.y - U_LIFE_BAR_Y_OFFSET);
+
+		int gwbar;
+		gwbar = ((hp * 100) / totalhp);
+		gwbar = (gwbar * U_LIFE_BAR_WIDTH) / 100;
+		//red
+		app->render->DrawQuad({ progressPos.x, progressPos.y, U_LIFE_BAR_WIDTH, 4 }, 255, 0, 0, 255);
+		//green
+		app->render->DrawQuad({ progressPos.x, progressPos.y, gwbar, 4 }, 0, 255, 0, 255);
+	}
+}
 int Unit::GetPriority() const
 {
 	return priority;
@@ -912,5 +937,6 @@ void Unit::PlayMoveSound() const
 
 void Unit::SetHp(int newHP)
 {
+	totalhp = newHP;
 	hp = newHP;
 }
