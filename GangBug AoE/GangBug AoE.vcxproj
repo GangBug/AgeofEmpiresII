@@ -357,6 +357,8 @@
     <Xml Include="..\Game\data\gui\gui.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="..\Game\data\objects\Objects_creator.xml" />
+    <Xml Include="..\Game\data\objects\Objects_data.xml" />
     <Xml Include="Dialogues.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

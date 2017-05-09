@@ -55,8 +55,6 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 		SetText(std::to_string(app->misionManager->GetEnemyDeadUnits()).c_str(), SMALL);
 
 
-
-	
 }
 
 GUILabel::~GUILabel()

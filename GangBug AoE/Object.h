@@ -4,7 +4,7 @@
 
 enum object_type
 {
-
+	OBJECT_NONE,
 	BAMBOO1,//1
 	BAMBOO2,//2
 	BAMBOO3,//3
@@ -50,8 +50,8 @@ enum object_type
 	TREES5,//43
 	TREES6,//44
 	TREES7,//45
-	TREES8,//46
-	OBJECT_NONE
+	TREES8//46
+
 };
 
 class Object :

@@ -383,5 +383,11 @@
     <Xml Include="Dialogues.xml">
       <Filter>Utility</Filter>
     </Xml>
+    <Xml Include="..\Game\data\objects\Objects_creator.xml">
+      <Filter>Resources</Filter>
+    </Xml>
+    <Xml Include="..\Game\data\objects\Objects_data.xml">
+      <Filter>Resources</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

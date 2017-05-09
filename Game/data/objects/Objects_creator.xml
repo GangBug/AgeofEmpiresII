@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+	
 	BAMBOO1,//1
 	BAMBOO2,//2
 	BAMBOO3,//3
 	BAMBOO4,//4
 	BANNERA,//5
 	BANNERB,//6
-	HOUSE,//7
-	TOWNHALL,//8
-	HOUSE2,//9
-	CHARRIOT,//10
-	SKELETONS,//11
-	SKULL_PILE,//12
-	STONES1,//13
-	STONES2,//14
-	STONES3,//15
-	STONES4,//16
-	STONES5,//17
-	STONES6,//18
-	TRASH1,//19
-	TRASH2,//20
-	TREES1,//21
-	TREES2,//22
-	TREES3,//23
-	TREES4,//24
-	TREES5,//25
-	TREES6,//26
-	TREES7,//27
-	TREES8,//28
+	ARCHERY,//7
+	BARRACK,//8
+	GREATHOUSE,//9
+	HALL,//10
+	HOUSE1,//11
+	HOUSE2,//12
+	HOUSE3,//13
+	LUMBER,//14
+	MARKET,//15
+	MINE,//16
+	MONASTERY,//17
+	SIEGE,//18
+	STABLE,//19
+	UNIVERSITY,//20
+	WONDER,//21
+	CHARRIOT,//22
+	GOLD1,//23
+	GOLD2,//24
+	GOLD3,//25
+	GOLD4,//26
+	GOLD5,//27
+	GOLD6,//28
+	SKELETONS1,//29
+	SKULLPILE,//30
+	STONE1,//31
+	STONE2,//32
+	STONE3,//33
+	STONE4,//34
+	STONE5,//35
+	STONE6,//36
+	TRASHLARGUE1,//37
+	TRASHLARGUE2,//38
+	TREES1,//39
+	TREES2,//40
+	TREES3,//41
+	TREES4,//42
+	TREES5,//43
+	TREES6,//44
+	TREES7,//45
+	TREES8,//46
+
 -->
 <Objects>
-  <object type="22" x="100" y="100"/>
-  <object type="21" x="230" y="790"/>
-  <object type="22" x="2832" y="598"/>
-  <object type="23" x="2592" y="718"/>
-  <object type="24" x="2784" y="814"/>
-  <object type="25" x="2795" y="698"/>
-  <object type="26" x="2747" y="722"/>
-  <object type="7" x="2799" y="746"/>
-  <object type="8" x="0" y="0"/>
-  <object type="9" x="2650" y="815"/>
-  <object type="12" x="2698" y="839"/>
-  <object type="28" x="2746" y="864"/>
+  <object type="15" x="-1442" y="2158"/><!-- Market -->
+  <object type="11" x="-1250" y="2094"/><!-- HOUSE -->
+  <object type="11" x="-1106" y="2085"/> <!--<HOUSE -->
+  <object type="12" x="-950" y="2194"/> <!-- HOUSE -->
+  <object type="20" x="-1870" y="2494"/>  <!-- university -->
+  <object type="13" x="-552" y="2130"/> <!-- HOUSE -->
+  <object type="12" x="-472" y="2180"/><!-- HOUSE -->
+  <object type="12" x="-1632" y="2788"/><!-- HOUSE -->
+  <object type="12" x="-1532" y="2738"/>
+  <object type="13" x="-1652" y="2958"/>
 
-
-	<!--<object type="12" x="-680" y="1247"/>
-	<object type="13" x="-700" y="1255"/>
-	<object type="12" x="-690" y="1300"/>
-	<object type="14" x="-650" y="1200"/>
-
-	<object type="30" x="-85" y="0" r="1"/>
-	<object type="30" x="-37" y="23.5" r="1"/>
-	<object type="30" x="0" y="600" r="2"/>
-    <object type="30" x="300" y="600" r="3"/>
-	<object type="30" x="700" y="600" r="4"/>
-  -->
+  <object type="12" x="-816" y="2812"/>
+  <object type="11" x="-710" y="2802"/>
+  
 </Objects>

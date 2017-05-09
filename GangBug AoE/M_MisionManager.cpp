@@ -41,7 +41,7 @@ update_status M_MisionManager::Update(float dt)
 		switch (State)
 		{
 		case M_INTRO:
-			app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION);
+		//	app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION);
 			if (misionTimer.ReadSec() > MISION_TIME && app->dialogueManager->onDialogue == false)
 			{
 				misionTimer.Start();
