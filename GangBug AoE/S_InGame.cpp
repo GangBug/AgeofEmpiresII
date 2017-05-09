@@ -38,6 +38,8 @@ bool S_InGame::Start()
 
 	app->dialogueManager->Enable();
 	app->dialogueManager->Start();
+
+	app->misionManager->Enable();
 	
 	//audio
 	//app->audio->PlayTheme(app->audio->thirdMission);
@@ -219,6 +221,7 @@ void S_InGame::GoToMenu()
 	app->entityManager->CleanUp();
 	app->audio->CleanData();
 	app->misionManager->CleanUp();
+	app->misionManager->Disable();
 	pugi::xml_node		nullnode;
 
 	app->entityManager->Awake(nullnode);

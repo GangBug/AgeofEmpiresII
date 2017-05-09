@@ -6,4 +6,20 @@
     <text value ="Hi! The demons are attacking the city. Please help us!"/>
     <text value ="This is just a text hi"/>
   </dialogue>
+  <dialogue event ="townRepair" character="samurai">
+    <text value ="You managed to save the town, nice job!"/>
+    <text value ="We have spotted some demonic portals near us... We need to prepare for the next fight."/>
+    <text value ="Make sure to repair your buildings and to train new soldiers."/>
+    <text value ="You can do that by clicking on the hammer on the upper right to assign your villagers' tasks."/>
+    <text value ="Then click on a building to train new units."/>
+  </dialogue>
+  <dialogue event ="wavesStart" character="samurai">
+    <text value ="The demons are coming! I hope you managed to prepare for the assault."/>
+    <text value ="Good luck friend!"/>
+  </dialogue>
+  <dialogue event ="diabloSpawn" character="samurai">
+    <text value ="Their chief is coming! As I expected... it's Diablo."/>
+    <text value ="This is the final assault, defeat him and we'll be free!"/>
+    <text value ="Fail... and we'll be doomed forever."/>
+  </dialogue>
 </dialogues>

@@ -136,7 +136,22 @@ void Dialogue::SetCharacter(pugi::xml_node node)
 void Dialogue::SetEvent(pugi::xml_node node)
 {
 	if (strcmp(node.attribute("event").as_string(), "firstEncounter") == 0) {
-		event = D_EVENT_FIRST_ENCOUNTER;
+		event = D_EVENT_FIRST_MISSION;
+	}
+	else if (strcmp(node.attribute("event").as_string(), "townRepair") == 0) {
+		event = D_EVENT_TOWN_REPAIR;
+	}
+	else if (strcmp(node.attribute("event").as_string(), "wavesStart") == 0) {
+		event = D_EVENT_WAVES_START;
+	}
+	else if (strcmp(node.attribute("event").as_string(), "diabloSpawn") == 0) {
+		event = D_EVENT_DIABLO_SPAWN;
+	}
+	else if (strcmp(node.attribute("event").as_string(), "victory") == 0) {
+		event = D_EVENT_VICTORY;
+	}
+	else if (strcmp(node.attribute("event").as_string(), "defeat") == 0) {
+		event = D_EVENT_DEFEAT;
 	}
 	else {
 		event = D_EVENT_NONE;

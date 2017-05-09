@@ -121,7 +121,6 @@ void Building::OnUpdate(float dt)
 			app->input->GetMouseScreenPosition(mPos.x, mPos.y);
 			if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
 			{
-				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_ENCOUNTER);
 				BuyUnit();
 			}
 			else
@@ -166,10 +165,6 @@ void Building::OnUpdate(float dt)
 					buyTimer.Stop();
 				}
 			}
-
-			app->resources->SubstractGold(unitGoldCost);
-			app->resources->SubstractFood(unitFoodCost);
-			app->resources->SubstractWood(unitWoodCost);
 		}
 	}
 }
@@ -189,6 +184,9 @@ void Building::BuyUnit()
 	//If theres money create a unit
 	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost)
 	{
+		app->resources->SubstractGold(unitGoldCost);
+		app->resources->SubstractFood(unitFoodCost);
+		app->resources->SubstractWood(unitWoodCost);
 		unitsToAdd++;
 		buyTimer.Start();
 
