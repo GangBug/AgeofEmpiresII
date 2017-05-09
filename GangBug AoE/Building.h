@@ -28,8 +28,9 @@ public:
 
 	int GetHP() const;
 	void DoDamage(int dmg);
-	void GenerateUnit(int num);
 	void PlaySelectFx();
+
+	void PrintProgression();
 public:
 
 	Timer buyTimer;

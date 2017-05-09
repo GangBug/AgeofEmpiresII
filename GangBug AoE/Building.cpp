@@ -9,6 +9,8 @@
 #include "M_DialogueManager.h"
 #include "Log.h"
 
+#define BUY_TIMER 2
+#define PROGRESS_WIDTH 100
 
 
 Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUILDING, parent), buildType(buildType)
@@ -132,7 +134,7 @@ void Building::OnUpdate(float dt)
 		}
 
 		//UNIT CREATION
-		if (unitsToAdd > 0 && buyTimer.ReadSec() >= 2)
+		if (unitsToAdd > 0 && buyTimer.ReadSec() >= BUY_TIMER)
 		{
 			fPoint pos = GetGlobalPosition();
 
@@ -222,5 +224,23 @@ void Building::PlaySelectFx()
 
 	default:
 		break;
+	}
+}
+
+void Building::PrintProgression()
+{
+	if (selected == true && unitsToAdd >= 1)
+	{
+		fPoint pos = GetGlobalPosition();
+		int halfWidth = GetEnclosingBox().w * 0.5;
+		iPoint progressPos(pos.x + halfWidth - (PROGRESS_WIDTH * 0.5), pos.y);
+
+		int gwbar;
+		gwbar = ((buyTimer.ReadSec() * 100) / BUY_TIMER);
+		gwbar = (gwbar * PROGRESS_WIDTH) / 100;
+		//red
+		app->render->DrawQuad({ progressPos.x, progressPos.y, PROGRESS_WIDTH, 10 }, 255, 0, 0, 255);
+		//green
+		app->render->DrawQuad({ progressPos.x, progressPos.y, gwbar, 10 }, 0, 255, 0, 255);
 	}
 }

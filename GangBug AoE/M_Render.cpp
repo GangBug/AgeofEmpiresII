@@ -14,6 +14,7 @@
 #include "PlayerManager.h"
 #include "M_MisionManager.h"
 #include "Boss.h"
+#include "Building.h"
 //TEMP
 #include "M_Textures.h"
 #include <algorithm>
@@ -157,7 +158,6 @@ update_status M_Render::PostUpdate(float dt)
 	//---------
 
 	//BOSS LIFE BAR
-
 	if (app->misionManager->GetBossState() == true)
 	{
 			SDL_Rect lifeBarRect{ 0,0,771,52 };
@@ -538,6 +538,7 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 				else if (tmp->type == ENTITY_BUILDING)
 				{
 					Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
+					dynamic_cast<Building*>(tmp)->PrintProgression();
 				}
 
 				else if (tmp->type == ENTITY_OBJECT)
