@@ -30,7 +30,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		attack = 15;
 		speed = 1.6f;
 		rate_of_fire = 1;
-		range = 0;
+		range = 1;
 		unitClass = CAVALRY;
 		unitRadius = 4;
 		horde = false;
@@ -42,7 +42,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		attack = 15;
 		speed = 1.2f;
 		rate_of_fire = 1;
-		range = 0;
+		range = 1;
 		unitClass = INFANTRY;
 		unitRadius = 5;
 		horde = false;
@@ -66,7 +66,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		attack = 5;
 		speed = 2.0f;
 		rate_of_fire = 1;
-		range = 0;
+		range = 1;
 		unitClass = INFANTRY;
 		unitRadius = 7;
 		horde = true;
@@ -657,7 +657,13 @@ bool Unit::AttackUnit()
 
 	if (target != nullptr && target->GetHP() > 0)
 	{
-		if (attackTimer.ReadSec() > 1)
+		iPoint enemyPos = app->map->WorldToMap(target->GetGlobalPosition().x, target->GetGlobalPosition().y);
+		iPoint myPos = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
+		if (myPos.DistanceTo(enemyPos) > range)
+		{
+			SetFightingArea();
+		}
+		else if (attackTimer.ReadSec() > 1)
 		{
 			LookAt(iPoint(target->GetGlobalPosition().x, target->GetGlobalPosition().y));
 			action = ATTACK;
