@@ -121,7 +121,7 @@ void Building::OnUpdate(float dt)
 			app->input->GetMouseScreenPosition(mPos.x, mPos.y);
 			if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
 			{
-				//app->dialogueManager->PlayDialogue(D_EVENT_FIRST_ENCOUNTER);
+				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_ENCOUNTER);
 				BuyUnit();
 			}
 			else

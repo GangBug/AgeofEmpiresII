@@ -70,6 +70,7 @@ Adds:
 * Mision system, now there are 4 waves of enemies and 1 boss wave
 * Added Boss
 * Added Boss Life bar
+* Added Dialogue system
 * Crashes fixes
 * Bug Fixes
 * Performance improved
