@@ -16,6 +16,10 @@ public:
 
 	void DrawDebug()override;
 
+	bool PrevPosition, PrevPosition2, PrevPosition3 = false;
+
+	void resetPrevPositions();
+
 private:
 
 	bool DoUnitsIntersect(Unit* unit1, Unit* unit2);

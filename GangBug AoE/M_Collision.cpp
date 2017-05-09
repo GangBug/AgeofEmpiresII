@@ -63,33 +63,37 @@ iPoint M_Collision::FindClosestWalkable(Unit* unit)
 	while (!found)
 	{
 		tile.y += dist;
-		if (app->pathfinding->IsWalkable({ tile.x, tile.y }) == true && app->entityManager->IsUnitInTile(unit, tile) == false)
+		if (app->pathfinding->IsWalkable({ tile.x, tile.y }) == true && app->entityManager->IsUnitInTile(unit, tile) == false && PrevPosition == false)
 		{
 			found = true;
+			PrevPosition = true;
 			break;
 		}
 
 		tile.y -= dist;
-		tile.y -= dist;
-		if (app->pathfinding->IsWalkable({ tile.x, tile.y }) == true && app->entityManager->IsUnitInTile(unit, tile) == false)
+		tile.x -= dist;
+
+		if (app->pathfinding->IsWalkable({ tile.x, tile.y }) == true && app->entityManager->IsUnitInTile(unit, tile) == false && PrevPosition2 == false)
 		{
 			found = true;
+			PrevPosition2 = true;
 			break;
 		}
 
 		tile.y += dist;
-		tile.x += dist;
-		if (app->pathfinding->IsWalkable({ tile.x, tile.y }) == true && app->entityManager->IsUnitInTile(unit, tile) == false)
+		if (app->pathfinding->IsWalkable({ tile.x, tile.y }) == true && app->entityManager->IsUnitInTile(unit, tile) == false && PrevPosition3 == false)
 		{
 			found = true;
+			PrevPosition3 = true;
 			break;
 		}
 
-		tile.x -= dist;
+		tile.y -= dist;
 		tile.x -= dist;
 		if (app->pathfinding->IsWalkable({ tile.x, tile.y }) == true && app->entityManager->IsUnitInTile(unit, tile) == false)
 		{
 			found = true;
+			resetPrevPositions();
 			break;
 		}
 
@@ -132,6 +136,13 @@ iPoint M_Collision::FindClosestWalkable(Unit* unit)
 	}
 
 	return app->map->MapToWorld(tile.x, tile.y);
+}
+
+void M_Collision::resetPrevPositions()
+{
+	PrevPosition = false;
+	PrevPosition2 = false;
+	PrevPosition3 = false;
 }
 
 void M_Collision::SplitUnits(Unit * unit1)

@@ -7,6 +7,7 @@
 #include "M_EntityManager.h"
 #include "M_DialogueManager.h"
 #include "M_MisionManager.h"
+#include "M_Collision.h"
 //TMP
 #include "M_Input.h"
 #include "App.h"
@@ -92,6 +93,9 @@ void Unit::OnUpdate(float dt)
 			case NO_STATE:
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
 				{
+					//Colision
+					app->collision->resetPrevPositions();
+
 					iPoint objective;
 					app->input->GetMouseMapPosition(objective.x, objective.y);
 					GoTo(objective);
@@ -104,6 +108,9 @@ void Unit::OnUpdate(float dt)
 			case MOVING:
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
 				{
+					//Colision
+					app->collision->resetPrevPositions();
+
 					iPoint objective;
 					app->input->GetMouseMapPosition(objective.x, objective.y);
 					GoTo(objective);
@@ -117,6 +124,9 @@ void Unit::OnUpdate(float dt)
 			case MOVING_TO_ATTACK:
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
 				{
+					//Colision
+					app->collision->resetPrevPositions();
+
 					iPoint objective;
 					app->input->GetMouseMapPosition(objective.x, objective.y);
 					GoTo(objective);
@@ -130,6 +140,9 @@ void Unit::OnUpdate(float dt)
 			case ATTACKING:
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
 				{
+					//Colision
+					app->collision->resetPrevPositions();
+
 					iPoint objective;
 					app->input->GetMouseMapPosition(objective.x, objective.y);
 					GoTo(objective);
