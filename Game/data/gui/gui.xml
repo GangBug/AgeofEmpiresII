@@ -562,7 +562,7 @@
 
 
     <!--  ............................................................................................  -->
-    <!--  ............................................................................................  -->
+    <!--  .........................................MISION STATUS...................................................  -->
 
     <label size="1" name="label_Wave_status" text="MISSION STATUS" interactive="false" canFocus="true" visible="true">
       <scenes>
@@ -598,6 +598,21 @@
       </scenes>
       <color r="0" g="0" b="255" a="255" />
       <position x="150" y="260" />
+    </label>
+    
+        <label size="1" name="label_EnemyDead_stat" text="Kills:" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="20" y="300" />
+    </label>
+    <label size="2" name="label_EnemyDead_stat_n" text="00" interactive="false" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <color r="0" g="0" b="255" a="255" />
+      <position x="150" y="310" />
     </label>
 
 

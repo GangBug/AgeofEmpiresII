@@ -38,6 +38,9 @@ public:
 	void OpenResources(bool visible);
 	void SetGUI();
 
+	void BuldingCreator();
+	void UnitsCreator();
+
 public:
 	std::vector<iPoint> path;
 	iPoint origin;

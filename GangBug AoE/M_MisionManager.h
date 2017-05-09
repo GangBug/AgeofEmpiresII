@@ -26,7 +26,7 @@ enum Mision_State {
 
 #define TOWNREPAIR_TIME 100
 
-#define TROOPS_ONTOWN 0
+#define TROOPS_ONTOWN 28
 
 #define TROOPS_WAVE1 5
 #define TROOPS_WAVE2 5

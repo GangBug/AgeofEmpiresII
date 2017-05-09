@@ -44,7 +44,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		range = 0;
 		unitClass = INFANTRY;
 		unitRadius = 5;
-		horde = true;
+		horde = false;
 		unitState = NO_STATE;
 		break;
 

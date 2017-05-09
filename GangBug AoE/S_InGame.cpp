@@ -42,10 +42,9 @@ bool S_InGame::Start()
 	//audio
 	//app->audio->PlayTheme(app->audio->thirdMission);
 
-	app->entityManager->CreateBuilding(BUILD_STABLES, nullptr, -2115, 1850);
-	app->entityManager->CreateBuilding(BUILD_ARCHERY, nullptr, -1385, 2170);
-	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, -2370, 1925);
-	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, -2800, 2300);
+
+	BuldingCreator(); //Create the buldings
+	UnitsCreator();// Create the start units
 
 	app->render->camera->SetCenter({ -2500, 2200 });
 
@@ -293,10 +292,7 @@ void S_InGame::OpenResources(bool visible)
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(visible);
-
-
-
-
+	
 }
 
 
@@ -384,4 +380,63 @@ void S_InGame::SetGUI()
 	// RepairButton - PlusButton - MinusButton
 	
 	//----
+}
+
+// ----------------------- CREATE -----------------------------------
+// ----------------------- CREATE -----------------------------------
+void S_InGame::BuldingCreator()
+{
+	app->entityManager->CreateBuilding(BUILD_STABLES, nullptr, -2115, 1850);
+	app->entityManager->CreateBuilding(BUILD_ARCHERY, nullptr, -1385, 2170);
+	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, -2370, 1925);
+	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, -2800, 2300);
+}
+
+void S_InGame::UnitsCreator()
+{
+	//ENEMIES
+	app->entityManager->CreateUnit(VILE, nullptr, -2600, 2300);//1
+	app->entityManager->CreateUnit(VILE, nullptr, -2650, 2300);//2
+	app->entityManager->CreateUnit(VILE, nullptr, -2600, 2350);//3
+	app->entityManager->CreateUnit(VILE, nullptr, -2650, 2350);//4
+	app->entityManager->CreateUnit(VILE, nullptr, -2700, 2200);//
+	app->entityManager->CreateUnit(VILE, nullptr, -2750, 2200);//6
+	app->entityManager->CreateUnit(VILE, nullptr, -2700, 2250);//
+	app->entityManager->CreateUnit(VILE, nullptr, -2750, 2250);//8
+	app->entityManager->CreateUnit(VILE, nullptr, -2100, 2050);//
+	app->entityManager->CreateUnit(VILE, nullptr, -2150, 2050);//10
+	app->entityManager->CreateUnit(VILE, nullptr, -2100, 2050);//
+	app->entityManager->CreateUnit(VILE, nullptr, -2150, 2050);//12
+	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2150);//
+	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2090);//14
+	app->entityManager->CreateUnit(VILE, nullptr, -1395, 2050);//
+	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2050);//16
+	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2550);//
+	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2550);//18
+	app->entityManager->CreateUnit(VILE, nullptr, -1585, 2450);//
+	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2550);//20
+	app->entityManager->CreateUnit(VILE, nullptr, -1885, 2580);//
+	app->entityManager->CreateUnit(VILE, nullptr, -1785, 2550);//22
+	app->entityManager->CreateUnit(VILE, nullptr, -1885, 2580);//
+	app->entityManager->CreateUnit(VILE, nullptr, -1885, 2550);//24
+	app->entityManager->CreateUnit(VILE, nullptr, -2153, 2264);//
+	app->entityManager->CreateUnit(VILE, nullptr, -2053, 2364);//26
+	app->entityManager->CreateUnit(VILE, nullptr, -2253, 2264);//
+	app->entityManager->CreateUnit(VILE, nullptr, -2053, 2464);//28
+
+
+
+	//ALIES
+
+	app->entityManager->CreateUnit(ARCHER, nullptr, 107, 3648);//1
+	app->entityManager->CreateUnit(ARCHER, nullptr, 207, 3648);//
+	app->entityManager->CreateUnit(ARCHER, nullptr, 107, 3648);//
+	app->entityManager->CreateUnit(ARCHER, nullptr, 137, 3648);//
+	app->entityManager->CreateUnit(ARCHER, nullptr, 107, 3648);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 157, 3648);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 107, 3648);//
+	app->entityManager->CreateUnit(ARCHER, nullptr, 107, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 120, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 115, 3688);//
+	app->entityManager->CreateUnit(ARCHER, nullptr, 107, 3648);//
 }
