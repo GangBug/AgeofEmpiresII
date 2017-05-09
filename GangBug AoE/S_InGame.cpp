@@ -77,76 +77,53 @@ update_status S_InGame::PreUpdate(float dt)
 			GoToMenu();
 		if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 			app->gui->SetActiveScene("\0");
+		if (!app->pause)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+				app->render->camera->Move(10.0, UP);
+			if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+				app->render->camera->Move(10.0, LEFT);
+			if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+				app->render->camera->Move(10.0, DOWN);
+			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+				app->render->camera->Move(10.0, RIGHT);
 
-		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			app->render->camera->Move(10.0, UP);
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			app->render->camera->Move(10.0, LEFT);
-		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			app->render->camera->Move(10.0, DOWN);
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			app->render->camera->Move(10.0, RIGHT);
 
-
-		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-		{
-			int x, y;
-			app->input->GetMouseMapPosition(x, y);
-			app->enemyWaves->SpawnEnemies(5, 0, x, y);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
-		{
-			int x, y;
-			app->input->GetMouseMapPosition(x, y);
-			enemyDestination = { x, y };
-		}
-		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
-		{
-			int x, y;
-			app->input->GetMouseMapPosition(x, y);
-			app->entityManager->CreateUnit(TARKAN_KNIGHT, nullptr, x, y);
-			app->audio->PlayFx(app->entityManager->fxCreateUnit);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
-		{
-			int x, y;
-			app->input->GetMouseMapPosition(x, y);
-			app->entityManager->CreateUnit(VILE, nullptr, x, y);
-			app->audio->PlayFx(app->entityManager->fxCreateUnit);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
-		{
-			return UPDATE_STOP;
-		}
-
-		//What is this: A tool to debug pathfinding
-		if (app->debug)
-		{
-			if (app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
+			if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 			{
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == key_state::KEY_UP)
-				{
-					iPoint point;
-					app->input->GetMouseMapPosition(point.x, point.y);
-					origin.x = app->map->WorldToMap(point.x, point.y).x;
-					origin.y = app->map->WorldToMap(point.x, point.y).y;
-				}
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == key_state::KEY_UP)
-				{
-					iPoint point;
-					app->input->GetMouseMapPosition(point.x, point.y);
-					destiny.x = app->map->WorldToMap(point.x, point.y).x;
-					destiny.y = app->map->WorldToMap(point.x, point.y).y;
-
-					app->pathfinding->CalculatePath(origin, destiny, path);
-					SDL_Log("-------------\nOrigin: (%d, %d)\nDestiniy: (%d,%d)\n-------------",
-							origin.x,
-							origin.y,
-							destiny.x,
-							destiny.y);
-				}
+				int x, y;
+				app->input->GetMouseMapPosition(x, y);
+				app->enemyWaves->SpawnEnemies(5, 0, x, y);
 			}
+			if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+			{
+				int x, y;
+				app->input->GetMouseMapPosition(x, y);
+				enemyDestination = { x, y };
+			}
+			if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+			{
+				int x, y;
+				app->input->GetMouseMapPosition(x, y);
+				app->entityManager->CreateUnit(TARKAN_KNIGHT, nullptr, x, y);
+				app->audio->PlayFx(app->entityManager->fxCreateUnit);
+			}
+			if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+			{
+				int x, y;
+				app->input->GetMouseMapPosition(x, y);
+				app->entityManager->CreateUnit(VILE, nullptr, x, y);
+				app->audio->PlayFx(app->entityManager->fxCreateUnit);
+			}
+			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
+			{
+				return UPDATE_STOP;
+			}
+
 		}
+
+
+
 	}	
 	return UPDATE_CONTINUE;
 }
@@ -246,6 +223,7 @@ void S_InGame::OpenMenu(bool visible)
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Start")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetInteractive(visible);
 
+	app->pause = visible;
 
 }
 

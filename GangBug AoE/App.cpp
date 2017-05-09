@@ -195,6 +195,8 @@ update_status App::Update()
 
 	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
+	if (input->GetKey(SDL_SCANCODE_PAUSE) == KEY_DOWN)
+		pause = !pause;
 	if (input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		gui->SetUIEditing(!gui->GetUIEditing()); 
 

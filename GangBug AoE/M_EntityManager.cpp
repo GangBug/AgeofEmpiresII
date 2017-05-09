@@ -135,6 +135,13 @@ update_status M_EntityManager::PreUpdate(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
+
+	if (app->pause)
+	{
+		return UPDATE_CONTINUE;
+	}
+
+
 	RemoveFlagged();
 
 	if (root)
@@ -208,6 +215,12 @@ update_status M_EntityManager::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
+	if (app->pause)
+	{
+		return UPDATE_CONTINUE;
+	}
+
+
 	if (root)
 	{
 		//TODO: Only if play mode??
@@ -234,6 +247,12 @@ update_status M_EntityManager::Update(float dt)
 */
 update_status M_EntityManager::PostUpdate(float dt)
 {
+	if (app->pause)
+	{
+		return UPDATE_CONTINUE;
+	}
+
+
 	RemoveFlagged();
 	update_status ret = UPDATE_CONTINUE;
 

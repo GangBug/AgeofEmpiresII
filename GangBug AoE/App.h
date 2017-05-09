@@ -126,6 +126,7 @@ public:
 	bool editor = false;
 	bool quit = false;
 	bool brofiler = false;
+	bool pause = false;
 
 	uint32 last_frame_ms;
 	uint32 frames_on_last_update;
