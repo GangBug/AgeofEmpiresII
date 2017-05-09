@@ -34,43 +34,43 @@ bool M_Map::Awake(pugi::xml_node& config)
 void M_Map::Draw()
 {
 	BROFILER_CATEGORY("MAP Draw", Profiler::Color::Green);
-	if(mapLoaded == false)
+	if (mapLoaded == false)
 		return;
 
 	std::list<MapLayer*>::iterator item = data.layers.begin();
+	std::list<MapLayer*>::iterator end = data.layers.end();
 
-	for(; item != data.layers.end(); ++item)
+	while (item != end)
 	{
-		MapLayer* layer = (*item);
+		MapLayer* layer = item._Ptr->_Myval;
 
-		if((layer->properties.Get("Nodraw") != 0 || layer->properties.Get("Navigation") == 1) && app->debug != true)
-			continue;
-
-		for(int y = 0; y < data.height; ++y)
+		if (layer->properties.Get("Nodraw") == true)
 		{
-			for(int x = 0; x < data.width; ++x)
+			if ((layer->properties.Get("Nodraw") != 0 || layer->properties.Get("Navigation") == 1) && app->debug != true)
+			{
+				item++;
+				continue;
+			}
+		}
+		for (int y = 0; y < data.height; ++y)
+		{
+			for (int x = 0; x < data.width; ++x)
 			{
 				int tile_id = layer->Get(x, y);
-				if(tile_id > 0)
+				if (tile_id > 0)
 				{
-					/*if (app->fogOfWar->GetFogID(x, y) == DARK_FOG)
-					{
-						continue;
-					}*/
-
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
-					
-					//TODO: This function differs from our previous version, i'm not sure it has to be this way. Need some revision.
-					//app->render->Blit(tileset->texture, pos.x/* - data.tileWidth / 2*/, pos.y/* - data.tileHeight / 2*/, &r); //This is the correct blit, but if the map does not come to you, you go to the map....
-					
-					app->render->Blit(tileset->texture, pos.x - data.tileWidth / 2, pos.y - data.tileHeight / 2, &r);
 
+					//TODO: this should be temporary until we find out what happens, also,TODO solve InsideRenderTarget: after moving the camera doesnt work.
+					//if (App->render->camera->InsideRenderTarget(pos.x, pos.y))
+					app->render->Blit(tileset->texture, pos.x - data.tileWidth / 2, pos.y - data.tileHeight / 2, &r);
 				}
 			}
 		}
+		item++;
 	}
 }
 

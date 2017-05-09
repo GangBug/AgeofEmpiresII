@@ -108,7 +108,6 @@ public:
 private:
 	void DrawEntities(std::vector<Entity*> entities);
 
-
 public:
 
 	SDL_Renderer*	renderer;

@@ -277,24 +277,14 @@ iPoint M_Render::WorldToScreen(int x, int y) const
 bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section, SDL_RendererFlip flip, int pivot_x, int pivot_y, float speed, double angle) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(camera->GetPosition().x * speed) + x * scale;
-	rect.y = (int)(camera->GetPosition().y * speed) + y * scale;
+	rect.x = (int)(camera->GetPosition().x * speed) + x;
+	rect.y = (int)(camera->GetPosition().y * speed) + y;
 
-	GB_Rectangle<int> screen_position;
-	screen_position.x = app->render->WorldToScreen(x, y).x;
-	screen_position.y = app->render->WorldToScreen(x, y).y;
-	if (section != NULL)
+	if (app->render->camera->InsideRenderTarget(rect))
 	{
-		screen_position.w = section->w;
-		screen_position.h = section->h;
-	}
-
-	if (camera->InsideRenderTarget(screen_position))
-	{
-		if (section != NULL)
+		if (section != nullptr)
 		{
 			rect.w = section->w;
 			rect.h = section->h;
@@ -306,36 +296,31 @@ bool M_Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 		if (flip == SDL_FLIP_HORIZONTAL)
 		{
-			screen_position.x -= (rect.w - pivot_x);
-			screen_position.y -= pivot_y;
+			rect.x -= (rect.w - pivot_x);
+			rect.y -= pivot_y;
 		}
 
 		else if (flip == SDL_FLIP_VERTICAL)
 		{
-			screen_position.x -= pivot_x;
-			screen_position.y -= (rect.h - pivot_y);
+			rect.x -= pivot_x;
+			rect.y -= (rect.h - pivot_y);
 		}
 
 		else if (flip == SDL_FLIP_NONE)
 		{
-			screen_position.x -= pivot_x;
-			screen_position.y -= pivot_y;
+			rect.x -= pivot_x;
+			rect.y -= pivot_y;
 		}
 
-		rect.w *= scale;
-		rect.h *= scale;
-
-		SDL_Point* p = NULL;
 		SDL_Point pivot;
 
 		if (pivot_x != INT_MAX && pivot_y != INT_MAX)
 		{
 			pivot.x = pivot_x;
 			pivot.y = pivot_y;
-			p = &pivot;
 		}
-		//rect = app->render->camera->GetRect();
-		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, (SDL_RendererFlip)flip) != 0)
+
+		if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, &pivot, flip) != 0)
 		{
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 			ret = false;
@@ -595,7 +580,6 @@ bool Camera::InsideRenderTarget(GB_Rectangle<int> rect)
 	{
 		ret = false;
 	}
-
 
 	return ret;
 }
