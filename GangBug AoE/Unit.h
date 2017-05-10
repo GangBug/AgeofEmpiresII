@@ -93,6 +93,7 @@ public:
 	Entity* CheckSurroundings();
 
 	bool SetFightingArea();
+	bool SetBuildingFightingArea();
 
 	void LookAt(iPoint pos);
 	bool GoTo(iPoint destination);
@@ -136,6 +137,8 @@ protected:
 	Circle renderArea;
 
 	bool haveADestination = false;
+
+	bool buildingToAttack = false;
 
 	int priority;
 };

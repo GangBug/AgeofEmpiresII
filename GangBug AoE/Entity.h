@@ -105,6 +105,7 @@ public:
 	virtual int GetHP() const;
 	virtual void DoDamage(int dmg);
 	virtual direction GetDir() const;
+	entity_type GetEntityType() const;
 
 	//---------------------------------------------------------------
 

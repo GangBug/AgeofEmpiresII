@@ -468,18 +468,19 @@ Entity* M_EntityManager::CreateUnit(unit_type type, Entity* parent, int posX, in
 	return nullptr;
 }
 
-Entity* M_EntityManager::CreateBuilding(building_type buildType, Entity* parent, int posx, int posy)
+Entity* M_EntityManager::CreateBuilding(building_type buildType, iPoint tileAttack, Entity* parent, int posx, int posy)
 {
 	Entity* ret = nullptr;
 
 	if (!parent)
 		parent = root;
 
-	ret = (Entity*)new Building(buildType, parent);
+	ret = (Entity*)new Building(buildType, tileAttack, parent);
 	if (ret)
 	{
 		parent->AddChild(ret);
 		ret->SetGlobalPosition(posx, posy);
+		buildingVector.push_back(ret);
 	}
 
 	return ret;
@@ -507,6 +508,11 @@ Entity* M_EntityManager::FindEntity()
 std::vector<Entity*> M_EntityManager::GetUnitVector()
 {
 	return unitVector;
+}
+
+std::vector<Entity*> M_EntityManager::GetBuildingVector()
+{
+	return buildingVector;
 }
 
 void M_EntityManager::GetEntitiesOnRect(uint type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle)

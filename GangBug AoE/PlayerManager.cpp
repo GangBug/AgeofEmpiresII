@@ -98,23 +98,6 @@ void PlayerManager::OnUpdate(float dt)
 			onSelection = false;
 		}
 	}
-	/*else
-	{
-		if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
-		{
-			for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
-			{
-				if ((*it)->type == ENTITY_UNIT)
-				{
-					Unit* tmp = (Unit*)(*it);
-					if (tmp != nullptr)
-					{
-						tmp->SetDestination(mPos);
-					}
-				}
-			}
-		}
-	}*/
 }
 
 bool PlayerManager::OnSave(pugi::xml_node& node) const

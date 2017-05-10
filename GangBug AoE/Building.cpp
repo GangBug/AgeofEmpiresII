@@ -14,9 +14,8 @@
 #define PROGRESS_WIDTH 100
 
 
-Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUILDING, parent), buildType(buildType)
+Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) : Entity(ENTITY_BUILDING, parent), buildType(buildType), tileAttack(tileAttack)
 {
-
 	SetEnclosingBoxSize(100, 100);
 	unitsToAdd = 0;
 
@@ -82,7 +81,7 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 
 	}
 	selected = false;
-	HP = 0;
+	HP = 100;
 }
 
 

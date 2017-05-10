@@ -18,7 +18,7 @@ class Building :
 	public Entity
 {
 public:
-	Building(building_type buildType, Entity* parent);
+	Building(building_type buildType, iPoint tileAttack, Entity* parent);
 	virtual ~Building();
 
 	void OnUpdate(float dt)override;
@@ -39,6 +39,8 @@ public:
 
 	enum building_type buildType;
 	enum unit_type unitType;
+
+	iPoint tileAttack;
 
 	int unitGoldCost;
 	int unitWoodCost;

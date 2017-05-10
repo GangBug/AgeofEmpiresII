@@ -53,7 +53,7 @@ private:
 	float currentFrame;
 	bool loop = true;
 	int loops = 0;
-	float speed = 50.0f;
+	float speed = 75.0f;
 	Timer animationTimer;
 
 };

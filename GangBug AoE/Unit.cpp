@@ -4,6 +4,7 @@
 #include "M_Pathfinding.h"
 #include "M_FogOfWar.h"
 #include "M_Audio.h"
+#include "Building.h"
 #include "M_EntityManager.h"
 #include "M_DialogueManager.h"
 #include "M_MisionManager.h"
@@ -105,8 +106,16 @@ void Unit::OnUpdate(float dt)
 				}
 				if (target != nullptr && target->GetHP() > 0)
 				{
-					SetFightingArea();
+					if (buildingToAttack == true)
+					{
+						SetBuildingFightingArea();
+					}
+					else if (buildingToAttack == false)
+					{
+						SetFightingArea();
+					}
 				}
+				CheckSurroundings();
 				break;
 			case MOVING:
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
@@ -123,6 +132,7 @@ void Unit::OnUpdate(float dt)
 					unitState = NO_STATE;
 					action = IDLE;
 				}
+				CheckSurroundings();
 				break;
 			case MOVING_TO_ATTACK:
 				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
@@ -158,7 +168,6 @@ void Unit::OnUpdate(float dt)
 				}
 				break;
 			}
-			CheckSurroundings();
 		}
 
 		else
@@ -293,7 +302,8 @@ void Unit::Die()
 	}
 	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DISAPPEAR)
 	{
-		if (this->horde == true) {
+		if (this->horde == true) 
+		{
 			app->misionManager->AddEnemyDeadUnit();
 		}
 
@@ -364,9 +374,30 @@ Entity* Unit::CheckSurroundings()
 	Entity* ret = nullptr;
 	int distance = 0;
 	std::vector<Entity*> vec = app->entityManager->GetUnitVector();
+	std::vector<Entity*> buildingVec = app->entityManager->GetBuildingVector();
 
 	iPoint unitPos = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
 
+	for (std::vector<Entity*>::iterator it = buildingVec.begin(); it != buildingVec.end(); it++)
+	{
+		if ((*it) != this)
+		{
+			iPoint itPos = app->map->WorldToMap((*it)->GetGlobalPosition().x, (*it)->GetGlobalPosition().y);
+			if (itPos.x <= unitPos.x + unitRadius && itPos.x >= unitPos.x - unitRadius && itPos.y <= unitPos.y + unitRadius && itPos.y >= unitPos.y - unitRadius && (*it)->GetHP() > 0)
+			{
+				Building* challenger = dynamic_cast<Building*>(*it);
+
+				int itDistance = unitPos.DistanceTo(itPos);
+				if (itDistance < distance || distance == 0)
+				{
+					ret = (*it);
+					target = (*it);
+
+					buildingToAttack = true;
+				}
+			}
+		}
+	}
 
 	for (std::vector<Entity*>::iterator it = vec.begin(); it != vec.end(); it++)
 	{
@@ -383,6 +414,8 @@ Entity* Unit::CheckSurroundings()
 					{
 						ret = (*it);
 						target = (*it);
+
+						buildingToAttack = false;
 					}
 				}
 			}
@@ -390,6 +423,48 @@ Entity* Unit::CheckSurroundings()
 	}
 	return ret;
 }
+
+//Only use this for enemy units attacking buildings
+bool Unit::SetBuildingFightingArea()
+{
+	bool ret;
+
+	if (target != nullptr && unitState != FLEEING)
+	{
+		unitState = MOVING_TO_ATTACK;
+
+		Building* enemy = dynamic_cast<Building*>(target);
+
+		iPoint buildingPos = app->map->WorldToMap(enemy->GetGlobalPosition().x, enemy->GetGlobalPosition().y);
+
+		iPoint Pos = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
+
+		iPoint distance = Pos - buildingPos;
+
+		//BUILDING
+		if (unitClass != RANGED && unitState != ATTACKING)
+		{
+			iPoint newPos = app->map->MapToWorld(enemy->tileAttack.x, enemy->tileAttack.y);
+
+			pathVec.clear();
+
+			if (GoTo(newPos) != false)
+			{
+				ret = false;
+			}
+
+			else
+			{
+				unitState = NO_STATE;
+			}
+
+		}
+
+	}
+
+	return true;
+}
+
 
 //Only use this for enemy units
 bool Unit::SetFightingArea()
@@ -684,7 +759,7 @@ bool Unit::AttackUnit()
 	{
 		iPoint enemyPos = app->map->WorldToMap(target->GetGlobalPosition().x, target->GetGlobalPosition().y);
 		iPoint myPos = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
-		if (myPos.DistanceTo(enemyPos) > range)
+		if (myPos.DistanceTo(enemyPos) > range && target->GetEntityType() == ENTITY_UNIT)
 		{
 			SetFightingArea();
 		}

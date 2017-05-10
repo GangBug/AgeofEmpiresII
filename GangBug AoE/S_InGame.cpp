@@ -47,7 +47,7 @@ bool S_InGame::Start()
 
 
 		BuldingCreator(); //Create the buldings
-		UnitsCreator();// Create the start units
+		//UnitsCreator();// Create the start units
 
 		app->render->camera->SetCenter({ -400, 2000 });
 
@@ -394,11 +394,11 @@ void S_InGame::SetGUI()
 // ----------------------- CREATE -----------------------------------
 void S_InGame::BuldingCreator()
 {	
-	app->entityManager->CreateBuilding(BUILD_STABLES, nullptr, -3264, 1788);
-	app->entityManager->CreateBuilding(BUILD_ARCHERY, nullptr, -2660, 2165);
-	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, -2130, 1750);
-	app->entityManager->CreateBuilding(BUILD_BARRACK, nullptr, -1930, 1850);
-	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, nullptr, -2170, 2160);
+	app->entityManager->CreateBuilding(BUILD_STABLES, iPoint(9, 72), nullptr, -3264, 1788);
+	app->entityManager->CreateBuilding(BUILD_ARCHERY, iPoint(24, 74), nullptr, -2660, 2165);
+	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(19, 61), nullptr, -2130, 1750);
+	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(23, 61), nullptr, -1930, 1850);
+	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, iPoint(29, 72), nullptr, -2170, 2160);
 }
 
 void S_InGame::UnitsCreator()

@@ -624,6 +624,12 @@ direction Entity::GetDir()const
 {
 	return NORTH;
 }
+
+entity_type Entity::GetEntityType() const
+{
+	return type;
+}
+
 /** 
 	Remove: Mark the entity to delete it in a save moment.
 */

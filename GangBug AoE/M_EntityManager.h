@@ -47,7 +47,7 @@ public:
 	Entity* CreateEntity(Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 	
 	Entity* CreateUnit(unit_type type = DEFAULT_UNIT, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
-	Entity* CreateBuilding(building_type buldType, Entity* parent, int posx, int posy);
+	Entity* CreateBuilding(building_type buldType, iPoint tileAttack, Entity* parent, int posx, int posy);
 	Entity* CreateObject(object_type type = OBJECT_NONE, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 
 	bool DeleteUnit(Entity* toDelete);
@@ -56,6 +56,7 @@ public:
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
 	std::vector<Entity*> GetUnitVector();
+	std::vector<Entity*> GetBuildingVector();
 
 	void GetEntitiesOnRect(uint type, std::vector<Entity*>& vec, GB_Rectangle<int> rectangle);
 
@@ -174,6 +175,7 @@ private:
 	// Objects
 	std::vector<ObjectTexture> objectTextures;
 	std::vector<Entity*> unitVector;
+	std::vector<Entity*> buildingVector;
 	//TMP
 	Entity* et = nullptr;
 	Entity* et2 = nullptr;
