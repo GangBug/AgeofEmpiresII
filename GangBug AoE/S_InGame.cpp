@@ -10,6 +10,7 @@
 #include "M_DialogueManager.h"
 #include "S_Menu.h"
 #include "M_MisionManager.h"
+#include "M_Minimap.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -29,40 +30,41 @@ bool S_InGame::Awake(pugi::xml_node & config)
 
 bool S_InGame::Start()
 {
-	if (active) 
+	if (active)
 	{
 
-	app->pathfinding->Enable();
-	app->entityManager->LoadObjects();
-	SetGUI();
+		app->pathfinding->Enable();
+		app->entityManager->LoadObjects();
+		SetGUI();
 
-	app->dialogueManager->Enable();
-	app->dialogueManager->Start();
+		app->dialogueManager->Enable();
+		app->dialogueManager->Start();
 
-	app->misionManager->Enable();
-	
-	//audio
-	//app->audio->PlayTheme(app->audio->thirdMission);
+		app->misionManager->Enable();
+
+		//audio
+		//app->audio->PlayTheme(app->audio->thirdMission);
 
 
-	BuldingCreator(); //Create the buldings
-	UnitsCreator();// Create the start units
+		BuldingCreator(); //Create the buldings
+		UnitsCreator();// Create the start units
 
-	app->render->camera->SetCenter({ -400, 2000 });
+		app->render->camera->SetCenter({ -400, 2000 });
 
-	if (app->map->Load("Map.tmx") == true)
-	{	
-		int w, h;
-		uchar* data = NULL;
-		if (app->map->CreateWalkabilityMap(w, h, &data))
-			app->pathfinding->SetMap(w, h, data);
+		if (app->map->Load("Map.tmx") == true)
+		{
+			int w, h;
+			uchar* data = NULL;
+			if (app->map->CreateWalkabilityMap(w, h, &data))
+				app->pathfinding->SetMap(w, h, data);
 
-		RELEASE_ARRAY(data);
+			RELEASE_ARRAY(data);
 
-		//app->fogOfWar->GenerateFogOfWar();
-	}
-	app->entityManager->PlaceObjects();
+			//app->fogOfWar->GenerateFogOfWar();
+		}
+		app->entityManager->PlaceObjects();
 
+		app->minimap->CreateMinimap();
 	}
 	return true;
 }
@@ -199,6 +201,8 @@ void S_InGame::GoToMenu()
 	app->audio->CleanData();
 	app->misionManager->CleanUp();
 	app->misionManager->Disable();
+	app->map->CleanUp();
+	app->minimap->CleanUp();
 	pugi::xml_node		nullnode;
 
 	app->entityManager->Awake(nullnode);

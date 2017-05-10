@@ -107,6 +107,8 @@ public:// ADD FX
 	void PlayAttackSound() const; //called when the unit attack
 	void PlaySelectSound()const; // called when the unit is selected
 	void PlayMoveSound() const; //called when the unit is selected 
+
+	bool horde;
 protected:
 	unit_type unitType;
 	action_type action;
@@ -136,7 +138,6 @@ protected:
 	bool haveADestination = false;
 
 	int priority;
-	bool horde;
 };
 
 #endif //__UNIT_H__

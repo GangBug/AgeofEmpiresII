@@ -278,7 +278,7 @@ bool M_EntityManager::CleanUp()
 	RemoveFlagged();
 	RELEASE(root);
 	RELEASE(sceneTree);
-
+	unitVector.clear();
 	return ret;
 }
 

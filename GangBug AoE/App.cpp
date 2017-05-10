@@ -21,6 +21,7 @@
 #include "M_FogOfWar.h"
 #include "M_DialogueManager.h"
 #include "M_MisionManager.h"
+#include "M_Minimap.h"
 
 #include "S_InGame.h"
 #include "S_Menu.h"
@@ -74,6 +75,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	resources = new M_Resources();
 	collision = new M_Collision();
 	dialogueManager = new M_DialogueManager();
+	minimap = new M_Minimap();
 	//fogOfWar = new M_FogOfWar();
 	misionManager = new M_MisionManager();
 
@@ -95,6 +97,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(resources);
 	AddModule(collision);
 	AddModule(dialogueManager);
+	AddModule(minimap);
 	//AddModule(fogOfWar);
 	AddModule(animation);
 	AddModule(gui);

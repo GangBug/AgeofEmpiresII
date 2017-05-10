@@ -33,6 +33,7 @@ class M_FogOfWar;
 class S_Menu;
 class S_InGame;
 class M_MisionManager;
+class M_Minimap;
 
 class App
 {
@@ -119,6 +120,7 @@ public:
 	M_DialogueManager*	dialogueManager = nullptr;
 	//M_FogOfWar*			fogOfWar = nullptr;
 	M_MisionManager*		misionManager = nullptr;
+	M_Minimap*			minimap = nullptr;
 	S_Menu*				menu = nullptr;
 	S_InGame*			inGame = nullptr;
 

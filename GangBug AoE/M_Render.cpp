@@ -15,6 +15,7 @@
 #include "M_MisionManager.h"
 #include "Boss.h"
 #include "Building.h"
+#include "M_Minimap.h"
 //TEMP
 #include "M_Textures.h"
 #include <algorithm>
@@ -174,6 +175,13 @@ update_status M_Render::PostUpdate(float dt)
 
 			Blit(app->tex->bossLifeBar, lifeBarPos.x, lifeBarPos.y, &lifeBarRect);
 	}
+
+	//RENDER MINIMAP
+	if (app->inGame->active)
+	{
+		app->minimap->DrawMinimap();
+	}
+	//-----------
 
 	//RENDER DIALOGUES
 
