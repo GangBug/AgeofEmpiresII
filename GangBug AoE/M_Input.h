@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "SDL/include/SDL_scancode.h"
 #include "SDL/include/SDL_mouse.h"
-
+#include "p2Point.h"
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
 //#define LAST_KEYS_PRESSED_BUFFER 50
@@ -32,6 +32,8 @@ class M_Input : public Module
 {
 
 public:
+
+
 
 	M_Input(bool startEnabled = true);
 
@@ -75,6 +77,8 @@ public:
 	void GetMouseMapPosition(int &x, int &y);
 	void GetMouseScreenPosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+	iPoint GetMousePosition();
 
 	void DrawDebug();
 

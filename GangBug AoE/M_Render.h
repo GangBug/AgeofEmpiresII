@@ -57,6 +57,18 @@ public:
 	void SetCenter(iPoint pos);
 
 	void UpdateCamera();
+
+
+public:
+
+
+	void MoveUp(float amount);
+	void MoveLeft(float amount);
+	void MoveDown(float amount);
+	void MoveRight(float amount);
+
+
+
 };
 
 class M_Render : public Module
@@ -104,6 +116,7 @@ public:
 	void SetBackgroundColor(SDL_Color color);
 
 	void DrawDebug()override;
+
 
 private:
 	void DrawEntities(std::vector<Entity*> entities);

@@ -248,7 +248,29 @@ void M_Render::SetBackgroundColor(SDL_Color color)
 
 void M_Render::DrawDebug()
 {
+
 }
+
+void Camera::MoveUp(float amount)
+{
+	viewport.y += floor(amount);
+}
+
+void Camera::MoveLeft(float amount)
+{
+	viewport.x += floor(amount);
+}
+
+void Camera::MoveDown(float amount)
+{
+	viewport.y -= floor(amount);
+}
+
+void Camera::MoveRight(float amount)
+{
+	viewport.x -= floor(amount);
+}
+
 
 void M_Render::SetViewPort(const SDL_Rect& rect)
 {

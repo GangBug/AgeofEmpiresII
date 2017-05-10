@@ -4,6 +4,7 @@
 #include "M_Window.h"
 #include "M_Render.h"
 #include "SDL/include/SDL.h"
+#include "p2Point.h"
 
 #define MAX_KEYS 300
 #define _CRT_SECURE_NO_WARNINGS
@@ -302,6 +303,17 @@ void M_Input::GetMouseMotion(int& x, int& y)
 	x = mouseMotionX;
 	y = mouseMotionY;
 }
+
+iPoint M_Input::GetMousePosition()
+{
+
+	iPoint ret;
+	ret.x = mouseX;
+	ret.y = mouseY;
+	return iPoint(ret);
+}
+
+
 
 void M_Input::DrawDebug()
 {

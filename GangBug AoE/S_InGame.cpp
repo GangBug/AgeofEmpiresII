@@ -11,7 +11,7 @@
 #include "S_Menu.h"
 #include "M_MisionManager.h"
 #include "M_Minimap.h"
-
+#include "M_Input.h"
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("inGame");
@@ -73,6 +73,12 @@ update_status S_InGame::PreUpdate(float dt)
 {
 	if (active)
 	{
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+			OpenMenu(!menuOpen);
+			menuOpen = !menuOpen;
+		}
+		
+
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 			app->gui->SetActiveScene(name);
 		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -81,6 +87,10 @@ update_status S_InGame::PreUpdate(float dt)
 			app->gui->SetActiveScene("\0");
 		if (!app->pause)
 		{
+
+			// -------------------Move camera--------------------------------------------
+			// --------------------------------------------------------------------------
+			
 			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 				app->render->camera->Move(10.0, UP);
 			if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
@@ -89,7 +99,17 @@ update_status S_InGame::PreUpdate(float dt)
 				app->render->camera->Move(10.0, DOWN);
 			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 				app->render->camera->Move(10.0, RIGHT);
+			if (app->input->GetMousePosition().y < 5)
+				app->render->camera->MoveUp(floor(600.0f * dt));
+			if (app->input->GetMousePosition().y > app->render->camera->GetRect().h - 5)
+				app->render->camera->MoveDown(floor(600.0f * dt));
+			if (app->input->GetMousePosition().x < 5)
+				app->render->camera->MoveLeft(floor(600.0f * dt));
+			if (app->input->GetMousePosition().x > app->render->camera->GetRect().w - 5)
+				app->render->camera->MoveRight(floor(600.0f * dt));
 
+			// --------------------------------------------------------------------------
+			// --------------------------------------------------------------------------
 
 			if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 			{
@@ -121,8 +141,11 @@ update_status S_InGame::PreUpdate(float dt)
 			{
 				return UPDATE_STOP;
 			}
-
 		}
+
+
+
+
 
 
 
