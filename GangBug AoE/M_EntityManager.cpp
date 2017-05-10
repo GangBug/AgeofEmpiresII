@@ -5,6 +5,7 @@
 #include "Log.h"
 
 #include "M_FileSystem.h"
+#include "M_ParticleSystem.h"
 
 #include "GB_QuadTree.h"
 // Entities
@@ -187,9 +188,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		int x, y;
-		app->input->GetMouseMapPosition(x, y);
-		CreateBuilding(building_type::BUILD_STABLES, nullptr, x, y);
+		app->particleSystem->CreateStaticBucle(fPoint(0, 0), false, EXPLOSION);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)

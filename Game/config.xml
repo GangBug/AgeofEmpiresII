@@ -38,5 +38,86 @@
   <map>
     <folder>maps/</folder>
   </map>
-
+  <particlesystem>
+    <particle>
+      <Info>
+        <Name value= "BALL"/>
+        <ID value = "0"/>
+        <Collider w="64" h="64"/>
+      </Info>
+      <Textures>
+        <Texture value="textures/ball.png"/>
+      </Textures>
+      <Stats>
+        <Lifespan value = "3"/>
+      </Stats>
+      <Animations>
+        <Animation rows = "1" columns = "1"/>
+      </Animations>
+    </particle>
+    <particle>
+      <Info>
+        <Name value= "STAR"/>
+        <ID value = "1"/>
+        <Collider w="31" h="33"/>
+      </Info>
+      <Textures>
+        <Texture value="textures/star.png"/>
+      </Textures>
+      <Stats>
+        <Lifespan value = "2"/>
+      </Stats>
+      <Animations>
+        <Animation rows = "1" columns = "1"/>
+      </Animations>
+    </particle>
+    <particle>
+      <Info>
+        <Name value= "FIRE"/>
+        <ID value = "2"/>
+        <Collider w="64" h="128"/>
+      </Info>
+      <Textures>
+        <Texture value="textures/fire.png"/>
+      </Textures>
+      <Stats>
+        <Lifespan value = "4"/>
+      </Stats>
+      <Animations>
+        <Animation rows = "4" columns = "8"/>
+      </Animations>
+    </particle>
+    <particle>
+      <Info>
+        <Name value= "SMOKE"/>
+        <ID value = "3"/>
+        <Collider w="256" h="256"/>
+      </Info>
+      <Textures>
+        <Texture value="textures/smoke.png"/>
+      </Textures>
+      <Stats>
+        <Lifespan value = "4"/>
+      </Stats>
+      <Animations>
+        <Animation rows = "5" columns = "6"/>
+      </Animations>
+    </particle>
+    <particle>
+      <Info>
+        <Name value= "EXPLOSION"/>
+        <ID value = "4"/>
+        <Collider w="192" h="192"/>
+      </Info>
+      <Textures>
+        <Texture value="textures/explosion.png"/>
+      </Textures>
+      <Stats>
+        <Lifespan value = "3"/>
+      </Stats>
+      <Animations>
+        <Animation rows = "5" columns = "5"/>
+      </Animations>
+    </particle>
+  </particlesystem>
 </config>

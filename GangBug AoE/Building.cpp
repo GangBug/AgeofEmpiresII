@@ -8,6 +8,7 @@
 #include "M_Resources.h"
 #include "M_DialogueManager.h"
 #include "Log.h"
+#include "M_ParticleSystem.h"
 
 #define BUY_TIMER 2
 #define PROGRESS_WIDTH 100
@@ -81,7 +82,7 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 
 	}
 	selected = false;
-	HP = 100;
+	HP = 0;
 }
 
 
@@ -91,6 +92,13 @@ Building::~Building()
 
 void Building::OnUpdate(float dt)
 {
+	if (HP <= 0 && fire == nullptr && fire2 == nullptr)
+	{
+		fPoint firePos(GetEnclosingBox().x + 60, GetEnclosingBox().y + 30);
+		fPoint firePos2(firePos.x + 100, firePos.y - 10);
+		fire = app->particleSystem->CreateStaticBucle(firePos, true, FIRE);
+		fire2 = app->particleSystem->CreateStaticBucle(firePos2, true, FIRE);
+	}
 	if (!app->dialogueManager->onDialogue)
 	{
 

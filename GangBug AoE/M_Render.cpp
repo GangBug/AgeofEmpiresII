@@ -16,6 +16,7 @@
 #include "Boss.h"
 #include "Building.h"
 #include "M_Minimap.h"
+#include "M_ParticleSystem.h"
 //TEMP
 #include "M_Textures.h"
 #include <algorithm>
@@ -147,6 +148,11 @@ update_status M_Render::PostUpdate(float dt)
 		app->inGame->Draw();
 	}
 	//--------------
+
+	//RENDER PARTICLES
+	app->particleSystem->DrawParticles();
+
+	//----------
 
 	//RENDER UI
 

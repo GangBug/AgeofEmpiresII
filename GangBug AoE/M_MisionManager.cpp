@@ -205,7 +205,7 @@ update_status M_MisionManager::Update(float dt)
 bool M_MisionManager::CleanUp()
 {
 	bool ret = true;
-
+	State = M_INTRO;
 	enemyStartTroops = 0;
 	enemyTroopCounter = 0;
 	aliveTroopWave = 0;
@@ -213,6 +213,7 @@ bool M_MisionManager::CleanUp()
 	townCenterIsAlive = true;
 	stateName.assign("Intro");
 	enemyDeadUnits = 0;
+
 
 	return ret;
 }

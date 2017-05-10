@@ -205,6 +205,9 @@
     <ClCompile Include="M_Minimap.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="M_ParticleSystem.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -376,6 +379,12 @@
       <Filter>Modules\Modules</Filter>
     </ClInclude>
     <ClInclude Include="M_Minimap.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleAnimation.h">
+      <Filter>Modules\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="M_ParticleSystem.h">
       <Filter>Modules\Modules</Filter>
     </ClInclude>
   </ItemGroup>

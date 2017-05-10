@@ -3,6 +3,7 @@
 #include "j1Timer.h"
 
 class GUIElement;
+class Particle;
 
 enum building_type
 {
@@ -48,4 +49,6 @@ private:
 
 	GUIElement* creatorButton;
 	GUIElement* unitInfoLabel;
+	Particle* fire = nullptr;
+	Particle* fire2 = nullptr;
 };

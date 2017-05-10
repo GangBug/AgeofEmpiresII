@@ -34,6 +34,7 @@ class S_Menu;
 class S_InGame;
 class M_MisionManager;
 class M_Minimap;
+class M_ParticleSystem;
 
 class App
 {
@@ -121,6 +122,7 @@ public:
 	//M_FogOfWar*			fogOfWar = nullptr;
 	M_MisionManager*		misionManager = nullptr;
 	M_Minimap*			minimap = nullptr;
+	M_ParticleSystem*	particleSystem = nullptr;
 	S_Menu*				menu = nullptr;
 	S_InGame*			inGame = nullptr;
 
