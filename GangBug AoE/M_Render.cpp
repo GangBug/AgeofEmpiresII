@@ -519,9 +519,6 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 					piv.x = p.x;
 					piv.y = p.y;
 
-					finalRect.x -= p.x;
-					finalRect.y -= p.y;
-
 					//Check if we should flip
 					SDL_RendererFlip flip = SDL_FLIP_NONE;
 					{
@@ -530,11 +527,24 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 							flip = SDL_FLIP_HORIZONTAL;
 						}
 					}
+
+					if (flip == SDL_FLIP_NONE)
+					{
+						finalRect.x -= p.x;
+						finalRect.y -= p.y;
+					}
+					else if (flip == SDL_FLIP_HORIZONTAL)
+					{
+						finalRect.x -= (finalRect.w - p.x);
+						finalRect.y -= p.y;
+					}
+
 					if (SDL_RenderCopyEx(renderer, texture, &section.GetSDLrect(), &finalRect, 0, &piv, flip) != 0)
 					{
 						LOG("ERROR: Could not blit to screen entity [%s]. SDL_RenderCopyEx error: %s.\n", tmp->GetName(), SDL_GetError());
 					}
 					dynamic_cast<Unit*>(tmp)->PrintLife();
+
 				}
 				else if (tmp->type == ENTITY_BUILDING)
 				{

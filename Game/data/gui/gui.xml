@@ -680,6 +680,33 @@
       <position x="150" y="310" />
     </label>
 
+    
+    
+    <!--UNIT BUYING INFO!-->
+    <label size="2" name="label_ArcherCost" text="Wood: 25 Food: 0 Gold: 45" interactive="false" canFocus="false" visible="false">
+      <scenes/>
+    <color r="210" g="115" b="63" a="255"/>
+    <position x="57" y="955"/>
+    </label>
+    
+    <label size="2" name="label_SamuraiCost" text="Wood: 0 Food: 60 Gold: 30" interactive="false" canFocus="false" visible="false">
+      <scenes/>
+    <color r="210" g="115" b="63" a="255"/>
+    <position x="57" y="955"/>
+    </label>
+    
+    <label size="2" name="label_TarkanCost" text="Wood: 0 Food: 60 Gold: 75" interactive="false" canFocus="false" visible="false">
+      <scenes/>
+    <color r="210" g="115" b="63" a="255"/>
+    <position x="57" y="955"/>
+    </label>
+    
+    <label size="2" name="label_VillagerCost" text="Wood: 0 Food: 50 Gold: 0" interactive="false" canFocus="false" visible="false">
+      <scenes/>
+    <color r="210" g="115" b="63" a="255"/>
+    <position x="57" y="955"/>
+    </label>
+    
 
     <!--  ............................................................................................  -->
     <!--  ............................................................................................  -->
@@ -712,7 +739,7 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="156" y="918" />
+			<position x="108" y="918" />
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="36" h="36" />
 		</button>
@@ -732,7 +759,7 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="12" y="918" />
+			<position x="108" y="918" />
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="36" h="36" />
 		</button>
@@ -742,7 +769,7 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <position x="12" y="968" />
+      <position x="108" y="918" />
       <textColor r="0" g="0" b="0" a="0" />
       <size w="36" h="36" />
     </button>

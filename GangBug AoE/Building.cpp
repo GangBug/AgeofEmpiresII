@@ -31,6 +31,7 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		entityTexture = app->tex->archeryTexture;
 		SetEnclosingBoxSize(320, 293);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "ArcherCreatorButton");
+		unitInfoLabel = app->gui->FindElement(app->gui->guiList, "label_ArcherCost");
 
 		break;
 
@@ -44,6 +45,7 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		entityTexture = app->tex->stableTexture;
 		SetEnclosingBoxSize(323, 226);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "TarkanCreatorButton");
+		unitInfoLabel = app->gui->FindElement(app->gui->guiList, "label_TarkanCost");
 
 		break;
 
@@ -58,10 +60,11 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		entityTexture = app->tex->barracksTexture;
 		SetEnclosingBoxSize(310, 266);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "SamuraiCreatorButton");
+		unitInfoLabel = app->gui->FindElement(app->gui->guiList, "label_SamuraiCost");
 
 		break;
 
-	case 	BUILD_TOWNCENTER:
+	case BUILD_TOWNCENTER:
 		unitType = VILLAGER;
 
 		unitGoldCost = 0;
@@ -72,11 +75,12 @@ Building::Building(building_type buildType, Entity* parent) : Entity(ENTITY_BUIL
 		SetLocalPosition(10, 10);
 		SetEnclosingBoxSize(382, 399);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton");
+		unitInfoLabel = app->gui->FindElement(app->gui->guiList, "label_VillagerCost");
 
 		break;
 
 	}
-
+	selected = false;
 	HP = 100;
 }
 
@@ -93,7 +97,7 @@ void Building::OnUpdate(float dt)
 		iPoint mPos;
 		app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
-		if (selected == false && app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) && GetEnclosingBox().Contains(mPos.x, mPos.y))
+		if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && GetEnclosingBox().Contains(mPos.x, mPos.y))
 		{
 			selected = true;
 			creatorButton->SetVisible(true);
@@ -116,20 +120,31 @@ void Building::OnUpdate(float dt)
 				app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
 			}
 		}
-		else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP
-			&& !GetEnclosingBox().Contains(mPos.x, mPos.y)
-			&& creatorButton->GetInteractive())
+		else if (selected == true)
 		{
 			app->input->GetMouseScreenPosition(mPos.x, mPos.y);
 			if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
 			{
-				BuyUnit();
+				unitInfoLabel->SetVisible(true);
+				unitInfoLabel->SetActive(true);
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+				{
+					BuyUnit();
+				}
 			}
-			else
+			else if (!creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
 			{
-				selected = false;
-				creatorButton->SetVisible(false);
-				creatorButton->SetInteractive(false);
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+				{
+					selected = false;
+					creatorButton->SetVisible(false);
+					creatorButton->SetInteractive(false);
+				}
+				else 
+				{
+					unitInfoLabel->SetVisible(false);
+					unitInfoLabel->SetActive(false);
+				}
 			}
 		}
 

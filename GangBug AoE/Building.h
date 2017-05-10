@@ -47,4 +47,5 @@ public:
 private:
 
 	GUIElement* creatorButton;
+	GUIElement* unitInfoLabel;
 };
