@@ -186,6 +186,8 @@ void GUIButton::Serialize(pugi::xml_node root)
 	atr.set_value(xmlRect.w);
 	atr = size.append_attribute("h");
 	atr.set_value(xmlRect.h);
+
+
 }
 
 void GUIButton::Deserialize(pugi::xml_node layout_element)
@@ -211,13 +213,16 @@ void GUIButton::Deserialize(pugi::xml_node layout_element)
 	color.a = layout_element.child("textColor").attribute("a").as_int();
 	label->SetColor(color);
 
+	label_size	lbSize;
+	lbSize = label_size(layout_element.child("textSize").attribute("s").as_int());
+	SetText(text, lbSize);
 
 	rect = app->gui->XmlToScreen(xmlRect);
 	
 	SetRectangle(rect);
 	image->SetRectangle(rect);
 	label->Center();
-	SetText(text);
+
 	//Load button actions and assign them to an action
 	//TODO: try to find a better system of assigning button actions to gui events
 	for (pugi::xml_node it_event = layout_element.child("events").first_child(); it_event; )

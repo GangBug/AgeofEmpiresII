@@ -15,7 +15,7 @@ public:
 			  std::string name,
 			  int flags = STANDARD_PRESET,
 			  char* text = nullptr,
-			  label_size _size = DEFAULT);
+			  label_size _size = SMALL);
 	GUIButton(const GUIButton &btn, std::string name, int flags = STANDARD_PRESET);
 	~GUIButton();
 

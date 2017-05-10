@@ -30,8 +30,10 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 		SetText(std::to_string(app->resources->GetCurrentFood()).c_str(), SMALL);
 	if (strcmp(GetName().c_str(), "label_wood") == 0)
 		SetText(std::to_string(app->resources->GetCurrentWood()).c_str(), SMALL);
-	if (strcmp(GetName().c_str(), "label_MaxVillager") == 0)
+	if (strcmp(GetName().c_str(), "label_MaxVillager_n") == 0)
 		SetText(std::to_string(app->resources->GetTotalVillagers()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "label_MaxPopulation_n") == 0)
+		SetText(std::to_string(app->resources->GetTotalUnits()).c_str(), SMALL);
 
 	if (strcmp(GetName().c_str(), "label_ResourceWindow_TotalVillager_n") == 0)
 		SetText(std::to_string(app->resources->GetTotalVillagers()).c_str(), SMALL);

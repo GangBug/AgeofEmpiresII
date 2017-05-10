@@ -13,7 +13,7 @@ class GUILabel :
 {
 public:
 	GUILabel(std::string name, int flags = STANDARD_PRESET);
-	GUILabel(const char* text, label_size _size, std::string name, int flags = STANDARD_PRESET, SDL_Color color = {255,255,255,255});
+	GUILabel(const char* text, label_size _size, std::string name, int flags = STANDARD_PRESET, SDL_Color color = { 255,255,255,255});
 
 	virtual void OnUpdate(const GUIElement* mouseHover, const GUIElement* focus, float dt);
 

@@ -12,16 +12,16 @@
 				<section type="standBy" x="1128" y="12" w="449" h="354" />
 			</img>
 			<img type_name="ResourceBar" have_animations="0">
-				<section type="standBy" x="14" y="906" w="1312" h="46" />
+				<section type="standBy" x="15" y="905" w="1057" h="49" />
 			</img>
 			<img type_name="UseBar" have_animations="0">
-				<section type="standBy" x="13" y="719" w="959" h="179" />
+				<section type="standBy" x="13" y="714" w="959" h="184" />
 			</img>
 			<img type_name="SaveBar" have_animations="0">
 				<section type="standBy" x="680" y="656" w="384" h="45" />
 			</img>
 			<img type_name="ResourceWindow" have_animations="0">
-				<section type="standBy" x="1249" y="391" w="328" h="448" />
+				<section type="standBy" x="1151 " y="436" w="457" h="541" />
 			</img>
 			<img type_name="Wood" have_animations="0">
 				<section type="standBy" x="669" y="595" w="54" h="52" />
@@ -35,7 +35,28 @@
 			<img type_name="PopulationLimit" have_animations="0">
 				<section type="standBy" x="929" y="596" w="54" h="40" />
 			</img>
-		</imgs>
+			<img type_name="VillagersLimit" have_animations="0">
+				<section type="standBy" x="1002" y="595" w="39" h="39" />
+			</img>
+      
+      <img type_name="Filter1" have_animations="0">
+        <section type="standBy" x="138" y="637" w="39" h="31" />
+      </img>
+      <img type_name="Filter2" have_animations="0">
+        <section type="standBy" x="186" y="637" w="39" h="31" />
+      </img>
+      <img type_name="Filter3" have_animations="0">
+        <section type="standBy" x="237" y="637" w="39" h="31" />
+      </img>
+      <img type_name="Filter4" have_animations="0">
+        <section type="standBy" x="186" y="678" w="39" h="31" />
+      </img>
+      <img type_name="Filter5" have_animations="0">
+        <section type="standBy" x="237" y="678" w="39" h="31" />
+      </img>
+
+
+    </imgs>
 		<buttons>
 			<button type_name="button1" have_animations="0">
 				<sections>
@@ -179,7 +200,17 @@
 		</buttons>
 	</elements>
 	<layout>
-		<button type="buttonPlay" name="start" text="" interactive="true" canFocus="true" visible="true">
+    <!-- filter -->
+    <img type="Filter5" name="Filteringame" interactive="false" canFocus="false" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+      <position x="0" y="0" />
+      <size w="1920" h="1080" />
+    </img>
+
+
+    <button type="buttonPlay" name="start" text="" interactive="true" canFocus="true" visible="true">
       <events>
         <event action="65536" origin="16"/> <!--modulo-->
       </events>
@@ -211,8 +242,8 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="0" y="900" />
-			<size w="948" h="171" />
+			<position x="0" y="896" />
+			<size w="959" h="184" />
 		</img>
 		<img type="MenuWindow" name="MenuWindow" interactive="true" canFocus="true" visible="true">
 			<scenes>
@@ -225,7 +256,7 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="1464" y="720" />
+			<position x="1476" y="729" />
 			<size w="444" h="351" />
 		</img>
 		<img type="SaveBar" name="SaveBar" interactive="true" canFocus="true" visible="true">
@@ -240,9 +271,8 @@
 				<scene name="inGame" />
 			</scenes>
 			<position x="0" y="0" />
-			<size w="1308" h="45" />
+			<size w="1057" h="45" />
 		</img>
-
 		<button type="MenuButton" name="MenuButton" text="" interactive="true" canFocus="true" visible="true">
 		  <events>
 		    <event action="67108864" origin="16" />
@@ -253,7 +283,7 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="1800" y="0" />
+			<position x="1812" y="0" />
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="108" h="81" />
 		</button>
@@ -263,7 +293,7 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="1740" y="0" />
+			<position x="1764" y="0" />
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="60" h="36" />
 		</button>
@@ -273,7 +303,7 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="1680" y="0" />
+			<position x="1704" y="0" />
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="60" h="36" />
 		</button>
@@ -281,23 +311,38 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="192" y="0" />
+			<position x="125" y="0" />
 			<size w="48" h="45" />
 		</img>
 		<img type="Food" name="Food" interactive="true" canFocus="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="396" y="0" />
+			<position x="300" y="0" />
 			<size w="48" h="45" />
 		</img>
 		<img type="Gold" name="Gold" interactive="true" canFocus="true" visible="true">
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<position x="600" y="0" />
+			<position x="475" y="0" />
 			<size w="48" h="45" />
 		</img>
+    <img type="PopulationLimit" name="PopulationLimit" interactive="true" canFocus="true" visible="true">
+			<scenes>
+				<scene name="inGame" />
+			</scenes>
+			<position x="825" y="0" />
+			<size w="48" h="36" />
+		</img>
+    <img type="VillagersLimit" name="VillagersLimit" interactive="true" canFocus="true" visible="true">
+			<scenes>
+				<scene name="inGame" />
+			</scenes>
+			<position x="650" y="0" />
+			<size w="36" h="36" />
+	</img>
+		
     
     <!--  ........................................Resources numbers......................................  -->
     <!--  ............................................................................................  -->
@@ -306,32 +351,56 @@
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
-			<color r="0" g="0" b="255" a="255" />
-			<position x="648" y="0" />
+      <color r="210" g="115" b="63" a="255" />
+			<position x="525" y="0" />
 		</label>
     
     <label size="2" name="label_food" text="0000" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
-      <position x="440" y="0" />
+      <color r="210" g="115" b="63" a="255" />
+      <position x="350" y="0" />
     </label>
     
     <label size="2" name="label_wood" text="0000" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
-      <position x="250" y="0" />
+      <color r="210" g="115" b="63" a="255" />
+      <position x="175" y="0" />
     </label>
 
-    <label size="2" name="label_MaxVillager" text="00" interactive="true" canFocus="true" visible="true">
+    <label size="2" name="label_MaxPopulation" text="/100" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
-      <position x="850" y="0" />
+      <color r="210" g="115" b="63" a="255" />
+      <position x="925" y="0" />
+    </label>
+    
+    <label size="2" name="label_MaxPopulation_n" text="000" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+       <color r="210" g="115" b="63" a="255" />
+       <position x="885" y="0" />
+     </label>
+    
+    <label size="2" name="label_MaxVillager" text="/20" interactive="true" canFocus="true" visible="true">
+       <scenes>
+         <scene name="inGame" />
+       </scenes>
+       <color r="210" g="115" b="63" a="255" />
+      <position x="750" y="0" />
+    </label>
+    
+    <label size="2" name="label_MaxVillager_n" text="00" interactive="true" canFocus="true" visible="true">
+      <scenes>
+        <scene name="inGame" />
+      </scenes>
+         <color r="210" g="115" b="63" a="255" />
+      <position x="710" y="0" />
     </label>
     <!--  ............................................................................................  -->
     <!--  .....................................Resources window...................................  -->
@@ -339,15 +408,15 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <position x="1584" y="72" />
-      <size w="324" h="441" />
+      <position x="1540" y="72" />
+      <size w="457" h="541" />
     </img>
     <!---->
     <label size="2" name="label_ResourceWindow_TotalVillager" text="Total Villagers:      /20" interactive="true" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="1600" y="150" />
     </label>
 
@@ -355,7 +424,7 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="1775" y="150" />
     </label>
     <!---->
@@ -363,7 +432,7 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="1600" y="200" />
     </label>
 
@@ -371,7 +440,7 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="1825" y="200" />
     </label>
 
@@ -380,7 +449,7 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="1600" y="250" />
     </label>
 
@@ -388,7 +457,7 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="1815" y="250" />
     </label>
 
@@ -426,15 +495,14 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="1600" y="300" />
     </label>
-
     <label size="2" name="label_ResourceWindow_Farmers_n" text="0" interactive="false" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="1815" y="300" />
     </label>
 
@@ -475,7 +543,6 @@
       <color r="0" g="0" b="255" a="255" />
       <position x="1600" y="350" />
     </label>
-
     <label size="2" name="label_ResourceWindow_Lumberjacks_n" text="0" interactive="false" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
@@ -521,7 +588,6 @@
       <color r="0" g="0" b="255" a="255" />
       <position x="1600" y="400" />
     </label>
-
     <label size="2" name="label_ResourceWindow_Repairmen_n" text="0" interactive="false" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
@@ -568,14 +634,14 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="20" y="150" />
     </label>
     <label size="1" name="label_Wave_time" text="Time: " interactive="false" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="20" y="200" />
     </label>
     <label size="2" name="label_Wave_time_n" text="00" interactive="false" canFocus="true" visible="true">
@@ -589,7 +655,7 @@
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+      <color r="210" g="115" b="63" a="255" />
       <position x="20" y="250" />
     </label>
     <label size="2" name="label_Wave_stat_n" text="Aaaaaa" interactive="false" canFocus="true" visible="true">
@@ -599,12 +665,11 @@
       <color r="0" g="0" b="255" a="255" />
       <position x="150" y="260" />
     </label>
-    
-        <label size="1" name="label_EnemyDead_stat" text="Kills:" interactive="false" canFocus="true" visible="true">
+    <label size="1" name="label_EnemyDead_stat" text="Kills:" interactive="false" canFocus="true" visible="true">
       <scenes>
         <scene name="inGame" />
       </scenes>
-      <color r="0" g="0" b="255" a="255" />
+          <color r="210" g="115" b="63" a="255" />
       <position x="20" y="300" />
     </label>
     <label size="2" name="label_EnemyDead_stat_n" text="00" interactive="false" canFocus="true" visible="true">
@@ -621,13 +686,6 @@
 
 
 
-    <img type="PopulationLimit" name="PopulationLimit" interactive="true" canFocus="true" visible="true">
-			<scenes>
-				<scene name="inGame" />
-			</scenes>
-			<position x="792" y="0" />
-			<size w="48" h="36" />
-		</img>
 		<button type="SamuraiCreatorButton" name="SamuraiCreatorButton" text="" interactive="true" canFocus="true" visible="true">
 			<events />
 			<listeners />
@@ -698,7 +756,8 @@
 			<textColor r="0" g="0" b="0" a="0" />
 			<size w="36" h="36" />
 		</button>
-		<button type="OptionsButton" name="OptionsButton" text="" interactive="true" canFocus="true" visible="true">
+		
+    <button type="OptionsButton" name="OptionsButton" text="" interactive="true" canFocus="true" visible="true">
 		  <events>
 		    <event action="33554432" origin="16" />
 		  </events>
@@ -709,17 +768,19 @@
 				<scene name="inGame" />
 			</scenes>
 			<position x="0" y="0" />
-			<textColor r="0" g="0" b="0" a="0" />
+      <textColor r="255" g="255" b="255" a="255" />
 			<size w="96" h="81" />
 		</button>
-		<button type="button" name="MenuButtonInGame_Resume" text="Resume Game" interactive="true" canFocus="true" visible="true">
+	
+    <button type="button" name="MenuButtonInGame_Resume" text="Resume Game" interactive="true" canFocus="true" visible="true">
 			<events />
 			<listeners />
 			<scenes>
 				<scene name="inGame" />
 			</scenes>
 			<position x="816" y="378" />
-			<textColor r="0" g="0" b="0" a="0" />
+      <textSize s="2" />
+      <textColor r="255" g="255" b="255" a="255" />
 			<size w="252" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Load" text="Load Game" interactive="true" canFocus="true" visible="true">
@@ -729,7 +790,9 @@
 				<scene name="inGame" />
 			</scenes>
 			<position x="816" y="423" />
-			<textColor r="0" g="0" b="0" a="0" />
+      <textSize s="2" />
+      <textColor r="255" g="255" b="255" a="255" />
+          <textSize s="2" />
 			<size w="252" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Save" text="Save Game" interactive="true" canFocus="true" visible="true">
@@ -739,7 +802,8 @@
 				<scene name="inGame" />
 			</scenes>
 			<position x="816" y="477" />
-			<textColor r="0" g="0" b="0" a="0" />
+      <textColor r="255" g="255" b="255" a="255" />
+      <textSize s="2" />
 			<size w="252" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Options" text="Options" interactive="true" canFocus="true" visible="true">
@@ -749,7 +813,8 @@
 				<scene name="inGame" />
 			</scenes>
 			<position x="816" y="522" />
-			<textColor r="0" g="0" b="0" a="0" />
+      <textColor r="255" g="255" b="255" a="255" />
+      <textSize s="2" />
 			<size w="252" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Start" text="Exit to Start Menu" interactive="true" canFocus="true" visible="true">
@@ -761,7 +826,8 @@
 				<scene name="inGame" />
 			</scenes>
 			<position x="816" y="576" />
-			<textColor r="0" g="0" b="0" a="0" />
+      <textSize s="2" />
+      <textColor r="255" g="255" b="255" a="255" />
 			<size w="252" h="36" />
 		</button>
 		<button type="button" name="MenuButtonInGame_Exit" text="Exit to Desktop" interactive="true" canFocus="true" visible="true">
@@ -775,8 +841,10 @@
 				<scene name="inGame" />
 			</scenes>
 			<position x="816" y="630" />
-			<textColor r="0" g="0" b="0" a="255" />
+			<textColor r="255" g="255" b="255" a="255" />
+      <textSize s="2" />
 			<size w="252" h="36" />
 		</button>
+    
 	</layout>
 </gui>

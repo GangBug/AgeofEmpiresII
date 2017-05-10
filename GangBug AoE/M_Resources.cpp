@@ -29,7 +29,7 @@ bool M_Resources::Start()
 	constructors = 0;
 	totalVillagers = 1;
 	unemployedVillagers = 0;
-
+	totalUnits = 0;
 
 	return ret;
 }
@@ -157,6 +157,11 @@ uint M_Resources::GetLumberjacks()
 uint M_Resources::GetFarmers()
 {
 	return uint(farmers);
+}
+
+uint M_Resources::GetTotalUnits()
+{
+	return uint(totalUnits);
 }
 
 void M_Resources::AddConstructors()

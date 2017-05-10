@@ -60,6 +60,8 @@ private:
 	uint totalVillagers;
 	uint unemployedVillagers;
 
+	uint totalUnits;
+
 public:
 	uint GetConstructors();
 	uint GetVillagers();
@@ -67,6 +69,7 @@ public:
 	uint GetMiners();
 	uint GetLumberjacks();
 	uint GetFarmers();
+	uint GetTotalUnits();
 
 	void AddConstructors();
 	void AddVillager();

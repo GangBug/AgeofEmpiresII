@@ -15,6 +15,7 @@ M_MisionManager::M_MisionManager(bool startEnabled) : Module(startEnabled)
 	stateName.assign("Intro");
 	enemyDeadUnits = 0; 
 	active = false;
+	
 }
 
 M_MisionManager::~M_MisionManager()
