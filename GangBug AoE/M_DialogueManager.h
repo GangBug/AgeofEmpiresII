@@ -6,9 +6,10 @@
 #include <vector>
 #include <string>
 
-#define TEXT_OFFSET_X 50
-#define TEXT_OFFSET_Y 550
-#define D_BOX_OFFSET_Y 500
+#define TEXT_OFFSET_X 115
+#define TEXT_OFFSET_Y 73
+#define D_BOX_OFFSET_X 436
+#define D_BOX_OFFSET_Y 100
 
 enum DIALOGUE_CHARACTER
 {

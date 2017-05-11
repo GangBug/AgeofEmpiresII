@@ -200,12 +200,23 @@ update_status M_Render::PostUpdate(float dt)
 			diag->SetActive(true);
 			if ((*it).character == D_CHARACTER_SAMURAI)
 			{
-				SDL_Rect charRect{ 0,0,615,662 };//TODO: Change magic numbers
-				SDL_Rect boxRect{ 0,0, 508, 107 };//TODO: Change magic numbers
-				iPoint charPos(camera->GetCenter().x - (charRect.w / 2), camera->GetCenter().y - (charRect.h / 2));
-				Blit(app->tex->samuraiTexture, charPos.x, charPos.y, &charRect);
-				Blit(app->tex->dialogueBoxTexture, charPos.x, charPos.y + D_BOX_OFFSET_Y, &boxRect);
-				diag->SetGlobalPos(charPos.x + TEXT_OFFSET_X, charPos.y + TEXT_OFFSET_Y);
+				SDL_Rect charRect{ 0,0,1366, 768 };//TODO: Change magic numbers
+				SDL_Rect boxRect{ 0,0, 762, 160 };//TODO: Change magic numbers
+				iPoint charPos(camera->GetCenter().x - 750, camera->GetCenter().y - 380);
+				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X, camera->GetCenter().y + D_BOX_OFFSET_Y);
+				BlitAdri(app->tex->samuraiTexture, charPos.x, charPos.y, &charRect);
+				BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
+				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X, boxPos.y + TEXT_OFFSET_Y);
+			}
+			if ((*it).character == D_CHARACTER_DEMON)
+			{
+				SDL_Rect charRect{ 0,0,1366, 768 };//TODO: Change magic numbers
+				SDL_Rect boxRect{ 0,0, 762, 160 };//TODO: Change magic numbers
+				iPoint charPos(camera->GetCenter().x - 680, camera->GetCenter().y - 380);
+				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X, camera->GetCenter().y + D_BOX_OFFSET_Y);
+				BlitAdri(app->tex->demonTexture, charPos.x, charPos.y, &charRect);
+				BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
+				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X, boxPos.y + TEXT_OFFSET_Y);
 			}
 			//app->render->DrawQuad(diag->GetLocalRect().GetSDLrect(), 255, 0, 0, 255);
 			diag->Draw();
@@ -379,6 +390,26 @@ bool M_Render::Blit(SDL_Texture* texture, const SDL_Rect* _rect, const SDL_Rect*
 	}
 
 	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, SDL_FLIP_NONE) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}
+
+//THIS ONE is only for textures with just 1 thing, the section will be the size of the image.
+bool M_Render::BlitAdri(SDL_Texture* texture, int x, int y, const SDL_Rect* section) const
+{
+	bool ret = true;
+	SDL_Rect rect;
+	rect.x = (int)(camera->GetPosition().x) + x;
+	rect.y = (int)(camera->GetPosition().y) + y;
+
+	rect.w = section->w;
+	rect.h = section->h;
+
+	if (SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0, (0, 0), SDL_FLIP_NONE) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;

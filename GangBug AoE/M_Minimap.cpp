@@ -13,10 +13,10 @@
 #include "SDL_TTF\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
 
-#define MAP_POS_X 869 - app->render->camera->GetPosition().x + (mini_tiles[i].coords.x * 0.019)
-#define MAP_POS_Y 450 - app->render->camera->GetPosition().y + (mini_tiles[i].coords.y * 0.019)
-#define UNITS_POS_X 869 - app->render->camera->GetPosition().x + (coords.x * 0.019)
-#define UNITS_POS_Y 450 - app->render->camera->GetPosition().y + (coords.y * 0.019)
+#define MAP_POS_X 1239 - app->render->camera->GetPosition().x + (mini_tiles[i].coords.x * 0.027)
+#define MAP_POS_Y 640 - app->render->camera->GetPosition().y + (mini_tiles[i].coords.y * 0.027)
+#define UNITS_POS_X 1239 - app->render->camera->GetPosition().x + (coords.x * 0.027)
+#define UNITS_POS_Y 640 - app->render->camera->GetPosition().y + (coords.y * 0.027)
 
 M_Minimap::M_Minimap(bool startEnabled) : Module(startEnabled)
 {

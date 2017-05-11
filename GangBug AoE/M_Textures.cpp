@@ -45,8 +45,9 @@ bool M_Textures::Start()
 	barracksTexture = Load("buildings/barracks.bmp");
 	townCenterTexture = Load("buildings/town.png");
 	objectTexture = Load("objects/ObjectsSpritesheet.png");
-	samuraiTexture = Load("dialogue/ryoma2.png");
-	dialogueBoxTexture = Load("dialogue/dialogueBox.png");
+	samuraiTexture = Load("dialogue/SamuraiPortrait.png");
+	demonTexture = Load("dialogue/DemonPortrait.png");
+	dialogueBoxTexture = Load("dialogue/dialogueWindow.png");
 	bossLifeBar = Load("textures/BossLifeBar.png");
 	portalTexture = Load("buildings/portal.png");
 
