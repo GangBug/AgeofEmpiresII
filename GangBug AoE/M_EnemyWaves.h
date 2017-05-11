@@ -27,6 +27,8 @@ public:
 
 	void DrawDebug()override;
 
+	bool CleanUp();
+
 private:
 	Timer waveTimer;
 	Timer spawnTimer;
@@ -49,6 +51,9 @@ public:
 
 	void checkCurrentPortals();
 
+	void createPortals();
+
+	int checkActivePortals();
 
 	std::vector<Entity*> waveEntities;
 };

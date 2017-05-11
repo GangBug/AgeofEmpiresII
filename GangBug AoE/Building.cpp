@@ -9,6 +9,7 @@
 #include "M_DialogueManager.h"
 #include "Log.h"
 #include "M_ParticleSystem.h"
+#include "M_MissionManager.h"
 
 #define BUY_TIMER 2
 #define PROGRESS_WIDTH 100
@@ -202,6 +203,10 @@ void Building::OnUpdate(float dt)
 			{
 				fPoint firePos2(GetEnclosingBox().x + 160, GetEnclosingBox().y + 20);
 				fire2 = app->particleSystem->CreateStaticBucle(firePos2, true, FIRE);
+				if (buildType == BUILD_TOWNCENTER)
+				{
+					app->missionManager->TheTownCenterIsDead();
+				}
 			}
 			else if (HP >= fullHP * 0.5 && HP != fullHP)
 			{

@@ -91,6 +91,8 @@ public:
 
 	bool CleanUp();
 
+	void DestroyParticles();
+
 	void DrawDebug();
 
 	Particle* CreateStaticBucle(fPoint startingposition, bool finite, ParticleType type);

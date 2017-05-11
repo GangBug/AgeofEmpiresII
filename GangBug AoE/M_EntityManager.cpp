@@ -278,6 +278,7 @@ bool M_EntityManager::CleanUp()
 	RELEASE(root);
 	RELEASE(sceneTree);
 	unitVector.clear();
+	buildingVector.clear();
 	return ret;
 }
 

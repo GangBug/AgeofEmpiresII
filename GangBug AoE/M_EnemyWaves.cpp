@@ -100,6 +100,12 @@ void M_EnemyWaves::DrawDebug()
 {
 }
 
+bool M_EnemyWaves::CleanUp()
+{
+	waveEntities.clear();
+	return true;
+}
+
 void M_EnemyWaves::checkCurrentPortals()
 {
 	std::vector<Entity*> buildingVec = app->entityManager->GetBuildingVector();
@@ -113,4 +119,26 @@ void M_EnemyWaves::checkCurrentPortals()
 			SpawnWave(VILE, spawnPos.x, spawnPos.y, nullptr);
 		}
 	}
+}
+
+void M_EnemyWaves::createPortals()
+{
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, -2500, 1400);
+	//app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, -2500, 1400);
+}
+
+int M_EnemyWaves::checkActivePortals()
+{
+	int ret = 0;
+	std::vector<Entity*> buildingVec = app->entityManager->GetBuildingVector();
+
+	for (std::vector<Entity*>::iterator it = buildingVec.begin(); it != buildingVec.end(); it++)
+	{
+		if ((*it)->GetHP() > 0 && dynamic_cast<Building*>(*it)->buildType == BUILD_PORTAL)
+		{
+			ret++;
+		}
+	}
+
+	return ret;
 }

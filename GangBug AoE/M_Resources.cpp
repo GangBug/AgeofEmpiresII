@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "M_Audio.h"
 #include "M_GUI.h"
+#include "S_InGame.h"
 M_Resources::M_Resources(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("resources");
@@ -105,7 +106,7 @@ update_status M_Resources::Update(float dt)
 	update_status ret = UPDATE_CONTINUE;
 
 	//Maybe we could use dt instead of this timer
-	if (!app->dialogueManager->onDialogue)
+	if (!app->dialogueManager->onDialogue && app->inGame->active == true)
 	{
 		//Resources update
 		if (updateResources.ReadSec() > UPDATE_TIMER)

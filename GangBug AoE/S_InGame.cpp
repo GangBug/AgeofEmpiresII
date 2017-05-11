@@ -12,6 +12,9 @@
 #include "M_MissionManager.h"
 #include "M_Minimap.h"
 #include "M_Input.h"
+#include "M_Resources.h"
+#include "M_ParticleSystem.h"
+
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("inGame");
@@ -65,6 +68,10 @@ bool S_InGame::Start()
 		app->entityManager->PlaceObjects();
 
 		app->minimap->CreateMinimap();
+
+		app->resources->Start();
+
+		app->enemyWaves->Start();
 	}
 	return true;
 }
@@ -216,6 +223,8 @@ void S_InGame::GoToMenu()
 	app->missionManager->Disable();
 	app->map->CleanUp();
 	app->minimap->CleanUp();
+	app->particleSystem->DestroyParticles();
+	app->enemyWaves->CleanUp();
 	pugi::xml_node		nullnode;
 
 	app->entityManager->Awake(nullnode);

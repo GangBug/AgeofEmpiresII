@@ -106,6 +106,15 @@ bool M_ParticleSystem::CleanUp()
 	return true;
 }
 
+void M_ParticleSystem::DestroyParticles()
+{
+	for (list<Particle*>::iterator it = particles.begin(); it != particles.end(); ++it)
+	{
+		if (it._Ptr->_Myval != nullptr)
+			DestroyParticle(it._Ptr->_Myval);
+	}
+}
+
 void M_ParticleSystem::DrawDebug()
 {
 }
