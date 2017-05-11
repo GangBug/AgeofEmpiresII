@@ -993,6 +993,25 @@ void M_EntityManager::LoadFXs()// ADD FX
 	fxArrow006 = app->audio->LoadFx("audio/fx/Other/Arrow_6.wav");
 	fxArrow007 = app->audio->LoadFx("audio/fx/Other/Arrow_7.wav");
 	
+	fxFightDiabloW001 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack1.wav");
+	fxFightDiabloW002 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack2.wav");
+	fxFightDiabloW003 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack3.wav");
+	fxFightDiabloW004 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack4.wav");
+	fxFightDiabloW005 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack5.wav");
+
+	fxFightHellW001 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack1.wav");
+	fxFightHellW002 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack2.wav");
+	fxFightHellW003 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack3.wav");
+	fxFightHellW004 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack4.wav");
+	fxFightHellW005 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack5.wav");
+
+	fxFightVile001 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack1.wav");
+	fxFightVile002 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack2.wav");
+	fxFightVile003 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack3.wav");
+	fxFightVile004 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack4.wav");
+	fxFightVile005 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack5.wav");
+
+
 	//die
 	fxDieSoldier001 = app->audio->LoadFx("audio/fx/Units/Dead_1.wav");
 	fxDieSoldier002 = app->audio->LoadFx("audio/fx/Units/Dead_2.wav");
@@ -1003,6 +1022,8 @@ void M_EntityManager::LoadFXs()// ADD FX
 	fxDieHorse001 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_1.wav");
 	fxDieHorse002 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_2.wav");
 	fxDieHorse003 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_3.wav");
+
+	//Die
 
 	//select
 	fxHorseSelect001 = app->audio->LoadFx("audio/fx/Units/Horse_Select_1.wav");
@@ -1038,6 +1059,11 @@ void M_EntityManager::LoadFXs()// ADD FX
 	//alert
 	fxAlert01 = app->audio->LoadFx("audio/fx/Other/Warning_Attack_1.wav");
 	fxAlert02 = app->audio->LoadFx("audio/fx/Other/Warning_Attack_2.wav");
+
+
+	fxDiabloLaugh01 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh1.wav");
+	fxDiabloLaugh02 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh2.wav");
+	fxDiabloLaugh03 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh3.wav");
 
 }
 
