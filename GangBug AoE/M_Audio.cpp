@@ -51,7 +51,10 @@ bool M_Audio::Awake(pugi::xml_node& config)
 	}
 
 	menuMusic = Mix_LoadMUS_RW(app->fs->Load("audio/BSO/BSO_Menu.ogg"), 1);
-	thirdMission = Mix_LoadMUS_RW(app->fs->Load("audio/BSO/BSO_ThirdMision.ogg"), 1);
+	firstMission = Mix_LoadMUS_RW(app->fs->Load("audio/BSO/BSO_First.ogg"), 1);
+	secondMission = Mix_LoadMUS_RW(app->fs->Load("audio/BSO/BSO_Second.ogg"), 1);
+	thirdMission = Mix_LoadMUS_RW(app->fs->Load("audio/BSO/BSO_Third.ogg"), 1);
+	finalMission = Mix_LoadMUS_RW(app->fs->Load("audio/BSO/BSO_Final.ogg"), 1);
 
 	return ret;
 }

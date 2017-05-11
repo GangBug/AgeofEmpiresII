@@ -42,7 +42,11 @@ public:
 	void DrawDebug()override;
 
 	_Mix_Music*				menuMusic = nullptr;
+	_Mix_Music*				firstMission = nullptr;
+	_Mix_Music*				secondMission = nullptr;
 	_Mix_Music*				thirdMission = nullptr;
+	_Mix_Music*				finalMission = nullptr;
+
 private:
 
 	_Mix_Music*				music = nullptr;
