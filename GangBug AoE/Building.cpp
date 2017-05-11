@@ -222,10 +222,18 @@ void Building::OnUpdate(float dt)
 				fire = nullptr;
 			}
 		}
-		else if (buildType == BUILD_PORTAL && portalParticle == nullptr)
+		else if (buildType == BUILD_PORTAL)
 		{
-			fPoint particlePos(GetEnclosingBox().x + 10, GetEnclosingBox().y);
-			portalParticle = app->particleSystem->CreateStaticBucle(particlePos, false, PORTAL);
+			if (portalParticle == nullptr && HP == fullHP)
+			{
+				fPoint particlePos(GetEnclosingBox().x + 10, GetEnclosingBox().y);
+				portalParticle = app->particleSystem->CreateStaticBucle(particlePos, false, PORTAL);
+			}
+			else if (portalParticle != nullptr && HP <= 0)
+			{
+				app->particleSystem->DestroyParticle(portalParticle);
+				portalParticle = nullptr;
+			}
 		}
 	}
 }
