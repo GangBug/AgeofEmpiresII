@@ -41,7 +41,6 @@ public:
 	void BuldingCreator();
 	void UnitsCreator();
 
-
 	void ToolCreateObjects();
 
 public:

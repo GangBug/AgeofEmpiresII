@@ -257,27 +257,6 @@ void M_Render::DrawDebug()
 
 }
 
-void Camera::MoveUp(float amount)
-{
-	viewport.y += floor(amount);
-}
-
-void Camera::MoveLeft(float amount)
-{
-	viewport.x += floor(amount);
-}
-
-void Camera::MoveDown(float amount)
-{
-	viewport.y -= floor(amount);
-}
-
-void Camera::MoveRight(float amount)
-{
-	viewport.x -= floor(amount);
-}
-
-
 void M_Render::SetViewPort(const SDL_Rect& rect)
 {
 	SDL_RenderSetViewport(renderer, &rect);
@@ -680,19 +659,31 @@ void Camera::Move(float amount, camera_direction direction) //Manual camera
 	switch (direction)
 	{
 	case UP:
-		viewport.y += floor(amount);
+		if (viewport.y < UPPER_LIMIT)
+		{
+			viewport.y += floor(amount);
+		}
 		break;
 
 	case DOWN:
-		viewport.y -= floor(amount);
+		if (viewport.y > LOWER_LIMIT)
+		{
+			viewport.y -= floor(amount);
+		}
 		break;
 
 	case LEFT:
-		viewport.x += floor(amount);
+		if (viewport.x < LEFT_LIMIT)
+		{
+			viewport.x += floor(amount);
+		}
 		break;
 
 	case RIGHT:
-		viewport.x -= floor(amount);
+		if (viewport.x > RIGHT_LIMIT)
+		{
+			viewport.x -= floor(amount);
+		}
 		break;
 	}
 }

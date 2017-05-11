@@ -92,7 +92,7 @@ update_status M_EnemyWaves::Update(float dt)
 		{
 			if (dynamic_cast<Unit*>(*it)->GetType() == VILE)
 			{
-				dynamic_cast<Unit*>(*it)->GoTo({ ENEMYOBJECTIVE_X, ENEMYOBJECTIVE_Y });
+				dynamic_cast<Unit*>(*it)->GoTo({ app->inGame->enemyDestination });
 			}
 		}
 		waveSpawn = false;

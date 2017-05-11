@@ -7,6 +7,11 @@
 #include <vector>
 #include "GB_Rectangle.h"
 
+#define UPPER_LIMIT 0
+#define LOWER_LIMIT -3000
+#define LEFT_LIMIT 4000
+#define RIGHT_LIMIT -2000
+
 enum camera_direction
 {
 	NONE = 0,
@@ -58,16 +63,11 @@ public:
 
 	void UpdateCamera();
 
-
 public:
-
-
 	void MoveUp(float amount);
 	void MoveLeft(float amount);
 	void MoveDown(float amount);
 	void MoveRight(float amount);
-
-
 
 };
 

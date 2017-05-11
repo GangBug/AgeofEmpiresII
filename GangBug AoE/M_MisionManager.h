@@ -4,7 +4,8 @@
 #include "j1Timer.h"
 #include "Module.h"
 
-enum Mision_State {
+enum Mision_State 
+{
 	M_INTRO,
 	M_TOWNATTACK,
 	M_TOWNREPAIR,
@@ -19,7 +20,6 @@ enum Mision_State {
 	M_STANDBY
 };
 #define MISION_TIME 1
-
 
 #define WAVES_W8_TIME 30
 #define WAVES_W8_TIME_DEADUNITS 30

@@ -104,7 +104,7 @@ bool M_DialogueManager::PlayDialogue(DIALOGUE_EVENT event)
 		if (!(*it).active && !(*it).done && (*it).event == event)
 		{
 			(*it).active = true;
-			app->audio->PlayFx(app->entityManager->fxAlert01);	//FX
+		//	app->audio->PlayFx(app->entityManager->fxAlert01);	//FX
 			onDialogue = true;
 			return true;
 		}
