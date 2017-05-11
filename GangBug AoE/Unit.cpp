@@ -77,6 +77,18 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		unitState = NO_STATE;
 		break;
 
+	case HELL_WITCH:
+		SetHp(100);
+		attack = 10;
+		speed = 2.0f;
+		rate_of_fire = 1;
+		range = 1;
+		unitClass = INFANTRY;
+		unitRadius = 7;
+		horde = true;
+		unitState = NO_STATE;
+		break;
+
 	default:
 		LOG("ERROR: NOT A CORRECT UNIT TYPE");
 		unitClass = NO_CLASS;
@@ -296,9 +308,22 @@ void Unit::Die()
 	//FIX: This deletes the building associated with the dying unit
 	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DIE)
 	{
-		this->action = DISAPPEAR; //CURRENTLY NOT WORKING 
-		Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
-		anim->Reset();
+		if (unitType != HELL_WITCH && unitType != DIABLO)
+		{
+
+			this->action = DISAPPEAR; //CURRENTLY NOT WORKING 
+			Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
+			anim->Reset();
+		}
+		else if(unitType == HELL_WITCH || unitType == DIABLO)
+		{
+			if (this->horde == true)
+			{
+				app->misionManager->AddEnemyDeadUnit();
+			}
+
+			app->entityManager->DeleteUnit(this);
+		}
 	}
 	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DISAPPEAR)
 	{

@@ -2282,5 +2282,249 @@ triangles  => sprite triangulation, 3 vertex indices per triangle
 	</west>
 </walk>
 </vile>
+  <hellwitch imagePath="HellWitch.png" width="1108" height="1108">
+    <attack>
+      <north>
+        <sprite n="HellWitchAttackN_0000_HellWitch.png" x="347" y="551" w="50" h="82" pX="0.5" pY="1.09756"/>
+        <sprite n="HellWitchAttackN_0001_HellWitch.png" x="544" y="1" w="90" h="57" pX="0.5" pY="1.19298"/>
+        <sprite n="HellWitchAttackN_0002_HellWitch.png" x="240" y="182" w="72" h="48" pX="0.472222" pY="1.22917"/>
+        <sprite n="HellWitchAttackN_0003_HellWitch.png" x="645" y="58" w="78" h="45" pX="0.5" pY="1.22222"/>
+        <sprite n="HellWitchAttackN_0004_HellWitch.png" x="706" y="120" w="79" h="48" pX="0.518987" pY="1.39583"/>
+        <sprite n="HellWitchAttackN_0005_HellWitch.png" x="314" y="161" w="83" h="55" pX="0.53012" pY="1.2"/>
+        <sprite n="HellWitchAttackN_0006_HellWitch.png" x="169" y="84" w="71" h="68" pX="0.549296" pY="1.13235"/>
+        <sprite n="HellWitchAttackN_0007_HellWitch.png" x="884" y="843" w="49" h="77" pX="0.489796" pY="1.14286"/>
+      </north>
+      <north_west>
+        <sprite n="HellWitchAttackNW_0000_HellWitch.png" x="351" y="465" w="46" h="84" pX="0.5" pY="1.08333"/>
+        <sprite n="HellWitchAttackNW_0001_HellWitch.png" x="725" y="1" w="84" h="63" pX="0.654762" pY="1.19048"/>
+        <sprite n="HellWitchAttackNW_0002_HellWitch.png" x="671" y="509" w="69" h="47" pX="0.57971" pY="1.31915"/>
+        <sprite n="HellWitchAttackNW_0003_HellWitch.png" x="933" y="344" w="62" h="49" pX="0.451613" pY="1.22449"/>
+        <sprite n="HellWitchAttackNW_0004_HellWitch.png" x="406" y="629" w="62" h="53" pX="0.370968" pY="1.20755"/>
+        <sprite n="HellWitchAttackNW_0005_HellWitch.png" x="669" y="558" w="64" h="58" pX="0.359375" pY="1.24138"/>
+        <sprite n="HellWitchAttackNW_0006_HellWitch.png" x="294" y="468" w="55" h="76" pX="0.381818" pY="1.15789"/>
+        <sprite n="HellWitchAttackNW_0007_HellWitch.png" x="694" y="767" w="47" h="80" pX="0.489362" pY="1.125"/>
+      </north_west>
+      <south>
+        <sprite n="HellWitchAttackS_0000_HellWitch.png" x="157" y="989" w="47" h="84" pX="0.531915" pY="1.08333"/>
+        <sprite n="HellWitchAttackS_0001_HellWitch.png" x="240" y="1" w="100" h="51" pX="0.5" pY="1.2549"/>
+        <sprite n="HellWitchAttackS_0002_HellWitch.png" x="530" y="143" w="77" h="51" pX="0.545455" pY="1.21569"/>
+        <sprite n="HellWitchAttackS_0003_HellWitch.png" x="522" y="196" w="76" h="49" pX="0.513158" pY="1.30612"/>
+        <sprite n="HellWitchAttackS_0004_HellWitch.png" x="671" y="279" w="72" h="49" pX="0.486111" pY="1.26531"/>
+        <sprite n="HellWitchAttackS_0005_HellWitch.png" x="162" y="154" w="76" h="65" pX="0.460526" pY="1.13846"/>
+        <sprite n="HellWitchAttackS_0006_HellWitch.png" x="66" y="372" w="66" h="81" pX="0.469697" pY="1.11111"/>
+        <sprite n="HellWitchAttackS_0007_HellWitch.png" x="1061" y="93" w="46" h="86" pX="0.543478" pY="1.09302"/>
+      </south>
+      <south_west>
+        <sprite n="HellWitchAttackSW_0000_HellWitch.png" x="56" y="985" w="45" h="87" pX="0.511111" pY="1.09195"/>
+        <sprite n="HellWitchAttackSW_0001_HellWitch.png" x="444" y="186" w="76" h="52" pX="0.618421" pY="1.19231"/>
+        <sprite n="HellWitchAttackSW_0002_HellWitch.png" x="562" y="623" w="58" h="59" pX="0.586207" pY="1.20339"/>
+        <sprite n="HellWitchAttackSW_0003_HellWitch.png" x="1058" y="548" w="48" h="50" pX="0.520833" pY="1.28"/>
+        <sprite n="HellWitchAttackSW_0004_HellWitch.png" x="735" y="562" w="63" h="54" pX="0.365079" pY="1.22222"/>
+        <sprite n="HellWitchAttackSW_0005_HellWitch.png" x="671" y="441" w="64" h="66" pX="0.328125" pY="1.16667"/>
+        <sprite n="HellWitchAttackSW_0006_HellWitch.png" x="135" y="455" w="59" h="82" pX="0.355932" pY="1.09756"/>
+        <sprite n="HellWitchAttackSW_0007_HellWitch.png" x="245" y="542" w="47" h="87" pX="0.489362" pY="1.08046"/>
+      </south_west>
+      <west>
+        <sprite n="HellWitchAttackW_0000_HellWitch.png" x="293" y="684" w="40" h="88" pX="0.5" pY="1.09091"/>
+        <sprite n="HellWitchAttackW_0001_HellWitch.png" x="946" y="283" w="47" h="59" pX="0.787234" pY="1.20339"/>
+        <sprite n="HellWitchAttackW_0002_HellWitch.png" x="524" y="627" w="36" h="55" pX="0.638889" pY="1.25455"/>
+        <sprite n="HellWitchAttackW_0003_HellWitch.png" x="910" y="999" w="33" h="56" pX="0.484848" pY="1.21429"/>
+        <sprite n="HellWitchAttackW_0004_HellWitch.png" x="862" y="561" w="49" h="55" pX="0.632653" pY="1.18182"/>
+        <sprite n="HellWitchAttackW_0005_HellWitch.png" x="622" y="619" w="52" h="63" pX="0.615385" pY="1.19048"/>
+        <sprite n="HellWitchAttackW_0006_HellWitch.png" x="838" y="844" w="44" h="78" pX="0.613636" pY="1.15385"/>
+        <sprite n="HellWitchAttackW_0007_HellWitch.png" x="206" y="989" w="37" h="84" pX="0.513514" pY="1.11905"/>
+      </west>
+    </attack>
+    <die>
+      <north>
+        <sprite n="HellWitchDieN_0000_HellWitch.png" x="643" y="768" w="49" h="81" pX="0.510204" pY="1.09877"/>
+        <sprite n="HellWitchDieN_0001_HellWitch.png" x="103" y="989" w="52" h="84" pX="0.519231" pY="1.09524"/>
+        <sprite n="HellWitchDieN_0002_HellWitch.png" x="1" y="897" w="54" h="86" pX="0.537037" pY="1.10465"/>
+        <sprite n="HellWitchDieN_0003_HellWitch.png" x="1" y="807" w="56" h="88" pX="0.553571" pY="1.09091"/>
+        <sprite n="HellWitchDieN_0004_HellWitch.png" x="1" y="985" w="53" h="87" pX="0.584906" pY="1.10345"/>
+        <sprite n="HellWitchDieN_0005_HellWitch.png" x="241" y="454" w="51" h="86" pX="0.607843" pY="1.10465"/>
+        <sprite n="HellWitchDieN_0006_HellWitch.png" x="444" y="365" w="44" h="84" pX="0.636364" pY="1.14286"/>
+        <sprite n="HellWitchDieN_0007_HellWitch.png" x="697" y="683" w="39" h="80" pX="0.589744" pY="0.975"/>
+        <sprite n="HellWitchDieN_0008_HellWitch.png" x="580" y="537" w="39" h="82" pX="0.641026" pY="0.853659"/>
+        <sprite n="HellWitchDieN_0009_HellWitch.png" x="404" y="54" w="37" h="87" pX="0.540541" pY="1"/>
+        <sprite n="HellWitchDieN_0010_HellWitch.png" x="522" y="860" w="37" h="85" pX="0.594595" pY="0.988235"/>
+        <sprite n="HellWitchDieN_0011_HellWitch.png" x="1018" y="1036" w="35" h="52" pX="0.514286" pY="0.961538"/>
+        <sprite n="HellWitchDieN_0012_HellWitch.png" x="203" y="863" w="63" h="31" pX="0.507937" pY="0.612903"/>
+      </north>
+      <north_west>
+        <sprite n="HellWitchDieNW_0000_HellWitch.png" x="395" y="364" w="47" h="85" pX="0.446809" pY="1.08235"/>
+        <sprite n="HellWitchDieNW_0001_HellWitch.png" x="244" y="684" w="47" h="88" pX="0.468085" pY="1.11364"/>
+        <sprite n="HellWitchDieNW_0002_HellWitch.png" x="164" y="682" w="47" h="89" pX="0.489362" pY="1.08989"/>
+        <sprite n="HellWitchDieNW_0003_HellWitch.png" x="335" y="684" w="47" h="88" pX="0.468085" pY="1.10227"/>
+        <sprite n="HellWitchDieNW_0004_HellWitch.png" x="269" y="860" w="47" h="86" pX="0.446809" pY="1.01163"/>
+        <sprite n="HellWitchDieNW_0005_HellWitch.png" x="65" y="722" w="47" h="83" pX="0.510638" pY="0.975904"/>
+        <sprite n="HellWitchDieNW_0006_HellWitch.png" x="701" y="849" w="46" h="80" pX="0.456522" pY="0.95"/>
+        <sprite n="HellWitchDieNW_0007_HellWitch.png" x="913" y="561" w="46" h="77" pX="0.434783" pY="0.935065"/>
+        <sprite n="HellWitchDieNW_0008_HellWitch.png" x="977" y="840" w="36" h="77" pX="0.583333" pY="1.02597"/>
+        <sprite n="HellWitchDieNW_0009_HellWitch.png" x="610" y="852" w="37" h="82" pX="0.5" pY="0.5"/>
+        <sprite n="HellWitchDieNW_0010_HellWitch.png" x="791" y="683" w="37" h="80" pX="0.405405" pY="0.9"/>
+        <sprite n="HellWitchDieNW_0011_HellWitch.png" x="561" y="945" w="35" h="53" pX="0.485714" pY="0.90566"/>
+        <sprite n="HellWitchDieNW_0012_HellWitch.png" x="876" y="524" w="69" h="35" pX="0.550725" pY="0.571429"/>
+      </north_west>
+      <south>
+        <sprite n="HellWitchDieS_0000_HellWitch.png" x="537" y="365" w="47" h="84" pX="0.553191" pY="1.05952"/>
+        <sprite n="HellWitchDieS_0001_HellWitch.png" x="305" y="774" w="49" h="84" pX="0.530612" pY="1.10714"/>
+        <sprite n="HellWitchDieS_0002_HellWitch.png" x="135" y="539" w="52" h="85" pX="0.480769" pY="1.10588"/>
+        <sprite n="HellWitchDieS_0003_HellWitch.png" x="294" y="546" w="51" h="83" pX="0.45098" pY="1.10843"/>
+        <sprite n="HellWitchDieS_0004_HellWitch.png" x="649" y="851" w="50" h="81" pX="0.44" pY="1.04938"/>
+        <sprite n="HellWitchDieS_0005_HellWitch.png" x="621" y="535" w="46" h="82" pX="0.413043" pY="0.97561"/>
+        <sprite n="HellWitchDieS_0006_HellWitch.png" x="935" y="840" w="40" h="77" pX="0.4" pY="0.883117"/>
+        <sprite n="HellWitchDieS_0007_HellWitch.png" x="897" y="922" w="35" h="75" pX="0.428571" pY="0.893333"/>
+        <sprite n="HellWitchDieS_0008_HellWitch.png" x="160" y="222" w="34" h="73" pX="0.323529" pY="0.917808"/>
+        <sprite n="HellWitchDieS_0009_HellWitch.png" x="1012" y="758" w="33" h="77" pX="0.515152" pY="1"/>
+        <sprite n="HellWitchDieS_0010_HellWitch.png" x="934" y="922" w="32" h="73" pX="0.4375" pY="0.917808"/>
+        <sprite n="HellWitchDieS_0011_HellWitch.png" x="633" y="936" w="31" h="58" pX="0.419355" pY="0.982759"/>
+        <sprite n="HellWitchDieS_0012_HellWitch.png" x="66" y="1075" w="66" h="32" pX="0.484848" pY="0.34375"/>
+      </south>
+      <south_west>
+        <sprite n="HellWitchDieSW_0000_HellWitch.png" x="399" y="451" w="44" h="87" pX="0.545455" pY="1.09195"/>
+        <sprite n="HellWitchDieSW_0001_HellWitch.png" x="399" y="540" w="45" h="87" pX="0.488889" pY="1.09195"/>
+        <sprite n="HellWitchDieSW_0002_HellWitch.png" x="439" y="774" w="45" h="87" pX="0.488889" pY="1.11494"/>
+        <sprite n="HellWitchDieSW_0003_HellWitch.png" x="444" y="863" w="46" h="86" pX="0.478261" pY="1.02326"/>
+        <sprite n="HellWitchDieSW_0004_HellWitch.png" x="485" y="540" w="45" h="85" pX="0.511111" pY="1.03529"/>
+        <sprite n="HellWitchDieSW_0005_HellWitch.png" x="490" y="365" w="45" h="84" pX="0.511111" pY="0.952381"/>
+        <sprite n="HellWitchDieSW_0006_HellWitch.png" x="926" y="683" w="47" h="77" pX="0.489362" pY="0.857143"/>
+        <sprite n="HellWitchDieSW_0007_HellWitch.png" x="1050" y="829" w="47" h="74" pX="0.531915" pY="0.905405"/>
+        <sprite n="HellWitchDieSW_0008_HellWitch.png" x="150" y="297" w="43" h="73" pX="0.418605" pY="0.863014"/>
+        <sprite n="HellWitchDieSW_0009_HellWitch.png" x="806" y="442" w="37" h="78" pX="0.567568" pY="1.05128"/>
+        <sprite n="HellWitchDieSW_0010_HellWitch.png" x="857" y="924" w="38" h="74" pX="0.526316" pY="0.986486"/>
+        <sprite n="HellWitchDieSW_0011_HellWitch.png" x="982" y="1051" w="34" h="56" pX="0.294118" pY="0.982143"/>
+        <sprite n="HellWitchDieSW_0012_HellWitch.png" x="806" y="522" w="68" h="37" pX="0.529412" pY="0.432432"/>
+      </south_west>
+      <west>
+        <sprite n="HellWitchDieW_0000_HellWitch.png" x="468" y="684" w="40" h="88" pX="0.45" pY="1.10227"/>
+        <sprite n="HellWitchDieW_0001_HellWitch.png" x="190" y="898" w="36" h="89" pX="0.555556" pY="1.08989"/>
+        <sprite n="HellWitchDieW_0002_HellWitch.png" x="492" y="863" w="28" h="88" pX="0.642857" pY="1.09091"/>
+        <sprite n="HellWitchDieW_0003_HellWitch.png" x="486" y="774" w="28" h="87" pX="0.571429" pY="1.11494"/>
+        <sprite n="HellWitchDieW_0004_HellWitch.png" x="556" y="684" w="29" h="85" pX="0.551724" pY="1.02353"/>
+        <sprite n="HellWitchDieW_0005_HellWitch.png" x="627" y="684" w="31" h="82" pX="0.612903" pY="0.926829"/>
+        <sprite n="HellWitchDieW_0006_HellWitch.png" x="845" y="442" w="35" h="78" pX="0.542857" pY="0.935897"/>
+        <sprite n="HellWitchDieW_0007_HellWitch.png" x="292" y="1000" w="38" h="73" pX="0.447368" pY="0.972603"/>
+        <sprite n="HellWitchDieW_0008_HellWitch.png" x="332" y="1000" w="40" h="72" pX="0.55" pY="1.01389"/>
+        <sprite n="HellWitchDieW_0009_HellWitch.png" x="791" y="765" w="37" h="79" pX="0.594595" pY="1.01266"/>
+        <sprite n="HellWitchDieW_0010_HellWitch.png" x="1015" y="837" w="33" h="76" pX="0.666667" pY="1.02632"/>
+        <sprite n="HellWitchDieW_0011_HellWitch.png" x="1025" y="585" w="31" h="52" pX="0.193548" pY="0.961538"/>
+        <sprite n="HellWitchDieW_0012_HellWitch.png" x="961" y="603" w="62" h="35" pX="0.596774" pY="0.6"/>
+      </west>
+    </die>
+    <idle>
+      <north>
+        <sprite n="HellWitchIdleN_0000_HellWitch.png" x="356" y="774" w="50" h="83" pX="0.5" pY="1.12048"/>
+        <sprite n="HellWitchIdleN_0001_HellWitch.png" x="166" y="1" w="72" h="81" pX="0.486111" pY="1.12346"/>
+        <sprite n="HellWitchIdleN_0002_HellWitch.png" x="1" y="74" w="89" h="69" pX="0.494382" pY="1.14493"/>
+        <sprite n="HellWitchIdleN_0003_HellWitch.png" x="314" y="54" w="87" h="52" pX="0.471264" pY="1.17308"/>
+        <sprite n="HellWitchIdleN_0004_HellWitch.png" x="245" y="631" w="80" h="51" pX="0.4875" pY="1.17647"/>
+        <sprite n="HellWitchIdleN_0005_HellWitch.png" x="600" y="204" w="75" h="51" pX="0.52" pY="1.19608"/>
+        <sprite n="HellWitchIdleN_0006_HellWitch.png" x="892" y="119" w="78" h="51" pX="0.512821" pY="1.19608"/>
+        <sprite n="HellWitchIdleN_0007_HellWitch.png" x="978" y="1" w="81" h="59" pX="0.493827" pY="1.13559"/>
+        <sprite n="HellWitchIdleN_0008_HellWitch.png" x="78" y="297" w="70" h="73" pX="0.485714" pY="1.10959"/>
+      </north>
+      <north_west>
+        <sprite n="HellWitchIdleNW_0000_HellWitch.png" x="561" y="858" w="47" h="85" pX="0.489362" pY="1.08235"/>
+        <sprite n="HellWitchIdleNW_0001_HellWitch.png" x="1" y="372" w="63" h="86" pX="0.603175" pY="1.10465"/>
+        <sprite n="HellWitchIdleNW_0002_HellWitch.png" x="1" y="145" w="81" h="73" pX="0.641975" pY="1.15068"/>
+        <sprite n="HellWitchIdleNW_0003_HellWitch.png" x="978" y="62" w="81" h="53" pX="0.679012" pY="1.16981"/>
+        <sprite n="HellWitchIdleNW_0004_HellWitch.png" x="907" y="230" w="74" h="51" pX="0.675676" pY="1.23529"/>
+        <sprite n="HellWitchIdleNW_0005_HellWitch.png" x="811" y="389" w="58" h="51" pX="0.517241" pY="1.21569"/>
+        <sprite n="HellWitchIdleNW_0006_HellWitch.png" x="1038" y="697" w="64" h="52" pX="0.4375" pY="1.15385"/>
+        <sprite n="HellWitchIdleNW_0007_HellWitch.png" x="676" y="618" w="59" h="63" pX="0.40678" pY="1.11111"/>
+        <sprite n="HellWitchIdleNW_0008_HellWitch.png" x="738" y="683" w="51" h="79" pX="0.45098" pY="1.10127"/>
+      </north_west>
+      <south>
+        <sprite n="HellWitchIdleS_0000_HellWitch.png" x="538" y="451" w="47" h="84" pX="0.531915" pY="1.09524"/>
+        <sprite n="HellWitchIdleS_0001_HellWitch.png" x="83" y="222" w="75" h="73" pX="0.506667" pY="1.10959"/>
+        <sprite n="HellWitchIdleS_0002_HellWitch.png" x="342" y="1" w="99" h="51" pX="0.515152" pY="1.21569"/>
+        <sprite n="HellWitchIdleS_0003_HellWitch.png" x="443" y="1" w="99" h="50" pX="0.505051" pY="1.24"/>
+        <sprite n="HellWitchIdleS_0004_HellWitch.png" x="314" y="108" w="88" h="51" pX="0.511364" pY="1.17647"/>
+        <sprite n="HellWitchIdleS_0005_HellWitch.png" x="983" y="230" w="74" h="50" pX="0.472973" pY="1.3"/>
+        <sprite n="HellWitchIdleS_0006_HellWitch.png" x="745" y="280" w="72" h="51" pX="0.472222" pY="1.15686"/>
+        <sprite n="HellWitchIdleS_0007_HellWitch.png" x="316" y="218" w="76" h="62" pX="0.486842" pY="1.14516"/>
+        <sprite n="HellWitchIdleS_0008_HellWitch.png" x="66" y="455" w="67" h="78" pX="0.507463" pY="1.08974"/>
+      </south>
+      <south_west>
+        <sprite n="HellWitchIdleSW_0000_HellWitch.png" x="445" y="451" w="44" h="87" pX="0.522727" pY="1.09195"/>
+        <sprite n="HellWitchIdleSW_0001_HellWitch.png" x="241" y="297" w="59" h="82" pX="0.59322" pY="1.09756"/>
+        <sprite n="HellWitchIdleSW_0002_HellWitch.png" x="239" y="232" w="75" h="63" pX="0.666667" pY="1.09524"/>
+        <sprite n="HellWitchIdleSW_0003_HellWitch.png" x="767" y="172" w="77" h="51" pX="0.688312" pY="1.17647"/>
+        <sprite n="HellWitchIdleSW_0004_HellWitch.png" x="743" y="333" w="69" h="54" pX="0.623188" pY="1.16667"/>
+        <sprite n="HellWitchIdleSW_0005_HellWitch.png" x="855" y="1000" w="53" h="50" pX="0.490566" pY="1.14"/>
+        <sprite n="HellWitchIdleSW_0006_HellWitch.png" x="932" y="466" w="63" h="56" pX="0.460317" pY="1.21429"/>
+        <sprite n="HellWitchIdleSW_0007_HellWitch.png" x="997" y="336" w="59" h="68" pX="0.40678" pY="1.11765"/>
+        <sprite n="HellWitchIdleSW_0008_HellWitch.png" x="395" y="279" w="50" h="83" pX="0.46" pY="1.07229"/>
+      </south_west>
+      <west>
+        <sprite n="HellWitchIdleW_0000_HellWitch.png" x="425" y="684" w="41" h="88" pX="0.487805" pY="1.10227"/>
+        <sprite n="HellWitchIdleW_0001_HellWitch.png" x="516" y="772" w="38" h="86" pX="0.526316" pY="1.0814"/>
+        <sprite n="HellWitchIdleW_0002_HellWitch.png" x="1058" y="346" w="49" h="71" pX="0.693878" pY="1.09859"/>
+        <sprite n="HellWitchIdleW_0003_HellWitch.png" x="1058" y="419" w="49" h="52" pX="0.734694" pY="1.15385"/>
+        <sprite n="HellWitchIdleW_0004_HellWitch.png" x="813" y="983" w="40" h="52" pX="0.775" pY="1.15385"/>
+        <sprite n="HellWitchIdleW_0005_HellWitch.png" x="1079" y="961" w="28" h="57" pX="0.607143" pY="1.21053"/>
+        <sprite n="HellWitchIdleW_0006_HellWitch.png" x="980" y="993" w="32" h="56" pX="0.65625" pY="1.125"/>
+        <sprite n="HellWitchIdleW_0007_HellWitch.png" x="461" y="998" w="35" h="69" pX="0.571429" pY="1.13043"/>
+        <sprite n="HellWitchIdleW_0008_HellWitch.png" x="587" y="450" w="40" h="83" pX="0.55" pY="1.08434"/>
+      </west>
+    </idle>
+    <walk>
+      <north>
+        <sprite n="HellWitchMoveN_0000_HellWitch.png" x="253" y="774" w="50" h="84" pX="0.48" pY="1.09524"/>
+        <sprite n="HellWitchMoveN_0001_HellWitch.png" x="92" y="1" w="72" h="83" pX="0.486111" pY="1.07229"/>
+        <sprite n="HellWitchMoveN_0002_HellWitch.png" x="1" y="1" w="89" h="71" pX="0.47191" pY="1.12676"/>
+        <sprite n="HellWitchMoveN_0003_HellWitch.png" x="636" y="1" w="87" h="55" pX="0.482759" pY="1.21818"/>
+        <sprite n="HellWitchMoveN_0004_HellWitch.png" x="811" y="116" w="79" h="54" pX="0.493671" pY="1.14815"/>
+        <sprite n="HellWitchMoveN_0005_HellWitch.png" x="677" y="224" w="75" h="53" pX="0.506667" pY="1.16981"/>
+        <sprite n="HellWitchMoveN_0006_HellWitch.png" x="978" y="117" w="78" h="51" pX="0.512821" pY="1.15686"/>
+        <sprite n="HellWitchMoveN_0007_HellWitch.png" x="895" y="1" w="81" h="60" pX="0.493827" pY="1.15"/>
+        <sprite n="HellWitchMoveN_0008_HellWitch.png" x="242" y="54" w="70" h="75" pX="0.485714" pY="1.10667"/>
+      </north>
+      <north_west>
+        <sprite n="HellWitchMoveNW_0000_HellWitch.png" x="491" y="451" w="45" h="85" pX="0.533333" pY="1.09412"/>
+        <sprite n="HellWitchMoveNW_0001_HellWitch.png" x="1" y="460" w="63" h="86" pX="0.619048" pY="1.06977"/>
+        <sprite n="HellWitchMoveNW_0002_HellWitch.png" x="1" y="220" w="80" h="73" pX="0.7" pY="1.12329"/>
+        <sprite n="HellWitchMoveNW_0003_HellWitch.png" x="895" y="63" w="81" h="54" pX="0.703704" pY="1.16667"/>
+        <sprite n="HellWitchMoveNW_0004_HellWitch.png" x="754" y="225" w="74" h="53" pX="0.716216" pY="1.13208"/>
+        <sprite n="HellWitchMoveNW_0005_HellWitch.png" x="871" y="389" w="59" h="51" pX="0.525424" pY="1.13725"/>
+        <sprite n="HellWitchMoveNW_0006_HellWitch.png" x="749" y="927" w="64" h="52" pX="0.5" pY="1.13462"/>
+        <sprite n="HellWitchMoveNW_0007_HellWitch.png" x="737" y="618" w="59" h="63" pX="0.423729" pY="1.12698"/>
+        <sprite n="HellWitchMoveNW_0008_HellWitch.png" x="749" y="846" w="51" h="79" pX="0.509804" pY="1.10127"/>
+      </north_west>
+      <south>
+        <sprite n="HellWitchMoveS_0000_HellWitch.png" x="982" y="170" w="75" h="58" pX="0.52" pY="1.2931"/>
+        <sprite n="HellWitchMoveS_0001_HellWitch.png" x="443" y="53" w="99" h="36" pX="0.515152" pY="1.33333"/>
+        <sprite n="HellWitchMoveS_0002_HellWitch.png" x="544" y="60" w="99" h="36" pX="0.515152" pY="1.27778"/>
+        <sprite n="HellWitchMoveS_0003_HellWitch.png" x="530" y="98" w="88" h="43" pX="0.5" pY="1.32558"/>
+        <sprite n="HellWitchMoveS_0004_HellWitch.png" x="394" y="240" w="74" h="37" pX="0.486486" pY="1.35135"/>
+        <sprite n="HellWitchMoveS_0005_HellWitch.png" x="596" y="321" w="73" h="37" pX="0.465753" pY="1.32432"/>
+        <sprite n="HellWitchMoveS_0006_HellWitch.png" x="327" y="635" w="77" h="47" pX="0.506494" pY="1.29787"/>
+        <sprite n="HellWitchMoveS_0007_HellWitch.png" x="737" y="442" w="67" h="62" pX="0.507463" pY="1.17742"/>
+      </south>
+      <south_west>
+        <sprite n="HellWitchMoveSW_0000_HellWitch.png" x="194" y="377" w="45" h="74" pX="0.533333" pY="1.17568"/>
+        <sprite n="HellWitchMoveSW_0001_HellWitch.png" x="997" y="464" w="59" h="68" pX="0.627119" pY="1.17647"/>
+        <sprite n="HellWitchMoveSW_0002_HellWitch.png" x="830" y="226" w="75" h="51" pX="0.693333" pY="1.33333"/>
+        <sprite n="HellWitchMoveSW_0003_HellWitch.png" x="444" y="145" w="77" h="39" pX="0.688312" pY="1.33333"/>
+        <sprite n="HellWitchMoveSW_0004_HellWitch.png" x="671" y="383" w="69" h="56" pX="0.666667" pY="1.23214"/>
+        <sprite n="HellWitchMoveSW_0005_HellWitch.png" x="799" y="1037" w="53" h="51" pX="0.528302" pY="1.23529"/>
+        <sprite n="HellWitchMoveSW_0006_HellWitch.png" x="554" y="1063" w="63" h="44" pX="0.444444" pY="1.27273"/>
+        <sprite n="HellWitchMoveSW_0007_HellWitch.png" x="994" y="406" w="59" h="56" pX="0.40678" pY="1.23214"/>
+        <sprite n="HellWitchMoveSW_0008_HellWitch.png" x="408" y="998" w="51" h="70" pX="0.529412" pY="1.2"/>
+      </south_west>
+      <west>
+        <sprite n="HellWitchMoveW_0000_HellWitch.png" x="830" y="683" w="47" h="79" pX="0.510638" pY="1.18987"/>
+        <sprite n="HellWitchMoveW_0001_HellWitch.png" x="830" y="764" w="47" h="78" pX="0.468085" pY="1.14103"/>
+        <sprite n="HellWitchMoveW_0002_HellWitch.png" x="975" y="691" w="61" h="65" pX="0.606557" pY="1.16923"/>
+        <sprite n="HellWitchMoveW_0003_HellWitch.png" x="866" y="341" w="65" h="46" pX="0.630769" pY="1.28261"/>
+        <sprite n="HellWitchMoveW_0004_HellWitch.png" x="650" y="1055" w="56" h="52" pX="0.607143" pY="1.25"/>
+        <sprite n="HellWitchMoveW_0005_HellWitch.png" x="650" y="996" w="45" h="57" pX="0.422222" pY="1.17544"/>
+        <sprite n="HellWitchMoveW_0006_HellWitch.png" x="292" y="949" w="47" h="49" pX="0.446809" pY="1.2449"/>
+        <sprite n="HellWitchMoveW_0007_HellWitch.png" x="554" y="1000" w="47" h="61" pX="0.446809" pY="1.19672"/>
+        <sprite n="HellWitchMoveW_0008_HellWitch.png" x="1047" y="751" w="46" h="76" pX="0.434783" pY="1.15789"/>
+      </west>
+    </walk>
+  </hellwitch>
 
 </Sprites>

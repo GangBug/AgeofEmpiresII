@@ -13,6 +13,7 @@ enum unit_type
 	SAMURAI,
 	VILE,
 	VILLAGER,
+	HELL_WITCH,
 	DIABLO
 };
 

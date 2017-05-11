@@ -89,12 +89,13 @@ bool M_Animation::Start()
 	LOG("Animation: Start.");
 	bool ret = true;
 
-	//IMPORTANT: NEW UNITS PNGS GO HERE
-	textures.push_back(Texture(app->tex->Load("animations/archer.png"), ARCHER));
-	textures.push_back(Texture(app->tex->Load("animations/TarkanSpritesheet.png"), TARKAN_KNIGHT));
-	textures.push_back(Texture(app->tex->Load("animations/SamuraiSpriteSheet.png"), SAMURAI));
-	textures.push_back(Texture(app->tex->Load("animations/Boss.png"), DIABLO));
-	textures.push_back(Texture(app->tex->Load("animations/VileChild_SpriteSheet.png"), VILE));
+	//ADD UNITS IMPORTANT: NEW UNITS PNGS GO HERE
+	textures.push_back(Texture(app->tex->Load("animation/archer.png"), ARCHER));
+	textures.push_back(Texture(app->tex->Load("animation/TarkanSpritesheet.png"), TARKAN_KNIGHT));
+	textures.push_back(Texture(app->tex->Load("animation/SamuraiSpriteSheet.png"), SAMURAI));
+	textures.push_back(Texture(app->tex->Load("animation/Boss.png"), DIABLO));
+	textures.push_back(Texture(app->tex->Load("animation/VileChild_SpriteSheet.png"), VILE));
+	textures.push_back(Texture(app->tex->Load("animation/HellWitch.png"), HELL_WITCH));
 
 	return ret;
 }
@@ -236,6 +237,8 @@ void Animation::SetUnit(const pugi::xml_node node)
 
 	else if (strcmp(node.name(), "vile") == 0)
 		unitType = VILE;
+	else if (strcmp(node.name(), "hellwitch") == 0)
+		unitType = HELL_WITCH;
 
 	else
 	{

@@ -503,7 +503,8 @@ void S_InGame::ToolCreateObjects()
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {  //ARBOL 3
 		int posx, posY;
 		app->input->GetMouseMapPosition(posx, posY);
-		app->entityManager->CreateUnit(VILE, nullptr, posx, posY);
+		app->entityManager->CreateUnit(HELL_WITCH, nullptr, posx, posY);//1
+
 	}
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  //ARBOL 4
 		int posx, posY;
