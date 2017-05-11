@@ -17,17 +17,11 @@ enum Mission_State
 };
 #define MISION_TIME 1
 
-#define WAVES_W8_TIME 30
-#define WAVES_W8_TIME_DEADUNITS 30
+#define TOWNREPAIR_TIME 10
 
-#define TOWNREPAIR_TIME 100
+#define TROOPS_ONTOWN 1
 
-#define TROOPS_ONTOWN 28
-
-#define ENEMIES_TO_DEFEAT_WAVES 100
-
-#define ENEMYOBJECTIVE_X -2800
-#define ENEMYOBJECTIVE_Y 2300
+#define ENEMIES_TO_DEFEAT_WAVES 1
 
 class M_MissionManager : public Module
 {

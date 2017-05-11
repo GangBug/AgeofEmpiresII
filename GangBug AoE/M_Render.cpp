@@ -595,11 +595,25 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 				else if (tmp->type == ENTITY_BUILDING)
 				{
 					dynamic_cast<Building*>(tmp)->PrintProgression();
-					if (dynamic_cast<Building*>(tmp)->portalParticle != nullptr)
+					if (dynamic_cast<Building*>(tmp)->buildType == BUILD_PORTAL)
 					{
-						dynamic_cast<Building*>(tmp)->portalParticle->Draw();
+						if (dynamic_cast<Building*>(tmp)->portalParticle != nullptr)
+						{
+							dynamic_cast<Building*>(tmp)->portalParticle->Draw();
+						}
+						if(tmp->GetGlobalPosition().x > -1000)
+						{
+							Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y, NULL, SDL_FLIP_HORIZONTAL);
+						}
+						else
+						{
+							Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
+						}
 					}
-					Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
+					else
+					{
+						Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
+					}
 					
 				}
 

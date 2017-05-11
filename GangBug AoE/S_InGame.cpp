@@ -35,7 +35,6 @@ bool S_InGame::Start()
 {
 	if (active)
 	{
-
 		app->pathfinding->Enable();
 		app->entityManager->LoadObjects();
 		SetGUI();
@@ -50,7 +49,7 @@ bool S_InGame::Start()
 
 
 		BuldingCreator(); //Create the buldings
-		//UnitsCreator();// Create the start units
+		UnitsCreator();// Create the start units
 
 		app->render->camera->SetCenter({ -400, 2000 });
 
@@ -397,12 +396,18 @@ void S_InGame::BuldingCreator()
 	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(19, 61), nullptr, -2130, 1750);
 	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(23, 61), nullptr, -1930, 1850);
 	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, iPoint(29, 72), nullptr, -2170, 2160);
+
+
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(5, 80), nullptr, -3792, 1944);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(4, 11), nullptr, -2400, 1200);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(27, 31), nullptr, -144, 1272);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(57, 54), nullptr, 192, 2590);
 }
 
 void S_InGame::UnitsCreator()
 {
 	//ENEMIES
-	app->entityManager->CreateUnit(VILE, nullptr, -2600, 2300);//1
+	/*app->entityManager->CreateUnit(VILE, nullptr, -2600, 2300);//1
 	app->entityManager->CreateUnit(VILE, nullptr, -2650, 2300);//2
 	app->entityManager->CreateUnit(VILE, nullptr, -2600, 2350);//3
 	app->entityManager->CreateUnit(VILE, nullptr, -2650, 2350);//4
@@ -429,7 +434,7 @@ void S_InGame::UnitsCreator()
 	app->entityManager->CreateUnit(VILE, nullptr, -2153, 2264);//
 	app->entityManager->CreateUnit(VILE, nullptr, -2053, 2364);//26
 	app->entityManager->CreateUnit(VILE, nullptr, -2253, 2264);//
-	app->entityManager->CreateUnit(VILE, nullptr, -2053, 2464);//28
+	app->entityManager->CreateUnit(VILE, nullptr, -2053, 2464);//28*/
 
 
 

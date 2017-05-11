@@ -182,7 +182,14 @@ void StaticBucle::Update()
 
 void StaticBucle::Draw()
 {
-	app->render->Blit(texture, pos.x, pos.y, &anim.GetCurrentFrame());
+	if (type == PORTAL && pos.x > -1000)//estoy con el flip de los portales
+	{
+		app->render->Blit(texture, pos.x - 15, pos.y, &anim.GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+	}
+	else
+	{
+		app->render->Blit(texture, pos.x, pos.y, &anim.GetCurrentFrame());
+	}
 }
 
 bool StaticBucle::IsAlive()

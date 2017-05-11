@@ -44,7 +44,7 @@ update_status M_EnemyWaves::Update(float dt)
 	//TODO: Use IsStopped instead of spawnTimerStarted
 	if (waveTimer.ReadSec() > 10)
 	{
-		app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, -2500, 1400);
+		app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, 192, 2590);
 
 		waveSpawn = true;
 		ResetWaveTimer();
@@ -61,7 +61,7 @@ update_status M_EnemyWaves::Update(float dt)
 	{
 		for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
 		{
-			if (dynamic_cast<Unit*>(*it)->GetType() == VILE)
+			if (dynamic_cast<Unit*>(*it)->GetType() == VILE || dynamic_cast<Unit*>(*it)->GetType() == HELL_WITCH)
 			{
 				dynamic_cast<Unit*>(*it)->GoTo(iPoint(-2221, 2524));
 			}
@@ -116,15 +116,30 @@ void M_EnemyWaves::checkCurrentPortals()
 		{
 			iPoint spawnPos = app->map->MapToWorld(dynamic_cast<Building*>(*it)->tileAttack.x, dynamic_cast<Building*>(*it)->tileAttack.y);
 
-			SpawnWave(VILE, spawnPos.x, spawnPos.y, nullptr);
+			int randNum = rand() % 2;
+			if (randNum == 0)
+			{
+				SpawnWave(VILE, spawnPos.x, spawnPos.y, nullptr);
+			}
+			else
+			{
+				SpawnWave(HELL_WITCH, spawnPos.x, spawnPos.y, nullptr);
+			}
 		}
 	}
 }
 
-void M_EnemyWaves::createPortals()
+void M_EnemyWaves::activatePortals()
 {
-	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, -2500, 1400);
-	//app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, -2500, 1400);
+	std::vector<Entity*> buildingVec = app->entityManager->GetBuildingVector();
+
+	for (std::vector<Entity*>::iterator it = buildingVec.begin(); it != buildingVec.end(); it++)
+	{
+		if ((*it)->GetHP() == 0 && dynamic_cast<Building*>(*it)->buildType == BUILD_PORTAL)
+		{
+			dynamic_cast<Building*>(*it)->HP = 100;
+		}
+	}
 }
 
 int M_EnemyWaves::checkActivePortals()

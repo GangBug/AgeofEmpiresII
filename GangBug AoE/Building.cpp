@@ -28,6 +28,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 45;
 		unitWoodCost = 25;
 		unitFoodCost = 0;
+		HP = 100;
 		horde = false;
 
 		entityTexture = app->tex->archeryTexture;
@@ -43,6 +44,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 75;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
+		HP = 100;
 		horde = false;
 
 		entityTexture = app->tex->stableTexture;
@@ -59,6 +61,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 30;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
+		HP = 100;
 		horde = false;
 
 		entityTexture = app->tex->barracksTexture;
@@ -74,6 +77,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 0;
 		unitWoodCost = 0;
 		unitFoodCost = 50;
+		HP = 100;
 		horde = false;
 
 		entityTexture = app->tex->townCenterTexture;
@@ -89,11 +93,11 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		horde = true;
 		entityTexture = app->tex->portalTexture;
 		SetEnclosingBoxSize(155, 233);
-
+		HP = 0;
 		break;
 	}
 	selected = false;
-	HP = 100;
+	
 	fullHP = 100;
 }
 

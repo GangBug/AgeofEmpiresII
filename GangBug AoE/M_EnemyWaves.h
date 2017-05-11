@@ -51,7 +51,7 @@ public:
 
 	void checkCurrentPortals();
 
-	void createPortals();
+	void activatePortals();
 
 	int checkActivePortals();
 

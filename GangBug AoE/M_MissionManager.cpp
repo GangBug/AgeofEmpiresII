@@ -4,6 +4,7 @@
 #include "M_DialogueManager.h"
 #include "App.h"
 #include "S_InGame.h"
+#include "M_EntityManager.h"
 M_MissionManager::M_MissionManager(bool startEnabled) : Module(startEnabled)
 {
 
@@ -40,14 +41,6 @@ update_status M_MissionManager::Update(float dt)
 
 	if (active)
 	{
-		if (townCenterIsAlive == false)
-		{
-			app->dialogueManager->PlayDialogue(D_EVENT_DEFEAT);
-			stateName.assign("NEXT TIME WILL BE B ETTER");
-			State = M_DEFEAT;
-			app->inGame->GoToMenu();
-		}
-
 		switch (State)
 		{
 		case M_INTRO:
@@ -69,18 +62,26 @@ update_status M_MissionManager::Update(float dt)
 				misionTimer.Start();
 				stateName.assign("Repair the town");
 			}
-
 			break;
 
-		case M_TOWNREPAIR:			
+		case M_TOWNREPAIR:		
+
 			if (misionTimer.ReadSec() > TOWNREPAIR_TIME && app->dialogueManager->onDialogue == false)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_WAVES_START);
 				State = M_WAVES;
 				misionTimer.Start();
 				stateName.assign("Defend the town! Waves incoming.");
-				app->enemyWaves->createPortals();
+				app->enemyWaves->activatePortals();
+				enemyDeadUnits = 0;
+			}
 
+			if (townCenterIsAlive == false)
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_DEFEAT);
+				stateName.assign("NEXT TIME WILL BE B ETTER");
+				State = M_DEFEAT;
+				app->inGame->GoToMenu();
 			}
 
 			break;
@@ -92,24 +93,44 @@ update_status M_MissionManager::Update(float dt)
 				app->dialogueManager->PlayDialogue(D_EVENT_DIABLO_SPAWN);
 				State = M_BOSS;
 				stateName.assign("Last fight! Defeat Diablo!");
-			}			
+				bossIsAlive = true;
+				app->entityManager->CreateUnit(DIABLO, nullptr, -144, 1300);
+			}		
+
+			if (townCenterIsAlive == false)
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_DEFEAT);
+				stateName.assign("NEXT TIME WILL BE B ETTER");
+				State = M_DEFEAT;
+				app->inGame->GoToMenu();
+			}
+
+			break;
 
 		case M_BOSS:
-
 			if (bossIsAlive == false)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_VICTORY);
-				stateName.assign("CONGRATS!  YOU WIN!");
+				stateName.assign("CONGRATS! YOU WIN!");
 				State = M_VICTORY;
 			}
+
+			if (townCenterIsAlive == false)
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_DEFEAT);
+				stateName.assign("NEXT TIME WILL BE BETTER");
+				State = M_DEFEAT;
+				app->inGame->GoToMenu();
+			}
+
 			break;
 
 		case M_VICTORY:
-			//TODO i dont know whats is going next  maybe return to menu
+			app->inGame->GoToMenu();
 			break;
 
 		case M_DEFEAT:
-			//TODO i dont know whats is going next maybe return to menu
+			app->inGame->GoToMenu();
 			break;
 		}
 	}
