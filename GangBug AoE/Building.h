@@ -11,6 +11,7 @@ enum building_type
 	BUILD_STABLES,
 	BUILD_BARRACK,
 	BUILD_TOWNCENTER,
+	BUILD_PORTAL,
 	BUILD_NOBUILDING
 };
 
@@ -46,6 +47,9 @@ public:
 	int unitWoodCost;
 	int unitFoodCost;
 	int HP;
+	int fullHP;
+	bool horde;
+	Particle* portalParticle = nullptr;
 
 private:
 
@@ -53,4 +57,5 @@ private:
 	GUIElement* unitInfoLabel;
 	Particle* fire = nullptr;
 	Particle* fire2 = nullptr;
+	
 };

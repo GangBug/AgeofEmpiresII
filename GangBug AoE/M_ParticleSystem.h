@@ -25,6 +25,7 @@ enum ParticleType {
 	FIRE,
 	SMOKE,
 	EXPLOSION,
+	PORTAL,
 	UNKNOWN
 };
 
@@ -93,7 +94,7 @@ public:
 	void DrawDebug();
 
 	Particle* CreateStaticBucle(fPoint startingposition, bool finite, ParticleType type);
-private:
+public:
 	bool DestroyParticle(Particle* curr);
 
 public:

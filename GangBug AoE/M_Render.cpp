@@ -584,8 +584,13 @@ void M_Render::DrawEntities(std::vector<Entity*> entities)
 				}
 				else if (tmp->type == ENTITY_BUILDING)
 				{
-					Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
 					dynamic_cast<Building*>(tmp)->PrintProgression();
+					if (dynamic_cast<Building*>(tmp)->portalParticle != nullptr)
+					{
+						dynamic_cast<Building*>(tmp)->portalParticle->Draw();
+					}
+					Blit(texture, tmp->GetGlobalPosition().x, tmp->GetGlobalPosition().y);
+					
 				}
 
 				else if (tmp->type == ENTITY_OBJECT)

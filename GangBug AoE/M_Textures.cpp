@@ -48,6 +48,7 @@ bool M_Textures::Start()
 	samuraiTexture = Load("dialogue/ryoma2.png");
 	dialogueBoxTexture = Load("dialogue/dialogueBox.png");
 	bossLifeBar = Load("textures/BossLifeBar.png");
+	portalTexture = Load("buildings/portal.png");
 
 	return ret;
 }

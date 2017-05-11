@@ -415,6 +415,7 @@ void S_InGame::BuldingCreator()
 	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(19, 61), nullptr, -2130, 1750);
 	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(23, 61), nullptr, -1930, 1850);
 	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, iPoint(29, 72), nullptr, -2170, 2160);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, -2500, 1400);
 }
 
 void S_InGame::UnitsCreator()
@@ -502,7 +503,7 @@ void S_InGame::ToolCreateObjects()
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {  //ARBOL 3
 		int posx, posY;
 		app->input->GetMouseMapPosition(posx, posY);
-		app->entityManager->CreateObject(TREES7, nullptr, posx, posY);
+		app->entityManager->CreateUnit(VILE, nullptr, posx, posY);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  //ARBOL 4
 		int posx, posY;

@@ -119,5 +119,21 @@
         <Animation rows = "5" columns = "5"/>
       </Animations>
     </particle>
+    <particle>
+      <Info>
+        <Name value= "PORTAL"/>
+        <ID value = "5"/>
+        <Collider w="108" h="176"/>
+      </Info>
+      <Textures>
+        <Texture value="textures/Portal.png"/>
+      </Textures>
+      <Stats>
+        <Lifespan value = "4"/>
+      </Stats>
+      <Animations>
+        <Animation rows = "3" columns = "10"/>
+      </Animations>
+    </particle>
   </particlesystem>
 </config>

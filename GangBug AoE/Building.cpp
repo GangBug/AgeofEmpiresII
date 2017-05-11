@@ -27,6 +27,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 45;
 		unitWoodCost = 25;
 		unitFoodCost = 0;
+		horde = false;
 
 		entityTexture = app->tex->archeryTexture;
 		SetEnclosingBoxSize(320, 293);
@@ -41,6 +42,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 75;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
+		horde = false;
 
 		entityTexture = app->tex->stableTexture;
 		SetEnclosingBoxSize(323, 226);
@@ -56,6 +58,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 30;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
+		horde = false;
 
 		entityTexture = app->tex->barracksTexture;
 		SetEnclosingBoxSize(310, 266);
@@ -70,6 +73,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 0;
 		unitWoodCost = 0;
 		unitFoodCost = 50;
+		horde = false;
 
 		entityTexture = app->tex->townCenterTexture;
 		SetLocalPosition(10, 10);
@@ -79,9 +83,17 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 
 		break;
 
+	case BUILD_PORTAL:
+		unitType = VILE;
+		horde = true;
+		entityTexture = app->tex->portalTexture;
+		SetEnclosingBoxSize(155, 233);
+
+		break;
 	}
 	selected = false;
 	HP = 100;
+	fullHP = 100;
 }
 
 
@@ -91,104 +103,127 @@ Building::~Building()
 
 void Building::OnUpdate(float dt)
 {
-	if (HP <= 0 && fire == nullptr && fire2 == nullptr)
-	{
-		fPoint firePos(GetEnclosingBox().x + 60, GetEnclosingBox().y + 30);
-		fPoint firePos2(firePos.x + 100, firePos.y - 10);
-		fire = app->particleSystem->CreateStaticBucle(firePos, true, FIRE);
-		fire2 = app->particleSystem->CreateStaticBucle(firePos2, true, FIRE);
-	}
 	if (!app->dialogueManager->onDialogue)
 	{
-
-		iPoint mPos;
-		app->input->GetMouseMapPosition(mPos.x, mPos.y);
-
-		if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && GetEnclosingBox().Contains(mPos.x, mPos.y))
+		if (buildType != BUILD_PORTAL)
 		{
-			selected = true;
-			creatorButton->SetVisible(true);
-			creatorButton->SetInteractive(true);
+			iPoint mPos;
+			app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
-			if (buildType == BUILD_ARCHERY)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && GetEnclosingBox().Contains(mPos.x, mPos.y))
 			{
-				app->audio->PlayFx(app->entityManager->fxArcherySelection);
-			}
-			else if (buildType == BUILD_BARRACK)
-			{
-				app->audio->PlayFx(app->entityManager->fxBarrackSelection);
-			}
-			else if (buildType == BUILD_STABLES)
-			{
-				app->audio->PlayFx(app->entityManager->fxStableSelection);
-			}
-			else if (buildType == BUILD_TOWNCENTER)
-			{
-				app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
-			}
-		}
-		else if (selected == true)
-		{
-			app->input->GetMouseScreenPosition(mPos.x, mPos.y);
-			if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
-			{
-				unitInfoLabel->SetVisible(true);
-				unitInfoLabel->SetActive(true);
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+				selected = true;
+				creatorButton->SetVisible(true);
+				creatorButton->SetInteractive(true);
+
+				if (buildType == BUILD_ARCHERY)
 				{
-					BuyUnit();
+					app->audio->PlayFx(app->entityManager->fxArcherySelection);
+				}
+				else if (buildType == BUILD_BARRACK)
+				{
+					app->audio->PlayFx(app->entityManager->fxBarrackSelection);
+				}
+				else if (buildType == BUILD_STABLES)
+				{
+					app->audio->PlayFx(app->entityManager->fxStableSelection);
+				}
+				else if (buildType == BUILD_TOWNCENTER)
+				{
+					app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
 				}
 			}
-			else if (!creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
+			else if (selected == true)
 			{
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+				app->input->GetMouseScreenPosition(mPos.x, mPos.y);
+				if (creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
 				{
-					selected = false;
-					creatorButton->SetVisible(false);
-					creatorButton->SetInteractive(false);
+					unitInfoLabel->SetVisible(true);
+					unitInfoLabel->SetActive(true);
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+					{
+						BuyUnit();
+					}
 				}
-				else 
+				else if (!creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
 				{
-					unitInfoLabel->SetVisible(false);
-					unitInfoLabel->SetActive(false);
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+					{
+						selected = false;
+						creatorButton->SetVisible(false);
+						creatorButton->SetInteractive(false);
+					}
+					else
+					{
+						unitInfoLabel->SetVisible(false);
+						unitInfoLabel->SetActive(false);
+					}
 				}
 			}
-		}
 
-		//UNIT CREATION
-		if (unitsToAdd > 0 && buyTimer.ReadSec() >= BUY_TIMER)
-		{
-			fPoint pos = GetGlobalPosition();
-
-			if (unitType != VILLAGER)
+			//UNIT CREATION
+			if (unitsToAdd > 0 && buyTimer.ReadSec() >= BUY_TIMER)
 			{
-				app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
-				app->audio->PlayFx(app->entityManager->fxCreateUnit);
+				fPoint pos = GetGlobalPosition();
 
-				unitsToAdd--;
-				if (unitsToAdd > 0)
+				if (unitType != VILLAGER)
 				{
-					buyTimer.Start();
+					app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
+					app->audio->PlayFx(app->entityManager->fxCreateUnit);
+
+					unitsToAdd--;
+					if (unitsToAdd > 0)
+					{
+						buyTimer.Start();
+					}
+					else
+					{
+						buyTimer.Stop();
+					}
 				}
 				else
 				{
-					buyTimer.Stop();
+					app->resources->AddVillager();
+					app->audio->PlayFx(app->entityManager->fxCreateVillager);
+					unitsToAdd--;
+					if (unitsToAdd > 0)
+					{
+						buyTimer.Start();
+					}
+					else
+					{
+						buyTimer.Stop();
+					}
 				}
 			}
-			else
+
+			//BUILDING PARTICLES
+			if (HP <= 0 && fire2 == nullptr)
 			{
-				app->resources->AddVillager();
-				app->audio->PlayFx(app->entityManager->fxCreateVillager);
-				unitsToAdd--;
-				if (unitsToAdd > 0)
+				fPoint firePos2(GetEnclosingBox().x + 160, GetEnclosingBox().y + 20);
+				fire2 = app->particleSystem->CreateStaticBucle(firePos2, true, FIRE);
+			}
+			else if (HP >= fullHP * 0.5 && HP != fullHP)
+			{
+				if (fire == nullptr)
 				{
-					buyTimer.Start();
+					fPoint firePos(GetEnclosingBox().x + 60, GetEnclosingBox().y + 30);
+					fire = app->particleSystem->CreateStaticBucle(firePos, true, FIRE);
 				}
-				else
+				else if (fire && fire2)
 				{
-					buyTimer.Stop();
+					app->particleSystem->DestroyParticle(fire2);
 				}
 			}
+			else if (HP == fullHP && fire)
+			{
+				app->particleSystem->DestroyParticle(fire);
+			}
+		}
+		else if (buildType == BUILD_PORTAL && portalParticle == nullptr)
+		{
+			fPoint particlePos(GetEnclosingBox().x + 10, GetEnclosingBox().y);
+			portalParticle = app->particleSystem->CreateStaticBucle(particlePos, false, PORTAL);
 		}
 	}
 }

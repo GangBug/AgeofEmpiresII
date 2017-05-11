@@ -164,7 +164,10 @@ StaticBucle::StaticBucle(fPoint startingposition, bool argfinite)
 
 void StaticBucle::Update()
 {
-	Draw();
+	if (type != PORTAL)
+	{
+		Draw();
+	}
 	alive = IsAlive();
 }
 

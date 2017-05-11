@@ -382,18 +382,19 @@ Entity* Unit::CheckSurroundings()
 	{
 		if ((*it) != this)
 		{
-			iPoint itPos = app->map->WorldToMap((*it)->GetGlobalPosition().x, (*it)->GetGlobalPosition().y);
-			if (itPos.x <= unitPos.x + unitRadius && itPos.x >= unitPos.x - unitRadius && itPos.y <= unitPos.y + unitRadius && itPos.y >= unitPos.y - unitRadius && (*it)->GetHP() > 0)
-			{
-				Building* challenger = dynamic_cast<Building*>(*it);
-
-				int itDistance = unitPos.DistanceTo(itPos);
-				if (itDistance < distance || distance == 0)
+			Building* challenger = dynamic_cast<Building*>(*it);
+			if (challenger->horde != this->horde) {
+				iPoint itPos = challenger->tileAttack;
+				if (itPos.x <= unitPos.x + unitRadius && itPos.x >= unitPos.x - unitRadius && itPos.y <= unitPos.y + unitRadius && itPos.y >= unitPos.y - unitRadius && (*it)->GetHP() > 0)
 				{
-					ret = (*it);
-					target = (*it);
+					int itDistance = unitPos.DistanceTo(itPos);
+					if (itDistance < distance || distance == 0)
+					{
+						ret = (*it);
+						target = (*it);
 
-					buildingToAttack = true;
+						buildingToAttack = true;
+					}
 				}
 			}
 		}
@@ -403,11 +404,11 @@ Entity* Unit::CheckSurroundings()
 	{
 		if ((*it) != this)
 		{
-			iPoint itPos = app->map->WorldToMap((*it)->GetGlobalPosition().x, (*it)->GetGlobalPosition().y);
-			if (itPos.x <= unitPos.x + unitRadius && itPos.x >= unitPos.x - unitRadius && itPos.y <= unitPos.y + unitRadius && itPos.y >= unitPos.y - unitRadius && (*it)->GetHP() > 0)
+			Unit* challenger = dynamic_cast<Unit*>(*it);
+			if (challenger->horde != this->horde)
 			{
-				Unit* challenger = dynamic_cast<Unit*>(*it);
-				if (challenger->horde != this->horde)
+				iPoint itPos = app->map->WorldToMap((*it)->GetGlobalPosition().x, (*it)->GetGlobalPosition().y);
+				if (itPos.x <= unitPos.x + unitRadius && itPos.x >= unitPos.x - unitRadius && itPos.y <= unitPos.y + unitRadius && itPos.y >= unitPos.y - unitRadius && (*it)->GetHP() > 0)
 				{
 					int itDistance = unitPos.DistanceTo(itPos);
 					if (itDistance < distance || distance == 0)
@@ -435,12 +436,6 @@ bool Unit::SetBuildingFightingArea()
 
 		Building* enemy = dynamic_cast<Building*>(target);
 
-		iPoint buildingPos = app->map->WorldToMap(enemy->GetGlobalPosition().x, enemy->GetGlobalPosition().y);
-
-		iPoint Pos = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
-
-		iPoint distance = Pos - buildingPos;
-
 		//BUILDING
 		if (unitClass != RANGED && unitState != ATTACKING)
 		{
@@ -458,6 +453,10 @@ bool Unit::SetBuildingFightingArea()
 				unitState = NO_STATE;
 			}
 
+		}
+		else if (unitClass == RANGED)
+		{
+			unitState = ATTACKING;
 		}
 
 	}
@@ -762,6 +761,10 @@ bool Unit::AttackUnit()
 		if (myPos.DistanceTo(enemyPos) > range && target->GetEntityType() == ENTITY_UNIT)
 		{
 			SetFightingArea();
+		}
+		else if (target->GetEntityType() == ENTITY_BUILDING && myPos != dynamic_cast<Building*>(target)->tileAttack && unitClass != RANGED)
+		{
+			SetBuildingFightingArea();
 		}
 		else if (attackTimer.ReadSec() > 1)
 		{
