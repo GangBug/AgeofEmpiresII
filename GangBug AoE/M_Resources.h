@@ -9,6 +9,7 @@
 #define FOOD_AMOUNT 10
 #define WOOD_AMOUNT 10
 #define GOLD_AMOUNT 10
+#define REPAIR_AMOUNT 10
 #define MAX_VILLAGERS 20
 
 class M_Resources : public Module

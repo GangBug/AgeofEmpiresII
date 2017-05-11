@@ -8,6 +8,7 @@
 #include "M_Map.h"
 #include "M_EntityManager.h"
 #include "M_MisionManager.h"
+#include "M_Collision.h"
 
 #define ATTACK_TIMER 1
 
@@ -34,14 +35,89 @@ void Boss::OnUpdate(float dt)
 		this->SetHp(GetHP() - 200);
 	}
 
-	CheckSurroundings();
+	if (GetHP() > 0) {
+		switch (unitState)
+		{
+		case NO_STATE:
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			{
+				//Colision
+				app->collision->resetPrevPositions();
 
-	if (GetHP() <= 0)
+				iPoint objective;
+				app->input->GetMouseMapPosition(objective.x, objective.y);
+				GoTo(objective);
+			}
+			if (target != nullptr && target->GetHP() > 0)
+			{
+				if (buildingToAttack == true)
+				{
+					SetBuildingFightingArea();
+				}
+				else if (buildingToAttack == false)
+				{
+					SetFightingArea();
+				}
+			}
+			CheckSurroundings();
+			break;
+		case MOVING:
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			{
+				//Colision
+				app->collision->resetPrevPositions();
+
+				iPoint objective;
+				app->input->GetMouseMapPosition(objective.x, objective.y);
+				GoTo(objective);
+			}
+			else if (Move() == false)
+			{
+				unitState = NO_STATE;
+				action = IDLE;
+			}
+			CheckSurroundings();
+			break;
+		case MOVING_TO_ATTACK:
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			{
+				//Colision
+				app->collision->resetPrevPositions();
+
+				iPoint objective;
+				app->input->GetMouseMapPosition(objective.x, objective.y);
+				GoTo(objective);
+			}
+			else if (Move() == false)
+			{
+				unitState = ATTACKING;
+				action = ATTACK;
+			}
+			break;
+		case ATTACKING:
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			{
+				//Colision
+				app->collision->resetPrevPositions();
+
+				iPoint objective;
+				app->input->GetMouseMapPosition(objective.x, objective.y);
+				GoTo(objective);
+			}
+			if (!AttackUnit())
+			{
+				target = nullptr;
+				unitState = NO_STATE;
+				action = IDLE;
+			}
+			break;
+		}
+	}
+
+	else
 	{
+		Die();
 		app->misionManager->SetBossState(false);
-		unitState = DEAD;
-		action = DIE;
-		app->entityManager->DeleteUnit(this);
 	}
 
 

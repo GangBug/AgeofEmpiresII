@@ -129,7 +129,7 @@ Particle * M_ParticleSystem::CreateStaticBucle(fPoint startingposition, bool fin
 	return ret;
 }
 
-bool M_ParticleSystem::DestroyParticle(Particle * curr)
+bool M_ParticleSystem::DestroyParticle(Particle* curr)
 {
 	bool ret = true;
 	if (curr != nullptr) {

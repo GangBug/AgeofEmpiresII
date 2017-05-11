@@ -1,6 +1,9 @@
 #include "App.h"
 #include "M_Resources.h"
 #include "M_DialogueManager.h"
+#include "M_EntityManager.h"
+#include "Entity.h"
+#include "Building.h"
 #include "j1Timer.h"
 #include "Log.h"
 #include "M_Audio.h"
@@ -118,6 +121,14 @@ update_status M_Resources::Update(float dt)
 			if (GetCurrentGold() < MAX_RESOURCES)
 			{
 				AddGold(GOLD_AMOUNT*miners);
+			}
+			std::vector<Entity*> buildVector = app->entityManager->GetBuildingVector();
+			for (std::vector<Entity*>::iterator it = buildVector.begin(); it != buildVector.end(); it++)
+			{
+				if ((*it) != nullptr)
+				{
+					dynamic_cast<Building*>((*it))->Repair(REPAIR_AMOUNT * constructors);
+				}
 			}
 			updateResources.Start();
 		}

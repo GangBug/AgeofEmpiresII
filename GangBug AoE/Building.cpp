@@ -213,11 +213,13 @@ void Building::OnUpdate(float dt)
 				else if (fire && fire2)
 				{
 					app->particleSystem->DestroyParticle(fire2);
+					fire2 = nullptr;
 				}
 			}
 			else if (HP == fullHP && fire)
 			{
 				app->particleSystem->DestroyParticle(fire);
+				fire = nullptr;
 			}
 		}
 		else if (buildType == BUILD_PORTAL && portalParticle == nullptr)
@@ -260,6 +262,20 @@ int Building::GetHP() const
 void Building::DoDamage(int dmg)
 {
 	HP -= dmg;
+}
+
+void Building::Repair(int amount)
+{
+	if (HP < fullHP && buildType != BUILD_PORTAL)
+	{
+		if (!app->entityManager->IsUnitInTile(nullptr, tileAttack)) {
+			HP += amount;
+			if (HP > fullHP)
+			{
+				HP = fullHP;
+			}
+		}
+	}
 }
 
 void Building::PlaySelectFx()

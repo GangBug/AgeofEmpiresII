@@ -30,6 +30,7 @@ public:
 
 	int GetHP() const;
 	void DoDamage(int dmg);
+	void Repair(int amount);
 	void PlaySelectFx();
 
 	void PrintProgression();
