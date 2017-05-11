@@ -78,16 +78,12 @@ update_status S_InGame::PreUpdate(float dt)
 			menuOpen = !menuOpen;
 		}
 		
-
-
 		//  create objects ------------------------
 		ToolCreateObjects();
 
 		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //serialize
 			app->entityManager->SerializeObjects();
 		// -------------------------
-
-
 
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 			app->gui->SetActiveScene(name);
@@ -97,11 +93,6 @@ update_status S_InGame::PreUpdate(float dt)
 			app->gui->SetActiveScene("\0");
 		if (!app->pause)
 		{
-
-
-
-
-
 			// -------------------Move camera--------------------------------------------
 			// --------------------------------------------------------------------------
 			
@@ -113,19 +104,11 @@ update_status S_InGame::PreUpdate(float dt)
 				app->render->camera->Move(10.0, DOWN);
 			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 				app->render->camera->Move(10.0, RIGHT);
-			/*if (app->input->GetMousePosition().y < 5)
-				app->render->camera->MoveUp(floor(600.0f * dt));
-			if (app->input->GetMousePosition().y > app->render->camera->GetRect().h - 5)
-				app->render->camera->MoveDown(floor(600.0f * dt));
-			if (app->input->GetMousePosition().x < 5)
-				app->render->camera->MoveLeft(floor(600.0f * dt));
-			if (app->input->GetMousePosition().x > app->render->camera->GetRect().w - 5)
-				app->render->camera->MoveRight(floor(600.0f * dt));*/
 
 			// --------------------------------------------------------------------------
 			// --------------------------------------------------------------------------
 
-			/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
@@ -150,21 +133,13 @@ update_status S_InGame::PreUpdate(float dt)
 				app->input->GetMouseMapPosition(x, y);
 				app->entityManager->CreateUnit(VILE, nullptr, x, y);
 				app->audio->PlayFx(app->entityManager->fxCreateUnit);
-			}*/
-
+			}
 
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 			{
 				return UPDATE_STOP;
 			}
 		}
-
-
-
-
-
-
-
 	}	
 	return UPDATE_CONTINUE;
 }
@@ -205,7 +180,6 @@ void S_InGame::DrawDebug()
 			point = app->map->MapToWorld(node.x, node.y);
 			app->render->DrawQuad({ point.x - 5, point.y - 5, 10, 10 }, 255, 255, 0, 255);
 		}
-
 	}
 }
 
@@ -293,7 +267,6 @@ void S_InGame::OpenResources(bool visible)
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetVisible(visible);
-
 
 	app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager")->SetInteractive(visible);
@@ -415,7 +388,6 @@ void S_InGame::BuldingCreator()
 	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(19, 61), nullptr, -2130, 1750);
 	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(23, 61), nullptr, -1930, 1850);
 	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, iPoint(29, 72), nullptr, -2170, 2160);
-	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, -2500, 1400);
 }
 
 void S_InGame::UnitsCreator()
@@ -470,7 +442,7 @@ void S_InGame::UnitsCreator()
 void S_InGame::ToolCreateObjects()
 {
 	 //trees 
-	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {  //ARBOL 1
+/*	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {  //ARBOL 1
 		int posx, posY;
 		app->input->GetMouseMapPosition(posx, posY);
 		app->entityManager->CreateObject(TREES1, nullptr, posx, posY);
@@ -510,7 +482,7 @@ void S_InGame::ToolCreateObjects()
 		int posx, posY;
 		app->input->GetMouseMapPosition(posx, posY);
 		app->entityManager->CreateObject(TREES8, nullptr, posx, posY);
-	}
+	}*/
 
 	////bamboo
 

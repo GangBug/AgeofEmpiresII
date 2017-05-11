@@ -3,6 +3,8 @@
 #include "M_EnemyWaves.h"
 #include "M_EntityManager.h"
 #include "S_InGame.h"
+#include "Building.h"
+#include "M_Map.h"
 #include "M_Audio.h"
 #include "Log.h"
 #include "M_MissionManager.h"
@@ -40,62 +42,30 @@ update_status M_EnemyWaves::Update(float dt)
 	update_status ret = UPDATE_CONTINUE;
 
 	//TODO: Use IsStopped instead of spawnTimerStarted
-	if (vilesSpawn > 0)
+	if (waveTimer.ReadSec() > 10)
 	{
-		if (spawnTimerStarted == false && vilesSpawned != vilesSpawn)
-		{
-			spawnTimer.Start();
-			spawnTimerStarted = true;
-		}
-		if (spawnTimer.ReadSec() > 1)
-		{
-			SpawnWave(VILE, spawnPosition.x, spawnPosition.y, nullptr);
-			vilesSpawned++;
-			spawnTimer.Stop();
-			spawnTimerStarted = false;
-		}
-		if (vilesSpawned == vilesSpawn)
-		{
-			vilesSpawned = 0;
-			vilesSpawn = 0;
-			waveSpawn = true;
-		}
+		app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, -2500, 1400);
+
+		waveSpawn = true;
+		ResetWaveTimer();
 	}
 
-	if (diablosSpawn > 0)
+	if (waveSpawn == true && waveTimer.ReadSec() > 5)
 	{
-		if (spawnTimerStarted == false)
-		{
-			spawnTimer.Start();
-			spawnTimerStarted = true;
-		}
-		if (spawnTimer.ReadSec() > 1)
-		{
-			SpawnWave(DIABLO, spawnPosition.x, spawnPosition.y, nullptr);
-			diablosSpawned++;
-			spawnTimer.Stop();
-			spawnTimerStarted = false;
-		}
-		if (diablosSpawned == diablosSpawn)
-		{
-			diablosSpawn = 0;
-			waveSpawn = true;
-		}
+		checkCurrentPortals();
+		ResetWaveTimer();
 	}
 
 	//Working now
-	if (waveSpawn == true)
+	if (waveTimer.ReadSec() > 2)
 	{
-		app->audio->PlayFx(app->entityManager->fxAlert01);
-	
 		for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
 		{
 			if (dynamic_cast<Unit*>(*it)->GetType() == VILE)
 			{
-				dynamic_cast<Unit*>(*it)->GoTo({ app->inGame->enemyDestination });
+				dynamic_cast<Unit*>(*it)->GoTo(iPoint(-2221, 2524));
 			}
 		}
-		waveSpawn = false;
 	}
 	return ret;
 }
@@ -127,4 +97,19 @@ void M_EnemyWaves::SpawnEnemies(int vileSpawn, int diabloSpawn, int pos1X, int p
 
 void M_EnemyWaves::DrawDebug()
 {
+}
+
+void M_EnemyWaves::checkCurrentPortals()
+{
+	std::vector<Entity*> buildingVec = app->entityManager->GetBuildingVector();
+
+	for (std::vector<Entity*>::iterator it = buildingVec.begin(); it != buildingVec.end(); it++)
+	{
+		if ((*it)->GetHP() > 0 &&  dynamic_cast<Building*>(*it)->buildType == BUILD_PORTAL)
+		{
+			iPoint spawnPos = app->map->MapToWorld(dynamic_cast<Building*>(*it)->tileAttack.x, dynamic_cast<Building*>(*it)->tileAttack.y);
+
+			SpawnWave(VILE, spawnPos.x, spawnPos.y, nullptr);
+		}
+	}
 }
