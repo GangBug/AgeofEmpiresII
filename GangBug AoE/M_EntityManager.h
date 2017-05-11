@@ -5,6 +5,7 @@
 #include <vector>
 #include "Unit.h"
 #include "Object.h"
+#include <list>
 
 class Entity;
 class SDL_Texture;
@@ -182,7 +183,10 @@ private:
 	Entity* archer = nullptr;
 	SDL_Texture* textTexture = nullptr;
 
+	public: //carlos
 
+		void SerializeObjects();
+		std::list<Entity*> Objectslist;
 };
 
 #endif // !__M_ENTITY_MANAGER_H__

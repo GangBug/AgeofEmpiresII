@@ -21,6 +21,7 @@
 Entity::Entity(entity_type type, Entity* parent, SDL_Texture* texture, GB_Rectangle<int> drawRect) : type(type), parent(parent), entityTexture(texture), drawQuad(drawRect)
 {
 	name.assign("entity");
+	objectTypee = 0;
 	enclosingRect.Set(0, 0, 1, 1);
 	if (texture != nullptr && drawRect == ZeroRectangle)
 	{
@@ -793,4 +794,24 @@ bool Entity::OnSave(pugi::xml_node& node)const
 bool Entity::OnLoad(pugi::xml_node* node)
 {
 	return true;
+}
+
+
+
+void Entity::Serialize(pugi::xml_node root)
+{
+	if (this->type == ENTITY_OBJECT) {
+
+		pugi::xml_attribute atr;
+		pugi::xml_node element;
+
+		element = root.append_child("Object");
+
+		atr = element.append_attribute("type");
+		atr.set_value(objectTypee);
+		atr = element.append_attribute("x");
+		atr.set_value(GetLocalPosition().x);
+		atr = element.append_attribute("y");
+		atr.set_value(GetGlobalPosition().y);
+	}
 }

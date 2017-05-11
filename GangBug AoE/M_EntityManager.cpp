@@ -6,7 +6,7 @@
 
 #include "M_FileSystem.h"
 #include "M_ParticleSystem.h"
-
+#include "Brofiler/Brofiler.h"
 #include "GB_QuadTree.h"
 // Entities
 #include "EntityUi.h"
@@ -817,6 +817,8 @@ Entity* M_EntityManager::CreateObject(object_type type, Entity* parent, int posX
 
 	Entity* ret = (Entity*) new Object(type, parent);
 
+	Objectslist.push_back(ret);
+
 	if (parent)
 		parent->AddChild(ret);
 	else
@@ -1201,5 +1203,59 @@ void ObjectTexture::SetType(pugi::xml_node node)
 	{
 		type = OBJECT_NONE;
 		LOG("ERROR: XML Node OBJECT TYPE does not match");
+	}
+}
+
+
+
+void M_EntityManager::SerializeObjects()
+{
+	BROFILER_CATEGORY("Objects save", Profiler::Color::Green);
+	bool ret = true;
+
+	char* buffer = nullptr;
+	LOG("Loading objects xml to serialize");
+	uint size = app->fs->Load("Objects_Saver.xml", &buffer);
+	LOG("Loading Objects before serialize.");
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+	pugi::xml_parse_result result = data.load_buffer(buffer, size);
+
+	RELEASE(buffer);
+	if (result != NULL)
+	{
+		root = data.child("Objects");
+
+		for (pugi::xml_node child = root.first_child(); child; )
+		{
+			pugi::xml_node next = child.next_sibling();
+
+			child.parent().remove_child(child);
+
+			child = next;
+		}
+
+		//std::list<std::string> names;
+		//std::list<std::string>::iterator name_found;
+
+		for (std::list<Entity*>::iterator it = Objectslist.begin(); it != Objectslist.end(); it++)
+		{
+
+			//	name_found = std::find(names.begin(), names.end(), (*it)->GetName());
+
+			/*	if (name_found == names.end())
+			{
+			names.push_back((*it)->GetName());*/
+
+			(*it)->Serialize(root);
+			//}
+		}
+
+		std::stringstream stream;
+		data.save(stream);
+
+		app->fs->Save("Objects_Saver.xml", stream.str().c_str(), stream.str().length());
+		LOG("... just saved the Objects: Objects_Saver.xml");
 	}
 }

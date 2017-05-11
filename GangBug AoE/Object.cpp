@@ -9,6 +9,8 @@ Object::Object(object_type objectType, Entity * parent) : Entity(ENTITY_OBJECT, 
 {
 	entityTexture = app->tex->objectTexture;
 	app->entityManager->getObjectRect(objectType);
+	objectTypee = int(objectType);
+	name = "Object";
 }
 
 Object::~Object()

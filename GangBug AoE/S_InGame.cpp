@@ -79,6 +79,55 @@ update_status S_InGame::PreUpdate(float dt)
 		}
 		
 
+
+		//  create objects ------------------------
+		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {  //ARBOL 1
+			int posx, posY;
+			app->input->GetMouseMapPosition(posx, posY);
+			app->entityManager->CreateObject(TREES1, nullptr, posx, posY);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {  //ARBOL 2
+			int posx, posY;
+			app->input->GetMouseMapPosition(posx, posY);
+			app->entityManager->CreateObject(TREES2, nullptr, posx, posY);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {  //ARBOL 3
+			int posx, posY;
+			app->input->GetMouseMapPosition(posx, posY);
+			app->entityManager->CreateObject(TREES3, nullptr, posx, posY);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {  //ARBOL 4
+			int posx, posY;
+			app->input->GetMouseMapPosition(posx, posY);
+			app->entityManager->CreateObject(TREES4, nullptr, posx, posY);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {  //ARBOL 1
+			int posx, posY;
+			app->input->GetMouseMapPosition(posx, posY);
+			app->entityManager->CreateObject(TREES1, nullptr, posx, posY);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {  //ARBOL 2
+			int posx, posY;
+			app->input->GetMouseMapPosition(posx, posY);
+			app->entityManager->CreateObject(TREES2, nullptr, posx, posY);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {  //ARBOL 3
+			int posx, posY;
+			app->input->GetMouseMapPosition(posx, posY);
+			app->entityManager->CreateObject(TREES3, nullptr, posx, posY);
+		}
+		if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  //ARBOL 4
+			int posx, posY;
+			app->input->GetMouseMapPosition(posx, posY);
+			app->entityManager->CreateObject(TREES4, nullptr, posx, posY);
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //serialize
+			app->entityManager->SerializeObjects();
+		// -------------------------
+
+
+
 		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 			app->gui->SetActiveScene(name);
 		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
@@ -87,6 +136,10 @@ update_status S_InGame::PreUpdate(float dt)
 			app->gui->SetActiveScene("\0");
 		if (!app->pause)
 		{
+
+
+
+
 
 			// -------------------Move camera--------------------------------------------
 			// --------------------------------------------------------------------------
@@ -111,32 +164,34 @@ update_status S_InGame::PreUpdate(float dt)
 			// --------------------------------------------------------------------------
 			// --------------------------------------------------------------------------
 
-			if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+			/*if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
 				app->enemyWaves->SpawnEnemies(5, 0, x, y);
 			}
-			if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
 				enemyDestination = { x, y };
 			}
-			if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
 				app->entityManager->CreateUnit(TARKAN_KNIGHT, nullptr, x, y);
 				app->audio->PlayFx(app->entityManager->fxCreateUnit);
 			}
-			if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
 				app->entityManager->CreateUnit(VILE, nullptr, x, y);
 				app->audio->PlayFx(app->entityManager->fxCreateUnit);
-			}
+			}*/
+
+
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 			{
 				return UPDATE_STOP;
