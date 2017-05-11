@@ -58,10 +58,43 @@
   <object type="13" x="-552" y="2130"/> <!-- HOUSE -->
   <object type="12" x="-472" y="2180"/><!-- HOUSE -->
   <object type="12" x="-1632" y="2788"/><!-- HOUSE -->
+  <object type="12" x="-2460" y="1810"/>
+  <!-- HOUSE -->
+  <object type="13" x="-2400" y="1772"/>
+  <!-- HOUSE -->
   <object type="12" x="-1532" y="2738"/>
   <object type="13" x="-1652" y="2958"/>
-
   <object type="12" x="-816" y="2812"/>
-  <object type="11" x="-710" y="2802"/>
+  <object type="6" x="-1220" y="2880"/>
+  <object type="11" x="-1344" y="2606"/>
+  <object type="12" x="-1354" y="2680"/>
+  <object type="13" x="-1200" y="2550"/>
+  <object type="46" x="-910" y="2514"/>  <!-- tree -->
+  <object type="17" x="-3120" y="2332"/>
+  <object type="14" x="-2880" y="1500"/>
   
+  <object type="16" x="-2056" y="1330"/> <!-- mina -->
+  <object type="24" x="-2105" y="1325"/>
+  
+  <object type="25" x="-1864" y="1450"/>
+  <object type="27" x="-1764" y="1350"/>
+  <object type="27" x="-1814" y="1376"/>
+  <object type="45" x="-2362" y="1252"/>  <!-- tree -->
+  <object type="44" x="-2554" y="1254"/>
+  <object type="44" x="-2554" y="1204"/>
+  <!-- tree -->
+  <object type="43" x="-2554" y="1254"/>
+  <object type="43" x="-2754" y="1254"/>
+  <object type="44" x="-2754" y="1254"/>
+  <object type="41" x="-2694" y="1214"/> 
+    <object type="45" x="-2705" y="1164"/><!-- tree -->
+  <object type="40" x="-2554" y="1114"/>
+
+  <object type="44" x="-3034" y="1404"/>
+  <object type="42" x="-3134" y="1460"/>
+  <object type="46" x="-3134" y="1420"/>
+  <object type="46" x="-3084" y="1400"/>
+  <object type="45" x="-3184" y="1520"/>
+  <object type="43" x="-3184" y="1485"/>
+  <object type="41" x="-3084" y="1520"/>
 </Objects>
