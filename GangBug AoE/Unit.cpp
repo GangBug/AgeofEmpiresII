@@ -7,7 +7,7 @@
 #include "Building.h"
 #include "M_EntityManager.h"
 #include "M_DialogueManager.h"
-#include "M_MisionManager.h"
+#include "M_MissionManager.h"
 #include "M_Collision.h"
 //TMP
 #include "M_Input.h"
@@ -319,7 +319,7 @@ void Unit::Die()
 		{
 			if (this->horde == true)
 			{
-				app->misionManager->AddEnemyDeadUnit();
+				app->missionManager->AddEnemyDeadUnit();
 			}
 
 			app->entityManager->DeleteUnit(this);
@@ -329,7 +329,7 @@ void Unit::Die()
 	{
 		if (this->horde == true) 
 		{
-			app->misionManager->AddEnemyDeadUnit();
+			app->missionManager->AddEnemyDeadUnit();
 		}
 
 		app->entityManager->DeleteUnit(this);

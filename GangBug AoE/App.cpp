@@ -20,7 +20,7 @@
 #include "M_Collision.h"
 #include "M_FogOfWar.h"
 #include "M_DialogueManager.h"
-#include "M_MisionManager.h"
+#include "M_MissionManager.h"
 #include "M_Minimap.h"
 #include "M_ParticleSystem.h"
 
@@ -78,7 +78,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	dialogueManager = new M_DialogueManager();
 	minimap = new M_Minimap();
 	//fogOfWar = new M_FogOfWar();
-	misionManager = new M_MisionManager();
+	missionManager = new M_MissionManager();
 	particleSystem = new M_ParticleSystem();
 
 	menu = new S_Menu(true);
@@ -103,7 +103,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//AddModule(fogOfWar);
 	AddModule(animation);
 	AddModule(gui);
-	AddModule(misionManager);
+	AddModule(missionManager);
 	AddModule(particleSystem);
 	AddModule(menu);
 	AddModule(inGame);

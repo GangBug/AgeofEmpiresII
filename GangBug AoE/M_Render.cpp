@@ -12,7 +12,7 @@
 #include "M_FogOfWar.h"
 #include "M_DialogueManager.h"
 #include "PlayerManager.h"
-#include "M_MisionManager.h"
+#include "M_MissionManager.h"
 #include "Boss.h"
 #include "Building.h"
 #include "M_Minimap.h"
@@ -165,7 +165,7 @@ update_status M_Render::PostUpdate(float dt)
 	//---------
 
 	//BOSS LIFE BAR
-	if (app->misionManager->GetBossState() == true)
+	if (app->missionManager->GetBossState() == true)
 	{
 			SDL_Rect lifeBarRect{ 0,0,771,52 };
 			iPoint center = camera->GetCenter();

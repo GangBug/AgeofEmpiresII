@@ -9,7 +9,7 @@
 #include "Building.h"
 #include "M_DialogueManager.h"
 #include "S_Menu.h"
-#include "M_MisionManager.h"
+#include "M_MissionManager.h"
 #include "M_Minimap.h"
 #include "M_Input.h"
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
@@ -40,7 +40,7 @@ bool S_InGame::Start()
 		app->dialogueManager->Enable();
 		app->dialogueManager->Start();
 
-		app->misionManager->Enable();
+		app->missionManager->Enable();
 
 		//audio
 		//app->audio->PlayTheme(app->audio->thirdMission);
@@ -238,8 +238,8 @@ void S_InGame::GoToMenu()
 	app->gui->SetActiveScene("menu");
 	app->entityManager->CleanUp();
 	app->audio->CleanData();
-	app->misionManager->CleanUp();
-	app->misionManager->Disable();
+	app->missionManager->CleanUp();
+	app->missionManager->Disable();
 	app->map->CleanUp();
 	app->minimap->CleanUp();
 	pugi::xml_node		nullnode;

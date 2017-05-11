@@ -5,7 +5,7 @@
 #include "S_InGame.h"
 #include "M_Audio.h"
 #include "Log.h"
-#include "M_MisionManager.h"
+#include "M_MissionManager.h"
 
 M_EnemyWaves::M_EnemyWaves(bool startEnabled) : Module(startEnabled)
 {

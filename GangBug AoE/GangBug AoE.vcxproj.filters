@@ -199,13 +199,13 @@
     <ClCompile Include="Boss.cpp">
       <Filter>Entity System\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="M_MisionManager.cpp">
-      <Filter>Modules\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="M_Minimap.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
     <ClCompile Include="M_ParticleSystem.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="M_MissionManager.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -375,9 +375,6 @@
     <ClInclude Include="Boss.h">
       <Filter>Entity System\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="M_MisionManager.h">
-      <Filter>Modules\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="M_Minimap.h">
       <Filter>Modules\Modules</Filter>
     </ClInclude>
@@ -385,6 +382,9 @@
       <Filter>Modules\Tools</Filter>
     </ClInclude>
     <ClInclude Include="M_ParticleSystem.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="M_MissionManager.h">
       <Filter>Modules\Modules</Filter>
     </ClInclude>
   </ItemGroup>

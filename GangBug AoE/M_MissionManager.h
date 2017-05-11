@@ -4,7 +4,7 @@
 #include "j1Timer.h"
 #include "Module.h"
 
-enum Mision_State 
+enum Mission_State 
 {
 	M_INTRO,
 	M_TOWNATTACK,
@@ -48,11 +48,11 @@ enum Mision_State
 #define ENEMYOBJECTIVE_X -2800
 #define ENEMYOBJECTIVE_Y 2300
 
-class M_MisionManager : public Module
+class M_MissionManager : public Module
 {
 public:
-	M_MisionManager(bool startEnabled = true);
-	virtual ~M_MisionManager();
+	M_MissionManager(bool startEnabled = true);
+	virtual ~M_MissionManager();
 
 	bool Start();
 	update_status Update(float dt)override;
@@ -74,7 +74,7 @@ public:
 
 private:
 	Timer misionTimer;
-	Mision_State State;
+	Mission_State State;
 
 private://troops states
 

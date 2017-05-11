@@ -7,7 +7,7 @@
 #include "M_Pathfinding.h"
 #include "M_Map.h"
 #include "M_EntityManager.h"
-#include "M_MisionManager.h"
+#include "M_MissionManager.h"
 #include "M_Collision.h"
 
 #define ATTACK_TIMER 1
@@ -29,7 +29,7 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 
 void Boss::OnUpdate(float dt)
 {
-	app->misionManager->SetBossState(true);
+	app->missionManager->SetBossState(true);
 	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
 		this->SetHp(GetHP() - 200);
@@ -117,7 +117,7 @@ void Boss::OnUpdate(float dt)
 	else
 	{
 		Die();
-		app->misionManager->SetBossState(false);
+		app->missionManager->SetBossState(false);
 	}
 
 

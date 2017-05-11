@@ -1,31 +1,31 @@
-#include "M_MisionManager.h"
+#include "M_MissionManager.h"
 #include "Log.h"
 #include "M_EnemyWaves.h"
 #include "M_DialogueManager.h"
 #include "App.h"
-M_MisionManager::M_MisionManager(bool startEnabled) : Module(startEnabled)
+M_MissionManager::M_MissionManager(bool startEnabled) : Module(startEnabled)
 {
 
-	name.assign("misionManager");
+	name.assign("missionManager");	
+}
+
+M_MissionManager::~M_MissionManager()
+{
+}
+
+bool M_MissionManager::Start()
+{
+	LOG("Resources: Start.");
+	bool ret = true;
+
 	enemyStartTroops = 0;
 	enemyTroopCounter = 0;
 	aliveTroopWave = 0;
 	bossIsAlive = false;
 	townCenterIsAlive = true;
 	stateName.assign("Intro");
-	enemyDeadUnits = 0; 
+	enemyDeadUnits = 0;
 	active = false;
-	
-}
-
-M_MisionManager::~M_MisionManager()
-{
-}
-
-bool M_MisionManager::Start()
-{
-	LOG("Resources: Start.");
-	bool ret = true;
 
 	State = M_INTRO;
 	
@@ -33,7 +33,7 @@ bool M_MisionManager::Start()
 	return ret;
 }
 
-update_status M_MisionManager::Update(float dt)
+update_status M_MissionManager::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
@@ -202,7 +202,7 @@ update_status M_MisionManager::Update(float dt)
 	return update_status(ret);
 }
 
-bool M_MisionManager::CleanUp()
+bool M_MissionManager::CleanUp()
 {
 	bool ret = true;
 	State = M_INTRO;
@@ -218,52 +218,52 @@ bool M_MisionManager::CleanUp()
 	return ret;
 }
 
-uint M_MisionManager::GetEnemyUnits()const
+uint M_MissionManager::GetEnemyUnits()const
 {
 	return enemyTroopCounter;
 }
 
-std::string M_MisionManager::GetStateName() const
+std::string M_MissionManager::GetStateName() const
 {
 	return std::string(stateName);
 }
 
-Timer M_MisionManager::GetMisionTime() const
+Timer M_MissionManager::GetMisionTime() const
 {
 	return Timer(misionTimer);
 }
 
-float M_MisionManager::GetMisionTimeleftf() const
+float M_MissionManager::GetMisionTimeleftf() const
 {
 	return float(misionTimer.ReadSec());
 }
 
-void M_MisionManager::AddStartUnit()
+void M_MissionManager::AddStartUnit()
 {
 	enemyStartTroops++;
 }
 
-void M_MisionManager::AddEnemyDeadUnit()
+void M_MissionManager::AddEnemyDeadUnit()
 {
 	enemyDeadUnits++;
 }
 
-bool M_MisionManager::GetBossState()const
+bool M_MissionManager::GetBossState()const
 {
 	return bossIsAlive;
 }
 
-uint M_MisionManager::GetEnemyDeadUnits() const
+uint M_MissionManager::GetEnemyDeadUnits() const
 {
 	return uint(enemyDeadUnits);
 }
 
-void M_MisionManager::SetBossState(bool state)
+void M_MissionManager::SetBossState(bool state)
 {
 	bossIsAlive = state;
 }
 
-void M_MisionManager::TheTownCenterIsDead()
+void M_MissionManager::TheTownCenterIsDead()
 {
 	townCenterIsAlive = false;
 }

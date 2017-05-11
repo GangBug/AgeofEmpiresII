@@ -32,7 +32,7 @@ class M_DialogueManager;
 class M_FogOfWar;
 class S_Menu;
 class S_InGame;
-class M_MisionManager;
+class M_MissionManager;
 class M_Minimap;
 class M_ParticleSystem;
 
@@ -120,7 +120,7 @@ public:
 	M_Collision*		collision = nullptr;
 	M_DialogueManager*	dialogueManager = nullptr;
 	//M_FogOfWar*			fogOfWar = nullptr;
-	M_MisionManager*		misionManager = nullptr;
+	M_MissionManager*	missionManager = nullptr;
 	M_Minimap*			minimap = nullptr;
 	M_ParticleSystem*	particleSystem = nullptr;
 	S_Menu*				menu = nullptr;
