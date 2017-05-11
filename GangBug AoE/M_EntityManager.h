@@ -89,114 +89,116 @@ public:
 
 	void LoadFXs();// ADD FX
 
-	//fight  
-	uint fxFightDiabloW001;
-	uint fxFightDiabloW002;
-	uint fxFightDiabloW003;
-	uint fxFightDiabloW004;
-	uint fxFightDiabloW005;
+				   //fight  
+	uint fxFightDiabloW001;//
+	uint fxFightDiabloW002;//
+	uint fxFightDiabloW003;//
+	uint fxFightDiabloW004;//
+	uint fxFightDiabloW005;//
 
-	uint fxFightHellW001;
-	uint fxFightHellW002;
-	uint fxFightHellW003;
-	uint fxFightHellW004;
-	uint fxFightHellW005;
+	uint fxFightHellW001;//
+	uint fxFightHellW002;//
+	uint fxFightHellW003;//
+	uint fxFightHellW004;//
+	uint fxFightHellW005;//
 
-	uint fxFightVile001;
-	uint fxFightVile002;
-	uint fxFightVile003;
-	uint fxFightVile004;
-	uint fxFightVile005;	 
+	uint fxFightVile001;//
+	uint fxFightVile002;//
+	uint fxFightVile003;//
+	uint fxFightVile004;//
+	uint fxFightVile005;//	 
 
-	uint fxFight001;
-	uint fxFight002;
-	uint fxFight003;
-	uint fxFight004;
-	uint fxFight005;
-	uint fxFight006;
-	uint fxFight007;
-	uint fxFight008;
+	uint fxFight001;//
+	uint fxFight002;//
+	uint fxFight003;//
+	uint fxFight004;//
+	uint fxFight005;//
+	uint fxFight006;//
+	uint fxFight007;//
+	uint fxFight008;//
 
-	uint fxArrow001;
-	uint fxArrow002;
-	uint fxArrow003;
-	uint fxArrow004;
-	uint fxArrow005;
-	uint fxArrow006;
-	uint fxArrow007;
+	uint fxArrow001;//
+	uint fxArrow002;//
+	uint fxArrow003;//
+	uint fxArrow004;//
+	uint fxArrow005;//
+	uint fxArrow006;//
+	uint fxArrow007;//
 
-	//die
+					//die
 
-	uint fxDieSoldier001;
-	uint fxDieSoldier002;
-	uint fxDieSoldier003;
-	uint fxDieSoldier004;
-	uint fxDieSoldier005;
-	uint fxDieSoldier006;
+	uint fxDieSoldier001;//
+	uint fxDieSoldier002;//
+	uint fxDieSoldier003;//
+	uint fxDieSoldier004;//
+	uint fxDieSoldier005;//
+	uint fxDieSoldier006;//
 
-	uint fxDieHorse001;
-	uint fxDieHorse002;
-	uint fxDieHorse003;
+	uint fxDieHorse001;//
+	uint fxDieHorse002;//
+	uint fxDieHorse003;//
 
-	uint fxDieDiablo001;
+	uint fxDieDiablo001;//
 
-	uint fxDieVile001;
-	uint fxDieVile002;
-	uint fxDieVile003;
-	uint fxDieVile004;
-	uint fxDieVile005;
+	uint fxDieVile001;//
+	uint fxDieVile002;//
+	uint fxDieVile003;//
+	uint fxDieVile004;//
+	uint fxDieVile005;//
 
-	uint fxDieHellW001;
-	uint fxDieHellW002;
-	uint fxDieHellW003;
-	uint fxDieHellW004;
+	uint fxDieHellW001;//
+	uint fxDieHellW002;//
+	uint fxDieHellW003;//
+	uint fxDieHellW004;//
 
-	//select
-	uint fxHorseSelect001;
-	uint fxHorseSelect002;
-	uint fxHorseSelect003;
-	uint fxUnitSelect001;
-	uint fxUnitSelect002;
-	uint fxUnitSelect003;
-	uint fxUnitSelect004;
+					   //select
+	uint fxHorseSelect001;//
+	uint fxHorseSelect002;//
+	uint fxHorseSelect003;//
 
-	//create
-	uint fxCreateUnit;
-	uint fxCreateVillager;
-	uint fxLimitVillager;
+	uint fxUnitSelect001;//
+	uint fxUnitSelect002;//
+	uint fxUnitSelect003;//
+	uint fxUnitSelect004;//
 
-	//buldings
-	uint fxStableSelection;
-	uint fxBarrackSelection;
-	uint fxArcherySelection;
-	uint fxTownCenterSelection;
+						 //create
+	uint fxCreateUnit;//
+	uint fxCreateVillager;//
+	uint fxLimitVillager;//
 
-	//ambient
+						 //buldings
+	uint fxStableSelection;//
+	uint fxBarrackSelection;//
+	uint fxArcherySelection;//
+	uint fxTownCenterSelection;//
 
-	uint fxBirds001;
-	uint fxBirds002;
-	uint fxBirds003;
-	uint fxBirds004;
-	uint fxBirds005;
-	uint fxBirds006;
-	uint fxBirds007;
-	uint fxBirds008;
-	uint fxBirds009;
+							   //ambient
 
-	//alert
-	uint fxAlert01;
-	uint fxAlert02;
+	uint fxBirds001;//
+	uint fxBirds002;//
+	uint fxBirds003;//
+	uint fxBirds004;//
+	uint fxBirds005;//
+	uint fxBirds006;//
+	uint fxBirds007;//
+	uint fxBirds008;//
+	uint fxBirds009;//
 
+					//alert
+	uint fxAlert01;//
+	uint fxAlert02;//
+	uint fxError;
 	//portal
-	uint fxExplosion01;
-	uint fxExplosion02;
-	uint fxExplosion03;
-	uint fxcast01;
-	
-	// Laugh
-	uint fxDiabloLaugh01;
-	uint fxDiabloLaugh02;
-	uint fxDiabloLaugh03;
+	uint fxExplosion01;//
+	uint fxExplosion02;//
+	uint fxExplosion03;//
+	uint fxPortalCast01;//
+
+						// Laugh
+	uint fxDiabloLaugh01;//
+	uint fxDiabloLaugh02;//
+	uint fxDiabloLaugh03;//
+
 
 private:
 	void RemoveFlagged();

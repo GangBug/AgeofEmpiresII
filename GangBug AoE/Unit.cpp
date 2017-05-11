@@ -184,6 +184,7 @@ void Unit::OnUpdate(float dt)
 
 		else
 		{
+	
 			Die();
 		}
 		iPoint p;
@@ -301,6 +302,8 @@ void Unit::Die()
 {
 	if (action != DIE && action != DISAPPEAR)
 	{
+		PlayDeathSound();
+	
 		action = DIE;
 		Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
 		anim->Reset();
@@ -331,7 +334,7 @@ void Unit::Die()
 		{
 			app->missionManager->AddEnemyDeadUnit();
 		}
-
+	
 		app->entityManager->DeleteUnit(this);
 	}
 }
@@ -752,8 +755,10 @@ bool Unit::GoTo(iPoint destination)
 	{
 		GetNextTile();
 		this->action = WALK;
+		this->PlayMoveSound();
 		if (unitState != MOVING_TO_ATTACK)
 		{
+		
 			this->unitState = MOVING;
 		}
 		this->destination.x = destination.x;
@@ -795,6 +800,7 @@ bool Unit::AttackUnit()
 		{
 			LookAt(iPoint(target->GetGlobalPosition().x, target->GetGlobalPosition().y));
 			action = ATTACK;
+			this->PlayAttackSound();
 			unitState = ATTACKING;
 			target->DoDamage(attack);
 			attackTimer.Start();
@@ -871,11 +877,12 @@ bool Unit::GetAdjacentTile(iPoint tile, iPoint& Adjacent) const
 	}
 }
 
+
 void Unit::PlayDeathSound() const// ADD FX
 {
 	int rand_num = rand() % 6;
 
-	if (this->unitType == SAMURAI||this->unitType == ARCHER) {
+	if (this->unitType == SAMURAI || this->unitType == ARCHER) {
 
 		switch (rand_num)
 		{
@@ -900,9 +907,57 @@ void Unit::PlayDeathSound() const// ADD FX
 		}
 	}
 
-	rand_num = rand() % 3;
+	if (this->unitType == VILE) {
+
+		rand_num = rand() % 5;
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxDieVile001);
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxDieVile002);
+			break;
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxDieVile003);
+			break;
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxDieVile004);
+			break;
+		case 4:
+			app->audio->PlayFx(app->entityManager->fxDieVile005);
+			break;
+		}
+	}
+
+	if (this->unitType == HELL_WITCH) {
+
+		rand_num = rand() % 4;
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxDieHellW001);
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxDieHellW002);
+			break;
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxDieHellW003);
+			break;
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxDieHellW004);
+			break;
+		}
+	}
+
+	if (this->unitType == DIABLO)
+		app->audio->PlayFx(app->entityManager->fxDieDiablo001);
 
 	if (this->unitType == TARKAN_KNIGHT) {
+
+		rand_num = rand() % 3;
 
 		switch (rand_num)
 		{
@@ -915,7 +970,7 @@ void Unit::PlayDeathSound() const// ADD FX
 		case 2:
 			app->audio->PlayFx(app->entityManager->fxDieHorse003);
 			break;
-	
+
 		}
 	}
 
@@ -925,38 +980,39 @@ void Unit::PlayAttackSound() const
 {
 	int rand_num = rand() % 8;
 
-	if(this->unitType== SAMURAI || this->unitType == TARKAN_KNIGHT)
-	switch (rand_num)
-	{
-	case 0:
-		app->audio->PlayFx(app->entityManager->fxFight001);
-		break;
-	case 1:
-		app->audio->PlayFx(app->entityManager->fxFight002);
-		break;
-	case 2:
-		app->audio->PlayFx(app->entityManager->fxFight003);
-		break;
-	case 3:
-		app->audio->PlayFx(app->entityManager->fxFight004);
-		break;
-	case 4:
-		app->audio->PlayFx(app->entityManager->fxFight005);
-		break;
-	case 5:
-		app->audio->PlayFx(app->entityManager->fxFight006);
-		break;
-	case 6:
-		app->audio->PlayFx(app->entityManager->fxFight007);
-		break;
-	case 7:
-		app->audio->PlayFx(app->entityManager->fxFight008);
-		break;
+	if (this->unitType == SAMURAI || this->unitType == TARKAN_KNIGHT) {
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxFight001);
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxFight002);
+			break;
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxFight003);
+			break;
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxFight004);
+			break;
+		case 4:
+			app->audio->PlayFx(app->entityManager->fxFight005);
+			break;
+		case 5:
+			app->audio->PlayFx(app->entityManager->fxFight006);
+			break;
+		case 6:
+			app->audio->PlayFx(app->entityManager->fxFight007);
+			break;
+		case 7:
+			app->audio->PlayFx(app->entityManager->fxFight008);
+			break;
+		}
 	}
-
-	rand_num = rand() % 7;
-
 	if (this->unitType == ARCHER) {
+		rand_num = rand() % 7;
+
 		switch (rand_num)
 		{
 		case 0:
@@ -982,6 +1038,86 @@ void Unit::PlayAttackSound() const
 			break;
 		}
 	}
+	if (this->unitType == VILE) {
+
+		rand_num = rand() % 5;
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxFightVile001);
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxFightVile002);
+			break;
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxFightVile003);
+			break;
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxFightVile004);
+			break;
+		case 4:
+			app->audio->PlayFx(app->entityManager->fxFightVile005);
+			break;
+		}
+	}
+	if (this->unitType == HELL_WITCH) {
+
+		rand_num = rand() % 5;
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxFightHellW001);
+			break;
+
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxFightHellW002);
+			break;
+
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxFightHellW003);
+			break;
+
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxFightHellW004);
+			break;
+
+		case 4:
+			app->audio->PlayFx(app->entityManager->fxFightHellW005);
+			break;
+
+		}
+	}
+	if (this->unitType == DIABLO) {
+
+		rand_num = rand() % 5;
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxFightDiabloW001);
+			break;
+
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxFightDiabloW002);
+			break;
+
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxFightDiabloW003);
+			break;
+
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxFightDiabloW004);
+			break;
+
+		case 4:
+			app->audio->PlayFx(app->entityManager->fxFightDiabloW005);
+			break;
+
+		}
+	}
+
 }
 
 void Unit::PlaySelectSound() const
@@ -1007,13 +1143,12 @@ void Unit::PlaySelectSound() const
 		}
 	}
 
-	rand_num = rand() % 3;
-
-	if (this->unitType == ARCHER || this->unitType == SAMURAI) {
+	if (this->unitType == TARKAN_KNIGHT) {
+		rand_num = rand() % 3;
 		switch (rand_num)
 		{
 		case 0:
-			app->audio->PlayFx(app->entityManager->fxHorseSelect001);
+			//	app->audio->PlayFx(app->entityManager->fxHorseSelect001);
 			break;
 		case 1:
 			app->audio->PlayFx(app->entityManager->fxHorseSelect002);
@@ -1024,18 +1159,49 @@ void Unit::PlaySelectSound() const
 		}
 	}
 
-
 }
 
 void Unit::PlayMoveSound() const
 {
-	if (this->unitType == ARCHER || this->unitType == SAMURAI)
-		app->audio->PlayFx(app->entityManager->fxUnitSelect001);
+	int rand_num = rand() % 8;
 
-	if (this->unitType == ARCHER || this->unitType == SAMURAI)
-		app->audio->PlayFx(app->entityManager->fxUnitSelect001);
+	if (this->unitType == ARCHER || this->unitType == SAMURAI) {
+
+		switch (rand_num)
+		{
+		case 0:
+			app->audio->PlayFx(app->entityManager->fxUnitSelect001);
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxUnitSelect002);
+			break;
+		case 2:
+			//	app->audio->PlayFx(app->entityManager->fxUnitSelect003);  WARNING OMG I  I've been deaf to this sound
+			break;
+		case 3:
+			app->audio->PlayFx(app->entityManager->fxUnitSelect004);
+			break;
+		}
+	}
+
+	if (this->unitType == TARKAN_KNIGHT) {
+		rand_num = rand() % 8;
+		switch (rand_num)
+		{
+		case 0:
+			//	app->audio->PlayFx(app->entityManager->fxHorseSelect001); WARNING OMG I  I've been deaf to this sound
+			break;
+		case 1:
+			app->audio->PlayFx(app->entityManager->fxHorseSelect002);
+			break;
+		case 2:
+			app->audio->PlayFx(app->entityManager->fxHorseSelect003);
+			break;
+		}
+	}
 
 }
+
 
 
 void Unit::SetHp(int newHP)

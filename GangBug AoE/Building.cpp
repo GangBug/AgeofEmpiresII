@@ -265,6 +265,9 @@ void Building::BuyUnit()
 		buyTimer.Start();
 
 	}
+	else {
+		app->audio->PlayFx(app->entityManager->fxError);
+	}
 }
 
 int Building::GetHP() const

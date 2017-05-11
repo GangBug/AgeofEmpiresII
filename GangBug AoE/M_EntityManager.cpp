@@ -978,93 +978,113 @@ void M_EntityManager::LoadFXs()// ADD FX
 {
 	//fight
 
-	fxFight001 = app->audio->LoadFx("audio/fx/Units/Fight_1.wav");
-	fxFight002 = app->audio->LoadFx("audio/fx/Units/Fight_2.wav");
-	fxFight003 = app->audio->LoadFx("audio/fx/Units/Fight_3.wav");
-	fxFight004 = app->audio->LoadFx("audio/fx/Units/Fight_4.wav");
-	fxFight005 = app->audio->LoadFx("audio/fx/Units/Fight_5.wav");
-	fxFight006 = app->audio->LoadFx("audio/fx/Units/Fight_6.wav");
-	fxFight007 = app->audio->LoadFx("audio/fx/Units/Fight_7.wav");
-	fxFight008 = app->audio->LoadFx("audio/fx/Units/Fight_8.wav");
-	fxArrow001 = app->audio->LoadFx("audio/fx/Other/Arrow_1.wav");
-	fxArrow002 = app->audio->LoadFx("audio/fx/Other/Arrow_2.wav");
-	fxArrow003 = app->audio->LoadFx("audio/fx/Other/Arrow_3.wav");
-	fxArrow004 = app->audio->LoadFx("audio/fx/Other/Arrow_4.wav");
-	fxArrow005 = app->audio->LoadFx("audio/fx/Other/Arrow_5.wav");
-	fxArrow006 = app->audio->LoadFx("audio/fx/Other/Arrow_6.wav");
-	fxArrow007 = app->audio->LoadFx("audio/fx/Other/Arrow_7.wav");
-	
-	fxFightDiabloW001 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack1.wav");
-	fxFightDiabloW002 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack2.wav");
-	fxFightDiabloW003 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack3.wav");
-	fxFightDiabloW004 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack4.wav");
-	fxFightDiabloW005 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack5.wav");
+	fxFight001 = app->audio->LoadFx("audio/fx/Units/Fight_1.wav");//
+	fxFight002 = app->audio->LoadFx("audio/fx/Units/Fight_2.wav");//
+	fxFight003 = app->audio->LoadFx("audio/fx/Units/Fight_3.wav");//
+	fxFight004 = app->audio->LoadFx("audio/fx/Units/Fight_4.wav");//
+	fxFight005 = app->audio->LoadFx("audio/fx/Units/Fight_5.wav");//
+	fxFight006 = app->audio->LoadFx("audio/fx/Units/Fight_6.wav");//
+	fxFight007 = app->audio->LoadFx("audio/fx/Units/Fight_7.wav");//
+	fxFight008 = app->audio->LoadFx("audio/fx/Units/Fight_8.wav");//
 
-	fxFightHellW001 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack1.wav");
-	fxFightHellW002 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack2.wav");
-	fxFightHellW003 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack3.wav");
-	fxFightHellW004 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack4.wav");
-	fxFightHellW005 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack5.wav");
-
-	fxFightVile001 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack1.wav");
-	fxFightVile002 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack2.wav");
-	fxFightVile003 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack3.wav");
-	fxFightVile004 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack4.wav");
-	fxFightVile005 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack5.wav");
+	fxArrow001 = app->audio->LoadFx("audio/fx/Other/Arrow_1.wav");//
+	fxArrow002 = app->audio->LoadFx("audio/fx/Other/Arrow_2.wav");//
+	fxArrow003 = app->audio->LoadFx("audio/fx/Other/Arrow_3.wav");//
+	fxArrow004 = app->audio->LoadFx("audio/fx/Other/Arrow_4.wav");//
+	fxArrow005 = app->audio->LoadFx("audio/fx/Other/Arrow_5.wav");//
+	fxArrow006 = app->audio->LoadFx("audio/fx/Other/Arrow_6.wav");//
+	fxArrow007 = app->audio->LoadFx("audio/fx/Other/Arrow_7.wav");//
 
 
-	//die
-	fxDieSoldier001 = app->audio->LoadFx("audio/fx/Units/Dead_1.wav");
-	fxDieSoldier002 = app->audio->LoadFx("audio/fx/Units/Dead_2.wav");
-	fxDieSoldier003 = app->audio->LoadFx("audio/fx/Units/Dead_3.wav");
-	fxDieSoldier004 = app->audio->LoadFx("audio/fx/Units/Dead_4.wav");
-	fxDieSoldier005 = app->audio->LoadFx("audio/fx/Units/Dead_5.wav");
-	fxDieSoldier006 = app->audio->LoadFx("audio/fx/Units/Dead_6.wav");
-	fxDieHorse001 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_1.wav");
-	fxDieHorse002 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_2.wav");
-	fxDieHorse003 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_3.wav");
+	fxFightDiabloW001 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack1.wav");//
+	fxFightDiabloW002 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack2.wav");//
+	fxFightDiabloW003 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack3.wav");//
+	fxFightDiabloW004 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack4.wav");//
+	fxFightDiabloW005 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/attack5.wav");//
 
-	//Die
+	fxFightHellW001 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack1.wav");//
+	fxFightHellW002 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack2.wav");//
+	fxFightHellW003 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack3.wav");//
+	fxFightHellW004 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack4.wav");//
+	fxFightHellW005 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/attack5.wav");//
 
-	//select
-	fxHorseSelect001 = app->audio->LoadFx("audio/fx/Units/Horse_Select_1.wav");
-	fxHorseSelect002 = app->audio->LoadFx("audio/fx/Units/Horse_Select_2.wav");
-	fxHorseSelect003 = app->audio->LoadFx("audio/fx/Units/Horse_Select_3.wav");
-	fxUnitSelect001 = app->audio->LoadFx("audio/fx/Units/Select_Unit_1.wav");
-	fxUnitSelect002 = app->audio->LoadFx("audio/fx/Units/Select_Unit_2.wav");
-	fxUnitSelect003 = app->audio->LoadFx("audio/fx/Units/Select_Unit_3.wav");
-	fxUnitSelect004 = app->audio->LoadFx("audio/fx/Units/Select_Unit_4.wav");
-
-	//create
-	fxCreateUnit = app->audio->LoadFx("audio/fx/Units/Creation_Unit.wav");
-	fxCreateVillager = app->audio->LoadFx("audio/fx/Units/Creation_Villager.wav");
-	fxLimitVillager = app->audio->LoadFx("audio/fx/Other/Population_Limit.wav");
-	
-	//buldings 
-	fxStableSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Ball.wav");
-	fxBarrackSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Barrack.wav");
-	fxArcherySelection = app->audio->LoadFx("audio/fx/Buildings/Click_Archery.wav");
-	fxTownCenterSelection = app->audio->LoadFx("audio/fx/Buildings/Town_Center.wav");
-
-	//ambient
-	fxBirds001 = app->audio->LoadFx("audio/fx/Other/tf1.wav");
-	fxBirds002 = app->audio->LoadFx("audio/fx/Other/tf2.wav");
-	fxBirds003 = app->audio->LoadFx("audio/fx/Other/tf3.wav");
-	fxBirds004 = app->audio->LoadFx("audio/fx/Other/tf4.wav");
-	fxBirds005 = app->audio->LoadFx("audio/fx/Other/tf5.wav");
-	fxBirds006 = app->audio->LoadFx("audio/fx/Other/tf6.wav");
-	fxBirds007 = app->audio->LoadFx("audio/fx/Other/tf7.wav");
-	fxBirds008 = app->audio->LoadFx("audio/fx/Other/tf8.wav");
-	fxBirds009 = app->audio->LoadFx("audio/fx/Other/Bird.wav");
-
-	//alert
-	fxAlert01 = app->audio->LoadFx("audio/fx/Other/Warning_Attack_1.wav");
-	fxAlert02 = app->audio->LoadFx("audio/fx/Other/Warning_Attack_2.wav");
+	fxFightVile001 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack1.wav");//
+	fxFightVile002 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack2.wav");//
+	fxFightVile003 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack3.wav");//
+	fxFightVile004 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack4.wav");//
+	fxFightVile005 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/attack5.wav");//
 
 
-	fxDiabloLaugh01 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh1.wav");
-	fxDiabloLaugh02 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh2.wav");
-	fxDiabloLaugh03 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh3.wav");
+																				 //die
+	fxDieSoldier001 = app->audio->LoadFx("audio/fx/Units/Dead_1.wav");//
+	fxDieSoldier002 = app->audio->LoadFx("audio/fx/Units/Dead_2.wav");//
+	fxDieSoldier003 = app->audio->LoadFx("audio/fx/Units/Dead_3.wav");//
+	fxDieSoldier004 = app->audio->LoadFx("audio/fx/Units/Dead_4.wav");//
+	fxDieSoldier005 = app->audio->LoadFx("audio/fx/Units/Dead_5.wav");//
+	fxDieSoldier006 = app->audio->LoadFx("audio/fx/Units/Dead_6.wav");//
+
+	fxDieHorse001 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_1.wav");//
+	fxDieHorse002 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_2.wav");//
+	fxDieHorse003 = app->audio->LoadFx("audio/fx/Units/Dead_Horse_3.wav");//
+
+	fxDieDiablo001 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/death.wav");//
+
+	fxDieVile001 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/death1.wav");//
+	fxDieVile002 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/death2.wav");//
+	fxDieVile003 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/death3.wav");//
+	fxDieVile004 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/death4.wav");//
+	fxDieVile005 = app->audio->LoadFx("audio/fx/DevilSounds/Vile/death5.wav");//
+
+	fxDieHellW001 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/death1.wav");//
+	fxDieHellW002 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/death2.wav");//
+	fxDieHellW003 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/death3.wav");//
+	fxDieHellW004 = app->audio->LoadFx("audio/fx/DevilSounds/Witch/death4.wav");//
+
+
+																				//select
+	fxHorseSelect001 = app->audio->LoadFx("audio/fx/Units/Horse_Select_1.wav");//
+	fxHorseSelect002 = app->audio->LoadFx("audio/fx/Units/Horse_Select_2.wav");//
+	fxHorseSelect003 = app->audio->LoadFx("audio/fx/Units/Horse_Select_3.wav");//
+	fxUnitSelect001 = app->audio->LoadFx("audio/fx/Units/Select_Unit_1.wav");//
+	fxUnitSelect002 = app->audio->LoadFx("audio/fx/Units/Select_Unit_2.wav");//
+	fxUnitSelect003 = app->audio->LoadFx("audio/fx/Units/Select_Unit_3.wav");//
+	fxUnitSelect004 = app->audio->LoadFx("audio/fx/Units/Select_Unit_4.wav");//
+
+																			 //create
+	fxCreateUnit = app->audio->LoadFx("audio/fx/Units/Creation_Unit.wav");//
+	fxCreateVillager = app->audio->LoadFx("audio/fx/Units/Creation_Villager.wav");//
+	fxLimitVillager = app->audio->LoadFx("audio/fx/Other/Population_Limit.wav");//
+
+																				//buldings 
+	fxStableSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Ball.wav");//
+	fxBarrackSelection = app->audio->LoadFx("audio/fx/Buildings/Click_Barrack.wav");//
+	fxArcherySelection = app->audio->LoadFx("audio/fx/Buildings/Click_Archery.wav");//
+	fxTownCenterSelection = app->audio->LoadFx("audio/fx/Buildings/Town_Center.wav");//
+
+																					 //ambient
+	fxBirds001 = app->audio->LoadFx("audio/fx/Other/tf1.wav");//
+	fxBirds002 = app->audio->LoadFx("audio/fx/Other/tf2.wav");//
+	fxBirds003 = app->audio->LoadFx("audio/fx/Other/tf3.wav");//
+	fxBirds004 = app->audio->LoadFx("audio/fx/Other/tf4.wav");//
+	fxBirds005 = app->audio->LoadFx("audio/fx/Other/tf5.wav");//
+	fxBirds006 = app->audio->LoadFx("audio/fx/Other/tf6.wav");//
+	fxBirds007 = app->audio->LoadFx("audio/fx/Other/tf7.wav");//
+	fxBirds008 = app->audio->LoadFx("audio/fx/Other/tf8.wav");//
+	fxBirds009 = app->audio->LoadFx("audio/fx/Other/Bird.wav");//
+
+															   //alert
+	fxAlert01 = app->audio->LoadFx("audio/fx/Other/Warning_Attack_1.wav");//
+	fxAlert02 = app->audio->LoadFx("audio/fx/Other/Warning_Attack_2.wav");//
+	fxError = app->audio->LoadFx("audio/fx/Other/Error.wav");//
+
+	fxDiabloLaugh01 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh1.wav");//
+	fxDiabloLaugh02 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh2.wav");//
+	fxDiabloLaugh03 = app->audio->LoadFx("audio/fx/DevilSounds/Diablo/laugh3.wav");//
+
+	fxExplosion01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/explosionsmall2.wav");//
+	fxExplosion01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/explosionsmall3.wav");//
+	fxExplosion01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/explosionsmall4.wav");//
+	fxPortalCast01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/fxcast01.wav");//
 
 }
 
