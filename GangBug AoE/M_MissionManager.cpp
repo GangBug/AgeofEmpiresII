@@ -46,7 +46,7 @@ update_status M_MissionManager::Update(float dt)
 		case M_INTRO:
 		app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION);
 			if (misionTimer.ReadSec() > MISION_TIME && app->dialogueManager->onDialogue == false)
-			{
+			{			
 				misionTimer.Start();
 				State = M_TOWNATTACK;
 				stateName.assign("Save the town");
@@ -54,9 +54,11 @@ update_status M_MissionManager::Update(float dt)
 			break;
 
 		case M_TOWNATTACK:
+			
 			if (enemyDeadUnits >= TROOPS_ONTOWN && app->dialogueManager->onDialogue == false)
 			{
-				app->dialogueManager->PlayDialogue(D_EVENT_TOWN_REPAIR);
+				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION_FINISH);
+				
 				enemyDeadUnits = 0;
 				State = M_TOWNREPAIR;
 				misionTimer.Start();
@@ -64,8 +66,11 @@ update_status M_MissionManager::Update(float dt)
 			}
 			break;
 
-		case M_TOWNREPAIR:		
-
+		case M_TOWNREPAIR:	
+			if (app->dialogueManager->onDialogue == false)
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_TOWN_REPAIR);
+			}
 			if (misionTimer.ReadSec() > TOWNREPAIR_TIME && app->dialogueManager->onDialogue == false)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_WAVES_START);
@@ -90,7 +95,7 @@ update_status M_MissionManager::Update(float dt)
 
 			if (enemyDeadUnits >= ENEMIES_TO_DEFEAT_WAVES || app->enemyWaves->checkActivePortals() == 0)
 			{
-				app->dialogueManager->PlayDialogue(D_EVENT_DIABLO_SPAWN);
+				app->dialogueManager->PlayDialogue(D_EVENT_DIABLO_SPAWN_SAMURAI);
 				State = M_BOSS;
 				stateName.assign("Last fight! Defeat Diablo!");
 				bossIsAlive = true;
@@ -108,29 +113,42 @@ update_status M_MissionManager::Update(float dt)
 			break;
 
 		case M_BOSS:
-			if (bossIsAlive == false)
+			if (app->dialogueManager->onDialogue == false)
 			{
-				app->dialogueManager->PlayDialogue(D_EVENT_VICTORY);
+				app->dialogueManager->PlayDialogue(D_EVENT_DIABLO_SPAWN_DIABLO);
+			}
+			if (bossIsAlive == false && app->dialogueManager->onDialogue == false)
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_VICTORY_DIABLO);
 				stateName.assign("CONGRATS! YOU WIN!");
 				State = M_VICTORY;
 			}
 
-			if (townCenterIsAlive == false)
+			if (townCenterIsAlive == false && app->dialogueManager->onDialogue == false)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_DEFEAT);
 				stateName.assign("NEXT TIME WILL BE BETTER");
 				State = M_DEFEAT;
-				app->inGame->GoToMenu();
 			}
 
 			break;
 
 		case M_VICTORY:
-			app->inGame->GoToMenu();
+			if (app->dialogueManager->onDialogue == false)
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_VICTORY_SAMURAI);
+			}
+			if (app->dialogueManager->onDialogue == false)
+			{
+				app->inGame->GoToMenu();
+			}
 			break;
 
 		case M_DEFEAT:
-			app->inGame->GoToMenu();
+			if (app->dialogueManager->onDialogue == false)
+			{
+				app->inGame->GoToMenu();
+			}
 			break;
 		}
 	}

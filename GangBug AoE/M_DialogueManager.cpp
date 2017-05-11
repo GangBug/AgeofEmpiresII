@@ -125,7 +125,7 @@ void Dialogue::SetCharacter(pugi::xml_node node)
 	if (strcmp(node.attribute("character").as_string(), "samurai") == 0) {
 		character = D_CHARACTER_SAMURAI;
 	}
-	else if (strcmp(node.attribute("character").as_string(), "demon") == 0) {
+	else if (strcmp(node.attribute("character").as_string(), "diablo") == 0) {
 		character = D_CHARACTER_DEMON;
 	}
 	else {
@@ -138,6 +138,9 @@ void Dialogue::SetEvent(pugi::xml_node node)
 	if (strcmp(node.attribute("event").as_string(), "firstEncounter") == 0) {
 		event = D_EVENT_FIRST_MISSION;
 	}
+	else if (strcmp(node.attribute("event").as_string(), "firstEncounterEnd") == 0) {
+		event = D_EVENT_FIRST_MISSION_FINISH;
+	}
 	else if (strcmp(node.attribute("event").as_string(), "townRepair") == 0) {
 		event = D_EVENT_TOWN_REPAIR;
 	}
@@ -145,12 +148,18 @@ void Dialogue::SetEvent(pugi::xml_node node)
 		event = D_EVENT_WAVES_START;
 	}
 	else if (strcmp(node.attribute("event").as_string(), "diabloSpawn") == 0) {
-		event = D_EVENT_DIABLO_SPAWN;
+		event = D_EVENT_DIABLO_SPAWN_SAMURAI;
 	}
-	else if (strcmp(node.attribute("event").as_string(), "victory") == 0) {
-		event = D_EVENT_VICTORY;
+	else if (strcmp(node.attribute("event").as_string(), "diabloSpawnbyDiablo") == 0) {
+		event = D_EVENT_DIABLO_SPAWN_DIABLO;
 	}
-	else if (strcmp(node.attribute("event").as_string(), "defeat") == 0) {
+	else if (strcmp(node.attribute("event").as_string(), "victorySamurai") == 0) {
+		event = D_EVENT_VICTORY_SAMURAI;
+	}
+	else if (strcmp(node.attribute("event").as_string(), "victoryDiablo") == 0) {
+		event = D_EVENT_VICTORY_DIABLO;
+	}
+	else if (strcmp(node.attribute("event").as_string(), "defeatDiablo") == 0) {
 		event = D_EVENT_DEFEAT;
 	}
 	else {

@@ -4,7 +4,11 @@
 <dialogues>
   <dialogue event ="firstEncounter" character="samurai">
     <text value ="Hi! The demons are attacking the city. Please help us!"/>
-    <text value ="This is just a text hi"/>
+    <text value ="We need to defeat them all to retake our home."/>
+  </dialogue>
+  <dialogue event ="firstEncounterEnd" character="diablo">
+    <text value ="You managed to defeat my army... for now."/>
+    <text value ="I'll be back and you'll feel the wrath of hell!"/>
   </dialogue>
   <dialogue event ="townRepair" character="samurai">
     <text value ="You managed to save the town, nice job!"/>
@@ -18,8 +22,25 @@
     <text value ="Good luck friend!"/>
   </dialogue>
   <dialogue event ="diabloSpawn" character="samurai">
-    <text value ="Their chief is coming! As I expected... it's Diablo."/>
+    <text value ="Their chief is coming back! He looks stronger than before too."/>
     <text value ="This is the final assault, defeat him and we'll be free!"/>
     <text value ="Fail... and we'll be doomed forever."/>
+  </dialogue>
+  <dialogue event ="diabloSpawnbyDiablo" character="diablo">
+    <text value ="Mortals... you will repent!"/>
+    <text value ="FEEL MY WRATH!"/>
+  </dialogue>
+  <dialogue event ="victoryDiablo" character="diablo">
+    <text value ="How... how could this happen?"/>
+    <text value ="Aaaaghhh..."/>
+  </dialogue>
+  <dialogue event ="victorySamurai" character="samurai">
+    <text value ="You slayed the demon! Now the town is free forever!"/>
+    <text value ="Thanks friend, I knew you were the only one who could do it."/>
+  </dialogue>
+  <dialogue event ="defeatDiablo" character="diablo">
+    <text value ="FOOLISH HUMAN, YOU THOUGHT YOU COULD DEFEAT ME?"/>
+    <text value ="NOW EVERYONE SHALL BE MY SLAVE... BUT YOU..."/>
+    <text value ="YOU'LL DIE!"/>
   </dialogue>
 </dialogues>
