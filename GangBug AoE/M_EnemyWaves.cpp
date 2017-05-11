@@ -66,6 +66,7 @@ update_status M_EnemyWaves::Update(float dt)
 				dynamic_cast<Unit*>(*it)->GoTo(iPoint(-2221, 2524));
 			}
 		}
+		waveEntities.clear();
 	}
 	return ret;
 }
