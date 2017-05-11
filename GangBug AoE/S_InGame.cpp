@@ -81,46 +81,7 @@ update_status S_InGame::PreUpdate(float dt)
 
 
 		//  create objects ------------------------
-		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {  //ARBOL 1
-			int posx, posY;
-			app->input->GetMouseMapPosition(posx, posY);
-			app->entityManager->CreateObject(TREES1, nullptr, posx, posY);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {  //ARBOL 2
-			int posx, posY;
-			app->input->GetMouseMapPosition(posx, posY);
-			app->entityManager->CreateObject(TREES2, nullptr, posx, posY);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {  //ARBOL 3
-			int posx, posY;
-			app->input->GetMouseMapPosition(posx, posY);
-			app->entityManager->CreateObject(TREES3, nullptr, posx, posY);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {  //ARBOL 4
-			int posx, posY;
-			app->input->GetMouseMapPosition(posx, posY);
-			app->entityManager->CreateObject(TREES4, nullptr, posx, posY);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {  //ARBOL 1
-			int posx, posY;
-			app->input->GetMouseMapPosition(posx, posY);
-			app->entityManager->CreateObject(TREES1, nullptr, posx, posY);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {  //ARBOL 2
-			int posx, posY;
-			app->input->GetMouseMapPosition(posx, posY);
-			app->entityManager->CreateObject(TREES2, nullptr, posx, posY);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {  //ARBOL 3
-			int posx, posY;
-			app->input->GetMouseMapPosition(posx, posY);
-			app->entityManager->CreateObject(TREES3, nullptr, posx, posY);
-		}
-		if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  //ARBOL 4
-			int posx, posY;
-			app->input->GetMouseMapPosition(posx, posY);
-			app->entityManager->CreateObject(TREES4, nullptr, posx, posY);
-		}
+		ToolCreateObjects();
 
 		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //serialize
 			app->entityManager->SerializeObjects();
@@ -152,14 +113,14 @@ update_status S_InGame::PreUpdate(float dt)
 				app->render->camera->Move(10.0, DOWN);
 			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 				app->render->camera->Move(10.0, RIGHT);
-			if (app->input->GetMousePosition().y < 5)
+			/*if (app->input->GetMousePosition().y < 5)
 				app->render->camera->MoveUp(floor(600.0f * dt));
 			if (app->input->GetMousePosition().y > app->render->camera->GetRect().h - 5)
 				app->render->camera->MoveDown(floor(600.0f * dt));
 			if (app->input->GetMousePosition().x < 5)
 				app->render->camera->MoveLeft(floor(600.0f * dt));
 			if (app->input->GetMousePosition().x > app->render->camera->GetRect().w - 5)
-				app->render->camera->MoveRight(floor(600.0f * dt));
+				app->render->camera->MoveRight(floor(600.0f * dt));*/
 
 			// --------------------------------------------------------------------------
 			// --------------------------------------------------------------------------
@@ -503,4 +464,104 @@ void S_InGame::UnitsCreator()
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 120, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 115, 3688);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 107, 3648);//
+}
+
+void S_InGame::ToolCreateObjects()
+{
+	 //trees 
+	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {  //ARBOL 1
+		int posx, posY;
+		app->input->GetMouseMapPosition(posx, posY);
+		app->entityManager->CreateObject(TREES1, nullptr, posx, posY);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {  //ARBOL 2
+		int posx, posY;
+		app->input->GetMouseMapPosition(posx, posY);
+		app->entityManager->CreateObject(TREES2, nullptr, posx, posY);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {  //ARBOL 3
+		int posx, posY;
+		app->input->GetMouseMapPosition(posx, posY);
+		app->entityManager->CreateObject(TREES3, nullptr, posx, posY);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {  //ARBOL 4
+		int posx, posY;
+		app->input->GetMouseMapPosition(posx, posY);
+		app->entityManager->CreateObject(TREES4, nullptr, posx, posY);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN) {  //ARBOL 1
+		int posx, posY;
+		app->input->GetMouseMapPosition(posx, posY);
+		app->entityManager->CreateObject(TREES5, nullptr, posx, posY);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {  //ARBOL 2
+		int posx, posY;
+		app->input->GetMouseMapPosition(posx, posY);
+		app->entityManager->CreateObject(TREES6, nullptr, posx, posY);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {  //ARBOL 3
+		int posx, posY;
+		app->input->GetMouseMapPosition(posx, posY);
+		app->entityManager->CreateObject(TREES7, nullptr, posx, posY);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  //ARBOL 4
+		int posx, posY;
+		app->input->GetMouseMapPosition(posx, posY);
+		app->entityManager->CreateObject(TREES8, nullptr, posx, posY);
+	}
+
+	////bamboo
+
+	//if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {  //BAMBOO 1
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(BAMBOO1, nullptr, posx, posY);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {  //BAMBOO 2
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(BAMBOO2, nullptr, posx, posY);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {  //BAMBOO 3
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(BAMBOO3, nullptr, posx, posY);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {  //BAMBOO 3
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(BAMBOO4, nullptr, posx, posY);
+	//}
+
+	////Houses
+
+	//if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {  //HOUSE 1
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(HOUSE1, nullptr, posx, posY);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {  //HOUSE 2
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(HOUSE2, nullptr, posx, posY);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  //HOUSE 3
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(HOUSE3, nullptr, posx, posY);
+	//}
+	
+
+	//buldings
+
+	//if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {  //BAMBOO 1
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(MONASTERY, nullptr, posx, posY);
+	//}
+	//if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {  //BAMBOO 2
+	//	int posx, posY;
+	//	app->input->GetMouseMapPosition(posx, posY);
+	//	app->entityManager->CreateObject(UNIVERSITY, nullptr, posx, posY);
+	//}
 }

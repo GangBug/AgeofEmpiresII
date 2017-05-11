@@ -41,6 +41,9 @@ public:
 	void BuldingCreator();
 	void UnitsCreator();
 
+
+	void ToolCreateObjects();
+
 public:
 	std::vector<iPoint> path;
 	iPoint origin;
