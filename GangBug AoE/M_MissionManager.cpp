@@ -55,11 +55,12 @@ update_status M_MissionManager::Update(float dt)
 
 		case M_TOWNATTACK:
 			
-			if (enemyDeadUnits >= TROOPS_ONTOWN && app->dialogueManager->onDialogue == false)
+			if (bossIsAlive == false && app->dialogueManager->onDialogue == false)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION_FINISH);
 				
 				enemyDeadUnits = 0;
+				bossIsAlive = true;
 				State = M_TOWNREPAIR;
 				misionTimer.Start();
 				stateName.assign("Repair the town");

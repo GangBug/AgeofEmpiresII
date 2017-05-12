@@ -260,7 +260,7 @@ bool Building::OnLoad(pugi::xml_node * node)
 void Building::BuyUnit()
 {
 	//If theres money create a unit
-	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost)
+	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost && HP == fullHP)
 	{
 		app->resources->SubstractGold(unitGoldCost);
 		app->resources->SubstractFood(unitFoodCost);
