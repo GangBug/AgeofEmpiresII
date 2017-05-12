@@ -59,11 +59,11 @@ Secret's QA departament:
 
 ## Easy Mode
 
-+20% More HP of the allied Troops
-+20% More DMG of the allied Troops
--20% Less HP of the enemy Troops
--15% Less HP of the enemy Boss
-+50% Base amount of resources/2seconds
+* +20% More HP of the allied Troops
+* +20% More DMG of the allied Troops
+* -20% Less HP of the enemy Troops
+* -15% Less HP of the enemy Boss
+* +50% Base amount of resources/2seconds
 
 ## Normal Mode
 
