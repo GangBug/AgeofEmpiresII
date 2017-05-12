@@ -50,7 +50,7 @@ bool M_GUI::Start()
 	//TODO 1: Load atlas	
 	atlas = app->tex->Load(atlasPath.c_str());
 	//This goes the first
-	ret = LoadLayout();
+	ret = LoadLayout("");
 	LoadUIFx();
 	////Debug UI
 #pragma region ViewPort Debug UI
@@ -234,16 +234,47 @@ bool M_GUI::CleanUp()
 }
 
 //TODO: LoadLayout needs lots of improvements...
-bool M_GUI::LoadLayout()
+bool M_GUI::LoadLayout(std::string _path)
 {
 	BROFILER_CATEGORY("UI LoadLayout", Profiler::Color::Green);
 	bool ret = true;
+
+
+	if (guiList.size() > 0)
+	{
+		LOG("Deleting guiList UI");
+		for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); it++)
+		{
+			RELEASE((*it));
+		}
+		guiList.clear();
+	}
+	if (background.size() > 0)
+	{
+		LOG("Deleting background UI");
+		for (std::list<GUIElement*>::iterator it = background.begin(); it != background.end(); it++)
+		{
+			RELEASE((*it));
+		}
+		background.clear();
+	}
+
 
 	LOG("Loading UI xml");
 	char* buffer = nullptr;
 	char path[256];
 	//sprintf_s(path, 256, "%sui.xml", app->fs->GetSaveDirectory());
-	uint size = app->fs->Load("gui/gui.xml", &buffer);
+
+	uint size;
+	if (_path != "")
+	{
+		size = app->fs->Load(_path.c_str(), &buffer);
+		guiLoadedPath = _path;
+	}
+	else
+	{
+		size = app->fs->Load("gui/gui.xml", &buffer);
+	}
 	if (size > 0 && buffer != nullptr)
 	{
 		LOG("Loading UI.");
@@ -462,7 +493,15 @@ bool M_GUI::SaveLayout()
 
 	char* buffer = nullptr;
 	LOG("Loading UI xml to serialize");
-	uint size = app->fs->Load("gui/gui.xml", &buffer);
+	uint size;
+	if (guiLoadedPath != "")
+	{
+		size = app->fs->Load(guiLoadedPath.c_str(), &buffer);
+	}
+	else
+	{
+		size = app->fs->Load("gui/gui.xml", &buffer);
+	}
 	LOG("Loading UI before serialize.");
 	pugi::xml_document data;
 	pugi::xml_node root;
@@ -687,6 +726,12 @@ void M_GUI::Draw()
 {
 	BROFILER_CATEGORY("UI Draw", Profiler::Color::Orchid);
 	//IterateList(&guiList, &M_GUI::DoElementDraw);
+
+	for (std::list<GUIElement*>::iterator it = background.begin(); it != background.end(); it++)
+	{
+		if ((*it)->GetActive())
+			(*it)->Draw();
+	}
 	for (auto it = guiList.begin(); it != guiList.end(); ++it)
 	{
 		if ((*it)->GetActive())
@@ -809,6 +854,18 @@ void M_GUI::SetAtlas(SDL_Texture * texture)
 {
 	atlas = texture;
 }
+
+
+float M_GUI::GetScaleY() const
+{
+	return (float)((float)app->win->GetWindowSize().y / (float)UISIZEY);
+}
+float M_GUI::GetScaleX() const
+{
+	return (float)((float)app->win->GetWindowSize().x / (float)UISIZEX);
+}
+
+
 //Experimental methods, I just did this because of yes...
 /*void M_GUI::IterateList(std::list<GUIElement*>* list, void (M_GUI::*method)(GUIElement*))
 {

@@ -130,3 +130,9 @@ void GUIImage::SetSection(int _sectionX, int _sectionY, int _sectionW, int _sect
 	section.w = _sectionW;
 	section.h = _sectionH;
 }
+
+void GUIImage::SetAtlas(SDL_Texture *_atlas)
+{
+		atlas = _atlas;
+
+}

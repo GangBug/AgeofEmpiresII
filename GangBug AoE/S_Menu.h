@@ -1,6 +1,7 @@
 #pragma once
 #include "App.h"
 #include "Module.h"
+#include "GUIImage.h"
 class S_Menu :
 	public Module
 {
@@ -25,11 +26,15 @@ public:
 
 	//void GuiEvent(GUIElement* element, int64_t event) override;
 
+
+	void LoadUI();
 	void DrawDebug() override;
 
 	void GoToIngame();
 
 	void GuiEvent(GUIElement* element, int64_t event);
 
+
+	GUIImage* bg = nullptr;
 };
 

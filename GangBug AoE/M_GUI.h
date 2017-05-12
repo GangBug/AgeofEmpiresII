@@ -6,6 +6,9 @@
 #include "GB_Rectangle.h"
 #include "GUIAutoLabel.h"
 
+#define UISIZEX 1920
+#define UISIZEY 1080
+
 class GUIElement;
 class GUIButton;
 class GUILabel;
@@ -26,7 +29,7 @@ public:
 	update_status PostUpdate(float dt) override;
 	bool CleanUp() override;
 
-	bool LoadLayout(); //TODO: LoadLayout needs lots of improvements 
+	bool LoadLayout(std::string); //TODO: LoadLayout needs lots of improvements 
 					   //Define wich list it fills and wich gui.xml gets for example 
 					   //FIX: Each element could load and save himself
 	bool SaveLayout(); //TODO: SaveLayout needs lots of improvements 
@@ -60,6 +63,12 @@ public:
 	//void IterateList(std::list<GUIElement*>* list, void (M_GUI::*method)(GUIElement*));
 	//void DoElementUpdate(GUIElement* element, float dt);
 	//void DoElementDraw(GUIElement* element);
+
+	//carlos
+	float GetScaleY()const;
+	float  GetScaleX()const;
+
+
 
 	// UI factory
 	// Any create adds the GUIElement into lists, this job
@@ -120,7 +129,7 @@ private:
 	GUILabel* a_viewport_w;
 	GUILabel* a_viewport_h;
 
-
+	std::string guiLoadedPath = "";
 public:
 	void LoadUIFx();
 
