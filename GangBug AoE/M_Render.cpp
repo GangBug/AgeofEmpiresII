@@ -172,7 +172,7 @@ update_status M_Render::PostUpdate(float dt)
 			iPoint lifeBarPos(center.x - lifeBarRect.w * 0.5, center.y + BOSS_LIFE_BAR_Y);
 
 			int gwbar;
-			gwbar = ((app->entityManager->GetBoss()->GetHP() * 100) / 2000);
+			gwbar = ((app->entityManager->GetBoss()->GetHP() * 100) / BOSSHP);
 			gwbar = (gwbar * lifeBarRect.w) / 100;
 			//red
 			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 35, lifeBarRect.w, 10 }, 255, 0, 0, 255);

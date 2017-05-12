@@ -4,7 +4,7 @@
 
 #include "Unit.h"
 
-#define BOSSHP 2000
+#define BOSSHP 2250
 
 
 class Boss : public Unit

@@ -20,7 +20,7 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 		rate_of_fire = 2;
 		range = 4;
 		unitClass = INFANTRY;
-		unitRadius = 12;
+		unitRadius = 15;
 		horde = true;
 		unitState = NO_STATE;
 		unitDirection = SOUTH_WEST;

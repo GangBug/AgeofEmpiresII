@@ -71,6 +71,8 @@ bool S_InGame::Start()
 		app->resources->Start();
 
 		app->enemyWaves->Start();
+
+		app->audio->PlayTheme(app->audio->firstMission);
 	}
 	return true;
 }
