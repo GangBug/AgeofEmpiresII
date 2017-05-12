@@ -93,12 +93,12 @@ update_status S_InGame::PreUpdate(float dt)
 			app->entityManager->SerializeObjects();
 		// -------------------------
 
-		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		/*if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 			app->gui->SetActiveScene(name);
 		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 			GoToMenu();
 		if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
-			app->gui->SetActiveScene("\0");
+			app->gui->SetActiveScene("\0");*/
 		if (!app->pause)
 		{
 			// -------------------Move camera--------------------------------------------
@@ -402,47 +402,17 @@ void S_InGame::BuldingCreator()
 
 
 	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(5, 80), nullptr, -3792, 1944);
-	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(4, 11), nullptr, -2400, 1200);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(4, 51), nullptr, -2400, 1200);
 	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(27, 31), nullptr, -144, 1272);
 	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(57, 54), nullptr, 192, 2590);
 }
 
 void S_InGame::UnitsCreator()
 {
-	//ENEMIES
-	/*app->entityManager->CreateUnit(VILE, nullptr, -2600, 2300);//1
-	app->entityManager->CreateUnit(VILE, nullptr, -2650, 2300);//2
-	app->entityManager->CreateUnit(VILE, nullptr, -2600, 2350);//3
-	app->entityManager->CreateUnit(VILE, nullptr, -2650, 2350);//4
-	app->entityManager->CreateUnit(VILE, nullptr, -2700, 2200);//
-	app->entityManager->CreateUnit(VILE, nullptr, -2750, 2200);//6
-	app->entityManager->CreateUnit(VILE, nullptr, -2700, 2250);//
-	app->entityManager->CreateUnit(VILE, nullptr, -2750, 2250);//8
-	app->entityManager->CreateUnit(VILE, nullptr, -2100, 2050);//
-	app->entityManager->CreateUnit(VILE, nullptr, -2150, 2050);//10
-	app->entityManager->CreateUnit(VILE, nullptr, -2100, 2050);//
-	app->entityManager->CreateUnit(VILE, nullptr, -2150, 2050);//12
-	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2150);//
-	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2090);//14
-	app->entityManager->CreateUnit(VILE, nullptr, -1395, 2050);//
-	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2050);//16
-	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2550);//
-	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2550);//18
-	app->entityManager->CreateUnit(VILE, nullptr, -1585, 2450);//
-	app->entityManager->CreateUnit(VILE, nullptr, -1385, 2550);//20
-	app->entityManager->CreateUnit(VILE, nullptr, -1885, 2580);//
-	app->entityManager->CreateUnit(VILE, nullptr, -1785, 2550);//22
-	app->entityManager->CreateUnit(VILE, nullptr, -1885, 2580);//
-	app->entityManager->CreateUnit(VILE, nullptr, -1885, 2550);//24
-	app->entityManager->CreateUnit(VILE, nullptr, -2153, 2264);//
-	app->entityManager->CreateUnit(VILE, nullptr, -2053, 2364);//26
-	app->entityManager->CreateUnit(VILE, nullptr, -2253, 2264);//
-	app->entityManager->CreateUnit(VILE, nullptr, -2053, 2464);//28*/
-
 	//ALIES
 	app->entityManager->CreateUnit(DIABLO, nullptr, -2120, 2190);
 
-	app->entityManager->CreateUnit(ARCHER, nullptr, 257, 3648);//1
+	/*app->entityManager->CreateUnit(ARCHER, nullptr, 257, 3648);//1
 	app->entityManager->CreateUnit(ARCHER, nullptr, 307, 3648);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 207, 3648);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 237, 3648);//
@@ -452,7 +422,7 @@ void S_InGame::UnitsCreator()
 	app->entityManager->CreateUnit(ARCHER, nullptr, 207, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 220, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 215, 3688);//
-	app->entityManager->CreateUnit(ARCHER, nullptr, 207, 3648);//
+	app->entityManager->CreateUnit(ARCHER, nullptr, 207, 3648);//*/
 }
 
 void S_InGame::ToolCreateObjects()

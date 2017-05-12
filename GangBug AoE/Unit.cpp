@@ -186,6 +186,7 @@ void Unit::OnUpdate(float dt)
 
 							iPoint objective;
 							app->input->GetMouseMapPosition(objective.x, objective.y);
+							unitState = FLEEING;
 							GoTo(objective);
 						}
 					}
@@ -255,12 +256,11 @@ bool Unit::GetPath(iPoint dest)
 	GetGlobalPosition(posX, posY);
 	iPoint ori = app->map->WorldToMap(posX, posY);
 	iPoint destinat = app->map->WorldToMap(dest.x, dest.y);
-	if (ori == destinat) 
-	{
-		return true;
-	}
 	if (app->pathfinding->CalculatePath(ori, destinat, pathVec) == false)
+	{
+		unitState = NO_STATE;
 		return false;
+	}
 	return true;
 }
 
@@ -324,7 +324,6 @@ void Unit::Die()
 		Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
 		anim->Reset();
 	}
-	//FIX: This deletes the building associated with the dying unit
 	else if (app->animation->GetAnimation(GetUnitType(), action, unitDirection)->Finished() == true && action == DIE)
 	{
 		if (unitType != HELL_WITCH && unitType != DIABLO)
@@ -434,6 +433,7 @@ Entity* Unit::CheckSurroundings()
 					int itDistance = unitPos.DistanceTo(itPos);
 					if (itDistance < distance || distance == 0)
 					{
+						distance = itDistance;
 						ret = (*it);
 						target = (*it);
 
@@ -457,6 +457,7 @@ Entity* Unit::CheckSurroundings()
 					int itDistance = unitPos.DistanceTo(itPos);
 					if (itDistance < distance || distance == 0)
 					{
+						distance = itDistance;
 						ret = (*it);
 						target = (*it);
 
@@ -528,9 +529,10 @@ bool Unit::SetFightingArea()
 
 		//UNIT
 
-		if ((enemy->target == nullptr || enemy->target == this) && enemy->unitState != FLEEING) {//If the enemy's enemy is... YOU or a nullptr 
+		if ((enemy->target == nullptr || enemy->target == this) && enemy->unitState != FLEEING && enemy->unitState != MOVING_TO_ATTACK) {//If the enemy's enemy is... YOU or a nullptr 
 
 			enemy->target = this;
+
 			if (unitClass == RANGED && enemy->unitClass == RANGED)
 			{
 				unitState = ATTACKING; //If you're ranged, just attack
@@ -544,7 +546,7 @@ bool Unit::SetFightingArea()
 				//Then calculate new enemy pos
 				iPoint newEnemyPos;
 
-				if (this->GetFreeAdjacent(newEnemyPos))
+				if (this->GetFreeAdjacent(newEnemyPos, enemyPos))
 				{
 					enemy->pathVec.clear();
 					if (enemy->GoTo(app->map->MapToWorld(newEnemyPos.x, newEnemyPos.y)) != false)
@@ -570,7 +572,7 @@ bool Unit::SetFightingArea()
 
 				enemy->unitState = ATTACKING;
 				iPoint newPos;
-				enemy->GetFreeAdjacent(newPos);
+				enemy->GetFreeAdjacent(newPos, Pos);
 				pathVec.clear();
 
 				if (GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != false)
@@ -631,7 +633,7 @@ bool Unit::SetFightingArea()
 				unitState = MOVING_TO_ATTACK;
 
 				iPoint newPos;
-				enemy->GetFreeAdjacent(newPos);
+				enemy->GetFreeAdjacent(newPos, Pos);
 				pathVec.clear();
 
 				if (GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != -1)
@@ -658,7 +660,7 @@ bool Unit::SetFightingArea()
 				{
 					iPoint newPos;
 
-					if (enemy->GetFreeAdjacent(newPos))
+					if (enemy->GetFreeAdjacent(newPos, Pos))
 					{
 						pathVec.clear();
 
@@ -683,7 +685,8 @@ bool Unit::SetFightingArea()
 				else if (enemy->unitState == MOVING_TO_ATTACK || enemy->unitState == FLEEING) //If he's moving, we'll move next to the tile where he's going
 				{
 					iPoint newPos;
-					if (this->GetAdjacentTile(enemy->destination, newPos))
+					iPoint enemyDestination = app->map->WorldToMap(enemy->pathObjective.x, enemy->pathObjective.y);
+					if (this->GetAdjacentTile(enemy->pathObjective, newPos))
 					{
 						pathVec.clear();
 
@@ -771,7 +774,7 @@ bool Unit::GoTo(iPoint destination)
 	{
 		GetNextTile();
 		this->action = WALK;
-		if (unitState != MOVING_TO_ATTACK)
+		if (unitState != MOVING_TO_ATTACK && unitState != FLEEING)
 		{
 		
 			this->unitState = MOVING;
@@ -799,10 +802,18 @@ bool Unit::AttackUnit()
 {
 	bool ret = false;
 
-	if (target != nullptr && target->GetHP() > 0)
+	if (target == nullptr || target->selfActive == false || target->GetHP() <= 0)
+	{
+		target = nullptr;
+		unitState = NO_STATE;
+		action = IDLE;
+	}
+
+	else if (target != nullptr && target->GetHP() > 0)
 	{
 		iPoint enemyPos = app->map->WorldToMap(target->GetGlobalPosition().x, target->GetGlobalPosition().y);
 		iPoint myPos = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
+
 		if (myPos.DistanceTo(enemyPos) > range && target->GetEntityType() == ENTITY_UNIT)
 		{
 			SetFightingArea();
@@ -810,6 +821,12 @@ bool Unit::AttackUnit()
 		else if (target->GetEntityType() == ENTITY_BUILDING && myPos != dynamic_cast<Building*>(target)->tileAttack && unitClass != RANGED)
 		{
 			SetBuildingFightingArea();
+		}
+		else if (myPos.DistanceTo(enemyPos) > unitRadius && target->GetEntityType() == ENTITY_UNIT)
+		{
+			target = nullptr;
+			unitState = NO_STATE;
+			action = IDLE;
 		}
 		else if (attackTimer.ReadSec() > 1)
 		{
@@ -836,70 +853,131 @@ bool Unit::AttackUnit()
 	return ret;
 }
 
-bool Unit::GetFreeAdjacent(iPoint& Adjacent) const
+bool Unit::GetFreeAdjacent(iPoint& Adjacent, iPoint currentPos) const
 {
 	iPoint ret = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
+	bool retB = false;
+	int distance = 0;
 
-	if ((!app->entityManager->IsUnitInTile(this, { ret.x + 1, ret.y })) && app->pathfinding->IsWalkable({ ret.x + 1, ret.y }))
+	if (currentPos == iPoint(0, 0))
 	{
-		Adjacent = { ret.x + 1, ret.y };
-		return true;
-	}
+		if ((!app->entityManager->IsUnitInTile(this, { ret.x + 1, ret.y })) && app->pathfinding->IsWalkable({ ret.x + 1, ret.y }))
+		{
+			Adjacent = { ret.x + 1, ret.y };
+			retB = true;
+		}
 
-	else if ((!app->entityManager->IsUnitInTile(this, { ret.x - 1, ret.y })) && app->pathfinding->IsWalkable({ ret.x - 1, ret.y }))
-	{
-		Adjacent = { ret.x - 1, ret.y };
-		return true;
-	}
+		else if ((!app->entityManager->IsUnitInTile(this, { ret.x - 1, ret.y })) && app->pathfinding->IsWalkable({ ret.x - 1, ret.y }))
+		{
+			Adjacent = { ret.x - 1, ret.y };
+			retB = true;
+		}
 
-	else if ((!app->entityManager->IsUnitInTile(this, { ret.x, ret.y + 1 })) && app->pathfinding->IsWalkable({ ret.x, ret.y + 1 }))
-	{
-		Adjacent = { ret.x, ret.y + 1 };
-		return true;
-	}
+		else if ((!app->entityManager->IsUnitInTile(this, { ret.x, ret.y + 1 })) && app->pathfinding->IsWalkable({ ret.x, ret.y + 1 }))
+		{
+			Adjacent = { ret.x, ret.y + 1 };
+			retB = true;
+		}
 
-	else if ((!app->entityManager->IsUnitInTile(this, { ret.x, ret.y - 1 })) && app->pathfinding->IsWalkable({ ret.x, ret.y - 1 }))
-	{
-		Adjacent = { ret.x, ret.y - 1 };
-		return true;
+		else if ((!app->entityManager->IsUnitInTile(this, { ret.x, ret.y - 1 })) && app->pathfinding->IsWalkable({ ret.x, ret.y - 1 }))
+		{
+			Adjacent = { ret.x, ret.y - 1 };
+			retB = true;
+		}
 	}
-
 	else
 	{
-		return false;
+		if ((!app->entityManager->IsUnitInTile(this, { ret.x + 1, ret.y })) && app->pathfinding->IsWalkable({ ret.x + 1, ret.y }))
+		{
+			if (distance == 0 || currentPos.DistanceTo({ ret.x + 1, ret.y }) < distance)
+			{
+				Adjacent = { ret.x + 1, ret.y };
+				distance = currentPos.DistanceTo(Adjacent);
+				retB = true;
+			}
+		}
+
+		if ((!app->entityManager->IsUnitInTile(this, { ret.x - 1, ret.y })) && app->pathfinding->IsWalkable({ ret.x - 1, ret.y }))
+		{
+			if (distance == 0 || currentPos.DistanceTo({ ret.x - 1, ret.y }) < distance)
+			{
+				Adjacent = { ret.x - 1, ret.y };
+				distance = currentPos.DistanceTo(Adjacent);
+				retB = true;
+			}
+		}
+
+		if ((!app->entityManager->IsUnitInTile(this, { ret.x, ret.y + 1 })) && app->pathfinding->IsWalkable({ ret.x, ret.y + 1 }))
+		{
+			if (distance == 0 || currentPos.DistanceTo({ ret.x, ret.y + 1 }) < distance)
+			{
+				Adjacent = { ret.x, ret.y + 1 };
+				distance = currentPos.DistanceTo(Adjacent);
+				retB = true;
+			}
+		}
+
+		if ((!app->entityManager->IsUnitInTile(this, { ret.x, ret.y - 1 })) && app->pathfinding->IsWalkable({ ret.x, ret.y - 1 }))
+		{
+			if (distance == 0 || currentPos.DistanceTo({ ret.x, ret.y - 1 }) < distance)
+			{
+				Adjacent = { ret.x, ret.y - 1 };
+				distance = currentPos.DistanceTo(Adjacent);
+				retB = true;
+			}
+		}
 	}
+
+	return retB;
 }
 
 bool Unit::GetAdjacentTile(iPoint tile, iPoint& Adjacent) const
 {
+	bool ret = false;
+	int distance = 0;
+	iPoint currentPos = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
+
 	if ((!app->entityManager->IsUnitInTile(this, { tile.x + 1, tile.y })) && app->pathfinding->IsWalkable({ tile.x + 1, tile.y }))
 	{
-		Adjacent = { tile.x + 1, tile.y };
-		return true;
+		if (distance == 0 || currentPos.DistanceTo({ tile.x + 1, tile.y }) < distance)
+		{
+			Adjacent = { tile.x + 1, tile.y };
+			distance = currentPos.DistanceTo(Adjacent);
+			ret = true;
+		}
 	}
 
-	else if ((!app->entityManager->IsUnitInTile(this, { tile.x - 1, tile.y })) && app->pathfinding->IsWalkable({ tile.x - 1, tile.y }))
+	if ((!app->entityManager->IsUnitInTile(this, { tile.x - 1, tile.y })) && app->pathfinding->IsWalkable({ tile.x - 1, tile.y }))
 	{
-		Adjacent = { tile.x - 1, tile.y };
-		return true;
+		if (distance == 0 || currentPos.DistanceTo({ tile.x - 1, tile.y }) < distance)
+		{
+			Adjacent = { tile.x - 1, tile.y };
+			distance = currentPos.DistanceTo(Adjacent);
+			ret = true;
+		}
 	}
 
-	else if ((!app->entityManager->IsUnitInTile(this, { tile.x, tile.y + 1 })) && app->pathfinding->IsWalkable({ tile.x, tile.y + 1 }))
+	if ((!app->entityManager->IsUnitInTile(this, { tile.x, tile.y + 1 })) && app->pathfinding->IsWalkable({ tile.x, tile.y + 1 }))
 	{
-		Adjacent = { tile.x, tile.y + 1 };
-		return true;
+		if (distance == 0 || currentPos.DistanceTo({ tile.x, tile.y + 1}) < distance)
+		{
+			Adjacent = { tile.x, tile.y + 1};
+			distance = currentPos.DistanceTo(Adjacent);
+			ret = true;
+		}
 	}
 
-	else if ((!app->entityManager->IsUnitInTile(this, { tile.x, tile.y - 1 })) && app->pathfinding->IsWalkable({ tile.x, tile.y - 1 }))
+	if ((!app->entityManager->IsUnitInTile(this, { tile.x, tile.y - 1 })) && app->pathfinding->IsWalkable({ tile.x, tile.y - 1 }))
 	{
-		Adjacent = { tile.x, tile.y - 1 };
-		return true;
+		if (distance == 0 || currentPos.DistanceTo({ tile.x, tile.y - 1 }) < distance)
+		{
+			Adjacent = { tile.x, tile.y - 1 };
+			distance = currentPos.DistanceTo(Adjacent);
+			ret = true;
+		}
 	}
 
-	else
-	{
-		return false;
-	}
+	return ret;
 }
 
 

@@ -76,7 +76,7 @@ void M_ParticleSystem::DrawParticles()
 	{
 		it._Ptr->_Myval->Update();
 	}
-	LOG("Particles: %.10f", update.ReadSec());
+	//LOG("Particles: %.10f", update.ReadSec());
 	update.Start();
 }
 

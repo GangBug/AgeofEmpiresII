@@ -169,7 +169,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
+	/*if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN)
 	{
 		Entity* t = CreateUnit(DIABLO, nullptr);
 		iPoint mP;
@@ -195,7 +195,7 @@ update_status M_EntityManager::PreUpdate(float dt)
 		SaveScene();
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		LoadScene();
-
+		*/
 
 	return ret;
 }
@@ -1084,7 +1084,7 @@ void M_EntityManager::LoadFXs()// ADD FX
 	fxExplosion01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/explosionsmall2.wav");//
 	fxExplosion01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/explosionsmall3.wav");//
 	fxExplosion01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/explosionsmall4.wav");//
-	fxPortalCast01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/fxcast01.wav");//
+	fxPortalCast01 = app->audio->LoadFx("audio/fx/DevilSounds/Portal/portalcast.wav");//
 
 }
 

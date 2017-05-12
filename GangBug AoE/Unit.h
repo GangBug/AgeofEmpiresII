@@ -101,7 +101,7 @@ public:
 	bool ChangeDirection(iPoint destination);
 	bool AttackUnit();
 
-	bool GetFreeAdjacent(iPoint& adjacent) const;
+	bool GetFreeAdjacent(iPoint& adjacent, iPoint currentPos = iPoint(0,0)) const;
 	bool GetAdjacentTile(iPoint tile, iPoint & adjacent) const;
 
 public:// ADD FX

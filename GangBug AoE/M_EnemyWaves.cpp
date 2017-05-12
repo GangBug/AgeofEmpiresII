@@ -115,7 +115,12 @@ void M_EnemyWaves::checkCurrentPortals()
 		if ((*it)->GetHP() > 0 &&  dynamic_cast<Building*>(*it)->buildType == BUILD_PORTAL)
 		{
 			iPoint spawnPos = app->map->MapToWorld(dynamic_cast<Building*>(*it)->tileAttack.x, dynamic_cast<Building*>(*it)->tileAttack.y);
-
+			if (fxCount < 1)
+			{
+				app->audio->PlayFx(app->entityManager->fxPortalCast01);
+				fxCount++;
+			}
+			
 			int randNum = rand() % 2;
 			if (randNum == 0)
 			{
@@ -127,6 +132,7 @@ void M_EnemyWaves::checkCurrentPortals()
 			}
 		}
 	}
+	fxCount = 0;
 }
 
 void M_EnemyWaves::activatePortals()

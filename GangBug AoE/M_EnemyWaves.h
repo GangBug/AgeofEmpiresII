@@ -39,6 +39,8 @@ private:
 
 	iPoint spawnPosition;
 
+	int fxCount;
+
 public:
 	int vilesSpawn, vilesSpawned;
 	int diablosSpawn, diablosSpawned;

@@ -205,14 +205,23 @@ bool M_Pathfinding::CalculatePath(iPoint start, const iPoint & end, std::vector<
 		visited.push_back(destination);
 	}
 	else
-	{
+	{	
 		LOG("Non-Walkable origin");	
-		return false;
+		start = FindNearestWalkable(start);
+		visited.push_back(origin);
+		visited.push_back(destination);
+		//return false;
 	}
 
 	if (!IsWalkable(end))
 	{
 		LOG("Non-Walkable Destination");
+		return false;
+	}
+
+	if (origin->pos == destination->pos)
+	{
+		LOG("NOT MOVING");
 		return false;
 	}
 
