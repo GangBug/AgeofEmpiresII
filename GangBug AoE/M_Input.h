@@ -32,9 +32,6 @@ class M_Input : public Module
 {
 
 public:
-
-
-
 	M_Input(bool startEnabled = true);
 
 	// Destructor

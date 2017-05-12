@@ -6,9 +6,9 @@
 #define UPDATE_TIMER 5
 #define MAX_RESOURCES 2000
 
-#define FOOD_AMOUNT 10
-#define WOOD_AMOUNT 10
-#define GOLD_AMOUNT 10
+#define FOOD_AMOUNT 20
+#define WOOD_AMOUNT 20
+#define GOLD_AMOUNT 20
 #define REPAIR_AMOUNT 10
 #define MAX_VILLAGERS 20
 

@@ -66,8 +66,8 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		break;
 
 	case VILE:
-		SetHp(50);
-		attack = 5;
+		SetHp(60);
+		attack = 12;
 		speed = 2.0f;
 		rate_of_fire = 1;
 		range = 1;
@@ -103,85 +103,101 @@ void Unit::OnUpdate(float dt)
 {
 	if (!app->dialogueManager->onDialogue)
 	{
-		if (GetHP() > 0) {
-			switch (unitState)
-			{
-			case NO_STATE:
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+		if (GetHP() > 0)
+		{
+				switch (unitState)
 				{
-					//Colision
-					app->collision->resetPrevPositions();
-
-					iPoint objective;
-					app->input->GetMouseMapPosition(objective.x, objective.y);
-					GoTo(objective);
-				}
-				if (target != nullptr && target->GetHP() > 0)
-				{
-					if (buildingToAttack == true)
+				case NO_STATE:
+					if (this->horde == false)
 					{
-						SetBuildingFightingArea();
+						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+						{
+							PlayMoveSound();
+							//Colision
+							app->collision->resetPrevPositions();
+
+							iPoint objective;
+							app->input->GetMouseMapPosition(objective.x, objective.y);
+							GoTo(objective);
+						}
 					}
-					else if (buildingToAttack == false)
+					if (target != nullptr && target->GetHP() > 0)
 					{
-						SetFightingArea();
+						if (buildingToAttack == true)
+						{
+							SetBuildingFightingArea();
+						}
+						else if (buildingToAttack == false)
+						{
+							SetFightingArea();
+						}
 					}
-				}
-				CheckSurroundings();
-				break;
-			case MOVING:
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-				{
-					//Colision
-					app->collision->resetPrevPositions();
+					CheckSurroundings();
+					break;
+				case MOVING:
+					if (this->horde == false)
+					{
+						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+						{
+							PlayMoveSound();
+							//Colision
+							app->collision->resetPrevPositions();
 
-					iPoint objective;
-					app->input->GetMouseMapPosition(objective.x, objective.y);
-					GoTo(objective);
-				}
-				else if (Move() == false)
-				{
-					unitState = NO_STATE;
-					action = IDLE;
-				}
-				CheckSurroundings();
-				break;
-			case MOVING_TO_ATTACK:
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-				{
-					//Colision
-					app->collision->resetPrevPositions();
+							iPoint objective;
+							app->input->GetMouseMapPosition(objective.x, objective.y);
+							GoTo(objective);
+						}
+					}
+					if (Move() == false)
+					{
+						unitState = NO_STATE;
+						action = IDLE;
+					}
+					CheckSurroundings();
+					break;
+				case MOVING_TO_ATTACK:
+					if (this->horde == false)
+					{
+						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+						{
+							PlayMoveSound();
+							//Colision
+							app->collision->resetPrevPositions();
 
-					iPoint objective;
-					app->input->GetMouseMapPosition(objective.x, objective.y);
-					GoTo(objective);
-				}
-				else if (Move() == false)
-				{
-					unitState = ATTACKING;
-					action = ATTACK;
-				}
-				break;
-			case ATTACKING:
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-				{
-					//Colision
-					app->collision->resetPrevPositions();
+							iPoint objective;
+							app->input->GetMouseMapPosition(objective.x, objective.y);
+							GoTo(objective);
+						}
+					}
+					if (Move() == false)
+					{
+						unitState = ATTACKING;
+						action = ATTACK;
+					}
+					break;
+				case ATTACKING:
+					if (this->horde == false)
+					{
+						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+						{
+							PlayMoveSound();
+							//Colision
+							app->collision->resetPrevPositions();
 
-					iPoint objective;
-					app->input->GetMouseMapPosition(objective.x, objective.y);
-					GoTo(objective);
+							iPoint objective;
+							app->input->GetMouseMapPosition(objective.x, objective.y);
+							GoTo(objective);
+						}
+					}
+					if (!AttackUnit())
+					{
+						target = nullptr;
+						unitState = NO_STATE;
+						action = IDLE;
+					}
+					break;
 				}
-				if (!AttackUnit())
-				{
-					target = nullptr;
-					unitState = NO_STATE;
-					action = IDLE;
-				}
-				break;
-			}
-		}
-
+			}		
 		else
 		{
 	
@@ -755,7 +771,6 @@ bool Unit::GoTo(iPoint destination)
 	{
 		GetNextTile();
 		this->action = WALK;
-		this->PlayMoveSound();
 		if (unitState != MOVING_TO_ATTACK)
 		{
 		
@@ -800,7 +815,17 @@ bool Unit::AttackUnit()
 		{
 			LookAt(iPoint(target->GetGlobalPosition().x, target->GetGlobalPosition().y));
 			action = ATTACK;
-			this->PlayAttackSound();
+
+			if (this->GetUnitType() == DIABLO && (this->GetGlobalPosition().x > (-1)*app->render->camera->GetPosition().x && this->GetGlobalPosition().x < (-1)*(app->render->camera->GetPosition().x - app->render->camera->GetRect().w))
+				&& (this->GetGlobalPosition().y >(-1)*app->render->camera->GetPosition().y && this->GetGlobalPosition().y < (-1)*(app->render->camera->GetPosition().y - app->render->camera->GetRect().h)))
+			{
+				this->PlayAttackSound();
+			}
+			if (this->GetUnitType() != DIABLO)
+			{
+				this->PlayAttackSound();
+			}
+		
 			unitState = ATTACKING;
 			target->DoDamage(attack);
 			attackTimer.Start();
@@ -1010,7 +1035,8 @@ void Unit::PlayAttackSound() const
 			break;
 		}
 	}
-	if (this->unitType == ARCHER) {
+	if (this->unitType == ARCHER)
+	{
 		rand_num = rand() % 7;
 
 		switch (rand_num)
@@ -1038,8 +1064,8 @@ void Unit::PlayAttackSound() const
 			break;
 		}
 	}
-	if (this->unitType == VILE) {
-
+	if (this->unitType == VILE)
+	{
 		rand_num = rand() % 5;
 
 		switch (rand_num)
@@ -1061,8 +1087,8 @@ void Unit::PlayAttackSound() const
 			break;
 		}
 	}
-	if (this->unitType == HELL_WITCH) {
-
+	if (this->unitType == HELL_WITCH) 
+	{
 		rand_num = rand() % 5;
 
 		switch (rand_num)
@@ -1142,8 +1168,8 @@ void Unit::PlaySelectSound() const
 			break;
 		}
 	}
-
-	if (this->unitType == TARKAN_KNIGHT) {
+	if (this->unitType == TARKAN_KNIGHT) 
+	{
 		rand_num = rand() % 3;
 		switch (rand_num)
 		{

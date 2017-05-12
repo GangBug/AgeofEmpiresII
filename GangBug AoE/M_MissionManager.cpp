@@ -49,7 +49,7 @@ update_status M_MissionManager::Update(float dt)
 			{			
 				misionTimer.Start();
 				State = M_TOWNATTACK;
-				stateName.assign("Save the town");
+				stateName.assign("Save the town"); 
 			}
 			break;
 
@@ -79,14 +79,6 @@ update_status M_MissionManager::Update(float dt)
 				stateName.assign("Defend the town! Waves incoming.");
 				app->enemyWaves->activatePortals();
 				enemyDeadUnits = 0;
-			}
-
-			if (townCenterIsAlive == false)
-			{
-				app->dialogueManager->PlayDialogue(D_EVENT_DEFEAT);
-				stateName.assign("NEXT TIME WILL BE B ETTER");
-				State = M_DEFEAT;
-				app->inGame->GoToMenu();
 			}
 
 			break;

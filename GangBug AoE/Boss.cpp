@@ -18,9 +18,9 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 		attack = 25;
 		speed = 1.5f;
 		rate_of_fire = 2;
-		range = 6;
+		range = 4;
 		unitClass = INFANTRY;
-		unitRadius = 7;
+		unitRadius = 12;
 		horde = true;
 		unitState = NO_STATE;
 		unitDirection = SOUTH_WEST;
@@ -35,7 +35,8 @@ void Boss::OnUpdate(float dt)
 		this->SetHp(GetHP() - 200);
 	}
 
-	if (GetHP() > 0) {
+	if (GetHP() > 0) 
+	{
 		switch (unitState)
 		{
 		case NO_STATE:

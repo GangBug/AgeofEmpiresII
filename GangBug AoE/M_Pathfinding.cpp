@@ -206,7 +206,7 @@ bool M_Pathfinding::CalculatePath(iPoint start, const iPoint & end, std::vector<
 	}
 	else
 	{
-		LOG("Non-Walkable origin");
+		LOG("Non-Walkable origin");	
 		return false;
 	}
 

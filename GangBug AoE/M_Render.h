@@ -8,7 +8,7 @@
 #include "GB_Rectangle.h"
 
 #define UPPER_LIMIT 0
-#define LOWER_LIMIT -3000
+#define LOWER_LIMIT -3500
 #define LEFT_LIMIT 4000
 #define RIGHT_LIMIT -2000
 

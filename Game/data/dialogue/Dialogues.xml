@@ -7,7 +7,7 @@
     <text value ="We need to defeat them all to retake our home."/>
   </dialogue>
   <dialogue event ="firstEncounterEnd" character="diablo">
-    <text value ="You managed to defeat my army... for now."/>
+    <text value ="I'm tired of this, for now, enjoy my army and if you survive we may fight again."/>
     <text value ="I'll be back and you'll feel the wrath of hell!"/>
   </dialogue>
   <dialogue event ="townRepair" character="samurai">
