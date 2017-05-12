@@ -5,6 +5,7 @@
 #include "App.h"
 #include "S_InGame.h"
 #include "M_EntityManager.h"
+#include "M_Audio.h"
 M_MissionManager::M_MissionManager(bool startEnabled) : Module(startEnabled)
 {
 
@@ -45,6 +46,7 @@ update_status M_MissionManager::Update(float dt)
 		{
 		case M_INTRO:
 		app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION);
+		app->audio->PlayTheme(app->audio->firstMission);
 			if (misionTimer.ReadSec() > MISION_TIME && app->dialogueManager->onDialogue == false)
 			{			
 				misionTimer.Start();
@@ -57,6 +59,7 @@ update_status M_MissionManager::Update(float dt)
 			
 			if (bossIsAlive == false && app->dialogueManager->onDialogue == false)
 			{
+				app->audio->PlayTheme(app->audio->secondMission);
 				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION_FINISH);
 				
 				enemyDeadUnits = 0;
@@ -74,6 +77,7 @@ update_status M_MissionManager::Update(float dt)
 			}
 			if (misionTimer.ReadSec() > TOWNREPAIR_TIME && app->dialogueManager->onDialogue == false)
 			{
+				app->audio->PlayTheme(app->audio->thirdMission);
 				app->dialogueManager->PlayDialogue(D_EVENT_WAVES_START);
 				State = M_WAVES;
 				misionTimer.Start();
@@ -88,6 +92,7 @@ update_status M_MissionManager::Update(float dt)
 
 			if (enemyDeadUnits >= ENEMIES_TO_DEFEAT_WAVES || app->enemyWaves->checkActivePortals() == 0)
 			{
+				app->audio->PlayTheme(app->audio->finalMission);
 				app->dialogueManager->PlayDialogue(D_EVENT_DIABLO_SPAWN_SAMURAI);
 				State = M_BOSS;
 				stateName.assign("Last fight! Defeat Diablo!");
