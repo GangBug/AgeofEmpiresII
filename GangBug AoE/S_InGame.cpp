@@ -215,6 +215,7 @@ void S_InGame::GoToMenu()
 {
 	active = false;
 	app->menu->active = true;
+	app->menu->bg->SetVisible(true);
 	app->dialogueManager->CleanUp();
 	app->dialogueManager->Disable();
 	app->gui->SetActiveScene("menu");
