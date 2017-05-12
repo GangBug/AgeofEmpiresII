@@ -55,16 +55,17 @@ Secret's QA departament:
 * Click the corners top buttons to open/close the menus
 * Click plus or minus in resources window to asigns the villagers to the diferent tasks
 
-#GAMEMODES
+# GAMEMODES
 
-##Easy Mode
+## Easy Mode
+
 +20% More HP of the allied Troops
 +20% More DMG of the allied Troops
 -20% Less HP of the enemy Troops
 -15% Less HP of the enemy Boss
 +50% Base amount of resources/2seconds
 
-##Normal Mode
+## Normal Mode
 
 Debug:
 
