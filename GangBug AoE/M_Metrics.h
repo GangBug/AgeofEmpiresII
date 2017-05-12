@@ -36,7 +36,7 @@ public:
 	void ShowMetrics();
 	
 	// create score chart
-	void CreateChart(iPoint Pos);
+	//void CreateChart(iPoint Pos);
 
 	//add dead units
 	void AddTotalUnit();
