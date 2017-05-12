@@ -38,7 +38,7 @@ Secret's QA departament:
 | Role        | Name           | Other Fields |
 |:-----------:|:--------------:|:--------------:|
 | Team Leader | Esteban marín  |Design, Art, QA| 
-| Producer  | Carlos Peralta   |Social Media, Code, QA,UI|
+| Producer    | Carlos Peralta |Social Media, Code, QA,UI|
 | Code        | Adrian Castillo|QA,UI|
 | Design      | Marc Lopez     |Code, QA|
 | Art/Audio   | Dani Triviño   |Design, QA|
@@ -64,7 +64,21 @@ Debug:
 
 ## VERSION UPDATES
 
-V0.40 Pre-Alpha - tuesday 9th of May, 2017
+V0.5 Pre-Alpha - Friday 12th of May, 2017
+
+Adds:
+* Buildings are now attackable
+* Win/Loose condition
+* Enemy Waves
+* New dialogues
+* New Units
+* New Sound FX and musics
+* Added Units Life bar
+* Added Minimap
+* Bug Fixes
+* Performance improved
+
+V0.4 Pre-Alpha - Tuesday 9th of May, 2017
 
 Adds:
 * Mision system, now there are 4 waves of enemies and 1 boss wave
@@ -76,7 +90,7 @@ Adds:
 * Performance improved
 
 
-V0.35 - Monday 8th of May, 2017
+V0.3.5 - Monday 8th of May, 2017
 
 Adds:
 * Resources Food & wood
