@@ -322,18 +322,37 @@ void Building::PlaySelectFx()
 
 void Building::PrintProgression()
 {
-	if (selected == true && unitsToAdd >= 1)
+	if (selected == true)
 	{
 		fPoint pos = GetGlobalPosition();
 		int halfWidth = GetEnclosingBox().w * 0.5;
-		iPoint progressPos(pos.x + halfWidth - (PROGRESS_WIDTH * 0.5), pos.y);
+		int halfHeight = GetEnclosingBox().h * 0.5;
 
-		int gwbar;
-		gwbar = ((buyTimer.ReadSec() * 100) / BUY_TIMER);
-		gwbar = (gwbar * PROGRESS_WIDTH) / 100;
+		if (unitsToAdd >= 1)
+		{
+			iPoint progressPos(pos.x + halfWidth - (PROGRESS_WIDTH * 0.5), pos.y);
+
+			int gwbar;
+			gwbar = ((buyTimer.ReadSec() * 100) / BUY_TIMER);
+			gwbar = (gwbar * PROGRESS_WIDTH) / 100;
+			//red
+			app->render->DrawQuad({ progressPos.x, progressPos.y, PROGRESS_WIDTH, 10 }, 255, 0, 0, 255);
+			//green
+			app->render->DrawQuad({ progressPos.x, progressPos.y, gwbar, 10 }, 0, 255, 0, 255);
+		}
+
+		iPoint lifePos(pos.x + halfWidth - 35, pos.y + halfHeight - 50);
+
+		int glbar;
+		if (HP < 0)
+		{
+			HP = 0;
+		}
+		glbar = ((HP * 100) / fullHP);
+		glbar = (glbar*PROGRESS_WIDTH) / 100;
 		//red
-		app->render->DrawQuad({ progressPos.x, progressPos.y, PROGRESS_WIDTH, 10 }, 255, 0, 0, 255);
+		app->render->DrawQuad({ lifePos.x, lifePos.y, PROGRESS_WIDTH, 7 }, 255, 0, 0, 255);
 		//green
-		app->render->DrawQuad({ progressPos.x, progressPos.y, gwbar, 10 }, 0, 255, 0, 255);
+		app->render->DrawQuad({ lifePos.x, lifePos.y, glbar, 7 }, 0, 255, 0, 255);
 	}
 }
