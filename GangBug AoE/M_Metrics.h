@@ -5,7 +5,7 @@
 #include "Module.h"
 #include "j1Timer.h"
 
-#define METRICS_REFRESH 20
+#define METRICS_REFRESH 5
 
 #define VILEPRICE 45
 #define WICHPRICE 70
@@ -21,71 +21,88 @@
 #define SOCIETYPERCENTAGE 20
 
 
+#define CHARTSIZEX 100
+#define CHARTSIZEY 50
+
 class M_Metrics : public Module
 {
 public:
-
+	//constructor destructor
 	M_Metrics(bool startEnabled = true);
 	virtual ~M_Metrics();
-
+	//override
 	bool Start();
 	update_status Update(float dt)override;
 	void DrawDebug()override;
 
-	//print the metrics
-	void ShowMetrics();
-	
 	// create score chart
-	//void CreateChart(iPoint Pos);
-
-	//add dead units
-	void AddTotalUnit();
-	void AddDeadViles();
-	void AddDeadWitch();
-	// add resources
-	void AddTotalGold();
-	void AddTotalWood();
-	void AddTotalFood();
+	void CreateChart(int PosX, int PosY);
 
 	//calculate the score;
 	float GetScore();
-
 	void SetInitialUnits(uint _initial);
 	void StartMetricsTime();
-	bool deadBoss = false;
+	int getmetrics();
+
+	//-----add
+	//--totals
+	void AddTotalUnit();
+	// add resources
+	void AddTotalGold(uint);
+	void AddTotalWood(uint);
+	void AddTotalFood(uint);
+	void AddTotalRepaired(uint);
+	void SetTotalTime();
+
+	void AddDeadViles();
+	void AddDeadWitch();
+	void AddBoss();
+
+	void AddArcherAlive();
+	void AddTarkanAlive();
+	void AddSamuraiAlive();
+	void AddVillagersAlive();
+	void KillArcherAlive();
+	void KillTarkanAlive();
+	void KillSamuraiAlive();
 
 private:
 
+
+	//global
 	uint totalUnits;
-	uint deadUnits;
-
-	uint deadEnemies;
-	uint deadViles;
-	uint deadWitch;
-
-	uint unitsAlive;
-
-	uint samuraiAlive;
-	uint archersAlive;
-	uint tarkanAlive;
-
-	float score;
-
 	uint totalResources;
+	uint totalTime;
+
 	uint totalGold;
 	uint totalWood;
 	uint totalFood;
 	uint totalRepaired;
 
-	uint totalTime;
-	Timer MetricTimeCycle;//20 sec to reestart;
-	Timer MetricTimeCounter;// Global counter
+	//in time
+	uint deadUnits;
+	uint deadEnemies;
+	uint unitsAlive;
+	uint deadBoss;
+	uint villagers;
 	
+	uint samuraiAlive;
+	uint archersAlive;
+	uint tarkanAlive;
+
+	//units
+	uint deadViles;
+	uint deadWitch;
+
+	//score
+	float score;
+	float finalScore;
 	std::vector<float> timeScore;
 
-	uint villagers;
+	//timing
+	int metricsCounter;
+	Timer MetricTimeCycle;//20 sec to reestart;
+	Timer MetricTimeCounter;// Global counter
 
 };
-
-
 #endif //__M_METRICS_H__

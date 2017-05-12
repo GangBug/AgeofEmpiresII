@@ -174,7 +174,6 @@ void Building::OnUpdate(float dt)
 
 				if (unitType != VILLAGER)
 				{
-
 					app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
 					app->audio->PlayFx(app->entityManager->fxCreateUnit);
 
@@ -187,9 +186,19 @@ void Building::OnUpdate(float dt)
 					{
 						buyTimer.Stop();
 					}
+
+					if (unitType == SAMURAI)
+						app->metrics->AddSamuraiAlive();
+					if (unitType == TARKAN_KNIGHT)
+						app->metrics->AddTarkanAlive();
+					if (unitType == ARCHER)
+						app->metrics->AddArcherAlive();
+
+					app->metrics->AddTotalUnit();
 				}
 				else
 				{
+					app->metrics->AddVillagersAlive();
 					app->resources->AddVillager();
 					app->audio->PlayFx(app->entityManager->fxCreateVillager);
 					unitsToAdd--;

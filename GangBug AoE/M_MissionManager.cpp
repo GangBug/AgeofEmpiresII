@@ -121,7 +121,6 @@ update_status M_MissionManager::Update(float dt)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_VICTORY_DIABLO);
 
-				app->metrics->deadBoss = true;
 
 				stateName.assign("CONGRATS! YOU WIN!");
 				State = M_VICTORY;

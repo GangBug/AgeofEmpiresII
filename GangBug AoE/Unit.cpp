@@ -9,6 +9,7 @@
 #include "M_DialogueManager.h"
 #include "M_MissionManager.h"
 #include "M_Collision.h"
+#include "M_Metrics.h"
 //TMP
 #include "M_Input.h"
 #include "App.h"
@@ -392,6 +393,9 @@ void Unit::DoDamage(int dmg)
 
 void Unit::Die()
 {
+
+
+
 	if (action != DIE && action != DISAPPEAR)
 	{
 		PlayDeathSound();
@@ -424,7 +428,21 @@ void Unit::Die()
 		if (this->horde == true) 
 		{
 			app->missionManager->AddEnemyDeadUnit();
+
+			if (unitType == VILE)
+				app->metrics->AddDeadViles();
+			else if (unitType == HELL_WITCH)
+				app->metrics->AddDeadViles();
+			else if (unitType == DIABLO)
+				app->metrics->AddBoss();
 		}
+		else if (unitType == SAMURAI)
+			app->metrics->KillSamuraiAlive();
+		else if (unitType == TARKAN_KNIGHT)
+			app->metrics->KillTarkanAlive();
+		else if (unitType == ARCHER)
+			app->metrics->KillArcherAlive();
+	
 	
 		app->entityManager->DeleteUnit(this);
 	}

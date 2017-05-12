@@ -10,6 +10,8 @@
 #include "M_Audio.h"
 #include "M_GUI.h"
 #include "S_InGame.h"
+#include "M_Metrics.h"
+
 M_Resources::M_Resources(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("resources");
@@ -130,13 +132,17 @@ update_status M_Resources::Update(float dt)
 			if (GetCurrentFood() < MAX_RESOURCES)
 			{
 				AddFood(foodAmount*farmers);
+				app->metrics->AddTotalFood(foodAmount*farmers);
+
 			}
 			if (GetCurrentWood() < MAX_RESOURCES)
 			{
+				app->metrics->AddTotalWood(woodAmount*lumberjacks);
 				AddWood(woodAmount*lumberjacks);
 			}
 			if (GetCurrentGold() < MAX_RESOURCES)
 			{
+				app->metrics->AddTotalGold(goldAmount*miners);
 				AddGold(goldAmount*miners);
 			}
 			std::vector<Entity*> buildVector = app->entityManager->GetBuildingVector();
@@ -145,6 +151,7 @@ update_status M_Resources::Update(float dt)
 				if ((*it) != nullptr)
 				{
 					dynamic_cast<Building*>((*it))->Repair(REPAIR_AMOUNT * constructors);
+					app->metrics->AddTotalRepaired(REPAIR_AMOUNT * constructors);
 				}
 			}
 			updateResources.Start();
