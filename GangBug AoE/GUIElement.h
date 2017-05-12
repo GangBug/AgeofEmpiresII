@@ -54,7 +54,9 @@ enum gui_events
 	REMOVE_LUMBERJACK = (1 << 23),
 	REMOVE_FARMER = (1 << 24),
 	OPEN_MENU = (1 << 25),
-	OPEN_RESOURCE_MANAGER = (1 << 26)
+	OPEN_RESOURCE_MANAGER = (1 << 26),
+	EASY_MODE_GAME = (1 << 27),
+	HARD_MODE_GAME = (1 << 28)
 	
 	//TODO
 };

@@ -14,6 +14,22 @@
 
 Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 {
+	if (app->missionManager->getHardModeStatus() == false)
+	{
+		SetHp(BOSSHP / EASY_MODE_BOSS);
+		attack = 25;
+		speed = 1.5f;
+		rate_of_fire = 2;
+		range = 4;
+		unitClass = INFANTRY;
+		unitRadius = 15;
+		horde = true;
+		unitState = NO_STATE;
+		unitDirection = SOUTH_WEST;
+		action = IDLE;
+	}
+	if (app->missionManager->getHardModeStatus() == true)
+	{
 		SetHp(BOSSHP);
 		attack = 25;
 		speed = 1.5f;
@@ -25,6 +41,8 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 		unitState = NO_STATE;
 		unitDirection = SOUTH_WEST;
 		action = IDLE;
+	}
+
 }
 
 void Boss::OnUpdate(float dt)

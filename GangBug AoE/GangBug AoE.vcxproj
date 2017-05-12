@@ -358,6 +358,7 @@
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\..\gui.xml" />
     <Xml Include="..\Game\config.xml">
       <SubType>Designer</SubType>
     </Xml>

@@ -228,3 +228,18 @@ Mission_State M_MissionManager::GetState() const
 {
 	return Mission_State(State);
 }
+
+bool M_MissionManager::getHardModeStatus()
+{
+	return isHardModeActive;
+}
+
+void M_MissionManager::setGameToEasyMode()
+{
+	isHardModeActive = false;
+}
+
+void M_MissionManager::setGameToHardMode()
+{
+	isHardModeActive = true;
+}

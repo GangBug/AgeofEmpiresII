@@ -2,6 +2,7 @@
 #include "M_Resources.h"
 #include "M_DialogueManager.h"
 #include "M_EntityManager.h"
+#include "M_MissionManager.h"
 #include "Entity.h"
 #include "Building.h"
 #include "j1Timer.h"
@@ -34,6 +35,21 @@ bool M_Resources::Start()
 	totalVillagers = 1;
 	unemployedVillagers = 0;
 	totalUnits = 0;
+
+	//EASY MODE
+	if (app->missionManager->getHardModeStatus() == false)
+	{
+		foodAmount = 30;
+		woodAmount = 30;
+		goldAmount = 30;
+	}
+	//HARD MODE
+	if (app->missionManager->getHardModeStatus() == false)
+	{
+		foodAmount = 20;
+		woodAmount = 20;
+		goldAmount = 20;
+	}
 
 	return ret;
 }
@@ -113,15 +129,15 @@ update_status M_Resources::Update(float dt)
 		{
 			if (GetCurrentFood() < MAX_RESOURCES)
 			{
-				AddFood(FOOD_AMOUNT*farmers);
+				AddFood(foodAmount*farmers);
 			}
 			if (GetCurrentWood() < MAX_RESOURCES)
 			{
-				AddWood(WOOD_AMOUNT*lumberjacks);
+				AddWood(woodAmount*lumberjacks);
 			}
 			if (GetCurrentGold() < MAX_RESOURCES)
 			{
-				AddGold(GOLD_AMOUNT*miners);
+				AddGold(goldAmount*miners);
 			}
 			std::vector<Entity*> buildVector = app->entityManager->GetBuildingVector();
 			for (std::vector<Entity*>::iterator it = buildVector.begin(); it != buildVector.end(); it++)
@@ -178,7 +194,8 @@ uint M_Resources::GetTotalUnits()
 
 void M_Resources::AddConstructors()
 {
-	if (unemployedVillagers > 0) {
+	if (unemployedVillagers > 0)
+	{
 		unemployedVillagers--;
 		constructors++;
 	}
@@ -186,7 +203,8 @@ void M_Resources::AddConstructors()
 
 void M_Resources::AddVillager()
 {
-	if (MAX_VILLAGERS >= totalVillagers) {
+	if (MAX_VILLAGERS >= totalVillagers)
+	{
 		totalVillagers++;
 		unemployedVillagers++;
 	}
@@ -194,7 +212,8 @@ void M_Resources::AddVillager()
 
 void M_Resources::AddMiners()
 {
-	if (unemployedVillagers > 0) {
+	if (unemployedVillagers > 0)
+	{
 		unemployedVillagers--;
 		miners++;
 	}
@@ -202,7 +221,8 @@ void M_Resources::AddMiners()
 
 void M_Resources::AddLumberjack()
 {
-	if (unemployedVillagers > 0) {
+	if (unemployedVillagers > 0) 
+	{
 		unemployedVillagers--;
 		lumberjacks++;
 	}
@@ -210,7 +230,8 @@ void M_Resources::AddLumberjack()
 
 void M_Resources::AddFarmers()
 {
-	if (unemployedVillagers > 0) {
+	if (unemployedVillagers > 0) 
+	{
 		unemployedVillagers--;
 		farmers++;
 	}
@@ -218,7 +239,8 @@ void M_Resources::AddFarmers()
 
 void M_Resources::RemoveConstructors()
 {
-	if (constructors > 0) {
+	if (constructors > 0) 
+	{
 		constructors--;
 		unemployedVillagers++;
 	}
@@ -226,7 +248,8 @@ void M_Resources::RemoveConstructors()
 
 void M_Resources::RemoveMiners()
 {
-	if (miners > 0) {
+	if (miners > 0)
+	{
 		miners--;
 		unemployedVillagers++;
 	}
@@ -235,7 +258,8 @@ void M_Resources::RemoveMiners()
 
 void M_Resources::RemoveLumberjacks()
 {
-	if (lumberjacks > 0) {
+	if (lumberjacks > 0)
+	{
 		lumberjacks--;
 		unemployedVillagers++;
 	}
@@ -243,7 +267,8 @@ void M_Resources::RemoveLumberjacks()
 
 void M_Resources::RemoveFarmers()
 {
-	if (farmers > 0) {
+	if (farmers > 0) 
+	{
 		farmers--;
 		unemployedVillagers++;
 	}
@@ -251,7 +276,6 @@ void M_Resources::RemoveFarmers()
 
 void M_Resources::GuiEvent(GUIElement * element, int64_t event)
 {
-
 	if (event & MOUSE_LCLICK_UP)
 	{
 		if (event & ADD_MINER)
@@ -274,7 +298,6 @@ void M_Resources::GuiEvent(GUIElement * element, int64_t event)
 			app->audio->PlayFx(app->gui->fxSelect);
 			AddFarmers();
 		}
-
 		if (event & REMOVE_MINER)
 		{
 			app->audio->PlayFx(app->gui->fxSelect);
@@ -295,7 +318,5 @@ void M_Resources::GuiEvent(GUIElement * element, int64_t event)
 			app->audio->PlayFx(app->gui->fxSelect);
 			RemoveFarmers();
 		}
-	
 	}
-
 }

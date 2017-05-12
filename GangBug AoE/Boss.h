@@ -6,6 +6,7 @@
 
 #define BOSSHP 2250
 
+#define EASY_MODE_BOSS 1.15
 
 class Boss : public Unit
 {

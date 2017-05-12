@@ -76,9 +76,9 @@ void M_Metrics::ShowMetrics()
 {
 }
 
-void M_Metrics::CreateChart(iPoint Pos)
+/*void M_Metrics::CreateChart(iPoint Pos)
 {
-}
+}*/
 
 void M_Metrics::AddTotalUnit()
 {

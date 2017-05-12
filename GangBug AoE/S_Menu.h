@@ -26,7 +26,6 @@ public:
 
 	//void GuiEvent(GUIElement* element, int64_t event) override;
 
-
 	void LoadUI();
 	void DrawDebug() override;
 

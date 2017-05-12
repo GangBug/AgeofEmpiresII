@@ -5,6 +5,8 @@
 #include "Iso_Primitives.h"
 #include "j1Timer.h"
 
+#define EASY_MODE 1.2
+
 enum unit_type
 {
 	DEFAULT_UNIT,

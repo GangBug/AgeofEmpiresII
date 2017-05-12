@@ -410,5 +410,8 @@
     <Xml Include="..\Game\data\objects\Objects_data.xml">
       <Filter>Resources</Filter>
     </Xml>
+    <Xml Include="..\..\gui.xml">
+      <Filter>Modules\Tools</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

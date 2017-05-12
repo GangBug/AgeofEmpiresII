@@ -6,9 +6,6 @@
 #define UPDATE_TIMER 5
 #define MAX_RESOURCES 2000
 
-#define FOOD_AMOUNT 20
-#define WOOD_AMOUNT 20
-#define GOLD_AMOUNT 20
 #define REPAIR_AMOUNT 10
 #define MAX_VILLAGERS 20
 
@@ -31,6 +28,11 @@ private:
 
 	Timer updateResources;
 
+	//Resources
+	uint foodAmount;
+	uint woodAmount;
+	uint goldAmount;
+
 public:
 	uint GetCurrentGold();
 	uint GetCurrentWood();
@@ -50,7 +52,6 @@ public:
 
 	void SetCurrentResources(int amount);
 
-
 private:
 	uint miners;
 	uint lumberjacks;
@@ -63,7 +64,6 @@ private:
 	uint totalUnits;
 
 public:
-
 	uint GetConstructors();
 	uint GetVillagers();
 	uint GetTotalVillagers();
@@ -83,7 +83,6 @@ public:
 	void RemoveMiners();
 	void RemoveLumberjacks();
 	void RemoveFarmers();
-
 
 	void GuiEvent(GUIElement* element, int64_t event);
 

@@ -25,75 +25,151 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 	entityTexture = app->animation->GetTexture(unitType);
 	target = nullptr;
 
-
-	switch (type)
+	//EASY MODE
+	if (app->missionManager->getHardModeStatus() == false)
 	{
-		//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
-	case TARKAN_KNIGHT:
-		SetHp(160);
-		attack = 15;
-		speed = 1.6f;
-		rate_of_fire = 1;
-		range = 1;
-		unitClass = CAVALRY;
-		unitRadius = 4;
-		horde = false;
-		unitState = NO_STATE;
-		break;
+		switch (type)
+		{
+			//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
+		case TARKAN_KNIGHT:
+			SetHp(160 * EASY_MODE);
+			attack = 15 * EASY_MODE;
+			speed = 1.6f;
+			rate_of_fire = 1;
+			range = 1;
+			unitClass = CAVALRY;
+			unitRadius = 4;
+			horde = false;
+			unitState = NO_STATE;
+			break;
 
-	case SAMURAI:
-		SetHp(100);
-		attack = 15;
-		speed = 1.2f;
-		rate_of_fire = 1;
-		range = 1;
-		unitClass = INFANTRY;
-		unitRadius = 5;
-		horde = false;
-		unitState = NO_STATE;
-		break;
+		case SAMURAI:
+			SetHp(100 * EASY_MODE);
+			attack = 15 * EASY_MODE;
+			speed = 1.2f;
+			rate_of_fire = 1;
+			range = 1;
+			unitClass = INFANTRY;
+			unitRadius = 5;
+			horde = false;
+			unitState = NO_STATE;
+			break;
 
-	case ARCHER:
-		SetHp(30);
-		attack = 15;
-		speed = 1.2f;
-		rate_of_fire = 2;
-		range = 5;
-		unitClass = RANGED;
-		unitRadius = 8;
-		horde = false;
-		unitState = NO_STATE;
-		break;
+		case ARCHER:
+			SetHp(30 * EASY_MODE);
+			attack = 15 * EASY_MODE;
+			speed = 1.2f;
+			rate_of_fire = 2;
+			range = 5;
+			unitClass = RANGED;
+			unitRadius = 8;
+			horde = false;
+			unitState = NO_STATE;
+			break;
 
-	case VILE:
-		SetHp(60);
-		attack = 12;
-		speed = 2.0f;
-		rate_of_fire = 1;
-		range = 1;
-		unitClass = INFANTRY;
-		unitRadius = 7;
-		horde = true;
-		unitState = NO_STATE;
-		break;
+		case VILE:
+			SetHp(60 / EASY_MODE);
+			attack = 12;
+			speed = 2.0f;
+			rate_of_fire = 1;
+			range = 1;
+			unitClass = INFANTRY;
+			unitRadius = 7;
+			horde = true;
+			unitState = NO_STATE;
+			break;
 
-	case HELL_WITCH:
-		SetHp(100);
-		attack = 10;
-		speed = 2.0f;
-		rate_of_fire = 1;
-		range = 1;
-		unitClass = INFANTRY;
-		unitRadius = 7;
-		horde = true;
-		unitState = NO_STATE;
-		break;
+		case HELL_WITCH:
+			SetHp(100 / EASY_MODE);
+			attack = 10;
+			speed = 2.0f;
+			rate_of_fire = 1;
+			range = 1;
+			unitClass = INFANTRY;
+			unitRadius = 7;
+			horde = true;
+			unitState = NO_STATE;
+			break;
 
-	default:
-		LOG("ERROR: NOT A CORRECT UNIT TYPE");
-		unitClass = NO_CLASS;
-		break;
+		default:
+			LOG("ERROR: NOT A CORRECT UNIT TYPE");
+			unitClass = NO_CLASS;
+			break;
+		}
 	}
+	//HARD MODE
+	else
+	{
+		switch (type)
+		{
+			//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
+		case TARKAN_KNIGHT:
+			SetHp(160);
+			attack = 15;
+			speed = 1.6f;
+			rate_of_fire = 1;
+			range = 1;
+			unitClass = CAVALRY;
+			unitRadius = 4;
+			horde = false;
+			unitState = NO_STATE;
+			break;
+
+		case SAMURAI:
+			SetHp(100);
+			attack = 15;
+			speed = 1.2f;
+			rate_of_fire = 1;
+			range = 1;
+			unitClass = INFANTRY;
+			unitRadius = 5;
+			horde = false;
+			unitState = NO_STATE;
+			break;
+
+		case ARCHER:
+			SetHp(30);
+			attack = 15;
+			speed = 1.2f;
+			rate_of_fire = 2;
+			range = 5;
+			unitClass = RANGED;
+			unitRadius = 8;
+			horde = false;
+			unitState = NO_STATE;
+			break;
+
+		case VILE:
+			SetHp(60);
+			attack = 12;
+			speed = 2.0f;
+			rate_of_fire = 1;
+			range = 1;
+			unitClass = INFANTRY;
+			unitRadius = 7;
+			horde = true;
+			unitState = NO_STATE;
+			break;
+
+		case HELL_WITCH:
+			SetHp(100);
+			attack = 10;
+			speed = 2.0f;
+			rate_of_fire = 1;
+			range = 1;
+			unitClass = INFANTRY;
+			unitRadius = 7;
+			horde = true;
+			unitState = NO_STATE;
+			break;
+
+		default:
+			LOG("ERROR: NOT A CORRECT UNIT TYPE");
+			unitClass = NO_CLASS;
+			break;
+		}
+	}
+	
 
 	visionArea.SetRad(300);
 	renderArea.SetRad(300 + RENDER_MARGIN);

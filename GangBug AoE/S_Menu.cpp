@@ -5,12 +5,13 @@
 #include "S_InGame.h"
 #include "GUIImage.h"
 #include "M_EntityManager.h"
+#include "M_MissionManager.h"
+
 S_Menu::S_Menu(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("menu");
 	active = true;
 }
-
 
 S_Menu::~S_Menu()
 {
@@ -18,7 +19,8 @@ S_Menu::~S_Menu()
 
 bool S_Menu::Awake(pugi::xml_node & config)
 {
-		app->audio->Start();
+	app->audio->Start();
+
 	return true;
 }
 
@@ -33,8 +35,6 @@ bool S_Menu::Start()
 		app->gui->SetActiveScene(name);
 		LoadUI();
 	}
-
-
 
 	return ret;
 }
@@ -133,6 +133,18 @@ void S_Menu::GuiEvent(GUIElement* element, int64_t event)
 		if (event & START_GAME)
 		{
 			GoToIngame();
+		}
+		if (event & CLOSE_APP)
+		{
+			app->quit = true;
+		}
+		if (event & EASY_MODE_GAME)
+		{
+			app->missionManager->setGameToEasyMode();
+		}
+		if (event & HARD_MODE_GAME)
+		{
+			app->missionManager->setGameToHardMode();
 		}
 	}
 }

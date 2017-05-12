@@ -49,6 +49,11 @@ public:
 
 	Mission_State GetState()const;
 
+	//Easy / Hard Mode system
+	bool getHardModeStatus();
+	void setGameToHardMode();
+	void setGameToEasyMode();
+
 private:
 	Timer misionTimer;
 	Mission_State State;
@@ -58,12 +63,13 @@ private://troops states
 	uint enemyTroopCounter;
 	uint enemyStartTroops;
 	uint aliveTroopWave;
-	bool bossIsAlive;
-	bool townCenterIsAlive;
-	std::string stateName;
-
 	uint enemyDeadUnits;
 
+	std::string stateName;
+
+	bool bossIsAlive;
+	bool townCenterIsAlive;
+	bool isHardModeActive;
 };
 
 
