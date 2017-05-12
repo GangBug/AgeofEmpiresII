@@ -57,16 +57,17 @@ private:
 	uint farmers;
 
 	uint constructors;
-
 	uint totalVillagers;
 	uint unemployedVillagers;
 
 	uint totalUnits;
 
 public:
+
 	uint GetConstructors();
 	uint GetVillagers();
 	uint GetTotalVillagers();
+
 	uint GetMiners();
 	uint GetLumberjacks();
 	uint GetFarmers();

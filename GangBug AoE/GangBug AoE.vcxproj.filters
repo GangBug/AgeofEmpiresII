@@ -208,6 +208,9 @@
     <ClCompile Include="M_MissionManager.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="M_Metrics.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -385,6 +388,9 @@
       <Filter>Modules\Modules</Filter>
     </ClInclude>
     <ClInclude Include="M_MissionManager.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Metrics.h">
       <Filter>Modules\Modules</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,6 +35,7 @@ class S_InGame;
 class M_MissionManager;
 class M_Minimap;
 class M_ParticleSystem;
+class M_Metrics;
 
 class App
 {
@@ -125,6 +126,7 @@ public:
 	M_ParticleSystem*	particleSystem = nullptr;
 	S_Menu*				menu = nullptr;
 	S_InGame*			inGame = nullptr;
+	M_Metrics*			metrics = nullptr;
 
 	bool debug = false;
 	bool editor = false;

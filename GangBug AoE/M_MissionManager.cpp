@@ -6,6 +6,8 @@
 #include "S_InGame.h"
 #include "M_EntityManager.h"
 #include "M_Audio.h"
+#include "M_Metrics.h"
+
 M_MissionManager::M_MissionManager(bool startEnabled) : Module(startEnabled)
 {
 
@@ -118,6 +120,9 @@ update_status M_MissionManager::Update(float dt)
 			if (bossIsAlive == false && app->dialogueManager->onDialogue == false)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_VICTORY_DIABLO);
+
+				app->metrics->deadBoss = true;
+
 				stateName.assign("CONGRATS! YOU WIN!");
 				State = M_VICTORY;
 			}
@@ -217,4 +222,9 @@ void M_MissionManager::SetBossState(bool state)
 void M_MissionManager::TheTownCenterIsDead()
 {
 	townCenterIsAlive = false;
+}
+
+Mission_State M_MissionManager::GetState() const
+{
+	return Mission_State(State);
 }

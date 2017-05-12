@@ -10,6 +10,7 @@
 #include "Log.h"
 #include "M_ParticleSystem.h"
 #include "M_MissionManager.h"
+#include "M_Metrics.h"
 
 #define BUY_TIMER 2
 #define PROGRESS_WIDTH 100
@@ -173,6 +174,7 @@ void Building::OnUpdate(float dt)
 
 				if (unitType != VILLAGER)
 				{
+
 					app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
 					app->audio->PlayFx(app->entityManager->fxCreateUnit);
 

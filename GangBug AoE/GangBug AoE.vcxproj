@@ -242,6 +242,7 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Defs.cpp" />
+    <ClCompile Include="M_Metrics.cpp" />
     <ClCompile Include="M_DialogueManager.cpp" />
     <ClCompile Include="IA_FormationManager.cpp" />
     <ClCompile Include="IA_SquareFormation.cpp" />
@@ -328,6 +329,7 @@
     <ClInclude Include="M_Input.h" />
     <ClInclude Include="M_Map.h" />
     <ClInclude Include="Module.h" />
+    <ClInclude Include="M_Metrics.h" />
     <ClInclude Include="M_Minimap.h" />
     <ClInclude Include="M_MissionManager.h" />
     <ClInclude Include="M_ParticleSystem.h" />

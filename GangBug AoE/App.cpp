@@ -23,6 +23,7 @@
 #include "M_MissionManager.h"
 #include "M_Minimap.h"
 #include "M_ParticleSystem.h"
+#include "M_Metrics.h"
 
 #include "S_InGame.h"
 #include "S_Menu.h"
@@ -80,6 +81,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//fogOfWar = new M_FogOfWar();
 	missionManager = new M_MissionManager();
 	particleSystem = new M_ParticleSystem();
+	metrics = new M_Metrics();
+
 
 	menu = new S_Menu(true);
 	inGame = new S_InGame(true);
@@ -105,6 +108,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(gui);
 	AddModule(missionManager);
 	AddModule(particleSystem);
+	AddModule(metrics);
 	AddModule(menu);
 	AddModule(inGame);
 

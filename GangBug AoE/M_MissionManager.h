@@ -47,6 +47,8 @@ public:
 	void SetBossState(bool state);
 	void TheTownCenterIsDead();
 
+	Mission_State GetState()const;
+
 private:
 	Timer misionTimer;
 	Mission_State State;
@@ -61,7 +63,6 @@ private://troops states
 	std::string stateName;
 
 	uint enemyDeadUnits;
-
 
 };
 
