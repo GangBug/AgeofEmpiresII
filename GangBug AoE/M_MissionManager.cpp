@@ -143,6 +143,7 @@ update_status M_MissionManager::Update(float dt)
 			if (app->dialogueManager->onDialogue == false)
 			{
 				app->inGame->GoToMenu();
+				app->metrics->CreateChart(400, 200);
 			}
 			break;
 
@@ -150,6 +151,7 @@ update_status M_MissionManager::Update(float dt)
 			if (app->dialogueManager->onDialogue == false)
 			{
 				app->inGame->GoToMenu();
+				app->metrics->CreateChart(200,200);
 			}
 			break;
 		}
@@ -226,6 +228,11 @@ void M_MissionManager::TheTownCenterIsDead()
 Mission_State M_MissionManager::GetState() const
 {
 	return Mission_State(State);
+}
+
+void M_MissionManager::SetState(Mission_State _newstate)
+{
+	State = _newstate;
 }
 
 bool M_MissionManager::getHardModeStatus()

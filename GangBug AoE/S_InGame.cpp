@@ -99,6 +99,24 @@ update_status S_InGame::PreUpdate(float dt)
 			GoToMenu();
 		if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 			app->gui->SetActiveScene("\0");*/
+
+
+			// --------------------------------------------------------------------------
+			// --------------------------------scenes changes----------------------------
+
+
+		//mission state change
+		if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
+			app->missionManager->SetState(M_VICTORY);		
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
+			app->missionManager->SetState(M_WAVES);
+		//	M_INTRO,M_TOWNATTACK,M_TOWNREPAIR, M_WAVES,	M_BOSS,	M_VICTORY,	M_DEFEAT,M_STANDBY
+
+			// --------------------------------------------------------------------------
+			// --------------------------------------------------------------------------
+
+
+
 		if (!app->pause)
 		{
 			// -------------------Move camera--------------------------------------------
@@ -113,8 +131,21 @@ update_status S_InGame::PreUpdate(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 				app->render->camera->Move(10.0, RIGHT);
 
+			//if (app->input->GetMousePosition().y < 5)
+			//	app->render->camera->Move(10.0, UP);
+			//if (app->input->GetMousePosition().y > app->render->camera->GetRect().h - 5)
+			//	app->render->camera->Move(10.0, DOWN);
+			//if (app->input->GetMousePosition().x < 5)
+			//	app->render->camera->Move(10.0, LEFT);
+			//if (app->input->GetMousePosition().x > app->render->camera->GetRect().w - 5)
+			//	app->render->camera->Move(10.0, RIGHT);
+
 			// --------------------------------------------------------------------------
 			// --------------------------------------------------------------------------
+
+
+			// --------------------------------------------------------------------------
+			// -------------------------Creators -----------------------------------
 
 			if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 			{
@@ -142,6 +173,7 @@ update_status S_InGame::PreUpdate(float dt)
 				app->entityManager->CreateUnit(VILE, nullptr, x, y);
 				app->audio->PlayFx(app->entityManager->fxCreateUnit);
 			}
+
 
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 			{

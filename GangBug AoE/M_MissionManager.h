@@ -49,6 +49,8 @@ public:
 
 	Mission_State GetState()const;
 
+	void SetState(Mission_State _newstate);
+
 	//Easy / Hard Mode system
 	bool getHardModeStatus();
 	void setGameToHardMode();
