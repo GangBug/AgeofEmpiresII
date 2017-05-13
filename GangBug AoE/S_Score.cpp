@@ -106,9 +106,7 @@ void S_Score::LoadUI()
 		app->gui->background.push_back(bg);
 	}
 
-
-
-	//app->metrics->CreateChart(200, 200);
+	app->metrics->CreateChart(200, 200);
 
 }
 
@@ -123,10 +121,10 @@ void S_Score::DrawDebug()
 void S_Score::GoToMenu()
 {
 	active = false;
-
+	app->score->bg->SetVisible(false);
 	app->menu->active = true;
 	app->menu->bg->SetVisible(true);
-	app->gui->SetActiveScene("Score");
+	app->gui->SetActiveScene("menu");
 	app->missionManager->CleanUp();
 	app->missionManager->Disable();
 	app->audio->CleanData();

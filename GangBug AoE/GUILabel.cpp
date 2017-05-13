@@ -6,6 +6,7 @@
 #include "App.h"
 #include "M_Resources.h"
 #include "M_MissionManager.h"
+#include "M_Metrics.h"
 //TEMP
 #include "M_Render.h"
 
@@ -48,7 +49,7 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 	if (strcmp(GetName().c_str(), "label_ResourceWindow_Repairmen_n") == 0)
 		SetText(std::to_string(app->resources->GetConstructors()).c_str(), SMALL);
 	
-
+	//TEMP
 	if (strcmp(GetName().c_str(), "label_Wave_stat_n") == 0)
 		SetText(app->missionManager->GetStateName().c_str(), SMALL);
 	if (strcmp(GetName().c_str(), "label_Wave_time_n") == 0)
@@ -56,6 +57,39 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 	if (strcmp(GetName().c_str(), "label_EnemyDead_stat_n") == 0)
 		SetText(std::to_string(app->missionManager->GetEnemyDeadUnits()).c_str(), SMALL);
 
+	//SCORE
+	if (strcmp(GetName().c_str(), "Total_Score_n") == 0)
+		SetText(std::to_string(app->metrics->GetFinalScore()).c_str(), MEDIUM);
+	if (strcmp(GetName().c_str(), "Total_Time_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalTime()).c_str(), MEDIUM);
+
+	if (strcmp(GetName().c_str(), "Total_Kills_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalkills()).c_str(), MEDIUM);
+	if (strcmp(GetName().c_str(), "Total_Viles_killed_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalVilesKilled()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "Total_Witchs_killed_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalWitchKilled()).c_str(), SMALL);
+
+	if (strcmp(GetName().c_str(), "Total_KillsTotal_Resources_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalResources()).c_str(), MEDIUM);
+	if (strcmp(GetName().c_str(), "Total_Gold_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalGold()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "Total_Wood_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalWood()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "Total_Food_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalFood()).c_str(), SMALL);
+
+
+	if (strcmp(GetName().c_str(), "Total_Units_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalUnits()).c_str(), MEDIUM);
+	if (strcmp(GetName().c_str(), "Total_Units_Alive_n") == 0)
+		SetText(std::to_string(app->metrics->GetTotalUnitsAlive()).c_str(), MEDIUM);
+	if (strcmp(GetName().c_str(), "Total_Samurais_Alive_n") == 0)
+		SetText(std::to_string(app->metrics->GetSamuraisAlive()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "Total_Tarkan_Alive_n") == 0)
+		SetText(std::to_string(app->metrics->GetTarkanAlive()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "Total_Archer_Alive_n") == 0)
+		SetText(std::to_string(app->metrics->GetArchersAlive()).c_str(), SMALL);
 
 }
 

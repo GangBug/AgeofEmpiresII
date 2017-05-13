@@ -111,7 +111,7 @@ update_status S_InGame::PreUpdate(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
 			app->missionManager->SetState(M_VICTORY);		
 		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
-			app->missionManager->SetState(M_WAVES);
+			app->missionManager->SetState(M_DEFEAT);
 		//	M_INTRO,M_TOWNATTACK,M_TOWNREPAIR, M_WAVES,	M_BOSS,	M_VICTORY,	M_DEFEAT,M_STANDBY
 
 			// --------------------------------------------------------------------------

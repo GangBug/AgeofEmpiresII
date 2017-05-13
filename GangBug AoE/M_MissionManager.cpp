@@ -110,7 +110,7 @@ update_status M_MissionManager::Update(float dt)
 				app->dialogueManager->PlayDialogue(D_EVENT_DEFEAT);
 				stateName.assign("NEXT TIME WILL BE B ETTER");
 				State = M_DEFEAT;
-				app->inGame->GoToMenu();
+			//	app->inGame->GoToMenu();
 			}
 
 			break;

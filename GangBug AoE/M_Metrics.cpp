@@ -10,7 +10,7 @@ M_Metrics::M_Metrics(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("Metrics");
 
-	totalUnits = 15;
+	totalUnits = 0;
 	unitsAlive = 0;
 	samuraiAlive = 0;
 	archersAlive = 0;
@@ -51,9 +51,11 @@ update_status M_Metrics::Update(float dt)
 	if (active)
 	{
 
-		if (app->missionManager->GetState() != M_INTRO || app->missionManager->GetState() != M_DEFEAT || app->missionManager->GetState() != M_VICTORY || app->missionManager->GetState() != M_STANDBY) {
+		if (app->missionManager->GetState() != M_INTRO || app->missionManager->GetState() != M_DEFEAT || app->missionManager->GetState() != M_VICTORY || app->missionManager->GetState() != M_STANDBY) 
+		{
 
-			if (MetricTimeCycle.ReadSec() > METRICS_REFRESH) {
+			if (MetricTimeCycle.ReadSec() > METRICS_REFRESH) 
+			{
 				metricsCounter++;
 
 				//units
@@ -71,7 +73,7 @@ update_status M_Metrics::Update(float dt)
 				//timer
 				MetricTimeCycle.Start();
 			}
-			SetTotalTime();
+
 		}
 	}
 	return update_status(ret);
@@ -106,13 +108,14 @@ void M_Metrics::CreateChart(int PosX, int PosY)
 		imgsizey = (CHARTSIZEY / firstScore)*tmp;
 
 		img = app->gui->CreateImage({ PosX + (int)imgsizex *i,PosY ,(int)imgsizex,(int)imgsizey }, { 15, 530, 20, 20 }, std::to_string(i));
-
+	
 		img->SetVisible(true);
 		img->SetInteractive(true);
 		app->gui->guiList.push_back(img);
 
 	}
 
+	SetTotalTime();
 
 }
 
@@ -227,4 +230,69 @@ void M_Metrics::KillTarkanAlive()
 void M_Metrics::KillSamuraiAlive()
 {
 	samuraiAlive--;
+}
+
+uint M_Metrics::GetTotalGold()
+{
+	return uint(totalGold);
+}
+
+uint M_Metrics::GetTotalWood()
+{
+	return uint(totalWood);
+}
+
+uint M_Metrics::GetTotalFood()
+{
+	return uint(totalFood);
+}
+
+uint M_Metrics::GetTotalResources()
+{
+	return uint(totalResources);
+}
+
+uint M_Metrics::GetFinalScore()
+{
+	return uint(finalScore);
+}
+
+uint M_Metrics::GetTotalUnits()
+{
+	return uint(totalUnits);
+}
+
+uint M_Metrics::GetTotalkills()
+{
+	return uint(deadUnits);
+}
+
+uint M_Metrics::GetTotalVilesKilled()
+{
+	return uint(deadViles);
+}
+
+uint M_Metrics::GetTotalWitchKilled()
+{
+	return uint(deadWitch);
+}
+
+uint M_Metrics::GetArchersAlive()
+{
+	return uint(archersAlive);
+}
+
+uint M_Metrics::GetTarkanAlive()
+{
+	return uint(tarkanAlive);
+}
+
+uint M_Metrics::GetSamuraisAlive()
+{
+	return uint(samuraiAlive);
+}
+
+uint M_Metrics::GetTotalUnitsAlive()
+{
+	return uint(tarkanAlive+samuraiAlive+archersAlive);
 }

@@ -66,13 +66,30 @@ public:
 	void KillTarkanAlive();
 	void KillSamuraiAlive();
 
+	uint GetTotalGold();
+	uint GetTotalWood();
+	uint GetTotalFood();
+	uint GetTotalResources();
+	uint GetFinalScore();
+	uint GetTotalUnits();
+	uint GetTotalkills();
+	uint GetTotalVilesKilled();
+	uint GetTotalWitchKilled();
+
+	uint GetArchersAlive();
+	uint GetTarkanAlive();
+	uint GetSamuraisAlive();
+	uint GetTotalUnitsAlive();
+	float GetTotalTime() { return totalTime; }
+	
+
 private:
 
 
 	//global
 	uint totalUnits;
 	uint totalResources;
-	uint totalTime;
+	float totalTime;
 
 	uint totalGold;
 	uint totalWood;
