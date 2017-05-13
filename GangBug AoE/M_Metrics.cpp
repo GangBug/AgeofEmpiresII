@@ -85,8 +85,6 @@ void M_Metrics::DrawDebug()
 
 void M_Metrics::CreateChart(int PosX, int PosY)
 {
-
-
 	uint size = timeScore.size();
 	float imgsizex = 0;
 	float imgsizey = 0;

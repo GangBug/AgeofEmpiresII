@@ -315,6 +315,16 @@ void Unit::OnUpdate(float dt)
 		//app->fogOfWar->ClearAlphaLayer(visionArea, MID_ALPHA);
 		//app->fogOfWar->ClearFogLayer(renderArea, GRAY_FOG);
 	}
+
+	if (target != nullptr)
+	{
+		if (target->selfActive == false || target->removeFlag == true || target->GetHP() <= 0) 
+		{
+			target = nullptr;
+			unitState = NO_STATE;
+			action = IDLE;
+		}
+	}
 }
 
 unit_type Unit::GetType() const
