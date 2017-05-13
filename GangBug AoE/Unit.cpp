@@ -596,7 +596,7 @@ bool Unit::SetBuildingFightingArea()
 {
 	bool ret;
 
-	if (target != nullptr && unitState != FLEEING)
+	if (target != nullptr && unitState != FLEEING &&  target->GetEntityType() == ENTITY_BUILDING)
 	{
 		unitState = MOVING_TO_ATTACK;
 
@@ -625,6 +625,10 @@ bool Unit::SetBuildingFightingArea()
 			unitState = ATTACKING;
 		}
 
+	}
+	else 
+	{
+		buildingToAttack = false;
 	}
 
 	return true;
