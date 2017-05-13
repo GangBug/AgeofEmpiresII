@@ -106,6 +106,7 @@ void S_Score::LoadUI()
 		bg->SetAtlas(sdl_tex);
 		app->gui->background.push_back(bg);
 	}
+	app->metrics->CreateChart(600, 400);
 
 
 }
