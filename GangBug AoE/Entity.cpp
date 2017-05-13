@@ -649,15 +649,18 @@ void Entity::Update(float dt)
 		OnUpdate(dt);
 
 		//this is because units (who'll never have childs anyways...) get deleted when they die.
-		if (childs.size() > 0)
+		if (selfActive == true)
 		{
-			for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
+			if (childs.size() > 0)
 			{
-				Entity* tmp = (*it);
-
-				if (tmp != nullptr && tmp->IsActive())
+				for (std::vector<Entity*>::iterator it = childs.begin(); it != childs.end(); ++it)
 				{
-					tmp->Update(dt);
+					Entity* tmp = (*it);
+
+					if (tmp != nullptr && tmp->IsActive())
+					{
+						tmp->Update(dt);
+					}
 				}
 			}
 		}

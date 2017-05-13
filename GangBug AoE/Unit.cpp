@@ -230,6 +230,25 @@ void Unit::OnUpdate(float dt)
 						unitState = NO_STATE;
 						action = IDLE;
 					}
+				case FLEEING:
+					if (this->horde == false)
+					{
+						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+						{
+							PlayMoveSound();
+							//Colision
+							app->collision->resetPrevPositions();
+
+							iPoint objective;
+							app->input->GetMouseMapPosition(objective.x, objective.y);
+							GoTo(objective);
+						}
+					}
+					if (Move() == false)
+					{
+						unitState = NO_STATE;
+						action = IDLE;
+					}
 					CheckSurroundings();
 					break;
 				case MOVING_TO_ATTACK:
@@ -608,8 +627,6 @@ bool Unit::SetFightingArea()
 
 	if (target != nullptr && unitState != FLEEING)
 	{
-		unitState = MOVING_TO_ATTACK;
-
 		Unit* enemy = dynamic_cast<Unit*>(target);
 
 		iPoint enemyPos = app->map->WorldToMap(enemy->GetGlobalPosition().x, enemy->GetGlobalPosition().y);
@@ -620,7 +637,8 @@ bool Unit::SetFightingArea()
 
 		//UNIT
 
-		if ((enemy->target == nullptr || enemy->target == this) && enemy->unitState != FLEEING && enemy->unitState != MOVING_TO_ATTACK) {//If the enemy's enemy is... YOU or a nullptr 
+		if ((enemy->target == nullptr || enemy->target == this) && enemy->unitState != FLEEING && enemy->unitState != MOVING_TO_ATTACK) 
+		{//If the enemy's enemy is... YOU or a nullptr 
 
 			enemy->target = this;
 
@@ -642,6 +660,7 @@ bool Unit::SetFightingArea()
 					enemy->pathVec.clear();
 					if (enemy->GoTo(app->map->MapToWorld(newEnemyPos.x, newEnemyPos.y)) != false)
 					{
+						enemy->unitState = MOVING_TO_ATTACK;
 						ret = false;
 					}
 
@@ -660,18 +679,25 @@ bool Unit::SetFightingArea()
 
 			else if (unitClass != RANGED && enemy->unitClass == RANGED)
 			{
-
 				enemy->unitState = ATTACKING;
 				iPoint newPos;
-				enemy->GetFreeAdjacent(newPos, Pos);
-				pathVec.clear();
 
-				if (GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != false)
-
+				if (enemy->GetFreeAdjacent(newPos, Pos))
 				{
-					ret = false;
-				}
+					pathVec.clear();
 
+					if (GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != false)
+
+					{
+						unitState = MOVING_TO_ATTACK;
+						ret = false;
+					}
+
+					else
+					{
+						unitState = NO_STATE;
+					}
+				}
 				else
 				{
 					unitState = NO_STATE;
@@ -687,8 +713,9 @@ bool Unit::SetFightingArea()
 				newPos.y = Pos.y - distance.y*0.5;
 				pathVec.clear();
 
-				if (this->GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != -1)
+				if (this->GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != false)
 				{
+					unitState = MOVING_TO_ATTACK;
 					ret = false;
 				}
 				else
@@ -699,10 +726,10 @@ bool Unit::SetFightingArea()
 				//ENEMY PATH
 				iPoint newEnemyPos;
 				enemy->GetAdjacentTile(newPos, newEnemyPos);
-				enemy->pathVec.clear();
-
-				if (enemy->GoTo(app->map->MapToWorld(newEnemyPos.x, newEnemyPos.y)) != -1)
-				{
+				enemy->pathVec.clear();				
+				if (enemy->GoTo(app->map->MapToWorld(newEnemyPos.x, newEnemyPos.y)) != false)
+				{		
+					enemy->unitState = MOVING_TO_ATTACK;
 					ret = false;
 				}
 
@@ -721,19 +748,24 @@ bool Unit::SetFightingArea()
 			}
 			else if (unitClass != RANGED) // If not we'll go next to his tile
 			{
-				unitState = MOVING_TO_ATTACK;
+				Entity* tmp = CheckSurroundings();
 
-				iPoint newPos;
-				enemy->GetFreeAdjacent(newPos, Pos);
-				pathVec.clear();
+				if (tmp == target)
+				{
+					unitState = MOVING_TO_ATTACK;
 
-				if (GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != -1)
-				{
-					ret = false;
-				}
-				else
-				{
-					unitState = NO_STATE;
+					iPoint newPos;
+					enemy->GetFreeAdjacent(newPos, Pos);
+					pathVec.clear();
+
+					if (GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != false)
+					{
+						ret = false;
+					}
+					else
+					{
+						unitState = NO_STATE;
+					}
 				}
 			}
 		}
@@ -753,16 +785,19 @@ bool Unit::SetFightingArea()
 
 					if (enemy->GetFreeAdjacent(newPos, Pos))
 					{
-						pathVec.clear();
+						if (newPos != Pos)
+						{
+							pathVec.clear();
 
-						if (GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != -1)
-						{
-							unitState = MOVING_TO_ATTACK;
-							ret = false;
-						}
-						else
-						{
-							unitState = NO_STATE;
+							if (GoTo(app->map->MapToWorld(newPos.x, newPos.y)) != false)
+							{
+								unitState = MOVING_TO_ATTACK;
+								ret = false;
+							}
+							else
+							{
+								unitState = NO_STATE;
+							}
 						}
 					}
 
@@ -775,7 +810,9 @@ bool Unit::SetFightingArea()
 
 				else if (enemy->unitState == MOVING_TO_ATTACK || enemy->unitState == FLEEING) //If he's moving, we'll move next to the tile where he's going
 				{
-					iPoint newPos;
+					action = IDLE;
+					unitState = NO_STATE;
+					/*iPoint newPos;
 					iPoint enemyDestination = app->map->WorldToMap(enemy->pathObjective.x, enemy->pathObjective.y);
 					if (this->GetAdjacentTile(enemy->pathObjective, newPos))
 					{
@@ -797,7 +834,7 @@ bool Unit::SetFightingArea()
 					{
 						action = IDLE;
 						unitState = NO_STATE;
-					}
+					}*/
 				}
 			}
 		}
@@ -904,8 +941,13 @@ bool Unit::AttackUnit()
 	{
 		iPoint enemyPos = app->map->WorldToMap(target->GetGlobalPosition().x, target->GetGlobalPosition().y);
 		iPoint myPos = app->map->WorldToMap(GetGlobalPosition().x, GetGlobalPosition().y);
-
-		if (myPos.DistanceTo(enemyPos) > range && target->GetEntityType() == ENTITY_UNIT)
+		if (myPos.DistanceTo(enemyPos) > unitRadius && target->GetEntityType() == ENTITY_UNIT)
+		{
+			target = nullptr;
+			unitState = NO_STATE;
+			action = IDLE;
+		}
+		else if (myPos.DistanceTo(enemyPos) > range && target->GetEntityType() == ENTITY_UNIT)
 		{
 			SetFightingArea();
 		}
