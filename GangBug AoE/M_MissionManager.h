@@ -55,6 +55,9 @@ public:
 	bool getHardModeStatus();
 	void setGameToHardMode(bool mode);
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 private:
 	Timer misionTimer;
 	Mission_State State;

@@ -248,3 +248,70 @@ void M_MissionManager::setGameToHardMode(bool status)
 {
 	isHardModeActive = status;
 }
+
+bool M_MissionManager::Save(pugi::xml_node& node) const
+{
+	/*pugi::xml_node entitiesNode = node.append_child("entities");
+
+	pugi::xml_node buildings = entitiesNode.append_child("buildings");
+
+	for()*/
+
+	pugi::xml_node missionNode = node.append_child("mission");
+
+	pugi::xml_node saveNode = missionNode.append_child("currentState");
+	
+	switch (State)
+	{
+	case M_INTRO: saveNode.append_attribute("status") = "Intro"; break;
+	case M_TOWNATTACK: saveNode.append_attribute("status") = "Town Attack"; break;
+	case M_TOWNREPAIR: saveNode.append_attribute("status") = "Town Repair"; break;
+	case M_WAVES: saveNode.append_attribute("status") = "Waves"; break;
+	case M_BOSS: saveNode.append_attribute("status") = "Boss"; break;
+	}
+
+	saveNode.append_attribute("enemyDeadUnits") = enemyDeadUnits;
+	saveNode.append_attribute("missionTimer") = misionTimer.ReadSec();
+	saveNode.append_attribute("bossStatus") = bossIsAlive;
+	saveNode.append_attribute("townStatus") = townCenterIsAlive;
+	saveNode.append_attribute("difficulty") = isHardModeActive;
+
+	return true;
+}
+
+bool M_MissionManager::Load(pugi::xml_node& node)
+{
+	pugi::xml_node missionNode = node.child("mission");
+
+	pugi::xml_node loadNode = missionNode.child("currentState");
+
+	std::string status = loadNode.attribute("status").as_string();
+	if (strcmp(status.c_str(), "Intro") == 0)
+	{
+		State = M_INTRO;
+	}
+	else if (strcmp(status.c_str(), "Town Attack") == 0)
+	{
+		State = M_TOWNATTACK;
+	}
+	else if (strcmp(status.c_str(), "Town Repair") == 0)
+	{
+		State = M_TOWNREPAIR;
+	}
+	else if (strcmp(status.c_str(), "Waves") == 0)
+	{
+		State = M_WAVES;
+	}
+	else if (strcmp(status.c_str(), "Boss") == 0)
+	{
+		State = M_BOSS;
+	}
+
+	enemyDeadUnits = loadNode.attribute("enemyDeadUnits").as_uint();
+	misionTimer.SetSec(loadNode.attribute("missionTimer").as_float());
+	bossIsAlive = loadNode.attribute("bossStatus").as_bool();
+	townCenterIsAlive = loadNode.attribute("townStatus").as_bool();
+	isHardModeActive = loadNode.attribute("difficulty").as_bool();
+
+	return true;
+}

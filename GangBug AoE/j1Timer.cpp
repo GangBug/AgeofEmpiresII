@@ -31,6 +31,11 @@ float Timer::ReadSec() const
 	return stopped ? 0 : float(SDL_GetTicks() - startedAt) / 1000.0f;
 }
 
+void Timer::SetSec(float sec)
+{
+	startedAt = sec * 1000.0f;
+}
+
 void Timer::Stop()
 {
 	stopped = true;

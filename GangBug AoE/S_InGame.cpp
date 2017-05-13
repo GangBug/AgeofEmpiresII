@@ -191,7 +191,14 @@ update_status S_InGame::Update(float dt)
 {
 	if (active)
 	{
-
+		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+		{
+			app->SaveGame("test.xml");
+		}
+		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_UP)
+		{
+			app->LoadGame("test.xml");
+		}
 	}
 	return UPDATE_CONTINUE;
 }

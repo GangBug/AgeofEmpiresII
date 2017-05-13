@@ -422,7 +422,7 @@ void App::LoadGame(const char* file)
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
 	wantToLoad = true;
-	loadGame.assign(fs->GetSaveDirectory(), file);
+	loadGame = std::string(fs->GetSaveDirectory()) + std::string(file);
 }
 
 // ---------------------------------------
@@ -431,7 +431,7 @@ void App::SaveGame(const char* file) const
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
 	wantToSave = true;
-	saveGame.assign(file);
+	saveGame = file;
 }
 
 // ---------------------------------------
@@ -464,7 +464,7 @@ bool App::LoadGameNow()
 			std::list<Module*>::iterator item = modules.begin();
 			ret = true;
 
-			while(item._Ptr != nullptr && ret == true)
+			while(item != modules.end() && ret == true)
 			{
 				ret = item._Ptr->_Myval->Load(root.child(item._Ptr->_Myval->name.c_str()));
 				item._Ptr = item._Ptr->_Next;
@@ -501,7 +501,6 @@ bool App::SavegameNow() const
 	for(item = modules.begin(); item != modules.end() && ret == true; item++)
 	{
 		ret = (*item)->Save(root.append_child((*item)->name.c_str()));
-		item++;
 	}
 
 	if(ret == true)

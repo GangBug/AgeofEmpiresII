@@ -651,6 +651,23 @@ void M_EntityManager::SaveScene()
 	mustSaveScene = true;
 }
 
+bool M_EntityManager::Load(pugi::xml_node& node)
+{
+
+}
+
+bool M_EntityManager::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node mainNode = node.append_child("entities");
+
+	pugi::xml_node unitsNode = mainNode.append_child("units");
+
+	for (int i = 0; i < unitVector.size(); i++)
+	{
+		unitVector[i]->Serialize();
+	}
+}
+
 /**
 	RemoveFlagged: Iterate all marked to remove entities and deletes them. Must be called on a save moment.
 */

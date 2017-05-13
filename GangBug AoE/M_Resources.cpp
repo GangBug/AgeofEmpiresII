@@ -327,3 +327,46 @@ void M_Resources::GuiEvent(GUIElement * element, int64_t event)
 		}
 	}
 }
+
+bool M_Resources::Load(pugi::xml_node& node)
+{
+	pugi::xml_node loadNode = node.append_child("resources");
+
+	pugi::xml_node resourcesNode = loadNode.child("realResources");
+
+	foodAmount = resourcesNode.attribute("food").as_int();
+	resourcesNode.attribute("wood");
+	resourcesNode.append_attribute("gold") = goldAmount;
+
+	pugi::xml_node villagersNode = loadNode.child("villagers");
+
+	miners = villagersNode.attribute("miners").as_uint();
+	lumberjacks = villagersNode.append_attribute("lumberjacks").as_uint();
+	farmers = villagersNode.attribute("farmers").as_uint();
+	constructors = villagersNode.attribute("constructors").as_uint();
+	totalVillagers = villagersNode.attribute("totalVillagers").as_uint();
+	totalUnits = villagersNode.attribute("totalUnits").as_uint();
+
+	return true;
+}
+bool M_Resources::Save(pugi::xml_node& node) const
+{
+	pugi::xml_node saveNode = node.append_child("resources");
+
+	pugi::xml_node resourcesNode = saveNode.append_child("realResources");
+
+	resourcesNode.append_attribute("food") = foodAmount;
+	resourcesNode.append_attribute("wood") = woodAmount;
+	resourcesNode.append_attribute("gold") = goldAmount;
+
+	pugi::xml_node villagersNode = saveNode.append_child("villagers");
+
+	villagersNode.append_attribute("miners") = miners;
+	villagersNode.append_attribute("lumberjacks") = lumberjacks;
+	villagersNode.append_attribute("farmers") = farmers;
+	villagersNode.append_attribute("constructors") = constructors;
+	villagersNode.append_attribute("totalVillagers") = totalVillagers;
+	villagersNode.append_attribute("totalUnits") = totalUnits;
+
+	return true;
+}

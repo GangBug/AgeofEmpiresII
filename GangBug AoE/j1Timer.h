@@ -16,6 +16,8 @@ public:
 
 	float ReadSec() const;
 
+	void SetSec(float sec);
+
 private:
 	uint32	startedAt;
 

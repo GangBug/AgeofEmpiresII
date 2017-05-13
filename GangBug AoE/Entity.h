@@ -159,9 +159,9 @@ public:
 	GB_QuadTreeNode* currentQuadTreeNode = nullptr;
 
 
-		public: //Carlos
-			void Serialize(pugi::xml_node);
-			uint objectTypee;
+public: //Carlos
+	virtual void Serialize(pugi::xml_node);
+	uint objectTypee;
 };
 
 
