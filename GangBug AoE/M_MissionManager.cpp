@@ -102,7 +102,8 @@ update_status M_MissionManager::Update(float dt)
 				State = M_BOSS;
 				stateName.assign("Last fight! Defeat Diablo!");
 				bossIsAlive = true;
-				app->entityManager->CreateUnit(DIABLO, nullptr, -144, 1300);
+				Unit* tmpBoss = (Unit*)app->entityManager->CreateUnit(DIABLO, nullptr, -144, 1300);
+				tmpBoss->GoTo({ -2221, 2524 });
 			}		
 
 			if (townCenterIsAlive == false)

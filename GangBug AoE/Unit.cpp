@@ -230,6 +230,7 @@ void Unit::OnUpdate(float dt)
 						unitState = NO_STATE;
 						action = IDLE;
 					}
+					break;
 				case FLEEING:
 					if (this->horde == false)
 					{
