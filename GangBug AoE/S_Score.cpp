@@ -7,6 +7,7 @@
 #include "M_Metrics.h"
 #include "App.h"
 #include "M_EntityManager.h"
+#include "M_Window.h"  
 S_Score::S_Score(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("score");
@@ -89,7 +90,13 @@ bool S_Score::CleanUp()
 
 void S_Score::LoadUI()
 {
-	
+
+	app->metrics->SetTotalTime();
+
+	//uint w, h;
+	//app->win->GetWindowSize(w, h);
+	//app->metrics->CreateChart((int)(w*0.4), (int)(h*0.9));
+
 	bg = app->gui->CreateImage({ 0,0,(int)(1920 * app->gui->GetScaleX()),(int)(1080 * app->gui->GetScaleY()) }, { 0, 0, 1920, 1080 }, "background");
 	bg->SetVisible(true);
 	bg->SetInteractive(true);
@@ -106,7 +113,7 @@ void S_Score::LoadUI()
 		bg->SetAtlas(sdl_tex);
 		app->gui->background.push_back(bg);
 	}
-	//app->metrics->CreateChart(600, 400);
+
 
 
 }

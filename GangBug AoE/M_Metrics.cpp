@@ -5,7 +5,9 @@
 #include "p2Point.h"
 #include "GUIImage.h"
 #include "M_GUI.h"
-
+#include <list>
+#include "GUILabel.h"
+#include "M_Window.h"
 M_Metrics::M_Metrics(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("Metrics");
@@ -69,7 +71,7 @@ update_status M_Metrics::Update(float dt)
 
 				//score
 				timeScore.push_back(this->GetScore());
-
+				finalScore = this->GetScore();
 				//timer
 				MetricTimeCycle.Start();
 			}
@@ -85,35 +87,55 @@ void M_Metrics::DrawDebug()
 
 void M_Metrics::CreateChart(int PosX, int PosY)
 {
+	
 	uint size = timeScore.size();
 	float imgsizex = 0;
 	float imgsizey = 0;
-
-	finalScore = timeScore[0];
 	imgsizex = CHARTSIZEX / size;
 
+	int  maxScore = timeScore[0];
+
+	for (int i = 0; i < (size); i++)
+	{
+		if (maxScore < timeScore[i])
+			maxScore = timeScore[i];
+	}
+
+	GUIImage* img = nullptr;
+
+	for (int i = 0, tmp; i < (size); i++)
+	{
+		tmp = timeScore[i];
+		imgsizey = (CHARTSIZEY / maxScore)*tmp;
+		img = app->gui->CreateImage({ PosX + (int)imgsizex *i,PosY - (int)imgsizey ,(int)imgsizex,(int)imgsizey }, { 15, 530, 20, 20 }, std::to_string(i));
+		img->SetVisible(true);
+		img->SetInteractive(true);
+		app->gui->guiList.push_back(img);
+		//this->ChartList.push_back(img);s
+	}
+	// time 
+	int timesize = totalTime / NUMBEROFDTCHART;
+	//GUILabel* label = nullptr;
+
+	//uint w, h;
+	//app->win->GetWindowSize(w, h);
+	//float percentagesizeCharX = PERCENTAGEOFCHARTX/ NUMBEROFDTCHART/100;
+	//for(int i=0;i<=NUMBEROFDTCHART+1;i++)
+	//{
+	//	label = app->gui->CreateLabel({(int)(PosX+w*(percentagesizeCharX)*i),(int)(PosY + percentagesizeCharX),0,0}, SMALL, std::to_string(i), std::to_string((int)timesize*i).c_str());
+	//	label->SetVisible(true);
+	//	label->SetInteractive(true);
+	//	app->gui->guiList.push_back(label);
+	//	this->ChartList.push_back(label);
+	//}
+
 	//window
-	GUIImage* img;
+
+	/*GUIImage* img;
 	img = app->gui->CreateImage({ (int)(PosX-(CHARTSIZEX*0.1)),(int)(PosY - (CHARTSIZEY*0.1)) ,(int)(CHARTSIZEX+ (CHARTSIZEX*0.2)),(int)(CHARTSIZEY+ CHARTSIZEY*0.2) }, { 600, 100, 20, 20 },"window");
 	img->SetVisible(true);
 	img->SetInteractive(true);
-	app->gui->background.push_back(img);
-
-
-	//barras
-	for (int i = 0, tmp; i < (size); i++) {
-		tmp = timeScore[i];
-		imgsizey = (CHARTSIZEY / finalScore)*tmp;
-
-		img = app->gui->CreateImage({ PosX + (int)imgsizex *i,PosY ,(int)imgsizex,(int)imgsizey }, { 15, 530, 20, 20 }, std::to_string(i));
-	
-		img->SetVisible(true);
-		img->SetInteractive(true);
-		app->gui->background.push_back(img);
-
-	}
-
-	SetTotalTime();
+	app->gui->background.push_back(img);*/
 
 }
 
@@ -293,4 +315,18 @@ uint M_Metrics::GetSamuraisAlive()
 uint M_Metrics::GetTotalUnitsAlive()
 {
 	return uint(tarkanAlive+samuraiAlive+archersAlive);
+}
+
+void M_Metrics::chartvisible(bool state)
+{
+	
+	
+
+	for (std::list<GUIElement*>::iterator it = ChartList.begin(); it != ChartList.end(); ++it)
+	{
+		(*it)->SetVisible(state);
+		(*it)->SetInteractive(state);
+	}
+
+
 }

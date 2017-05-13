@@ -4,7 +4,7 @@
 #include <vector>
 #include "Module.h"
 #include "j1Timer.h"
-
+#include "GUIElement.h"
 #define METRICS_REFRESH 5
 
 #define VILEPRICE 45
@@ -20,6 +20,10 @@
 #define ECONOMYPERCENTAGE 10
 #define SOCIETYPERCENTAGE 20
 
+#define PERCENTAGEOFCHARTX 50
+#define PERCENTAGEOFCHARTY 50
+#define NUMBEROFDTCHART 10
+#define NUMBEROFSCORELBLCHART 10
 
 #define CHARTSIZEX 400
 #define CHARTSIZEY 150
@@ -82,9 +86,7 @@ public:
 	uint GetTotalUnitsAlive();
 	float GetTotalTime() { return totalTime; }
 	
-
 private:
-
 
 	//global
 	uint totalUnits;
@@ -121,5 +123,11 @@ private:
 	Timer MetricTimeCycle;//20 sec to reestart;
 	Timer MetricTimeCounter;// Global counter
 
+public:
+	std::vector<uint> timechart;
+	std::vector<uint> ScoreChart;
+	std::list<GUIElement*> ChartList;
+
+	void chartvisible(bool =true);
 };
 #endif //__M_METRICS_H__
