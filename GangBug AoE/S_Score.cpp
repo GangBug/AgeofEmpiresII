@@ -141,6 +141,7 @@ void S_Score::GuiEvent(GUIElement * element, int64_t event)
 	{
 		if (event & START_GAME) 
 		{
+			app->gui->FindElement(app->gui->guiList, "GoMenu")->SetLClicked(false);
 			GoToMenu();
 		}
 		if (event & CLOSE_APP)
