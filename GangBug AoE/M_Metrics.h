@@ -21,8 +21,8 @@
 #define SOCIETYPERCENTAGE 20
 
 
-#define CHARTSIZEX 100
-#define CHARTSIZEY 50
+#define CHARTSIZEX 400
+#define CHARTSIZEY 150
 
 class M_Metrics : public Module
 {

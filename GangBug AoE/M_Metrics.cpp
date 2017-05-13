@@ -91,7 +91,7 @@ void M_Metrics::CreateChart(int PosX, int PosY)
 	float imgsizex = 0;
 	float imgsizey = 0;
 
-	float firstScore = timeScore[0];
+	finalScore = timeScore[0];
 	imgsizex = CHARTSIZEX / size;
 
 	//window
@@ -99,19 +99,19 @@ void M_Metrics::CreateChart(int PosX, int PosY)
 	img = app->gui->CreateImage({ (int)(PosX-(CHARTSIZEX*0.1)),(int)(PosY - (CHARTSIZEY*0.1)) ,(int)(CHARTSIZEX+ (CHARTSIZEX*0.2)),(int)(CHARTSIZEY+ CHARTSIZEY*0.2) }, { 600, 100, 20, 20 },"window");
 	img->SetVisible(true);
 	img->SetInteractive(true);
-	app->gui->guiList.push_back(img);
+	app->gui->background.push_back(img);
 
 
 	//barras
 	for (int i = 0, tmp; i < (size); i++) {
 		tmp = timeScore[i];
-		imgsizey = (CHARTSIZEY / firstScore)*tmp;
+		imgsizey = (CHARTSIZEY / finalScore)*tmp;
 
 		img = app->gui->CreateImage({ PosX + (int)imgsizex *i,PosY ,(int)imgsizex,(int)imgsizey }, { 15, 530, 20, 20 }, std::to_string(i));
 	
 		img->SetVisible(true);
 		img->SetInteractive(true);
-		app->gui->guiList.push_back(img);
+		app->gui->background.push_back(img);
 
 	}
 

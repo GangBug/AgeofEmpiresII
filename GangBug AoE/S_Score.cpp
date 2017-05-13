@@ -89,6 +89,7 @@ bool S_Score::CleanUp()
 
 void S_Score::LoadUI()
 {
+	
 	bg = app->gui->CreateImage({ 0,0,(int)(1920 * app->gui->GetScaleX()),(int)(1080 * app->gui->GetScaleY()) }, { 0, 0, 1920, 1080 }, "background");
 	bg->SetVisible(true);
 	bg->SetInteractive(true);
@@ -106,7 +107,6 @@ void S_Score::LoadUI()
 		app->gui->background.push_back(bg);
 	}
 
-	app->metrics->CreateChart(200, 200);
 
 }
 
