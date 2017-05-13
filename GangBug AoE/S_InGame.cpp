@@ -15,6 +15,7 @@
 #include "M_Input.h"
 #include "M_Resources.h"
 #include "M_ParticleSystem.h"
+#include "S_Score.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -253,6 +254,30 @@ void S_InGame::GoToMenu()
 	app->dialogueManager->CleanUp();
 	app->dialogueManager->Disable();
 	app->gui->SetActiveScene("menu");
+	app->entityManager->CleanUp();
+	app->audio->CleanData();
+	app->missionManager->CleanUp();
+	app->missionManager->Disable();
+	app->map->CleanUp();
+	app->minimap->CleanUp();
+	app->particleSystem->DestroyParticles();
+	app->enemyWaves->CleanUp();
+	pugi::xml_node		nullnode;
+
+	app->entityManager->Awake(nullnode);
+	app->entityManager->Start();
+
+}
+
+void S_InGame::GoToScore()
+{
+	active = false;
+	app->score->active = true;
+	app->score->Start();
+	app->score->bg->SetVisible(true);
+	app->dialogueManager->CleanUp();
+	app->dialogueManager->Disable();
+	app->gui->SetActiveScene("score");
 	app->entityManager->CleanUp();
 	app->audio->CleanData();
 	app->missionManager->CleanUp();

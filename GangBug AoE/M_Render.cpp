@@ -176,7 +176,8 @@ update_status M_Render::PostUpdate(float dt)
 			if (app->missionManager->getHardModeStatus() == false)
 			{
 				gwbar = ((app->entityManager->GetBoss()->GetHP() * 100) / (BOSSHP / EASY_MODE_BOSS));
-			}
+			}// crash if exists the boss is alive and change to the score 
+
 			//HARD MODE
 			else
 			{

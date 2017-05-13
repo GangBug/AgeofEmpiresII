@@ -7,7 +7,7 @@
 #include "M_EntityManager.h"
 #include "M_Audio.h"
 #include "M_Metrics.h"
-
+#include "M_Window.h"
 M_MissionManager::M_MissionManager(bool startEnabled) : Module(startEnabled)
 {
 
@@ -145,16 +145,16 @@ update_status M_MissionManager::Update(float dt)
 			}
 			if (app->dialogueManager->onDialogue == false)
 			{
-				app->inGame->GoToMenu();
-				app->metrics->CreateChart(400, 200);
+			app->inGame->GoToScore();
+
 			}
 			break;
 
 		case M_DEFEAT:
 			if (app->dialogueManager->onDialogue == false)
 			{
-				app->inGame->GoToMenu();
-				app->metrics->CreateChart(200,200);
+				app->inGame->GoToScore();
+
 			}
 			break;
 		}

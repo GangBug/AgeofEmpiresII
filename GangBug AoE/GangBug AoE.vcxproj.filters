@@ -211,6 +211,9 @@
     <ClCompile Include="M_Metrics.cpp">
       <Filter>Modules\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="S_Score.cpp">
+      <Filter>Modules\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -392,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="M_Metrics.h">
       <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="S_Score.h">
+      <Filter>Modules\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

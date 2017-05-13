@@ -293,6 +293,7 @@
     <ClCompile Include="Steer_Separation.cpp" />
     <ClCompile Include="S_InGame.cpp" />
     <ClCompile Include="S_Menu.cpp" />
+    <ClCompile Include="S_Score.cpp" />
     <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +356,7 @@
     <ClInclude Include="Steer_Separation.h" />
     <ClInclude Include="S_InGame.h" />
     <ClInclude Include="S_Menu.h" />
+    <ClInclude Include="S_Score.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>

@@ -33,6 +33,7 @@ public:
 	void GuiEvent(GUIElement* element, int64_t event) override;
 
 	void GoToMenu();
+	void GoToScore();
 
 	void OpenMenu(bool visible);
 	void OpenResources(bool visible);

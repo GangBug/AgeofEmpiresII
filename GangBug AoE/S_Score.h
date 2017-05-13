@@ -2,12 +2,13 @@
 #include "App.h"
 #include "Module.h"
 #include "GUIImage.h"
-class S_Menu :
+
+class S_Score :
 	public Module
 {
 public:
-	S_Menu(bool startEnabled);
-	~S_Menu();
+	S_Score(bool startEnabled);
+	~S_Score();
 
 	//// Called before render is available
 	bool Awake(pugi::xml_node& config) override;
@@ -24,16 +25,12 @@ public:
 	//bool Load(pugi::xml_node&) override;
 	//bool Save(pugi::xml_node&) const override;
 
-	//void GuiEvent(GUIElement* element, int64_t event) override;
-
 	void LoadUI();
 	void DrawDebug() override;
 
-	void GoToIngame();
-
+	void GoToMenu();
 
 	void GuiEvent(GUIElement* element, int64_t event);
-
 
 	GUIImage* bg = nullptr;
 };

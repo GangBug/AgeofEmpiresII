@@ -27,7 +27,7 @@
 
 #include "S_InGame.h"
 #include "S_Menu.h"
-
+#include "S_Score.h"
 #include "App.h"
 #include "Brofiler/Brofiler.h"
 
@@ -86,7 +86,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	menu = new S_Menu(true);
 	inGame = new S_InGame(true);
-
+	score = new S_Score(true);
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(fs);
@@ -111,7 +111,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(metrics);
 	AddModule(menu);
 	AddModule(inGame);
-
+	AddModule(score);
 	// render last to swap buffer
 	AddModule(render);
 
