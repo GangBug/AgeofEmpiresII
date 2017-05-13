@@ -47,7 +47,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		case SAMURAI:
 			SetHp(100 * EASY_MODE);
 			attack = 15 * EASY_MODE;
-			speed = 1.2f;
+			speed = 1.3f;
 			rate_of_fire = 1;
 			range = 1;
 			unitClass = INFANTRY;
@@ -58,9 +58,9 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case ARCHER:
 			SetHp(30 * EASY_MODE);
-			attack = 15 * EASY_MODE;
+			attack = 7 * EASY_MODE;
 			speed = 1.2f;
-			rate_of_fire = 2;
+			rate_of_fire = 1.2f;
 			range = 5;
 			unitClass = RANGED;
 			unitRadius = 8;
@@ -119,7 +119,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		case SAMURAI:
 			SetHp(100);
 			attack = 15;
-			speed = 1.2f;
+			speed = 1.3f;
 			rate_of_fire = 1;
 			range = 1;
 			unitClass = INFANTRY;
@@ -130,9 +130,9 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case ARCHER:
 			SetHp(30);
-			attack = 15;
+			attack = 7;
 			speed = 1.2f;
-			rate_of_fire = 2;
+			rate_of_fire = 1.2f;
 			range = 5;
 			unitClass = RANGED;
 			unitRadius = 8;
@@ -169,8 +169,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			unitClass = NO_CLASS;
 			break;
 		}
-	}
-	
+	}	
 
 	visionArea.SetRad(300);
 	renderArea.SetRad(300 + RENDER_MARGIN);
@@ -182,123 +181,136 @@ void Unit::OnUpdate(float dt)
 	{
 		if (GetHP() > 0)
 		{
-				switch (unitState)
+			if (this->horde == false)
+			{
+				iPoint mPos;
+				app->input->GetMouseMapPosition(mPos.x, mPos.y);
+
+				GB_Rectangle<float> unitRect = { this->GetGlobalPosition().x - 20 , this->GetGlobalPosition().y - 35, 30, 42 };
+
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && unitRect.Contains(mPos.x, mPos.y))
 				{
-				case NO_STATE:
-					if (this->horde == false)
-					{
-						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-						{
-							PlayMoveSound();
-							//Colision
-							app->collision->resetPrevPositions();
-
-							iPoint objective;
-							app->input->GetMouseMapPosition(objective.x, objective.y);
-							GoTo(objective);
-						}
-					}
-					if (target != nullptr && target->GetHP() > 0)
-					{
-						if (buildingToAttack == true)
-						{
-							SetBuildingFightingArea();
-						}
-						else if (buildingToAttack == false)
-						{
-							SetFightingArea();
-						}
-					}
-					CheckSurroundings();
-					break;
-				case MOVING:
-					if (this->horde == false)
-					{
-						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-						{
-							PlayMoveSound();
-							//Colision
-							app->collision->resetPrevPositions();
-
-							iPoint objective;
-							app->input->GetMouseMapPosition(objective.x, objective.y);
-							GoTo(objective);
-						}
-					}
-					if (Move() == false)
-					{
-						unitState = NO_STATE;
-						action = IDLE;
-					}
-					break;
-				case FLEEING:
-					if (this->horde == false)
-					{
-						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-						{
-							PlayMoveSound();
-							//Colision
-							app->collision->resetPrevPositions();
-
-							iPoint objective;
-							app->input->GetMouseMapPosition(objective.x, objective.y);
-							GoTo(objective);
-						}
-					}
-					if (Move() == false)
-					{
-						unitState = NO_STATE;
-						action = IDLE;
-					}
-					CheckSurroundings();
-					break;
-				case MOVING_TO_ATTACK:
-					if (this->horde == false)
-					{
-						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-						{
-							PlayMoveSound();
-							//Colision
-							app->collision->resetPrevPositions();
-
-							iPoint objective;
-							app->input->GetMouseMapPosition(objective.x, objective.y);
-							GoTo(objective);
-						}
-					}
-					if (Move() == false)
-					{
-						unitState = ATTACKING;
-						action = ATTACK;
-					}
-					break;
-				case ATTACKING:
-					if (this->horde == false)
-					{
-						if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-						{
-							PlayMoveSound();
-							//Colision
-							app->collision->resetPrevPositions();
-
-							iPoint objective;
-							app->input->GetMouseMapPosition(objective.x, objective.y);
-							unitState = FLEEING;
-							GoTo(objective);
-						}
-					}
-					if (!AttackUnit())
-					{
-						target = nullptr;
-						unitState = NO_STATE;
-						action = IDLE;
-					}
-					break;
+					selected = true;
 				}
-			}		
+			}
+	
+			switch (unitState)
+			{
+			case NO_STATE:
+				if (this->horde == false)
+				{
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						PlayMoveSound();
+						//Colision
+						app->collision->resetPrevPositions();
+
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						GoTo(objective);
+					}
+				}
+				if (target != nullptr && target->GetHP() > 0)
+				{
+					if (buildingToAttack == true)
+					{
+						SetBuildingFightingArea();
+					}
+					else if (buildingToAttack == false)
+					{
+						SetFightingArea();
+					}
+				}
+				CheckSurroundings();
+				break;
+			case MOVING:
+				if (this->horde == false)
+				{
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						PlayMoveSound();
+						//Colision
+						app->collision->resetPrevPositions();
+
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						GoTo(objective);
+					}
+				}
+				if (Move() == false)
+				{
+					unitState = NO_STATE;
+					action = IDLE;
+				}
+				break;
+			case FLEEING:
+				if (this->horde == false)
+				{
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						PlayMoveSound();
+						//Colision
+						app->collision->resetPrevPositions();
+
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						GoTo(objective);
+					}
+				}
+				if (Move() == false)
+				{
+					unitState = NO_STATE;
+					action = IDLE;
+				}
+				CheckSurroundings();
+				break;
+			case MOVING_TO_ATTACK:
+				if (this->horde == false)
+				{
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						PlayMoveSound();
+						//Colision
+						app->collision->resetPrevPositions();
+
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						GoTo(objective);
+					}
+				}
+				if (Move() == false)
+				{
+					unitState = ATTACKING;
+					action = ATTACK;
+				}
+				break;
+			case ATTACKING:
+				if (this->horde == false)
+				{
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						PlayMoveSound();
+						//Colision
+						app->collision->resetPrevPositions();
+
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						unitState = FLEEING;
+						GoTo(objective);
+					}
+				}
+				if (!AttackUnit())
+				{
+					target = nullptr;
+					unitState = NO_STATE;
+					action = IDLE;
+				}
+				break;
+			}
+		}
 		else
 		{
-	
+
 			Die();
 		}
 		iPoint p;
@@ -318,7 +330,7 @@ void Unit::OnUpdate(float dt)
 
 	if (target != nullptr)
 	{
-		if (target->selfActive == false || target->removeFlag == true || target->GetHP() <= 0) 
+		if (target->selfActive == false || target->removeFlag == true || target->GetHP() <= 0)
 		{
 			target = nullptr;
 			unitState = NO_STATE;
@@ -976,7 +988,7 @@ bool Unit::AttackUnit()
 			unitState = NO_STATE;
 			action = IDLE;
 		}
-		else if (attackTimer.ReadSec() > 1)
+		else if (attackTimer.ReadSec() > this->rate_of_fire)
 		{
 			LookAt(iPoint(target->GetGlobalPosition().x, target->GetGlobalPosition().y));
 			action = ATTACK;

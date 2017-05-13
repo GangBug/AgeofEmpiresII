@@ -5,9 +5,7 @@
 #include "M_Input.h"
 
 #include "M_Render.h"
-
 #include "Building.h"
-
 
 PlayerManager::PlayerManager(Entity* parent) : Entity(ENTITY_PLAYER_MAN, parent)
 {
@@ -56,6 +54,7 @@ void PlayerManager::OnUpdate(float dt)
 			(*it)->selected = false;
 		}
 		selectedEntities.clear();
+
 		onSelection = true;
 	}
 

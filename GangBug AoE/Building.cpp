@@ -82,7 +82,6 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		horde = false;
 
 		entityTexture = app->tex->townCenterTexture;
-		SetLocalPosition(10, 10);
 		SetEnclosingBoxSize(382, 399);
 		creatorButton = app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton");
 		unitInfoLabel = app->gui->FindElement(app->gui->guiList, "label_VillagerCost");
