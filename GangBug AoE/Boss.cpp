@@ -42,7 +42,6 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 		unitDirection = SOUTH_WEST;
 		action = IDLE;
 	}
-
 }
 
 void Boss::OnUpdate(float dt)
@@ -53,19 +52,36 @@ void Boss::OnUpdate(float dt)
 		this->SetHp(GetHP() - 200);
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	{
+		if (getBossControllableStatus() == true)
+		{
+			LOG("Boss set to -> NOT controllable");
+			setBossControllable(false);
+		}
+		else if (getBossControllableStatus() == false)
+		{
+			LOG("Boss set to -> YES controllable");
+			setBossControllable(true);
+		}
+	}
+
 	if (GetHP() > 0) 
 	{
 		switch (unitState)
 		{
 		case NO_STATE:
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			if (getBossControllableStatus() == true)
 			{
-				//Colision
-				app->collision->resetPrevPositions();
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				{
+					//Colision
+					app->collision->resetPrevPositions();
 
-				iPoint objective;
-				app->input->GetMouseMapPosition(objective.x, objective.y);
-				GoTo(objective);
+					iPoint objective;
+					app->input->GetMouseMapPosition(objective.x, objective.y);
+					GoTo(objective);
+				}
 			}
 			if (target != nullptr && target->GetHP() > 0)
 			{
@@ -81,16 +97,19 @@ void Boss::OnUpdate(float dt)
 			CheckSurroundings();
 			break;
 		case MOVING:
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			if (getBossControllableStatus() == true)
 			{
-				//Colision
-				app->collision->resetPrevPositions();
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				{
+					//Colision
+					app->collision->resetPrevPositions();
 
-				iPoint objective;
-				app->input->GetMouseMapPosition(objective.x, objective.y);
-				GoTo(objective);
+					iPoint objective;
+					app->input->GetMouseMapPosition(objective.x, objective.y);
+					GoTo(objective);
+				}
 			}
-			else if (Move() == false)
+			if (Move() == false)
 			{
 				unitState = NO_STATE;
 				action = IDLE;
@@ -98,30 +117,36 @@ void Boss::OnUpdate(float dt)
 			CheckSurroundings();
 			break;
 		case MOVING_TO_ATTACK:
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			if (getBossControllableStatus() == true)
 			{
-				//Colision
-				app->collision->resetPrevPositions();
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				{
+					//Colision
+					app->collision->resetPrevPositions();
 
-				iPoint objective;
-				app->input->GetMouseMapPosition(objective.x, objective.y);
-				GoTo(objective);
+					iPoint objective;
+					app->input->GetMouseMapPosition(objective.x, objective.y);
+					GoTo(objective);
+				}
 			}
-			else if (Move() == false)
+			if (Move() == false)
 			{
 				unitState = ATTACKING;
 				action = ATTACK;
 			}
 			break;
 		case ATTACKING:
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			if (getBossControllableStatus() == true)
 			{
-				//Colision
-				app->collision->resetPrevPositions();
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				{
+					//Colision
+					app->collision->resetPrevPositions();
 
-				iPoint objective;
-				app->input->GetMouseMapPosition(objective.x, objective.y);
-				GoTo(objective);
+					iPoint objective;
+					app->input->GetMouseMapPosition(objective.x, objective.y);
+					GoTo(objective);
+				}
 			}
 			if (!AttackUnit())
 			{
@@ -139,8 +164,17 @@ void Boss::OnUpdate(float dt)
 		app->missionManager->SetBossState(false);
 	}
 
-
 	iPoint p;
 	app->animation->GetFrame(drawQuad, p, this);
 	SetPivot(p);
+}
+
+bool Boss::getBossControllableStatus()
+{
+	return isBossControllable;
+}
+
+void Boss::setBossControllable(bool status)
+{
+	isBossControllable = status;
 }

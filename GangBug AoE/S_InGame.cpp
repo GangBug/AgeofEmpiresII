@@ -6,6 +6,7 @@
 #include "M_FogOfWar.h"
 #include "M_Audio.h"
 #include "M_EnemyWaves.h"
+#include "Entity.h"
 #include "Building.h"
 #include "M_DialogueManager.h"
 #include "S_Menu.h"
@@ -146,6 +147,7 @@ update_status S_InGame::PreUpdate(float dt)
 
 			// --------------------------------------------------------------------------
 			// -------------------------Creators -----------------------------------
+
 
 			if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 			{

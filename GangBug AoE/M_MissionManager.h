@@ -53,8 +53,7 @@ public:
 
 	//Easy / Hard Mode system
 	bool getHardModeStatus();
-	void setGameToHardMode();
-	void setGameToEasyMode();
+	void setGameToHardMode(bool mode);
 
 private:
 	Timer misionTimer;

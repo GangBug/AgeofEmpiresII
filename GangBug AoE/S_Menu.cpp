@@ -140,11 +140,11 @@ void S_Menu::GuiEvent(GUIElement* element, int64_t event)
 		}
 		if (event & EASY_MODE_GAME)
 		{
-			app->missionManager->setGameToEasyMode();
+			app->missionManager->setGameToHardMode(false);
 		}
 		if (event & HARD_MODE_GAME)
 		{
-			app->missionManager->setGameToHardMode();
+			app->missionManager->setGameToHardMode(true);
 		}
 	}
 }

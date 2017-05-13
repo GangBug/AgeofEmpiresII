@@ -7,14 +7,12 @@
 #include "Object.h"
 #include <list>
 
+enum building_type;
+
 class Entity;
 class SDL_Texture;
-enum building_type;
 class Boss;
-
 class GB_QuadTree;
-
-
 
 struct ObjectTexture
 {
@@ -27,8 +25,6 @@ struct ObjectTexture
 	void SetType(pugi::xml_node node);
 	void SetRect(pugi::xml_node node);
 };
-
-
 
 class M_EntityManager : public Module
 {
@@ -52,7 +48,6 @@ public:
 	Entity* CreateObject(object_type type = OBJECT_NONE, Entity* parent = nullptr, int posX = 0, int posY = 0, int rectX = 1, int rectY = 1);
 
 	bool DeleteUnit(Entity* toDelete);
-
 
 	Entity* GetSceneRoot()const;
 	Entity* FindEntity(); //TODO: Used if UID are in use
@@ -85,11 +80,11 @@ public: // ------------------------------- Objects
 
 	//----Adri
 	Unit* GetBoss();
-public:
 
+public:
 	void LoadFXs();// ADD FX
 
-				   //fight  
+    //fight  
 	uint fxFightDiabloW001;//
 	uint fxFightDiabloW002;//
 	uint fxFightDiabloW003;//
@@ -125,8 +120,7 @@ public:
 	uint fxArrow006;//
 	uint fxArrow007;//
 
-					//die
-
+	//die
 	uint fxDieSoldier001;//
 	uint fxDieSoldier002;//
 	uint fxDieSoldier003;//
@@ -151,7 +145,7 @@ public:
 	uint fxDieHellW003;//
 	uint fxDieHellW004;//
 
-					   //select
+    //select
 	uint fxHorseSelect001;//
 	uint fxHorseSelect002;//
 	uint fxHorseSelect003;//
@@ -161,19 +155,18 @@ public:
 	uint fxUnitSelect003;//
 	uint fxUnitSelect004;//
 
-						 //create
+    //create
 	uint fxCreateUnit;//
 	uint fxCreateVillager;//
 	uint fxLimitVillager;//
 
-						 //buldings
+    //buldings
 	uint fxStableSelection;//
 	uint fxBarrackSelection;//
 	uint fxArcherySelection;//
 	uint fxTownCenterSelection;//
 
-							   //ambient
-
+    //ambient
 	uint fxBirds001;//
 	uint fxBirds002;//
 	uint fxBirds003;//
@@ -198,7 +191,6 @@ public:
 	uint fxDiabloLaugh01;//
 	uint fxDiabloLaugh02;//
 	uint fxDiabloLaugh03;//
-
 
 private:
 	void RemoveFlagged();
@@ -229,10 +221,11 @@ private:
 	Entity* archer = nullptr;
 	SDL_Texture* textTexture = nullptr;
 
-	public: //carlos
+public: //carlos
 
-		void SerializeObjects();
-		std::list<Entity*> Objectslist;
+	void SerializeObjects();
+	std::list<Entity*> Objectslist;
+
 };
 
 #endif // !__M_ENTITY_MANAGER_H__

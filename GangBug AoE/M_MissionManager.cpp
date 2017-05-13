@@ -26,11 +26,14 @@ bool M_MissionManager::Start()
 	enemyStartTroops = 0;
 	enemyTroopCounter = 0;
 	aliveTroopWave = 0;
+	enemyDeadUnits = 0;
+
 	bossIsAlive = false;
 	townCenterIsAlive = true;
-	stateName.assign("Intro");
-	enemyDeadUnits = 0;
 	active = false;
+	isHardModeActive = false;
+
+	stateName.assign("Intro");
 
 	State = M_INTRO;
 	
@@ -240,12 +243,7 @@ bool M_MissionManager::getHardModeStatus()
 	return isHardModeActive;
 }
 
-void M_MissionManager::setGameToEasyMode()
+void M_MissionManager::setGameToHardMode(bool status)
 {
-	isHardModeActive = false;
-}
-
-void M_MissionManager::setGameToHardMode()
-{
-	isHardModeActive = true;
+	isHardModeActive = status;
 }

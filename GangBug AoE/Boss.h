@@ -15,6 +15,12 @@ public:
 
 	void OnUpdate(float dt);
 
+	bool getBossControllableStatus();
+	void setBossControllable(bool status);
+
+private:
+	bool isBossControllable = false;
+
 };
 
 #endif

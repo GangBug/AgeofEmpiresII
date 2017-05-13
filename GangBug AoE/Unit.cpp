@@ -393,9 +393,6 @@ void Unit::DoDamage(int dmg)
 
 void Unit::Die()
 {
-
-
-
 	if (action != DIE && action != DISAPPEAR)
 	{
 		PlayDeathSound();
