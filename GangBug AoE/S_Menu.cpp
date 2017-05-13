@@ -86,7 +86,6 @@ bool S_Menu::CleanUp()
 
 	if (active)
 	{
-
 	}
 
 	return ret;
@@ -94,15 +93,10 @@ bool S_Menu::CleanUp()
 
 void S_Menu::LoadUI()
 {
-	/*app->gui->LoadLayout("gui/menu.xml");*/
-
 	bg = app->gui->CreateImage({ 0,0,(int)(1920 * app->gui->GetScaleX()),(int)(1080 * app->gui->GetScaleY()) }, { 0, 0, 1920, 1080 }, "background");
-	
-	SDL_Texture* sdl_tex = app->tex->Load("gui/Menu_BackGround.png");
-	bg->SetAtlas(sdl_tex);
-	bg->SetVisible(true);
 
-	bg->SetInteractive(true);
+	bg->SetAtlas(app->tex->Load("gui/Menu_BackGround.png"));
+	bg->SetVisible(true);
 
 	app->gui->background.push_back(bg);
 }
@@ -132,7 +126,8 @@ void S_Menu::GuiEvent(GUIElement* element, int64_t event)
 	{
 		if (event & START_GAME)
 		{
-			GoToIngame();
+			app->gui->FindElement(app->gui->guiList, "easyMode")->SetActive(true);
+			app->gui->FindElement(app->gui->guiList, "hardMode")->SetActive(true);
 		}
 		if (event & CLOSE_APP)
 		{
@@ -141,10 +136,14 @@ void S_Menu::GuiEvent(GUIElement* element, int64_t event)
 		if (event & EASY_MODE_GAME)
 		{
 			app->missionManager->setGameToHardMode(false);
+			app->gui->FindElement(app->gui->guiList, "easyMode")->SetLClicked(false);
+			GoToIngame();
 		}
 		if (event & HARD_MODE_GAME)
 		{
 			app->missionManager->setGameToHardMode(true);
+			app->gui->FindElement(app->gui->guiList, "hardMode")->SetLClicked(false);
+			GoToIngame();
 		}
 	}
 }
