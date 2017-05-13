@@ -22,10 +22,6 @@ public:
 	void DrawDebug()override;
 
 private:
-	uint food;
-	uint wood;
-	uint gold;
-
 	Timer updateResources;
 
 	//Resources

@@ -26,9 +26,9 @@ bool M_Resources::Start()
 	LOG("Resources: Start.");
 	bool ret = true;
 
-	food = 50;
-	wood = 50;
-	gold = 50;
+	foodAmount = 50;
+	woodAmount = 50;
+	goldAmount = 50;
 
 	miners = 0;
 	lumberjacks = 0;
@@ -59,63 +59,63 @@ bool M_Resources::Start()
 //Get current amount of each resource
 uint M_Resources::GetCurrentFood()
 {
-	return food;
+	return foodAmount;
 }
 uint M_Resources::GetCurrentWood()
 {
-	return wood;
+	return woodAmount;
 }
 uint M_Resources::GetCurrentGold()
 {
-	return gold;
+	return goldAmount;
 }
 
 //Add certain amount to existent resources
 void M_Resources::AddFood(int amount)
 {
-	food += amount;
+	foodAmount += amount;
 }
 void M_Resources::AddWood(int amount)
 {
-	wood += amount;
+	woodAmount += amount;
 }
 void M_Resources::AddGold(int amount)
 {
-	gold += amount;
+	goldAmount += amount;
 }
 
 //Substracts certain amount to existent resources
 void M_Resources::SubstractFood(int amount)
 {
-	food -= amount;
+	foodAmount -= amount;
 }
 void M_Resources::SubstractWood(int amount)
 {
-	wood -= amount;
+	woodAmount -= amount;
 }
 void M_Resources::SubstractGold(int amount)
 {
-	gold -= amount;
+	goldAmount -= amount;
 }
 
 //Set existent resources to a certain amount
 void M_Resources::SetCurrentFood(int amount)
 {
-	food = amount;
+	foodAmount = amount;
 }
 void M_Resources::SetCurrentWood(int amount)
 {
-	wood = amount;
+	woodAmount = amount;
 }
 void M_Resources::SetCurrentGold(int amount)
 {
-	gold = amount;
+	goldAmount = amount;
 }
 void M_Resources::SetCurrentResources(int amount)
 {
-	food += amount;
-	wood += amount;
-	gold += amount;
+	foodAmount += amount;
+	woodAmount += amount;
+	goldAmount += amount;
 }
 
 update_status M_Resources::Update(float dt)
