@@ -243,7 +243,7 @@ void Building::OnUpdate(float dt)
 		}
 		else if (buildType == BUILD_PORTAL)
 		{
-			if (portalParticle == nullptr && HP == fullHP)
+			if (portalParticle == nullptr && HP > 0)
 			{
 				fPoint particlePos(GetEnclosingBox().x + 10, GetEnclosingBox().y);
 				portalParticle = app->particleSystem->CreateStaticBucle(particlePos, false, PORTAL);
@@ -287,6 +287,11 @@ void Building::BuyUnit()
 int Building::GetHP() const
 {
 	return HP;
+}
+
+void Building::SetHP(int HP)
+{
+	this->HP = HP;
 }
 
 void Building::DoDamage(int dmg)
@@ -364,5 +369,25 @@ void Building::PrintProgression()
 		app->render->DrawQuad({ lifePos.x, lifePos.y, PROGRESS_WIDTH, 7 }, 255, 0, 0, 255);
 		//green
 		app->render->DrawQuad({ lifePos.x, lifePos.y, glbar, 7 }, 0, 255, 0, 255);
+	}
+}
+
+void Building::Serialize(pugi::xml_node& node)
+{
+	pugi::xml_node bNode = node.append_child("building");
+
+	bNode.append_attribute("posX") = GetGlobalPosition().x;
+	bNode.append_attribute("posY") = GetGlobalPosition().y;
+	bNode.append_attribute("hp") = HP;
+	bNode.append_attribute("tileAttackX") = tileAttack.x;
+	bNode.append_attribute("tileAttackY") = tileAttack.y;
+
+	switch (buildType)
+	{
+	case BUILD_ARCHERY: bNode.append_attribute("type") = "archery"; break;
+	case BUILD_BARRACK: bNode.append_attribute("type") = "barrack"; break;
+	case BUILD_STABLES: bNode.append_attribute("type") = "stables"; break;
+	case BUILD_TOWNCENTER: bNode.append_attribute("type") = "townCenter"; break;
+	case BUILD_PORTAL: bNode.append_attribute("type") = "portal"; break;
 	}
 }

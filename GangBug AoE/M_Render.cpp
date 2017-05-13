@@ -165,7 +165,7 @@ update_status M_Render::PostUpdate(float dt)
 	//---------
 
 	//BOSS LIFE BAR
-	if (app->missionManager->GetBossState() == true)
+	if (app->missionManager->GetBossState() == true )
 	{
 			SDL_Rect lifeBarRect{ 0,0,771,52 };
 			iPoint center = camera->GetCenter();

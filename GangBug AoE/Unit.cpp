@@ -33,7 +33,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		{
 			//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
 		case TARKAN_KNIGHT:
-			SetHp(160 * EASY_MODE);
+			SetFullHp(160 * EASY_MODE);
 			attack = 15 * EASY_MODE;
 			speed = 1.6f;
 			rate_of_fire = 1;
@@ -45,7 +45,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case SAMURAI:
-			SetHp(100 * EASY_MODE);
+			SetFullHp(100 * EASY_MODE);
 			attack = 15 * EASY_MODE;
 			speed = 1.3f;
 			rate_of_fire = 1;
@@ -57,7 +57,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case ARCHER:
-			SetHp(30 * EASY_MODE);
+			SetFullHp(30 * EASY_MODE);
 			attack = 7 * EASY_MODE;
 			speed = 1.2f;
 			rate_of_fire = 1.2f;
@@ -69,7 +69,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case VILE:
-			SetHp(60 / EASY_MODE);
+			SetFullHp(60 / EASY_MODE);
 			attack = 12;
 			speed = 2.0f;
 			rate_of_fire = 1;
@@ -81,7 +81,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case HELL_WITCH:
-			SetHp(100 / EASY_MODE);
+			SetFullHp(100 / EASY_MODE);
 			attack = 10;
 			speed = 2.0f;
 			rate_of_fire = 1;
@@ -105,7 +105,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		{
 			//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
 		case TARKAN_KNIGHT:
-			SetHp(160);
+			SetFullHp(160);
 			attack = 15;
 			speed = 1.6f;
 			rate_of_fire = 1;
@@ -117,7 +117,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case SAMURAI:
-			SetHp(100);
+			SetFullHp(100);
 			attack = 15;
 			speed = 1.3f;
 			rate_of_fire = 1;
@@ -129,7 +129,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case ARCHER:
-			SetHp(30);
+			SetFullHp(30);
 			attack = 7;
 			speed = 1.2f;
 			rate_of_fire = 1.2f;
@@ -141,7 +141,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case VILE:
-			SetHp(60);
+			SetFullHp(60);
 			attack = 12;
 			speed = 2.0f;
 			rate_of_fire = 1;
@@ -153,7 +153,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case HELL_WITCH:
-			SetHp(100);
+			SetFullHp(100);
 			attack = 10;
 			speed = 2.0f;
 			rate_of_fire = 1;
@@ -1466,10 +1466,38 @@ void Unit::PlayMoveSound() const
 
 }
 
-
-
-void Unit::SetHp(int newHP)
+void Unit::SetFullHp(int newHP)
 {
 	totalhp = newHP;
 	hp = newHP;
+}
+
+void Unit::SetHpandFullHp(int currentHP, int fullHP)
+{
+	hp = currentHP;
+	totalhp = fullHP;
+}
+
+void Unit::SetAttack(int amount)
+{
+	attack = amount;
+}
+
+void Unit::Serialize(pugi::xml_node& node)
+{
+	pugi::xml_node uNode = node.append_child("unit");
+
+	uNode.append_attribute("hp") = hp;
+	uNode.append_attribute("totalhp") = totalhp;
+	uNode.append_attribute("posX") = GetGlobalPosition().x;
+	uNode.append_attribute("posY") = GetGlobalPosition().y;
+	switch (unitType)
+	{
+	case ARCHER:	uNode.append_attribute("type") = "archer"; break;
+	case SAMURAI:	uNode.append_attribute("type") = "samurai"; break;
+	case TARKAN_KNIGHT:	uNode.append_attribute("type") = "tarkanKnight"; break;
+	case VILE:	uNode.append_attribute("type") = "vile"; break;
+	case HELL_WITCH:	uNode.append_attribute("type") = "hellWitch"; break;
+	case DIABLO:	uNode.append_attribute("type") = "diablo"; break;
+	}
 }

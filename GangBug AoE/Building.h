@@ -29,11 +29,15 @@ public:
 	void BuyUnit();
 
 	int GetHP() const;
+	void SetHP(int HP);
 	void DoDamage(int dmg);
 	void Repair(int amount);
 	void PlaySelectFx();
 
 	void PrintProgression();
+
+	void Serialize(pugi::xml_node&);
+
 public:
 
 	Timer buyTimer;

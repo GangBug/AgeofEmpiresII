@@ -67,7 +67,11 @@ public:
 
 	void OnUpdate(float dt)override;
 
-	void SetHp(int newHP);
+	void SetFullHp(int newHP);
+
+	void SetHpandFullHp(int currentHP, int fullHP);
+
+	void SetAttack(int amount);
 
 	unit_type GetType() const;
 	action_type GetAction() const;
@@ -105,6 +109,8 @@ public:
 
 	bool GetFreeAdjacent(iPoint& adjacent, iPoint currentPos = iPoint(0,0)) const;
 	bool GetAdjacentTile(iPoint tile, iPoint & adjacent) const;
+
+	void Serialize(pugi::xml_node&);
 
 public:// ADD FX
 	void PlayDeathSound() const; //called when the unit dies

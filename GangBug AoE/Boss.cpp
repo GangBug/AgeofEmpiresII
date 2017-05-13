@@ -16,7 +16,7 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 {
 	if (app->missionManager->getHardModeStatus() == false)
 	{
-		SetHp(BOSSHP / EASY_MODE_BOSS);
+		SetFullHp(BOSSHP / EASY_MODE_BOSS);
 		attack = 25;
 		speed = 1.5f;
 		rate_of_fire = 2;
@@ -30,7 +30,7 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 	}
 	if (app->missionManager->getHardModeStatus() == true)
 	{
-		SetHp(BOSSHP);
+		SetFullHp(BOSSHP);
 		attack = 25;
 		speed = 1.5f;
 		rate_of_fire = 2;
@@ -49,7 +49,7 @@ void Boss::OnUpdate(float dt)
 	app->missionManager->SetBossState(true);
 	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 	{
-		this->SetHp(GetHP() - 200);
+		this->SetFullHp(GetHP() - 200);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)

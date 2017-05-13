@@ -801,7 +801,7 @@ bool Entity::OnLoad(pugi::xml_node* node)
 
 
 
-void Entity::Serialize(pugi::xml_node root)
+void Entity::Serialize(pugi::xml_node& root)
 {
 	if (this->type == ENTITY_OBJECT) {
 

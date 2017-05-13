@@ -442,6 +442,12 @@ void App::GetSaveGames(std::list<std::string>& listToFill) const
 
 bool App::LoadGameNow()
 {
+
+	entityManager->CleanUp();
+	pugi::xml_node nullnode;
+	entityManager->Awake(nullnode);
+	entityManager->Start();
+
 	bool ret = false;
 
 	char* buffer;

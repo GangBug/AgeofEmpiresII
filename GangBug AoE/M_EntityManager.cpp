@@ -653,7 +653,78 @@ void M_EntityManager::SaveScene()
 
 bool M_EntityManager::Load(pugi::xml_node& node)
 {
+	pugi::xml_node mainNode = node.child("entities");
+	
+	pugi::xml_node unitsNode = mainNode.child("units");
 
+	for (pugi::xml_node uNode = unitsNode.child("unit"); uNode != NULL; uNode = uNode.next_sibling())
+	{
+		std::string uType = uNode.attribute("type").as_string();
+		if (strcmp(uType.c_str(), "archer") == 0)
+		{
+			Unit* tmpUnit = (Unit*)CreateUnit(ARCHER, nullptr, uNode.attribute("posX").as_int(), uNode.attribute("posY").as_int());
+			tmpUnit->SetHpandFullHp(uNode.attribute("hp").as_int(), uNode.attribute("totalhp").as_int());
+		}
+		else if (strcmp(uType.c_str(), "samurai") == 0)
+		{
+			Unit* tmpUnit = (Unit*)CreateUnit(SAMURAI, nullptr, uNode.attribute("posX").as_int(), uNode.attribute("posY").as_int());
+			tmpUnit->SetHpandFullHp(uNode.attribute("hp").as_int(), uNode.attribute("totalhp").as_int());
+		}
+		else if (strcmp(uType.c_str(), "tarkanKnight") == 0)
+		{
+			Unit* tmpUnit = (Unit*)CreateUnit(TARKAN_KNIGHT, nullptr, uNode.attribute("posX").as_int(), uNode.attribute("posY").as_int());
+			tmpUnit->SetHpandFullHp(uNode.attribute("hp").as_int(), uNode.attribute("totalhp").as_int());
+		}
+		else if (strcmp(uType.c_str(), "vile") == 0)
+		{
+			Unit* tmpUnit = (Unit*)CreateUnit(VILE, nullptr, uNode.attribute("posX").as_int(), uNode.attribute("posY").as_int());
+			tmpUnit->SetHpandFullHp(uNode.attribute("hp").as_int(), uNode.attribute("totalhp").as_int());
+		}
+		else if (strcmp(uType.c_str(), "hellWitch") == 0)
+		{
+			Unit* tmpUnit = (Unit*)CreateUnit(HELL_WITCH, nullptr, uNode.attribute("posX").as_int(), uNode.attribute("posY").as_int());
+			tmpUnit->SetHpandFullHp(uNode.attribute("hp").as_int(), uNode.attribute("totalhp").as_int());
+		}
+		else if (strcmp(uType.c_str(), "diablo") == 0)
+		{
+			Unit* tmpUnit = (Unit*)CreateUnit(DIABLO, nullptr, uNode.attribute("posX").as_int(), uNode.attribute("posY").as_int());
+			tmpUnit->SetHpandFullHp(uNode.attribute("hp").as_int(), uNode.attribute("totalhp").as_int());
+		}
+	}
+
+	pugi::xml_node buildingsNode = mainNode.child("buildings");
+
+	for (pugi::xml_node bNode = unitsNode.child("building"); bNode != NULL; bNode = bNode.next_sibling())
+	{
+		std::string bType = bNode.attribute("type").as_string();
+		if (strcmp(bType.c_str(), "archery") == 0)
+		{
+			Building* tmpBuilding = (Building*)CreateBuilding(BUILD_ARCHERY, { bNode.attribute("tileAttackX").as_int(), bNode.attribute("tileAttackY").as_int() }, nullptr, bNode.attribute("posX").as_int(), bNode.attribute("posY").as_int());
+			tmpBuilding->SetHP(bNode.attribute("hp").as_int());
+		}
+		else if (strcmp(bType.c_str(), "barrack") == 0)
+		{
+			Building* tmpBuilding = (Building*)CreateBuilding(BUILD_BARRACK, { bNode.attribute("tileAttackX").as_int(), bNode.attribute("tileAttackY").as_int() }, nullptr, bNode.attribute("posX").as_int(), bNode.attribute("posY").as_int());
+			tmpBuilding->SetHP(bNode.attribute("hp").as_int());
+		}
+		else if (strcmp(bType.c_str(), "stables") == 0)
+		{
+			Building* tmpBuilding = (Building*)CreateBuilding(BUILD_STABLES, { bNode.attribute("tileAttackX").as_int(), bNode.attribute("tileAttackY").as_int() }, nullptr, bNode.attribute("posX").as_int(), bNode.attribute("posY").as_int());
+			tmpBuilding->SetHP(bNode.attribute("hp").as_int());
+		}
+		else if (strcmp(bType.c_str(), "townCenter") == 0)
+		{
+			Building* tmpBuilding = (Building*)CreateBuilding(BUILD_TOWNCENTER, { bNode.attribute("tileAttackX").as_int(), bNode.attribute("tileAttackY").as_int() }, nullptr, bNode.attribute("posX").as_int(), bNode.attribute("posY").as_int());
+			tmpBuilding->SetHP(bNode.attribute("hp").as_int());
+		}
+		else if (strcmp(bType.c_str(), "portal") == 0)
+		{
+			Building* tmpBuilding = (Building*)CreateBuilding(BUILD_PORTAL, { bNode.attribute("tileAttackX").as_int(), bNode.attribute("tileAttackY").as_int() }, nullptr, bNode.attribute("posX").as_int(), bNode.attribute("posY").as_int());
+			tmpBuilding->SetHP(bNode.attribute("hp").as_int());
+		}
+	}
+
+	return true;
 }
 
 bool M_EntityManager::Save(pugi::xml_node& node) const
@@ -664,8 +735,17 @@ bool M_EntityManager::Save(pugi::xml_node& node) const
 
 	for (int i = 0; i < unitVector.size(); i++)
 	{
-		unitVector[i]->Serialize();
+		unitVector[i]->Serialize(unitsNode);
 	}
+
+	pugi::xml_node buildingsNode = mainNode.append_child("buildings");
+
+	for (int i = 0; i < buildingVector.size(); i++)
+	{
+		buildingVector[i]->Serialize(buildingsNode);
+	}
+
+	return true;
 }
 
 /**

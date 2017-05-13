@@ -160,7 +160,7 @@ public:
 
 
 public: //Carlos
-	virtual void Serialize(pugi::xml_node);
+	virtual void Serialize(pugi::xml_node&);
 	uint objectTypee;
 };
 
