@@ -82,6 +82,7 @@ update_status M_DialogueManager::Update(float dt)
 					(*it).active = false;
 					(*it).done = true;
 					onDialogue = false;
+					app->pause = false;
 				}
 			}
 		}
@@ -106,6 +107,7 @@ bool M_DialogueManager::PlayDialogue(DIALOGUE_EVENT event)
 			(*it).active = true;
 		//	app->audio->PlayFx(app->entityManager->fxAlert01);	//FX
 			onDialogue = true;
+			app->pause = true;
 			return true;
 		}
 	}
