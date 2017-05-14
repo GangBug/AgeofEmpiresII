@@ -419,5 +419,8 @@
     <Xml Include="..\..\gui.xml">
       <Filter>Modules\Tools</Filter>
     </Xml>
+    <Xml Include="..\..\Units_data.xml">
+      <Filter>Modules\Tools</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

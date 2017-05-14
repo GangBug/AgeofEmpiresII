@@ -361,6 +361,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\gui.xml" />
+    <Xml Include="..\..\Units_data.xml" />
     <Xml Include="..\Game\config.xml">
       <SubType>Designer</SubType>
     </Xml>

@@ -9,9 +9,6 @@
 
 #include <vector>
 
-//Maybe we could use one wave timer and then multiply it for the wave we need it
-#define waveSpawnTIMER 10
-
 class Entity;
 
 class M_EnemyWaves : public Module

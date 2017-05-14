@@ -49,11 +49,10 @@ bool S_InGame::Start()
 		//audio
 		//app->audio->PlayTheme(app->audio->thirdMission);
 
-
-		BuldingCreator(); //Create the buldings
+		BuldingCreator();//Create the buldings
 		UnitsCreator();// Create the start units
 
-		app->render->camera->SetCenter({ -400, 2000 });
+		app->render->camera->SetCenter({ -2170, 2160 });
 
 		if (app->map->Load("Map.tmx") == true)
 		{
@@ -83,17 +82,17 @@ update_status S_InGame::PreUpdate(float dt)
 {
 	if (active)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) 
+		{
 			OpenMenu(!menuOpen);
 			menuOpen = !menuOpen;
 		}
 		
-		//  create objects ------------------------
+		//Create objects
 		ToolCreateObjects();
 
-		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //serialize
+		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //Serialize
 			app->entityManager->SerializeObjects();
-		// -------------------------
 
 		/*if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 			app->gui->SetActiveScene(name);
@@ -102,10 +101,7 @@ update_status S_InGame::PreUpdate(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 			app->gui->SetActiveScene("\0");*/
 
-
-			// --------------------------------------------------------------------------
 			// --------------------------------scenes changes----------------------------
-
 
 		//mission state change
 		if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
@@ -114,15 +110,9 @@ update_status S_InGame::PreUpdate(float dt)
 			app->missionManager->SetState(M_DEFEAT);
 		//	M_INTRO,M_TOWNATTACK,M_TOWNREPAIR, M_WAVES,	M_BOSS,	M_VICTORY,	M_DEFEAT,M_STANDBY
 
-			// --------------------------------------------------------------------------
-			// --------------------------------------------------------------------------
-
-
-
 		if (!app->pause)
 		{
 			// -------------------Move camera--------------------------------------------
-			// --------------------------------------------------------------------------
 			
 			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 				app->render->camera->Move(10.0, UP);
@@ -142,19 +132,13 @@ update_status S_InGame::PreUpdate(float dt)
 			//if (app->input->GetMousePosition().x > app->render->camera->GetRect().w - 5)
 			//	app->render->camera->Move(10.0, RIGHT);
 
-			// --------------------------------------------------------------------------
-			// --------------------------------------------------------------------------
-
-
-			// --------------------------------------------------------------------------
 			// -------------------------Creators -----------------------------------
-
 
 			if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
-				app->enemyWaves->SpawnEnemies(5, 0, x, y);
+				app->entityManager->CreateUnit(ARCHER, nullptr, x, y);
 			}
 			if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN)
 			{
@@ -176,8 +160,6 @@ update_status S_InGame::PreUpdate(float dt)
 				app->entityManager->CreateUnit(VILE, nullptr, x, y);
 				app->audio->PlayFx(app->entityManager->fxCreateUnit);
 			}
-
-
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 			{
 				return UPDATE_STOP;
@@ -250,7 +232,6 @@ void S_InGame::GuiEvent(GUIElement* element, int64_t event)
 			app->audio->PlayFx(app->gui->fxSelect);
 		}
 	}
-
 }
 
 void S_InGame::GoToMenu()
@@ -318,7 +299,6 @@ void S_InGame::OpenMenu(bool visible)
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetInteractive(visible);
 
 	app->pause = visible;
-
 }
 
 void S_InGame::OpenResources(bool visible)
@@ -366,9 +346,7 @@ void S_InGame::OpenResources(bool visible)
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(visible);
-	
 }
-
 
 void S_InGame::SetGUI()
 {
@@ -388,7 +366,6 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "VillagerCreatorButton")->SetVisible(false);
 
 	//----resource window
-	
 	app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager_n")->SetVisible(false);
@@ -452,11 +429,8 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(false);
 
 	// RepairButton - PlusButton - MinusButton
-	
-	//----
 }
 
-// ----------------------- CREATE -----------------------------------
 // ----------------------- CREATE -----------------------------------
 void S_InGame::BuldingCreator()
 {	
@@ -466,7 +440,6 @@ void S_InGame::BuldingCreator()
 	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(23, 61), nullptr, -1930, 1850);
 	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, iPoint(29, 72), nullptr, -2170, 2160);
 
-
 	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(5, 80), nullptr, -3792, 1944);
 	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(4, 51), nullptr, -2400, 1200);
 	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(27, 31), nullptr, -144, 1272);
@@ -475,9 +448,10 @@ void S_InGame::BuldingCreator()
 
 void S_InGame::UnitsCreator()
 {
-	//ALIES
-	app->entityManager->CreateUnit(DIABLO, nullptr, -2120, 2190);
+	//Boss
+	app->entityManager->CreateUnit(DIABLO, nullptr, -2200, 2370);
 
+	//Allies
 	app->entityManager->CreateUnit(ARCHER, nullptr, 287, 3698);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 357, 3658);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 257, 3658);//
@@ -487,9 +461,6 @@ void S_InGame::UnitsCreator()
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 287, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
-	app->entityManager->CreateUnit(SAMURAI, nullptr, 270, 3668);//
-	app->entityManager->CreateUnit(SAMURAI, nullptr, 265, 3688);//
-
 }
 
 void S_InGame::ToolCreateObjects()

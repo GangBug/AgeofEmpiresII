@@ -26,31 +26,31 @@ bool M_Resources::Start()
 	LOG("Resources: Start.");
 	bool ret = true;
 
-	foodAmount = 50;
-	woodAmount = 50;
-	goldAmount = 50;
+	food = 150;
+	wood = 150;
+	gold = 150;
 
 	miners = 0;
 	lumberjacks = 0;
-	farmers = 1;
+	farmers = 0;
 	constructors = 0;
-	totalVillagers = 1;
-	unemployedVillagers = 0;
+	totalVillagers = 2;
+	unemployedVillagers = 2;
 	totalUnits = 0;
 
 	//EASY MODE
 	if (app->missionManager->getHardModeStatus() == false)
 	{
-		foodAmount = 30;
-		woodAmount = 30;
-		goldAmount = 30;
+		foodAmount = 8;
+		woodAmount = 8;
+		goldAmount = 8;
 	}
 	//HARD MODE
-	if (app->missionManager->getHardModeStatus() == false)
+	else if (app->missionManager->getHardModeStatus() == true)
 	{
-		foodAmount = 20;
-		woodAmount = 20;
-		goldAmount = 20;
+		foodAmount = 6;
+		woodAmount = 6;
+		goldAmount = 6;
 	}
 
 	return ret;
@@ -59,63 +59,63 @@ bool M_Resources::Start()
 //Get current amount of each resource
 uint M_Resources::GetCurrentFood()
 {
-	return foodAmount;
+	return food;
 }
 uint M_Resources::GetCurrentWood()
 {
-	return woodAmount;
+	return wood;
 }
 uint M_Resources::GetCurrentGold()
 {
-	return goldAmount;
+	return gold;
 }
 
 //Add certain amount to existent resources
 void M_Resources::AddFood(int amount)
 {
-	foodAmount += amount;
+	food += amount;
 }
 void M_Resources::AddWood(int amount)
 {
-	woodAmount += amount;
+	wood += amount;
 }
 void M_Resources::AddGold(int amount)
 {
-	goldAmount += amount;
+	gold += amount;
 }
 
 //Substracts certain amount to existent resources
 void M_Resources::SubstractFood(int amount)
 {
-	foodAmount -= amount;
+	food -= amount;
 }
 void M_Resources::SubstractWood(int amount)
 {
-	woodAmount -= amount;
+	wood -= amount;
 }
 void M_Resources::SubstractGold(int amount)
 {
-	goldAmount -= amount;
+	gold -= amount;
 }
 
 //Set existent resources to a certain amount
 void M_Resources::SetCurrentFood(int amount)
 {
-	foodAmount = amount;
+	food = amount;
 }
 void M_Resources::SetCurrentWood(int amount)
 {
-	woodAmount = amount;
+	wood = amount;
 }
 void M_Resources::SetCurrentGold(int amount)
 {
-	goldAmount = amount;
+	gold = amount;
 }
 void M_Resources::SetCurrentResources(int amount)
 {
-	foodAmount += amount;
-	woodAmount += amount;
-	goldAmount += amount;
+	food += amount;
+	wood += amount;
+	gold += amount;
 }
 
 update_status M_Resources::Update(float dt)
@@ -132,17 +132,16 @@ update_status M_Resources::Update(float dt)
 			if (GetCurrentFood() < MAX_RESOURCES)
 			{
 				AddFood(foodAmount*farmers);
-				app->metrics->AddTotalFood(foodAmount*farmers);
-
+				app->metrics->AddTotalFood(foodAmount*(farmers*VILLAGERS_REDUCTION));
 			}
 			if (GetCurrentWood() < MAX_RESOURCES)
 			{
-				app->metrics->AddTotalWood(woodAmount*lumberjacks);
+				app->metrics->AddTotalWood(woodAmount*(lumberjacks*VILLAGERS_REDUCTION));
 				AddWood(woodAmount*lumberjacks);
 			}
 			if (GetCurrentGold() < MAX_RESOURCES)
 			{
-				app->metrics->AddTotalGold(goldAmount*miners);
+				app->metrics->AddTotalGold(goldAmount*(miners*VILLAGERS_REDUCTION));
 				AddGold(goldAmount*miners);
 			}
 			std::vector<Entity*> buildVector = app->entityManager->GetBuildingVector();
@@ -356,9 +355,9 @@ bool M_Resources::Save(pugi::xml_node& node) const
 
 	pugi::xml_node resourcesNode = saveNode.append_child("realResources");
 
-	resourcesNode.append_attribute("food") = foodAmount;
-	resourcesNode.append_attribute("wood") = woodAmount;
-	resourcesNode.append_attribute("gold") = goldAmount;
+	resourcesNode.append_attribute("food") = food;
+	resourcesNode.append_attribute("wood") = wood;
+	resourcesNode.append_attribute("gold") = gold;
 
 	pugi::xml_node villagersNode = saveNode.append_child("villagers");
 

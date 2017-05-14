@@ -29,7 +29,11 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 45;
 		unitWoodCost = 25;
 		unitFoodCost = 0;
-		HP = 100;
+		unitLimitCount = 6;
+		currentUnitCount = 0;
+
+		HP = 150;
+		fullHP = 150;
 		horde = false;
 
 		entityTexture = app->tex->archeryTexture;
@@ -45,7 +49,11 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 75;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
-		HP = 100;
+		unitLimitCount = 10;
+		currentUnitCount = 0;
+
+		HP = 150;
+		fullHP = 150;
 		horde = false;
 
 		entityTexture = app->tex->stableTexture;
@@ -56,13 +64,16 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		break;
 
 	case BUILD_BARRACK:
-
 		unitType = SAMURAI;
 
 		unitGoldCost = 30;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
-		HP = 100;
+		unitLimitCount = 20;
+		currentUnitCount = 0;
+
+		HP = 150;
+		fullHP = 150;
 		horde = false;
 
 		entityTexture = app->tex->barracksTexture;
@@ -77,8 +88,12 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 
 		unitGoldCost = 0;
 		unitWoodCost = 0;
-		unitFoodCost = 50;
-		HP = 100;
+		unitFoodCost = 40;
+		unitLimitCount = 10;
+		currentUnitCount = 0;
+
+		HP = 450;
+		fullHP = 450;
 		horde = false;
 
 		entityTexture = app->tex->townCenterTexture;
@@ -91,14 +106,17 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 	case BUILD_PORTAL:
 		unitType = VILE;
 		horde = true;
+
+		HP = 100;
+		fullHP = 100;
+
 		entityTexture = app->tex->portalTexture;
 		SetEnclosingBoxSize(155, 233);
 		HP = 0;
 		break;
 	}
+
 	selected = false;
-	
-	fullHP = 100;
 }
 
 
@@ -115,7 +133,7 @@ void Building::OnUpdate(float dt)
 			iPoint mPos;
 			app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && GetEnclosingBox().Contains(mPos.x, mPos.y))
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && GetEnclosingBox().Contains(mPos.x, mPos.y))
 			{
 				selected = true;
 				creatorButton->SetVisible(true);
@@ -152,7 +170,7 @@ void Building::OnUpdate(float dt)
 				}
 				else if (!creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
 				{
-					if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 					{
 						selected = false;
 						creatorButton->SetVisible(false);
@@ -175,6 +193,7 @@ void Building::OnUpdate(float dt)
 				{
 					app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
 					app->audio->PlayFx(app->entityManager->fxCreateUnit);
+					currentUnitCount++;
 
 					unitsToAdd--;
 					if (unitsToAdd > 0)
@@ -200,6 +219,7 @@ void Building::OnUpdate(float dt)
 					app->metrics->AddVillagersAlive();
 					app->resources->AddVillager();
 					app->audio->PlayFx(app->entityManager->fxCreateVillager);
+					currentUnitCount++;
 					unitsToAdd--;
 					if (unitsToAdd > 0)
 					{
@@ -270,7 +290,7 @@ bool Building::OnLoad(pugi::xml_node * node)
 void Building::BuyUnit()
 {
 	//If theres money create a unit
-	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost && HP == fullHP)
+	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost && HP == fullHP && currentUnitCount < unitLimitCount)
 	{
 		app->resources->SubstractGold(unitGoldCost);
 		app->resources->SubstractFood(unitFoodCost);

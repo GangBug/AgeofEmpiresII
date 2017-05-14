@@ -37,7 +37,6 @@ public:
 	void DrawDebug() override;
 
 public:
-
 	std::vector<minimap_tiles> mini_tiles;
 
 	SDL_Texture* minimap_atlas;

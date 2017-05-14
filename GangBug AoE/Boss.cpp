@@ -9,6 +9,7 @@
 #include "M_EntityManager.h"
 #include "M_MissionManager.h"
 #include "M_Collision.h"
+#include "j1Timer.h" 
 
 #define ATTACK_TIMER 1
 
@@ -42,6 +43,7 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 		unitDirection = SOUTH_WEST;
 		action = IDLE;
 	}
+	diabloAttackSoundTimer.Start();
 }
 
 void Boss::OnUpdate(float dt)
@@ -153,6 +155,15 @@ void Boss::OnUpdate(float dt)
 				target = nullptr;
 				unitState = NO_STATE;
 				action = IDLE;
+			}
+			if (diabloAttackSoundTimer.ReadSec() > (this->rate_of_fire - 0.5f))
+			{
+				if (this->GetUnitType() == DIABLO && (this->GetGlobalPosition().x > (-1)*app->render->camera->GetPosition().x && this->GetGlobalPosition().x < (-1)*(app->render->camera->GetPosition().x - app->render->camera->GetRect().w))
+					&& (this->GetGlobalPosition().y >(-1)*app->render->camera->GetPosition().y && this->GetGlobalPosition().y < (-1)*(app->render->camera->GetPosition().y - app->render->camera->GetRect().h)))
+				{
+					this->PlayAttackSound();
+				}
+				diabloAttackSoundTimer.Start();
 			}
 			break;
 		}

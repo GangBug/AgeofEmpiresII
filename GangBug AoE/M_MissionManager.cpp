@@ -175,7 +175,6 @@ bool M_MissionManager::CleanUp()
 	stateName.assign("Intro");
 	enemyDeadUnits = 0;
 
-
 	return ret;
 }
 

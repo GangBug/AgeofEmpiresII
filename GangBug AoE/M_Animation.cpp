@@ -68,10 +68,23 @@ bool M_Animation::Awake(pugi::xml_node& none)
 				newAnim->SetDirection(directionNode);//TODO
 
 				std::string action = actionNode.name();
+				std::string name = node.name();
 				if (!action.compare("disappear") || !action.compare("die"))
 				{
 					newAnim->speed = 200.0f;
 					newAnim->loop = false;
+				}
+				if (!action.compare("attack") && !name.compare("archer"))
+				{
+					newAnim->speed = 100.0f;
+				}
+				if (!action.compare("walk") && !name.compare("boss"))
+				{
+					newAnim->speed = 120.0f;
+				}
+				if (!action.compare("idle") && !name.compare("samurai"))
+				{
+					newAnim->speed = 140.0f;
 				}
 				animations.push_back(newAnim);
 

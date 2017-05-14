@@ -48,6 +48,9 @@ public:
 
 	iPoint tileAttack;
 
+	int unitLimitCount;
+	int currentUnitCount;
+
 	int unitGoldCost;
 	int unitWoodCost;
 	int unitFoodCost;

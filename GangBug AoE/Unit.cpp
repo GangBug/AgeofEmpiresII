@@ -105,7 +105,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		{
 			//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
 		case TARKAN_KNIGHT:
-			SetFullHp(160);
+			SetFullHp(130);
 			attack = 15;
 			speed = 1.6f;
 			rate_of_fire = 1;
@@ -118,7 +118,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case SAMURAI:
 			SetFullHp(100);
-			attack = 15;
+			attack = 17;
 			speed = 1.3f;
 			rate_of_fire = 1;
 			range = 1;
@@ -130,8 +130,8 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case ARCHER:
 			SetFullHp(30);
-			attack = 7;
-			speed = 1.2f;
+			attack = 6;
+			speed = 2.0f;
 			rate_of_fire = 1.2f;
 			range = 5;
 			unitClass = RANGED;
@@ -141,8 +141,8 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case VILE:
-			SetFullHp(60);
-			attack = 12;
+			SetFullHp(80);
+			attack = 15;
 			speed = 2.0f;
 			rate_of_fire = 1;
 			range = 1;
@@ -154,7 +154,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case HELL_WITCH:
 			SetFullHp(100);
-			attack = 10;
+			attack = 12;
 			speed = 2.0f;
 			rate_of_fire = 1;
 			range = 1;
@@ -290,6 +290,7 @@ void Unit::OnUpdate(float dt)
 					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
 					{
 						PlayMoveSound();
+
 						//Colision
 						app->collision->resetPrevPositions();
 
@@ -988,16 +989,11 @@ bool Unit::AttackUnit()
 			unitState = NO_STATE;
 			action = IDLE;
 		}
-		else if (attackTimer.ReadSec() > this->rate_of_fire)
+		else if (attackTimer.ReadSec() > (this->rate_of_fire + 0.1f))
 		{
 			LookAt(iPoint(target->GetGlobalPosition().x, target->GetGlobalPosition().y));
 			action = ATTACK;
-
-			if (this->GetUnitType() == DIABLO && (this->GetGlobalPosition().x > (-1)*app->render->camera->GetPosition().x && this->GetGlobalPosition().x < (-1)*(app->render->camera->GetPosition().x - app->render->camera->GetRect().w))
-				&& (this->GetGlobalPosition().y >(-1)*app->render->camera->GetPosition().y && this->GetGlobalPosition().y < (-1)*(app->render->camera->GetPosition().y - app->render->camera->GetRect().h)))
-			{
-				this->PlayAttackSound();
-			}
+		
 			if (this->GetUnitType() != DIABLO)
 			{
 				this->PlayAttackSound();

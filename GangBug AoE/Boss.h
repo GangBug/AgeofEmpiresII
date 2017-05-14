@@ -8,6 +8,8 @@
 
 #define EASY_MODE_BOSS 1.15
 
+class Timer;
+
 class Boss : public Unit
 {
 public:
@@ -20,6 +22,7 @@ public:
 
 private:
 	bool isBossControllable = false;
+	Timer diabloAttackSoundTimer; 
 
 };
 
