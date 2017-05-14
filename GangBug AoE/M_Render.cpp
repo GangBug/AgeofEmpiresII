@@ -22,7 +22,7 @@
 #include <algorithm>
 
 #define VSYNC true
-#define BOSS_LIFE_BAR_Y 100
+#define BOSS_LIFE_BAR_Y (214 * camera->GetSize().y / 768)
 
 M_Render::M_Render(bool startEnabled) : Module(startEnabled)
 {
@@ -167,9 +167,11 @@ update_status M_Render::PostUpdate(float dt)
 	//BOSS LIFE BAR
 	if (app->missionManager->GetBossState() == true )
 	{
-			SDL_Rect lifeBarRect{ 0,0,771,52 };
+			SDL_Rect lifeBarRect{ 0,0,959,65 };
+			lifeBarRect.w *= (float)camera->GetSize().x / 1920;
+			lifeBarRect.h *= (float)camera->GetSize().y / 1080;
 			iPoint center = camera->GetCenter();
-			iPoint lifeBarPos(center.x - lifeBarRect.w * 0.5, center.y + BOSS_LIFE_BAR_Y);
+			iPoint lifeBarPos(-camera->GetRect().x, center.y + BOSS_LIFE_BAR_Y);
 
 			int gwbar;
 			//EASY MODE
@@ -186,11 +188,11 @@ update_status M_Render::PostUpdate(float dt)
 		
 			gwbar = (gwbar * lifeBarRect.w) / 100;
 			//red
-			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 35, lifeBarRect.w, 10 }, 255, 0, 0, 255);
+			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 32, lifeBarRect.w, lifeBarRect.h/4 }, 255, 0, 0, 255);
 			//green
-			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 35, gwbar, 10 }, 0, 255, 0, 255);
+			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 32, gwbar, lifeBarRect.h / 4 }, 0, 255, 0, 255);
 
-			Blit(app->tex->bossLifeBar, lifeBarPos.x, lifeBarPos.y, &lifeBarRect);
+			BlitAdri(app->tex->bossLifeBar, lifeBarPos.x, lifeBarPos.y, &lifeBarRect);
 	}
 
 	//RENDER MINIMAP
@@ -211,13 +213,16 @@ update_status M_Render::PostUpdate(float dt)
 			diag->SetActive(true);
 			if ((*it).character == D_CHARACTER_SAMURAI)
 			{
-				SDL_Rect charRect{ 0,0,1366, 768 };//TODO: Change magic numbers
-				SDL_Rect boxRect{ 0,0, 762, 160 };//TODO: Change magic numbers
-				iPoint charPos(camera->GetCenter().x - 750, camera->GetCenter().y - 380);
-				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X, camera->GetCenter().y + D_BOX_OFFSET_Y);
+				float scale = (float)camera->GetSize().x / 1366;
+				SDL_Rect charRect{ 0,0,1366 * scale, 768 * scale};//TODO: Change magic numbers
+				SDL_Rect boxRect{ 0,0, 762 * scale, 160 * scale};//TODO: Change magic numbers
+				iPoint charPos(camera->GetCenter().x - 750 * scale, camera->GetCenter().y - 380 * scale);
+				charPos *= scale;
+				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X * scale, camera->GetCenter().y + D_BOX_OFFSET_Y * scale);
+				boxPos *= scale;
 				BlitAdri(app->tex->samuraiTexture, charPos.x, charPos.y, &charRect);
 				BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
-				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X, boxPos.y + TEXT_OFFSET_Y);
+				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X * scale, boxPos.y + TEXT_OFFSET_Y * scale);
 			}
 			if ((*it).character == D_CHARACTER_DEMON)
 			{
