@@ -330,28 +330,29 @@ void M_Resources::GuiEvent(GUIElement * element, int64_t event)
 
 bool M_Resources::Load(pugi::xml_node& node)
 {
-	pugi::xml_node loadNode = node.append_child("resources");
+	pugi::xml_node loadNode = node.child("resourcesState");
 
 	pugi::xml_node resourcesNode = loadNode.child("realResources");
 
 	foodAmount = resourcesNode.attribute("food").as_int();
-	resourcesNode.attribute("wood");
-	resourcesNode.append_attribute("gold") = goldAmount;
+	woodAmount = resourcesNode.attribute("wood").as_int();
+	goldAmount = resourcesNode.attribute("gold").as_int();
 
 	pugi::xml_node villagersNode = loadNode.child("villagers");
 
-	miners = villagersNode.attribute("miners").as_uint();
-	lumberjacks = villagersNode.append_attribute("lumberjacks").as_uint();
-	farmers = villagersNode.attribute("farmers").as_uint();
-	constructors = villagersNode.attribute("constructors").as_uint();
-	totalVillagers = villagersNode.attribute("totalVillagers").as_uint();
-	totalUnits = villagersNode.attribute("totalUnits").as_uint();
+	miners = villagersNode.attribute("miners").as_int();
+	lumberjacks = villagersNode.attribute("lumberjacks").as_int();
+	farmers = villagersNode.attribute("farmers").as_int();
+	constructors = villagersNode.attribute("constructors").as_int();
+	totalVillagers = villagersNode.attribute("totalVillagers").as_int();
+	unemployedVillagers = villagersNode.attribute("unemployedVillagers").as_int();
+	totalUnits = villagersNode.attribute("totalUnits").as_int();
 
 	return true;
 }
 bool M_Resources::Save(pugi::xml_node& node) const
 {
-	pugi::xml_node saveNode = node.append_child("resources");
+	pugi::xml_node saveNode = node.append_child("resourcesState");
 
 	pugi::xml_node resourcesNode = saveNode.append_child("realResources");
 
@@ -366,6 +367,7 @@ bool M_Resources::Save(pugi::xml_node& node) const
 	villagersNode.append_attribute("farmers") = farmers;
 	villagersNode.append_attribute("constructors") = constructors;
 	villagersNode.append_attribute("totalVillagers") = totalVillagers;
+	villagersNode.append_attribute("unemployedVillagers") = unemployedVillagers;
 	villagersNode.append_attribute("totalUnits") = totalUnits;
 
 	return true;

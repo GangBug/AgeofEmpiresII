@@ -64,7 +64,6 @@ bool M_Textures::CleanUp()
 	{
 		SDL_DestroyTexture((*item));
 	}
-
 	textures.clear();
 	IMG_Quit();
 	return true;

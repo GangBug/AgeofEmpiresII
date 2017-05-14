@@ -694,7 +694,7 @@ bool M_EntityManager::Load(pugi::xml_node& node)
 
 	pugi::xml_node buildingsNode = mainNode.child("buildings");
 
-	for (pugi::xml_node bNode = unitsNode.child("building"); bNode != NULL; bNode = bNode.next_sibling())
+	for (pugi::xml_node bNode = buildingsNode.child("building"); bNode != NULL; bNode = bNode.next_sibling())
 	{
 		std::string bType = bNode.attribute("type").as_string();
 		if (strcmp(bType.c_str(), "archery") == 0)

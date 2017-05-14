@@ -447,6 +447,7 @@ bool App::LoadGameNow()
 	pugi::xml_node nullnode;
 	entityManager->Awake(nullnode);
 	entityManager->Start();
+	entityManager->PlaceObjects();
 
 	bool ret = false;
 
