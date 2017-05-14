@@ -123,13 +123,16 @@ update_status S_InGame::PreUpdate(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 				app->render->camera->Move(10.0, RIGHT);
 
-			if (app->input->GetMousePosition().y < 5);
+			int mX, mY;
+			app->input->GetMouseScreenPosition(mX, mY);
+
+			if (mY < 5)
 				app->render->camera->Move(10.0, UP);
-			if (app->input->GetMousePosition().y > app->render->camera->GetRect().h - 5)
+			if (mY > app->render->camera->GetSize().y - 5)
 				app->render->camera->Move(10.0, DOWN);
-			if (app->input->GetMousePosition().x < 5)
+			if (mX < 5)
 				app->render->camera->Move(10.0, LEFT);
-			if (app->input->GetMousePosition().x > app->render->camera->GetRect().w - 5)
+			if (mX > app->render->camera->GetSize().x - 5)
 				app->render->camera->Move(10.0, RIGHT);
 
 			// -------------------------Creators -----------------------------------

@@ -13,10 +13,11 @@
 #include "SDL_TTF\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
 
-#define MAP_POS_X 1239 - app->render->camera->GetPosition().x + (mini_tiles[i].coords.x * 0.027)
-#define MAP_POS_Y 640 - app->render->camera->GetPosition().y + (mini_tiles[i].coords.y * 0.027)
-#define UNITS_POS_X 1239 - app->render->camera->GetPosition().x + (coords.x * 0.027)
-#define UNITS_POS_Y 640 - app->render->camera->GetPosition().y + (coords.y * 0.027)
+
+#define MAP_POS_X (app->render->camera->GetSize().x * 1239 / 1366) - app->render->camera->GetPosition().x + (mini_tiles[i].coords.x * (app->render->camera->GetSize().x * 0.027 / 1366))
+#define MAP_POS_Y (app->render->camera->GetSize().x * 640 / 1366) - app->render->camera->GetPosition().y + (mini_tiles[i].coords.y * (app->render->camera->GetSize().x * 0.027 / 1366))
+#define UNITS_POS_X (app->render->camera->GetSize().x * 1239 / 1366) - app->render->camera->GetPosition().x + (coords.x * (app->render->camera->GetSize().x * 0.027 / 1366))
+#define UNITS_POS_Y (app->render->camera->GetSize().x * 640 / 1366) - app->render->camera->GetPosition().y + (coords.y * (app->render->camera->GetSize().x * 0.027 / 1366))
 
 M_Minimap::M_Minimap(bool startEnabled) : Module(startEnabled)
 {
