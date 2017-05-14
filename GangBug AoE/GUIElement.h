@@ -56,9 +56,9 @@ enum gui_events
 	OPEN_MENU = (1 << 25),
 	OPEN_RESOURCE_MANAGER = (1 << 26),
 	EASY_MODE_GAME = (1 << 27),
-	HARD_MODE_GAME = (1 << 28)
-	
-	//TODO
+	HARD_MODE_GAME = (1 << 28),
+	LOAD_GAME = (1 << 29),
+	SAVE_GAME = (1 << 30),
 };
 
 struct ElementStatus

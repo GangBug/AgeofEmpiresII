@@ -34,8 +34,6 @@ public:
 
 	void DrawDebug()override;
 
-	void GuiEvent(GUIElement * element, int64_t event) override;
-
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;

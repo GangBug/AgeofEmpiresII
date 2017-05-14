@@ -225,6 +225,38 @@ void S_InGame::GuiEvent(GUIElement* element, int64_t event)
 			resourceManager = !resourceManager;
 			app->audio->PlayFx(app->gui->fxSelect);
 		}
+		if (event & CLOSE_APP)
+		{
+			app->quit = true;
+		}
+		if (event & LOAD_GAME)
+		{
+			element->SetLClicked(false);
+			OpenMenu(!menuOpen);
+			menuOpen = !menuOpen;
+			app->LoadGame("test.xml");
+			app->audio->PlayFx(app->gui->fxSelect);
+		}
+		if (event & SAVE_GAME)
+		{
+			element->SetLClicked(false);
+			OpenMenu(!menuOpen);
+			menuOpen = !menuOpen;
+			app->SaveGame("test.xml");
+			app->audio->PlayFx(app->gui->fxSelect);	
+		}
+		if (event & START_GAME)
+		{
+			element->SetLClicked(false);
+			OpenMenu(!menuOpen);
+			menuOpen = !menuOpen;
+			app->audio->PlayFx(app->gui->fxSelect);
+		}
+		if (event & ADD_MINER)//AKA Return to Menu
+		{
+			element->SetLClicked(false);
+			GoToMenu();
+		}
 	}
 }
 
@@ -280,7 +312,6 @@ void S_InGame::OpenMenu(bool visible)
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Load")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Save")->SetVisible(visible);
-	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Options")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Start")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetVisible(visible);
 
@@ -288,7 +319,6 @@ void S_InGame::OpenMenu(bool visible)
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Load")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Save")->SetInteractive(visible);
-	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Options")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Start")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetInteractive(visible);
 
@@ -387,10 +417,9 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Load")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Save")->SetInteractive(false);
-	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Options")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Start")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetInteractive(false);
-	
+	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Options")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "RepairButtonBarrack")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "RepairButtonStable")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "RepairButtonArchery")->SetInteractive(false);
