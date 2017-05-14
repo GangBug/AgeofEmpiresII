@@ -128,8 +128,14 @@ void Building::OnUpdate(float dt)
 {
 	if (!app->dialogueManager->onDialogue)
 	{
+	
 		if (buildType != BUILD_PORTAL)
 		{
+			if (this->buildType == BUILD_TOWNCENTER && HP > 0)
+			{
+				app->missionManager->TheTownCenterInsAlive();
+			}
+
 			iPoint mPos;
 			app->input->GetMouseMapPosition(mPos.x, mPos.y);
 

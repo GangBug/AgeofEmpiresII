@@ -228,6 +228,11 @@ void M_MissionManager::TheTownCenterIsDead()
 	townCenterIsAlive = false;
 }
 
+void M_MissionManager::TheTownCenterInsAlive()
+{
+	townCenterIsAlive = true;
+}
+
 Mission_State M_MissionManager::GetState() const
 {
 	return Mission_State(State);

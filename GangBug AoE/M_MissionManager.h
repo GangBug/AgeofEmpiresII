@@ -46,7 +46,7 @@ public:
 	void AddEnemyDeadUnit();
 	void SetBossState(bool state);
 	void TheTownCenterIsDead();
-
+	void TheTownCenterInsAlive();
 	Mission_State GetState()const;
 
 	void SetState(Mission_State _newstate);
