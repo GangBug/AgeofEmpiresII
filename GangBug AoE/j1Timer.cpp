@@ -20,7 +20,7 @@ void Timer::Start()
 }
 
 // ---------------------------------------------
-uint32 Timer::Read() const
+uint Timer::Read() const
 {
 	return stopped ? 0 : SDL_GetTicks() - startedAt;
 }
@@ -31,10 +31,21 @@ float Timer::ReadSec() const
 	return stopped ? 0 : float(SDL_GetTicks() - startedAt) / 1000.0f;
 }
 
-void Timer::SetSec(float sec)
+void Timer::SetSec(int sec)
 {
-	startedAt = sec * 1000.0f;
+	startedAt = -((sec * 1000.0f) - SDL_GetTicks());
 }
+
+uint Timer::GetStartedAt() const
+{
+	return startedAt;
+}
+
+void Timer::SetStartedAt(uint at)
+{
+	startedAt = at + SDL_GetTicks();
+}
+
 
 void Timer::Stop()
 {

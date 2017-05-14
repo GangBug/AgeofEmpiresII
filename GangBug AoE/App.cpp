@@ -443,11 +443,6 @@ void App::GetSaveGames(std::list<std::string>& listToFill) const
 bool App::LoadGameNow()
 {
 
-	entityManager->CleanUp();
-	pugi::xml_node nullnode;
-	entityManager->Awake(nullnode);
-	entityManager->Start();
-	entityManager->PlaceObjects();
 
 	bool ret = false;
 
@@ -464,6 +459,15 @@ bool App::LoadGameNow()
 
 		if(result != NULL)
 		{
+			entityManager->CleanUp();
+			pugi::xml_node nullnode;
+			entityManager->Awake(nullnode);
+			entityManager->Start();
+			entityManager->PlaceObjects();
+			particleSystem->DestroyParticles();
+			dialogueManager->CleanUp();
+			dialogueManager->Start();
+			enemyWaves->CleanUp();
 			LOG("Loading new Game State from %s...", loadGame.c_str());
 
 			root = data.child("game_state");

@@ -12,14 +12,18 @@ public:
 	void Start();
 	void Stop();
 
-	uint32 Read() const;
+	uint Read() const;
 
 	float ReadSec() const;
 
-	void SetSec(float sec);
+	uint GetStartedAt() const;
+
+	void SetStartedAt(uint);
+
+	void SetSec(int sec);
 
 private:
-	uint32	startedAt;
+	uint	startedAt;
 
 	bool stopped;
 };

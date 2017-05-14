@@ -64,9 +64,8 @@ update_status M_MissionManager::Update(float dt)
 			
 			if (bossIsAlive == false && app->dialogueManager->onDialogue == false)
 			{
-				app->audio->PlayTheme(app->audio->secondMission);
 				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION_FINISH);
-				
+				app->audio->PlayTheme(app->audio->secondMission);
 				enemyDeadUnits = 0;
 				bossIsAlive = true;
 				State = M_TOWNREPAIR;
@@ -293,26 +292,36 @@ bool M_MissionManager::Load(pugi::xml_node& node)
 	if (strcmp(status.c_str(), "Intro") == 0)
 	{
 		State = M_INTRO;
+		stateName.assign("Save the town");
 	}
 	else if (strcmp(status.c_str(), "Town Attack") == 0)
 	{
 		State = M_TOWNATTACK;
+		stateName.assign("Save the town");
+		app->audio->PlayTheme(app->audio->firstMission);
+		bossIsAlive = true;
 	}
 	else if (strcmp(status.c_str(), "Town Repair") == 0)
 	{
 		State = M_TOWNREPAIR;
+		stateName.assign("Repair the town");
+		app->audio->PlayTheme(app->audio->secondMission);
 	}
 	else if (strcmp(status.c_str(), "Waves") == 0)
 	{
 		State = M_WAVES;
+		stateName.assign("Defend the town! Waves incoming.");
+		app->audio->PlayTheme(app->audio->thirdMission);
 	}
 	else if (strcmp(status.c_str(), "Boss") == 0)
 	{
 		State = M_BOSS;
+		stateName.assign("Last fight! Defeat Diablo!");
+		app->audio->PlayTheme(app->audio->finalMission);
 	}
 
 	enemyDeadUnits = loadNode.attribute("enemyDeadUnits").as_uint();
-	misionTimer.SetSec(loadNode.attribute("missionTimer").as_float());
+	misionTimer.SetSec(loadNode.attribute("missionTimer").as_uint());
 	bossIsAlive = loadNode.attribute("bossStatus").as_bool();
 	townCenterIsAlive = loadNode.attribute("townStatus").as_bool();
 	isHardModeActive = loadNode.attribute("difficulty").as_bool();

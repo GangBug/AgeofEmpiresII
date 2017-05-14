@@ -60,10 +60,10 @@ bool M_Textures::CleanUp()
 	LOG("Freeing textures and Image library");
 	std::list<SDL_Texture*>::iterator item;
 
-	for(item = textures.begin(); item != textures.end(); item++)
+	/*for(item = textures.begin(); item != textures.end(); item++)
 	{
 		SDL_DestroyTexture((*item));
-	}
+	}*/
 	textures.clear();
 	IMG_Quit();
 	return true;

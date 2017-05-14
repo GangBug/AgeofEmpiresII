@@ -44,6 +44,7 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 		action = IDLE;
 	}
 	diabloAttackSoundTimer.Start();
+	app->missionManager->SetBossState(true);
 }
 
 void Boss::OnUpdate(float dt)

@@ -296,7 +296,10 @@ void Building::BuyUnit()
 			app->resources->SubstractFood(unitFoodCost);
 			app->resources->SubstractWood(unitWoodCost);
 			unitsToAdd++;
-			buyTimer.Start();
+			if (unitsToAdd == 1)
+			{
+				buyTimer.Start();
+			}
 		}
 
 	}

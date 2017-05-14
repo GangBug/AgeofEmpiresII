@@ -124,7 +124,7 @@ update_status M_Resources::Update(float dt)
 	update_status ret = UPDATE_CONTINUE;
 
 	//Maybe we could use dt instead of this timer
-	if (!app->dialogueManager->onDialogue && app->inGame->active == true)
+	if (!app->pause && app->inGame->active == true)
 	{
 		//Resources update
 		if (updateResources.ReadSec() > UPDATE_TIMER)

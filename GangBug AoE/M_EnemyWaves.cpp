@@ -41,32 +41,35 @@ update_status M_EnemyWaves::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	//TODO: Use IsStopped instead of spawnTimerStarted
-	if (waveTimer.ReadSec() > 10)
+	if (!app->pause)
 	{
-		app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, 192, 2590);
-
-		waveSpawn = true;
-		ResetWaveTimer();
-	}
-
-	if (waveSpawn == true && waveTimer.ReadSec() > 5)
-	{
-		checkCurrentPortals();
-		ResetWaveTimer();
-	}
-
-	//Working now
-	if (waveTimer.ReadSec() > 3)
-	{
-		for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
+		//TODO: Use IsStopped instead of spawnTimerStarted
+		if (waveTimer.ReadSec() > 10)
 		{
-			if (dynamic_cast<Unit*>(*it)->GetType() == VILE || dynamic_cast<Unit*>(*it)->GetType() == HELL_WITCH)
-			{
-				dynamic_cast<Unit*>(*it)->GoTo(iPoint(-2221, 2524));
-			}
+			app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, 192, 2590);
+
+			waveSpawn = true;
+			ResetWaveTimer();
 		}
-		waveEntities.clear();
+
+		if (waveSpawn == true && waveTimer.ReadSec() > 5)
+		{
+			checkCurrentPortals();
+			ResetWaveTimer();
+		}
+
+		//Working now
+		if (waveTimer.ReadSec() > 3)
+		{
+			for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
+			{
+				if (dynamic_cast<Unit*>(*it)->GetType() == VILE || dynamic_cast<Unit*>(*it)->GetType() == HELL_WITCH)
+				{
+					dynamic_cast<Unit*>(*it)->GoTo(iPoint(-2221, 2524));
+				}
+			}
+			waveEntities.clear();
+		}
 	}
 	return ret;
 }

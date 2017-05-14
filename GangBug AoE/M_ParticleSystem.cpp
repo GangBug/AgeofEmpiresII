@@ -145,6 +145,7 @@ bool M_ParticleSystem::DestroyParticle(Particle* curr)
 		particles.remove(curr);
 		//curr->CleanUp();
 		delete curr;
+		curr = nullptr;
 	}
 	else ret = false;
 	return ret;
