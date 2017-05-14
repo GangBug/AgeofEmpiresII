@@ -33,7 +33,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		{
 			//ADD UNIT: IF ANY UNIT IS ADDED ADD CODE HERE:
 		case TARKAN_KNIGHT:
-			SetFullHp(160 * EASY_MODE);
+			SetFullHp(130 * EASY_MODE);
 			attack = 15 * EASY_MODE;
 			speed = 1.6f;
 			rate_of_fire = 1;
@@ -46,7 +46,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case SAMURAI:
 			SetFullHp(100 * EASY_MODE);
-			attack = 15 * EASY_MODE;
+			attack = 17 * EASY_MODE;
 			speed = 1.3f;
 			rate_of_fire = 1;
 			range = 1;
@@ -58,8 +58,8 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case ARCHER:
 			SetFullHp(30 * EASY_MODE);
-			attack = 7 * EASY_MODE;
-			speed = 1.2f;
+			attack = 6 * EASY_MODE;
+			speed = 1.5f;
 			rate_of_fire = 1.2f;
 			range = 5;
 			unitClass = RANGED;
@@ -69,8 +69,8 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case VILE:
-			SetFullHp(60 / EASY_MODE);
-			attack = 12;
+			SetFullHp(80 / EASY_MODE);
+			attack = 15;
 			speed = 2.0f;
 			rate_of_fire = 1;
 			range = 1;
@@ -82,7 +82,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case HELL_WITCH:
 			SetFullHp(100 / EASY_MODE);
-			attack = 10;
+			attack = 12;
 			speed = 2.0f;
 			rate_of_fire = 1;
 			range = 1;
@@ -90,11 +90,6 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			unitRadius = 7;
 			horde = true;
 			unitState = NO_STATE;
-			break;
-
-		default:
-			LOG("ERROR: NOT A CORRECT UNIT TYPE");
-			unitClass = NO_CLASS;
 			break;
 		}
 	}
@@ -131,7 +126,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 		case ARCHER:
 			SetFullHp(30);
 			attack = 6;
-			speed = 2.0f;
+			speed = 1.5f;
 			rate_of_fire = 1.2f;
 			range = 5;
 			unitClass = RANGED;

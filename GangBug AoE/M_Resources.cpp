@@ -155,6 +155,12 @@ update_status M_Resources::Update(float dt)
 			}
 			updateResources.Start();
 		}
+		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		{
+			AddWood(100);
+			AddFood(100);
+			AddGold(100);
+		}
 	}
 	return ret;
 }

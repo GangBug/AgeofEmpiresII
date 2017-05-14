@@ -50,7 +50,6 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitFoodCost = 60;
 		unitLimitCount = 10;
 		
-
 		HP = 150;
 		fullHP = 150;
 		horde = false;
@@ -88,7 +87,6 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitWoodCost = 0;
 		unitFoodCost = 40;
 		unitLimitCount = 9;//1 less , there is somewhere one >= or <= that allow you to create one more
-		currentUnitCount = 0;
 
 		HP = 450;
 		fullHP = 450;
@@ -296,7 +294,7 @@ void Building::BuyUnit()
 	//If theres money create a unit
 	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost && HP == fullHP)
 	{
-		if (this->buildType == BUILD_ARCHERY && app->metrics->GetSamuraisAlive() + unitsToAdd < unitLimitCount || this->buildType == BUILD_STABLES && app->metrics->GetTarkanAlive()+ unitsToAdd < unitLimitCount || this->buildType == BUILD_BARRACK && app->metrics->GetSamuraisAlive() + unitsToAdd < unitLimitCount || this->buildType == BUILD_TOWNCENTER && currentUnitCount + unitsToAdd < unitLimitCount)
+		if ((this->buildType == BUILD_ARCHERY && app->metrics->GetArchersAlive() + unitsToAdd < unitLimitCount) || (this->buildType == BUILD_STABLES && app->metrics->GetTarkanAlive()+ unitsToAdd < unitLimitCount) || (this->buildType == BUILD_BARRACK && app->metrics->GetSamuraisAlive() + unitsToAdd < unitLimitCount) || (this->buildType == BUILD_TOWNCENTER && currentUnitCount + unitsToAdd < unitLimitCount))
 		{
 			app->resources->SubstractGold(unitGoldCost);
 			app->resources->SubstractFood(unitFoodCost);
