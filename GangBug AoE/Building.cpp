@@ -12,7 +12,7 @@
 #include "M_MissionManager.h"
 #include "M_Metrics.h"
 
-#define BUY_TIMER 2
+#define BUY_TIMER 3
 #define PROGRESS_WIDTH 100
 
 
@@ -29,8 +29,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 45;
 		unitWoodCost = 25;
 		unitFoodCost = 0;
-		unitLimitCount = 6;
-		currentUnitCount = 0;
+		unitLimitCount = 9;		
 
 		HP = 150;
 		fullHP = 150;
@@ -50,7 +49,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitWoodCost = 0;
 		unitFoodCost = 60;
 		unitLimitCount = 10;
-		currentUnitCount = 0;
+		
 
 		HP = 150;
 		fullHP = 150;
@@ -69,8 +68,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 30;
 		unitWoodCost = 0;
 		unitFoodCost = 60;
-		unitLimitCount = 20;
-		currentUnitCount = 0;
+		unitLimitCount = 20;		
 
 		HP = 150;
 		fullHP = 150;
@@ -89,7 +87,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 0;
 		unitWoodCost = 0;
 		unitFoodCost = 40;
-		unitLimitCount = 10;
+		unitLimitCount = 9;//1 less , there is somewhere one >= or <= that allow you to create one more
 		currentUnitCount = 0;
 
 		HP = 450;
@@ -169,9 +167,19 @@ void Building::OnUpdate(float dt)
 				{
 					unitInfoLabel->SetVisible(true);
 					unitInfoLabel->SetActive(true);
+
 					if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 					{
-						BuyUnit();
+						//i dont know why isnt work fix
+
+					/*	if(this->unitType==ARCHER && (app->metrics->GetArchersAlive()+ unitsToAdd)<currentUnitCount)
+							BuyUnit();
+						if (this->unitType == TARKAN_KNIGHT && (app->metrics->GetTarkanAlive() + unitsToAdd)<currentUnitCount)
+							BuyUnit();
+						if (this->unitType == SAMURAI && (app->metrics->GetSamuraisAlive() + unitsToAdd)<currentUnitCount)
+							BuyUnit();
+						if (this->unitType == VILLAGER && (currentUnitCount + unitsToAdd)<currentUnitCount)*/
+							BuyUnit();
 					}
 				}
 				else if (!creatorButton->GetDrawRect().Contains(mPos.x, mPos.y))
@@ -225,7 +233,6 @@ void Building::OnUpdate(float dt)
 					app->metrics->AddVillagersAlive();
 					app->resources->AddVillager();
 					app->audio->PlayFx(app->entityManager->fxCreateVillager);
-					currentUnitCount++;
 					unitsToAdd--;
 					if (unitsToAdd > 0)
 					{
@@ -296,13 +303,16 @@ bool Building::OnLoad(pugi::xml_node * node)
 void Building::BuyUnit()
 {
 	//If theres money create a unit
-	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost && HP == fullHP && currentUnitCount < unitLimitCount)
+	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost && HP == fullHP)
 	{
-		app->resources->SubstractGold(unitGoldCost);
-		app->resources->SubstractFood(unitFoodCost);
-		app->resources->SubstractWood(unitWoodCost);
-		unitsToAdd++;
-		buyTimer.Start();
+		if (this->buildType == BUILD_ARCHERY && app->metrics->GetSamuraisAlive() <= unitLimitCount || this->buildType == BUILD_STABLES && app->metrics->GetTarkanAlive() <= unitLimitCount || this->buildType == BUILD_BARRACK && app->metrics->GetSamuraisAlive() <= unitLimitCount || this->buildType == BUILD_TOWNCENTER && currentUnitCount <= unitLimitCount)
+		{
+			app->resources->SubstractGold(unitGoldCost);
+			app->resources->SubstractFood(unitFoodCost);
+			app->resources->SubstractWood(unitWoodCost);
+			unitsToAdd++;
+			buyTimer.Start();
+		}
 
 	}
 	else {
