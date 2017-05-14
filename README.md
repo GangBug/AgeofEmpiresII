@@ -70,7 +70,7 @@ Secret's QA departament:
 
 ## Hard Mode
 
-Debug:
+## Debug:
 
 * Press F2 to add 100 to each resource.
 * Press F3 to damage the boss for 200HP.
@@ -80,9 +80,9 @@ Debug:
 v0.7 Alpha - Sunday 14th of May, 2017
 
 Adds:
-*Save & Load functionality
-*Gameplay Balance
-*Bug fixing
+* Save & Load functionality
+* Gameplay Balance
+* Bug fixing
 
 V0.6 Pre-Alpha - Sunday 14th of May, 2017
 
