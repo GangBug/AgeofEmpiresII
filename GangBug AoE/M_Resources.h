@@ -3,11 +3,13 @@
 
 #include "Module.h"
 
-#define UPDATE_TIMER 5
-#define MAX_RESOURCES 2000
+#define UPDATE_TIMER 2
+#define MAX_RESOURCES 400
+
+#define VILLAGERS_REDUCTION 0.2
 
 #define REPAIR_AMOUNT 10
-#define MAX_VILLAGERS 20
+#define MAX_VILLAGERS 10
 
 class M_Resources : public Module
 {
@@ -24,10 +26,15 @@ public:
 private:
 	Timer updateResources;
 
-	//Resources
+	//Total Resources
 	uint foodAmount;
 	uint woodAmount;
 	uint goldAmount;
+
+	//Resource +
+	uint food;
+	uint wood;
+	uint gold; 
 
 public:
 	uint GetCurrentGold();
