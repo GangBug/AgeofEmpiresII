@@ -12,10 +12,6 @@
 #include "M_MissionManager.h"
 #include "M_Metrics.h"
 
-#define BUY_TIMER 3
-#define PROGRESS_WIDTH 100
-
-
 Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) : Entity(ENTITY_BUILDING, parent), buildType(buildType), tileAttack(tileAttack)
 {
 	SetEnclosingBoxSize(100, 100);
@@ -29,7 +25,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 45;
 		unitWoodCost = 25;
 		unitFoodCost = 0;
-		unitLimitCount = 9;		
+		unitLimitCount = 12;		
 
 		HP = 150;
 		fullHP = 150;
@@ -88,8 +84,8 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitFoodCost = 40;
 		unitLimitCount = 9;//1 less , there is somewhere one >= or <= that allow you to create one more
 
-		HP = 450;
-		fullHP = 450;
+		HP = 600;
+		fullHP = 600;
 		horde = false;
 
 		entityTexture = app->tex->townCenterTexture;

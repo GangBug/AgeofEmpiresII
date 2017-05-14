@@ -58,7 +58,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case ARCHER:
 			SetFullHp(30 * EASY_MODE);
-			attack = 6 * EASY_MODE;
+			attack = 7 * EASY_MODE;
 			speed = 1.5f;
 			rate_of_fire = 1.2f;
 			range = 5;
@@ -125,7 +125,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case ARCHER:
 			SetFullHp(30);
-			attack = 6;
+			attack = 7;
 			speed = 1.5f;
 			rate_of_fire = 1.2f;
 			range = 5;
@@ -182,10 +182,21 @@ void Unit::OnUpdate(float dt)
 				app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
 				GB_Rectangle<float> unitRect = { this->GetGlobalPosition().x - 20 , this->GetGlobalPosition().y - 35, 30, 42 };
-
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && unitRect.Contains(mPos.x, mPos.y))
+			
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && unitRect.Contains(mPos.x, mPos.y) && selected == false)
 				{
 					selected = true;
+				}
+				if (selected == true && app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+				{
+					std::vector<Entity*> vec = app->entityManager->GetUnitVector();
+					for (std::vector<Entity*>::iterator it = vec.begin(); it != vec.end(); it++)
+					{
+						if (dynamic_cast<Unit*>(*it)->GetUnitType() == this->GetUnitType())
+						{
+							(*it)->selected = true;
+						}
+					}
 				}
 			}
 	

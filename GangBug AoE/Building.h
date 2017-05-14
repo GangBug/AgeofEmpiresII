@@ -2,6 +2,9 @@
 #include "Unit.h"
 #include "j1Timer.h"
 
+#define BUY_TIMER 2
+#define PROGRESS_WIDTH 100
+
 class GUIElement;
 class Particle;
 
