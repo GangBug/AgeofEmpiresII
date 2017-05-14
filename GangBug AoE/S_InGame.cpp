@@ -167,13 +167,16 @@ update_status S_InGame::Update(float dt)
 {
 	if (active)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+		if (!app->pause)
 		{
-			app->SaveGame("test.xml");
-		}
-		if (app->input->GetKey(SDL_SCANCODE_L) == KEY_UP)
-		{
-			app->LoadGame("test.xml");
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+			{
+				app->SaveGame("test.xml");
+			}
+			if (app->input->GetKey(SDL_SCANCODE_L) == KEY_UP)
+			{
+				app->LoadGame("test.xml");
+			}
 		}
 	}
 	return UPDATE_CONTINUE;
@@ -323,6 +326,15 @@ void S_InGame::OpenMenu(bool visible)
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Exit")->SetInteractive(visible);
 
 	app->pause = visible;
+
+	if(visible == true)
+	{
+		app->missionManager->misionTimer.Pause();
+	}
+	else
+	{
+		app->missionManager->misionTimer.UnPause();
+	}
 }
 
 void S_InGame::OpenResources(bool visible)

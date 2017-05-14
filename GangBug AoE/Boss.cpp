@@ -50,130 +50,133 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 void Boss::OnUpdate(float dt)
 {
 	app->missionManager->SetBossState(true);
-	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	if (!app->pause)
 	{
-		this->SetFullHp(GetHP() - 200);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
-	{
-		if (getBossControllableStatus() == true)
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
 		{
-			LOG("Boss set to -> NOT controllable");
-			setBossControllable(false);
+			this->SetFullHp(GetHP() - 200);
 		}
-		else if (getBossControllableStatus() == false)
+
+		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 		{
-			LOG("Boss set to -> YES controllable");
-			setBossControllable(true);
+			if (getBossControllableStatus() == true)
+			{
+				LOG("Boss set to -> NOT controllable");
+				setBossControllable(false);
+			}
+			else if (getBossControllableStatus() == false)
+			{
+				LOG("Boss set to -> YES controllable");
+				setBossControllable(true);
+			}
 		}
-	}
 
-	if (GetHP() > 0) 
-	{
-		switch (unitState)
+		if (GetHP() > 0)
 		{
-		case NO_STATE:
-			if (getBossControllableStatus() == true)
+			switch (unitState)
 			{
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+			case NO_STATE:
+				if (getBossControllableStatus() == true)
 				{
-					//Colision
-					app->collision->resetPrevPositions();
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						//Colision
+						app->collision->resetPrevPositions();
 
-					iPoint objective;
-					app->input->GetMouseMapPosition(objective.x, objective.y);
-					GoTo(objective);
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						GoTo(objective);
+					}
 				}
-			}
-			if (target != nullptr && target->GetHP() > 0)
-			{
-				if (buildingToAttack == true)
+				if (target != nullptr && target->GetHP() > 0)
 				{
-					SetBuildingFightingArea();
+					if (buildingToAttack == true)
+					{
+						SetBuildingFightingArea();
+					}
+					else if (buildingToAttack == false)
+					{
+						SetFightingArea();
+					}
 				}
-				else if (buildingToAttack == false)
+				CheckSurroundings();
+				break;
+			case MOVING:
+				if (getBossControllableStatus() == true)
 				{
-					SetFightingArea();
-				}
-			}
-			CheckSurroundings();
-			break;
-		case MOVING:
-			if (getBossControllableStatus() == true)
-			{
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
-				{
-					//Colision
-					app->collision->resetPrevPositions();
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						//Colision
+						app->collision->resetPrevPositions();
 
-					iPoint objective;
-					app->input->GetMouseMapPosition(objective.x, objective.y);
-					GoTo(objective);
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						GoTo(objective);
+					}
 				}
-			}
-			if (Move() == false)
-			{
-				unitState = NO_STATE;
-				action = IDLE;
-			}
-			CheckSurroundings();
-			break;
-		case MOVING_TO_ATTACK:
-			if (getBossControllableStatus() == true)
-			{
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				if (Move() == false)
 				{
-					//Colision
-					app->collision->resetPrevPositions();
+					unitState = NO_STATE;
+					action = IDLE;
+				}
+				CheckSurroundings();
+				break;
+			case MOVING_TO_ATTACK:
+				if (getBossControllableStatus() == true)
+				{
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						//Colision
+						app->collision->resetPrevPositions();
 
-					iPoint objective;
-					app->input->GetMouseMapPosition(objective.x, objective.y);
-					GoTo(objective);
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						GoTo(objective);
+					}
 				}
-			}
-			if (Move() == false)
-			{
-				unitState = ATTACKING;
-				action = ATTACK;
-			}
-			break;
-		case ATTACKING:
-			if (getBossControllableStatus() == true)
-			{
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+				if (Move() == false)
 				{
-					//Colision
-					app->collision->resetPrevPositions();
+					unitState = ATTACKING;
+					action = ATTACK;
+				}
+				break;
+			case ATTACKING:
+				if (getBossControllableStatus() == true)
+				{
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && selected == true)
+					{
+						//Colision
+						app->collision->resetPrevPositions();
 
-					iPoint objective;
-					app->input->GetMouseMapPosition(objective.x, objective.y);
-					GoTo(objective);
+						iPoint objective;
+						app->input->GetMouseMapPosition(objective.x, objective.y);
+						GoTo(objective);
+					}
 				}
-			}
-			if (!AttackUnit())
-			{
-				target = nullptr;
-				unitState = NO_STATE;
-				action = IDLE;
-			}
-			if (diabloAttackSoundTimer.ReadSec() > (this->rate_of_fire - 0.5f))
-			{
-				if (this->GetUnitType() == DIABLO && (this->GetGlobalPosition().x > (-1)*app->render->camera->GetPosition().x && this->GetGlobalPosition().x < (-1)*(app->render->camera->GetPosition().x - app->render->camera->GetRect().w))
-					&& (this->GetGlobalPosition().y >(-1)*app->render->camera->GetPosition().y && this->GetGlobalPosition().y < (-1)*(app->render->camera->GetPosition().y - app->render->camera->GetRect().h)))
+				if (!AttackUnit())
 				{
-					this->PlayAttackSound();
+					target = nullptr;
+					unitState = NO_STATE;
+					action = IDLE;
 				}
-				diabloAttackSoundTimer.Start();
+				if (diabloAttackSoundTimer.ReadSec() > (this->rate_of_fire - 0.5f))
+				{
+					if (this->GetUnitType() == DIABLO && (this->GetGlobalPosition().x > (-1)*app->render->camera->GetPosition().x && this->GetGlobalPosition().x < (-1)*(app->render->camera->GetPosition().x - app->render->camera->GetRect().w))
+						&& (this->GetGlobalPosition().y > (-1)*app->render->camera->GetPosition().y && this->GetGlobalPosition().y < (-1)*(app->render->camera->GetPosition().y - app->render->camera->GetRect().h)))
+					{
+						this->PlayAttackSound();
+					}
+					diabloAttackSoundTimer.Start();
+				}
+				break;
 			}
-			break;
 		}
-	}
 
-	else
-	{
-		Die();
-		app->missionManager->SetBossState(false);
+		else
+		{
+			Die();
+			app->missionManager->SetBossState(false);
+		}
 	}
 
 	iPoint p;

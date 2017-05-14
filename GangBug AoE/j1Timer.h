@@ -11,6 +11,8 @@ public:
 
 	void Start();
 	void Stop();
+	void Pause();
+	void UnPause();
 
 	uint Read() const;
 
@@ -24,8 +26,10 @@ public:
 
 private:
 	uint	startedAt;
+	uint	pausedAt;
 
 	bool stopped;
+	bool paused;
 };
 
 #endif //__TIMER_H__

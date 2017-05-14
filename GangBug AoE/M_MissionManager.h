@@ -58,8 +58,11 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-private:
+public:
+
 	Timer misionTimer;
+
+private:
 	Mission_State State;
 
 private://troops states
