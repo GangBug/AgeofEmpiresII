@@ -208,12 +208,12 @@ update_status M_Render::PostUpdate(float dt)
 	{
 		if ((*it).active && !(*it).done)
 		{
+			float scale = (float)camera->GetSize().x / 1366;
 			GUILabel* diag = *(*it).textLines.begin();
 			diag->SetVisible(true);
 			diag->SetActive(true);
 			if ((*it).character == D_CHARACTER_SAMURAI)
-			{
-				float scale = (float)camera->GetSize().x / 1366;
+			{			
 				SDL_Rect charRect{ 0,0,1366 * scale, 768 * scale};//TODO: Change magic numbers
 				SDL_Rect boxRect{ 0,0, 762 * scale, 160 * scale};//TODO: Change magic numbers
 				iPoint charPos(camera->GetCenter().x - 750 * scale, camera->GetCenter().y - 380 * scale);
@@ -226,13 +226,13 @@ update_status M_Render::PostUpdate(float dt)
 			}
 			if ((*it).character == D_CHARACTER_DEMON)
 			{
-				SDL_Rect charRect{ 0,0,1366, 768 };//TODO: Change magic numbers
-				SDL_Rect boxRect{ 0,0, 762, 160 };//TODO: Change magic numbers
-				iPoint charPos(camera->GetCenter().x - 680, camera->GetCenter().y - 380);
-				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X, camera->GetCenter().y + D_BOX_OFFSET_Y);
+				SDL_Rect charRect{ 0,0,1366 * scale, 768 * scale};//TODO: Change magic numbers
+				SDL_Rect boxRect{ 0,0, 762 * scale, 160 * scale};//TODO: Change magic numbers
+				iPoint charPos(camera->GetCenter().x - 680 * scale, camera->GetCenter().y - 380 * scale);
+				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X * scale, camera->GetCenter().y + D_BOX_OFFSET_Y* scale);
 				BlitAdri(app->tex->demonTexture, charPos.x, charPos.y, &charRect);
 				BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
-				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X, boxPos.y + TEXT_OFFSET_Y);
+				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X * scale, boxPos.y + TEXT_OFFSET_Y * scale);
 			}
 			//app->render->DrawQuad(diag->GetLocalRect().GetSDLrect(), 255, 0, 0, 255);
 			diag->Draw();
