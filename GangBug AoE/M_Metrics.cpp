@@ -13,9 +13,9 @@ M_Metrics::M_Metrics(bool startEnabled) : Module(startEnabled)
 	name.assign("Metrics");
 
 	totalUnits = 0;
-	unitsAlive = 0;
-	samuraiAlive = 0;
-	archersAlive = 0;
+	unitsAlive = 9;
+	samuraiAlive = 5;
+	archersAlive = 4;
 	tarkanAlive = 0;
 
 	deadUnits = 0;

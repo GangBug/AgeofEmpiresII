@@ -170,15 +170,6 @@ void Building::OnUpdate(float dt)
 
 					if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 					{
-						//i dont know why isnt work fix
-
-					/*	if(this->unitType==ARCHER && (app->metrics->GetArchersAlive()+ unitsToAdd)<currentUnitCount)
-							BuyUnit();
-						if (this->unitType == TARKAN_KNIGHT && (app->metrics->GetTarkanAlive() + unitsToAdd)<currentUnitCount)
-							BuyUnit();
-						if (this->unitType == SAMURAI && (app->metrics->GetSamuraisAlive() + unitsToAdd)<currentUnitCount)
-							BuyUnit();
-						if (this->unitType == VILLAGER && (currentUnitCount + unitsToAdd)<currentUnitCount)*/
 							BuyUnit();
 					}
 				}
@@ -305,7 +296,7 @@ void Building::BuyUnit()
 	//If theres money create a unit
 	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost && HP == fullHP)
 	{
-		if (this->buildType == BUILD_ARCHERY && app->metrics->GetSamuraisAlive() <= unitLimitCount || this->buildType == BUILD_STABLES && app->metrics->GetTarkanAlive() <= unitLimitCount || this->buildType == BUILD_BARRACK && app->metrics->GetSamuraisAlive() <= unitLimitCount || this->buildType == BUILD_TOWNCENTER && currentUnitCount <= unitLimitCount)
+		if (this->buildType == BUILD_ARCHERY && app->metrics->GetSamuraisAlive() + unitsToAdd < unitLimitCount || this->buildType == BUILD_STABLES && app->metrics->GetTarkanAlive()+ unitsToAdd < unitLimitCount || this->buildType == BUILD_BARRACK && app->metrics->GetSamuraisAlive() + unitsToAdd < unitLimitCount || this->buildType == BUILD_TOWNCENTER && currentUnitCount + unitsToAdd < unitLimitCount)
 		{
 			app->resources->SubstractGold(unitGoldCost);
 			app->resources->SubstractFood(unitFoodCost);
