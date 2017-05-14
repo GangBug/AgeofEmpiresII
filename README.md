@@ -49,7 +49,8 @@ Secret's QA departament:
 # CONTROLS
 
 * Directional arrows to move map camera.
-* Hold click and drag to select units.
+* Hold left click and drag it to select units.
+* Left click to select one unit.
 * Right click to move.
 * Click the buldings to create units
 * Click the corners top buttons to open/close the menus
@@ -63,18 +64,28 @@ Secret's QA departament:
 * +20% More DMG of the allied Troops
 * -20% Less HP of the enemy Troops
 * -15% Less HP of the enemy Boss
-* +50% Base amount of resources/2seconds
+* +33% Base amount of resources/2seconds
 
-## Normal Mode
+## Hard Mode
 
 Debug:
 
+* Press 5 to create a new Archer unit.
+* Press 6 to create a new Tarkan Knight unit.
+* Press 7 to create a new Vile unit.
+* Press H deal -200HP damage to the Boss.
 * Press F9 to move to the game scene.
 * Press F10 to return to the intro scene.
-* Press 3 to create a new archer unit.
-
 
 ## VERSION UPDATES
+
+V0.6 Pre-Alpha - Sunday 14th of May, 2017
+
+Adds:
+* New Game Modes
+* Score Screen
+* Gameplay Balance
+* Bug Fixing
 
 V0.5 Pre-Alpha - Friday 12th of May, 2017
 
