@@ -57,10 +57,10 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case ARCHER:
-			SetFullHp(30 * EASY_MODE);
-			attack = 7 * EASY_MODE;
+			SetFullHp(40 * EASY_MODE);
+			attack = 8 * EASY_MODE;
 			speed = 1.5f;
-			rate_of_fire = 1.2f;
+			rate_of_fire = 1.3f;
 			range = 5;
 			unitClass = RANGED;
 			unitRadius = 8;
@@ -69,7 +69,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case VILE:
-			SetFullHp(80 / EASY_MODE);
+			SetFullHp(70 / EASY_MODE);
 			attack = 15;
 			speed = 2.0f;
 			rate_of_fire = 1;
@@ -124,10 +124,10 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case ARCHER:
-			SetFullHp(30);
-			attack = 7;
+			SetFullHp(40);
+			attack = 8;
 			speed = 1.5f;
-			rate_of_fire = 1.2f;
+			rate_of_fire = 1.3f;
 			range = 5;
 			unitClass = RANGED;
 			unitRadius = 8;
@@ -136,7 +136,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 			break;
 
 		case VILE:
-			SetFullHp(80);
+			SetFullHp(70);
 			attack = 15;
 			speed = 2.0f;
 			rate_of_fire = 1;

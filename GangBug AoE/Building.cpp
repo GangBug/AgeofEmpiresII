@@ -27,8 +27,8 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitFoodCost = 0;
 		unitLimitCount = 12;		
 
-		HP = 150;
-		fullHP = 150;
+		HP = 250;
+		fullHP = 250;
 		horde = false;
 
 		entityTexture = app->tex->archeryTexture;
@@ -46,8 +46,8 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitFoodCost = 60;
 		unitLimitCount = 10;
 		
-		HP = 150;
-		fullHP = 150;
+		HP = 250;
+		fullHP = 250;
 		horde = false;
 
 		entityTexture = app->tex->stableTexture;
@@ -65,8 +65,8 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitFoodCost = 60;
 		unitLimitCount = 20;		
 
-		HP = 150;
-		fullHP = 150;
+		HP = 250;
+		fullHP = 250;
 		horde = false;
 
 		entityTexture = app->tex->barracksTexture;
@@ -99,8 +99,8 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitType = VILE;
 		horde = true;
 
-		HP = 100;
-		fullHP = 100;
+		HP = 150;
+		fullHP = 150;
 
 		entityTexture = app->tex->portalTexture;
 		SetEnclosingBoxSize(155, 233);

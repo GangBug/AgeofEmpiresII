@@ -34,8 +34,8 @@ bool M_Resources::Start()
 	lumberjacks = 0;
 	farmers = 0;
 	constructors = 0;
-	totalVillagers = 2;
-	unemployedVillagers = 2;
+	totalVillagers = 3;
+	unemployedVillagers = 3;
 	totalUnits = 0;
 
 	//EASY MODE

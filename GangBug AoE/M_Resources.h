@@ -4,7 +4,7 @@
 #include "Module.h"
 
 #define UPDATE_TIMER 2
-#define MAX_RESOURCES 400
+#define MAX_RESOURCES 600
 
 #define VILLAGERS_REDUCTION 0.2
 
