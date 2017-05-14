@@ -49,12 +49,14 @@ Secret's QA departament:
 # CONTROLS
 
 * Directional arrows to move map camera.
+* Mouse on screen borders to move map camera.
 * Hold left click and drag it to select units.
 * Left click to select one unit.
+* Press 1 with a unit selected to select all the units of its type.
 * Right click to move.
-* Click the buldings to create units
-* Click the corners top buttons to open/close the menus
-* Click plus or minus in resources window to asigns the villagers to the diferent tasks
+* Click the buldings to create units.
+* Click the corners top buttons to open/close the menus.
+* Click plus or minus in resources window to asigns the villagers to the diferent tasks.
 
 # GAMEMODES
 
@@ -70,14 +72,17 @@ Secret's QA departament:
 
 Debug:
 
-* Press 5 to create a new Archer unit.
-* Press 6 to create a new Tarkan Knight unit.
-* Press 7 to create a new Vile unit.
-* Press H deal -200HP damage to the Boss.
-* Press F9 to move to the game scene.
-* Press F10 to return to the intro scene.
+* Press F2 to add 100 to each resource.
+* Press F3 to damage the boss for 200HP.
 
 ## VERSION UPDATES
+
+v0.7 Alpha - Sunday 14th of May, 2017
+
+Adds:
+*Save & Load functionality
+*Gameplay Balance
+*Bug fixing
 
 V0.6 Pre-Alpha - Sunday 14th of May, 2017
 
@@ -169,6 +174,6 @@ V0.0 Production Docs & Pitch Presentation - [Monday 9-March-2017]
 
 * Vertical Slide V-0.3 - [wednesday 5-April-2017] 
 * Pre-Alpha V-0.4 - [Monday 24-April-2017] 
-* Alpha.V-0.5 - [Sunday 14-May-2017] 
+* Alpha.V-0.7 - [Sunday 14-May-2017] 
 * Beta.V-0.7 - [Friday 19-May-2017] 
 * Gold V-1.0 -[Monday 29-May-2017]
