@@ -144,16 +144,10 @@ update_status S_InGame::PreUpdate(float dt)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
-				enemyDestination = { x, y };
-			}
-			if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
-			{
-				int x, y;
-				app->input->GetMouseMapPosition(x, y);
 				app->entityManager->CreateUnit(TARKAN_KNIGHT, nullptr, x, y);
 				app->audio->PlayFx(app->entityManager->fxCreateUnit);
 			}
-			if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN)
+			if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
