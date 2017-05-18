@@ -72,10 +72,18 @@ Secret's QA departament:
 
 ## Debug:
 
+* Press F1 to activate God Mode.
 * Press F2 to add 100 to each resource.
 * Press F3 to damage the boss for 200HP.
 
 ## VERSION UPDATES
+
+v0.7.3 Thursday 18th of May, 2017
+
+Adds:
+* Added God mode
+* Gameplay Balance
+* Bug fixing
 
 v0.7 Alpha - Sunday 14th of May, 2017
 
