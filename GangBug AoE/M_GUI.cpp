@@ -135,13 +135,6 @@ update_status M_GUI::PreUpdate(float dt)
 	//IterateList(&guiList, &M_GUI::DoElementUpdate, dt);
 	//IterateList(&debugGuiList, &M_GUI::DoElementUpdate, dt);
 
-	//TMP
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
-	{
-		if (img2) img2->Enable();
-	}
-	//---
-
 	for (std::list<GUIElement*>::iterator it = guiList.begin(); it != guiList.end(); ++it)
 	{
 		if ((*it)->GetActive())
@@ -166,7 +159,7 @@ update_status M_GUI::Update(float dt)
 update_status M_GUI::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("UI PostUpdate", Profiler::Color::Green);
-	if (UIEditing && app->input->GetKey(SDL_SCANCODE_2) == key_state::KEY_UP)
+	/*if (UIEditing && app->input->GetKey(SDL_SCANCODE_2) == key_state::KEY_UP)
 	{
 		bool ret = SaveLayout();
 		if (!ret)
@@ -174,7 +167,7 @@ update_status M_GUI::PostUpdate(float dt)
 			LOG("Error loading ui.xml");
 			return UPDATE_ERROR;
 		}
-	}
+	}*/
 	return UPDATE_CONTINUE;
 }
 bool M_GUI::CleanUp()

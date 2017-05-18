@@ -204,9 +204,19 @@ update_status App::Update()
 	update_status ret = UPDATE_CONTINUE;
 
 	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		debug = !debug;
-	if (input->GetKey(SDL_SCANCODE_PAUSE) == KEY_DOWN)
-		pause = !pause;
+	{
+		god = !god;
+		if (god)
+		{
+			gui->FindElement(gui->guiList, "label_GodMode")->SetVisible(true);
+		}
+		else
+		{
+			gui->FindElement(gui->guiList, "label_GodMode")->SetVisible(false);
+		}
+	}
+	/*if (input->GetKey(SDL_SCANCODE_PAUSE) == KEY_DOWN)
+		pause = !pause;*/
 	/*if (input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		gui->SetUIEditing(!gui->GetUIEditing()); */
 

@@ -437,7 +437,17 @@ int Unit::GetHP() const
 
 void Unit::DoDamage(int dmg)
 {
-	hp -= dmg;
+	if (app->god)
+	{
+		if (horde)
+		{
+			hp -= dmg;
+		}
+	}
+	else
+	{
+		hp -= dmg;
+	}
 }
 
 void Unit::Die()

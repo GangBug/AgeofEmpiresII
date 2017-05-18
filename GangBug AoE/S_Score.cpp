@@ -69,8 +69,8 @@ update_status S_Score::PostUpdate(float dt)
 
 	if (active)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-			GoToMenu();
+		/*if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+			GoToMenu();*/
 	}
 
 	return ret;

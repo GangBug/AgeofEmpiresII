@@ -320,7 +320,17 @@ void Building::SetHP(int HP)
 
 void Building::DoDamage(int dmg)
 {
-	HP -= dmg;
+	if (app->god)
+	{
+		if (horde)
+		{
+			HP -= dmg;
+		}
+	}
+	else
+	{
+		HP -= dmg;
+	}
 }
 
 void Building::Repair(int amount)

@@ -52,7 +52,7 @@ bool S_InGame::Start()
 		BuldingCreator();//Create the buldings
 		UnitsCreator();// Create the start units
 
-		app->render->camera->SetCenter({ -2170, 2160 });
+		app->render->camera->SetCenter({ 100, 3560 });
 
 		if (app->map->Load("Map.tmx") == true)
 		{
@@ -91,8 +91,8 @@ update_status S_InGame::PreUpdate(float dt)
 		//Create objects
 		ToolCreateObjects();
 
-		if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //Serialize
-			app->entityManager->SerializeObjects();
+		//if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //Serialize
+			//app->entityManager->SerializeObjects();
 
 		/*if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 			app->gui->SetActiveScene(name);
@@ -104,10 +104,10 @@ update_status S_InGame::PreUpdate(float dt)
 			// --------------------------------scenes changes----------------------------
 
 		//mission state change
-		if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
+		/*if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
 			app->missionManager->SetState(M_VICTORY);		
 		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
-			app->missionManager->SetState(M_DEFEAT);
+			app->missionManager->SetState(M_DEFEAT);*/
 		//	M_INTRO,M_TOWNATTACK,M_TOWNREPAIR, M_WAVES,	M_BOSS,	M_VICTORY,	M_DEFEAT,M_STANDBY
 
 		if (!app->pause)
@@ -137,7 +137,7 @@ update_status S_InGame::PreUpdate(float dt)
 
 			// -------------------------Creators -----------------------------------
 
-			if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+		/*	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 			{
 				int x, y;
 				app->input->GetMouseMapPosition(x, y);
@@ -160,7 +160,7 @@ update_status S_InGame::PreUpdate(float dt)
 			if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)
 			{
 				return UPDATE_STOP;
-			}
+			}*/
 		}
 	}	
 	return UPDATE_CONTINUE;

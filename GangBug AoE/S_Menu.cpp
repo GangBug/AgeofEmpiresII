@@ -74,8 +74,8 @@ update_status S_Menu::PostUpdate(float dt)
 
 	if (active)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-			GoToIngame();			
+		/*if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+			GoToIngame();			*/
 	}
 	return ret;
 }

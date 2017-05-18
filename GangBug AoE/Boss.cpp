@@ -52,12 +52,12 @@ void Boss::OnUpdate(float dt)
 	app->missionManager->SetBossState(true);
 	if (!app->pause)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		{
 			this->SetFullHp(GetHP() - 200);
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+		/*if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
 		{
 			if (getBossControllableStatus() == true)
 			{
@@ -69,7 +69,7 @@ void Boss::OnUpdate(float dt)
 				LOG("Boss set to -> YES controllable");
 				setBossControllable(true);
 			}
-		}
+		}*/
 
 		if (GetHP() > 0)
 		{

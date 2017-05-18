@@ -174,7 +174,7 @@ void Dialogue::SetText(pugi::xml_node node)
 	while (node != NULL)
 	{
 		//GUILabel* tmp = new GUILabel("Dialogue", STANDARD_PRESET);
-		GUILabel* tmp = new GUILabel(node.attribute("value").as_string(), SMALL, "Dialogue", STANDARD_PRESET, {0, 255, 0, 255});
+		GUILabel* tmp = new GUILabel(node.attribute("value").as_string(), MEDIUM, "Dialogue", STANDARD_PRESET, {255, 255, 255, 255});
 		std::string str = node.attribute("value").as_string();
 		//tmp->SetColor({ 255,255,255,255 });
 		//tmp->SetText(str.c_str(), DEFAULT);

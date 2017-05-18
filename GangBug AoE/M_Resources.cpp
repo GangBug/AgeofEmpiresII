@@ -155,7 +155,7 @@ update_status M_Resources::Update(float dt)
 			}
 			updateResources.Start();
 		}
-		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		{
 			AddWood(100);
 			AddFood(100);
