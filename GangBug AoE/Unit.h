@@ -151,7 +151,6 @@ protected:
 
 	bool haveADestination = false;
 	bool buildingToAttack = false;
-	bool godMode = false;
 
 	int priority;
 };

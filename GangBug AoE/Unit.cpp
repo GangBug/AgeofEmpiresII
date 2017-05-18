@@ -174,10 +174,6 @@ void Unit::OnUpdate(float dt)
 {
 	if (!app->dialogueManager->onDialogue)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		{
-			godMode = !godMode;
-		}
 		if (GetHP() > 0)
 		{
 			if (this->horde == false)
@@ -1020,12 +1016,6 @@ bool Unit::AttackUnit()
 			}
 		
 			unitState = ATTACKING;
-
-			if (godMode == true && this->horde == true)
-			{
-				//Do Nothing
-			}
-			else
 			{
 				target->DoDamage(attack);
 			}
