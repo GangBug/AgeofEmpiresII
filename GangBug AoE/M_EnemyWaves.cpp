@@ -59,7 +59,7 @@ update_status M_EnemyWaves::Update(float dt)
 		}
 
 		//Working now
-		if (waveTimer.ReadSec() > 3)
+		if (waveTimer.ReadSec() > 5)
 		{
 			for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
 			{

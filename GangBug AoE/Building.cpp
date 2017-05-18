@@ -22,8 +22,8 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 	case BUILD_ARCHERY:
 		unitType = unit_type::ARCHER;
 
-		unitGoldCost = 45;
-		unitWoodCost = 25;
+		unitGoldCost = 55;
+		unitWoodCost = 45;
 		unitFoodCost = 0;
 		unitLimitCount = 12;		
 
@@ -41,9 +41,9 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 	case BUILD_STABLES:
 		unitType = unit_type::TARKAN_KNIGHT;
 
-		unitGoldCost = 75;
+		unitGoldCost = 85;
 		unitWoodCost = 0;
-		unitFoodCost = 60;
+		unitFoodCost = 80;
 		unitLimitCount = 10;
 		
 		HP = 250;
@@ -60,9 +60,9 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 	case BUILD_BARRACK:
 		unitType = SAMURAI;
 
-		unitGoldCost = 30;
+		unitGoldCost = 50;
 		unitWoodCost = 0;
-		unitFoodCost = 60;
+		unitFoodCost = 80;
 		unitLimitCount = 20;		
 
 		HP = 250;

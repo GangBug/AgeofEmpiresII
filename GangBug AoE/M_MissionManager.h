@@ -21,7 +21,7 @@ enum Mission_State
 
 #define TROOPS_ONTOWN 1 
 
-#define ENEMIES_TO_DEFEAT_WAVES 80
+#define ENEMIES_TO_DEFEAT_WAVES 180
 
 class M_MissionManager : public Module
 {

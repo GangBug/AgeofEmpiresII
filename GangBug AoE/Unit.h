@@ -79,14 +79,18 @@ public:
 	direction GetDir() const;
 	unit_type GetUnitType() const;
 	unit_class GetUnitClass() const;
+
 	int GetUnitRadius() const;
-	bool GetPath(iPoint dest);
 	int GetAttack() const;
 	int GetRange() const;
+	int GetHP() const;
+
 	Circle GetVisionArea()const;
+
+	bool GetPath(iPoint dest);
 	bool IsMoving() const;
 	bool Move();
-	int GetHP() const;
+
 	void DoDamage(int dmg);
 	void Die();
 	void PrintLife();
@@ -146,8 +150,8 @@ protected:
 	Circle renderArea;
 
 	bool haveADestination = false;
-
 	bool buildingToAttack = false;
+	bool godMode = false;
 
 	int priority;
 };
