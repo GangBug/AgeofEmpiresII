@@ -170,9 +170,12 @@ update_status M_Render::PostUpdate(float dt)
 			SDL_Rect lifeBarRect{ 0,0,959,65 };
 			lifeBarRect.w *= (float)camera->GetSize().x / 1920;
 			lifeBarRect.h *= (float)camera->GetSize().y / 1080;
+			int lifeOffset = 45 * (float)camera->GetSize().y / 1080;
+
+
 			iPoint center = camera->GetCenter();
 			iPoint lifeBarPos(-camera->GetRect().x, center.y + BOSS_LIFE_BAR_Y);
-
+			
 			int gwbar;
 			//EASY MODE
 			if (app->missionManager->getHardModeStatus() == false)
@@ -188,11 +191,12 @@ update_status M_Render::PostUpdate(float dt)
 		
 			gwbar = (gwbar * lifeBarRect.w) / 100;
 			//red
-			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 32, lifeBarRect.w, lifeBarRect.h/4 }, 255, 0, 0, 255);
+			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + lifeOffset, lifeBarRect.w, lifeBarRect.h/4 }, 255, 0, 0, 255);
 			//green
-			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + 32, gwbar, lifeBarRect.h / 4 }, 0, 255, 0, 255);
+			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + lifeOffset, gwbar, lifeBarRect.h / 4 }, 0, 255, 0, 255);
 
 			BlitAdri(app->tex->bossLifeBar, lifeBarPos.x, lifeBarPos.y, &lifeBarRect);
+
 	}
 
 	//RENDER MINIMAP

@@ -215,6 +215,12 @@ update_status App::Update()
 			gui->FindElement(gui->guiList, "label_GodMode")->SetVisible(false);
 		}
 	}
+
+	if (input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		debug = !debug;
+	}
+
 	/*if (input->GetKey(SDL_SCANCODE_PAUSE) == KEY_DOWN)
 		pause = !pause;*/
 	/*if (input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)

@@ -39,8 +39,18 @@ bool M_Window::Awake(pugi::xml_node& config)
 		bool fullscreen_window = config.child("fullscreen_window").attribute("value").as_bool();
 		bool start_maximized = config.child("start_maximized").attribute("value").as_bool();
 
-		width = config.child("resolution").attribute("width").as_int();
-		height = config.child("resolution").attribute("height").as_int();
+		if (fullscreen)
+		{
+			SDL_DisplayMode DM;
+			SDL_GetCurrentDisplayMode(0, &DM);
+			width = DM.w;
+			height = DM.h;
+		}
+		else
+		{
+			width = config.child("resolution").attribute("width").as_int();
+			height = config.child("resolution").attribute("height").as_int();
+		}		
 		scale = config.child("resolution").attribute("scale").as_int(1);
 
 		if(fullscreen == true)
