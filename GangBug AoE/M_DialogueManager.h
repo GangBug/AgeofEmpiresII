@@ -5,6 +5,7 @@
 #include "GUILabel.h"
 #include <vector>
 #include <string>
+#include "GUIBox.h"
 
 #define TEXT_OFFSET_X 115
 #define TEXT_OFFSET_Y 73
@@ -69,6 +70,7 @@ public:
 public:
 	bool onDialogue = false;
 	std::list<Dialogue> dialogues;
+	GUIBox* boxDiag;
 };
 
 #endif

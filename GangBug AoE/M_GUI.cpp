@@ -109,8 +109,8 @@ bool M_GUI::Start()
 	//debugGuiList.push_back(lastFrameMS);
 	//debugGuiList.push_back(fps);
 
-	xMouse = new GUILabel("", SMALL, "mousex");
-	yMouse = new GUILabel("", SMALL, "mousey");
+	xMouse = new GUILabel("", SMALL, "mousex", false);
+	yMouse = new GUILabel("", SMALL, "mousey", false);
 	xMouse->SetVisible(true);
 	yMouse->SetVisible(true);
 	debugGuiList.push_back(xMouse);

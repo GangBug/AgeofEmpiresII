@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "M_Map.h"
 #include "M_GUI.h"
+#include "GUIButton.h"
 #include "M_Animation.h"
 #include "S_InGame.h"
 #include "M_FogOfWar.h"
@@ -20,6 +21,7 @@
 //TEMP
 #include "M_Textures.h"
 #include <algorithm>
+#include "GUIBox.h"
 
 #define VSYNC true
 #define BOSS_LIFE_BAR_Y (214 * camera->GetSize().y / 768)
@@ -214,6 +216,8 @@ update_status M_Render::PostUpdate(float dt)
 		{
 			float scale = (float)camera->GetSize().x / 1366;
 			GUILabel* diag = *(*it).textLines.begin();
+			//GUIBox* diagBox = app->dialogueManager->boxDiag;
+			//diag->SetParent(diagBox);
 			diag->SetVisible(true);
 			diag->SetActive(true);
 			if ((*it).character == D_CHARACTER_SAMURAI)
@@ -226,7 +230,9 @@ update_status M_Render::PostUpdate(float dt)
 				boxPos *= scale;
 				BlitAdri(app->tex->samuraiTexture, charPos.x, charPos.y, &charRect);
 				BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
+				//diagBox->SetRectangle(boxPos.x, boxPos.y, boxRect.w, boxRect.h);
 				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X * scale, boxPos.y + TEXT_OFFSET_Y * scale);
+				//diag->SetLocalPos(boxPos.x, boxPos.y);
 			}
 			if ((*it).character == D_CHARACTER_DEMON)
 			{
@@ -236,10 +242,18 @@ update_status M_Render::PostUpdate(float dt)
 				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X * scale, camera->GetCenter().y + D_BOX_OFFSET_Y* scale);
 				BlitAdri(app->tex->demonTexture, charPos.x, charPos.y, &charRect);
 				BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
+				//diagBox->SetRectangle(boxPos.x, boxPos.y, boxRect.w, boxRect.h);
 				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X * scale, boxPos.y + TEXT_OFFSET_Y * scale);
+				//diag->SetLocalPos(boxPos.x, boxPos.y);
 			}
 			//app->render->DrawQuad(diag->GetLocalRect().GetSDLrect(), 255, 0, 0, 255);
+			GUIButton* space = app->gui->CreateButtonFromPreset({0,100,200,30}, "button", "space", "Press Space to continue...");
+			space->SetVisible(true);
+			space->SetInteractive(false);
+			space->SetActive(true);
 			diag->Draw();
+			space->Draw();
+			delete space;
 		}
 	}
 	//---------

@@ -33,6 +33,7 @@ GUIButton::GUIButton(GB_Rectangle<int> _position,
 	label->SetInteractive(false);
 	label->SetCanFocus(false);
 	label->SetVisible(true);
+	label->SetResize(true);
 
 	GUIElement::SetGlobalPos(_position.x, _position.y);
 
@@ -56,6 +57,7 @@ GUIButton::GUIButton(const GUIButton & btn, std::string name, int flags) : GUIEl
 	label->SetParent(this);
 	//label->SetRectangle(btn.label->GetLocalRect());
 	label->Center();
+	label->SetResize(true);
 
 }
 GUIButton::~GUIButton()

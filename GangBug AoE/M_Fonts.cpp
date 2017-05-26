@@ -40,7 +40,7 @@ bool M_Fonts::Awake(pugi::xml_node& conf)
 		size = conf.child("small_font").attribute("size").as_int(SMALL_FONT_SIZE);
 		smallFont = Load(path, size);
 		
-		WOW = Load("MORPHEUS.ttf", 18);
+		WOW = Load("MORPHEUS.ttf", 32);
 	}
 
 	return ret;

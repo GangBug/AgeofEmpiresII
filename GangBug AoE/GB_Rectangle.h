@@ -53,6 +53,10 @@ public:
 	{
 		return (x != rect.x || y != rect.y || w != rect.w || h != rect.h);
 	}
+	GB_Rectangle<float> ToFloat()
+	{
+		return GB_Rectangle<float>((float)x, (float)y, (float)w, (float)h);
+	}
 
 	inline bool Contains(type x, type y) const
 	{

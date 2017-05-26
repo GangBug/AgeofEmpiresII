@@ -249,11 +249,13 @@ private:
 	//	void SetSize(int w, int h);
 
 	//Attributes
+public:
+	GB_Rectangle<int> rect;
 private:
 	GUIElement* parent = nullptr;			 // Parent element
 	std::list<GUIElement*> childs;			 // Child elements
 	gui_types type = gui_types::GUI_UNKNOWN; // Gui Type	
-	GB_Rectangle<int> rect;
+	
 	fPoint scale = fPoint(1.f, 1.f);
 	iPoint localPosition = iPoint(0, 0);
 	ElementStatus status;

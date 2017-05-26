@@ -10,17 +10,19 @@
 //TEMP
 #include "M_Render.h"
 
-GUILabel::GUILabel(std::string name, int flags) : GUIElement(name, flags)
+GUILabel::GUILabel(std::string name, int flags, bool resize) : GUIElement(name, flags)
 {
 	SetType(GUI_LABEL);
 	texture = nullptr;
+	this->resize = resize;
 }
-GUILabel::GUILabel(const char * text, label_size _size, std::string name, int flags, SDL_Color color) : GUIElement(name, flags)
+GUILabel::GUILabel(const char * text, label_size _size, std::string name, bool resize, int flags, SDL_Color color) : GUIElement(name, flags)
 {
 	SetColor(color);
 	SetText(text, _size);
 	SetType(gui_types::GUI_LABEL);
 	lbSize = _size;	
+	this->resize = resize;
 }
 
 void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus, float dt)
@@ -110,57 +112,148 @@ GUILabel::~GUILabel()
 void GUILabel::SetText(const char* text, label_size _size)
 {
 	//FIX: This may be the cause that crashes the game whenever you close it.
-	if (text != this->text)
+	if (resize)
 	{
-		if (texture != nullptr)
-			SDL_DestroyTexture(texture);
-
-		this->text = text;
-		switch (_size)
+		if (text != this->text)
 		{
-		case DEFAULT:
-			texture = app->font->Print(text, app->font->defaultFont, color);
-			break;
-		case MEDIUM:
-			texture = app->font->Print(text, app->font->mediumFont, color);
-			break;
-		case SMALL:
-			texture = app->font->Print(text, app->font->smallFont, color);
-			break;
-		default:
-			break;
-		}
+			if (texture != nullptr)
+				SDL_DestroyTexture(texture);
 
-		int w, h;
-		app->tex->GetSize(texture, (uint&)w, (uint&)h);
-		SetSize(w, h);
-		lbSize = _size;
+			this->text = text;
+			texture = app->font->Print(text, app->font->WOW, color);
+
+			int w, h;
+			app->tex->GetSize(texture, (uint&)w, (uint&)h);
+			SetSize(w, h);
+			lbSize = _size;
+		}
 	}
+	else
+	{
+		if (text != this->text)
+		{
+			if (texture != nullptr)
+				SDL_DestroyTexture(texture);
+
+			this->text = text;
+			switch (_size)
+			{
+				case DEFAULT:
+					texture = app->font->Print(text, app->font->defaultFont, color);
+					break;
+				case MEDIUM:
+					texture = app->font->Print(text, app->font->mediumFont, color);
+					break;
+				case SMALL:
+					texture = app->font->Print(text, app->font->smallFont, color);
+					break;
+				default:
+					break;
+			}
+
+			int w, h;
+			app->tex->GetSize(texture, (uint&)w, (uint&)h);
+			SetSize(w, h);
+			lbSize = _size;
+		}
+	}
+
+	
 }
 
-const SDL_Texture * GUILabel::GetTexture() const
+SDL_Texture * GUILabel::GetTexture() const
 {
 	return texture;
 }
 
 void GUILabel::Draw() const
 {
-	if(GetVisible())
-		if (texture != nullptr)
+	if (resize)
+	{
+		if (GetVisible())
+			if (texture != nullptr)
+			{
+				GB_Rectangle<float> rect;
+				GB_Rectangle<float> parentRect;
+				if (GetParent())
+				{
+					parentRect = GetParent()->GetDrawRect();
+					rect = parentRect;
+				}
+				else
+				{
+					rect = GetDrawRect();
+				}
+				GB_Rectangle<float> sect;
+				rect.x -= app->render->camera->GetRect().x;
+				rect.y -= app->render->camera->GetRect().y;
+				SDL_QueryTexture(texture, nullptr, nullptr, &sect.w, &sect.h);
+				rect.h = sect.h;
+				rect.h *= rect.w;
+				rect.h /= sect.w;
+				if (GetParent())
+				{
+					if (rect.h > parentRect.h)
+					{
+						rect.h = GetParent()->GetDrawRect().h;
+
+						rect.w *= rect.h;
+						rect.w /= rect.h;
+					}
+				}
+				//app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
+				if (followScreen)
+					app->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
+				else
+					app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
+			}
+
+	}
+	else
+	{
+		if (GetVisible())
+			if (texture != nullptr)
+			{
+				GB_Rectangle<float> rect = GetDrawRect();
+				GB_Rectangle<float> sect;
+				rect.x -= app->render->camera->GetRect().x;
+				rect.y -= app->render->camera->GetRect().y;
+				sect.w = rect.w;
+				sect.h = rect.h;
+				SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
+				//app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
+				if (followScreen)
+					app->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
+				else
+					app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
+			}
+	}
+
+
+
+
+	/*
+	//LabelDraw
+	if (GetVisible())
+		if (label->GetTexture() != nullptr)
 		{
-			GB_Rectangle<float> rect = GetDrawRect();
+			SDL_Texture* tex = label->GetTexture();
+
+			GB_Rectangle<float> rect;
+			rect.x = (float)this->rect.x;
 			GB_Rectangle<float> sect;
 			rect.x -= app->render->camera->GetRect().x;
 			rect.y -= app->render->camera->GetRect().y;
-			sect.w = rect.w;
-			sect.h = rect.h;
-			SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
+			SDL_QueryTexture(tex, nullptr, nullptr, &sect.w, &sect.h);
+			rect.h = (sect.h * rect.w) / sect.w;
 			//app->render->Blit(texture, rect.x, rect.y, NULL, 0.0f);
-			if(followScreen)
-				app->render->Blit(texture, &rect.GetSDLrect(), &sect.GetSDLrect());
-			else
-				app->render->Blit(texture, &GetDrawRect().GetSDLrect(), &sect.GetSDLrect());
+			SDL_Log("%d", rect.x);
+			app->render->Blit(tex, &rect.GetSDLrect(), &sect.GetSDLrect());
 		}
+
+
+*/
+
 }
 
 void GUILabel::Serialize(pugi::xml_node root)

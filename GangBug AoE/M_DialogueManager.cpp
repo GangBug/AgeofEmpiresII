@@ -11,6 +11,8 @@
 M_DialogueManager::M_DialogueManager(bool startEnabled) : Module(startEnabled)
 {
 	name.assign("dialogue_manager");
+	boxDiag = new GUIBox("diagBox", STANDARD_PRESET);
+	boxDiag->SetInteractive(false);
 }
 
 M_DialogueManager::~M_DialogueManager()
@@ -174,7 +176,7 @@ void Dialogue::SetText(pugi::xml_node node)
 	while (node != NULL)
 	{
 		//GUILabel* tmp = new GUILabel("Dialogue", STANDARD_PRESET);
-		GUILabel* tmp = new GUILabel(node.attribute("value").as_string(), MEDIUM, "Dialogue", STANDARD_PRESET, {255, 255, 255, 255});
+		GUILabel* tmp = new GUILabel(node.attribute("value").as_string(), MEDIUM, "Dialogue", true, STANDARD_PRESET, {255, 255, 255, 255});
 		std::string str = node.attribute("value").as_string();
 		//tmp->SetColor({ 255,255,255,255 });
 		//tmp->SetText(str.c_str(), DEFAULT);
