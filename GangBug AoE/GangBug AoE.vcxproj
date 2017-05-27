@@ -242,6 +242,7 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Defs.cpp" />
+    <ClCompile Include="GUIBox.cpp" />
     <ClCompile Include="M_Metrics.cpp" />
     <ClCompile Include="M_DialogueManager.cpp" />
     <ClCompile Include="IA_FormationManager.cpp" />
@@ -300,6 +301,7 @@
     <ClInclude Include="Bezier.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Building.h" />
+    <ClInclude Include="GUIBox.h" />
     <ClInclude Include="M_DialogueManager.h" />
     <ClInclude Include="IA_FormationManager.h" />
     <ClInclude Include="IA_SquareFormation.h" />

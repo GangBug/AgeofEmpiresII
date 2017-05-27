@@ -214,6 +214,9 @@
     <ClCompile Include="S_Score.cpp">
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="GUIBox.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -398,6 +401,9 @@
     </ClInclude>
     <ClInclude Include="S_Score.h">
       <Filter>Modules\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIBox.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

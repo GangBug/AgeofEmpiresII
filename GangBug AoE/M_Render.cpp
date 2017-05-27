@@ -247,7 +247,7 @@ update_status M_Render::PostUpdate(float dt)
 				//diag->SetLocalPos(boxPos.x, boxPos.y);
 			}
 			//app->render->DrawQuad(diag->GetLocalRect().GetSDLrect(), 255, 0, 0, 255);
-			GUIButton* space = app->gui->CreateButtonFromPreset({0,100,200,30}, "button", "space", "Press Space to continue...");
+			GUIButton* space = app->gui->CreateButtonFromPreset({540,630,200,30}, "button", "space", "Press Space to continue...");
 			space->SetVisible(true);
 			space->SetInteractive(false);
 			space->SetActive(true);
