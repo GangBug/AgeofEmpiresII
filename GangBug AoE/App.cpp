@@ -24,6 +24,7 @@
 #include "M_Minimap.h"
 #include "M_ParticleSystem.h"
 #include "M_Metrics.h"
+#include "M_Video.h"
 
 #include "S_InGame.h"
 #include "S_Menu.h"
@@ -82,6 +83,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	missionManager = new M_MissionManager();
 	particleSystem = new M_ParticleSystem();
 	metrics = new M_Metrics();
+	video = new M_Video();
 
 
 	menu = new S_Menu(true);
@@ -112,8 +114,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(menu);
 	AddModule(inGame);
 	AddModule(score);
+	AddModule(video);
 	// render last to swap buffer
 	AddModule(render);
+	
 
 	PERF_PEEK(ptimer);
 }

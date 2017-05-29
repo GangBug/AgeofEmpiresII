@@ -271,9 +271,9 @@ void S_InGame::GoToMenu()
 	active = false;
 	app->menu->active = true;
 	app->menu->bg->SetVisible(true);
+	app->menu->Start();
 	app->dialogueManager->CleanUp();
 	app->dialogueManager->Disable();
-	app->gui->SetActiveScene("menu");
 	app->entityManager->CleanUp();
 	app->audio->CleanData();
 	app->missionManager->CleanUp();

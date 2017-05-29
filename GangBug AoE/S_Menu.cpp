@@ -6,6 +6,8 @@
 #include "GUIImage.h"
 #include "M_EntityManager.h"
 #include "M_MissionManager.h"
+#include "M_Video.h"
+#include "M_Window.h"
 
 S_Menu::S_Menu(bool startEnabled) : Module(startEnabled)
 {
@@ -34,6 +36,10 @@ bool S_Menu::Start()
 	{
 		app->gui->SetActiveScene(name);
 		LoadUI();
+		uint w, h;
+		app->win->GetWindowSize(w, h);
+		SDL_Rect r = { 0, 0, w, h};
+		app->video->PlayVideo("Intro.ogv", r);
 	}
 
 	return ret;
@@ -55,7 +61,7 @@ update_status S_Menu::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	if (active)
+	if (active && app->video->video_finished == true)
 	{
 		bg->Draw();
 	}

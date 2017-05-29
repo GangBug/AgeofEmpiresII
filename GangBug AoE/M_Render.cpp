@@ -18,6 +18,7 @@
 #include "Building.h"
 #include "M_Minimap.h"
 #include "M_ParticleSystem.h"
+#include "M_Video.h"
 //TEMP
 #include "M_Textures.h"
 #include <algorithm>
@@ -107,68 +108,70 @@ update_status M_Render::PreUpdate(float dt)
 
 update_status M_Render::PostUpdate(float dt)
 {
-	if (app->editor)
-	{	
-		//Here goes the Editor UI
-		SetViewPort(editorViewPort);
-		SDL_RenderCopy(renderer, editor_tex_background, NULL, NULL);
-		app->gui->DrawEditor();
-	}	
-
-	SetViewPort(gameViewPort);
-	SDL_RenderCopy(renderer, game_tex_background, NULL, NULL);
-	//TODO: Might have a better organitzation to draw map or change map system
-
-	//RENDER MAP
-	if (app->inGame->active)
+	if (app->video->video_finished == true)
 	{
-		app->map->Draw();
-	}
-	if(app->debug && app->inGame->active)
-		for (auto element : app->gui->mapDebugList)
+		if (app->editor)
 		{
-			if (element->GetActive())
-			{
-				element->Draw();
-			}				
+			//Here goes the Editor UI
+			SetViewPort(editorViewPort);
+			SDL_RenderCopy(renderer, editor_tex_background, NULL, NULL);
+			app->gui->DrawEditor();
 		}
-	//--------------
 
-	//RENDER ENTITIES
-	if (app->inGame->active == true)
-	{
-		PerfTimer timer;
-		std::vector<Entity*> entitiesVect;
-		app->entityManager->Draw(entitiesVect, camera->GetRect());
-		double tmp = timer.ReadMs();
-		//LOG("Collecting entities lasted %f ms.", tmp);
-		DrawEntities(entitiesVect);
-		double tmp2 = timer.ReadMs();
-		//LOG("Drawing entities lasted: %f ms.", tmp2 - tmp);
-		//LOG("Total process lasted: %f ms.", tmp2);
+		SetViewPort(gameViewPort);
+		SDL_RenderCopy(renderer, game_tex_background, NULL, NULL);
+		//TODO: Might have a better organitzation to draw map or change map system
 
-		app->inGame->Draw();
-	}
-	//--------------
+		//RENDER MAP
+		if (app->inGame->active)
+		{
+			app->map->Draw();
+		}
+		if (app->debug && app->inGame->active)
+			for (auto element : app->gui->mapDebugList)
+			{
+				if (element->GetActive())
+				{
+					element->Draw();
+				}
+			}
+		//--------------
 
-	//RENDER PARTICLES
-	app->particleSystem->DrawParticles();
+		//RENDER ENTITIES
+		if (app->inGame->active == true)
+		{
+			PerfTimer timer;
+			std::vector<Entity*> entitiesVect;
+			app->entityManager->Draw(entitiesVect, camera->GetRect());
+			double tmp = timer.ReadMs();
+			//LOG("Collecting entities lasted %f ms.", tmp);
+			DrawEntities(entitiesVect);
+			double tmp2 = timer.ReadMs();
+			//LOG("Drawing entities lasted: %f ms.", tmp2 - tmp);
+			//LOG("Total process lasted: %f ms.", tmp2);
 
-	//----------
+			app->inGame->Draw();
+		}
+		//--------------
 
-	//RENDER UI
+		//RENDER PARTICLES
+		app->particleSystem->DrawParticles();
 
-	app->gui->Draw();
+		//----------
 
-	if (app->debug)
-	{
-		app->DrawDebug();
-	}
-	//---------
+		//RENDER UI
 
-	//BOSS LIFE BAR
-	if (app->missionManager->GetBossState() == true )
-	{
+		app->gui->Draw();
+
+		if (app->debug)
+		{
+			app->DrawDebug();
+		}
+		//---------
+
+		//BOSS LIFE BAR
+		if (app->missionManager->GetBossState() == true)
+		{
 			SDL_Rect lifeBarRect{ 0,0,959,65 };
 			lifeBarRect.w *= (float)camera->GetSize().x / 1920;
 			lifeBarRect.h *= (float)camera->GetSize().y / 1080;
@@ -177,7 +180,7 @@ update_status M_Render::PostUpdate(float dt)
 
 			iPoint center = camera->GetCenter();
 			iPoint lifeBarPos(-camera->GetRect().x, center.y + BOSS_LIFE_BAR_Y);
-			
+
 			int gwbar;
 			//EASY MODE
 			if (app->missionManager->getHardModeStatus() == false)
@@ -190,78 +193,76 @@ update_status M_Render::PostUpdate(float dt)
 			{
 				gwbar = ((app->entityManager->GetBoss()->GetHP() * 100) / BOSSHP);
 			}
-		
+
 			gwbar = (gwbar * lifeBarRect.w) / 100;
 			//red
-			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + lifeOffset, lifeBarRect.w, lifeBarRect.h/4 }, 255, 0, 0, 255);
+			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + lifeOffset, lifeBarRect.w, lifeBarRect.h / 4 }, 255, 0, 0, 255);
 			//green
 			app->render->DrawQuad({ lifeBarPos.x, lifeBarPos.y + lifeOffset, gwbar, lifeBarRect.h / 4 }, 0, 255, 0, 255);
 
 			BlitAdri(app->tex->bossLifeBar, lifeBarPos.x, lifeBarPos.y, &lifeBarRect);
 
-	}
-
-	//RENDER MINIMAP
-	if (app->inGame->active)
-	{
-		app->minimap->DrawMinimap();
-	}
-	//-----------
-
-	//RENDER DIALOGUES
-
-	for (std::list<Dialogue>::iterator it = app->dialogueManager->dialogues.begin(); it != app->dialogueManager->dialogues.end(); it++)
-	{
-		if ((*it).active && !(*it).done)
-		{
-			float scale = (float)camera->GetSize().x / 1366;
-			GUILabel* diag = *(*it).textLines.begin();
-			//GUIBox* diagBox = app->dialogueManager->boxDiag;
-			//diag->SetParent(diagBox);
-			diag->SetVisible(true);
-			diag->SetActive(true);
-			if ((*it).character == D_CHARACTER_SAMURAI)
-			{			
-				SDL_Rect charRect{ 0,0,1366 * scale, 768 * scale};//TODO: Change magic numbers
-				SDL_Rect boxRect{ 0,0, 762 * scale, 160 * scale};//TODO: Change magic numbers
-				iPoint charPos(camera->GetCenter().x - 750 * scale, camera->GetCenter().y - 380 * scale);
-				charPos *= scale;
-				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X * scale, camera->GetCenter().y + D_BOX_OFFSET_Y * scale);
-				boxPos *= scale;
-				BlitAdri(app->tex->samuraiTexture, charPos.x, charPos.y, &charRect);
-				BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
-				//diagBox->SetRectangle(boxPos.x, boxPos.y, boxRect.w, boxRect.h);
-				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X * scale, boxPos.y + TEXT_OFFSET_Y * scale);
-				//diag->SetLocalPos(boxPos.x, boxPos.y);
-			}
-			if ((*it).character == D_CHARACTER_DEMON)
-			{
-				SDL_Rect charRect{ 0,0,1366 * scale, 768 * scale};//TODO: Change magic numbers
-				SDL_Rect boxRect{ 0,0, 762 * scale, 160 * scale};//TODO: Change magic numbers
-				iPoint charPos(camera->GetCenter().x - 680 * scale, camera->GetCenter().y - 380 * scale);
-				iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X * scale, camera->GetCenter().y + D_BOX_OFFSET_Y* scale);
-				BlitAdri(app->tex->demonTexture, charPos.x, charPos.y, &charRect);
-				BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
-				//diagBox->SetRectangle(boxPos.x, boxPos.y, boxRect.w, boxRect.h);
-				diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X * scale, boxPos.y + TEXT_OFFSET_Y * scale);
-				//diag->SetLocalPos(boxPos.x, boxPos.y);
-			}
-			//app->render->DrawQuad(diag->GetLocalRect().GetSDLrect(), 255, 0, 0, 255);
-			GUIButton* space = app->gui->CreateButtonFromPreset({540,630,200,30}, "button", "space", "Press Space to continue...");
-			space->SetVisible(true);
-			space->SetInteractive(false);
-			space->SetActive(true);
-			diag->Draw();
-			space->Draw();
-			delete space;
 		}
+
+		//RENDER MINIMAP
+		if (app->inGame->active)
+		{
+			app->minimap->DrawMinimap();
+		}
+		//-----------
+
+		//RENDER DIALOGUES
+
+		for (std::list<Dialogue>::iterator it = app->dialogueManager->dialogues.begin(); it != app->dialogueManager->dialogues.end(); it++)
+		{
+			if ((*it).active && !(*it).done)
+			{
+				float scale = (float)camera->GetSize().x / 1366;
+				GUILabel* diag = *(*it).textLines.begin();
+				//GUIBox* diagBox = app->dialogueManager->boxDiag;
+				//diag->SetParent(diagBox);
+				diag->SetVisible(true);
+				diag->SetActive(true);
+				if ((*it).character == D_CHARACTER_SAMURAI)
+				{
+					SDL_Rect charRect{ 0,0,1366 * scale, 768 * scale };//TODO: Change magic numbers
+					SDL_Rect boxRect{ 0,0, 762 * scale, 160 * scale };//TODO: Change magic numbers
+					iPoint charPos(camera->GetCenter().x - 750 * scale, camera->GetCenter().y - 380 * scale);
+					charPos *= scale;
+					iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X * scale, camera->GetCenter().y + D_BOX_OFFSET_Y * scale);
+					boxPos *= scale;
+					BlitAdri(app->tex->samuraiTexture, charPos.x, charPos.y, &charRect);
+					BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
+					//diagBox->SetRectangle(boxPos.x, boxPos.y, boxRect.w, boxRect.h);
+					diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X * scale, boxPos.y + TEXT_OFFSET_Y * scale);
+					//diag->SetLocalPos(boxPos.x, boxPos.y);
+				}
+				if ((*it).character == D_CHARACTER_DEMON)
+				{
+					SDL_Rect charRect{ 0,0,1366 * scale, 768 * scale };//TODO: Change magic numbers
+					SDL_Rect boxRect{ 0,0, 762 * scale, 160 * scale };//TODO: Change magic numbers
+					iPoint charPos(camera->GetCenter().x - 680 * scale, camera->GetCenter().y - 380 * scale);
+					iPoint boxPos(camera->GetCenter().x - D_BOX_OFFSET_X * scale, camera->GetCenter().y + D_BOX_OFFSET_Y* scale);
+					BlitAdri(app->tex->demonTexture, charPos.x, charPos.y, &charRect);
+					BlitAdri(app->tex->dialogueBoxTexture, boxPos.x, boxPos.y, &boxRect);
+					//diagBox->SetRectangle(boxPos.x, boxPos.y, boxRect.w, boxRect.h);
+					diag->SetGlobalPos(boxPos.x + TEXT_OFFSET_X * scale, boxPos.y + TEXT_OFFSET_Y * scale);
+					//diag->SetLocalPos(boxPos.x, boxPos.y);
+				}
+				//app->render->DrawQuad(diag->GetLocalRect().GetSDLrect(), 255, 0, 0, 255);
+				GUIButton* space = app->gui->CreateButtonFromPreset({ 540,630,200,30 }, "button", "space", "Press Space to continue...");
+				space->SetVisible(true);
+				space->SetInteractive(false);
+				space->SetActive(true);
+				diag->Draw();
+				space->Draw();
+				delete space;
+			}
+		}
+		//---------
 	}
-	//---------
-
-
-
-	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
-	SDL_RenderPresent(renderer);
+		SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
+		SDL_RenderPresent(renderer);
 	return UPDATE_CONTINUE;
 }
 

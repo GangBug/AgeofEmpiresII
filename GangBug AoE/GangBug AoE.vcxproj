@@ -283,6 +283,7 @@
     <ClCompile Include="M_Resources.cpp" />
     <ClCompile Include="M_Textures.cpp" />
     <ClCompile Include="j1Timer.cpp" />
+    <ClCompile Include="M_Video.cpp" />
     <ClCompile Include="M_Window.cpp" />
     <ClCompile Include="M_EntityManager.cpp" />
     <ClCompile Include="Log.cpp" />
@@ -295,6 +296,7 @@
     <ClCompile Include="S_InGame.cpp" />
     <ClCompile Include="S_Menu.cpp" />
     <ClCompile Include="S_Score.cpp" />
+    <ClCompile Include="theoraplay.c" />
     <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -342,6 +344,7 @@
     <ClInclude Include="M_Resources.h" />
     <ClInclude Include="M_Textures.h" />
     <ClInclude Include="j1Timer.h" />
+    <ClInclude Include="M_Video.h" />
     <ClInclude Include="M_Window.h" />
     <ClInclude Include="M_EntityManager.h" />
     <ClInclude Include="Defs.h" />
@@ -359,6 +362,7 @@
     <ClInclude Include="S_InGame.h" />
     <ClInclude Include="S_Menu.h" />
     <ClInclude Include="S_Score.h" />
+    <ClInclude Include="theoraplay.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>

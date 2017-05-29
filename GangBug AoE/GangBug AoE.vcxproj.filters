@@ -217,6 +217,12 @@
     <ClCompile Include="GUIBox.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="M_Video.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="theoraplay.c">
+      <Filter>Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -404,6 +410,12 @@
     </ClInclude>
     <ClInclude Include="GUIBox.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Video.h">
+      <Filter>Modules\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="theoraplay.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

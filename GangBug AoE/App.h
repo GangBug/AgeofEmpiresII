@@ -37,6 +37,7 @@ class M_MissionManager;
 class M_Minimap;
 class M_ParticleSystem;
 class M_Metrics;
+class M_Video;
 
 class App
 {
@@ -126,6 +127,7 @@ public:
 	M_Minimap*			minimap = nullptr;
 	M_ParticleSystem*	particleSystem = nullptr;
 	M_Metrics*			metrics = nullptr;
+	M_Video*			video = nullptr;
 
 	S_Menu*				menu = nullptr;
 	S_InGame*			inGame = nullptr;
