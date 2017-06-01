@@ -22,7 +22,7 @@ S_Menu::~S_Menu()
 bool S_Menu::Awake(pugi::xml_node & config)
 {
 	app->audio->Start();
-
+	
 	return true;
 }
 
@@ -40,6 +40,13 @@ bool S_Menu::Start()
 		app->win->GetWindowSize(w, h);
 		SDL_Rect r = { 0, 0, w, h};
 		app->video->PlayVideo("Intro.ogv", r);
+	}
+
+	else
+	{
+		app->gui->SetActiveScene(name);
+		bg->SetVisible(true);
+		active = true;
 	}
 
 	return ret;
@@ -64,6 +71,12 @@ update_status S_Menu::Update(float dt)
 	if (active && app->video->video_finished == true)
 	{
 		bg->Draw();
+		if (!cleanAudioVideo)
+		{
+			cleanAudioVideo = true;
+			app->audio->CleanUp();
+			app->audio->Awake(pugi::xml_node(nullptr));
+		}
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN)

@@ -66,7 +66,7 @@ void M_Map::Draw()
 
 					//TODO: this should be temporary until we find out what happens, also,TODO solve InsideRenderTarget: after moving the camera doesnt work.
 					//if (App->render->camera->InsideRenderTarget(pos.x, pos.y))
-					app->render->Blit(tileset->texture, pos.x - data.tileWidth / 2, pos.y - data.tileHeight / 2, &r);
+					app->render->Blit(tileset->texture, pos.x - data.tileWidth, pos.y - data.tileHeight, &r);
 				}
 			}
 		}
@@ -118,8 +118,15 @@ iPoint M_Map::MapToWorld(int x, int y) const
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
-		ret.x = (x - y) * (int)(data.tileWidth * 0.5f) - data.tileWidth * 0.5f;
-		ret.y = (x + y) * (int)(data.tileHeight * 0.5f) + (x + y);
+		//ret.x = (x - y) * (int)(data.tileWidth * 0.5f) - data.tileWidth * 0.5f;
+		//ret.y = (x + y) * (int)(data.tileHeight * 0.5f) + (x + y);
+
+		//How it should be:
+		int halfWidth = data.tileWidth * 0.5f;
+		int halfHeight = data.tileHeight * 0.5f;
+		ret.x = (x - y) * halfWidth;
+		ret.y = (x + y) * halfHeight;
+
 	}
 	else
 	{
@@ -144,7 +151,7 @@ iPoint M_Map::WorldToMap(int x, int y) const
 		float halfWidth = (data.tileWidth + 1) * 0.5f;//MAGIC NUMBERS
 		float halfHeight = (data.tileHeight + 2) * 0.5f;//MAGIC NUMBERS
 
-		float pX = (((ret.x / halfWidth) + (ret.y / halfHeight)) * 0.5f);
+		/*float pX = (((ret.x / halfWidth) + (ret.y / halfHeight)) * 0.5f);
 		float pY = (((ret.y / halfHeight) - (ret.x / halfWidth)) * 0.5f);
 
 		ret.x = (pX > (floor(pX) + 0.5f)) ? ceil(pX) : floor(pX);
@@ -153,7 +160,18 @@ iPoint M_Map::WorldToMap(int x, int y) const
 		if (ret.x <= 0)ret.x = 0;
 		else if (ret.x >= 120)ret.x = 120;
 		if (ret.y <= 0)ret.y = 0;
-		else if (ret.y >= 120)ret.y = 120;
+		else if (ret.y >= 120)ret.y = 120;*/
+
+		//HOW IT SHOULD BE :
+		halfWidth = data.tileWidth * 0.5f;
+		halfHeight = data.tileHeight * 0.5f;
+
+		ret.x = (x / halfWidth + y / halfHeight) * 0.5f;
+		ret.y = (y / halfHeight - (x / halfWidth)) * 0.5f;
+
+		ret.x = (ret.x > (floor(ret.x) + 0.5f)) ? ceil(ret.x) : floor(ret.x);
+		ret.y = (ret.y > (floor(ret.y) + 0.5f)) ? ceil(ret.y) : floor(ret.y);
+
 	}
 	else
 	{

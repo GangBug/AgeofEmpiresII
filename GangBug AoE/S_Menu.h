@@ -36,5 +36,7 @@ public:
 
 
 	GUIImage* bg = nullptr;
+
+	bool cleanAudioVideo = false;
 };
 

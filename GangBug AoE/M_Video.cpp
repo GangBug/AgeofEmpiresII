@@ -216,7 +216,6 @@ void M_Video::DrawDebug()
 update_status M_Video::PostUpdate(float dt)
 {
 	if (!THEORAPLAY_isDecoding(decoder))
-
 		video_finished = true;
 
 	if (want_to_play && !quit && THEORAPLAY_isDecoding(decoder))

@@ -269,8 +269,6 @@ void S_InGame::GuiEvent(GUIElement* element, int64_t event)
 void S_InGame::GoToMenu()
 {
 	active = false;
-	app->menu->active = true;
-	app->menu->bg->SetVisible(true);
 	app->menu->Start();
 	app->dialogueManager->CleanUp();
 	app->dialogueManager->Disable();
@@ -282,11 +280,9 @@ void S_InGame::GoToMenu()
 	app->minimap->CleanUp();
 	app->particleSystem->DestroyParticles();
 	app->enemyWaves->CleanUp();
-	pugi::xml_node		nullnode;
 
-	app->entityManager->Awake(nullnode);
+	app->entityManager->Awake(pugi::xml_node(nullptr));
 	app->entityManager->Start();
-
 }
 
 void S_InGame::GoToScore()
@@ -306,9 +302,8 @@ void S_InGame::GoToScore()
 	app->minimap->CleanUp();
 	app->particleSystem->DestroyParticles();
 	app->enemyWaves->CleanUp();
-	pugi::xml_node		nullnode;
 
-	app->entityManager->Awake(nullnode);
+	app->entityManager->Awake(pugi::xml_node(nullptr));
 	app->entityManager->Start();
 }
 
@@ -472,22 +467,23 @@ void S_InGame::SetGUI()
 // ----------------------- CREATE -----------------------------------
 void S_InGame::BuldingCreator()
 {	
-	app->entityManager->CreateBuilding(BUILD_STABLES, iPoint(9, 72), nullptr, -3264, 1788);
-	app->entityManager->CreateBuilding(BUILD_ARCHERY, iPoint(24, 74), nullptr, -2660, 2165);
-	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(19, 61), nullptr, -2130, 1750);
-	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(23, 61), nullptr, -1930, 1850);
-	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, iPoint(29, 72), nullptr, -2170, 2160);
+	//3254 1695
+	app->entityManager->CreateBuilding(BUILD_STABLES, iPoint(9, 72), nullptr, -3254, 1695);
+	app->entityManager->CreateBuilding(BUILD_ARCHERY, iPoint(24, 74), nullptr, -2650, 2072);
+	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(19, 61), nullptr, -2120, 1657);
+	app->entityManager->CreateBuilding(BUILD_BARRACK, iPoint(23, 61), nullptr, -1920, 1757);
+	app->entityManager->CreateBuilding(BUILD_TOWNCENTER, iPoint(29, 72), nullptr, -2160, 2067);
 
-	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(5, 80), nullptr, -3792, 1944);
-	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(4, 51), nullptr, -2400, 1200);
-	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(27, 31), nullptr, -144, 1272);
-	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(57, 54), nullptr, 192, 2590);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(5, 80), nullptr, -3782, 1851);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(4, 51), nullptr, -2390, 1107);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(27, 31), nullptr, -134, 1179);
+	app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(57, 54), nullptr, 202, 2497);
 }
 
 void S_InGame::UnitsCreator()
 {
 	//Boss
-	app->entityManager->CreateUnit(DIABLO, nullptr, -2200, 2370);
+	app->entityManager->CreateUnit(DIABLO, nullptr, -2190, 2277);
 
 	//Allies
 	app->entityManager->CreateUnit(ARCHER, nullptr, 287, 3698);//
