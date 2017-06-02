@@ -61,7 +61,12 @@ update_status M_MissionManager::Update(float dt)
 			break;
 
 		case M_TOWNATTACK:
-			
+			if (app->metrics->GetTotalUnitsAlive() <= 0)
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_DEFEAT);
+				stateName.assign("NEXT TIME WILL BE B ETTER");
+				State = M_DEFEAT;
+			}
 			if (bossIsAlive == false && app->dialogueManager->onDialogue == false)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION_FINISH);

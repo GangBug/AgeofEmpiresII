@@ -384,10 +384,10 @@ void Building::PrintProgression()
 			int gwbar;
 			gwbar = ((buyTimer.ReadSec() * 100) / BUY_TIMER);
 			gwbar = (gwbar * PROGRESS_WIDTH) / 100;
-			//red
-			app->render->DrawQuad({ progressPos.x, progressPos.y, PROGRESS_WIDTH, 10 }, 255, 0, 0, 255);
-			//green
-			app->render->DrawQuad({ progressPos.x, progressPos.y, gwbar, 10 }, 0, 255, 0, 255);
+			//blue
+			app->render->DrawQuad({ progressPos.x, progressPos.y, PROGRESS_WIDTH, 10 }, 135, 206, 250, 255);
+			//orange
+			app->render->DrawQuad({ progressPos.x, progressPos.y, gwbar, 10 }, 255, 165, 0, 255);
 		}
 
 		iPoint lifePos(pos.x + halfWidth - 35, pos.y + halfHeight - 50);
