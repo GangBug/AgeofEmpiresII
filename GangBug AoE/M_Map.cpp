@@ -166,11 +166,11 @@ iPoint M_Map::WorldToMap(int x, int y) const
 		halfWidth = data.tileWidth * 0.5f;
 		halfHeight = data.tileHeight * 0.5f;
 
-		ret.x = (x / halfWidth + y / halfHeight) * 0.5f;
-		ret.y = (y / halfHeight - (x / halfWidth)) * 0.5f;
+		float pX = (x / halfWidth + y / halfHeight) * 0.5f;
+		float pY = (y / halfHeight - (x / halfWidth)) * 0.5f;
 
-		ret.x = (ret.x > (floor(ret.x) + 0.5f)) ? ceil(ret.x) : floor(ret.x);
-		ret.y = (ret.y > (floor(ret.y) + 0.5f)) ? ceil(ret.y) : floor(ret.y);
+		ret.x = (pX > (floor(pX) + 0.5f)) ? ceil(pX) : floor(pX);
+		ret.y = (pY > (floor(pY) + 0.5f)) ? ceil(pY) : floor(pY);
 
 	}
 	else
