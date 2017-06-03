@@ -108,13 +108,13 @@ update_status S_InGame::PreUpdate(float dt)
 		{
 			// -------------------Move camera--------------------------------------------
 
-			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 				app->render->camera->Move(10.0, UP);
-			if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 				app->render->camera->Move(10.0, LEFT);
-			if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 				app->render->camera->Move(10.0, DOWN);
-			if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 				app->render->camera->Move(10.0, RIGHT);
 
 			int mX, mY;
