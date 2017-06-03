@@ -46,7 +46,7 @@ bool S_InGame::Start()
 		app->dialogueManager->Start();
 
 		app->missionManager->Enable();
-
+		app->missionManager->misionTimer.Start();
 		//audio
 		//app->audio->PlayTheme(app->audio->thirdMission);
 
@@ -69,13 +69,16 @@ bool S_InGame::Start()
 				//app->fogOfWar->GenerateFogOfWar();
 			}
 		}
-		app->entityManager->PlaceObjects();
 
-		app->minimap->CreateMinimap();
+		app->minimap->minimap_atlas = app->tex->Load("maps/minimap.png");
+
+		app->entityManager->PlaceObjects();
 
 		app->resources->Start();
 
 		app->enemyWaves->Start();
+
+		app->audio->PlayTheme(app->audio->firstMission);
 
 		onTutorial = true;
 

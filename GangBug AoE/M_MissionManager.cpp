@@ -20,7 +20,7 @@ M_MissionManager::~M_MissionManager()
 
 bool M_MissionManager::Start()
 {
-	LOG("Resources: Start.");
+	LOG("Mission: Start.");
 	bool ret = true;
 
 	enemyStartTroops = 0;
@@ -53,8 +53,7 @@ update_status M_MissionManager::Update(float dt)
 			if (app->inGame->onTutorial == false)
 			{
 				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION);
-				app->audio->PlayTheme(app->audio->firstMission);
-				if (misionTimer.ReadSec() > MISION_TIME && app->dialogueManager->onDialogue == false)
+				if (app->dialogueManager->onDialogue == false)
 				{
 					misionTimer.Start();
 					State = M_TOWNATTACK;
@@ -181,6 +180,7 @@ bool M_MissionManager::CleanUp()
 	townCenterIsAlive = true;
 	stateName.assign("Intro");
 	enemyDeadUnits = 0;
+	misionTimer.Stop();
 
 	return ret;
 }

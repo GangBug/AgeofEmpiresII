@@ -76,6 +76,7 @@ update_status S_Menu::Update(float dt)
 			cleanAudioVideo = true;
 			app->audio->CleanUp();
 			app->audio->Awake(pugi::xml_node(nullptr));
+			app->entityManager->LoadFXs();
 		}
 	}
 

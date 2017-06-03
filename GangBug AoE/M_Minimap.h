@@ -5,14 +5,6 @@
 #include "p2Point.h"
 #include <vector>
 
-
-
-struct minimap_tiles 
-	{
-	iPoint coords;
-	int id;
-};
-
 class M_Minimap : public Module
 {
 public:
@@ -28,23 +20,16 @@ public:
 	//Called before quitting
 	bool CleanUp();
 
-	//Create Minimap terrain
-	void CreateMinimap();
-
 	//Update Minimap with units
 	void DrawMinimap();
 
 	void DrawDebug() override;
 
 public:
-	std::vector<minimap_tiles> mini_tiles;
-
 	SDL_Texture* minimap_atlas;
 
-	SDL_Rect green = { 0, 0, 4, 4 };
-	SDL_Rect blue = { 4, 0, 4, 4 };
-	SDL_Rect red = { 0, 4, 4, 4 };
-	SDL_Rect yellow = { 4, 4, 4, 4 };
+	SDL_Rect red = { 0, 0, 4, 4 };
+	SDL_Rect green = { 4, 0, 4, 4 };
 
 };
 
