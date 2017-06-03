@@ -95,6 +95,7 @@ public:
 public:
 	std::list<GUIElement*> background;
 	std::list<GUIElement*> guiList;
+	GUIElement* tutorialImage = nullptr;
 	std::list<GUIElement*> debugGuiList;
 	std::list<GUIElement*> editorGuiList;
 	std::list<GUIElement*> mapDebugList;

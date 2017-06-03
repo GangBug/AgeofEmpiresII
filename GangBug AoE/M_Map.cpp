@@ -28,6 +28,8 @@ bool M_Map::Awake(pugi::xml_node& config)
 
 	folder.assign(config.child("folder").child_value());
 
+	mapLoaded = false;
+
 	return ret;
 }
 
@@ -613,6 +615,11 @@ bool M_Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	}
 
 	return ret;
+}
+
+bool M_Map::IsMapLoaded() const
+{
+	return mapLoaded;
 }
 
 void M_Map::DrawDebug()

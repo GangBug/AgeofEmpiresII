@@ -129,6 +129,7 @@ public:
 	iPoint WorldToMap(int x, int y) const;
 	iPoint MapToWorldCenter(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+	bool IsMapLoaded() const;
 
 	void DrawDebug()override;
 

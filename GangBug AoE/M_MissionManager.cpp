@@ -50,13 +50,16 @@ update_status M_MissionManager::Update(float dt)
 		switch (State)
 		{
 		case M_INTRO:
-		app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION);
-		app->audio->PlayTheme(app->audio->firstMission);
-			if (misionTimer.ReadSec() > MISION_TIME && app->dialogueManager->onDialogue == false)
-			{			
-				misionTimer.Start();
-				State = M_TOWNATTACK;
-				stateName.assign("Save the town"); 
+			if (app->inGame->onTutorial == false)
+			{
+				app->dialogueManager->PlayDialogue(D_EVENT_FIRST_MISSION);
+				app->audio->PlayTheme(app->audio->firstMission);
+				if (misionTimer.ReadSec() > MISION_TIME && app->dialogueManager->onDialogue == false)
+				{
+					misionTimer.Start();
+					State = M_TOWNATTACK;
+					stateName.assign("Save the town");
+				}
 			}
 			break;
 

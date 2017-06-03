@@ -52,5 +52,7 @@ public:
 
 	bool menuOpen = false;
 	bool resourceManager = false;
+	bool onTutorial;
+	
 };
 

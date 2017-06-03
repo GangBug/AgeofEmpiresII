@@ -16,6 +16,7 @@
 #include "M_Resources.h"
 #include "M_ParticleSystem.h"
 #include "S_Score.h"
+#include "M_Textures.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -54,16 +55,19 @@ bool S_InGame::Start()
 
 		app->render->camera->SetCenter({ 100, 3560 });
 
-		if (app->map->Load("Map.tmx") == true)
+		if (app->map->IsMapLoaded() == false)
 		{
-			int w, h;
-			uchar* data = NULL;
-			if (app->map->CreateWalkabilityMap(w, h, &data))
-				app->pathfinding->SetMap(w, h, data);
+			if (app->map->Load("Map.tmx") == true)
+			{
+				int w, h;
+				uchar* data = NULL;
+				if (app->map->CreateWalkabilityMap(w, h, &data))
+					app->pathfinding->SetMap(w, h, data);
 
-			RELEASE_ARRAY(data);
+				RELEASE_ARRAY(data);
 
-			//app->fogOfWar->GenerateFogOfWar();
+				//app->fogOfWar->GenerateFogOfWar();
+			}
 		}
 		app->entityManager->PlaceObjects();
 
@@ -73,7 +77,9 @@ bool S_InGame::Start()
 
 		app->enemyWaves->Start();
 
-		app->audio->PlayTheme(app->audio->firstMission);
+		onTutorial = true;
+
+		app->pause = true;
 	}
 	return true;
 }
@@ -82,7 +88,14 @@ update_status S_InGame::PreUpdate(float dt)
 {
 	if (active)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) 
+		if (onTutorial && app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+		{
+			app->gui->tutorialImage->SetVisible(false);
+			onTutorial = false;
+			app->pause = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && !onTutorial) 
 		{
 			OpenMenu(!menuOpen);
 			menuOpen = !menuOpen;
@@ -91,29 +104,10 @@ update_status S_InGame::PreUpdate(float dt)
 		//Create objects
 		ToolCreateObjects();
 
-		//if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //Serialize
-			//app->entityManager->SerializeObjects();
-
-		/*if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-			app->gui->SetActiveScene(name);
-		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-			GoToMenu();
-		if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
-			app->gui->SetActiveScene("\0");*/
-
-			// --------------------------------scenes changes----------------------------
-
-		//mission state change
-		/*if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
-			app->missionManager->SetState(M_VICTORY);		
-		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
-			app->missionManager->SetState(M_DEFEAT);*/
-		//	M_INTRO,M_TOWNATTACK,M_TOWNREPAIR, M_WAVES,	M_BOSS,	M_VICTORY,	M_DEFEAT,M_STANDBY
-
 		if (!app->pause)
 		{
 			// -------------------Move camera--------------------------------------------
-			
+
 			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 				app->render->camera->Move(10.0, UP);
 			if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
@@ -134,7 +128,7 @@ update_status S_InGame::PreUpdate(float dt)
 				app->render->camera->Move(10.0, LEFT);
 			if (mX > app->render->camera->GetSize().x - 5)
 				app->render->camera->Move(10.0, RIGHT);
-
+		}
 			// -------------------------Creators -----------------------------------
 
 		/*	if (app->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
@@ -161,7 +155,26 @@ update_status S_InGame::PreUpdate(float dt)
 			{
 				return UPDATE_STOP;
 			}*/
-		}
+
+			//if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) //Serialize
+			//app->entityManager->SerializeObjects();
+
+			/*if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+			app->gui->SetActiveScene(name);
+			if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+			GoToMenu();
+			if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+			app->gui->SetActiveScene("\0");*/
+
+			// --------------------------------scenes changes----------------------------
+
+			//mission state change
+			/*if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
+			app->missionManager->SetState(M_VICTORY);
+			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
+			app->missionManager->SetState(M_DEFEAT);*/
+			//	M_INTRO,M_TOWNATTACK,M_TOWNREPAIR, M_WAVES,	M_BOSS,	M_VICTORY,	M_DEFEAT,M_STANDBY
+		
 	}	
 	return UPDATE_CONTINUE;
 }
@@ -276,7 +289,6 @@ void S_InGame::GoToMenu()
 	app->audio->CleanData();
 	app->missionManager->CleanUp();
 	app->missionManager->Disable();
-	app->map->CleanUp();
 	app->minimap->CleanUp();
 	app->particleSystem->DestroyParticles();
 	app->enemyWaves->CleanUp();
@@ -298,7 +310,6 @@ void S_InGame::GoToScore()
 	app->audio->CleanData();
 	app->missionManager->CleanUp();
 	app->missionManager->Disable();
-	app->map->CleanUp();
 	app->minimap->CleanUp();
 	app->particleSystem->DestroyParticles();
 	app->enemyWaves->CleanUp();
@@ -462,6 +473,19 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(false);
 
 	// RepairButton - PlusButton - MinusButton
+
+	//Tutorial
+	if (app->gui->tutorialImage == nullptr)
+	{
+		app->gui->tutorialImage = app->gui->CreateImage({ 0,0,(int)(1920 * app->gui->GetScaleX()),(int)(1080 * app->gui->GetScaleY()) }, { 0, 0, 1920, 1080 }, "tutorial");
+
+		dynamic_cast<GUIImage*>(app->gui->tutorialImage)->SetAtlas(app->tex->Load("gui/tutorial.png"));
+		app->gui->tutorialImage->SetVisible(true);
+	}
+	else
+	{
+		app->gui->tutorialImage->SetVisible(true);
+	}
 }
 
 // ----------------------- CREATE -----------------------------------

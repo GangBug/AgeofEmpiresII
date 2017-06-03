@@ -191,6 +191,8 @@ bool M_GUI::CleanUp()
 	{
 		RELEASE(var);
 	}
+
+	RELEASE(tutorialImage);
 	
 	guiList.clear();
 	background.clear();
@@ -729,6 +731,11 @@ void M_GUI::Draw()
 	{
 		if ((*it)->GetActive())
 			(*it)->Draw();
+	}
+	
+	if (tutorialImage != nullptr && tutorialImage->GetActive())
+	{
+		tutorialImage->Draw();
 	}
 }
 void M_GUI::DrawEditor()
