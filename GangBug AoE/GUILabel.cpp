@@ -63,7 +63,15 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 	if (strcmp(GetName().c_str(), "label_Wave_stat_n") == 0)
 		SetText(app->missionManager->GetStateName().c_str(), SMALL);
 	if (strcmp(GetName().c_str(), "label_Wave_time_n") == 0)
-		SetText(std::to_string(app->missionManager->GetMisionTimeleftf()).c_str(), SMALL);
+	{
+		char timeText[64];
+		sprintf_s(timeText, 64, "%.2f s", app->missionManager->GetMisionTimeleftf()); //Formating time to 2 decimals
+		//sprintf_s(timeText, 64, "%d s", (int)app->missionManager->GetMisionTimeleftf()); //Formating time to int with 0 decimals. Ms are important?? TODO: Choose between displaying time with decimals or not.
+		SetText(timeText, SMALL);
+
+		//Deprecated... should delete this line
+		//SetText(std::to_string(app->missionManager->GetMisionTimeleftf()).c_str(), SMALL);
+	}
 	if (strcmp(GetName().c_str(), "label_EnemyDead_stat_n") == 0)
 		SetText(std::to_string(app->missionManager->GetEnemyDeadUnits()).c_str(), SMALL);
 
@@ -71,7 +79,15 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 	if (strcmp(GetName().c_str(), "Total_Score_n") == 0)
 		SetText(std::to_string(app->metrics->GetFinalScore()).c_str(), MEDIUM);
 	if (strcmp(GetName().c_str(), "Total_Time_n") == 0)
-		SetText(std::to_string(app->metrics->GetTotalTime()).c_str(), MEDIUM);
+	{
+		char timeText[64];
+		sprintf_s(timeText, 64, "%.2f s", app->metrics->GetTotalTime()); //Formating time to 2 decimals
+		//sprintf_s(timeText, 64, "%d s", (int)app->metrics->GetTotalTime()); //Formating time to int with 0 decimals. Ms are important?? TODO: Choose between displaying time with decimals or not.
+		SetText(timeText, SMALL);
+
+		//Deprecated... should delete this line
+		//SetText(std::to_string(app->metrics->GetTotalTime()).c_str(), MEDIUM);
+	}
 
 	if (strcmp(GetName().c_str(), "Total_Kills_n") == 0)
 		SetText(std::to_string(app->metrics->GetTotalkills()).c_str(), MEDIUM);
