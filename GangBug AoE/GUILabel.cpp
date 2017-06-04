@@ -59,21 +59,59 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 	if (strcmp(GetName().c_str(), "Total_Tarkan_Alive_InGame_n") == 0)
 		SetText(std::to_string(app->metrics->GetTarkanAlive()).c_str(), SMALL);
 
-	//TEMP
-	if (strcmp(GetName().c_str(), "label_Wave_stat_n") == 0)
-		SetText(app->missionManager->GetStateName().c_str(), SMALL);
-	if (strcmp(GetName().c_str(), "label_Wave_time_n") == 0)
+	//MISSION GOAL
+	if (strcmp(GetName().c_str(), "label_Mision_One") == 0) // GO TOWN
 	{
-		char timeText[64];
-		sprintf_s(timeText, 64, "%.2f s", app->missionManager->GetMisionTimeleftf()); //Formating time to 2 decimals
-		//sprintf_s(timeText, 64, "%d s", (int)app->missionManager->GetMisionTimeleftf()); //Formating time to int with 0 decimals. Ms are important?? TODO: Choose between displaying time with decimals or not.
-		SetText(timeText, SMALL);
-
-		//Deprecated... should delete this line
-		//SetText(std::to_string(app->missionManager->GetMisionTimeleftf()).c_str(), SMALL);
+		SetText(app->missionManager->GetObjectiveState1().c_str(), SMALL);
+		if (app->missionManager->GetState() == M_TOWNATTACK)
+			SetColor({ 255,0,0 ,255});
+		if (app->missionManager->GetState() == M_TOWNREPAIR)
+			color = { 255,0,0};
+		if (app->missionManager->GetState() == M_DEFEAT)
+			SetColor(SDL_Color{ 255,0,0 ,255 });
 	}
-	if (strcmp(GetName().c_str(), "label_EnemyDead_stat_n") == 0)
-		SetText(std::to_string(app->missionManager->GetEnemyDeadUnits()).c_str(), SMALL);
+	if (strcmp(GetName().c_str(), "label_Mision_Two") == 0)// REPAIR TOWN
+	{ 
+		SetText(app->missionManager->GetObjectiveState2().c_str(), SMALL);
+
+		if (app->missionManager->GetState() == M_WAVES)
+			SetColor(SDL_Color{ 0,255,0,255 });
+		if (app->missionManager->GetState() == M_DEFEAT)
+			SetColor(SDL_Color{ 255,0,0,255 });
+	}
+	if (strcmp(GetName().c_str(), "label_Mision_Tree") == 0)//KILL WAVES
+	{
+		SetText(app->missionManager->GetObjectiveState3().c_str(), SMALL);
+
+		if (app->missionManager->GetState() == M_BOSS)
+			SetColor(SDL_Color{ 0,255,0 ,255 });
+		if (app->missionManager->GetState() == M_DEFEAT)
+			SetColor(SDL_Color{ 255,0,0,255 });
+	}
+	if (strcmp(GetName().c_str(), "label_Mision_Four") == 0) //KILL BOSS
+	{
+		SetText(app->missionManager->GetObjectiveState4().c_str(), SMALL);
+
+		if (app->missionManager->GetState() == M_VICTORY)
+			SetColor(SDL_Color{ 0,255,0,255 });
+		if (app->missionManager->GetState() == M_DEFEAT)
+			SetColor(SDL_Color{ 255,0,0,255 });
+	}
+
+
+	//TEMP DEBUG
+	//if (strcmp(GetName().c_str(), "label_Wave_time_n") == 0)
+	//{
+	//	char timeText[64];
+	//	sprintf_s(timeText, 64, "%.2f s", app->missionManager->GetMisionTimeleftf()); //Formating time to 2 decimals
+	//	//sprintf_s(timeText, 64, "%d s", (int)app->missionManager->GetMisionTimeleftf()); //Formating time to int with 0 decimals. Ms are important?? TODO: Choose between displaying time with decimals or not.
+	//	SetText(timeText, SMALL);
+
+	//	//Deprecated... should delete this line
+	//	//SetText(std::to_string(app->missionManager->GetMisionTimeleftf()).c_str(), SMALL);
+	//}
+	//if (strcmp(GetName().c_str(), "label_EnemyDead_stat_n") == 0)
+	//	SetText(std::to_string(app->missionManager->GetEnemyDeadUnits()).c_str(), SMALL);
 
 	//SCORE
 	if (strcmp(GetName().c_str(), "Total_Score_n") == 0)

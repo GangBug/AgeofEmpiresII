@@ -33,7 +33,10 @@ bool M_MissionManager::Start()
 	active = false;
 	isHardModeActive = false;
 
-	stateName.assign("Intro");
+	ObjectiveState1.assign("Go to the town to kill the Daemon");
+	ObjectiveState2.assign("-");
+	ObjectiveState3.assign("-");
+	ObjectiveState4.assign("-");
 
 	State = M_INTRO;
 	
@@ -57,7 +60,7 @@ update_status M_MissionManager::Update(float dt)
 				{
 					misionTimer.Start();
 					State = M_TOWNATTACK;
-					stateName.assign("Save the town");
+					ObjectiveState1.assign("Go to the town & kill the Daemon");
 				}
 			}
 			break;
@@ -77,7 +80,8 @@ update_status M_MissionManager::Update(float dt)
 				bossIsAlive = true;
 				State = M_TOWNREPAIR;
 				misionTimer.Start();
-				stateName.assign("Repair the town");
+				
+				ObjectiveState2.assign("Repair the town");
 			}
 			break;
 
@@ -95,6 +99,8 @@ update_status M_MissionManager::Update(float dt)
 				stateName.assign("Defend the town! Waves incoming.");
 				app->enemyWaves->activatePortals();
 				enemyDeadUnits = 0;
+
+				ObjectiveState3.assign("Resists to the waves");
 			}
 
 			break;
@@ -110,6 +116,7 @@ update_status M_MissionManager::Update(float dt)
 				bossIsAlive = true;
 				Unit* tmpBoss = (Unit*)app->entityManager->CreateUnit(DIABLO, nullptr, -144, 1300);
 				tmpBoss->GoTo({ -2221, 2524 });
+				ObjectiveState4.assign("Defeat Diablo!");
 			}		
 
 			if (townCenterIsAlive == false)

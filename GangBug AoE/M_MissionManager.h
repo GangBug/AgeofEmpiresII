@@ -37,10 +37,16 @@ public:
 
 	uint GetEnemyUnits()const;
 	std::string GetStateName()const;
+	std::string GetObjectiveState1()const { return ObjectiveState1; }
+	std::string GetObjectiveState2()const { return ObjectiveState2; }
+	std::string GetObjectiveState3()const { return ObjectiveState3; }
+	std::string GetObjectiveState4()const { return ObjectiveState4; }
+
 	Timer GetMisionTime()const;
 	float GetMisionTimeleftf()const;
 	bool GetBossState()const;
 	uint GetEnemyDeadUnits()const;
+
 
 	void AddStartUnit();
 	void AddEnemyDeadUnit();
@@ -73,6 +79,12 @@ private://troops states
 	uint enemyDeadUnits;
 
 	std::string stateName;
+
+	std::string ObjectiveState1;
+	std::string ObjectiveState2;
+	std::string ObjectiveState3;
+	std::string ObjectiveState4;
+	
 
 	bool bossIsAlive;
 	bool townCenterIsAlive;
