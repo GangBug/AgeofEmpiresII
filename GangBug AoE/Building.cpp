@@ -82,7 +82,7 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitGoldCost = 0;
 		unitWoodCost = 0;
 		unitFoodCost = 40;
-		unitLimitCount = 9;//1 less , there is somewhere one >= or <= that allow you to create one more
+		unitLimitCount = 11;
 
 		HP = 600;
 		fullHP = 600;
@@ -219,6 +219,7 @@ void Building::OnUpdate(float dt)
 					app->resources->AddVillager();
 					app->audio->PlayFx(app->entityManager->fxCreateVillager);
 					unitsToAdd--;
+
 					if (unitsToAdd > 0)
 					{
 						buyTimer.Start();
@@ -290,7 +291,7 @@ void Building::BuyUnit()
 	//If theres money create a unit
 	if (app->resources->GetCurrentGold() > unitGoldCost && app->resources->GetCurrentFood() > unitFoodCost && app->resources->GetCurrentWood() > unitWoodCost && HP == fullHP)
 	{
-		if ((this->buildType == BUILD_ARCHERY && app->metrics->GetArchersAlive() + unitsToAdd < unitLimitCount) || (this->buildType == BUILD_STABLES && app->metrics->GetTarkanAlive()+ unitsToAdd < unitLimitCount) || (this->buildType == BUILD_BARRACK && app->metrics->GetSamuraisAlive() + unitsToAdd < unitLimitCount) || (this->buildType == BUILD_TOWNCENTER && currentUnitCount + unitsToAdd < unitLimitCount))
+		if ((this->buildType == BUILD_ARCHERY && app->metrics->GetArchersAlive() + unitsToAdd < unitLimitCount) || (this->buildType == BUILD_STABLES && app->metrics->GetTarkanAlive() + unitsToAdd < unitLimitCount) || (this->buildType == BUILD_BARRACK && app->metrics->GetSamuraisAlive() + unitsToAdd < unitLimitCount) || (this->buildType == BUILD_TOWNCENTER && app->resources->GetTotalVillagers() + currentUnitCount + unitsToAdd < unitLimitCount))
 		{
 			app->resources->SubstractGold(unitGoldCost);
 			app->resources->SubstractFood(unitFoodCost);
