@@ -28,7 +28,7 @@ public:
 	SDL_Color GetColor() const { return color; }
 	void SetResize(bool resize) { this->resize = resize; }
 
-	void SetColor(SDL_Color _color) { color = _color; SetText(text.c_str(), lbSize); }
+	void SetColor(SDL_Color _color) { color = _color; std::string str = text; SetText("   ", lbSize); SetText(str.c_str(), lbSize); }
 	void FollowScreen(bool _followScreen) { _followScreen ? followScreen = true : followScreen = false; }
 private:
 	SDL_Texture* texture;
