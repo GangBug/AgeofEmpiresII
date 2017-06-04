@@ -32,8 +32,8 @@ public:
 	GB_Rectangle<int> selectionRect = ZeroRectangle;
 	std::vector<Entity*> selectedEntities;
 	bool onSelection = false;
+	bool draggingCamera = false;
 private:
-	
 
 };
 

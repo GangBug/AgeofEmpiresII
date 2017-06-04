@@ -3,6 +3,7 @@
 #include "App.h"
 #include "M_EntityManager.h"
 #include "M_Input.h"
+#include "M_Render.h"
 
 #include "M_Render.h"
 #include "Building.h"
@@ -43,19 +44,31 @@ void PlayerManager::OnUpdate(float dt)
 
 	if (buttonLeftStat == KEY_DOWN)
 	{
-		clickPosition = mPos;
-		selectionRect.x = mPos.x;
-		selectionRect.y = mPos.y;
-		selectionRect.w = 0;
-		selectionRect.h = 0;
-
-		for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
+		int minimapX = (app->render->camera->GetSize().x * 1239 / 1366) - app->render->camera->GetPosition().x - 163 * app->render->camera->GetSize().x / 1920;
+		int minimapY = (app->render->camera->GetSize().y * 640 / 768) - app->render->camera->GetPosition().y;
+		if (mPos.x >= minimapX && mPos.y >= minimapY)
 		{
-			(*it)->selected = false;
+			int newCameraX = ((mPos.x - (app->render->camera->GetSize().x * 1239 / 1366) + app->render->camera->GetPosition().x) * 1366) / 35;
+			int newCameraY = ((mPos.y - (app->render->camera->GetSize().y * 640 / 768) + app->render->camera->GetPosition().y) * 768) / 22;
+			app->render->camera->SetCenter({ newCameraX, newCameraY });
+			draggingCamera = true;
 		}
-		selectedEntities.clear();
+		else
+		{
+			clickPosition = mPos;
+			selectionRect.x = mPos.x;
+			selectionRect.y = mPos.y;
+			selectionRect.w = 0;
+			selectionRect.h = 0;
 
-		onSelection = true;
+			for (std::vector<Entity*>::iterator it = selectedEntities.begin(); it != selectedEntities.end(); ++it)
+			{
+				(*it)->selected = false;
+			}
+			selectedEntities.clear();
+
+			onSelection = true;
+		}
 	}
 
 	if (onSelection == true)
@@ -95,6 +108,24 @@ void PlayerManager::OnUpdate(float dt)
 					(*it)->selected = true;
 			}
 			onSelection = false;
+		}
+	}
+	else if (draggingCamera == true)
+	{
+		if (buttonLeftStat == KEY_REPEAT)
+		{
+			int minimapX = (app->render->camera->GetSize().x * 1239 / 1366) - app->render->camera->GetPosition().x - 163 * app->render->camera->GetSize().x / 1920;
+			int minimapY = (app->render->camera->GetSize().y * 640 / 768) - app->render->camera->GetPosition().y;
+			if (mPos.x >= minimapX && mPos.y >= minimapY)
+			{
+				int newCameraX = ((mPos.x - (app->render->camera->GetSize().x * 1239 / 1366) + app->render->camera->GetPosition().x) * 1366) / 35;
+				int newCameraY = ((mPos.y - (app->render->camera->GetSize().y * 640 / 768) + app->render->camera->GetPosition().y) * 768) / 22;
+				app->render->camera->SetCenter({ newCameraX, newCameraY });
+			}
+		}
+		else
+		{
+			draggingCamera = false;
 		}
 	}
 }
