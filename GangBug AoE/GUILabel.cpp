@@ -63,10 +63,9 @@ void GUILabel::OnUpdate(const GUIElement * mouseHover, const GUIElement * focus,
 	if (strcmp(GetName().c_str(), "label_Mision_One") == 0) // GO TOWN
 	{
 		SetText(app->missionManager->GetObjectiveState1().c_str(), SMALL);
-		if (app->missionManager->GetState() == M_TOWNATTACK)
-			SetColor({ 255, 0, 0, 255 });
+
 		if (app->missionManager->GetState() == M_TOWNREPAIR)
-			SetColor({ 255, 0, 0});
+			SetColor({ 0, 255, 0, 255 });
 		if (app->missionManager->GetState() == M_DEFEAT)
 			SetColor({ 255, 0, 0, 255 });
 	}
