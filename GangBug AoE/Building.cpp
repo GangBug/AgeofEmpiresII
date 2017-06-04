@@ -302,6 +302,10 @@ void Building::BuyUnit()
 				buyTimer.Start();
 			}
 		}
+		else {
+			if (this->buildType == BUILD_TOWNCENTER && app->resources->GetTotalVillagers() + currentUnitCount + unitsToAdd >= unitLimitCount)
+				app->audio->PlayFx(app->entityManager->fxLimitVillager);
+		}
 
 	}
 	else {
