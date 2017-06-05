@@ -39,6 +39,34 @@ M_Metrics::~M_Metrics()
 {
 }
 
+bool M_Metrics::CleanUp()
+{
+	bool ret = true;
+
+	totalUnits = 0;
+	unitsAlive = 9;
+	samuraiAlive = 5;
+	archersAlive = 4;
+	tarkanAlive = 0;
+
+	deadUnits = 0;
+	deadEnemies = 0;
+	deadViles = 0;
+	deadWitch = 0;
+
+	score = 0.0f;
+
+	totalResources = 0;
+
+	totalGold = 0;
+	totalWood = 0;
+	totalFood = 0;
+	totalTime = 0;
+	finalScore = 0;
+	metricsCounter = 0;
+	return ret;
+}
+
 bool M_Metrics::Start()
 {
 	bool ret = true;

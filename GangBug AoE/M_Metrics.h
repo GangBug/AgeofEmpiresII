@@ -34,6 +34,7 @@ public:
 	//constructor destructor
 	M_Metrics(bool startEnabled = true);
 	virtual ~M_Metrics();
+	bool CleanUp()override;
 	//override
 	bool Start();
 	update_status Update(float dt)override;
