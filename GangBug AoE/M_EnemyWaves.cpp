@@ -46,19 +46,12 @@ update_status M_EnemyWaves::Update(float dt)
 		//TODO: Use IsStopped instead of spawnTimerStarted
 		if (waveTimer.ReadSec() > 10)
 		{
-			app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, 192, 2590);
+			//app->entityManager->CreateBuilding(BUILD_PORTAL, iPoint(8, 57), nullptr, 192, 2590);
 
 			waveSpawn = true;
 			ResetWaveTimer();
 		}
 
-		if (waveSpawn == true && waveTimer.ReadSec() > 5)
-		{
-			checkCurrentPortals();
-			ResetWaveTimer();
-		}
-
-		//Working now
 		if (waveTimer.ReadSec() > 5)
 		{
 			for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
@@ -71,6 +64,15 @@ update_status M_EnemyWaves::Update(float dt)
 			waveEntities.clear();
 		}
 	}
+
+		if (waveSpawn == true && waveTimer.ReadSec() > 5)
+		{
+			checkCurrentPortals();
+			ResetWaveTimer();
+		}
+
+		//Working now
+		
 	return ret;
 }
 
