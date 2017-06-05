@@ -52,7 +52,7 @@ update_status M_EnemyWaves::Update(float dt)
 			ResetWaveTimer();
 		}
 
-		if (waveTimer.ReadSec() > 5)
+		if (waveTimer.ReadSec() > 4)
 		{
 			for (std::vector<Entity*>::iterator it = waveEntities.begin(); it != waveEntities.end(); ++it)
 			{
@@ -65,7 +65,7 @@ update_status M_EnemyWaves::Update(float dt)
 		}
 	}
 
-		if (waveSpawn == true && waveTimer.ReadSec() > 5)
+		if (waveSpawn == true && waveTimer.ReadSec() > 4)
 		{
 			checkCurrentPortals();
 			ResetWaveTimer();

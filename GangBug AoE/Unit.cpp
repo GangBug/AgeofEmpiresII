@@ -955,6 +955,11 @@ bool Unit::GoTo(iPoint destination)
 		this->destination.y = destination.y;
 		return true;
 	}
+	if (this->GetPath({ destination.x, destination.y }) == false)
+	{
+		this->action = IDLE;
+		return false;
+	}
 	return false;
 }
 
