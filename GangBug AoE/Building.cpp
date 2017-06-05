@@ -127,6 +127,10 @@ void Building::OnUpdate(float dt)
 			{
 				app->missionManager->TheTownCenterInsAlive();
 			}
+			else if(buildType == BUILD_TOWNCENTER && HP <= 0)
+			{
+				app->missionManager->TheTownCenterIsDead();
+			}
 
 			iPoint mPos;
 			app->input->GetMouseMapPosition(mPos.x, mPos.y);
