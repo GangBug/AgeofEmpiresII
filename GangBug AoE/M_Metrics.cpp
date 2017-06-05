@@ -73,9 +73,10 @@ update_status M_Metrics::Update(float dt)
 				timeScore.push_back(this->GetScore());
 				finalScore = this->GetScore();
 				//timer
+				deadEnemies = this->GetTotalVilesKilled() + this->GetTotalWitchKilled();
 				MetricTimeCycle.Start();
 			}
-
+			
 		}
 	}
 	return update_status(ret);
@@ -162,7 +163,7 @@ void M_Metrics::AddTotalUnit()
 
 void M_Metrics::AddDeadViles()
 {
-	deadWitch++;
+	deadViles++;
 }
 
 void M_Metrics::AddDeadWitch()
@@ -284,7 +285,7 @@ uint M_Metrics::GetTotalUnits()
 
 uint M_Metrics::GetTotalkills()
 {
-	return uint(deadUnits);
+	return uint(deadEnemies);
 }
 
 uint M_Metrics::GetTotalVilesKilled()
@@ -319,8 +320,6 @@ uint M_Metrics::GetTotalUnitsAlive()
 
 void M_Metrics::chartvisible(bool state)
 {
-	
-	
 
 	for (std::list<GUIElement*>::iterator it = ChartList.begin(); it != ChartList.end(); ++it)
 	{

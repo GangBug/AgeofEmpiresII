@@ -469,7 +469,7 @@ void Unit::Die()
 			Animation* anim = app->animation->GetAnimation(GetUnitType(), action, unitDirection);
 			anim->Reset();
 		}
-		else if(unitType == HELL_WITCH || unitType == DIABLO)
+		else if(unitType == HELL_WITCH || unitType == DIABLO )
 		{
 			if (this->horde == true)
 			{
@@ -488,7 +488,7 @@ void Unit::Die()
 			if (unitType == VILE)
 				app->metrics->AddDeadViles();
 			else if (unitType == HELL_WITCH)
-				app->metrics->AddDeadViles();
+				app->metrics->AddDeadWitch();
 			else if (unitType == DIABLO)
 				app->metrics->AddBoss();
 		}
