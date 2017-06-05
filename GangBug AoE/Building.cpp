@@ -11,6 +11,7 @@
 #include "M_ParticleSystem.h"
 #include "M_MissionManager.h"
 #include "M_Metrics.h"
+#include "M_Render.h"
 
 Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) : Entity(ENTITY_BUILDING, parent), buildType(buildType), tileAttack(tileAttack)
 {
@@ -133,9 +134,12 @@ void Building::OnUpdate(float dt)
 			}
 
 			iPoint mPos;
-			app->input->GetMouseMapPosition(mPos.x, mPos.y);
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && GetEnclosingBox().Contains(mPos.x, mPos.y))
+			app->input->GetMouseMapPosition(mPos.x, mPos.y);
+	
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && GetEnclosingBox().Contains(mPos.x, mPos.y) && (((app->input->GetMousePosition().y >0) &&
+				(app->input->GetMousePosition().x > (app->render->camera->GetRect().w / 13) * 2))||	((app->input->GetMousePosition().y >0 && app->input->GetMousePosition().y < (app->render->camera->GetRect().h / 13) * 11) &&
+					(app->input->GetMousePosition().x > 0 && app->input->GetMousePosition().x < (app->render->camera->GetRect().w / 13) * 2))))
 			{
 				selected = true;
 				creatorButton->SetVisible(true);
