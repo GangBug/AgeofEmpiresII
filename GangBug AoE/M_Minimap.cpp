@@ -13,8 +13,8 @@
 #include "SDL_TTF\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
 
-#define UNITS_POS_X (app->render->camera->GetSize().x * 1239 / 1366) - app->render->camera->GetPosition().x + (coords.x * (app->render->camera->GetSize().x * 0.027 / 1366))
-#define UNITS_POS_Y (app->render->camera->GetSize().y * 640 / 768) - app->render->camera->GetPosition().y + (coords.y * (app->render->camera->GetSize().y * 0.027 / 768))
+#define UNITS_POS_X (app->render->camera->GetSize().x * 1239 / 1366) - app->render->camera->GetPosition().x + (coords.x * ratioX)
+#define UNITS_POS_Y (app->render->camera->GetSize().y * 640 / 768) - app->render->camera->GetPosition().y + (coords.y * ratioY)
 
 M_Minimap::M_Minimap(bool startEnabled) : Module(startEnabled)
 {
@@ -40,14 +40,16 @@ void M_Minimap::DrawMinimap()
 {
 	if (this != nullptr)
 	{
+
+		float ratioX = (app->render->camera->GetSize().x * 326.0f / 1920.0f) / 8640.0f;
+		float ratioY = (app->render->camera->GetSize().y * 174.0f / 1080.0f) / 4320.0f;
 		std::vector<Entity*> uVector = app->entityManager->GetUnitVector();
 		for (std::vector<Entity*>::iterator it = uVector.begin(); it != uVector.end(); it++) {
-
 			iPoint coords;
 			coords.x = (*it)->GetGlobalPosition().x;
 			coords.y = (*it)->GetGlobalPosition().y;
 			if (dynamic_cast<Unit*>(*it)->horde == true)
-			{
+			{			
 				app->render->Blit(minimap_atlas, UNITS_POS_X, UNITS_POS_Y, &red);
 			}
 			else
@@ -55,11 +57,10 @@ void M_Minimap::DrawMinimap()
 				app->render->Blit(minimap_atlas, UNITS_POS_X, UNITS_POS_Y, &green);
 			}
 		}
-
-		int quadX = (app->render->camera->GetSize().x * 1239 / 1366) - app->render->camera->GetPosition().x - (app->render->camera->GetPosition().x * 35 / 1366);
-		int quadY = (app->render->camera->GetSize().y * 640 / 768) - app->render->camera->GetPosition().y - (app->render->camera->GetPosition().y * 22 / 768);
-		int width = app->render->camera->GetSize().x * 30 / 1366;
-		int height = app->render->camera->GetSize().y * 20 / 768;
+		int quadX = (app->render->camera->GetSize().x * 1743 / 1920) - app->render->camera->GetPosition().x - (app->render->camera->GetPosition().x * ratioX);
+		int quadY = (app->render->camera->GetSize().y * 900 / 1080) - app->render->camera->GetPosition().y - (app->render->camera->GetPosition().y * ratioY);
+		int width = app->render->camera->GetSize().x * 32 / 1366;
+		int height = app->render->camera->GetSize().y * 18 / 768;
 		app->render->DrawQuad({ quadX, quadY, width, height }, 255, 255, 255, 255, false);
 	}
 }

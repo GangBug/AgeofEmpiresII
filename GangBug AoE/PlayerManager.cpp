@@ -44,12 +44,14 @@ void PlayerManager::OnUpdate(float dt)
 
 	if (buttonLeftStat == KEY_DOWN)
 	{
-		int minimapX = (app->render->camera->GetSize().x * 1239 / 1366) - app->render->camera->GetPosition().x - 163 * app->render->camera->GetSize().x / 1920;
-		int minimapY = (app->render->camera->GetSize().y * 640 / 768) - app->render->camera->GetPosition().y;
+		int minimapX = (app->render->camera->GetSize().x * 1743 / 1920) - app->render->camera->GetPosition().x - 163 * app->render->camera->GetSize().x / 1920;
+		int minimapY = (app->render->camera->GetSize().y * 900 / 1080) - app->render->camera->GetPosition().y;
 		if (mPos.x >= minimapX && mPos.y >= minimapY)
 		{
-			int newCameraX = ((mPos.x - (app->render->camera->GetSize().x * 1239 / 1366) + app->render->camera->GetPosition().x) * 1366) / 35;
-			int newCameraY = ((mPos.y - (app->render->camera->GetSize().y * 640 / 768) + app->render->camera->GetPosition().y) * 768) / 22;
+			float ratioX = (app->render->camera->GetSize().x * 326.0f / 1920.0f) / 8640.0f;
+			float ratioY = (app->render->camera->GetSize().y * 174.0f / 1080.0f) / 4320.0f;
+			int newCameraX = ((mPos.x - (app->render->camera->GetSize().x * 1743 / 1920) + app->render->camera->GetPosition().x)) / ratioX;
+			int newCameraY = ((mPos.y - (app->render->camera->GetSize().y * 900 / 1080) + app->render->camera->GetPosition().y)) / ratioY;
 			app->render->camera->SetCenter({ newCameraX, newCameraY });
 			draggingCamera = true;
 		}
