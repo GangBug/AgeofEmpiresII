@@ -159,22 +159,12 @@ update_status M_Render::PostUpdate(float dt)
 
 		//----------
 
-		//RENDER UI
-
-		app->gui->Draw();
-
-		if (app->debug)
-		{
-			app->DrawDebug();
-		}
-		//---------
-
 		//BOSS LIFE BAR
 		if (app->missionManager->GetBossState() == true)
 		{
-			iPoint lifeBarPos = app->render->ScreenToWorld(camera->GetSize().x/4, camera->GetSize().y/12);
+			iPoint lifeBarPos = app->render->ScreenToWorld(camera->GetSize().x / 4, camera->GetSize().y / 12);
 			SDL_Rect lifeBarRect{ lifeBarPos.x,lifeBarPos.y,959,65 };
-			
+
 			lifeBarRect.w *= (float)camera->GetSize().x / 1920;
 			lifeBarRect.h *= (float)camera->GetSize().y / 1080;
 			int lifeOffset = 45 * (float)camera->GetSize().y / 1080;
@@ -190,7 +180,7 @@ update_status M_Render::PostUpdate(float dt)
 				gwbar = ((app->entityManager->GetBoss()->GetHP() * 100) / (BOSSHP / EASY_MODE_BOSS));
 			}// crash if exists the boss is alive and change to the score 
 
-			//HARD MODE
+			 //HARD MODE
 			else
 			{
 				gwbar = ((app->entityManager->GetBoss()->GetHP() * 100) / BOSSHP);
@@ -205,6 +195,19 @@ update_status M_Render::PostUpdate(float dt)
 			BlitAdri(app->tex->bossLifeBar, lifeBarRect.x, lifeBarRect.y, &lifeBarRect);
 
 		}
+
+
+		//RENDER UI
+
+		app->gui->Draw();
+
+		if (app->debug)
+		{
+			app->DrawDebug();
+		}
+		//---------
+
+
 
 		//RENDER MINIMAP
 		if (app->inGame->active)
