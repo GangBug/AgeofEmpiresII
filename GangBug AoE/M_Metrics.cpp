@@ -43,6 +43,27 @@ bool M_Metrics::Start()
 {
 	bool ret = true;
 
+	totalUnits = 0;
+	unitsAlive = 9;
+	samuraiAlive = 5;
+	archersAlive = 4;
+	tarkanAlive = 0;
+
+	deadUnits = 0;
+	deadEnemies = 0;
+	deadViles = 0;
+	deadWitch = 0;
+
+	score = 0.0f;
+
+	totalResources = 0;
+
+	totalGold = 0;
+	totalWood = 0;
+	totalFood = 0;
+	totalTime = 0;
+	finalScore = 0;
+	metricsCounter = 0;
 	return ret;
 }
 
@@ -62,7 +83,6 @@ update_status M_Metrics::Update(float dt)
 
 				//units
 				deadUnits = app->missionManager->GetEnemyDeadUnits();
-
 				unitsAlive = app->resources->GetTotalUnits();
 				
 

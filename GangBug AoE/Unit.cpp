@@ -487,7 +487,7 @@ void Unit::Die()
 
 			if (unitType == VILE)
 				app->metrics->AddDeadViles();
-			else if (unitType == HELL_WITCH)
+			if (unitType == HELL_WITCH)
 				app->metrics->AddDeadWitch();
 			else if (unitType == DIABLO)
 				app->metrics->AddBoss();
