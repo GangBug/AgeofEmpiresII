@@ -120,7 +120,6 @@ void M_Resources::SetCurrentResources(int amount)
 
 update_status M_Resources::Update(float dt)
 {
-
 	update_status ret = UPDATE_CONTINUE;
 
 	//Maybe we could use dt instead of this timer

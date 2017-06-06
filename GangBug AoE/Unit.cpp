@@ -59,7 +59,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case ARCHER:
 			SetFullHp(40 * EASY_MODE);
-			attack = 8 * EASY_MODE;
+			attack = 7 * EASY_MODE;
 			speed = 1.5f;
 			rate_of_fire = 1.3f;
 			range = 5;
@@ -126,7 +126,7 @@ Unit::Unit(unit_type type, Entity* parent) : unitType(type), Entity(ENTITY_UNIT,
 
 		case ARCHER:
 			SetFullHp(40);
-			attack = 8;
+			attack = 7;
 			speed = 1.5f;
 			rate_of_fire = 1.3f;
 			range = 5;
