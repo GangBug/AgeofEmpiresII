@@ -522,14 +522,23 @@ void S_InGame::UnitsCreator()
 	app->entityManager->CreateUnit(VILE, nullptr, -900, 2898);//
 	app->entityManager->CreateUnit(VILE, nullptr, -950, 2598);//
 	app->entityManager->CreateUnit(VILE, nullptr, -1000, 2598);//
+	app->entityManager->CreateUnit(VILE, nullptr, -650, 2208);//
+	app->entityManager->CreateUnit(VILE, nullptr, -600, 2198);//
+	app->entityManager->CreateUnit(VILE, nullptr, -620, 2158);//
 
 	//Allies
 	app->entityManager->CreateUnit(ARCHER, nullptr, 287, 3698);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 357, 3658);//
+	app->entityManager->CreateUnit(ARCHER, nullptr, 287, 3698);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 257, 3658);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 287, 3658);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 227, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3668);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 287, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 307, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3668);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 287, 3658);//

@@ -33,6 +33,10 @@ update_status M_Collision::Update(float dt)
 					Unit* unit_2 = (Unit*)unit2[j];
 					if ((unit_1->GetAction() == IDLE || (unit_1->GetAction() == ATTACK && unit_1->GetUnitType() == ARCHER)) && (unit_2->GetAction() == IDLE || (unit_2->GetAction() == ATTACK)))
 							SplitUnits((Unit*)unit1[i]);
+					if ((unit_1->GetAction() == IDLE) && (unit_2->GetAction() == IDLE || unit_2->GetAction() == ATTACK) && unit_1->GetUnitType() == SAMURAI)
+						SplitUnits((Unit*)unit1[i]);
+					if ((unit_1->GetAction() == IDLE) && (unit_2->GetAction() == IDLE || unit_2->GetAction() == ATTACK) && unit_1->GetUnitType() == TARKAN_KNIGHT)
+						SplitUnits((Unit*)unit1[i]);
 				}
 			}
 
