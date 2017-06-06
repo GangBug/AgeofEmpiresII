@@ -6,6 +6,8 @@ Gangbug develops a new and exciting campaign for the nostalgic of the age of emp
 will be able to face demons by retracing the old Japanese empire from your pc.
 		
 Do You want to follow us in our development? Follow us on:		
+
+* Web (https://gangbug.github.io/AgeofEmpiresII/)
 		
 * Public Trello (https://github.com/GangBug)  	
 	
