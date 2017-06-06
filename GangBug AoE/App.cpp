@@ -222,7 +222,7 @@ update_status App::Update()
 		}
 	}
 
-	if (input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	if (input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 	{
 		debug = !debug;
 	}

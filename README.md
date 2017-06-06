@@ -28,8 +28,7 @@ Social media:
 
 * Instagram (https://www.instagram.com/gangbuggames/)  		
 		
-Do You want to help us in our development? Now you can help us making issues for the Victorious
-Secret's QA departament: 		
+Do You want to help us in our development? Now you can help us making issues for the GangBug QA departament: 		
 		
 * Github GangBug Issues (https://github.com/GangBug/AgeofEmpiresII/issues) 		
 
@@ -59,15 +58,35 @@ Secret's QA departament:
 * Click the buldings to create units.
 * Click the corners top buttons to open/close the menus.
 * Click plus or minus in resources window to asigns the villagers to the diferent tasks.
+* Click on the minimap to set the camera to the clicked position.
 * SPACE to continue dialogues
 * Press 2 to select the archery
 * Press 3 to select the stable
 * Press 4 to select both barracs
 * Press 5 to select the castle
+* Press S to save.
+* Press L to load.
+
+You can change the keybindings through the config file.
+
+# HOW TO INSTALL
+
+Execute the "GangBug AoE.exe" file.
+
+# HOW TO WIN
+
+In order to win you'll have to beat the 4 phases of the game, which consist in:
+
+* Phase 1: Defeat Diablo and take back the town.
+* Phase 2: Rebuild the city and prepare for phase 3 (you have 130 seconds).
+* Phase 3: Defend the city (either defeat 260 demons or destroy the 4 demon portals on the map).
+* Phase 4: Defeat Diablo for the last time.
 
 # GAMEMODES
 
 ## Easy Mode
+
+## Hard Mode
 
 * +20% More HP of the allied Troops
 * +20% More DMG of the allied Troops
@@ -75,13 +94,12 @@ Secret's QA departament:
 * -15% Less HP of the enemy Boss
 * +33% Base amount of resources/2seconds
 
-## Hard Mode
-
 ## Debug:
 
 * Press F1 to activate God Mode.
 * Press F2 to add 100 to each resource.
 * Press F3 to damage the boss for 200HP.
+* Press F4 to show the map on debug mode.
 
 ## VERSION UPDATES
 
@@ -203,7 +221,3 @@ Adds:
 * Basic AI, you can attack enemies when they get inside your range.
 
 V0.0 Production Docs & Pitch Presentation - [Monday 9-March-2017]
-
-## MAIN VERSIONS INCOMING
-
-* Gold V-1.0 -[Tuesday 6-June-2017]
