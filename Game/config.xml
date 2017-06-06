@@ -21,11 +21,16 @@
     <loadResolution x="1920" y="1080"/>
   </gui>
   <key_bindings>
-    <key name="cameraUp">Backspace</key>
+    <key name="cameraUp">w</key>
     <key name="cameraDown">s</key>
     <key name="cameraLeft">a</key>
     <key name="cameraRight">d</key>
-    
+    <key name="selectAllUnitsOfTypeSelected">1</key>
+    <key name="selectArchery">2</key>
+    <key name="selectStable">3</key>
+    <key name="selectBarracks">4</key>
+    <key name="selectCastle">5</key>
+
   </key_bindings>
   <window>
     <resolution width="1366" height="768" scale="1"/>

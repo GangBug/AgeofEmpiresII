@@ -10,6 +10,7 @@
 #include "M_MissionManager.h"
 #include "M_Collision.h"
 #include "M_Metrics.h"
+#include "M_KeyBinding.h"
 //TMP
 #include "M_Input.h"
 #include "App.h"
@@ -187,7 +188,7 @@ void Unit::OnUpdate(float dt)
 				{
 					selected = true;
 				}
-				if (selected == true && app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+				if (selected == true && app->input->GetKey(app->keyBinding->selectAllUnitsOfTypeSelected.scancode) == KEY_DOWN)
 				{
 					std::vector<Entity*> vec = app->entityManager->GetUnitVector();
 					for (std::vector<Entity*>::iterator it = vec.begin(); it != vec.end(); it++)

@@ -28,7 +28,6 @@ bool M_KeyBinding::Awake(pugi::xml_node & config)
 				return false;
 			}
 		}
-
 		if (strcmp(it.attribute("name").as_string(), "cameraDown") == 0)
 		{
 			const char* key = it.first_child().value();
@@ -39,7 +38,6 @@ bool M_KeyBinding::Awake(pugi::xml_node & config)
 				return false;
 			}
 		}
-
 		if (strcmp(it.attribute("name").as_string(), "cameraLeft") == 0)
 		{
 			const char* key = it.first_child().value();
@@ -50,7 +48,6 @@ bool M_KeyBinding::Awake(pugi::xml_node & config)
 				return false;
 			}
 		}
-
 		if (strcmp(it.attribute("name").as_string(), "cameraRight") == 0)
 		{
 			const char* key = it.first_child().value();
@@ -61,7 +58,56 @@ bool M_KeyBinding::Awake(pugi::xml_node & config)
 				return false;
 			}
 		}
-
+		if (strcmp(it.attribute("name").as_string(), "selectAllUnitsOfTypeSelected") == 0)
+		{
+			const char* key = it.first_child().value();
+			selectAllUnitsOfTypeSelected.scancode = charToScancode(key);
+			if (selectAllUnitsOfTypeSelected.scancode == SDL_SCANCODE_UNKNOWN)
+			{
+				SDL_Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    KeyBinding Failure    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				return false;
+			}
+		}
+		if (strcmp(it.attribute("name").as_string(), "selectArchery") == 0)
+		{
+			const char* key = it.first_child().value();
+			selectArchery.scancode = charToScancode(key);
+			if (selectArchery.scancode == SDL_SCANCODE_UNKNOWN)
+			{
+				SDL_Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    KeyBinding Failure    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				return false;
+			}
+		}
+		if (strcmp(it.attribute("name").as_string(), "selectStable") == 0)
+		{
+			const char* key = it.first_child().value();
+			selectStable.scancode = charToScancode(key);
+			if (selectStable.scancode == SDL_SCANCODE_UNKNOWN)
+			{
+				SDL_Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    KeyBinding Failure    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				return false;
+			}
+		}
+		if (strcmp(it.attribute("name").as_string(), "selectBarracks") == 0)
+		{
+			const char* key = it.first_child().value();
+			selectBarracks.scancode = charToScancode(key);
+			if (selectBarracks.scancode == SDL_SCANCODE_UNKNOWN)
+			{
+				SDL_Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    KeyBinding Failure    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				return false;
+			}
+		}
+		if (strcmp(it.attribute("name").as_string(), "selectCastle") == 0)
+		{
+			const char* key = it.first_child().value();
+			selectCastle.scancode = charToScancode(key);
+			if (selectCastle.scancode == SDL_SCANCODE_UNKNOWN)
+			{
+				SDL_Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    KeyBinding Failure    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				return false;
+			}
+		}
 
 
 	}

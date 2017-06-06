@@ -12,6 +12,8 @@
 #include "M_MissionManager.h"
 #include "M_Metrics.h"
 #include "M_Render.h"
+#include "M_KeyBinding.h"
+
 
 Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) : Entity(ENTITY_BUILDING, parent), buildType(buildType), tileAttack(tileAttack)
 {
@@ -137,7 +139,7 @@ void Building::OnUpdate(float dt)
 
 			app->input->GetMouseMapPosition(mPos.x, mPos.y);
 	
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && GetEnclosingBox().Contains(mPos.x, mPos.y) && (((app->input->GetMousePosition().y >0) &&
+			if (/*selected || */app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && GetEnclosingBox().Contains(mPos.x, mPos.y) && (((app->input->GetMousePosition().y >0) &&
 				(app->input->GetMousePosition().x > (app->render->camera->GetRect().w / 13) * 2))||	((app->input->GetMousePosition().y >0 && app->input->GetMousePosition().y < (app->render->camera->GetRect().h / 13) * 11) &&
 					(app->input->GetMousePosition().x > 0 && app->input->GetMousePosition().x < (app->render->camera->GetRect().w / 13) * 2))))
 			{
@@ -190,6 +192,84 @@ void Building::OnUpdate(float dt)
 					}
 				}
 			}
+
+
+			if (app->input->GetKey(app->keyBinding->selectArchery.scancode) == KEY_UP)
+			{
+				if (buildType == BUILD_ARCHERY)
+				{
+					selected = true;
+					creatorButton->SetVisible(true);
+					creatorButton->SetInteractive(true);
+					app->audio->PlayFx(app->entityManager->fxArcherySelection);
+				}
+				else
+				{
+					selected = false;
+					creatorButton->SetVisible(false);
+					creatorButton->SetInteractive(false);
+				}
+			}
+			else if (app->input->GetKey(app->keyBinding->selectStable.scancode) == KEY_UP)
+			{
+				if (buildType == BUILD_STABLES)
+				{
+					selected = true;
+					creatorButton->SetVisible(true);
+					creatorButton->SetInteractive(true);
+					app->audio->PlayFx(app->entityManager->fxStableSelection);
+				}
+				else
+				{
+					selected = false;
+					creatorButton->SetVisible(false);
+					creatorButton->SetInteractive(false);
+				}
+			}
+			else if (app->input->GetKey(app->keyBinding->selectBarracks.scancode) == KEY_UP)
+			{
+				if (buildType == BUILD_BARRACK)
+				{
+					selected = true;
+					creatorButton->SetVisible(true);
+					creatorButton->SetInteractive(true);
+					app->audio->PlayFx(app->entityManager->fxBarrackSelection);
+				}
+				else
+				{
+					selected = false;
+					creatorButton->SetVisible(false);
+					creatorButton->SetInteractive(false);
+				}
+			}
+			else if (app->input->GetKey(app->keyBinding->selectCastle.scancode) == KEY_UP)
+			{
+				if (buildType == BUILD_TOWNCENTER)
+				{
+					selected = true;
+					creatorButton->SetVisible(true);
+					creatorButton->SetInteractive(true);
+					app->audio->PlayFx(app->entityManager->fxTownCenterSelection);
+				}
+				else
+				{
+					selected = false;
+					creatorButton->SetVisible(false);
+					creatorButton->SetInteractive(false);
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+
+
 
 			//UNIT CREATION
 			if (unitsToAdd > 0 && buyTimer.ReadSec() >= BUY_TIMER)

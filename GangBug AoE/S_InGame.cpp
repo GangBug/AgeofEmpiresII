@@ -18,6 +18,7 @@
 #include "S_Score.h"
 #include "M_Textures.h"
 #include "M_KeyBinding.h"
+//#include "Building.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -197,6 +198,7 @@ update_status S_InGame::Update(float dt)
 			{
 				app->LoadGame("test.xml");
 			}
+
 		}
 	}
 	return UPDATE_CONTINUE;

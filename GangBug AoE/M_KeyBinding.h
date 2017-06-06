@@ -31,6 +31,12 @@ public:
 	sKey cameraLeft;
 	sKey cameraRight;
 
+	sKey selectAllUnitsOfTypeSelected;
+
+	sKey selectArchery;
+	sKey selectStable;
+	sKey selectBarracks;
+	sKey selectCastle;
 
 };
 
