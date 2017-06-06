@@ -585,13 +585,13 @@ bool M_Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 		uchar* map = new uchar[layer->width*layer->height];
 		memset(map, 1, layer->width*layer->height);
 
-		for(int y = 0; y < data.height; ++y)
+		for(int y = 0; y < data.height; y++)
 		{
-			for(int x = 0; x < data.width; ++x)
+			for(int x = 0; x < data.width; x++)
 			{
 				int i = (y*layer->width) + x;
 
-				int tile_id = layer->Get(x, y);
+				int tile_id = layer->Get(x + 1, y);
 				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : nullptr;
 				
 				if(tileset != nullptr)
