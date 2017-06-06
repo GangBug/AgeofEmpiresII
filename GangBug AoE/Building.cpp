@@ -102,8 +102,8 @@ Building::Building(building_type buildType, iPoint tileAttack, Entity* parent) :
 		unitType = VILE;
 		horde = true;
 
-		HP = 650;
-		fullHP = 650;
+		HP = 1350;
+		fullHP = 1350;
 
 		entityTexture = app->tex->portalTexture;
 		SetEnclosingBoxSize(155, 233);

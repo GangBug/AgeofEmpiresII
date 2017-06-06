@@ -18,7 +18,7 @@ Boss::Boss(fPoint pos, Entity* parent) : Unit(DIABLO, parent)
 	if (app->missionManager->getHardModeStatus() == false)
 	{
 		SetFullHp(BOSSHP / EASY_MODE_BOSS);
-		attack = 25;
+		attack = 28;
 		speed = 1.5f;
 		rate_of_fire = 2;
 		range = 4;
