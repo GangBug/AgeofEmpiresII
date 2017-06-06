@@ -348,7 +348,7 @@ h1, h2, h3, h4, h5, h6 {
 #main-carousel .carousel-inner h2 {
 	color: #f6f6f6;
 	display: inline-block;
-	font-family: roboto;
+	font-family: 'Roboto', sans-serif;
 	font-size: 55px;
 	font-weight: 800;
 	margin-bottom: 40px;
@@ -362,7 +362,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #main-carousel .carousel-inner p {
 	color: #f6f6f6;
-	font-family: roboto;
+	font-family: 'Roboto', sans-serif;
 	font-size: 24px;
 	font-weight: 300;
 	margin-bottom: 59px;
