@@ -372,6 +372,7 @@ void S_InGame::OpenResources(bool visible)
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetVisible(visible);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager__")->SetVisible(visible);
 
 	app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager")->SetInteractive(visible);
@@ -394,6 +395,7 @@ void S_InGame::OpenResources(bool visible)
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(visible);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager__")->SetInteractive(visible);
 }
 
 void S_InGame::SetGUI()
@@ -435,7 +437,7 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetVisible(false);
-
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager__")->SetVisible(false);
 	//----
 	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetInteractive(false);
@@ -468,12 +470,13 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_minus")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_n")->SetInteractive(false);
-	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_plus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_plus")->SetInteractive(false); 
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_minus")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager__")->SetInteractive(false);
 
 	// RepairButton - PlusButton - MinusButton
 

@@ -144,7 +144,7 @@ void Building::OnUpdate(float dt)
 				selected = true;
 				creatorButton->SetVisible(true);
 				creatorButton->SetInteractive(true);
-
+				
 				if (buildType == BUILD_ARCHERY)
 				{
 					app->audio->PlayFx(app->entityManager->fxArcherySelection);
