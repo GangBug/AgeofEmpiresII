@@ -72,9 +72,9 @@ bool M_Metrics::Start()
 	bool ret = true;
 
 	totalUnits = 0;
-	unitsAlive = 9;
-	samuraiAlive = 5;
-	archersAlive = 4;
+	unitsAlive = 17;
+	samuraiAlive = 11;
+	archersAlive = 6;
 	tarkanAlive = 0;
 
 	deadUnits = 0;

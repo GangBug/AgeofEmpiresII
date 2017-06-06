@@ -18,7 +18,7 @@
 #include "S_Score.h"
 #include "M_Textures.h"
 #include "M_KeyBinding.h"
-//#include "Building.h"
+#include "M_Metrics.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -174,10 +174,10 @@ update_status S_InGame::PreUpdate(float dt)
 			// --------------------------------scenes changes----------------------------
 
 			//mission state change
-			/*if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
+			if (app->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
 			app->missionManager->SetState(M_VICTORY);
 			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_REPEAT)
-			app->missionManager->SetState(M_DEFEAT);*/
+			app->missionManager->SetState(M_DEFEAT);
 			//	M_INTRO,M_TOWNATTACK,M_TOWNREPAIR, M_WAVES,	M_BOSS,	M_VICTORY,	M_DEFEAT,M_STANDBY
 		
 	}	
@@ -298,6 +298,7 @@ void S_InGame::GoToMenu()
 	app->minimap->CleanUp();
 	app->particleSystem->DestroyParticles();
 	app->enemyWaves->CleanUp();
+	app->metrics->CleanUp();
 
 	app->entityManager->Awake(pugi::xml_node(nullptr));
 	app->entityManager->Start();
@@ -319,6 +320,7 @@ void S_InGame::GoToScore()
 	app->minimap->CleanUp();
 	app->particleSystem->DestroyParticles();
 	app->enemyWaves->CleanUp();
+	app->metrics->CleanUp();
 
 	app->entityManager->Awake(pugi::xml_node(nullptr));
 	app->entityManager->Start();
@@ -375,6 +377,7 @@ void S_InGame::OpenResources(bool visible)
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetVisible(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetVisible(visible);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager__")->SetVisible(visible);
 
 	app->gui->FindElement(app->gui->guiList, "ResourceWindow")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager")->SetInteractive(visible);
@@ -397,6 +400,7 @@ void S_InGame::OpenResources(bool visible)
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetInteractive(visible);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(visible);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager__")->SetInteractive(visible);
 }
 
 void S_InGame::SetGUI()
@@ -438,7 +442,7 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetVisible(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetVisible(false);
-
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager__")->SetVisible(false);
 	//----
 	app->gui->FindElement(app->gui->guiList, "MenuWindow")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "MenuButtonInGame_Resume")->SetInteractive(false);
@@ -471,12 +475,13 @@ void S_InGame::SetGUI()
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Farmers_minus")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_n")->SetInteractive(false);
-	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_plus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_plus")->SetInteractive(false); 
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Lumberjacks_minus")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_n")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_plus")->SetInteractive(false);
 	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_Repairmen_minus")->SetInteractive(false);
+	app->gui->FindElement(app->gui->guiList, "label_ResourceWindow_TotalVillager__")->SetInteractive(false);
 
 	// RepairButton - PlusButton - MinusButton
 
@@ -525,14 +530,23 @@ void S_InGame::UnitsCreator()
 	app->entityManager->CreateUnit(VILE, nullptr, -900, 2898);//
 	app->entityManager->CreateUnit(VILE, nullptr, -950, 2598);//
 	app->entityManager->CreateUnit(VILE, nullptr, -1000, 2598);//
+	app->entityManager->CreateUnit(VILE, nullptr, -650, 2208);//
+	app->entityManager->CreateUnit(VILE, nullptr, -600, 2198);//
+	app->entityManager->CreateUnit(VILE, nullptr, -620, 2158);//
 
 	//Allies
 	app->entityManager->CreateUnit(ARCHER, nullptr, 287, 3698);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 357, 3658);//
+	app->entityManager->CreateUnit(ARCHER, nullptr, 287, 3698);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 257, 3658);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 287, 3658);//
 	app->entityManager->CreateUnit(ARCHER, nullptr, 227, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3668);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 287, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
+	app->entityManager->CreateUnit(SAMURAI, nullptr, 307, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3668);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 257, 3658);//
 	app->entityManager->CreateUnit(SAMURAI, nullptr, 287, 3658);//
