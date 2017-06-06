@@ -223,6 +223,9 @@
     <ClCompile Include="theoraplay.c">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="M_KeyBinding.cpp">
+      <Filter>Modules\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PugiXml\src\pugiconfig.hpp">
@@ -416,6 +419,9 @@
     </ClInclude>
     <ClInclude Include="theoraplay.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="M_KeyBinding.h">
+      <Filter>Modules\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

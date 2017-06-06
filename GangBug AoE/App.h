@@ -38,6 +38,7 @@ class M_Minimap;
 class M_ParticleSystem;
 class M_Metrics;
 class M_Video;
+class M_KeyBinding;
 
 class App
 {
@@ -128,6 +129,7 @@ public:
 	M_ParticleSystem*	particleSystem = nullptr;
 	M_Metrics*			metrics = nullptr;
 	M_Video*			video = nullptr;
+	M_KeyBinding*		keyBinding = nullptr;
 
 	S_Menu*				menu = nullptr;
 	S_InGame*			inGame = nullptr;

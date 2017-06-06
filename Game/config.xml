@@ -20,7 +20,13 @@
     <atlas file="gui/atlas.png"/>
     <loadResolution x="1920" y="1080"/>
   </gui>
+  <key_bindings>
+    <key name="cameraUp">Backspace</key>
+    <key name="cameraDown">s</key>
+    <key name="cameraLeft">a</key>
+    <key name="cameraRight">d</key>
     
+  </key_bindings>
   <window>
     <resolution width="1366" height="768" scale="1"/>
     <fullscreen value="false"/>

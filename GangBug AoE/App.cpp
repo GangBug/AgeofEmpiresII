@@ -25,6 +25,7 @@
 #include "M_ParticleSystem.h"
 #include "M_Metrics.h"
 #include "M_Video.h"
+#include "M_KeyBinding.h"
 
 #include "S_InGame.h"
 #include "S_Menu.h"
@@ -84,7 +85,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	particleSystem = new M_ParticleSystem();
 	metrics = new M_Metrics();
 	video = new M_Video();
-
+	keyBinding = new M_KeyBinding();
 
 	menu = new S_Menu(true);
 	inGame = new S_InGame(true);
@@ -108,6 +109,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	//AddModule(fogOfWar);
 	AddModule(animation);
 	AddModule(gui);
+	AddModule(keyBinding);
 	AddModule(missionManager);
 	AddModule(particleSystem);
 	AddModule(metrics);
@@ -172,7 +174,7 @@ bool App::Awake()
 		std::list<Module*>::iterator it = modules.begin();
 		while (it!=modules.end() && ret == true) 
 		{
-			(*it)->Awake(config.child((*it)->name.c_str()));
+			ret = (*it)->Awake(config.child((*it)->name.c_str()));
 			it++;
 		}
 	}

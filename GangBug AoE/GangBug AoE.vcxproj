@@ -243,6 +243,7 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="GUIBox.cpp" />
+    <ClCompile Include="M_KeyBinding.cpp" />
     <ClCompile Include="M_Metrics.cpp" />
     <ClCompile Include="M_DialogueManager.cpp" />
     <ClCompile Include="IA_FormationManager.cpp" />
@@ -332,6 +333,7 @@
     <ClInclude Include="M_Fonts.h" />
     <ClInclude Include="M_GUI.h" />
     <ClInclude Include="M_Input.h" />
+    <ClInclude Include="M_KeyBinding.h" />
     <ClInclude Include="M_Map.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="M_Metrics.h" />

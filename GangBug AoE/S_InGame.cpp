@@ -17,6 +17,7 @@
 #include "M_ParticleSystem.h"
 #include "S_Score.h"
 #include "M_Textures.h"
+#include "M_KeyBinding.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -111,13 +112,13 @@ update_status S_InGame::PreUpdate(float dt)
 		{
 			// -------------------Move camera--------------------------------------------
 
-			if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			if (app->input->GetKey(app->keyBinding->cameraUp.scancode) == KEY_REPEAT)
 				app->render->camera->Move(10.0, UP);
-			if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			if (app->input->GetKey(app->keyBinding->cameraLeft.scancode) == KEY_REPEAT)
 				app->render->camera->Move(10.0, LEFT);
-			if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			if (app->input->GetKey(app->keyBinding->cameraDown.scancode) == KEY_REPEAT)
 				app->render->camera->Move(10.0, DOWN);
-			if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			if (app->input->GetKey(app->keyBinding->cameraRight.scancode) == KEY_REPEAT)
 				app->render->camera->Move(10.0, RIGHT);
 
 			int mX, mY;
