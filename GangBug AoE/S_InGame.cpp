@@ -17,6 +17,7 @@
 #include "M_ParticleSystem.h"
 #include "S_Score.h"
 #include "M_Textures.h"
+#include "M_Metrics.h"
 
 S_InGame::S_InGame(bool startEnabled) : Module(startEnabled)
 {
@@ -295,6 +296,7 @@ void S_InGame::GoToMenu()
 	app->minimap->CleanUp();
 	app->particleSystem->DestroyParticles();
 	app->enemyWaves->CleanUp();
+	app->metrics->CleanUp();
 
 	app->entityManager->Awake(pugi::xml_node(nullptr));
 	app->entityManager->Start();
@@ -316,6 +318,7 @@ void S_InGame::GoToScore()
 	app->minimap->CleanUp();
 	app->particleSystem->DestroyParticles();
 	app->enemyWaves->CleanUp();
+	app->metrics->CleanUp();
 
 	app->entityManager->Awake(pugi::xml_node(nullptr));
 	app->entityManager->Start();

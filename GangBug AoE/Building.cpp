@@ -198,7 +198,14 @@ void Building::OnUpdate(float dt)
 
 				if (unitType != VILLAGER)
 				{
-					app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
+					if (buildType != BUILD_STABLES)
+					{
+						app->entityManager->CreateUnit(unitType, this, pos.x + 20, pos.y + 300.0f);
+					}
+					else
+					{
+						app->entityManager->CreateUnit(unitType, this, pos.x + 180, pos.y + 250.0f);
+					}
 					app->audio->PlayFx(app->entityManager->fxCreateUnit);
 					currentUnitCount++;
 
@@ -311,7 +318,7 @@ void Building::BuyUnit()
 			}
 		}
 		else {
-			if (this->buildType == BUILD_TOWNCENTER && app->resources->GetTotalVillagers() + currentUnitCount + unitsToAdd >= unitLimitCount)
+			if ((this->buildType == BUILD_TOWNCENTER && app->resources->GetTotalVillagers() + currentUnitCount + unitsToAdd >= unitLimitCount) || (this->buildType == BUILD_ARCHERY && app->metrics->GetArchersAlive() + currentUnitCount + unitsToAdd >= unitLimitCount) || (this->buildType == BUILD_BARRACK && app->metrics->GetSamuraisAlive() + currentUnitCount + unitsToAdd >= unitLimitCount) || (this->buildType == BUILD_STABLES && app->metrics->GetTarkanAlive() + currentUnitCount + unitsToAdd >= unitLimitCount))
 				app->audio->PlayFx(app->entityManager->fxLimitVillager);
 		}
 
