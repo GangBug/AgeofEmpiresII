@@ -57,6 +57,11 @@ Secret's QA departament:
 * Click the buldings to create units.
 * Click the corners top buttons to open/close the menus.
 * Click plus or minus in resources window to asigns the villagers to the diferent tasks.
+* SPACE to continue dialogues
+* Press 2 to select the archery
+* Press 3 to select the stable
+* Press 4 to select both barracs
+* Press 5 to select the castle
 
 # GAMEMODES
 
@@ -77,6 +82,25 @@ Secret's QA departament:
 * Press F3 to damage the boss for 200HP.
 
 ## VERSION UPDATES
+
+v1.0 Tuesday 6th of June, 2017
+
+Adds:
+* Programmable key binding by config
+* Buidling selection using keys
+* Tutorial improve
+* Bug fixing
+
+v0.9 Monday 5th of June, 2017
+
+Adds:
+* UI Improved
+* Added tutorial image
+* New Audio FX
+* Map Improved
+* Minimap improved
+* Gameplay Balance
+* Bug Fixing
 
 v0.7.3 Thursday 18th of May, 2017
 
@@ -180,8 +204,4 @@ V0.0 Production Docs & Pitch Presentation - [Monday 9-March-2017]
 
 ## MAIN VERSIONS INCOMING
 
-* Vertical Slide V-0.3 - [wednesday 5-April-2017] 
-* Pre-Alpha V-0.4 - [Monday 24-April-2017] 
-* Alpha.V-0.7 - [Sunday 14-May-2017] 
-* Beta.V-0.7 - [Friday 19-May-2017] 
-* Gold V-1.0 -[Monday 29-May-2017]
+* Gold V-1.0 -[Tuesday 6-June-2017]
